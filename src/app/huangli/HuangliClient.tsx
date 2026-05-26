@@ -1,0 +1,407 @@
+'use client'
+
+import { useState, useMemo } from 'react'
+import { useLocale } from '@/lib/i18n'
+import { Solar, Lunar } from 'lunar-typescript'
+
+interface HuangliResult {
+  dateStr: string
+  lunarDate: string
+  lunarYear: string
+  ganZhiYear: string
+  ganZhiMonth: string
+  ganZhiDay: string
+  zodiac: string
+  birthGod: string
+  season: string
+  lunarFestival: string[]
+  suitable: string[]
+  avoid: string[]
+  dayOfYear: number
+  weekDay: string
+  // 冲煞
+  conflictZodiac: string
+  // 星宿
+  star: string
+  // 吉神方位
+  auspiciousDirection: string
+  // 十二建星
+  twelveStar: string
+}
+
+const weekDayNames = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六']
+const weekDayNamesEn = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+
+const suitablePool = [
+  '嫁娶', '开业', '搬家', '出行', '祭祀', '祈福', '求财', '入宅', '动土', '安床',
+  '纳畜', '订婚', '入学', '裁衣', '交易', '开光', '问名', '移徙', '理发', '修造',
+  '竖柱', '上梁', '开市', '立券', '纳财', '栽种', '牧养', '掘井', '开渠', '安葬',
+]
+
+const avoidPool = [
+  '破土', '安葬', '伐木', '作灶', '修造', '远行', '诉讼', '交易', '嫁娶', '开业',
+  '搬家', '出行', '入宅', '开市', '纳畜', '订婚', '祭祀', '祈福', '动土', '上梁',
+  '竖柱', '移徙', '裁衣', '纳财', '栽种', '牧养', '掘井', '开渠', '理发', '问名',
+]
+
+function getDeterministicItems(dateNum: number, pool: string[], count: number): string[] {
+  const result: string[] = []
+  const used = new Set<number>()
+  for (let i = 0; i < count; i++) {
+    let idx = (dateNum * (i + 1) * 7 + i * 13) % pool.length
+    while (used.has(idx)) {
+      idx = (idx + 1) % pool.length
+    }
+    used.add(idx)
+    result.push(pool[idx])
+  }
+  return result
+}
+
+function getConflictZodiac(dayZhi: string): string {
+  const map: Record<string, string> = {
+    '子': '马', '丑': '羊', '寅': '猴', '卯': '鸡',
+    '辰': '狗', '巳': '猪', '午': '鼠', '未': '牛',
+    '申': '虎', '酉': '兔', '戌': '龙', '亥': '蛇',
+  }
+  return map[dayZhi] ?? ''
+}
+
+function getStarName(dayNum: number): string {
+  const stars = ['角木蛟', '亢金龙', '氐土貉', '房日兔', '心月狐', '尾火虎', '箕水豹',
+    '斗木獬', '牛金牛', '女土蝠', '虚日鼠', '危月燕', '室火猪', '壁水貐',
+    '奎木狼', '娄金狗', '胃土雉', '昴日鸡', '毕月乌', '觜火猴', '参水猿',
+    '井木犴', '鬼金羊', '柳土獐', '星日马', '张月鹿', '翼火蛇', '轸水蚓']
+  return stars[dayNum % 28]
+}
+
+function getTwelveStar(dayNum: number): string {
+  const stars = ['建', '除', '满', '平', '定', '执', '破', '危', '成', '收', '开', '闭']
+  return stars[dayNum % 12]
+}
+
+function generateHuangli(year: number, month: number, day: number): HuangliResult {
+  try {
+    const solar = Solar.fromYmd(year, month, day)
+    const lunar = solar.getLunar()
+
+    const lunarYear = lunar.getYearInChinese()
+    const lunarMonth = lunar.getMonthInChinese()
+    const lunarDay = lunar.getDayInChinese()
+
+    const eightChar = lunar.getEightChar()
+
+    const ganZhiYear = `${eightChar.getYear()}${eightChar.getYearZhi()}`
+    const ganZhiMonth = `${eightChar.getMonth()}${eightChar.getMonthZhi()}`
+    const ganZhiDay = `${eightChar.getDay()}${eightChar.getDayZhi()}`
+
+    const zodiacIndex = (lunar.getYear() - 4) % 12
+    const zodiacArr = ['鼠', '牛', '虎', '兔', '龙', '蛇', '马', '羊', '猴', '鸡', '狗', '猪']
+    const zodiac = zodiacArr[((zodiacIndex % 12) + 12) % 12]
+
+    // Birth God (喜神)
+    const birthGodMap: Record<string, string> = {
+      '甲': '东北', '乙': '西北', '丙': '西南', '丁': '东南',
+      '戊': '东南', '己': '东北', '庚': '西北', '辛': '西南',
+      '壬': '东北', '癸': '东南',
+    }
+    const birthGod = birthGodMap[eightChar.getDay()] ?? '正南'
+
+    // Season
+    const seasonNames = ['春季', '夏季', '秋季', '冬季']
+    const season = seasonNames[Math.floor((month % 12) / 3)] ?? ''
+
+    // Suitable / Avoid
+    const dateNum = year * 10000 + month * 100 + day
+    const suitable = getDeterministicItems(dateNum, suitablePool, 4)
+    const avoid = getDeterministicItems(dateNum + 100, avoidPool, 3)
+
+    // Lunar festivals
+    const lunarMonthNum = lunar.getMonth()
+    const lunarDayNum = lunar.getDay()
+    const festival: string[] = []
+    if (lunarMonthNum === 1 && lunarDayNum === 1) festival.push('春节')
+    if (lunarMonthNum === 1 && lunarDayNum === 15) festival.push('元宵节')
+    if (lunarMonthNum === 5 && lunarDayNum === 5) festival.push('端午节')
+    if (lunarMonthNum === 7 && lunarDayNum === 7) festival.push('七夕节')
+    if (lunarMonthNum === 7 && lunarDayNum === 15) festival.push('中元节')
+    if (lunarMonthNum === 8 && lunarDayNum === 15) festival.push('中秋节')
+    if (lunarMonthNum === 9 && lunarDayNum === 9) festival.push('重阳节')
+    if (lunarMonthNum === 12 && lunarDayNum === 30) festival.push('除夕')
+    if (lunarMonthNum === 12 && lunarDayNum === 29) festival.push('除夕')
+
+    // Conflict zodiac
+    const conflictZodiac = getConflictZodiac(eightChar.getDayZhi())
+
+    // Star
+    const dayOfYear = Math.floor((new Date(year, month - 1, day).getTime() - new Date(year, 0, 0).getTime()) / 86400000)
+    const star = getStarName(dayOfYear)
+
+    // Auspicious direction
+    const dirs = ['正东', '正南', '正西', '正北', '东南', '西南', '东北', '西北']
+    const auspiciousDirection = dirs[dayOfYear % 8]
+
+    // Twelve Star
+    const twelveStar = getTwelveStar(dayOfYear)
+
+    return {
+      dateStr: `${year}年${month}月${day}日`,
+      lunarDate: `${lunarMonth}月${lunarDay}`,
+      lunarYear: `${lunarYear}年`,
+      ganZhiYear,
+      ganZhiMonth,
+      ganZhiDay,
+      zodiac,
+      birthGod,
+      season,
+      lunarFestival: festival,
+      suitable,
+      avoid,
+      dayOfYear,
+      weekDay: weekDayNames[new Date(year, month - 1, day).getDay()],
+      conflictZodiac,
+      star,
+      auspiciousDirection,
+      twelveStar,
+    }
+  } catch {
+    return generateHuangliFallback(year, month, day)
+  }
+}
+
+function generateHuangliFallback(year: number, month: number, day: number): HuangliResult {
+  const lunarInfo = ['初一', '初二', '初三', '初四', '初五', '初六', '初七', '初八', '初九', '初十',
+    '十一', '十二', '十三', '十四', '十五', '十六', '十七', '十八', '十九', '二十',
+    '廿一', '廿二', '廿三', '廿四', '廿五', '廿六', '廿七', '廿八', '廿九', '三十']
+  const lunarMonthNames = ['正', '二', '三', '四', '五', '六', '七', '八', '九', '十', '冬', '腊']
+  const heavenlyStems = ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸']
+  const earthlyBranches = ['子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥']
+  const zodiacArr = ['鼠', '牛', '虎', '兔', '龙', '蛇', '马', '羊', '猴', '鸡', '狗', '猪']
+
+  const dateNum = year * 10000 + month * 100 + day
+  const ganZhiYear = `${heavenlyStems[(year - 4) % 10]}${earthlyBranches[(year - 4) % 12]}`
+  const ganZhiMonth = `${heavenlyStems[((year - 4) * 12 + month + 1) % 10]}${earthlyBranches[(month + 1) % 12]}`
+  const ganZhiDay = `${heavenlyStems[dateNum % 10]}${earthlyBranches[dateNum % 12]}`
+
+  return {
+    dateStr: `${year}年${month}月${day}日`,
+    lunarDate: `${lunarMonthNames[(month - 1) % 12]}月${lunarInfo[(day - 1) % 30]}`,
+    lunarYear: `${year}年`,
+    ganZhiYear,
+    ganZhiMonth,
+    ganZhiDay,
+    zodiac: zodiacArr[(year - 4) % 12],
+    birthGod: '正南',
+    season: ['春季', '春季', '春季', '夏季', '夏季', '夏季', '秋季', '秋季', '秋季', '冬季', '冬季', '冬季'][month - 1] ?? '',
+    lunarFestival: [],
+    suitable: getDeterministicItems(dateNum, suitablePool, 4),
+    avoid: getDeterministicItems(dateNum + 100, avoidPool, 3),
+    dayOfYear: Math.floor((new Date(year, month - 1, day).getTime() - new Date(year, 0, 0).getTime()) / 86400000),
+    weekDay: weekDayNames[new Date(year, month - 1, day).getDay()],
+    conflictZodiac: '无',
+    star: '—',
+    auspiciousDirection: '正南',
+    twelveStar: '—',
+  }
+}
+
+export default function HuangliClient() {
+  const { t, locale } = useLocale()
+
+  const getT = (key: string): string => {
+    const keys = key.split('.')
+    let value: unknown = t
+    for (const k of keys) {
+      if (typeof value !== 'object' || value === null) return key
+      value = (value as Record<string, unknown>)[k]
+    }
+    return typeof value === 'string' ? value : key
+  }
+
+  const now = new Date()
+  const [year, setYear] = useState(now.getFullYear())
+  const [month, setMonth] = useState(now.getMonth() + 1)
+  const [day, setDay] = useState(now.getDate())
+
+  const data = useMemo(() => generateHuangli(year, month, day), [year, month, day])
+
+  const goToday = () => {
+    const d = new Date()
+    setYear(d.getFullYear())
+    setMonth(d.getMonth() + 1)
+    setDay(d.getDate())
+  }
+
+  const prevDay = () => {
+    const d = new Date(year, month - 1, day - 1)
+    setYear(d.getFullYear())
+    setMonth(d.getMonth() + 1)
+    setDay(d.getDate())
+  }
+
+  const nextDay = () => {
+    const d = new Date(year, month - 1, day + 1)
+    setYear(d.getFullYear())
+    setMonth(d.getMonth() + 1)
+    setDay(d.getDate())
+  }
+
+  const dateNum = year * 100 + month
+
+  return (
+    <div className="max-w-3xl mx-auto px-4 py-10">
+      <h1 className="text-3xl font-bold text-red-900 font-serif mb-3">{getT('huangli.title')}</h1>
+      <p className="text-gray-600 mb-8">{getT('huangli.desc')}</p>
+
+      {/* Date Navigator */}
+      <div className="bg-white rounded-xl border border-red-100 p-4 mb-6">
+        <div className="flex items-center justify-between">
+          <button onClick={prevDay} className="w-10 h-10 flex items-center justify-center rounded-lg bg-red-50 text-red-700 hover:bg-red-100 transition-colors">
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+
+          <div className="flex items-center gap-2">
+            <div className="flex gap-1">
+              <input
+                type="number"
+                value={year}
+                onChange={e => setYear(parseInt(e.target.value) || now.getFullYear())}
+                className="w-20 px-2 py-1 text-center border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-red-300"
+                min={1900} max={2100}
+              />
+              <span className="text-sm text-gray-500">年</span>
+              <input
+                type="number"
+                value={month}
+                onChange={e => setMonth(Math.min(12, Math.max(1, parseInt(e.target.value) || 1)))}
+                className="w-16 px-2 py-1 text-center border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-red-300"
+                min={1} max={12}
+              />
+              <span className="text-sm text-gray-500">月</span>
+              <input
+                type="number"
+                value={day}
+                onChange={e => setDay(Math.min(31, Math.max(1, parseInt(e.target.value) || 1)))}
+                className="w-16 px-2 py-1 text-center border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-red-300"
+                min={1} max={31}
+              />
+              <span className="text-sm text-gray-500">日</span>
+            </div>
+            <button onClick={goToday} className="text-xs bg-red-100 text-red-700 px-2 py-1 rounded hover:bg-red-200 transition-colors">
+              今天
+            </button>
+          </div>
+
+          <button onClick={nextDay} className="w-10 h-10 flex items-center justify-center rounded-lg bg-red-50 text-red-700 hover:bg-red-100 transition-colors">
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      {/* Main Huangli Card */}
+      <div className="bg-white rounded-xl border border-red-100 p-6 mb-8">
+        <h2 className="text-lg font-semibold text-red-900 mb-2">{getT('huangli.today')}</h2>
+        <p className="text-sm text-gray-500 mb-4">{data.dateStr} {data.weekDay}</p>
+
+        {/* Quick Info */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
+          <div className="bg-red-50 rounded-lg p-3 text-center">
+            <p className="text-xs text-gray-500">{getT('huangli.lunarDate')}</p>
+            <p className="text-base font-semibold text-gray-800 font-serif">{data.lunarDate}</p>
+          </div>
+          <div className="bg-red-50 rounded-lg p-3 text-center">
+            <p className="text-xs text-gray-500">{getT('huangli.zodiac')}</p>
+            <p className="text-base font-semibold text-gray-800">{data.zodiac}</p>
+          </div>
+          <div className="bg-red-50 rounded-lg p-3 text-center">
+            <p className="text-xs text-gray-500">{getT('huangli.fiveElements')}</p>
+            <p className="text-base font-semibold text-gray-800">{data.season}</p>
+          </div>
+          <div className="bg-red-50 rounded-lg p-3 text-center">
+            <p className="text-xs text-gray-500">{getT('huangli.auspiciousDirection')}</p>
+            <p className="text-base font-semibold text-gray-800">{data.auspiciousDirection}</p>
+          </div>
+        </div>
+
+        {/* Gan-Zhi */}
+        <div className="bg-gradient-to-r from-red-50 to-amber-50 rounded-xl p-4 mb-6 border border-red-100">
+          <div className="grid grid-cols-3 gap-3 text-center">
+            <div>
+              <p className="text-xs text-gray-500 mb-1">年柱</p>
+              <p className="text-lg font-bold text-red-900 font-serif">{data.ganZhiYear}</p>
+            </div>
+            <div>
+              <p className="text-xs text-gray-500 mb-1">月柱</p>
+              <p className="text-lg font-bold text-red-900 font-serif">{data.ganZhiMonth}</p>
+            </div>
+            <div>
+              <p className="text-xs text-gray-500 mb-1">日柱</p>
+              <p className="text-lg font-bold text-red-900 font-serif">{data.ganZhiDay}</p>
+            </div>
+          </div>
+        </div>
+
+        {/* More Info Grid */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
+          <div className="bg-gray-50 rounded-lg p-2.5 text-center">
+            <p className="text-xs text-gray-400">喜神</p>
+            <p className="text-sm font-medium text-gray-700">{data.birthGod}</p>
+          </div>
+          <div className="bg-gray-50 rounded-lg p-2.5 text-center">
+            <p className="text-xs text-gray-400">冲煞</p>
+            <p className="text-sm font-medium text-gray-700">冲{data.conflictZodiac}</p>
+          </div>
+          <div className="bg-gray-50 rounded-lg p-2.5 text-center">
+            <p className="text-xs text-gray-400">星宿</p>
+            <p className="text-sm font-medium text-gray-700">{data.star}</p>
+          </div>
+          <div className="bg-gray-50 rounded-lg p-2.5 text-center">
+            <p className="text-xs text-gray-400">建星</p>
+            <p className="text-sm font-medium text-gray-700">{data.twelveStar}</p>
+          </div>
+        </div>
+
+        {/* Lunar Festivals */}
+        {data.lunarFestival.length > 0 && (
+          <div className="mb-4">
+            <div className="flex flex-wrap gap-2">
+              {data.lunarFestival.map((f, i) => (
+                <span key={i} className="bg-red-600 text-white text-sm px-3 py-1 rounded-full font-medium">
+                  🎉 {f}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Suitable & Avoid */}
+        <div className="space-y-4">
+          <div>
+            <p className="text-sm font-semibold text-green-700 mb-2">{getT('huangli.suitable')}</p>
+            <div className="flex flex-wrap gap-2">
+              {data.suitable.map((item, i) => (
+                <span key={i} className="bg-green-50 text-green-700 text-sm px-3 py-1 rounded-full border border-green-200">
+                  {item}
+                </span>
+              ))}
+            </div>
+          </div>
+          <div>
+            <p className="text-sm font-semibold text-red-700 mb-2">{getT('huangli.avoid')}</p>
+            <div className="flex flex-wrap gap-2">
+              {data.avoid.map((item, i) => (
+                <span key={i} className="bg-red-50 text-red-700 text-sm px-3 py-1 rounded-full border border-red-200">
+                  {item}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
