@@ -118,23 +118,30 @@ export default function BaziClient() {
   const [gender, setGender] = useState('男')
   const [result, setResult] = useState<any>(null)
   const [error, setError] = useState('')
-  const [convertedDate, setConvertedDate] = useState('')
 
-  // 自动转换日历
-  const getConverted = () => {
+  // 日历切换时自动转换年/月/日的值
+  const switchCal = (newCal: 'solar'|'lunar') => {
     const y=parseInt(year),m=parseInt(month),d=parseInt(day)
-    if (isNaN(y)||isNaN(m)||isNaN(d)) { setConvertedDate(''); return }
-    try {
-      if (cal==='solar') {
-        const sol=Solar.fromYmd(y,m,d)
-        const lun=sol.getLunar()
-        setConvertedDate(`农历 ${lun.getYearInChinese()}年${lun.getMonthInChinese()}月${lun.getDayInChinese()}日`)
-      } else {
-        const lun=Lunar.fromYmd(y,m,d)
-        const sol=lun.getSolar()
-        setConvertedDate(`公历 ${sol.getYear()}年${sol.getMonth()}月${sol.getDay()}日`)
-      }
-    } catch { setConvertedDate('') }
+    if (!isNaN(y)&&!isNaN(m)&&!isNaN(d)&&m>=1&&m<=12&&d>=1&&d<=31) {
+      try {
+        if (newCal==='solar' && cal==='lunar') {
+          // 农历→公历
+          const lun=Lunar.fromYmd(y,m,d)
+          const sol=lun.getSolar()
+          setYear(String(sol.getYear()))
+          setMonth(String(sol.getMonth()))
+          setDay(String(sol.getDay()))
+        } else if (newCal==='lunar' && cal==='solar') {
+          // 公历→农历
+          const sol=Solar.fromYmd(y,m,d)
+          const lun=sol.getLunar()
+          setYear(String(lun.getYear()))
+          setMonth(String(lun.getMonth()))
+          setDay(String(lun.getDay()))
+        }
+      } catch {}
+    }
+    setCal(newCal)
   }
 
   const doCalc = () => {
@@ -175,8 +182,8 @@ export default function BaziClient() {
       }
       const str = strength(wx, dg)
       const zodiac = lunar.getYearShengXiao()
-      const dayun: {gz:string;age:number}[] = []
-      try { const yun=ec.getYun(2); for(const x of yun.getDaYun()) dayun.push({gz:x.getGanZhi(),age:x.getStartAge()}) } catch{}
+      const dayun: any[] = []
+      try { const yun=ec.getYun(2); const stems=['甲','乙','丙','丁','戊','己','庚','辛','壬','癸']; const branches=['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥']; for(const x of yun.getDaYun()){const sy=x.getStartYear();const years=[];for(let i=0;i<10;i++){const yy=sy+i;years.push({year:yy,gz:stems[((yy-4)%10+10)%10]+branches[((yy-4)%12+12)%12],age:x.getStartAge()+i})};dayun.push({gz:x.getGanZhi(),age:x.getStartAge(),startYear:sy,years})} } catch{}
       const analysis = fateAnalysis(dg, dz, wx, pills, zodiac, lunar)
 
       setResult({
@@ -202,11 +209,11 @@ export default function BaziClient() {
     <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-6 mb-8">
       {/* 日历切换 */}
       <div className="flex gap-3 mb-4">
-        <button onClick={()=>{setCal('solar');setTimeout(getConverted,50)}}
+        <button onClick={()=>switchCal('solar')}
           className={`px-4 py-1.5 rounded-lg text-xs transition-colors ${cal==='solar'?'bg-gold-600 text-dark-900 font-semibold':'bg-dark-700 text-gray-400 border border-dark-600'}`}>
           公历（阳历）
         </button>
-        <button onClick={()=>{setCal('lunar');setTimeout(getConverted,50)}}
+        <button onClick={()=>switchCal('lunar')}
           className={`px-4 py-1.5 rounded-lg text-xs transition-colors ${cal==='lunar'?'bg-gold-600 text-dark-900 font-semibold':'bg-dark-700 text-gray-400 border border-dark-600'}`}>
           农历（阴历）
         </button>
@@ -214,7 +221,7 @@ export default function BaziClient() {
       <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 mb-3">
         {[{l:'年',v:year,s:setYear},{l:'月',v:month,s:setMonth},{l:'日',v:day,s:setDay}].map((f,i)=>(
           <div key={i}><label className="block text-xs text-gray-500 mb-1">{f.l}</label>
-          <input type="number" value={f.v} onChange={e=>{f.s(e.target.value);setTimeout(getConverted,50)}}
+          <input type="number" value={f.v} onChange={e=>f.s(e.target.value)}
             className="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200 focus:outline-none focus:border-gold-500 text-sm" min={1900} max={2100} /></div>
         ))}
         <div><label className="block text-xs text-gray-500 mb-1">时</label>
@@ -230,7 +237,6 @@ export default function BaziClient() {
           </select>
         </div>
       </div>
-      {convertedDate && <p className="text-xs text-gray-500 mb-2">⇄ {convertedDate}</p>}
       {error && <p className="text-xs text-red-400 mb-2">{error}</p>}
       <button onClick={doCalc}
         className="bg-gold-600 hover:bg-gold-500 text-dark-900 font-semibold px-6 py-2 rounded-lg text-sm transition-colors active:scale-95">
@@ -322,12 +328,21 @@ export default function BaziClient() {
 
       {/* 大运 */}
       {result.dayun.length > 0 && (<div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-4">
-        <h3 className="text-sm font-semibold text-gray-200 mb-2">十年大运</h3>
-        <div className="flex flex-wrap gap-1.5">
+        <h3 className="text-sm font-semibold text-gray-200 mb-2">十年大运 · 逐年流年</h3>
+        <div className="space-y-2">
           {result.dayun.map((dy:any,i:number)=>(
-            <span key={i} className="text-xs bg-amber-900/30 text-amber-300 px-2 py-1 rounded-full border border-amber-700/40 font-serif">
-              {dy.gz}（{dy.age}岁）{i<result.dayun.length-1&&<span className="text-amber-700 mx-0.5">→</span>}
-            </span>
+            <details key={i}>
+              <summary className="text-xs bg-amber-900/30 text-amber-300 px-2.5 py-1 rounded-lg border border-amber-700/40 font-serif cursor-pointer hover:bg-amber-900/40 inline-block">
+                {dy.gz}运（{dy.age}~{dy.age+9}岁）
+              </summary>
+              <div className="mt-1.5 flex flex-wrap gap-1">
+                {dy.years?.map((y:any,j:number)=>(
+                  <span key={j} className={`text-[10px] px-1.5 py-0.5 rounded border ${y.gz.includes('寅')||y.gz.includes('申')?'text-rose-300 border-rose-700/40 bg-rose-900/20':y.gz.includes('戊')?'text-amber-300 border-amber-700/40 bg-amber-900/20':'text-gray-400 border-dark-600 bg-dark-700'}`}>
+                    {y.year}年 {y.gz}（{y.age}岁）
+                  </span>
+                ))}
+              </div>
+            </details>
           ))}
         </div>
       </div>)}
