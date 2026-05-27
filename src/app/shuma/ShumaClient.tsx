@@ -250,8 +250,10 @@ export default function ShumaClient() {
   const [selectedField, setSelectedField] = useState<string | null>(null)
 
   const doAnalyze = useCallback(() => {
-    const digits = phone.replace(/\D/g, '')
-    if (digits.length !== 11) return
+    // 字母转数字：A=1, B=2, ... Z=26
+    const normalized = phone.toUpperCase().replace(/[A-Z]/g, c => String(c.charCodeAt(0) - 64))
+    const digits = normalized.replace(/[^0-9]/g, '')
+    if (digits.length < 3) return
     const segments: any[] = []
     const fieldCounts: Record<string, number> = {}
     for (const k of Object.keys(FIELDS)) fieldCounts[k] = 0
@@ -319,8 +321,8 @@ export default function ShumaClient() {
       {/* 输入 */}
       <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-6 mb-6">
         <div className="flex gap-2">
-          <input type="tel" value={phone} onChange={e => setPhone(e.target.value.replace(/\D/g,'').slice(0,18))}
-            placeholder="输入号码（手机/车牌/QQ/身份证等）"
+          <input type="text" value={phone} onChange={e => setPhone(e.target.value.toUpperCase().replace(/[^0-9A-Z]/g,'').slice(0,18))}
+            placeholder="输入号码（手机/车牌/QQ/身份证等，字母自动转数字）"
             className="flex-1 px-4 py-2.5 bg-dark-700 border border-dark-600 rounded-lg text-gray-200 placeholder-gray-500 focus:outline-none focus:border-gold-500 font-mono text-lg tracking-widest" maxLength={18} />
           <button onClick={doAnalyze}
             className="bg-gold-600 hover:bg-gold-500 text-dark-900 font-semibold px-6 py-2.5 rounded-lg transition-colors active:scale-95 whitespace-nowrap">开始分析</button>

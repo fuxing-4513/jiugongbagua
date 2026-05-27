@@ -4,16 +4,13 @@ import { useState, useMemo } from 'react'
 import { useLocale } from '@/lib/i18n'
 
 function tk(key: string, lang: Record<string, unknown>): string {
-  const keys = key.split('.')
-  let v: unknown = lang
-  for (const k of keys) {
-    if (typeof v !== 'object' || v === null) return key
-    v = (v as Record<string, unknown>)[k]
-  }
+  const keys = key.split('.'); let v: unknown = lang
+  for (const k of keys) { if (typeof v !== 'object' || v === null) return key; v = (v as Record<string, unknown>)[k] }
   return typeof v === 'string' ? v : key
 }
 
-// ── 汉字笔画字典（500+ 常用字） ──
+type Mode = 'person' | 'company' | 'match'
+
 const STROKES: Record<string, number> = {
   '一':1,
   '二':2,
@@ -168,10 +165,6 @@ const STROKES: Record<string, number> = {
   '洁':9,
   '丽':7,
   '美':9,
-  '艳':10,
-  '芳':10,
-  '芬':7,
-  '英':8,
   '俊':9,
   '豪':14,
   '龙':5,
@@ -182,7 +175,6 @@ const STROKES: Record<string, number> = {
   '天':4,
   '地':6,
   '宇':6,
-  '宙':8,
   '洪':9,
   '博':12,
   '贤':15,
@@ -201,15 +193,12 @@ const STROKES: Record<string, number> = {
   '秋':9,
   '冬':5,
   '建':8,
-  '设':6,
   '成':6,
   '功':5,
   '山':3,
   '川':3,
   '云':4,
   '雪':11,
-  '霜':17,
-  '露':21,
   '梅':11,
   '兰':5,
   '竹':6,
@@ -219,128 +208,37 @@ const STROKES: Record<string, number> = {
   '枫':8,
   '柳':9,
   '花':7,
-  '草':9,
   '玉':5,
   '宝':8,
-  '桂':10,
   '莲':10,
   '萍':11,
   '琪':13,
   '琳':13,
-  '瑶':14,
-  '娜':9,
   '慧':15,
   '敏':11,
   '婷':12,
   '娟':10,
-  '婉':11,
-  '娴':10,
-  '雅':13,
   '欣':8,
   '悦':10,
-  '蕾':16,
-  '薇':16,
-  '萱':12,
-  '紫':12,
-  '红':6,
-  '霞':17,
-  '虹':9,
-  '佳':8,
-  '怡':8,
-  '恬':9,
-  '惠':12,
-  '慈':13,
-  '爱':10,
   '嘉':14,
   '宁':5,
   '静':14,
-  '健':10,
-  '壮':6,
-  '威':9,
-  '猛':11,
-  '力':2,
-  '意':13,
-  '向':6,
-  '化':4,
-  '学':8,
-  '习':3,
-  '书':4,
-  '画':8,
-  '琴':12,
-  '棋':12,
-  '诗':8,
-  '词':7,
-  '艺':4,
-  '术':5,
-  '章':11,
-  '乐':5,
-  '歌':14,
-  '舞':14,
-  '音':9,
-  '韵':13,
-  '风':9,
-  '格':10,
-  '体':7,
-  '劳':7,
-  '真':10,
-  '善':12,
-  '谦':17,
-  '家':10,
-  '空':8,
-  '新':13,
-  '旧':5,
-  '活':9,
-  '事':8,
-  '业':9,
-  '序':7,
-  '机':6,
-  '器':16,
-  '芯':7,
-  '腾':13,
-  '耀':20,
-  '菲':11,
+  '怡':8,
   '彤':7,
+  '鑫':24,
+  '森':12,
+  '磊':15,
+  '晶':12,
   '锋':12,
   '锐':12,
   '锦':16,
-  '绣':10,
-  '晖':13,
-  '景':12,
-  '鑫':24,
-  '森':12,
-  '淼':12,
-  '焱':12,
-  '垚':9,
-  '晶':12,
-  '磊':15,
-  '众':6,
-  '品':9,
-  '犇':6,
-  '立':5,
-  '达':6,
-  '治':8,
-  '夫':4,
-  '士':3,
-  '君':7,
-  '子':3,
-  '万':3,
-  '里':7,
-  '行':6,
-  '正':5,
-  '轩':7,
+  '铭':14,
   '泽':8,
-  '辰':7,
-  '凡':3,
   '浩':10,
   '宸':10,
   '哲':10,
   '航':10,
   '奕':9,
-  '晨':11,
-  '凌':10,
-  '恒':9,
-  '铭':14,
-  '宏':7,
   '凯':8,
   '逸':11,
   '皓':12,
@@ -350,298 +248,288 @@ const STROKES: Record<string, number> = {
   '翰':16,
   '韬':14,
   '修':9,
-  '阳':6,
   '旭':6,
   '睿':14,
-  '彻':7,
   '奇':8,
-  '铮':11,
   '钰':10,
   '玥':8,
   '柠':9,
   '汐':6,
-  '果':8,
-  '雨':8,
-  '仪':5,
-  '岚':7,
-  '芙':7,
-  '蓉':13,
-  '芃':6,
-  '沛':7,
-  '沁':7,
-  '沚':7,
   '洛':9,
   '涵':11,
   '泓':8,
   '淇':11,
-  '淑':11,
   '淳':11,
   '滢':18,
+  '萱':12,
   '燕':16,
   '蔓':14,
-  '蔚':14,
   '莹':10,
-  '蔼':17,
-  '梦':11,
+  '薇':16,
+  '璃':15,
+  '璇':15,
+  '瑶':14,
+  '瑾':15,
+  '璐':17,
+  '璟':16,
+  '曦':20,
+  '昊':8,
+  '昕':8,
+  '昀':8,
+  '昂':8,
+  '昙':8,
+  '晟':11,
+  '晖':13,
+  '晏':10,
+  '晞':11,
+  '晴':12,
+  '曜':18,
+  '朗':10,
+  '峰':10,
+  '峻':10,
+  '崇':11,
+  '岚':7,
+  '嵊':13,
+  '州':6,
+  '洲':9,
+  '源':13,
+  '润':10,
+  '治':8,
+  '法':8,
+  '泰':10,
+  '正':5,
+  '长':8,
+  '远':7,
+  '久':3,
+  '恒':9,
+  '世':5,
+  '代':5,
+  '宗':8,
+  '祖':10,
+  '先':6,
+  '裕':12,
+  '丰':18,
+  '盈':9,
+  '茂':11,
+  '繁':17,
+  '衍':9,
+  '庆':6,
+  '贺':9,
+  '颂':13,
+  '祝':10,
+  '祈':8,
+  '祷':14,
+  '佑':7,
+  '禧':17,
+  '祺':13,
+  '祯':13,
+  '祉':10,
+  '祚':10,
+  '祎':8,
+  '禛':15,
+  '祾':11,
+  '禔':13,
+  '禑':14,
 }
 
-// ── 未在字典中的字用默认笔画 ──
-function getStroke(char: string): number {
-  return STROKES[char] || 8
+function getStroke(char: string): number { return STROKES[char] || ((char.charCodeAt(0) - 0x4e00) % 20 + 1) }
+
+const WUGE: Record<number,{score:string;meaning:string;wuxing:string}> = {
+1:{score:'大吉',meaning:'天地开泰，万事顺利',wuxing:'木'},2:{score:'凶',meaning:'混沌未开，进退保守',wuxing:'木'},3:{score:'大吉',meaning:'吉祥如意，百事顺遂',wuxing:'火'},4:{score:'凶',meaning:'坎坷多难，辛苦遭逢',wuxing:'火'},5:{score:'大吉',meaning:'福寿双全，名利双收',wuxing:'土'},6:{score:'吉',meaning:'安稳顺利，余庆绵绵',wuxing:'土'},7:{score:'吉',meaning:'刚毅果断，进取功名',wuxing:'金'},8:{score:'吉',meaning:'勤恳务实，成功可期',wuxing:'金'},9:{score:'凶',meaning:'困苦艰难，劳而无功',wuxing:'水'},10:{score:'凶',meaning:'黑暗无光，万事徒劳',wuxing:'水'},11:{score:'大吉',meaning:'草木逢春，枝叶沾露',wuxing:'木'},12:{score:'凶',meaning:'薄弱无力，孤独无援',wuxing:'木'},13:{score:'大吉',meaning:'天赋吉运，得人信赖',wuxing:'火'},14:{score:'凶',meaning:'多招灾难，浮沉不定',wuxing:'火'},15:{score:'大吉',meaning:'谦恭做事，必得人和',wuxing:'土'},16:{score:'大吉',meaning:'能获众望，成就大业',wuxing:'土'},17:{score:'吉',meaning:'排除万难，贵人相助',wuxing:'金'},18:{score:'吉',meaning:'经商做事，顺利昌隆',wuxing:'金'},19:{score:'凶',meaning:'虽有智谋，功败垂成',wuxing:'水'},20:{score:'凶',meaning:'进退两难，万事难成',wuxing:'水'},21:{score:'大吉',meaning:'明月照天，独立权威',wuxing:'木'},22:{score:'凶',meaning:'秋草逢霜，怀才不遇',wuxing:'木'},23:{score:'大吉',meaning:'旭日东升，名显四方',wuxing:'火'},24:{score:'大吉',meaning:'白手起家，财源广进',wuxing:'火'},25:{score:'吉',meaning:'天时地利，再得人和',wuxing:'土'},26:{score:'凶',meaning:'波浪起伏，千变万化',wuxing:'土'},27:{score:'吉',meaning:'一成一败，一盛一衰',wuxing:'金'},28:{score:'凶',meaning:'鱼临旱地，难逃厄运',wuxing:'金'},29:{score:'大吉',meaning:'青云直上，才略奏功',wuxing:'水'},30:{score:'吉',meaning:'吉凶参半，得失相伴',wuxing:'水'},31:{score:'大吉',meaning:'智勇兼备，可成大业',wuxing:'木'},32:{score:'大吉',meaning:'侥幸多望，贵人相助',wuxing:'木'},33:{score:'大吉',meaning:'意气用事，人和必失',wuxing:'火'},34:{score:'凶',meaning:'灾难不绝，成功难望',wuxing:'火'},35:{score:'吉',meaning:'温和平安，文昌技艺',wuxing:'土'},36:{score:'凶',meaning:'波澜重迭，常陷穷困',wuxing:'土'},37:{score:'大吉',meaning:'逢凶化吉，风调雨顺',wuxing:'金'},38:{score:'吉',meaning:'名虽可得，利则难获',wuxing:'金'},39:{score:'大吉',meaning:'云开见月，前途光明',wuxing:'水'},40:{score:'凶',meaning:'一盛一衰，浮沉不定',wuxing:'水'},41:{score:'大吉',meaning:'天赋吉运，德望兼备',wuxing:'木'},42:{score:'凶',meaning:'博学多才，十艺不成',wuxing:'木'},43:{score:'凶',meaning:'雨夜之花，外祥内苦',wuxing:'火'},44:{score:'凶',meaning:'虽用心计，事难遂愿',wuxing:'火'},45:{score:'大吉',meaning:'顺风扬帆，万事如意',wuxing:'土'},46:{score:'凶',meaning:'坎坷不平，困难重重',wuxing:'土'},47:{score:'大吉',meaning:'万事可成，财源滚滚',wuxing:'金'},48:{score:'大吉',meaning:'智谋兼备，德望高崇',wuxing:'金'},49:{score:'凶',meaning:'遇吉则吉，遇凶则凶',wuxing:'水'},50:{score:'凶',meaning:'吉凶互见，一成一败',wuxing:'水'},51:{score:'吉',meaning:'盛衰交加，波澜重迭',wuxing:'木'},52:{score:'大吉',meaning:'卓识达眼，先见之明',wuxing:'木'},53:{score:'凶',meaning:'盛衰交加，内忧外患',wuxing:'火'},54:{score:'凶',meaning:'功败垂成，事不如意',wuxing:'火'},55:{score:'吉',meaning:'外观昌隆，内隐祸患',wuxing:'土'},56:{score:'凶',meaning:'事与愿违，终难成功',wuxing:'土'},57:{score:'吉',meaning:'虽有困难，终得成功',wuxing:'金'},58:{score:'吉',meaning:'半凶半吉，浮沉多端',wuxing:'金'},59:{score:'凶',meaning:'犹豫不决，错失良机',wuxing:'水'},60:{score:'凶',meaning:'黑暗无光，心神不宁',wuxing:'水'},61:{score:'大吉',meaning:'名利双收，繁荣昌盛',wuxing:'木'},62:{score:'凶',meaning:'基础薄弱，难获成功',wuxing:'木'},63:{score:'大吉',meaning:'万物化育，繁荣之象',wuxing:'火'},64:{score:'凶',meaning:'徒劳无功，坐困愁城',wuxing:'火'},65:{score:'大吉',meaning:'吉运自来，可享盛名',wuxing:'土'},66:{score:'凶',meaning:'进退维谷，事不如意',wuxing:'土'},67:{score:'大吉',meaning:'天时地利，一帆风顺',wuxing:'金'},68:{score:'大吉',meaning:'智虑周密，志气如刚',wuxing:'金'},69:{score:'凶',meaning:'动摇不定，常陷逆境',wuxing:'水'},70:{score:'凶',meaning:'惨淡经营，难免贫困',wuxing:'水'},71:{score:'吉',meaning:'吉凶参半，顺逆难料',wuxing:'木'},72:{score:'凶',meaning:'利害混集，难得平安',wuxing:'木'},73:{score:'吉',meaning:'安乐自来，自然吉祥',wuxing:'火'},74:{score:'凶',meaning:'无计可施，坐立不安',wuxing:'火'},75:{score:'吉',meaning:'进不如守，安分守己',wuxing:'土'},76:{score:'凶',meaning:'倾覆离散，破产之象',wuxing:'土'},77:{score:'吉',meaning:'先苦后甘，先败后成',wuxing:'金'},78:{score:'吉',meaning:'虽有困难，终得福贵',wuxing:'金'},79:{score:'凶',meaning:'云遮半月，暗淡无光',wuxing:'水'},80:{score:'凶',meaning:'辛苦遭逢，万事难成',wuxing:'水'},81:{score:'大吉',meaning:'万物回春，还复元始',wuxing:'木'},
 }
 
-// ── 81数理吉凶 ──
-interface WugeScore {
-  score: string
-  meaning: string
-  wuxing: string
-}
-const WUGE_81: Record<number, WugeScore> = {
-  1:{score:'大吉',meaning:'天地开泰，万事顺利',wuxing:'木'},
-  2:{score:'凶',meaning:'混沌未开，进退保守',wuxing:'木'},
-  3:{score:'大吉',meaning:'吉祥如意，百事顺遂',wuxing:'火'},
-  4:{score:'凶',meaning:'坎坷多难，辛苦遭逢',wuxing:'火'},
-  5:{score:'大吉',meaning:'福寿双全，名利双收',wuxing:'土'},
-  6:{score:'吉',meaning:'安稳顺利，余庆绵绵',wuxing:'土'},
-  7:{score:'吉',meaning:'刚毅果断，进取功名',wuxing:'金'},
-  8:{score:'吉',meaning:'勤恳务实，成功可期',wuxing:'金'},
-  9:{score:'凶',meaning:'困苦艰难，劳而无功',wuxing:'水'},
-  10:{score:'凶',meaning:'黑暗无光，万事徒劳',wuxing:'水'},
-  11:{score:'大吉',meaning:'草木逢春，枝叶沾露',wuxing:'木'},
-  12:{score:'凶',meaning:'薄弱无力，孤独无援',wuxing:'木'},
-  13:{score:'大吉',meaning:'天赋吉运，得人信赖',wuxing:'火'},
-  14:{score:'凶',meaning:'多招灾难，浮沉不定',wuxing:'火'},
-  15:{score:'大吉',meaning:'谦恭做事，必得人和',wuxing:'土'},
-  16:{score:'大吉',meaning:'能获众望，成就大业',wuxing:'土'},
-  17:{score:'吉',meaning:'排除万难，贵人相助',wuxing:'金'},
-  18:{score:'吉',meaning:'经商做事，顺利昌隆',wuxing:'金'},
-  19:{score:'凶',meaning:'虽有智谋，功败垂成',wuxing:'水'},
-  20:{score:'凶',meaning:'进退两难，万事难成',wuxing:'水'},
-  21:{score:'大吉',meaning:'明月照天，独立权威',wuxing:'木'},
-  22:{score:'凶',meaning:'秋草逢霜，怀才不遇',wuxing:'木'},
-  23:{score:'大吉',meaning:'旭日东升，名显四方',wuxing:'火'},
-  24:{score:'大吉',meaning:'白手起家，财源广进',wuxing:'火'},
-  25:{score:'吉',meaning:'天时地利，再得人和',wuxing:'土'},
-  26:{score:'凶',meaning:'波浪起伏，千变万化',wuxing:'土'},
-  27:{score:'吉',meaning:'一成一败，一盛一衰',wuxing:'金'},
-  28:{score:'凶',meaning:'鱼临旱地，难逃厄运',wuxing:'金'},
-  29:{score:'大吉',meaning:'青云直上，才略奏功',wuxing:'水'},
-  30:{score:'吉',meaning:'吉凶参半，得失相伴',wuxing:'水'},
-  31:{score:'大吉',meaning:'智勇兼备，可成大业',wuxing:'木'},
-  32:{score:'大吉',meaning:'侥幸多望，贵人相助',wuxing:'木'},
-  33:{score:'大吉',meaning:'意气用事，人和必失',wuxing:'火'},
-  34:{score:'凶',meaning:'灾难不绝，成功难望',wuxing:'火'},
-  35:{score:'吉',meaning:'温和平安，文昌技艺',wuxing:'土'},
-  36:{score:'凶',meaning:'波澜重迭，常陷穷困',wuxing:'土'},
-  37:{score:'大吉',meaning:'逢凶化吉，风调雨顺',wuxing:'金'},
-  38:{score:'吉',meaning:'名虽可得，利则难获',wuxing:'金'},
-  39:{score:'大吉',meaning:'云开见月，前途光明',wuxing:'水'},
-  40:{score:'凶',meaning:'一盛一衰，浮沉不定',wuxing:'水'},
-  41:{score:'大吉',meaning:'天赋吉运，德望兼备',wuxing:'木'},
-  42:{score:'凶',meaning:'博学多才，十艺不成',wuxing:'木'},
-  43:{score:'凶',meaning:'雨夜之花，外祥内苦',wuxing:'火'},
-  44:{score:'凶',meaning:'虽用心计，事难遂愿',wuxing:'火'},
-  45:{score:'大吉',meaning:'顺风扬帆，万事如意',wuxing:'土'},
-  46:{score:'凶',meaning:'坎坷不平，困难重重',wuxing:'土'},
-  47:{score:'大吉',meaning:'万事可成，财源滚滚',wuxing:'金'},
-  48:{score:'大吉',meaning:'智谋兼备，德望高崇',wuxing:'金'},
-  49:{score:'凶',meaning:'遇吉则吉，遇凶则凶',wuxing:'水'},
-  50:{score:'凶',meaning:'吉凶互见，一成一败',wuxing:'水'},
-  51:{score:'吉',meaning:'盛衰交加，波澜重迭',wuxing:'木'},
-  52:{score:'大吉',meaning:'卓识达眼，先见之明',wuxing:'木'},
-  53:{score:'凶',meaning:'盛衰交加，内忧外患',wuxing:'火'},
-  54:{score:'凶',meaning:'功败垂成，事不如意',wuxing:'火'},
-  55:{score:'吉',meaning:'外观昌隆，内隐祸患',wuxing:'土'},
-  56:{score:'凶',meaning:'事与愿违，终难成功',wuxing:'土'},
-  57:{score:'吉',meaning:'虽有困难，终得成功',wuxing:'金'},
-  58:{score:'吉',meaning:'半凶半吉，浮沉多端',wuxing:'金'},
-  59:{score:'凶',meaning:'犹豫不决，错失良机',wuxing:'水'},
-  60:{score:'凶',meaning:'黑暗无光，心神不宁',wuxing:'水'},
-  61:{score:'大吉',meaning:'名利双收，繁荣昌盛',wuxing:'木'},
-  62:{score:'凶',meaning:'基础薄弱，难获成功',wuxing:'木'},
-  63:{score:'大吉',meaning:'万物化育，繁荣之象',wuxing:'火'},
-  64:{score:'凶',meaning:'徒劳无功，坐困愁城',wuxing:'火'},
-  65:{score:'大吉',meaning:'吉运自来，可享盛名',wuxing:'土'},
-  66:{score:'凶',meaning:'进退维谷，事不如意',wuxing:'土'},
-  67:{score:'大吉',meaning:'天时地利，一帆风顺',wuxing:'金'},
-  68:{score:'大吉',meaning:'智虑周密，志气如刚',wuxing:'金'},
-  69:{score:'凶',meaning:'动摇不定，常陷逆境',wuxing:'水'},
-  70:{score:'凶',meaning:'惨淡经营，难免贫困',wuxing:'水'},
-  71:{score:'吉',meaning:'吉凶参半，顺逆难料',wuxing:'木'},
-  72:{score:'凶',meaning:'利害混集，难得平安',wuxing:'木'},
-  73:{score:'吉',meaning:'安乐自来，自然吉祥',wuxing:'火'},
-  74:{score:'凶',meaning:'无计可施，坐立不安',wuxing:'火'},
-  75:{score:'吉',meaning:'进不如守，安分守己',wuxing:'土'},
-  76:{score:'凶',meaning:'倾覆离散，破产之象',wuxing:'土'},
-  77:{score:'吉',meaning:'先苦后甘，先败后成',wuxing:'金'},
-  78:{score:'吉',meaning:'虽有困难，终得福贵',wuxing:'金'},
-  79:{score:'凶',meaning:'云遮半月，暗淡无光',wuxing:'水'},
-  80:{score:'凶',meaning:'辛苦遭逢，万事难成',wuxing:'水'},
-  81:{score:'大吉',meaning:'万物回春，还复元始',wuxing:'木'},
+function getWuge(val: number) {
+  const idx = val > 81 ? val % 80 : (val <= 0 ? 1 : val)
+  return { value: val, ...(WUGE[idx] || WUGE[1]) }
 }
 
-// ── 五行相生相克 ──
-function wuxingRelation(a: string, b: string): string {
-  const sheng: Record<string, string> = {木:'火',火:'土',土:'金',金:'水',水:'木'}
-  const ke: Record<string, string> = {木:'土',土:'水',水:'火',火:'金',金:'木'}
-  if (sheng[a] === b) return '相生'
-  if (sheng[b] === a) return '相生（反向）'
-  if (ke[a] === b) return '相克'
-  if (ke[b] === a) return '相克（反向）'
-  return '相同'
-}
+function analyzeName(text: string, mode: 'person' | 'company') {
+  const chars = [...text].map(c => ({ c, s: getStroke(c) }))
+  const totalStrokes = chars.reduce((a, c) => a + c.s, 0)
 
-const WUXING_COLORS: Record<string, string> = {
-  '木':'bg-green-900/40 text-green-300 border-green-700',
-  '火':'bg-red-900/40 text-red-300 border-red-700',
-  '土':'bg-amber-900/40 text-amber-300 border-amber-700',
-  '金':'bg-yellow-900/40 text-yellow-300 border-yellow-700',
-  '水':'bg-blue-900/40 text-blue-300 border-blue-700',
-}
-
-// ── 五格分析 ──
-function analyzeName(lastName: string, firstName: string) {
-  const lnStrokes = [...lastName].map(getStroke)
-  const fnStrokes = [...firstName].map(getStroke)
-
-  const tiange = lnStrokes.reduce((a, b) => a + b, 0) + (lnStrokes.length === 1 ? 1 : 0)
-  const renge = lnStrokes[lnStrokes.length - 1] + (fnStrokes[0] || 0)
-  const dige = fnStrokes.reduce((a, b) => a + b, 0) + (fnStrokes.length === 1 ? 1 : 0)
-  const zongge = [...lnStrokes, ...fnStrokes].reduce((a, b) => a + b, 0)
-  const waige = zongge - renge + (lnStrokes.length === 1 ? 1 : lnStrokes.length)
-
-  const getWuge = (val: number) => {
-    const idx = val > 81 ? val % 80 : val
-    const info = WUGE_81[idx] || WUGE_81[val <= 0 ? 1 : val]
-    return { value: val, ...info }
+  let tiange: number, renge: number, dige: number, zongge: number, waige: number
+  if (mode === 'company') {
+    // 公司名：全名笔画和+1=天格，全名笔画和=总格，中间两格简化
+    tiange = totalStrokes + 1
+    renge = totalStrokes
+    dige = totalStrokes % 81
+    zongge = totalStrokes
+    waige = (totalStrokes - renge) + 1
+  } else {
+    // 人名：标准五格
+    if (chars.length >= 2) {
+      const lnEnd = chars[0].s
+      const fnStart = chars[1]?.s || 0
+      tiange = chars[0].s + 1
+      renge = lnEnd + fnStart
+      dige = chars.slice(1).reduce((a, c) => a + c.s, 0) + (chars.length === 2 ? 1 : 0)
+    } else {
+      tiange = chars[0].s + 1; renge = chars[0].s + 1; dige = 1
+    }
+    zongge = totalStrokes
+    waige = zongge - renge + 1
   }
 
-  const tiangeInfo = getWuge(tiange)
-  const rengeInfo = getWuge(renge)
-  const digeInfo = getWuge(dige)
-  const waigeInfo = getWuge(waige)
-  const zonggeInfo = getWuge(zongge)
+  const ti = getWuge(tiange); const re = getWuge(renge); const di = getWuge(dige)
+  const wa = getWuge(waige); const zo = getWuge(zongge)
 
-  // 三才五行 — 天格(1.2), 人格(3), 地格(4)
-  const sancai = `${tiangeInfo.wuxing} → ${rengeInfo.wuxing} → ${digeInfo.wuxing}`
-  const rel1 = wuxingRelation(tiangeInfo.wuxing, rengeInfo.wuxing)
-  const rel2 = wuxingRelation(rengeInfo.wuxing, digeInfo.wuxing)
-
-  // 综合评分
+  const sancai = `${ti.wuxing}→${re.wuxing}→${di.wuxing}`
   const scoreMap: Record<string, number> = { '大吉': 100, '吉': 80, '中吉': 65, '中': 50, '凶': 30, '大凶': 10 }
-  const scores = [tiangeInfo, rengeInfo, digeInfo, waigeInfo, zonggeInfo]
-  const avgScore = Math.round(scores.reduce((s, g) => s + (scoreMap[g.score] || 50), 0) / scores.length)
-
-  // 三才评价
-  let sancaiScore: string
-  if (rel1 === '相生' && rel2 === '相生') sancaiScore = '大吉'
-  else if (rel1 === '相生' || rel2 === '相生') sancaiScore = '吉'
-  else if (rel1 === '相克' && rel2 === '相克') sancaiScore = '凶'
-  else sancaiScore = '中'
+  const avgScore = Math.round([ti, re, di, wa, zo].reduce((s, g) => s + (scoreMap[g.score] || 50), 0) / 5)
 
   return {
-    tiange: tiangeInfo, renge: rengeInfo, dige: digeInfo,
-    waige: waigeInfo, zongge: zonggeInfo,
-    sancai, rel1, rel2, sancaiScore, avgScore,
+    tiange: ti, renge: re, dige: di, waige: wa, zongge: zo,
+    sancai, avgScore,
+    charDetails: chars.map(c => `${c.c}(${c.s}画)`).join('+'),
+    mode,
   }
 }
+
+function gradeColor(s: string) {
+  const m: Record<string, string> = {'大吉':'text-green-400','吉':'text-green-500','中吉':'text-yellow-400','中':'text-yellow-500','凶':'text-red-400','大凶':'text-red-500'}
+  return m[s] || 'text-gray-400'
+}
+
+const WXC: Record<string, string> = {'木':'bg-green-900/40 text-green-300','火':'bg-red-900/40 text-red-300','土':'bg-amber-900/40 text-amber-300','金':'bg-yellow-900/40 text-yellow-300','水':'bg-blue-900/40 text-blue-300'}
 
 export default function XingmingClient() {
   const { t } = useLocale()
   const lang = t as unknown as Record<string, unknown>
-
-  const [lastName, setLastName] = useState('')
-  const [firstName, setFirstName] = useState('')
-  const [result, setResult] = useState<ReturnType<typeof analyzeName> | null>(null)
+  const [mode, setMode] = useState<Mode>('person')
+  const [name1, setName1] = useState('')
+  const [name2, setName2] = useState('')
+  const [result, setResult] = useState<any>(null)
+  const [matchResult, setMatchResult] = useState<any>(null)
 
   const analyze = () => {
-    if (!lastName.trim() || !firstName.trim()) return
-    setResult(analyzeName(lastName.trim(), firstName.trim()))
+    const text = name1.trim()
+    if (!text) return
+    if (mode === 'match') {
+      // 姓名配对
+      const r1 = analyzeName(name1.trim(), 'person')
+      const r2 = analyzeName(name2.trim(), 'person')
+      const match = Math.round((r1.avgScore + r2.avgScore) / 2)
+      setMatchResult({
+        name1: name1.trim(), name2: name2.trim(),
+        score: match,
+        items: [
+          { label: `${name1.trim()}评分`, value: r1.avgScore },
+          { label: `${name2.trim()}评分`, value: r2.avgScore },
+          { label: '配对指数', value: match },
+        ]
+      })
+      setResult(null)
+    } else {
+      setResult(analyzeName(text, mode as any))
+      setMatchResult(null)
+    }
   }
 
-  const gradeColor = (s: string) => {
-    const m: Record<string, string> = {'大吉':'text-green-400','吉':'text-green-500','中吉':'text-yellow-400','中':'text-yellow-500','凶':'text-red-400','大凶':'text-red-500'}
-    return m[s] || 'text-gray-400'
-  }
+  const r = result
+  const m = matchResult
 
-  return (
-    <div className="max-w-3xl mx-auto px-4 py-10">
-      <h1 className="text-3xl font-bold text-gold-400 font-serif mb-3">{tk('xingming.title', lang)}</h1>
-      <p className="text-gray-400 mb-8">{tk('xingming.desc', lang)}</p>
+  return (<div className="max-w-3xl mx-auto px-4 py-10">
+    <h1 className="text-3xl font-bold text-gold-400 font-serif mb-3">
+      {mode === 'match' ? '姓名配对' : mode === 'company' ? '公司测名' : '姓名测试打分'}
+    </h1>
+    <p className="text-gray-400 mb-6">
+      {mode === 'match' ? '输入两个姓名，测算配对指数和缘分' : mode === 'company' ? '输入公司/品牌/商标名，基于五格数理分析吉凶' : '基于五格数理和三才五行配置进行姓名分析评分'}
+    </p>
 
-      <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-6 mb-8">
-        <div className="grid grid-cols-2 gap-4 mb-4">
-          <div>
-            <label className="block text-xs text-gray-400 mb-1">{tk('xingming.lastName', lang)}</label>
-            <input type="text" value={lastName} onChange={e => setLastName(e.target.value)}
-              className="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200 focus:outline-none focus:border-gold-500" />
-          </div>
-          <div>
-            <label className="block text-xs text-gray-400 mb-1">{tk('xingming.firstName', lang)}</label>
-            <input type="text" value={firstName} onChange={e => setFirstName(e.target.value)}
-              className="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200 focus:outline-none focus:border-gold-500" />
-          </div>
-        </div>
-        <button onClick={analyze}
-          className="bg-gold-600 hover:bg-gold-500 text-dark-900 font-semibold px-6 py-2.5 rounded-lg transition-colors active:scale-95">
-          {tk('common.submit', lang)}
+    {/* 模式切换 */}
+    <div className="flex gap-2 mb-6">
+      {(['person','company','match'] as Mode[]).map(m => (
+        <button key={m} onClick={() => { setMode(m); setResult(null); setMatchResult(null) }}
+          className={`px-3 py-1.5 rounded-lg text-xs transition-colors ${mode === m ? 'bg-gold-600 text-dark-900 font-semibold' : 'bg-dark-700 text-gray-400 border border-dark-600'}`}>
+          {m === 'person' ? '人名测试' : m === 'company' ? '公司/商标测名' : '姓名配对'}
         </button>
-      </div>
+      ))}
+    </div>
 
-      {result && (
-        <div className="space-y-5">
-          {/* 综合评分 */}
-          <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-5 text-center">
-            <p className="text-xs text-gray-500 mb-1">综合评分</p>
-            <p className={`text-4xl font-bold ${result.avgScore >= 80 ? 'text-green-400' : result.avgScore >= 60 ? 'text-yellow-400' : 'text-red-400'}`}>
-              {result.avgScore}
-            </p>
-          </div>
-
-          {/* 五格数理 */}
-          <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-5">
-            <h3 className="text-base font-semibold text-gray-200 mb-4">五格数理</h3>
-            <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
-              {[
-                { key: 'tiange', label: tk('xingming.tiange', lang) },
-                { key: 'renge', label: tk('xingming.renge', lang) },
-                { key: 'dige', label: tk('xingming.dige', lang) },
-                { key: 'waige', label: tk('xingming.waige', lang) },
-                { key: 'zongge', label: tk('xingming.zongge', lang) },
-              ].map(item => {
-                const data = result[item.key as keyof typeof result] as { value: number; score: string; meaning: string; wuxing: string }
-                return (
-                  <div key={item.key} className="bg-dark-700 rounded-lg p-3 text-center border border-dark-600">
-                    <p className="text-xs text-gray-500 mb-1">{item.label}</p>
-                    <p className="text-lg font-bold text-gray-100">{data.value}</p>
-                    <p className={`text-xs font-semibold ${gradeColor(data.score)}`}>{data.score}</p>
-                    <p className={`text-[10px] mt-1 ${WUXING_COLORS[data.wuxing] || ''} px-1 py-0.5 rounded`}>{data.wuxing}</p>
-                    <p className="text-[10px] text-gray-500 mt-1">{data.meaning}</p>
-                  </div>
-                )
-              })}
-            </div>
-          </div>
-
-          {/* 三才配置 */}
-          <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-5">
-            <h3 className="text-base font-semibold text-gray-200 mb-3">三才五行配置</h3>
-            <div className="bg-dark-700 rounded-lg p-4">
-              <p className="text-sm text-gray-300 text-center mb-2">{result.sancai}</p>
-              <div className="flex items-center justify-center gap-3 text-sm">
-                <span className={WUXING_COLORS[result.tiange.wuxing] + ' px-2 py-1 rounded'}>{result.tiange.wuxing}</span>
-                <span className="text-gray-500">{result.rel1}</span>
-                <span className={WUXING_COLORS[result.renge.wuxing] + ' px-2 py-1 rounded'}>{result.renge.wuxing}</span>
-                <span className="text-gray-500">{result.rel2}</span>
-                <span className={WUXING_COLORS[result.dige.wuxing] + ' px-2 py-1 rounded'}>{result.dige.wuxing}</span>
-              </div>
-              <p className={`text-center mt-3 font-semibold ${gradeColor(result.sancaiScore)}`}>
-                三才：{result.sancaiScore}
-              </p>
-            </div>
-          </div>
+    {/* 输入 */}
+    <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-6 mb-6">
+      {mode === 'match' ? (
+        <div className="grid grid-cols-2 gap-3 mb-4">
+          <div><label className="block text-xs text-gray-400 mb-1">姓名一</label>
+            <input type="text" value={name1} onChange={e => setName1(e.target.value)}
+              className="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200 focus:outline-none focus:border-gold-500" /></div>
+          <div><label className="block text-xs text-gray-400 mb-1">姓名二</label>
+            <input type="text" value={name2} onChange={e => setName2(e.target.value)}
+              className="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200 focus:outline-none focus:border-gold-500" /></div>
+        </div>
+      ) : (
+        <div className="mb-4">
+          <label className="block text-xs text-gray-400 mb-1">
+            {mode === 'company' ? '公司/品牌/商标名' : '姓名（姓+名）'}
+          </label>
+          <input type="text" value={name1} onChange={e => setName1(e.target.value)}
+            className="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200 focus:outline-none focus:border-gold-500" />
         </div>
       )}
+      <button onClick={analyze}
+        className="bg-gold-600 hover:bg-gold-500 text-dark-900 font-semibold px-6 py-2.5 rounded-lg transition-colors active:scale-95">
+        {mode === 'match' ? '测算配对' : '开始分析'}
+      </button>
     </div>
-  )
+
+    {/* 人名/公司分析结果 */}
+    {r && (<div className="space-y-4">
+      <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-5 text-center">
+        <p className="text-xs text-gray-500 mb-1">
+          {r.mode === 'company' ? '公司名' : '姓名'}：{name1} = {r.charDetails}
+        </p>
+        <p className={`text-4xl font-bold ${r.avgScore >= 80 ? 'text-green-400' : r.avgScore >= 60 ? 'text-yellow-400' : 'text-red-400'}`}>{r.avgScore}</p>
+        <p className={`text-sm font-semibold mt-1 ${r.avgScore >= 80 ? 'text-green-400' : r.avgScore >= 60 ? 'text-yellow-400' : 'text-red-400'}`}>综合评分</p>
+        <p className="text-xs text-gray-500 mt-1">三才配置：{r.sancai}</p>
+      </div>
+
+      <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-5">
+        <h3 className="text-sm font-semibold text-gray-200 mb-3">五格数理</h3>
+        <div className="grid grid-cols-5 gap-2">
+          {[
+            { key: 'tiange', label: '天格' }, { key: 'renge', label: '人格' },
+            { key: 'dige', label: '地格' }, { key: 'waige', label: '外格' }, { key: 'zongge', label: '总格' }
+          ].map(item => {
+            const d = r[item.key] as { value: number; score: string; meaning: string; wuxing: string }
+            return (<div key={item.key} className="bg-dark-700 rounded-lg p-2 text-center border border-dark-600">
+              <p className="text-[10px] text-gray-500 mb-0.5">{item.label}</p>
+              <p className="text-sm font-bold text-gray-100">{d.value}</p>
+              <p className={`text-[10px] font-semibold ${gradeColor(d.score)}`}>{d.score}</p>
+              <p className={`text-[8px] mt-0.5 px-1 py-0.5 rounded inline-block ${WXC[d.wuxing] || ''}`}>{d.wuxing}</p>
+              <p className="text-[8px] text-gray-500 mt-0.5">{d.meaning}</p>
+            </div>)
+          })}
+        </div>
+      </div>
+    </div>)}
+
+    {/* 配对结果 */}
+    {m && (<div className="space-y-4">
+      <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-5 text-center">
+        <p className="text-xs text-gray-500 mb-1">配对分析</p>
+        <p className={`text-4xl font-bold ${m.score >= 80 ? 'text-green-400' : m.score >= 60 ? 'text-yellow-400' : 'text-red-400'}`}>{m.score}分</p>
+        <p className={`text-sm mt-1 font-semibold ${m.score >= 80 ? 'text-green-400' : m.score >= 60 ? 'text-yellow-400' : 'text-red-400'}`}>
+          {m.score >= 80 ? '天作之合' : m.score >= 60 ? '相得益彰' : '有待磨合'}
+        </p>
+      </div>
+      <div className="grid grid-cols-3 gap-2">
+        {m.items.map((item: any, i: number) => (
+          <div key={i} className="bg-dark-800/80 backdrop-blur rounded-lg border border-dark-600 p-4 text-center">
+            <p className="text-xs text-gray-500 mb-1">{item.label}</p>
+            <p className={`text-2xl font-bold ${item.value >= 80 ? 'text-green-400' : item.value >= 60 ? 'text-yellow-400' : 'text-red-400'}`}>{item.value}</p>
+          </div>
+        ))}
+      </div>
+      <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-4">
+        <h3 className="text-sm font-semibold text-gray-200 mb-2">缘分评语</h3>
+        <p className="text-xs text-gray-300 leading-relaxed">
+          {m.score >= 90 ? '两人的姓名数理高度匹配，是天造地设的一对。在一起能够相互促进，共同进步。' :
+           m.score >= 80 ? '两人姓名数理相合，缘分很好。在一起能够和谐相处，关系稳定。' :
+           m.score >= 70 ? '两人缘分不错，性格互补。需要多一些沟通和理解。' :
+           m.score >= 60 ? '两人有一定的缘分，但需要在相处中多包容对方的缺点。' :
+           '两人的姓名数理不太匹配，需要更多的磨合和努力。缘分可以经营，关键看双方的态度。'}
+        </p>
+      </div>
+    </div>)}
+  </div>)
 }
