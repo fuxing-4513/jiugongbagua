@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Solar } from 'lunar-typescript'
+import { Solar, Lunar } from 'lunar-typescript'
 
 const YEAR_W = {
   '甲子':1.2,'乙丑':0.9,'丙寅':0.6,'丁卯':0.7,'戊辰':1.2,'己巳':0.5,'庚午':0.9,'辛未':0.8,'壬申':0.7,'癸酉':0.8,
@@ -72,6 +72,7 @@ const FORTUNE: Record<string,{poem:string;interpret:string;level:string}> = {
 }
 
 export default function ChengguClient() {
+  const [isSolar, setIsSolar] = useState(true)
   const [year, setYear] = useState('1990')
   const [month, setMonth] = useState('1')
   const [day, setDay] = useState('1')
@@ -81,8 +82,23 @@ export default function ChengguClient() {
   const calc = () => {
     try {
       const y = parseInt(year), m = parseInt(month), d = parseInt(day)
-      const solar = Solar.fromYmd(y, m, d)
-      const lunar = solar.getLunar()
+      let lunar: any, solarLabel: string, lunarLabel: string
+      if (isSolar) {
+        // 阳历→阴历 自动转换
+        const solar = Solar.fromYmd(y, m, d)
+        lunar = solar.getLunar()
+        const l = solar.toFullString()
+        solarLabel = l
+        lunarLabel = lunar.toFullString()
+      } else {
+        // 直接输入阴历
+        lunar = Lunar.fromYmd(y, m, d)
+        lunarLabel = lunar.toFullString()
+        try {
+          const solar = lunar.getSolar()
+          solarLabel = solar.toFullString()
+        } catch { solarLabel = '—' }
+      }
       const gzYear = lunar.getYearInGanZhi()
       const lMonth = lunar.getMonth()
       const lDay = lunar.getDay()
@@ -96,7 +112,7 @@ export default function ChengguClient() {
       const liang = Math.floor(total)
       const qian = Math.round((total - liang) * 10)
       const fortune = FORTUNE[totalStr] || FORTUNE['4.0']
-      setResult({ yearW, monthW, dayW, hourW, total, liang, qian, gzYear, lMonth, lDay, dz, ...fortune, level: fortune.level })
+      setResult({ yearW, monthW, dayW, hourW, total, liang, qian, gzYear, lMonth, lDay, dz, solarLabel, lunarLabel, ...fortune, level: fortune.level })
     } catch(e) { setResult(null) }
   }
 
@@ -104,15 +120,22 @@ export default function ChengguClient() {
 
   return (<div className="max-w-2xl mx-auto px-4 py-10">
     <h1 className="text-3xl font-bold text-gold-400 font-serif mb-3">称骨算命</h1>
-    <p className="text-gray-400 mb-6">袁天罡称骨法：输入出生年月日时，根据骨重称量命运</p>
+    <p className="text-gray-400 mb-6">袁天罡称骨法：支持阳历/阴历输入，自动换算。根据出生年月日时骨重称量命运。</p>
 
     <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-6 mb-8">
+      <div className="flex gap-2 mb-4">
+        <button onClick={()=>{setIsSolar(true);setResult(null)}}
+          className={`px-3 py-1.5 text-xs rounded-lg transition-colors ${isSolar?'bg-gold-600 text-dark-900':'bg-dark-700 text-gray-400 border border-dark-600'}`}>☀️ 阳历</button>
+        <button onClick={()=>{setIsSolar(false);setResult(null)}}
+          className={`px-3 py-1.5 text-xs rounded-lg transition-colors ${!isSolar?'bg-gold-600 text-dark-900':'bg-dark-700 text-gray-400 border border-dark-600'}`}>🌙 阴历</button>
+        <span className="text-[10px] text-gray-500 self-center ml-2">自动换算阴阳历</span>
+      </div>
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
-        <div><label className="text-xs text-gray-400 block mb-1">年</label>
+        <div><label className="text-xs text-gray-400 block mb-1">{isSolar?'阳历':'阴历'}年</label>
           <input type="number" value={year} onChange={e=>setYear(e.target.value)} className="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200" /></div>
-        <div><label className="text-xs text-gray-400 block mb-1">月</label>
+        <div><label className="text-xs text-gray-400 block mb-1">{isSolar?'阳历':'阴历'}月</label>
           <input type="number" min={1} max={12} value={month} onChange={e=>setMonth(e.target.value)} className="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200" /></div>
-        <div><label className="text-xs text-gray-400 block mb-1">日</label>
+        <div><label className="text-xs text-gray-400 block mb-1">{isSolar?'阳历':'阴历'}日</label>
           <input type="number" min={1} max={31} value={day} onChange={e=>setDay(e.target.value)} className="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200" /></div>
         <div><label className="text-xs text-gray-400 block mb-1">时辰</label>
           <select value={hourIdx} onChange={e=>setHourIdx(parseInt(e.target.value))} className="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200 text-sm">
@@ -125,6 +148,8 @@ export default function ChengguClient() {
     {r && (<div className="space-y-4">
       <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-5 text-center">
         <p className="text-xs text-gray-500 mb-1">出生年柱：{r.gzYear}</p>
+        <p className="text-[10px] text-gray-400">阳历：{r.solarLabel}</p>
+        <p className="text-[10px] text-gray-400 mb-2">阴历：{r.lunarLabel}</p>
         <p className="text-4xl font-bold text-gold-400">{r.liang}两{r.qian}钱</p>
         <p className={`text-sm mt-1 ${r.level==='上吉'?'text-green-400':r.level==='中吉'?'text-green-500':r.level==='中平'?'text-yellow-400':'text-red-400'}`}>骨重：{r.liang}两{r.qian}钱 · {r.level}</p>
       </div>
@@ -132,8 +157,8 @@ export default function ChengguClient() {
       <div className="grid grid-cols-4 gap-2 text-xs">
         {[
           {label:'年柱',v:r.gzYear,w:`${r.yearW}两`},
-          {label:'月柱',w:`${r.monthW}两`,v:`${r.lMonth}月`},
-          {label:'日柱',w:`${r.dayW}两`,v:`${r.lDay}日`},
+          {label:'月(农历)',w:`${r.monthW}两`,v:`${r.lMonth}月`},
+          {label:'日(农历)',w:`${r.dayW}两`,v:`${r.lDay}日`},
           {label:'时柱',w:`${r.hourW}两`,v:r.dz+'时'},
         ].map((x,i)=>(
           <div key={i} className="bg-dark-700 rounded-lg p-2 text-center border border-dark-600">
