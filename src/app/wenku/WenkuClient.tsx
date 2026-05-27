@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { useLocale } from '@/lib/i18n'
 
 function tk(key: string, lang: Record<string, unknown>): string {
@@ -135,13 +135,35 @@ export default function WenkuClient() {
   const lang = t as unknown as Record<string, unknown>
   const [expandedId, setExpandedId] = useState<number | null>(null)
   const [filterCat, setFilterCat] = useState<string>('')
+  const [searchQuery, setSearchQuery] = useState<string>('')
 
-  const filtered = filterCat ? articles.filter(a => a.category === filterCat) : articles
+  // 搜索 + 分类筛选
+  const filtered = useMemo(() => {
+    let list = filterCat ? articles.filter(a => a.category === filterCat) : articles
+    if (searchQuery.trim()) {
+      const q = searchQuery.trim().toLowerCase()
+      list = list.filter(a =>
+        a.title.toLowerCase().includes(q) ||
+        a.summary.toLowerCase().includes(q) ||
+        a.fullContent.toLowerCase().includes(q) ||
+        a.category.toLowerCase().includes(q)
+      )
+    }
+    return list
+  }, [filterCat, searchQuery])
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-10">
       <h1 className="text-3xl font-bold text-gold-400 font-serif mb-3">{tk('wenku.title', lang)}</h1>
       <p className="text-gray-400 mb-6">{tk('wenku.desc', lang)}</p>
+
+      {/* 搜索框 */}
+      <div className="mb-4">
+        <input type="text" value={searchQuery} onChange={e => setSearchQuery(e.target.value)}
+          placeholder="🔍 搜索文章标题、内容或分类..."
+          className="w-full px-4 py-2.5 bg-dark-700 border border-dark-600 rounded-lg text-gray-200 placeholder-gray-500 focus:outline-none focus:border-gold-500 text-sm"
+        />
+      </div>
 
       {/* 分类筛选 */}
       <div className="flex flex-wrap gap-1.5 mb-6">
