@@ -334,11 +334,11 @@ export default function ShumaClient() {
           <div className="grid grid-cols-4 sm:grid-cols-8 gap-1.5">
             {FIELD_LIST.map(f => (
               <div key={f.key} className="text-center">
-                <p className="text-[9px] font-semibold mb-0.5" style={{color: f.color}}>{f.name}</p>
+                <p className="text-[11px] font-semibold mb-1" style={{color: f.color}}>{f.name}</p>
                 <div className="flex flex-wrap justify-center gap-[1px]">
                   {f.numbers.map(n => (
                     <button key={n} onClick={() => setSelectedField(selectedField === f.key ? null : f.key)}
-                      className="text-[9px] w-[18px] h-4 flex items-center justify-center rounded-sm bg-dark-700 hover:bg-dark-600 text-gray-400 hover:text-white transition-colors">{n}</button>
+                      className="text-[11px] w-[28px] h-6 flex items-center justify-center rounded-sm bg-dark-700 hover:bg-dark-600 text-gray-400 hover:text-white transition-colors">{n}</button>
                   ))}
                 </div>
               </div>
@@ -352,9 +352,9 @@ export default function ShumaClient() {
           <div className="grid grid-cols-7 gap-1">
             {STAR7.map((s, i) => (
               <div key={i} className="text-center">
-                <div className={`text-[9px] font-serif mb-0.5 ${i===4||i===6?'text-red-400':i===5?'text-yellow-300':'text-blue-300'}`}>{s.name.split('·')[0]}</div>
-                <div className={`text-[8px] px-0.5 py-0.5 rounded ${TYPE_STYLE[s.level] || 'bg-dark-700'}`}>{s.field}</div>
-                <div className="text-[7px] text-gray-500 mt-0.5">{s.wx}</div>
+                <div className={`text-[11px] font-serif mb-1 ${i===4||i===6?'text-red-400':i===5?'text-yellow-300':'text-blue-300'}`}>{s.name.split('·')[0]}</div>
+                <div className={`text-[10px] px-1 py-0.5 rounded ${TYPE_STYLE[s.level] || 'bg-dark-700'}`}>{s.field}</div>
+                <div className="text-[9px] text-gray-500 mt-0.5">{s.wx}</div>
               </div>
             ))}
           </div>
@@ -367,7 +367,7 @@ export default function ShumaClient() {
           <div className="flex items-center gap-2 mb-2">
             <span className="text-sm font-bold font-serif" style={{color: FIELDS[selectedField].color}}>{FIELDS[selectedField].name}</span>
             <span className={`text-[10px] px-1.5 py-0.5 rounded border ${TYPE_STYLE[FIELDS[selectedField].type] || ''}`}>{FIELDS[selectedField].type}</span>
-            <span className="text-[9px] text-gray-500">七星：{FIELDS[selectedField].star7}</span>
+            <span className="text-[11px] text-gray-500">七星：{FIELDS[selectedField].star7}</span>
           </div>
           <p className="text-xs text-gray-400 mb-1">号码：{FIELDS[selectedField].numbers.join('、')}</p>
           <p className="text-xs text-gray-400 mb-1">关键词：{FIELDS[selectedField].keywords.join(' · ')}</p>
@@ -446,10 +446,10 @@ export default function ShumaClient() {
             <div className="grid grid-cols-7 gap-1.5">
               {result.star7Results.map((s: any, i: number) => (
                 <div key={i} className={`text-center p-1.5 rounded-lg border ${s.count > 0 ? 'border-gold-500/50 bg-gold-900/10' : 'border-dark-600 bg-dark-700'}`}>
-                  <div className="text-[8px] text-gray-500">{s.name.split('·')[0]}</div>
-                  <div className={`text-[9px] font-semibold ${s.count > 0 ? 'text-gold-300' : 'text-gray-600'} font-serif`}>{s.field}</div>
-                  <div className={`text-[8px] mt-0.5 px-1 rounded ${TYPE_STYLE[s.level] || 'bg-dark-600'}`}>{s.level}</div>
-                  <div className="text-[8px] text-gray-500">{s.wx}</div>
+                  <div className="text-[10px] text-gray-500">{s.name.split('·')[0]}</div>
+                  <div className={`text-[11px] font-semibold ${s.count > 0 ? 'text-gold-300' : 'text-gray-600'} font-serif`}>{s.field}</div>
+                  <div className={`text-[10px] mt-0.5 px-1 rounded ${TYPE_STYLE[s.level] || 'bg-dark-600'}`}>{s.level}</div>
+                  <div className="text-[10px] text-gray-500">{s.wx}</div>
                   {s.count > 0 && <div className="text-[9px] text-gold-400 font-bold mt-0.5">{s.count}次</div>}
                 </div>
               ))}
