@@ -127,8 +127,10 @@ export default function BaziClient() {
       let ec, solar, lunar
       if (cal === 'lunar') {
         lunar = Lunar.fromYmd(y, m, d)
-        solar = lunar.getSolar()
-        ec = lunar.getEightChar()
+        // 农历转公历后，用公历日期+用户选择的时辰来排盘
+        const ls = lunar.getSolar()
+        solar = Solar.fromYmdHms(ls.getYear(), ls.getMonth(), ls.getDay(), h, 0, 0)
+        ec = solar.getLunar().getEightChar()
       } else {
         solar = Solar.fromYmdHms(y, m, d, h, 0, 0)
         lunar = solar.getLunar()
