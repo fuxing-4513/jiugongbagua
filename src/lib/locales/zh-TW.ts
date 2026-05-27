@@ -58,6 +58,13 @@ export const zhTW = {
       desc: '每日黃曆宜忌查詢，擇吉日良辰',
       emoji: '📅',
     },
+    fengshui: { name:'風水羅盤', desc: '八宅風水、九宮飛星、房屋佈局分析', emoji: '🧭' },
+    chenggu: { name:'稱骨算命', desc: '袁天罡稱骨法，測算一生福祿', emoji: '⚖️' },
+    shengxiao: { name:'生肖運勢', desc: '十二生肖每日每週每月運勢', emoji: '🐉' },
+    xingzuo: { name:'星座占卜', desc: '十二星座每日運勢和性格分析', emoji: '♈' },
+    qimen: { name:'奇門遁甲', desc: '三奇八門排盤預測吉凶', emoji: '🌀' },
+    meihua: { name:'梅花易數', desc: '萬物皆可占的易學方法', emoji: '🌸' },
+    lingqian: { name:'靈籤占卜', desc: '在線抽籤，觀音靈籤呂祖靈籤', emoji: '🏮' },
     taluo: {
       name: '塔羅占卜',
       desc: '塔羅牌占卜，洞察過去現在未來',

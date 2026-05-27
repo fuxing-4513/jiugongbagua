@@ -319,9 +319,9 @@ export default function ShumaClient() {
       {/* 输入 */}
       <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-6 mb-6">
         <div className="flex gap-2">
-          <input type="tel" value={phone} onChange={e => setPhone(e.target.value.replace(/\D/g,'').slice(0,11))}
-            placeholder="输入11位手机号码"
-            className="flex-1 px-4 py-2.5 bg-dark-700 border border-dark-600 rounded-lg text-gray-200 placeholder-gray-500 focus:outline-none focus:border-gold-500 font-mono text-lg tracking-widest" maxLength={11} />
+          <input type="tel" value={phone} onChange={e => setPhone(e.target.value.replace(/\D/g,'').slice(0,18))}
+            placeholder="输入号码（手机/车牌/QQ/身份证等）"
+            className="flex-1 px-4 py-2.5 bg-dark-700 border border-dark-600 rounded-lg text-gray-200 placeholder-gray-500 focus:outline-none focus:border-gold-500 font-mono text-lg tracking-widest" maxLength={18} />
           <button onClick={doAnalyze}
             className="bg-gold-600 hover:bg-gold-500 text-dark-900 font-semibold px-6 py-2.5 rounded-lg transition-colors active:scale-95 whitespace-nowrap">开始分析</button>
         </div>

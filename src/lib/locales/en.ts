@@ -58,6 +58,13 @@ export const en = {
       desc: 'Daily auspicious and inauspicious activities',
       emoji: '📅',
     },
+    fengshui: { name:'Feng Shui Compass', desc: 'Eight house flying star Feng Shui analysis', emoji: '🧭' },
+    chenggu: { name:'Bone Weight Fortune', desc: 'Yuan Tiangang bone weight fortune telling', emoji: '⚖️' },
+    shengxiao: { name:'Zodiac Horoscope', desc: 'Daily weekly monthly Chinese zodiac horoscope', emoji: '🐉' },
+    xingzuo: { name:'Horoscope', desc: 'Daily horoscope and zodiac personality analysis', emoji: '♈' },
+    qimen: { name:'Qi Men Dun Jia', desc: 'Mysterious Gate divination', emoji: '🌀' },
+    meihua: { name:'Plum Blossom I-Ching', desc: 'Everything can be divined', emoji: '🌸' },
+    lingqian: { name:'Lottery Fortune', desc: 'Online divination sticks', emoji: '🏮' },
     taluo: {
       name: 'Tarot',
       desc: 'Tarot card reading for insight and guidance',
