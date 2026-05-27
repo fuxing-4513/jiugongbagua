@@ -145,7 +145,16 @@ export default function BaziClient() {
         mk(ec.getTime(), ec.getTimeGan(), ec.getTimeZhi()),
       ]
       const wx: Record<string,number> = {金:0,木:0,水:0,火:0,土:0}
-      for (const p of pills) { if (wxM[p.gan] && wx[wxM[p.gan]]!==undefined) wx[wxM[p.gan]]++; if (wxM[p.zhi] && wx[wxM[p.zhi]]!==undefined) wx[wxM[p.zhi]]++ }
+      for (const p of pills) {
+        // 天干五行
+        if (wxM[p.gan] && wx[wxM[p.gan]]!==undefined) wx[wxM[p.gan]]++
+        // 地支五行（主气）
+        if (wxM[p.zhi] && wx[wxM[p.zhi]]!==undefined) wx[wxM[p.zhi]]++
+        // 地支藏干五行（全部计入）
+        for (const c of (hA[p.zhi] || '')) {
+          if (wxM[c] && wx[wxM[c]]!==undefined) wx[wxM[c]]++
+        }
+      }
       const str = strength(wx, dg)
       const zodiac = lunar.getYearShengXiao()
       const dayun: {gz:string;age:number}[] = []
