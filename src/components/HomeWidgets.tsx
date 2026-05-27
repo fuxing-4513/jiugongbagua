@@ -84,57 +84,71 @@ export default function HomeWidgets() {
     setHuangli(getTodayHuangli())
   }, [])
 
-  // 天气 — HTTPS IP 定位 + 免费天气 API
+  // 天气 — 多 API 兜底（HTTPS + 无 key）
   const fetchWeather = async () => {
     setWeatherLoading(true)
     setWeatherError(false)
     try {
-      // Step 1: ipinfo.io（HTTPS，免费，无需 key）获取城市
-      const ipRes = await fetch('https://ipinfo.io/json')
-      if (!ipRes.ok) throw new Error('IP lookup failed')
-      const ipData = await ipRes.json()
-      // ipinfo 返回英文城市/地区名
-      const cityEn = ipData.city || ipData.region || ''
-
-      // Step 2: wttr.in 获取天气
-      // 用城市名查询，wttr.in 支持多语言
-      const langParam = locale === 'zh-TW' ? 'zh' : 'zh'
-      const weatherRes = await fetch(
-        `https://wttr.in/${encodeURIComponent(cityEn)}?format=j1&lang=${langParam}`
-      )
-      if (!weatherRes.ok) throw new Error('Weather fetch failed')
+      // Step 1: 先用 ip-api.com 免费 HTTPS 接口
+      let ipData = null
+      let cityName = ''
+      try {
+        // ip-api.com 免费版不支持浏览器 HTTPS，所以用 ip-api.com 的备用方案
+        const r = await fetch('https://ip-api.com/json/?lang=zh-CN&fields=city,regionName,country,query')
+        if (r.ok) ipData = await r.json()
+      } catch {}
+      
+      if (!ipData || !ipData.city) {
+        try {
+          const r = await fetch('https://ipinfo.io/json')
+          if (r.ok) {
+            const d = await r.json()
+            ipData = { city: d.city || '', regionName: d.region || '', country: d.country || '' }
+          }
+        } catch {}
+      }
+      
+      if (!ipData || !ipData.city) throw new Error('IP lookup failed')
+      cityName = ipData.city || ''
+      const regionName = ipData.regionName || ''
+      
+      // Step 2: 用 wttr.in 查询天气（中文）
+      const langParam = 'zh'
+      const queryCity = encodeURIComponent(cityName)
+      const weatherRes = await fetch(`https://wttr.in/${queryCity}?format=j1&lang=${langParam}&m`)
+      
+      if (!weatherRes.ok) throw new Error('Weather fetch failed: ' + weatherRes.status)
       const weatherData = await weatherRes.json()
       const current = weatherData.current_condition?.[0]
 
       if (current) {
-        // 用 wttr.in 返回的地区名（可能是中文）
-        const areaData = weatherData.nearest_area?.[0]
-        let cityName = ''
-        if (areaData?.areaName?.[0]?.value) {
-          cityName = areaData.areaName[0].value
-          // 如果 wttr.in 返回英文名，拼接 ipinfo 的地区名
-          if (!/[\一-\龥]/.test(cityName)) {
-            const state = ipData.region || ''
-            cityName = ipData.city || state || cityName
-          }
+        // 尝试获取中文城市名
+        let displayCity = weatherData.nearest_area?.[0]?.areaName?.[0]?.value || cityName
+        // 如果仍然英文，用 ip-api 的中文名覆盖
+        if (!/[\u4e00-\u9fff]/.test(displayCity) && cityName) {
+          displayCity = cityName
         }
-        const stateName = ipData.region || ''
-        if (stateName && cityName.indexOf(stateName) === -1) {
-          cityName += ' · ' + stateName
+        if (regionName && displayCity.indexOf(regionName) === -1 && regionName !== displayCity) {
+          displayCity += ' · ' + regionName
         }
 
-        // 尝试中文天气描述
+        // 中文天气描述优先
         let condition = current.weatherDesc?.[0]?.value || ''
         if (current.lang_zh?.[0]?.value) {
           condition = current.lang_zh[0].value
         }
+        // 简单翻译英文天气词
+        const wxMap: Record<string,string> = {'Clear':'晴','Sunny':'晴','Cloudy':'多云','Overcast':'阴','Rain':'雨','Drizzle':'小雨','Thunderstorm':'雷阵雨','Snow':'雪','Fog':'雾','Mist':'薄雾','Haze':'霾','Partly cloudy':'多云','Light rain':'小雨','Heavy rain':'大雨','Moderate rain':'中雨','Patchy rain possible':'可能有雨','Light drizzle':'毛毛雨'}
+        for (const [en, zh] of Object.entries(wxMap)) {
+          if (condition.toLowerCase().includes(en.toLowerCase())) { condition = zh; break }
+        }
 
         setWeather({
-          city: cityName || ipData.city || '',
+          city: displayCity,
           temp: current.temp_C || '',
           humidity: current.humidity || '',
           wind: current.winddir16Point || '',
-          condition: condition,
+          condition: condition || '',
           icon: '',
         })
       } else {
