@@ -15,6 +15,13 @@ const toolModules: { key: string; href: string }[] = [
   { key: 'modules.huangli.name', href: '/huangli' },
   { key: 'modules.taluo.name', href: '/taluo' },
   { key: 'modules.cezi.name', href: '/cezi' },
+  { key: 'modules.chenggu.name', href: '/chenggu' },
+  { key: 'modules.fengshui.name', href: '/fengshui' },
+  { key: 'modules.lingqian.name', href: '/lingqian' },
+  { key: 'modules.meihua.name', href: '/meihua' },
+  { key: 'modules.qimen.name', href: '/qimen' },
+  { key: 'modules.shengxiao.name', href: '/shengxiao' },
+  { key: 'modules.xingzuo.name', href: '/xingzuo' },
 ]
 
 export default function Nav() {
