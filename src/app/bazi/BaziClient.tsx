@@ -183,7 +183,7 @@ export default function BaziClient() {
       const str = strength(wx, dg)
       const zodiac = lunar.getYearShengXiao()
       const dayun: any[] = []
-      try { const yun=ec.getYun(2); const stems=['甲','乙','丙','丁','戊','己','庚','辛','壬','癸']; const branches=['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥']; for(const x of yun.getDaYun()){const sy=x.getStartYear();const years=[];for(let i=0;i<10;i++){const yy=sy+i;years.push({year:yy,gz:stems[((yy-4)%10+10)%10]+branches[((yy-4)%12+12)%12],age:x.getStartAge()+i})};dayun.push({gz:x.getGanZhi(),age:x.getStartAge(),startYear:sy,years})} } catch{}
+      try { const yun=ec.getYun(gender==='男'?1:0); const stems=['甲','乙','丙','丁','戊','己','庚','辛','壬','癸']; const branches=['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥']; for(const x of yun.getDaYun()){const gz=x.getGanZhi();if(!gz)continue;const sy=x.getStartYear();const years=[];for(let i=0;i<10;i++){const yy=sy+i;years.push({year:yy,gz:stems[((yy-4)%10+10)%10]+branches[((yy-4)%12+12)%12],age:x.getStartAge()+i})};dayun.push({gz,age:x.getStartAge(),startYear:sy,years})} } catch{}
       const analysis = fateAnalysis(dg, dz, wx, pills, zodiac, lunar)
 
       setResult({
