@@ -1,7 +1,8 @@
-'use client'
+﻿'use client'
 
 import Link from 'next/link'
 import { useLocale } from '@/lib/i18n'
+import HomeWidgets from '@/components/HomeWidgets'
 
 interface ModuleInfo {
   key: string
@@ -42,14 +43,17 @@ export default function HomePage() {
   return (
     <div className="max-w-6xl mx-auto px-4 py-10">
       {/* Subtitle */}
-      <div className="text-center mb-10">
-        <h1 className="text-3xl md:text-4xl font-bold text-red-900 font-serif mb-2">
+      <div className="text-center mb-6">
+        <h1 className="text-3xl md:text-4xl font-bold text-gold-400 font-serif mb-2">
           {getT('site.name')}
         </h1>
-        <p className="text-lg text-gray-600">
+        <p className="text-lg text-gray-400">
           {getT('home.subtitle')}
         </p>
       </div>
+
+      {/* Home Widgets: 黄历 + 天气 */}
+      <HomeWidgets />
 
       {/* Card Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
@@ -57,15 +61,15 @@ export default function HomePage() {
           <Link
             key={mod.key}
             href={mod.href}
-            className="group bg-white rounded-xl border border-red-100 p-5 hover:border-red-300 hover:shadow-md hover:shadow-red-100/50 transition-all duration-200"
+            className="group bg-dark-700 rounded-xl border border-dark-600 p-5 hover:border-gold-500 hover:shadow-md hover:shadow-gold-500/10 transition-all duration-200"
           >
             <div className="text-3xl mb-3 group-hover:scale-110 transition-transform duration-200">
               {mod.emoji}
             </div>
-            <h3 className="text-base font-semibold text-gray-800 group-hover:text-red-700 transition-colors mb-1">
+            <h3 className="text-base font-semibold text-gray-200 group-hover:text-gold-400 transition-colors mb-1">
               {getT(mod.nameKey)}
             </h3>
-            <p className="text-xs text-gray-500 leading-relaxed">
+            <p className="text-xs text-gray-400 leading-relaxed">
               {getT(mod.descKey)}
             </p>
           </Link>

@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import Link from 'next/link'
 import { useState } from 'react'
@@ -39,12 +39,12 @@ export default function Nav() {
   }
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur border-b border-red-100 shadow-sm">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-dark-800/95 backdrop-blur border-b border-dark-600 shadow-sm">
       <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
           <span className="text-2xl">☯</span>
-          <span className="text-xl font-bold text-red-800 font-serif">
+          <span className="text-xl font-bold text-gold-400 font-serif">
             {getT('site.name')}
           </span>
         </Link>
@@ -53,7 +53,7 @@ export default function Nav() {
         <div className="hidden md:flex items-center gap-6">
           <Link
             href="/"
-            className="text-sm text-gray-700 hover:text-red-700 transition-colors"
+            className="text-sm text-gray-300 hover:text-gold-400 transition-colors"
           >
             {getT('nav.home')}
           </Link>
@@ -62,7 +62,7 @@ export default function Nav() {
           <div className="relative">
             <button
               onClick={() => setToolsOpen(!toolsOpen)}
-              className="text-sm text-gray-700 hover:text-red-700 transition-colors flex items-center gap-1"
+              className="text-sm text-gray-300 hover:text-gold-400 transition-colors flex items-center gap-1"
             >
               {getT('nav.tools')}
               <svg className={`w-3 h-3 transition-transform ${toolsOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -72,12 +72,12 @@ export default function Nav() {
             {toolsOpen && (
               <>
                 <div className="fixed inset-0 z-10" onClick={() => setToolsOpen(false)} />
-                <div className="absolute top-full right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-red-50 py-2 z-20">
+                <div className="absolute top-full right-0 mt-2 w-48 bg-dark-700 rounded-lg shadow-lg border border-dark-600 py-2 z-20">
                   {toolModules.map((mod) => (
                     <Link
                       key={mod.href}
                       href={mod.href}
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-red-50 hover:text-red-700 transition-colors"
+                      className="block px-4 py-2 text-sm text-gray-300 hover:bg-dark-600 hover:text-gold-400 transition-colors"
                       onClick={() => setToolsOpen(false)}
                     >
                       {getT(mod.key)}
@@ -90,13 +90,13 @@ export default function Nav() {
 
           <Link
             href="/wenku"
-            className="text-sm text-gray-700 hover:text-red-700 transition-colors"
+            className="text-sm text-gray-300 hover:text-gold-400 transition-colors"
           >
             {getT('nav.knowledge')}
           </Link>
           <Link
             href="/experts"
-            className="text-sm text-gray-700 hover:text-red-700 transition-colors"
+            className="text-sm text-gray-300 hover:text-gold-400 transition-colors"
           >
             {getT('nav.experts')}
           </Link>
@@ -105,7 +105,7 @@ export default function Nav() {
           <div className="relative">
             <button
               onClick={() => setLangOpen(!langOpen)}
-              className="text-sm text-gray-700 hover:text-red-700 transition-colors flex items-center gap-1 border border-gray-200 rounded px-2 py-1"
+              className="text-sm text-gray-300 hover:text-gold-400 transition-colors flex items-center gap-1 border border-dark-600 rounded px-2 py-1"
             >
               🌐 {localeNames[locale]}
               <svg className={`w-3 h-3 transition-transform ${langOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -115,7 +115,7 @@ export default function Nav() {
             {langOpen && (
               <>
                 <div className="fixed inset-0 z-10" onClick={() => setLangOpen(false)} />
-                <div className="absolute top-full right-0 mt-2 w-36 bg-white rounded-lg shadow-lg border border-red-50 py-2 z-20">
+                <div className="absolute top-full right-0 mt-2 w-36 bg-dark-700 rounded-lg shadow-lg border border-dark-600 py-2 z-20">
                   {(Object.entries(localeNames) as [SupportedLocale, string][]).map(([key, name]) => (
                     <button
                       key={key}
@@ -123,7 +123,7 @@ export default function Nav() {
                       className={`block w-full text-left px-4 py-2 text-sm transition-colors ${
                         locale === key
                           ? 'bg-red-50 text-red-700 font-medium'
-                          : 'text-gray-700 hover:bg-red-50 hover:text-red-700'
+                          : 'text-gray-300 hover:bg-dark-600 hover:text-gold-400'
                       }`}
                     >
                       {name}
@@ -137,7 +137,7 @@ export default function Nav() {
 
         {/* Mobile Menu Button */}
         <button
-          className="md:hidden text-gray-700"
+          className="md:hidden text-gray-300"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           aria-label="Toggle menu"
         >
@@ -155,11 +155,11 @@ export default function Nav() {
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-t border-red-50 bg-white">
+        <div className="md:hidden border-t border-dark-600 bg-white">
           <div className="px-4 py-3 space-y-2">
             <Link
               href="/"
-              className="block py-2 text-sm text-gray-700 hover:text-red-700"
+              className="block py-2 text-sm text-gray-300 hover:text-gold-400"
               onClick={() => setMobileMenuOpen(false)}
             >
               {getT('nav.home')}
@@ -171,7 +171,7 @@ export default function Nav() {
                   <Link
                     key={mod.href}
                     href={mod.href}
-                    className="block py-1.5 text-sm text-gray-600 hover:text-red-700"
+                    className="block py-1.5 text-sm text-gray-600 hover:text-gold-400"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     {getT(mod.key)}
@@ -181,14 +181,14 @@ export default function Nav() {
             </div>
             <Link
               href="/wenku"
-              className="block py-2 text-sm text-gray-700 hover:text-red-700"
+              className="block py-2 text-sm text-gray-300 hover:text-gold-400"
               onClick={() => setMobileMenuOpen(false)}
             >
               {getT('nav.knowledge')}
             </Link>
             <Link
               href="/experts"
-              className="block py-2 text-sm text-gray-700 hover:text-red-700"
+              className="block py-2 text-sm text-gray-300 hover:text-gold-400"
               onClick={() => setMobileMenuOpen(false)}
             >
               {getT('nav.experts')}
@@ -206,7 +206,7 @@ export default function Nav() {
                     className={`text-sm px-2 py-1 rounded ${
                       locale === key
                         ? 'bg-red-100 text-red-700'
-                        : 'text-gray-600 hover:text-red-700'
+                        : 'text-gray-600 hover:text-gold-400'
                     }`}
                   >
                     {name}
