@@ -1,7 +1,7 @@
 export const zhCN = {
   site: {
     name: '九宫八卦',
-    description: '中国传统命理文化平台，提供八字算命、紫微斗数、六爻占卜、小六壬、周公解梦、姓名测试等在线服务',
+    description: '中国传统命理文化平台，提供八字算命、紫微斗数、六爻占卜、小六壬、周公解梦、姓名打分等在线服务',
     disclaimer: '仅供娱乐参考，请勿过度依赖',
     copyright: '© 2024 九宫八卦 版权所有',
   },
@@ -44,7 +44,7 @@ export const zhCN = {
       emoji: '💤',
     },
     xingming: {
-      name: '姓名测试',
+      name: '姓名打分',
       desc: '姓名五格数理分析，起名改名参考',
       emoji: '📝',
     },
@@ -173,8 +173,8 @@ export const zhCN = {
     notFound: '未找到相关梦境解析，请尝试其他关键词。',
   },
   xingming: {
-    title: '姓名测试',
-    desc: '输入您的姓名，系统根据五格数理分析姓名吉凶。',
+    title: '姓名打分',
+    desc: '输入您的姓名，基于康熙字典笔画·五格数理分析吉凶。',
     lastName: '姓氏',
     firstName: '名字',
     resultTitle: '五格数理分析',

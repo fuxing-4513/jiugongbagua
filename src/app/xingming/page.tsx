@@ -2,11 +2,11 @@ import type { Metadata } from 'next'
 import XingmingClient from './XingmingClient'
 
 export const metadata: Metadata = {
-  title: '姓名测试打分 - 九宫八卦',
-  description: '输入姓名，基于五格数理和五行三才配置进行姓名分析打分，提供天格、人格、地格、外格、总格完整解读。',
+  title: '姓名打分 - 九宫八卦',
+  description: '基于康熙字典笔画·五格数理和三才五行配置给姓名打分，提供天格、人格、地格、外格、总格完整解读。',
   openGraph: {
-    title: '姓名测试打分 - 九宫八卦',
-    description: '五格数理姓名分析，81数理吉凶，三才五行配置。',
+    title: '姓名打分 - 九宫八卦',
+    description: '康熙字典笔画五格数理姓名打分，81数理吉凶，三才五行配置。',
   },
 }
 

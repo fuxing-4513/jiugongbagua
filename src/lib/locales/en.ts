@@ -45,7 +45,7 @@ export const en = {
     },
     xingming: {
       name: 'Name Analysis',
-      desc: 'Five-element numerological analysis of names',
+      desc: 'Kangxi stroke numerological analysis of names',
       emoji: '📝',
     },
     shuma: {
@@ -174,7 +174,7 @@ export const en = {
   },
   xingming: {
     title: 'Name Analysis',
-    desc: 'Enter your name for five-element numerological analysis.',
+    desc: 'Enter your name for Kangxi-stroke numerological analysis.',
     lastName: 'Last Name',
     firstName: 'First Name',
     resultTitle: 'Five Element Analysis',

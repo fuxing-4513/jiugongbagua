@@ -44,7 +44,7 @@ export const zhTW = {
       emoji: '💤',
     },
     xingming: {
-      name: '姓名測試',
+      name: '姓名打分',
       desc: '姓名五格數理分析，起名改名參考',
       emoji: '📝',
     },
@@ -173,8 +173,8 @@ export const zhTW = {
     notFound: '未找到相關夢境解析，請嘗試其他關鍵詞。',
   },
   xingming: {
-    title: '姓名測試',
-    desc: '輸入您的姓名，系統根據五格數理分析姓名吉凶。',
+    title: '姓名打分',
+    desc: '輸入您的姓名，基於康熙字典筆畫·五格數理分析吉凶。',
     lastName: '姓氏',
     firstName: '名字',
     resultTitle: '五格數理分析',
