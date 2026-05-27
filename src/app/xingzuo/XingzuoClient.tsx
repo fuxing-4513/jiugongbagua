@@ -50,89 +50,190 @@ function getSign(birthday: string): number {
   return 11
 }
 
-const MATCH: Record<string,{[k:string]:string}> = {
-  '白羊座':{'白羊座':'热情似火','金牛座':'需要磨合','双子座':'有趣组合','巨蟹座':'需包容','狮子座':'天生一对','处女座':'差异大','天秤座':'互相吸引','天蝎座':'激情碰撞','射手座':'志趣相投','摩羯座':'互补型','水瓶座':'火花四射','双鱼座':'浪漫组合'},
-  '金牛座':{'金牛座':'稳定安逸','双子座':'需要沟通','巨蟹座':'温馨组合','狮子座':'互有吸引','处女座':'务实搭档','天秤座':'优雅搭配','天蝎座':'深情组合','射手座':'差异大','摩羯座':'天生一对','水瓶座':'需要包容','双鱼座':'浪漫配对'},
-  '水瓶座':{'水瓶座':'灵魂伴侣','双鱼座':'梦幻组合','白羊座':'志同道合','金牛座':'需要磨合','双子座':'趣味相投','巨蟹座':'理解包容','狮子座':'互相欣赏','处女座':'差异互补','天秤座':'天生一对','天蝎座':'深度吸引','射手座':'自由组合','摩羯座':'互补型'},
-  '双鱼座':{'双鱼座':'浪漫至极','白羊座':'互相吸引','金牛座':'温暖组合','双子座':'梦幻搭配','巨蟹座':'天生一对','狮子座':'浪漫激情','处女座':'互补组合','天秤座':'优雅配对','天蝎座':'深情相拥','射手座':'理解包容','摩羯座':'踏实依靠','水瓶座':'梦幻组合'},
+const PAIRING: Record<string,string> = {
+  '白羊座×白羊座':'热情似火，双羊相争，激情有余而温和不足。',
+  '白羊座×金牛座':'冲动与固执的碰撞，需要耐心磨合。',
+  '白羊座×双子座':'趣味相投，充满新鲜感的组合。',
+  '白羊座×巨蟹座':'需要互相包容，一个向前冲一个向后缩。',
+  '白羊座×狮子座':'天生一对，火象三傻的热情组合。',
+  '白羊座×处女座':'差异很大，一个粗心一个细致。',
+  '白羊座×天秤座':'互相吸引的互补型，一个行动一个权衡。',
+  '白羊座×天蝎座':'激情四射但也冲突不断。',
+  '白羊座×射手座':'志趣相投，一起冒险的好搭档。',
+  '白羊座×摩羯座':'互补型，一个冲动一个稳重。',
+  '白羊座×水瓶座':'火花四射，创意无限的好组合。',
+  '白羊座×双鱼座':'白羊的现实与双鱼的浪漫，互补美好。',
+  '金牛座×金牛座':'稳定安逸，志同道合的默契组合。',
+  '金牛座×双子座':'节奏不同，需要更多沟通。',
+  '金牛座×巨蟹座':'温馨踏实，家庭观念一致的好组合。',
+  '金牛座×狮子座':'互相吸引但也互不相让。',
+  '金牛座×处女座':'务实搭档，三观高度一致。',
+  '金牛座×天秤座':'优雅搭配，一个享受一个品味。',
+  '金牛座×天蝎座':'深情组合，占有欲都强。',
+  '金牛座×射手座':'差异大，一个求稳一个好动。',
+  '金牛座×摩羯座':'天生一对，最务实的组合。',
+  '金牛座×水瓶座':'需要包容，一个传统一个新潮。',
+  '金牛座×双鱼座':'浪漫配对，温柔的组合。',
+  '双子座×双子座':'趣味相投，永远不无聊的组合。',
+  '双子座×巨蟹座':'理解包容，一个善变一个顾家。',
+  '双子座×狮子座':'才子佳人的组合，互相欣赏。',
+  '双子座×处女座':'都是智性恋，但一个随性一个认真。',
+  '双子座×天秤座':'天生一对，风象星座的完美搭配。',
+  '双子座×天蝎座':'深度吸引，但信任是课题。',
+  '双子座×射手座':'自由组合，一起欢笑的伴侣。',
+  '双子座×摩羯座':'互补型，一个灵活一个踏实。',
+  '双子座×水瓶座':'灵魂伴侣，风象星座知己。',
+  '双子座×双鱼座':'梦幻搭配，一个理性一个感性。',
+  '巨蟹座×巨蟹座':'温馨顾家，互相取暖的好组合。',
+  '巨蟹座×狮子座':'浪漫激情，霸道总裁爱上我。',
+  '巨蟹座×处女座':'互补组合，一个感性一个理性。',
+  '巨蟹座×天秤座':'优雅配对，一个居家一个社交。',
+  '巨蟹座×天蝎座':'天生一对，水象星座的深情组合。',
+  '巨蟹座×射手座':'理解包容，一个宅家一个好动。',
+  '巨蟹座×摩羯座':'踏实依靠，家庭观念一致。',
+  '巨蟹座×水瓶座':'差异大，需要更多理解。',
+  '巨蟹座×双鱼座':'温柔浪漫，水象的梦幻组合。',
+  '狮子座×狮子座':'双王组合，光芒四射但也互不相让。',
+  '狮子座×处女座':'一个张扬一个低调，互相欣赏。',
+  '狮子座×天秤座':'才子佳人，郎才女貌。',
+  '狮子座×天蝎座':'王者对决，激情与掌控的碰撞。',
+  '狮子座×射手座':'快乐组合，火象的活力拍档。',
+  '狮子座×摩羯座':'一个耀眼一个稳重，互补吸弓。',
+  '狮子座×水瓶座':'互相欣赏，都是特立独行的主。',
+  '狮子座×双鱼座':'霸道总裁与温柔公主的组合。',
+  '处女座×处女座':'完美主义二人组，互相挑剔也互相理解。',
+  '处女座×天秤座':'优雅又理性的搭配。',
+  '处女座×天蝎座':'深沉组合，对细节都敏感。',
+  '处女座×射手座':'一个严谨一个随性，需要包容。',
+  '处女座×摩羯座':'务实搭档，一起奋斗的黄金组合。',
+  '处女座×水瓶座':'差异互补，一个注重细节一个看大局。',
+  '处女座×双鱼座':'互补组合，完美的互补。',
+  '天秤座×天秤座':'优雅和谐，太像反而需要火花。',
+  '天秤座×天蝎座':'魅惑组合，互相吸引又互相试探。',
+  '天秤座×射手座':'快乐组合，一起享受人生。',
+  '天秤座×摩羯座':'一个社交一个务实，互补型。',
+  '天秤座×水瓶座':'天生一对，风象的知性组合。',
+  '天秤座×双鱼座':'浪漫优雅，文艺范十足。',
+  '天蝎座×天蝎座':'深情也虐心，两个极端。',
+  '天蝎座×射手座':'一个深沉一个开朗，需要磨合。',
+  '天蝎座×摩羯座':'强强联手，做大事的组合。',
+  '天蝎座×水瓶座':'深度吸引，神秘感十足。',
+  '天蝎座×双鱼座':'天生一对，最深情浪漫的组合。',
+  '射手座×射手座':'快乐加倍，一起冒险玩耍。',
+  '射手座×摩羯座':'一个自由一个务实，需要包容。',
+  '射手座×水瓶座':'自由组合，志同道合的好友兼伴侣。',
+  '射手座×双鱼座':'一个乐观一个感性，互相感染。',
+  '摩羯座×摩羯座':'务实二人组，一起奋斗事业。',
+  '摩羯座×水瓶座':'互补型，一个稳重新潮。',
+  '摩羯座×双鱼座':'踏实依靠，温柔浪漫的搭配。',
+  '水瓶座×水瓶座':'灵魂伴侣，两个外星人的默契。',
+  '水瓶座×双鱼座':'梦幻组合，充满想象力的搭配。',
+  '双鱼座×双鱼座':'浪漫至极，一起做梦的组合。',
 }
 
 export default function XingzuoClient() {
+  const [mode, setMode] = useState<'horoscope' | 'match'>('horoscope')
   const [birthday, setBirthday] = useState('')
-  const [sign1, setSign1] = useState('')
-  const [sign2, setSign2] = useState('')
+  const [matchS1, setMatchS1] = useState('白羊座')
+  const [matchS2, setMatchS2] = useState('金牛座')
   const [result, setResult] = useState<any>(null)
-  const [matchR, setMatchR] = useState<any>(null)
 
-  const analyze = () => {
+  const analyzeHoroscope = () => {
     if (!birthday) return
     const idx = getSign(birthday)
     if (idx < 0) return
-    const s = SIGNS[idx]
-    const h = HOROSCOPE[idx]
-    setResult({ sign: s, horoscope: h })
-    setMatchR(null)
+    setResult({ type: 'horoscope', sign: SIGNS[idx], horoscope: HOROSCOPE[idx] })
   }
 
-  const match = () => {
-    const i1 = SIGNS.findIndex(s => s.name === sign1)
-    const i2 = SIGNS.findIndex(s => s.name === sign2)
-    if (i1 < 0 || i2 < 0) return
-    const s1 = SIGNS[i1], s2 = SIGNS[i2]
-    const pairKey = sign1 in MATCH ? sign1 : (sign2 in MATCH ? sign2 : null)
-    const comment = pairKey ? MATCH[pairKey]?.[sign1 === pairKey ? sign2 : sign1] || '有缘组合' : '有缘组合'
-    setResult(null)
-    setMatchR({ s1, s2, comment })
+  const analyzeMatch = () => {
+    if (!matchS1 || !matchS2) return
+    const key = matchS1 + '\u00d7' + matchS2
+    const key2 = matchS2 + '\u00d7' + matchS1
+    const comment = PAIRING[key] || PAIRING[key2] || '缘分不错的组合，相处愉快。'
+    setResult({ type: 'match', s1: matchS1, s2: matchS2, comment })
   }
 
-  const r = result, m = matchR
+  const active = (m: string) => mode === m
 
   return (<div className="max-w-2xl mx-auto px-4 py-10">
     <h1 className="text-3xl font-bold text-gold-400 font-serif mb-3">星座占卜</h1>
-    <p className="text-gray-400 mb-6">输入生日查看星座运势，或进行星座配对</p>
+    <p className="text-gray-400 mb-6">查看星座运势或进行星座配对分析</p>
 
     <div className="flex gap-2 mb-6">
-      <button onClick={()=>{analyze}} className={`px-3 py-1.5 text-xs rounded-lg ${!matchR ? 'bg-gold-600 text-dark-900' : 'bg-dark-700 text-gray-400 border border-dark-600'}`}>星座运势</button>
-      <button onClick={()=>{}} className={`px-3 py-1.5 text-xs rounded-lg ${matchR ? 'bg-gold-600 text-dark-900' : 'bg-dark-700 text-gray-400 border border-dark-600'}`}>星座配对</button>
+      <button onClick={() => { setMode('horoscope'); setResult(null) }}
+        className={`px-3 py-1.5 text-xs rounded-lg transition-colors ${active('horoscope') ? 'bg-gold-600 text-dark-900' : 'bg-dark-700 text-gray-400 border border-dark-600'}`}>
+        ♈ 星座运势
+      </button>
+      <button onClick={() => { setMode('match'); setResult(null) }}
+        className={`px-3 py-1.5 text-xs rounded-lg transition-colors ${active('match') ? 'bg-gold-600 text-dark-900' : 'bg-dark-700 text-gray-400 border border-dark-600'}`}>
+        💑 星座配对
+      </button>
     </div>
 
-    {/* 运势模式 */}
-    <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-6 mb-8">
-      <label className="text-xs text-gray-400 block mb-2">出生日期（如：1990-10-14）</label>
-      <input type="text" value={birthday} onChange={e=>setBirthday(e.target.value)} placeholder="YYYY-MM-DD" className="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200 mb-3" />
-      <button onClick={analyze} className="bg-gold-600 hover:bg-gold-500 text-dark-900 font-semibold px-6 py-2.5 rounded-lg transition-colors active:scale-95">查看运势</button>
-    </div>
+    {mode === 'horoscope' && (<div>
+      <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-6 mb-8">
+        <label className="text-xs text-gray-400 block mb-2">出生日期</label>
+        <input type="text" value={birthday} onChange={e => setBirthday(e.target.value)} placeholder="例如：1990-10-14"
+          className="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200 mb-3" />
+        <button onClick={analyzeHoroscope}
+          className="bg-gold-600 hover:bg-gold-500 text-dark-900 font-semibold px-6 py-2.5 rounded-lg transition-colors active:scale-95">查看运势</button>
+      </div>
+    </div>)}
 
-    {r && (<div className="space-y-4">
+    {mode === 'match' && (<div>
+      <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-6 mb-8">
+        <div className="grid grid-cols-2 gap-3 mb-4">
+          <div>
+            <label className="text-xs text-gray-400 block mb-1">星座一</label>
+            <select value={matchS1} onChange={e => setMatchS1(e.target.value)}
+              className="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200 text-sm">
+              {SIGNS.map(s => <option key={s.name} value={s.name}>{s.emoji} {s.name}</option>)}
+            </select>
+          </div>
+          <div>
+            <label className="text-xs text-gray-400 block mb-1">星座二</label>
+            <select value={matchS2} onChange={e => setMatchS2(e.target.value)}
+              className="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200 text-sm">
+              {SIGNS.map(s => <option key={s.name} value={s.name}>{s.emoji} {s.name}</option>)}
+            </select>
+          </div>
+        </div>
+        <button onClick={analyzeMatch}
+          className="bg-gold-600 hover:bg-gold-500 text-dark-900 font-semibold px-6 py-2.5 rounded-lg transition-colors active:scale-95">查看配对</button>
+      </div>
+    </div>)}
+
+    {result && result.type === 'horoscope' && (<div className="space-y-4">
       <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-5 text-center">
-        <p className="text-3xl">{r.sign.emoji}</p>
-        <p className="text-xl font-bold text-gold-400">{r.sign.name} {r.sign.en}</p>
-        <p className="text-xs text-gray-400">{r.sign.date} · {r.sign.el}象 · 守护星{r.sign.ruler}</p>
-        <p className="text-xs text-gray-500 mt-1">{r.sign.traits}</p>
+        <p className="text-3xl mb-1">{result.sign.emoji}</p>
+        <p className="text-xl font-bold text-gold-400">{result.sign.name} {result.sign.en}</p>
+        <p className="text-xs text-gray-400">{result.sign.date} · {result.sign.el}象 · 守护星{result.sign.ruler}</p>
+        <p className="text-xs text-gray-500 mt-1">{result.sign.traits}</p>
       </div>
       {(['love','career','money','health'] as const).map(cat => (
         <div key={cat} className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-4">
-          <h3 className="text-xs font-semibold text-gold-400 mb-1">{{love:'爱情运势',career:'事业运势',money:'财运运势',health:'健康运势'}[cat]}</h3>
-          <p className="text-xs text-gray-300">{r.horoscope[cat]}</p>
+          <h3 className="text-xs font-semibold text-gold-400 mb-1">
+            {{love:'爱情运势',career:'事业运势',money:'财运运势',health:'健康运势'}[cat]}
+          </h3>
+          <p className="text-xs text-gray-300">{result.horoscope[cat]}</p>
         </div>
       ))}
     </div>)}
 
-    {/* 配对模式 */}
-    {m && (<div className="space-y-4">
+    {result && result.type === 'match' && (<div className="space-y-4">
       <div className="grid grid-cols-2 gap-3">
         <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-4 text-center">
-          <p className="text-2xl">{m.s1.emoji}</p>
-          <p className="text-sm font-bold text-gold-400">{m.s1.name}</p>
+          <p className="text-2xl mb-1">{SIGNS.find(s=>s.name===result.s1)?.emoji}</p>
+          <p className="text-sm font-bold text-gold-400">{result.s1}</p>
         </div>
         <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-4 text-center">
-          <p className="text-2xl">{m.s2.emoji}</p>
-          <p className="text-sm font-bold text-gold-400">{m.s2.name}</p>
+          <p className="text-2xl mb-1">{SIGNS.find(s=>s.name===result.s2)?.emoji}</p>
+          <p className="text-sm font-bold text-gold-400">{result.s2}</p>
         </div>
       </div>
       <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-5 text-center">
-        <p className="text-sm text-gold-400 font-semibold">配对评价</p>
-        <p className="text-sm text-gray-300 mt-1">{m.comment}</p>
+        <p className="text-sm font-semibold text-gold-400 mb-2">💕 配对分析</p>
+        <p className="text-sm text-gray-300 leading-relaxed">{result.comment}</p>
       </div>
     </div>)}
   </div>)
