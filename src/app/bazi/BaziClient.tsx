@@ -328,21 +328,19 @@ export default function BaziClient() {
 
       {/* 大运 */}
       {result.dayun.length > 0 && (<div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-4">
-        <h3 className="text-sm font-semibold text-gray-200 mb-2">十年大运 · 逐年流年</h3>
-        <div className="space-y-2">
+        <h3 className="text-sm font-semibold text-gray-200 mb-3">十年大运 · 逐年流年</h3>
+        <div className="space-y-3">
           {result.dayun.map((dy:any,i:number)=>(
-            <details key={i}>
-              <summary className="text-xs bg-amber-900/30 text-amber-300 px-2.5 py-1 rounded-lg border border-amber-700/40 font-serif cursor-pointer hover:bg-amber-900/40 inline-block">
-                {dy.gz}运（{dy.age}~{dy.age+9}岁）
-              </summary>
-              <div className="mt-1.5 flex flex-wrap gap-1">
+            <div key={i}>
+              <p className="text-xs text-gold-400 font-serif font-semibold mb-1.5">{dy.gz}运（{dy.age}~{dy.age+9}岁）</p>
+              <div className="flex flex-wrap gap-1">
                 {dy.years?.map((y:any,j:number)=>(
-                  <span key={j} className={`text-[10px] px-1.5 py-0.5 rounded border ${y.gz.includes('寅')||y.gz.includes('申')?'text-rose-300 border-rose-700/40 bg-rose-900/20':y.gz.includes('戊')?'text-amber-300 border-amber-700/40 bg-amber-900/20':'text-gray-400 border-dark-600 bg-dark-700'}`}>
-                    {y.year}年 {y.gz}（{y.age}岁）
+                  <span key={j} className="text-[11px] px-2 py-0.5 rounded border bg-dark-700 border-dark-600 hover:border-gold-500/50 transition-colors">
+                    <span className="text-gray-400">{y.year}</span> <span className="text-amber-300 font-serif">{y.gz}</span> <span className="text-gray-500">({y.age}岁)</span>
                   </span>
                 ))}
               </div>
-            </details>
+            </div>
           ))}
         </div>
       </div>)}
