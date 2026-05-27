@@ -3,10 +3,10 @@ import TaluoClient from './TaluoClient'
 
 export const metadata: Metadata = {
   title: '塔罗占卜 - 九宫八卦',
-  description: '随机抽取塔罗牌，解读牌面含义，洞察过去现在未来。22张大阿尔卡那完整库，含正逆位解读。',
+  description: '在线塔罗牌占卜，78张完整牌组支持单张/三张/凯尔特十字牌阵，自动抽牌解读。',
   openGraph: {
     title: '塔罗占卜 - 九宫八卦',
-    description: '塔罗牌占卜，洞察过去现在未来。',
+    description: '78张塔罗牌在线占卜，多种牌阵可选。',
   },
 }
 
