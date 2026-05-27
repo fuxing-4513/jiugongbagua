@@ -333,9 +333,9 @@ export default function BaziClient() {
           {result.dayun.map((dy:any,i:number)=>(
             <div key={i}>
               <p className="text-xs text-gold-400 font-serif font-semibold mb-1.5">{dy.gz}运（{dy.age}~{dy.age+9}岁）</p>
-              <div className="flex flex-wrap gap-1">
+              <div className="grid grid-cols-2 sm:grid-cols-5 gap-1">
                 {dy.years?.map((y:any,j:number)=>(
-                  <span key={j} className="text-[11px] px-2 py-0.5 rounded border bg-dark-700 border-dark-600 hover:border-gold-500/50 transition-colors">
+                  <span key={j} className="text-[11px] px-2 py-1 rounded border bg-dark-700 border-dark-600 hover:border-gold-500/50 transition-colors text-center">
                     <span className="text-gray-400">{y.year}</span> <span className="text-amber-300 font-serif">{y.gz}</span> <span className="text-gray-500">({y.age}岁)</span>
                   </span>
                 ))}
