@@ -84,20 +84,21 @@ export default function HomeWidgets() {
     setHuangli(getTodayHuangli())
   }, [])
 
-  // 天气 — 通过 IP 定位 + 免费 API
+  // 天气 — 通过 IP 定位 + 免费 API（中文）
   const fetchWeather = async () => {
     setWeatherLoading(true)
     setWeatherError(false)
     try {
-      // Step 1: Get location from IP
-      const ipRes = await fetch('https://ipapi.co/json/')
+      // Step 1: 用 ip-api.com 获取中文地理位置（支持 utf8 中文城市名）
+      const ipRes = await fetch('http://ip-api.com/json/?lang=zh-CN&fields=city,regionName,country,query')
       if (!ipRes.ok) throw new Error('IP lookup failed')
       const ipData = await ipRes.json()
-      const city = ipData.city || ipData.region || ''
+      const city = ipData.city || ipData.regionName || ''
 
-      // Step 2: Get weather from wttr.in (free, no key)
+      // Step 2: 从 wttr.in 获取天气（中文）
+      const langParam = locale === 'zh-TW' ? 'zh' : 'zh'
       const weatherRes = await fetch(
-        `https://wttr.in/${encodeURIComponent(city)}?format=j1&lang=${locale === 'zh-TW' ? 'zh' : locale.slice(0, 2)}`
+        `https://wttr.in/${encodeURIComponent(city)}?format=j1&lang=${langParam}`
       )
       if (!weatherRes.ok) throw new Error('Weather fetch failed')
       const weatherData = await weatherRes.json()
@@ -105,11 +106,11 @@ export default function HomeWidgets() {
 
       if (current) {
         setWeather({
-          city: weatherData.nearest_area?.[0]?.areaName?.[0]?.value || city,
+          city: `${ipData.city}${ipData.regionName ? '·' + ipData.regionName : ''}`,
           temp: current.temp_C || '',
           humidity: current.humidity || '',
           wind: current.winddir16Point || '',
-          condition: current.weatherDesc?.[0]?.value || '',
+          condition: (current.lang_zh?.[0]?.value) || current.weatherDesc?.[0]?.value || '',
           icon: '',
         })
       } else {
