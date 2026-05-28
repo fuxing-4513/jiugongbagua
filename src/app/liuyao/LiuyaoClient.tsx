@@ -121,9 +121,14 @@ const YAO_WX: Record<string, string[]> = {
 }
 
 // ── 铜钱动画组件 ──
-interface CoinData { result: boolean; settled: boolean }
-
 function Coin({ result, settled, delay, tossing }: { result: boolean; settled: boolean; delay: number; tossing: boolean }) {
+  // 计算 transform：动画时交给 CSS keyframes，不设内联 transform 以免冲突
+  const transformStyle = tossing
+    ? undefined // 让 CSS animation 的 keyframes 控制 transform
+    : settled
+      ? `rotateY(${result ? 0 : 180}deg)`
+      : 'rotateY(0deg)'
+
   return (
     <div className="relative w-12 h-12 sm:w-14 sm:h-14" style={{ perspective: '300px' }}>
       <div
@@ -131,9 +136,7 @@ function Coin({ result, settled, delay, tossing }: { result: boolean; settled: b
         style={{
           transformStyle: 'preserve-3d',
           transition: settled ? 'transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)' : 'none',
-          transform: settled
-            ? `rotateY(${result ? 0 : 180}deg)`
-            : 'rotateY(0deg)',
+          transform: transformStyle,
           animation: tossing ? `coinFlip${delay % 3} 0.5s linear infinite` : 'none',
         }}
       >
