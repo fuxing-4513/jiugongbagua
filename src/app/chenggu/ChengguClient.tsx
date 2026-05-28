@@ -129,6 +129,92 @@ const FEMALE: Record<string,Fortune> = {
   '7.1':{poem:'此命生成大不同，夫荣子贵在其中；一生自有逍遥福，富贵荣华极品隆。',interpret:'极品贵命。丈夫子女皆位极人臣，富贵至极。',level:'上吉'},
 }
 
+// ═══════════ 命书分析 ═══════════
+interface MingShu { overview: string; personality: string; marriage: string; career: string; wealth: string; health: string; tips: string }
+function mingShuAnalysis(liang: number, qian: number, level: string, gender: string): MingShu {
+  const total = liang + qian / 10
+  // 根据骨重给出不同命书分析
+  const isMale = gender === 'male'
+  const levelTier = level.includes('上') ? 'upper' : level.includes('中吉') ? 'midgood' : level.includes('中平') ? 'mid' : 'lower'
+
+  const overviewMap: Record<string,string> = {
+    upper: '此命骨重超群，根基深厚，乃人中龙凤之相。一生衣食丰足，名利双收，福禄寿俱全，晚年尤为昌隆。命格贵不可言，非寻常之辈可比。',
+    midgood: '此命骨重中上，根基扎实，一生安稳有余。虽非大富大贵之命，但福泽深厚，衣禄不愁，中年后运势渐入佳境。宜勤勉守成，必有厚报。',
+    mid: '此命骨重均衡，根基平稳。一生需自身努力，不可依赖他人。早年或有波折，中年后方见起色。知足常乐，平安是福。',
+    lower: '此命骨重偏轻，根基较薄。一生多劳碌奔波，运势起伏较大。宜积德行善以增福报，不宜好高骛远，踏实做事为上策。',
+  }
+
+  // 性格 (based on total weight)
+  let personality = ''
+  if (total >= 5.0) {
+    personality = isMale
+      ? '个性刚毅果断，气度不凡，有领袖风范。为人正直豪爽，处事果断，有大将之风。自尊心强，不轻易服输，但也因此容易得罪小人。宜适当收敛锋芒，广结善缘。'
+      : '气质高雅，端庄大方，有不凡的气度和格局。为人聪慧贤淑，处事得体，有旺夫益子之相。内心坚定有主见，不随波逐流，是典型的贵妇命格。'
+  } else if (total >= 4.0) {
+    personality = isMale
+      ? '性格务实稳重，做事有条理。为人诚信可靠，待人真诚，有责任心。虽非锋芒毕露之辈，但胜在踏实肯干，循序渐进，终有所成。'
+      : '性格温婉贤淑，持家有道。为人善良真诚，有包容心。做事细心周到，虽不争不抢，但自有一番天地。旺夫运佳，是贤内助之命。'
+  } else if (total >= 3.5) {
+    personality = isMale
+      ? '性格平和踏实，为人勤恳。做事较为保守，不喜冒险。虽无大富大贵，但能安守本分，一生平顺。宜多开阔眼界，敢于尝试新事物。'
+      : '性格温柔善良，待人亲和。做事认真负责，持家有方。虽不事张扬，但家庭和睦美满。宜多接触外界，开阔视野。'
+  } else {
+    personality = isMale
+      ? '性格偏固执内向，不易与人推心置腹。做事喜欢独来独往，不善于借助外力。宜放宽心态，多结交益友，积累人脉以助运程。'
+      : '性格内向柔弱，不善表达。内心敏感多思，容易忧虑。宜培养兴趣爱好，拓展社交圈子，建立自信。'
+  }
+
+  // 婚姻
+  const marriageMap: Record<string,string> = {
+    upper: isMale ? '婚姻美满，配偶贤惠，夫妻同心。异性缘好，易得贤妻相助。婚后家业兴旺，子女出息。宜晚婚更佳，早婚亦可。' : '婚姻顺遂，配偶有为之士。旺夫命格，婚后家运日隆。夫妻恩爱，子女成才。宜配德才兼备之君子。',
+    midgood: isMale ? '婚姻平稳，配偶忠厚贤良。夫妻关系融洽，家庭和睦。晚婚更利于事业，婚后财运渐旺。宜以诚相待，珍惜姻缘。' : '婚姻和顺，配偶踏实可靠。家庭和睦，夫妻相敬如宾。宜配性情温和、有责任心的伴侣。',
+    mid: isMale ? '婚姻较平淡，需双方共同努力经营。早年感情运势一般，中年后趋于稳定。宜多沟通理解，不可意气用事。' : '婚姻需耐心经营，不可急于求成。正缘稍晚，宜顺其自然。婚后家庭生活稳定，宜珍惜。',
+    lower: isMale ? '婚姻运势偏弱，宜晚婚以避波折。择偶需谨慎，不宜仓促。婚后宜互相包容，方能长久。' : '姻缘较薄，宜晚婚。择偶需仔细考察，不可轻信于人。婚后宜多些耐心和包容。',
+  }
+
+  // 事业
+  const careerMap: Record<string,string> = {
+    upper: isMale ? '事业运极旺，宜从政或经商。有领导才能，适合管理岗位或自主创业。中年后事业腾飞，名利双收。' : '事业运旺，宜从事文化、教育、管理类工作。有贵人扶持，事业顺遂。亦可协助配偶事业发展。',
+    midgood: isMale ? '事业运中上，宜选择稳定行业深耕。不适合频繁跳槽，专注一行必有成就。中年后事业渐入佳境。' : '事业平稳，宜从事文职、服务业等稳定工作。有才艺天赋，可发展副业。',
+    mid: isMale ? '事业需勤勉经营，不宜好高骛远。宜选择务实的工作，积累经验和资源。中年后可尝试创业。' : '事业宜稳定为主，不宜频繁变动。可在自己擅长的领域深耕，积累口碑。',
+    lower: isMale ? '事业运偏弱，宜安分守己做稳定工作。不适合创业，宜依附他人发展。勤勉工作，积累为重。' : '事业宜稳扎稳打，不适合冒险。宜选择有保障的行业，量力而行。',
+  }
+
+  // 财运
+  const wealthMap: Record<string,string> = {
+    upper: isMale ? '财运亨通，正财偏财皆旺。善于理财投资，有经商头脑。中年后财源滚滚，家业丰盈。宜合理规划资产配置。' : '财运旺盛，衣食无忧。有旺夫运，丈夫事业有成则家财万贯。自身也有理财天赋，宜合理投资。',
+    midgood: isMale ? '财运稳中有升，宜稳健理财。不适合高风险投资，以正财收入为主。中年后财运渐旺，积累可观。' : '财运平稳，善于持家理财。家庭经济状况良好，子女成年后经济更加宽裕。',
+    mid: isMale ? '财运平平，宜量入为出。不宜借钱给他人，也不宜盲目投资。以稳妥为主，积少成多。' : '财运一般，宜勤俭持家。不宜大手大脚，以储蓄为主。中年后略有改善。',
+    lower: isMale ? '财运偏弱，宜精打细算。不宜投资理财，以正职稳定收入为主。避免借贷担保，谨防破财。' : '财运较弱，宜精简开支。不宜参与投资理财活动，以储蓄保本为上。',
+  }
+
+  // 健康
+  const healthMap: Record<string,string> = {
+    upper: '身体康健，精力充沛。宜注意饮食有度，不可过度操劳。定期体检，防患于未然。晚年注意心血管保养。',
+    midgood: '身体基本健康，偶有微恙。宜规律作息，适当运动。注意肠胃和肝胆方面的保养。',
+    mid: '体质偏弱，易感疲劳。宜加强锻炼，增强体质。注意季节变化，防范感冒等常见病。',
+    lower: '体质较弱，需多加保养。宜早睡早起，饮食清淡有节。注意心脑血管和消化系统健康。',
+  }
+
+  // 一生运势提示
+  const tipsMap: Record<string,Record<string,string>> = {
+    upper: { male: '此命为贵格，天生福泽深厚。一生宜以德服人、施恩于人，则福报更增。宜从事公益慈善，积德以固福报。忌骄傲自满、目中无人，须知满招损谦受益。', female: '此命为福命，一生衣食无忧。宜相夫教子以积福，为人处世以柔克刚。忌锋芒太露、争强好胜，须知坤德以柔为贵。' },
+    midgood: { male: '此为中上之命，宜勤奋进取，中年后自有回报。宜广结善缘，积累人脉。忌畏首畏尾、错失良机。', female: '此为中上之命，宜善用自身优势相夫教子。宜多学习充实自己，与丈夫共同进步。忌消极依赖、不思进取。' },
+    mid: { male: '此为中和之命，一生平稳。宜脚踏实地，厚积薄发。忌冒进求快，须知欲速不达。多做好事可改善运势。', female: '此为中和之命，一生平淡是真。宜持家有道，与人为善。忌攀比虚荣，知足常乐。' },
+    lower: { male: '此命骨轻，宜知天命、顺其自然。多做善事可增福报，切忌怨天尤人。改变命运的根本在于积德行善、自强不息。', female: '此命骨轻，宜修身养性。多做善事、广结善缘可改善运势。忌心浮气躁、贪图捷径。' },
+  }
+
+  return {
+    overview: overviewMap[levelTier] || overviewMap.mid,
+    personality,
+    marriage: marriageMap[levelTier] || marriageMap.mid,
+    career: careerMap[levelTier] || careerMap.mid,
+    wealth: wealthMap[levelTier] || wealthMap.mid,
+    health: healthMap[levelTier] || healthMap.mid,
+    tips: (tipsMap[levelTier]?.[isMale ? 'male' : 'female']) || tipsMap.mid[isMale ? 'male' : 'female'],
+  }
+}
+
 export default function ChengguClient() {
   const [isSolar, setIsSolar] = useState(true)
   const [gender, setGender] = useState<'male'|'female'>('male')
@@ -166,7 +252,8 @@ export default function ChengguClient() {
       const qian = Math.round((total - liang) * 10)
       const fortuneDB = gender === 'male' ? MALE : FEMALE
       const fortune = fortuneDB[totalStr] || fortuneDB['4.0']
-      setResult({ yearW, monthW, dayW, hourW, total, liang, qian, gzYear, lMonth, lDay, dz, solarLabel, lunarLabel, gender, ...fortune })
+      const mingShu = mingShuAnalysis(liang, qian, fortune.level, gender)
+      setResult({ yearW, monthW, dayW, hourW, total, liang, qian, gzYear, lMonth, lDay, dz, solarLabel, lunarLabel, gender, mingShu, ...fortune })
     } catch { setResult(null) }
   }
 
@@ -241,6 +328,38 @@ export default function ChengguClient() {
       <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-5">
         <h3 className="text-sm font-semibold text-gold-400 mb-2">{r.gender === 'male' ? '♂ 男命解读' : '♀ 女命解读'}</h3>
         <p className="text-sm text-gray-300 leading-relaxed">{r.interpret}</p>
+      </div>
+
+      {/* 命书分析 */}
+      <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-gold-500/30 p-5">
+        <h3 className="text-sm font-semibold text-gold-400 mb-3">📖 称骨命书</h3>
+        <p className="text-xs text-amber-300 mb-3 leading-relaxed">{r.mingShu.overview}</p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+          <div className="bg-dark-700/60 rounded-lg p-3">
+            <h4 className="text-blue-400 font-semibold mb-1">🧠 性格</h4>
+            <p className="text-gray-300 leading-relaxed">{r.mingShu.personality}</p>
+          </div>
+          <div className="bg-dark-700/60 rounded-lg p-3">
+            <h4 className="text-pink-400 font-semibold mb-1">💕 婚姻</h4>
+            <p className="text-gray-300 leading-relaxed">{r.mingShu.marriage}</p>
+          </div>
+          <div className="bg-dark-700/60 rounded-lg p-3">
+            <h4 className="text-cyan-400 font-semibold mb-1">💼 事业</h4>
+            <p className="text-gray-300 leading-relaxed">{r.mingShu.career}</p>
+          </div>
+          <div className="bg-dark-700/60 rounded-lg p-3">
+            <h4 className="text-green-400 font-semibold mb-1">💰 财运</h4>
+            <p className="text-gray-300 leading-relaxed">{r.mingShu.wealth}</p>
+          </div>
+        </div>
+        <div className="mt-3 bg-dark-700/60 rounded-lg p-3">
+          <h4 className="text-red-400 font-semibold mb-1 text-xs">❤️ 健康</h4>
+          <p className="text-gray-300 leading-relaxed text-xs">{r.mingShu.health}</p>
+        </div>
+        <div className="mt-3 bg-gold-900/20 rounded-lg p-3 border border-gold-700/30">
+          <h4 className="text-gold-400 font-semibold mb-1 text-xs">🌟 一生运势提示</h4>
+          <p className="text-gray-200 leading-relaxed text-xs">{r.mingShu.tips}</p>
+        </div>
       </div>
     </div>)}
   </div>)
