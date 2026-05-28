@@ -120,57 +120,69 @@ const YAO_WX: Record<string, string[]> = {
   '艮': ['木','木','水','水','金','金'], '兑': ['木','木','土','土','金','金'],
 }
 
-// ── 铜钱动画组件 ──
-function Coin({ result, settled, delay, tossing }: { result: boolean; settled: boolean; delay: number; tossing: boolean }) {
-  // 计算 transform：动画时交给 CSS keyframes，不设内联 transform 以免冲突
+// ── 铜钱动画组件 (大尺寸，正反面清晰可见) ──
+function Coin({ result, settled, delay, tossing, size }: { result: boolean; settled: boolean; delay: number; tossing: boolean; size?: 'lg' | 'xl' }) {
+  const isLg = size === 'lg'
+  const isXl = size === 'xl'
+  const dims = isXl ? 'w-20 h-20 sm:w-24 sm:h-24' : isLg ? 'w-16 h-16 sm:w-18 sm:h-18' : 'w-12 h-12 sm:w-14 sm:h-14'
+  const hole = isXl ? 'w-5 h-5' : isLg ? 'w-4 h-4' : 'w-3 h-3'
+  const borderW = isXl ? '4px' : isLg ? '3px' : '2px'
+  const textSize = isXl ? 'text-[11px]' : isLg ? 'text-[9px]' : 'text-[7px]'
+  const tinyText = isXl ? 'text-[8px]' : isLg ? 'text-[7px]' : 'text-[6px]'
+
   const transformStyle = tossing
-    ? undefined // 让 CSS animation 的 keyframes 控制 transform
+    ? undefined
     : settled
       ? `rotateY(${result ? 0 : 180}deg)`
       : 'rotateY(0deg)'
 
   return (
-    <div className="relative w-12 h-12 sm:w-14 sm:h-14" style={{ perspective: '300px' }}>
+    <div className={`relative ${dims}`} style={{ perspective: '400px' }}>
       <div
         className="relative w-full h-full"
         style={{
           transformStyle: 'preserve-3d',
           transition: settled ? 'transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)' : 'none',
           transform: transformStyle,
-          animation: tossing ? `coinFlip${delay % 3} 0.5s linear infinite` : 'none',
+          animation: tossing ? `coinFlip${delay % 3} 0.48s linear infinite` : 'none',
         }}
       >
-        {/* 正面：字面（乾） */}
+        {/* 正面：字面（乾隆通宝） */}
         <div
           className="absolute inset-0 rounded-full flex items-center justify-center"
           style={{
             backfaceVisibility: 'hidden',
-            background: 'radial-gradient(circle at 40% 40%, #f0d080, #c89640 50%, #8b6914 100%)',
-            border: '3px solid #b8860b',
-            boxShadow: '0 2px 8px rgba(0,0,0,0.5), inset 0 1px 3px rgba(255,255,200,0.4)',
+            background: 'radial-gradient(circle at 35% 35%, #f8e8b0, #d4a030 40%, #c89020 65%, #8b6508 100%)',
+            border: `${borderW} solid #b8860b`,
+            boxShadow: '0 3px 12px rgba(0,0,0,0.6), inset 0 1px 4px rgba(255,255,200,0.5), inset 0 -2px 4px rgba(0,0,0,0.2)',
           }}
         >
           {/* 方孔 */}
-          <div className="w-3 h-3 border-2 border-gold-800 rounded-[1px] bg-dark-900/40" />
-          <span className="absolute text-[7px] font-bold text-amber-900/70 top-0.5">乾</span>
-          <span className="absolute text-[7px] font-bold text-amber-900/70 bottom-0.5">隆</span>
-          <span className="absolute text-[7px] font-bold text-amber-900/70 left-0.5">通</span>
-          <span className="absolute text-[7px] font-bold text-amber-900/70 right-0.5">寶</span>
+          <div className={`${hole} border-2 border-amber-800/60 rounded-[2px] bg-dark-950/50`} />
+          {/* 四字 */}
+          <span className={`absolute ${textSize} font-bold text-amber-900/80`} style={{ top: isXl ? '4px' : '2px' }}>乾</span>
+          <span className={`absolute ${textSize} font-bold text-amber-900/80`} style={{ bottom: isXl ? '4px' : '2px' }}>隆</span>
+          <span className={`absolute ${textSize} font-bold text-amber-900/80`} style={{ left: isXl ? '4px' : '2px' }}>通</span>
+          <span className={`absolute ${textSize} font-bold text-amber-900/80`} style={{ right: isXl ? '4px' : '2px' }}>寶</span>
+          {/* 内圈 */}
+          <div className={`absolute inset-2 rounded-full border border-amber-800/15 pointer-events-none`} />
         </div>
-        {/* 背面：满文/花纹 */}
+        {/* 背面：满文 */}
         <div
           className="absolute inset-0 rounded-full flex items-center justify-center"
           style={{
             backfaceVisibility: 'hidden',
             transform: 'rotateY(180deg)',
-            background: 'radial-gradient(circle at 40% 40%, #e8c860, #b8860b 50%, #7a5c00 100%)',
-            border: '3px solid #a07828',
-            boxShadow: '0 2px 8px rgba(0,0,0,0.5), inset 0 1px 3px rgba(255,255,200,0.4)',
+            background: 'radial-gradient(circle at 35% 35%, #f0d888, #c89020 40%, #b07810 65%, #7a5c00 100%)',
+            border: `${borderW} solid #a07828`,
+            boxShadow: '0 3px 12px rgba(0,0,0,0.6), inset 0 1px 4px rgba(255,255,200,0.4), inset 0 -2px 4px rgba(0,0,0,0.2)',
           }}
         >
-          <div className="w-3 h-3 border-2 border-amber-800 rounded-[1px] bg-dark-900/40" />
-          <div className="absolute inset-2 rounded-full border border-amber-800/30" />
-          <span className="absolute text-[6px] text-amber-800/60" style={{ top: '2px' }}>滿</span>
+          <div className={`${hole} border-2 border-amber-800/60 rounded-[2px] bg-dark-950/50`} />
+          <div className="absolute inset-2 rounded-full border border-amber-800/25 pointer-events-none" />
+          <div className="absolute inset-3 rounded-full border border-amber-800/15 pointer-events-none" />
+          <span className={`absolute ${tinyText} text-amber-800/50 font-bold`} style={{ top: isXl ? '5px' : '3px' }}>滿</span>
+          <span className={`absolute ${tinyText} text-amber-800/50 font-bold`} style={{ bottom: isXl ? '5px' : '3px' }}>文</span>
         </div>
       </div>
     </div>
@@ -420,8 +432,8 @@ export default function LiuyaoClient() {
             </div>
           </div>
 
-          {/* 铜钱展示区 */}
-          <div className="flex items-center justify-center gap-4 sm:gap-6 mb-4 min-h-[80px]">
+          {/* 铜钱展示区 - 大尺寸 */}
+          <div className="flex items-center justify-center gap-5 sm:gap-7 mb-5 min-h-[100px]">
             {[0, 1, 2].map(i => (
               <Coin
                 key={`${tossCount}-${i}`}
@@ -429,6 +441,7 @@ export default function LiuyaoClient() {
                 settled={coinSettled}
                 delay={i}
                 tossing={isTossing}
+                size="lg"
               />
             ))}
           </div>
@@ -484,43 +497,81 @@ export default function LiuyaoClient() {
 
       {/* ============ 自动起卦区域 ============ */}
       {mode === 'auto' && !r && (
-        <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-6 mb-8">
+        <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-8 mb-8 min-h-[420px]">
           {autoAnimating ? (
-            <div className="flex flex-col items-center gap-4">
-              <p className="text-gold-400 text-sm animate-pulse">☯ 铜钱翻转中...</p>
-              <div className="flex flex-col-reverse items-center gap-0.5">
+            <div className="flex flex-col items-center gap-6">
+              {/* 当前爻次 */}
+              <div className="flex items-center gap-3">
+                <span className="text-gold-400 text-lg animate-pulse">☯</span>
+                <span className="text-gold-400 text-base font-serif">
+                  {autoAnimStep >= 6 ? '卦成！' : `正在起第 ${autoAnimStep + 1} 爻`}
+                </span>
+              </div>
+
+              {/* 三枚大铜钱 */}
+              <div className="flex items-center justify-center gap-6 sm:gap-8 py-4">
+                {[0, 1, 2].map(i => (
+                  <Coin
+                    key={`auto-${autoAnimStep}-${i}`}
+                    result={Math.random() > 0.5}
+                    settled={false}
+                    delay={i}
+                    tossing={autoAnimStep < 6}
+                    size="xl"
+                  />
+                ))}
+              </div>
+
+              {/* 卦象进度 */}
+              <div className="flex flex-col-reverse items-center gap-1 w-64">
                 {[5, 4, 3, 2, 1, 0].map(i => (
-                  <div key={i} className="flex items-center gap-1">
-                    <span className="text-[9px] text-gray-500 w-8 text-right">{YAO_NAMES[i]}</span>
-                    {i < autoAnimStep ? (
-                      autoAnimLines[i] === 0 ? (
-                        <div className="flex items-center gap-1 animate-fadeIn">
-                          <span className="block w-6 h-0.5 bg-gold-400 rounded" />
-                          <span className="block w-2 h-0.5 bg-dark-700" />
-                          <span className="block w-6 h-0.5 bg-gold-400 rounded" />
-                        </div>
+                  <div key={i} className="flex items-center gap-2 w-full">
+                    <span className="text-[10px] text-gray-500 w-10 text-right">{YAO_NAMES[i]}</span>
+                    <div className="flex-1 flex justify-center">
+                      {i < autoAnimStep ? (
+                        autoAnimLines[i] === 0 ? (
+                          <div className="flex items-center gap-2 animate-fadeIn">
+                            <span className="block w-8 h-0.5 bg-gold-400 rounded" />
+                            <span className="block w-2 h-0.5 bg-dark-700" />
+                            <span className="block w-8 h-0.5 bg-gold-400 rounded" />
+                          </div>
+                        ) : (
+                          <div className="flex items-center gap-2 animate-fadeIn">
+                            <span className="block w-8 h-0.5 bg-amber-500 rounded" />
+                            <span className="block w-0.5 h-0.5 bg-amber-500 rounded-full" />
+                            <span className="block w-8 h-0.5 bg-amber-500 rounded" />
+                          </div>
+                        )
+                      ) : i === autoAnimStep ? (
+                        <span className="text-gold-400 text-xs animate-pulse">●●●</span>
                       ) : (
-                        <div className="flex items-center gap-1 animate-fadeIn">
-                          <span className="block w-6 h-0.5 bg-amber-600 rounded" />
-                          <span className="block w-0.5 h-0.5 bg-amber-600 rounded-full" />
-                          <span className="block w-6 h-0.5 bg-amber-600 rounded" />
-                        </div>
-                      )
-                    ) : i === autoAnimStep ? (
-                      <span className="text-amber-500 text-xs animate-pulse">🪙</span>
-                    ) : (
-                      <span className="text-gray-700 text-xs">—</span>
-                    )}
+                        <span className="text-gray-700 text-xs">————</span>
+                      )}
+                  </div>
                   </div>
                 ))}
               </div>
+
+              <p className="text-[10px] text-gray-600">三枚铜钱正在翻转中...</p>
             </div>
           ) : (
-            <div className="text-center">
-              <button onClick={autoCast} className="bg-gold-600 hover:bg-gold-500 text-dark-900 font-semibold px-8 py-3 rounded-lg text-lg transition-all active:scale-95">
+            <div className="flex flex-col items-center justify-center h-[360px] gap-6">
+              {/* 静态展示三枚大铜钱 */}
+              <div className="flex items-center justify-center gap-6 sm:gap-8">
+                {[true, false, true].map((r, i) => (
+                  <div key={i} className={`relative ${i === 1 ? '-mt-3' : ''}`} style={{ opacity: 0.6 }}>
+                    <Coin result={r} settled delay={i} tossing={false} size="xl" />
+                  </div>
+                ))}
+              </div>
+
+              <p className="text-gray-400 text-sm">三枚乾隆通宝，六次投掷成卦</p>
+
+              <button onClick={autoCast} className="bg-gold-600 hover:bg-gold-500 text-dark-900 font-semibold px-10 py-4 rounded-lg text-xl transition-all active:scale-95 shadow-lg shadow-gold-900/20">
                 ☯ 一键起卦
               </button>
-              <p className="text-[10px] text-gray-500 mt-2">自动模拟六次铜钱投掷</p>
+
+              <p className="text-[10px] text-gray-600">系统自动模拟六次铜钱投掷，逐爻展示</p>
             </div>
           )}
         </div>
