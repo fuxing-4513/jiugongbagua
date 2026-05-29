@@ -241,8 +241,7 @@ export default function LiuyaoClient() {
   const [autoAnimating, setAutoAnimating] = useState(false)
   const [autoAnimLines, setAutoAnimLines] = useState<number[]>([])
   const [autoAnimStep, setAutoAnimStep] = useState(0)
-  const [autoCoinResults, setAutoCoinResults] = useState<boolean[][]>([])   // 每爻三枚铜钱结果
-  const [autoCoinSettled, setAutoCoinSettled] = useState(false)              // 当前爻铜钱已落定
+  const [autoCoinPhase, setAutoCoinPhase] = useState<'idle'|'tossing'|'landed'|'done'>('idle')  // idle→tossing(翻转)→landed(落定展示)→done(该爻完成)
   const [autoCurrentCoins, setAutoCurrentCoins] = useState<boolean[]>([true, false, true])  // 当前展示的三枚铜钱
   const [autoCurrentDesc, setAutoCurrentDesc] = useState('')                 // 当前爻文字描述
   const autoTimerRef = useRef<ReturnType<typeof setTimeout>>(undefined)
@@ -314,11 +313,10 @@ export default function LiuyaoClient() {
     setAutoAnimating(true)
     setAutoAnimLines([])
     setAutoAnimStep(0)
-    setAutoCoinResults([])
-    setAutoCoinSettled(false)
+    setAutoCoinPhase('idle')
     setAutoCurrentDesc('')
 
-    // 预生成全部六爻结果
+    // 预生成全部六爻结果（不展示，只是后台准备）
     const lines: number[] = []
     const changing: number[] = []
     const allCoins: boolean[][] = []
@@ -331,47 +329,52 @@ export default function LiuyaoClient() {
       if (ch) changing.push(i)
     }
 
-    // 逐爻动画：每爻先翻铜钱→停定→展示→下一爻
+    // 逐爻动画：每爻三阶段 → 翻转1.5s → 落定展示2s（让客户看清楚结果）→ 下一爻
     let step = 0
-    const PHASE_TOSS = 1200   // 铜钱翻动时间
-    const PHASE_SHOW = 1000   // 展示结果时间
+    const TOSS_MS = 1500   // 铜钱翻转时长
+    const LAND_MS = 2000   // 落定展示时长（让用户清楚看到三枚铜钱的正/反面）
 
-    const animateNextYao = () => {
+    const tossNext = () => {
       if (step >= 6) {
         setAutoAnimating(false)
-        setAutoCoinSettled(false)
+        setAutoCoinPhase('idle')
         finishCast(lines, changing)
         return
       }
 
-      // 阶段1：开始摇这一爻（铜钱开始翻转）
-      setAutoCoinSettled(false)
-      setAutoCoinResults(prev => [...prev, allCoins[step]])
-      // 先展示随机翻转（出现铜钱开始转）
-      setAutoCurrentCoins(allCoins[step].map(() => Math.random() > 0.5))
+      const coins = allCoins[step]
+
+      // === 阶段1: 开始翻转 ===
+      // 铜钱进入翻转状态（显示随机面，CSS动画实际旋转）
+      setAutoCoinPhase('tossing')
+      setAutoCurrentCoins([Math.random() > 0.5, Math.random() > 0.5, Math.random() > 0.5])
       setAutoCurrentDesc('')
 
-      // 阶段2：PHASE_TOSS 后铜钱落定展示结果
+      // === 阶段2: 时间到，铜钱落定 ===
       autoTimerRef.current = setTimeout(() => {
-        const coins = allCoins[step]
+        // 设置正确的铜钱结果（setAutoCurrentCoins + setAutoCoinPhase('landed') 同步）
+        // 这样 Coin 组件会从 tossing→animation:none 切换到 transform:rotateY，
+        // 铜钱翻转显现出真实的正/背面结果
         setAutoCurrentCoins(coins)
-        setAutoCoinSettled(true)
+        setAutoCoinPhase('landed')
+
         const heads = coins.filter(Boolean).length
         setAutoCurrentDesc(getLineDesc(heads))
 
-        // 将当前爻加入已展示列表
+        // 将这一爻加入已完成的卦象进度
         setAutoAnimLines(prev => [...prev, lines[step]])
         setAutoAnimStep(step + 1)
 
-        // 阶段3：PHASE_SHOW 后进入下一爻
+        // === 阶段3: 停留展示后，进入下一爻 ===
         autoTimerRef.current = setTimeout(() => {
           step++
-          animateNextYao()
-        }, PHASE_SHOW)
-      }, PHASE_TOSS)
+          tossNext()
+        }, LAND_MS)
+      }, TOSS_MS)
     }
 
-    autoTimerRef.current = setTimeout(animateNextYao, 300)
+    // 开始第一爻
+    autoTimerRef.current = setTimeout(tossNext, 400)
   }
 
   useEffect(() => {
@@ -410,8 +413,7 @@ export default function LiuyaoClient() {
     setAutoAnimating(false)
     setAutoAnimLines([])
     setAutoAnimStep(0)
-    setAutoCoinResults([])
-    setAutoCoinSettled(false)
+    setAutoCoinPhase('idle')
     setAutoCurrentDesc('')
     if (autoTimerRef.current) clearTimeout(autoTimerRef.current)
   }
@@ -549,53 +551,40 @@ export default function LiuyaoClient() {
                 </span>
               </div>
 
-              {/* 三枚大铜钱 —— 独立展示当前爻的翻转与落定 */}
+              {/* 三枚大铜钱 —— 独立展示当前爻的真实结果 */}
               <div className="flex items-center justify-center gap-6 sm:gap-8 py-4 min-h-[120px]">
                 {[0, 1, 2].map(i => (
                   <Coin
                     key={`auto-${autoAnimStep}-${i}`}
                     result={autoCurrentCoins[i] ?? true}
-                    settled={autoCoinSettled}
+                    settled={autoCoinPhase === 'landed'}
                     delay={i}
-                    tossing={!autoCoinSettled}
+                    tossing={autoCoinPhase === 'tossing'}
                     size="xl"
                   />
                 ))}
               </div>
 
-              {/* 当前爻文字说明 */}
-              {autoCoinSettled && autoCurrentDesc && (
-                <div className="text-center animate-fadeIn">
+              {/* 当前爻文字说明 - 落定后才显示 */}
+              {autoCoinPhase === 'landed' && autoCurrentDesc && (
+                <div className="text-center animate-fadeIn bg-dark-900/60 rounded-lg px-6 py-3 border border-gold-900/30">
                   <p className="text-sm text-gray-300">
                     {autoCurrentCoins.filter(Boolean).length} 阳 {autoCurrentCoins.filter(b => !b).length} 阴
                   </p>
-                  <p className="text-sm font-semibold text-gold-400 mt-1">{autoCurrentDesc}</p>
+                  <p className="text-base font-bold text-gold-400 mt-1">{autoCurrentDesc}</p>
                 </div>
               )}
 
-              {/* 卦象进度 */}
-              <div className="flex flex-col-reverse items-center gap-1 w-64">
-                {[5, 4, 3, 2, 1, 0].map(i => (
-                  <div key={i} className="flex items-center gap-2 w-full">
-                    <span className="text-[10px] text-gray-500 w-10 text-right">{YAO_NAMES[i]}</span>
-                    <div className="flex-1 flex justify-center">
-                      {i < autoAnimStep ? (
-                        autoAnimLines[i] === 0 ? (
-                          <div className="flex items-center gap-2 animate-fadeIn">
-                            <span className="block w-8 h-0.5 bg-gold-400 rounded" />
-                            <span className="block w-2 h-0.5 bg-dark-700" />
-                            <span className="block w-8 h-0.5 bg-gold-400 rounded" />
-                          </div>
-                        ) : (
-                          <div className="flex items-center gap-2 animate-fadeIn">
-                            <span className="block w-8 h-0.5 bg-amber-500 rounded" />
-                            <span className="block w-0.5 h-0.5 bg-amber-500 rounded-full" />
-                            <span className="block w-8 h-0.5 bg-amber-500 rounded" />
-                          </div>
-                        )
-                      ) : i === autoAnimStep ? (
-                        autoCoinSettled ? (
-                          // 当前爻刚刚落定，显示结果
+              {/* 卦象进度 - 逐爻构建 */}
+              <div className="flex flex-col-reverse items-center gap-1 w-64 mt-2">
+                {[5, 4, 3, 2, 1, 0].map(i => {
+                  const isCompleted = i < autoAnimStep
+                  const isCurrent = i === autoAnimStep
+                  return (
+                    <div key={i} className="flex items-center gap-2 w-full justify-center">
+                      <span className="text-[10px] text-gray-500 w-10 text-right">{YAO_NAMES[i]}</span>
+                      <div className="flex-1 flex justify-center">
+                        {isCompleted ? (
                           autoAnimLines[i] === 0 ? (
                             <div className="flex items-center gap-2 animate-fadeIn">
                               <span className="block w-8 h-0.5 bg-gold-400 rounded" />
@@ -609,19 +598,36 @@ export default function LiuyaoClient() {
                               <span className="block w-8 h-0.5 bg-amber-500 rounded" />
                             </div>
                           )
+                        ) : isCurrent ? (
+                          autoCoinPhase === 'landed' ? (
+                            // 当前爻已落定，显示真实爻线
+                            autoAnimLines[i] === 0 ? (
+                              <div className="flex items-center gap-2 animate-fadeIn">
+                                <span className="block w-8 h-0.5 bg-gold-400 rounded" />
+                                <span className="block w-2 h-0.5 bg-dark-700" />
+                                <span className="block w-8 h-0.5 bg-gold-400 rounded" />
+                              </div>
+                            ) : (
+                              <div className="flex items-center gap-2 animate-fadeIn">
+                                <span className="block w-8 h-0.5 bg-amber-500 rounded" />
+                                <span className="block w-0.5 h-0.5 bg-amber-500 rounded-full" />
+                                <span className="block w-8 h-0.5 bg-amber-500 rounded" />
+                              </div>
+                            )
+                          ) : (
+                            <span className="text-gold-400 text-sm animate-pulse">●●●</span>
+                          )
                         ) : (
-                          <span className="text-gold-400 text-xs animate-pulse">●●●</span>
-                        )
-                      ) : (
-                        <span className="text-gray-700 text-xs">————</span>
-                      )}
-                  </div>
-                  </div>
-                ))}
+                          <span className="text-gray-700 text-xs">━━━━</span>
+                        )}
+                      </div>
+                    </div>
+                  )
+                })}
               </div>
 
-              <p className="text-[10px] text-gray-600">
-                {autoCoinSettled ? '铜钱已落定 ✓' : '铜钱正在翻转中...'}
+              <p className="text-[10px] text-gray-500">
+                {autoCoinPhase === 'tossing' ? '🪙 铜钱正在翻转中...' : autoCoinPhase === 'landed' ? '✓ 本爻已定，即将进入下一爻...' : ''}
               </p>
             </div>
           ) : (
