@@ -3,72 +3,8 @@
 import { useState, useCallback, useEffect, useRef } from 'react'
 
 // ── 64卦数据 ──
-interface Hexagram { num: number; name: string; upper: string; lower: string; overall: string }
-
-const H: Record<number, Hexagram> = {
-  1:{num:1,name:'乾为天',upper:'乾',lower:'乾',overall:'乾卦：元亨利贞。天行健，君子以自强不息。象征创始、强健、刚毅。'},
-  2:{num:2,name:'坤为地',upper:'坤',lower:'坤',overall:'坤卦：元亨。地势坤，君子以厚德载物。象征包容、柔顺、承载。'},
-  3:{num:3,name:'水雷屯',upper:'坎',lower:'震',overall:'屯卦：元亨利贞。万物初生，困难重重，宜守不宜进，待时而动。'},
-  4:{num:4,name:'山水蒙',upper:'艮',lower:'坎',overall:'蒙卦：亨。匪我求童蒙，童蒙求我。启蒙教育，虚心求教。'},
-  5:{num:5,name:'水天需',upper:'坎',lower:'乾',overall:'需卦：有孚光亨。需者须也，等待时机，诚信守正则吉。'},
-  6:{num:6,name:'天水讼',upper:'乾',lower:'坎',overall:'讼卦：有孚窒惕。争讼冲突，宜和解不宜争斗。'},
-  7:{num:7,name:'地水师',upper:'坤',lower:'坎',overall:'师卦：贞丈人吉。师者众也，统率之象。'},
-  8:{num:8,name:'水地比',upper:'坎',lower:'坤',overall:'比卦：吉。比者亲也，亲附有道。'},
-  11:{num:11,name:'地天泰',upper:'坤',lower:'乾',overall:'泰卦：小往大来吉亨。天地交泰，万事通达。'},
-  12:{num:12,name:'天地否',upper:'乾',lower:'坤',overall:'否卦：不利君子贞。天地不交，闭塞不通，宜隐忍。'},
-  13:{num:13,name:'天火同人',upper:'乾',lower:'离',overall:'同人卦：同人于野亨。志同道合，团结协作。'},
-  14:{num:14,name:'火天大有',upper:'离',lower:'乾',overall:'大有卦：元亨。大获所有，丰收富足。'},
-  15:{num:15,name:'地山谦',upper:'坤',lower:'艮',overall:'谦卦：亨君子有终。谦逊退让，满招损谦受益。'},
-  16:{num:16,name:'雷地豫',upper:'震',lower:'坤',overall:'豫卦：利建侯行师。愉悦安乐，顺势而为。'},
-  17:{num:17,name:'泽雷随',upper:'兑',lower:'震',overall:'随卦：元亨利贞。随顺从时，择善而从。'},
-  18:{num:18,name:'山风蛊',upper:'艮',lower:'巽',overall:'蛊卦：元亨。整治弊病，革故鼎新。'},
-  19:{num:19,name:'地泽临',upper:'坤',lower:'兑',overall:'临卦：元亨利贞。以德临人，以诚待人。'},
-  20:{num:20,name:'风地观',upper:'巽',lower:'坤',overall:'观卦：盥而不荐。观察审视，以智慧洞察。'},
-  21:{num:21,name:'火雷噬嗑',upper:'离',lower:'震',overall:'噬嗑卦：亨利用狱。咬合治理，决断之象。'},
-  22:{num:22,name:'山火贲',upper:'艮',lower:'离',overall:'贲卦：亨。修饰文饰，文质彬彬。'},
-  23:{num:23,name:'山地剥',upper:'艮',lower:'坤',overall:'剥卦：不利有攸往。盛极而衰，宜守不宜进。'},
-  24:{num:24,name:'地雷复',upper:'坤',lower:'震',overall:'复卦：亨七日来复。一阳来复，生机萌发。'},
-  25:{num:25,name:'天雷无妄',upper:'乾',lower:'震',overall:'无妄卦：元亨利贞。不妄为，顺其自然。'},
-  26:{num:26,name:'山天大畜',upper:'艮',lower:'乾',overall:'大畜卦：利贞。厚积薄发，蓄德养才。'},
-  27:{num:27,name:'山雷颐',upper:'艮',lower:'震',overall:'颐卦：贞吉。颐养养生，自食其力。'},
-  28:{num:28,name:'泽风大过',upper:'兑',lower:'巽',overall:'大过卦：栋桡。非常时期需非常之举。'},
-  29:{num:29,name:'坎为水',upper:'坎',lower:'坎',overall:'坎卦：习坎有孚。险中之险，诚信可脱险。'},
-  30:{num:30,name:'离为火',upper:'离',lower:'离',overall:'离卦：利贞亨。光明依附，文明照耀。'},
-  31:{num:31,name:'泽山咸',upper:'兑',lower:'艮',overall:'咸卦：亨利贞。感应感通，以诚相感。'},
-  32:{num:32,name:'雷风恒',upper:'震',lower:'巽',overall:'恒卦：亨无咎。持之以恒，坚守正道。'},
-  33:{num:33,name:'天山遁',upper:'乾',lower:'艮',overall:'遁卦：亨。急流勇退，以退为进。'},
-  34:{num:34,name:'雷天大壮',upper:'震',lower:'乾',overall:'大壮卦：利贞。刚健有为，不可恃强。'},
-  35:{num:35,name:'火地晋',upper:'离',lower:'坤',overall:'晋卦：康侯用锡马。如日之升，步步高升。'},
-  36:{num:36,name:'地火明夷',upper:'坤',lower:'离',overall:'明夷卦：利艰贞。韬光养晦以待时。'},
-  37:{num:37,name:'风火家人',upper:'巽',lower:'离',overall:'家人卦：利女贞。各守其位，家道兴旺。'},
-  38:{num:38,name:'火泽睽',upper:'离',lower:'兑',overall:'睽卦：小事吉。求同存异，和而不同。'},
-  39:{num:39,name:'水山蹇',upper:'坎',lower:'艮',overall:'蹇卦：利西南。知难而进，逢凶化吉。'},
-  40:{num:40,name:'雷水解',upper:'震',lower:'坎',overall:'解卦：利西南。脱离困境，险后坦途。'},
-  41:{num:41,name:'山泽损',upper:'艮',lower:'兑',overall:'损卦：有孚元吉。损己利人，有舍有得。'},
-  42:{num:42,name:'风雷益',upper:'巽',lower:'震',overall:'益卦：利有攸往。损上益下，助人天助。'},
-  43:{num:43,name:'泽天夬',upper:'兑',lower:'乾',overall:'夬卦：扬于王庭。当断则断，果断行事。'},
-  44:{num:44,name:'天风姤',upper:'乾',lower:'巽',overall:'姤卦：女壮勿取。不期而遇，机缘巧合。'},
-  45:{num:45,name:'泽地萃',upper:'兑',lower:'坤',overall:'萃卦：亨。人才汇聚，群英荟萃。'},
-  46:{num:46,name:'地风升',upper:'坤',lower:'巽',overall:'升卦：元亨。循序渐进，步步高升。'},
-  47:{num:47,name:'泽水困',upper:'兑',lower:'坎',overall:'困卦：亨。坚守正道，安贫乐道。'},
-  48:{num:48,name:'水风井',upper:'坎',lower:'巽',overall:'井卦：改邑不改井。修身养性，源源不绝。'},
-  49:{num:49,name:'泽火革',upper:'兑',lower:'离',overall:'革卦：已日乃孚。除旧布新，改革图强。'},
-  50:{num:50,name:'火风鼎',upper:'离',lower:'巽',overall:'鼎卦：元吉。革故鼎新，稳固基业。'},
-  51:{num:51,name:'震为雷',upper:'震',lower:'震',overall:'震卦：亨。临危不乱，处变不惊。'},
-  52:{num:52,name:'艮为山',upper:'艮',lower:'艮',overall:'艮卦：艮其背。适可而止，知止有定。'},
-  53:{num:53,name:'风山渐',upper:'巽',lower:'艮',overall:'渐卦：女归吉。循序渐进，不可急躁。'},
-  54:{num:54,name:'雷泽归妹',upper:'震',lower:'兑',overall:'归妹卦：征凶。名正言顺则吉。'},
-  55:{num:55,name:'雷火丰',upper:'震',lower:'离',overall:'丰卦：亨。日中则昃，盛极防衰。'},
-  56:{num:56,name:'火山旅',upper:'离',lower:'艮',overall:'旅卦：小亨。漂泊不定，宜谦逊。'},
-  57:{num:57,name:'巽为风',upper:'巽',lower:'巽',overall:'巽卦：小亨。顺从而入，渐入佳境。'},
-  58:{num:58,name:'兑为泽',upper:'兑',lower:'兑',overall:'兑卦：亨。以诚待人，和颜悦色。'},
-  59:{num:59,name:'风水涣',upper:'巽',lower:'坎',overall:'涣卦：亨。散则复聚，聚合人心。'},
-  60:{num:60,name:'水泽节',upper:'坎',lower:'兑',overall:'节卦：亨。适度节制，过刚则折。'},
-  61:{num:61,name:'风泽中孚',upper:'巽',lower:'兑',overall:'中孚卦：豚鱼吉。真诚感动万物。'},
-  62:{num:62,name:'雷山小过',upper:'震',lower:'艮',overall:'小过卦：亨。过犹不及，中庸之道。'},
-  63:{num:63,name:'水火既济',upper:'坎',lower:'离',overall:'既济卦：亨小。功成守成，盛极将衰。'},
-  64:{num:64,name:'火水未济',upper:'离',lower:'坎',overall:'未济卦：亨。事未竟成，继续努力。'},
-}
+import { HD, HexagramData } from './hexagram-data'
+const H = HD
 
 const TRI: Record<string, string> = { '乾': '☰', '兑': '☱', '离': '☲', '震': '☳', '巽': '☴', '坎': '☵', '艮': '☶', '坤': '☷' }
 const TRI_SYMBOL: Record<number, string> = { 0: '☰', 1: '☱', 2: '☲', 3: '☳', 4: '☴', 5: '☵', 6: '☶', 7: '☷' }
@@ -654,15 +590,19 @@ export default function LiuyaoClient() {
       )}
 
       {/* ============ 解卦结果 ============ */}
-      {r && (
+      {r && (() => {
+        const hd = r.hexagram as HexagramData
+        const cvd = r.cv as HexagramData | null
+        return (
         <div className="space-y-4 animate-fadeIn">
+          {/* 卦名 & 卦象 */}
           <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-5">
             <div className="text-center mb-3">
-              <p className="text-2xl text-gold-400 font-serif">
-                {TRI[r.hexagram.upper]}{TRI[r.hexagram.lower]} {r.hexagram.name}
+              <p className="text-2xl text-gold-400 font-serif mb-1">
+                {TRI[hd.upper]}{TRI[hd.lower]} {hd.name}
               </p>
-              <p className="text-xs text-gray-400 mt-1">
-                第{r.hexagram.num}卦 · {r.hexagram.upper}上{r.hexagram.lower}下 · {r.gong}宫{GONG_WX[r.gong]}属性
+              <p className="text-xs text-gray-400">
+                第{hd.num}卦 · {hd.upper}上{hd.lower}下 · {r.gong}宫{GONG_WX[r.gong]}属性
               </p>
             </div>
 
@@ -677,7 +617,7 @@ export default function LiuyaoClient() {
                     shiYao={r.shiYao}
                     yingYao={r.yingYao}
                     gong={r.gong}
-                    hexNum={r.hexagram.num}
+                    hexNum={hd.num}
                     changing={r.changing}
                   />
                 ))}
@@ -689,22 +629,71 @@ export default function LiuyaoClient() {
                 动爻：第{r.changing.map((c: number) => 6 - c).join('、')}爻
               </p>
             )}
+          </div>
 
-            <div className="pt-3 border-t border-dark-600">
-              <p className="text-sm text-gray-300 leading-relaxed">{r.hexagram.overall}</p>
+          {/* 卦辞 - 核心 */}
+          <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-gold-600/30 p-5">
+            <h3 className="text-xs text-gold-500 font-bold mb-2 tracking-widest">⚜ 卦辞</h3>
+            <p className="text-sm text-gray-200 leading-relaxed">{hd.guaci}</p>
+          </div>
+
+          {/* 象辞 */}
+          <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-5">
+            <h3 className="text-xs text-gray-500 font-bold mb-2 tracking-widest">📜 象辞</h3>
+            <p className="text-sm text-gray-300 leading-relaxed">{hd.xiangci}</p>
+          </div>
+
+          {/* 三位大师解读（三栏）*/}
+          <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-5">
+            <h3 className="text-xs text-gray-500 font-bold mb-3 tracking-widest">🧙 三位大师解卦</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <div className="bg-dark-900/60 rounded-lg p-3 border border-dark-700">
+                <p className="text-[10px] text-gold-600 font-bold mb-1">邵雍 · 河洛理数</p>
+                <p className="text-[12px] text-gray-300 leading-relaxed">{hd.shaoyong}</p>
+              </div>
+              <div className="bg-dark-900/60 rounded-lg p-3 border border-dark-700">
+                <p className="text-[10px] text-gold-600 font-bold mb-1">傅佩荣 · 解卦手册</p>
+                <p className="text-[12px] text-gray-300 leading-relaxed">{hd.fupeirong}</p>
+              </div>
+              <div className="bg-dark-900/60 rounded-lg p-3 border border-dark-700">
+                <p className="text-[10px] text-gold-600 font-bold mb-1">张铭仁 · 解卦</p>
+                <p className="text-[12px] text-gray-300 leading-relaxed">{hd.zhangmingren}</p>
+              </div>
+            </div>
+          </div>
+
+          {/* 六大领域解读 */}
+          <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-5">
+            <h3 className="text-xs text-gray-500 font-bold mb-3 tracking-widest">📋 六领域建议</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              {[
+                { label: '💼 事业', key: 'career' },
+                { label: '🏪 经商', key: 'business' },
+                { label: '🏆 求名', key: 'fame' },
+                { label: '✈ 外出', key: 'travel' },
+                { label: '💕 婚恋', key: 'love' },
+                { label: '🎯 决策', key: 'decision' },
+              ].map(item => (
+                <div key={item.key} className="bg-dark-900/60 rounded-lg p-2.5 border border-dark-700">
+                  <p className="text-[10px] text-gold-600 font-bold mb-0.5">{item.label}</p>
+                  <p className="text-[12px] text-gray-300 leading-relaxed">{(hd as any)[item.key]}</p>
+                </div>
+              ))}
             </div>
           </div>
 
           {/* 变卦 */}
-          {r.cv && (
-            <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-gold-500/30 p-5">
+          {cvd && (
+            <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-amber-600/30 p-5">
               <div className="text-center mb-2">
-                <p className="text-xs text-gold-500 mb-1">变卦</p>
+                <p className="text-xs text-amber-500 mb-1">→ 变卦（动爻变化后的结果）</p>
                 <p className="text-lg text-gold-400 font-serif">
-                  {TRI[r.cv.upper]}{TRI[r.cv.lower]} {r.cv.name}
+                  {TRI[cvd.upper]}{TRI[cvd.lower]} {cvd.name}
                 </p>
+                <p className="text-[10px] text-gray-500 mt-0.5">第{cvd.num}卦 · {cvd.upper}上{cvd.lower}下</p>
               </div>
-              <p className="text-sm text-gray-300 leading-relaxed">{r.cv.overall}</p>
+              <p className="text-sm text-gray-300 leading-relaxed">{cvd.guaci}</p>
+              <p className="text-xs text-gray-400 leading-relaxed mt-2">{cvd.fupeirong}</p>
             </div>
           )}
 
@@ -715,7 +704,8 @@ export default function LiuyaoClient() {
             </button>
           </div>
         </div>
-      )}
+        )
+      })()}
     </div>
   )
 }
