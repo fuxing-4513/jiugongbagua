@@ -205,6 +205,47 @@ function generateHuangliFallback(year: number, month: number, day: number): Huan
   }
 }
 
+
+// ── 二十四节气数据（带详细描述） ──
+const SOLAR_TERMS = [
+  {name:"小寒",en:"Minor Cold",date:"1月5日",desc:"小寒是第23个节气，太阳达黄经285°。北方进入严寒，民间有小寒胜大寒之说。"},
+  {name:"大寒",en:"Major Cold",date:"1月20日",desc:"全年最后一个节气，太阳达黄经300°。一年中最冷的时候，冬季即将结束。"},
+  {name:"立春",en:"Start of Spring",date:"2月4日",desc:"二十四节气之首，太阳达黄经315°。春季正式开始，万物复苏，立春一过就回暖。"},
+  {name:"雨水",en:"Rain Water",date:"2月19日",desc:"太阳达黄经330°。降水增多气候转暖，春雨贵如油，正是春耕好时节。"},
+  {name:"惊蛰",en:"Awakening of Insects",date:"3月5日",desc:"太阳达黄经345°。春雷始鸣惊动蛰伏昆虫，气温回升快，春耕重要节气。"},
+  {name:"春分",en:"Spring Equinox",date:"3月20日",desc:"太阳达黄经0°。昼夜等长各12小时，春季正中，北半球白昼渐长。"},
+  {name:"清明",en:"Clear and Bright",date:"4月5日",desc:"太阳达黄经15°。天气晴朗草木繁茂，既是节气也是传统祭祖节日。"},
+  {name:"谷雨",en:"Grain Rain",date:"4月20日",desc:"太阳达黄经30°。降水增多滋润谷物，春季最后一个节气。"},
+  {name:"立夏",en:"Start of Summer",date:"5月5日",desc:"太阳达黄经45°。夏季开始气温升高，雷雨增多，农作物旺盛生长。"},
+  {name:"小满",en:"Grain Buds",date:"5月21日",desc:"太阳达黄经60°。麦类夏收作物籽粒开始饱满但未成熟。"},
+  {name:"芒种",en:"Grain in Ear",date:"6月6日",desc:"太阳达黄经75°。有芒麦子可收割，有芒稻谷可播种，最忙农事。"},
+  {name:"夏至",en:"Summer Solstice",date:"6月21日",desc:"太阳达黄经90°。北半球白昼最长，阳气最盛，夏至过后昼渐短。"},
+  {name:"小暑",en:"Minor Heat",date:"7月7日",desc:"太阳达黄经105°。天气开始炎热但未到最热，江淮梅雨先后结束。"},
+  {name:"大暑",en:"Major Heat",date:"7月22日",desc:"太阳达黄经120°。一年中最热的时期，正值三伏天中伏前后。"},
+  {name:"立秋",en:"Start of Autumn",date:"8月7日",desc:"太阳达黄经135°。秋季开始暑去凉来，部分地区仍有秋老虎。"},
+  {name:"处暑",en:"End of Heat",date:"8月23日",desc:"太阳达黄经150°。暑气至此而止，天气转凉，秋意渐浓。"},
+  {name:"白露",en:"White Dew",date:"9月7日",desc:"太阳达黄经165°。天凉水汽在叶片上凝结成白色露珠，典型秋季节气。"},
+  {name:"秋分",en:"Autumnal Equinox",date:"9月23日",desc:"太阳达黄经180°。昼夜再次等长，秋季正中，白昼渐短气温下降。"},
+  {name:"寒露",en:"Cold Dew",date:"10月8日",desc:"太阳达黄经195°。露水更冷快要凝霜，北方深秋景象红叶飘零。"},
+  {name:"霜降",en:"First Frost",date:"10月23日",desc:"太阳达黄经210°。天气渐冷开始有霜，秋季到冬季的过渡节气。"},
+  {name:"立冬",en:"Start of Winter",date:"11月7日",desc:"太阳达黄经225°。冬季正式开始万物收藏，北方吃饺子南方进补。"},
+  {name:"小雪",en:"Minor Snow",date:"11月22日",desc:"太阳达黄经240°。开始降雪但雪量不大，气温持续走低。"},
+  {name:"大雪",en:"Major Snow",date:"12月7日",desc:"太阳达黄经255°。降雪增多气温下降，是冬令进补好时机。"},
+  {name:"冬至",en:"Winter Solstice",date:"12月22日",desc:"太阳达黄经270°。白昼最短阴极阳生，北方吃饺子南方吃汤圆。"},
+]
+function getSeason(m:number){if(m>=3&&m<=5)return"春";if(m>=6&&m<=8)return"夏";if(m>=9&&m<=11)return"秋";return"冬"}
+
+function genShiChen(g:string,d:string,n:number){
+  const c=["子","丑","寅","卯","辰","巳","午","未","申","酉","戌","亥"]
+  const t=["23-01","01-03","03-05","05-07","07-09","09-11","11-13","13-15","15-17","17-19","19-21","21-23"]
+  const sg=[["司命","吉"],["勾陈","凶"],["青龙","吉"],["明堂","吉"],["天刑","凶"],["朱雀","凶"],["金匮","吉"],["天德","吉"],["白虎","凶"],["玉堂","吉"],["天牢","凶"],["玄武","凶"]]
+  const wg:Record<string,string[]>={甲:["东北","正北","东北","正东","东南","正南","西南","正西","西北","正西","西北","正北"],乙:["西北","正北","东北","正东","东南","正南","西南","正西","西北","正北","正西","西北"],丙:["西南","正北","东北","正东","东南","正南","西南","正西","西北","正西","西北","正北"],丁:["东南","正北","东北","正东","东南","正南","西南","正西","西北","正西","正北","西北"],戊:["东南","正北","东北","正东","东南","正南","西南","正西","西北","正西","正北","西北"],己:["东北","正北","东北","正东","东南","正南","西南","正西","西北","正西","西北","正北"],庚:["西北","正北","东北","正东","东南","正南","西南","正西","西北","正北","正西","西北"],辛:["西南","正北","东北","正东","东南","正南","西南","正西","西北","正西","西北","正北"],壬:["东北","正北","东北","正东","东南","正南","西南","正西","西北","正西","西北","正北"],癸:["东南","正北","东北","正东","东南","正南","西南","正西","西北","正西","正北","西北"]}
+  const cf=["冲马","冲羊","冲猴","冲鸡","冲狗","冲猪","冲鼠","冲牛","冲虎","冲兔","冲龙","冲蛇"]
+  const su:{[k:string]:string[]}={子:["祭祀","祈福","求嗣","嫁娶"],丑:["祭祀","祈福","求嗣","会友"],寅:["嫁娶","移徙","入宅","开市"],卯:["祭祀","祈福","出行","嫁娶"],辰:["祭祀","祈福","出行","嫁娶"],巳:["祈福","求嗣","出行","嫁娶"],午:["祭祀","祈福","出行","嫁娶"],未:["祭祀","祈福","出行","求嗣"],申:["出行","嫁娶","移徙","入宅"],酉:["祭祀","祈福","求嗣","会友"],戌:["祭祀","祈福","求嗣","出行"],亥:["祭祀","祈福","出行","嫁娶"]}
+  const av:{[k:string]:string[]}={子:["开仓","破土","安葬"],丑:["出行","嫁娶","移徙"],寅:["祭祀","祈福","安葬"],卯:["开市","交易","安葬"],辰:["出行","移徙","开业"],巳:["开市","交易","嫁娶"],午:["安葬","破土","伐木"],未:["出行","嫁娶","开市"],申:["祭祀","祈福","安葬"],酉:["出行","开市","交易"],戌:["开市","交易","出行"],亥:["开仓","破土","安葬"]}
+  const w=(wg[g]||wg["甲"])??[]
+  return c.map((x,i)=>({name:x+"时",timeRange:t[i],starGod:sg[(n+i)%12][0]+"("+sg[(n+i)%12][1]+")",conflict:cf[(n+i)%12],suitable:(su[x]||["祭祀","祈福"]).slice(0,4).join("、"),avoid:(av[x]||["安葬"]).slice(0,3).join("、"),wealthGod:(w??["正南","正北","东北","正东"])[i%((w??["正南","正北","东北","正东"]).length)]+"方"}))
+}
 export default function HuangliClient() {
   const { t, locale } = useLocale()
 
@@ -248,7 +289,7 @@ export default function HuangliClient() {
 
   const dateNum = year * 100 + month
 
-  return (
+  return (<>
     <div className="max-w-3xl mx-auto px-4 py-10">
       <h1 className="text-3xl font-bold text-red-900 font-serif mb-3">{getT('huangli.title')}</h1>
       <p className="text-gray-600 mb-8">{getT('huangli.desc')}</p>
@@ -303,7 +344,7 @@ export default function HuangliClient() {
       </div>
 
       {/* Main Huangli Card */}
-      <div className="bg-white rounded-xl border border-red-100 p-6 mb-8">
+      <div className="bg-white rounded-xl border border-red-100 p-4 mb-4">
         <h2 className="text-lg font-semibold text-red-900 mb-2">{getT('huangli.today')}</h2>
         <p className="text-sm text-gray-500 mb-4">{data.dateStr} {data.weekDay}</p>
 
@@ -403,5 +444,63 @@ export default function HuangliClient() {
         </div>
       </div>
     </div>
-  )
+      {/* 老黄历吉时查询 */}
+      <div className="bg-white rounded-xl border border-red-100 p-4 mb-4">
+        <h2 className="text-base font-bold text-red-900 mb-1">老黄历吉时查询</h2>
+        <p className="text-xs text-gray-400 mb-3">今日十二时辰（子时→亥时）星神·冲煞·宜忌·财神</p>
+        {(()=>{const sc=genShiChen(data.ganZhiDay.charAt(0),data.ganZhiDay.charAt(1),data.dayOfYear);return(
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2">
+            {sc.map((s,i)=>(
+              <div key={i} className={`rounded-lg px-3 py-2 text-xs border ${s.starGod.includes("吉")?"bg-green-50/50 border-green-200/60":"bg-red-50/30 border-red-200/50"} hover:shadow-sm transition-shadow`}>
+                <div className="flex items-center gap-1.5 mb-0.5">
+                  <span className="text-sm font-bold text-gray-800">{s.name}</span>
+                  <span className="text-[10px] text-gray-400">{s.timeRange}</span>
+                  <span className={`ml-auto text-[10px] px-1.5 py-0.5 rounded-full font-medium ${s.starGod.includes("吉")?"bg-green-100 text-green-700":"bg-red-100 text-red-600"}`}>{s.starGod.substring(0,2)}</span>
+                </div>
+                <div className="flex gap-3 text-[10px] text-gray-500">
+                  <span>冲{s.conflict}</span>
+                  <span>财神·{s.wealthGod}</span>
+                </div>
+                <div className="flex gap-2 mt-1 text-[10px]">
+                  <span className="text-green-700">宜 {s.suitable}</span>
+                  <span className="text-red-500">忌 {s.avoid}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        )})()}
+      </div>
+
+      {/* 二十四节气时间表 */}
+      <div className="bg-white rounded-xl border border-red-100 p-4 mb-4">
+        <h2 className="text-base font-bold text-red-900 mb-1">二十四节气时间表</h2>
+        <p className="text-xs text-gray-400 mb-3">{year}年 太阳到达黄经各节点 · 共24节气 · 每季6个</p>
+        <div className="divide-y divide-gray-100">
+          {SOLAR_TERMS.map((st,i)=>{
+            const m=parseInt(st.date)
+            const se=m>=3&&m<=5?"春":m>=6&&m<=8?"夏":m>=9&&m<=11?"秋":"冬"
+            const sb=se==="春"?"bg-green-50 border-green-200 text-green-700":se==="夏"?"bg-orange-50 border-orange-200 text-orange-600":se==="秋"?"bg-amber-50 border-amber-200 text-amber-700":"bg-blue-50 border-blue-200 text-blue-700"
+            const bgs=sb.split(" ");const si=bgs[0];const bi=bgs[1];const ti=bgs[2]
+            return(
+              <div key={i} className={`flex items-start gap-3 py-2.5 px-1 rounded-lg ${se===getSeason(month)?"bg-red-50/50 -mx-1 px-2":""}`}>
+                <div className={`flex-shrink-0 w-14 h-12 rounded-lg flex flex-col items-center justify-center border ${si+" "+bi}`}>
+                  <span className={`text-xs font-bold ${ti}`}>{st.name}</span>
+                  <span className="text-[9px] text-gray-500">{st.date}</span>
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2 mb-0.5">
+                    <span className={`text-xs font-semibold ${ti}`}>#{se}</span>
+                    <span className="text-[10px] text-gray-300">|</span>
+                    <span className="text-[10px] text-gray-400">{st.en}</span>
+                    {se===getSeason(month)&&<span className="text-[10px] font-medium text-red-600 ml-auto">● 当前</span>}
+                  </div>
+                  <p className="text-xs text-gray-600 leading-relaxed">{st.desc}</p>
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      </div>
+
+  </>)
 }
