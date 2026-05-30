@@ -14,29 +14,6 @@ function tKey(key: string, lang: Record<string, unknown>): string {
   return typeof value === 'string' ? value : key
 }
 
-interface WeatherCurrent {
-  city: string
-  temp: string
-  humidity: string
-  wind: string
-  condition: string
-  feelsLike: string
-  uv: string
-  visibility: string
-}
-
-interface WeatherForecastDay {
-  date: string
-  dayOfWeek: string
-  tempMax: string
-  tempMin: string
-  condition: string
-  humidity: string
-  wind: string
-  sunrise: string
-  sunset: string
-}
-
 interface HuangliData {
   lunarYear: string
   lunarMonth: string
@@ -75,148 +52,107 @@ function getTodayHuangli(): HuangliData {
   }
 }
 
-const DAY_NAMES = ['日','一','二','三','四','五','六']
-
-function conditionZh(desc: string): string {
-  const map: Record<string,string> = {
-    'Clear':'晴','Sunny':'晴','Cloudy':'多云','Overcast':'阴',
-    'Rain':'雨','Drizzle':'小雨','Thunderstorm':'雷阵雨','Snow':'雪',
-    'Fog':'雾','Mist':'薄雾','Haze':'霾','Partly cloudy':'多云',
-    'Light rain':'小雨','Heavy rain':'大雨','Moderate rain':'中雨',
-    'Patchy rain possible':'可能有雨','Light drizzle':'毛毛雨',
-    'Light snow':'小雪','Heavy snow':'大雪','Ice pellets':'冰粒',
-    'Blowing snow':'吹雪','Freezing rain':'冻雨','Thundery outbreaks':'雷雨',
-  }
-  for (const [en, zh] of Object.entries(map)) {
-    if (desc.toLowerCase().includes(en.toLowerCase())) return zh
-  }
-  return desc
-}
-
 export default function HomeWidgets() {
   const { t, locale } = useLocale()
   const lang = t as unknown as Record<string, unknown>
 
   const [huangli, setHuangli] = useState<HuangliData | null>(null)
-  const [current, setCurrent] = useState<WeatherCurrent | null>(null)
-  const [forecast, setForecast] = useState<WeatherForecastDay[]>([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(false)
+  const [weatherCity, setWeatherCity] = useState<string>('')
+  const [weatherQueried, setWeatherQueried] = useState(false)
+  const [imgFailed, setImgFailed] = useState(false)
+
+  // 定位城市
+  useEffect(() => {
+    // 先尝试 localStorage 缓存城市名（避免每次刷新都请求定位）
+    const cached = localStorage.getItem('weatherCity')
+    if (cached) {
+      setWeatherCity(cached)
+      setWeatherQueried(true)
+      return
+    }
+
+    // 多策略定位
+    ;(async () => {
+      let city = ''
+      let region = ''
+
+      // 策略1: ip-api.com (JSONP 兼容性好，免费支持 HTTPS)
+      try {
+        const r = await fetch('https://ip-api.com/json/?lang=zh-CN&fields=city,regionName,countryCode')
+        if (r.ok) {
+          const d = await r.json()
+          if (d.city) { city = d.city; region = d.regionName || '' }
+        }
+      } catch {
+        // fall through
+      }
+
+      // 策略2: ipinfo.io (备用)
+      if (!city) {
+        try {
+          const r = await fetch('https://ipinfo.io/json')
+          if (r.ok) {
+            const d = await r.json()
+            city = d.city || ''; region = d.region || ''
+          }
+        } catch {
+          // fall through
+        }
+      }
+
+      // 策略3: 浏览器定位 + 反向地理编码
+      if (!city) {
+        try {
+          const pos = await new Promise<GeolocationPosition>((resolve, reject) => {
+            navigator.geolocation.getCurrentPosition(resolve, reject, { timeout: 5000 })
+          })
+          const r = await fetch(
+            `https://nominatim.openstreetmap.org/reverse?format=json&lat=${pos.coords.latitude}&lon=${pos.coords.longitude}&accept-language=zh&zoom=10`
+          )
+          if (r.ok) {
+            const d = await r.json()
+            city = d.address?.city || d.address?.town || d.address?.county || ''
+          }
+        } catch {
+          // fall through
+        }
+      }
+
+      if (!city) { city = 'Beijing'; region = '' }
+
+      // 选择 wttr.in 可识别的城市名
+      // 国内城市用拼音或中文都行
+      const finalCity = city
+      if (region && region !== city) {
+        localStorage.setItem('weatherCity', decodeURIComponent(finalCity))
+      } else {
+        localStorage.setItem('weatherCity', finalCity)
+      }
+      setWeatherCity(finalCity)
+      setWeatherQueried(true)
+    })()
+  }, [])
 
   useEffect(() => {
     setHuangli(getTodayHuangli())
   }, [])
 
-  const fetchWeather = async () => {
-    setLoading(true)
-    setError(false)
-
-    let cityName = ''
-    let regionName = ''
-
-    // 策略1: ip-api.com
-    try {
-      const r1 = await fetch('https://ip-api.com/json/?lang=zh-CN&fields=city,regionName,country,countryCode,query')
-      if (r1.ok) {
-        const d = await r1.json()
-        if (d.city) { cityName = d.city; regionName = d.regionName || '' }
-      }
-    } catch {}
-
-    // 策略2: ipinfo.io
-    if (!cityName) {
-      try {
-        const r2 = await fetch('https://ipinfo.io/json')
-        if (r2.ok) {
-          const d = await r2.json()
-          cityName = d.city || ''; regionName = d.region || ''
-        }
-      } catch {}
-    }
-
-    // 策略3: 浏览器定位
-    if (!cityName) {
-      try {
-        const pos = await new Promise<GeolocationPosition>((resolve, reject) => {
-          navigator.geolocation.getCurrentPosition(resolve, reject, { timeout: 5000 })
-        })
-        const r3 = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${pos.coords.latitude}&lon=${pos.coords.longitude}&accept-language=zh&zoom=10`)
-        if (r3.ok) {
-          const d = await r3.json()
-          cityName = d.address?.city || d.address?.town || d.address?.county || ''
-        }
-      } catch {}
-    }
-
-    if (!cityName) { cityName = 'Beijing'; regionName = '' }
-
-    const langParam = locale.startsWith('zh') ? 'zh' : 'en'
-
-    try {
-      const queryCity = encodeURIComponent(cityName)
-      const wr = await fetch(`https://wttr.in/${queryCity}?format=j1&lang=${langParam}&m`)
-      if (!wr.ok) throw new Error('Weather fetch failed: ' + wr.status)
-      const wd = await wr.json()
-
-      const cc = wd.current_condition?.[0]
-      const areaName = wd.nearest_area?.[0]?.areaName?.[0]?.value || cityName
-      const regionFromApi = wd.nearest_area?.[0]?.region?.[0]?.value || regionName
-
-      let displayCity = areaName
-      if (!/[\u4e00-\u9fff]/.test(displayCity)) displayCity = cityName
-      if (regionFromApi && displayCity.indexOf(regionFromApi) === -1 && regionFromApi !== displayCity) {
-        displayCity += ' · ' + regionFromApi
-      }
-
-      let cond = cc.weatherDesc?.[0]?.value || ''
-      if (cc.lang_zh?.[0]?.value) cond = cc.lang_zh[0].value
-      cond = conditionZh(cond)
-
-      if (cc) {
-        setCurrent({
-          city: displayCity,
-          temp: cc.temp_C || '',
-          humidity: cc.humidity || '',
-          wind: cc.winddir16Point || (cc.windspeedKmph ? cc.windspeedKmph + ' km/h' : ''),
-          condition: cond,
-          feelsLike: cc.FeelsLikeC || '',
-          uv: cc.uvIndex || '',
-          visibility: cc.visibility || '',
-        })
-      }
-
-      // 7日预报
-      if (wd.weather && Array.isArray(wd.weather)) {
-        const fcast = wd.weather.map((d: any, i: number) => {
-          const dt = new Date()
-          dt.setDate(dt.getDate() + i)
-          const h0: any = d.hourly?.[0]
-          const a0: any = d.astronomy?.[0]
-          return {
-            date: String(d.date || ''),
-            dayOfWeek: DAY_NAMES[dt.getDay()],
-            tempMax: String(d.maxtempC || ''),
-            tempMin: String(d.mintempC || ''),
-            condition: conditionZh(String(h0?.weatherDesc?.[0]?.value || '')),
-            humidity: String(a0?.humidity || ''),
-            wind: String(h0?.windspeedKmph || ''),
-            sunrise: String(a0?.sunrise || ''),
-            sunset: String(a0?.sunset || ''),
-          }
-        })
-        setForecast(fcast.slice(0, 7))
-      }
-    } catch {
-      setError(true)
-    }
-    setLoading(false)
-  }
-
-  useEffect(() => {
-    fetchWeather()
-  }, [locale])
-
   if (!huangli) return null
+
+  // wttr.in 图片 URL（不受 CORS 限制）
+  const cityEncoded = encodeURIComponent(weatherCity || 'Beijing')
+  const langParam = locale.startsWith('zh') ? 'zh' : 'en'
+
+  // 当前实况 + 7日预报一体化图片
+  // 0: 仅当前天气, 1: 当前+今日, 2: 当前+今日+明日
+  // _0pq = 仅当前 + 透明 + 带边框
+  // _2pnq = 当前+今明 + 窄版 + 静默
+  const weatherImgUrl = `https://wttr.in/${cityEncoded}_2pq_lang=${langParam}_m.png`
+  const forecastImgUrl = `https://wttr.in/${cityEncoded}_0p_lang=${langParam}_m.png`
+
+  // 备用：如果城市获取失败，用北京
+  const fallbackImgUrl = `https://wttr.in/Beijing_2pq_lang=${langParam}_m.png`
+  const fallbackForecastUrl = `https://wttr.in/Beijing_0p_lang=${langParam}_m.png`
 
   return (
     <div className="max-w-6xl mx-auto px-4">
@@ -225,7 +161,7 @@ export default function HomeWidgets() {
       </h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-        {/* 黄历 */}
+        {/* 黄历卡片 */}
         <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-5">
           <div className="flex items-center gap-2 mb-3">
             <span className="text-xl">📅</span>
@@ -262,113 +198,105 @@ export default function HomeWidgets() {
           )}
         </div>
 
-        {/* 天气实况 */}
+        {/* 天气卡片（含当前实况 + 7日预报 + 趋势图） */}
         <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-5">
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2">
               <span className="text-xl">🌤</span>
               <h3 className="text-base font-semibold text-gold-300">{tKey('homeWidgets.weather', lang)}</h3>
             </div>
-            <button onClick={fetchWeather} disabled={loading}
-              className="text-xs text-gold-500 hover:text-gold-400 transition-colors disabled:opacity-50">
+            <button
+              onClick={() => {
+                localStorage.removeItem('weatherCity')
+                setWeatherQueried(false)
+                setImgFailed(false)
+                setWeatherCity('')
+                ;(async () => {
+                  let city = ''
+                  try {
+                    const r = await fetch('https://ip-api.com/json/?lang=zh-CN&fields=city,regionName')
+                    if (r.ok) {
+                      const d = await r.json()
+                      if (d.city) city = d.city
+                    }
+                  } catch {}
+                  if (!city) {
+                    try {
+                      const pos = await new Promise<GeolocationPosition>((resolve, reject) =>
+                        navigator.geolocation.getCurrentPosition(resolve, reject, { timeout: 5000 })
+                      )
+                      const r = await fetch(
+                        `https://nominatim.openstreetmap.org/reverse?format=json&lat=${pos.coords.latitude}&lon=${pos.coords.longitude}&accept-language=zh&zoom=10`
+                      )
+                      if (r.ok) {
+                        const d = await r.json()
+                        city = d.address?.city || d.address?.town || d.address?.county || ''
+                      }
+                    } catch {}
+                  }
+                  const fc = city || 'Beijing'
+                  localStorage.setItem('weatherCity', fc)
+                  setWeatherCity(fc)
+                  setWeatherQueried(true)
+                })()
+              }}
+              className="text-xs text-gold-500 hover:text-gold-400 transition-colors"
+            >
               {tKey('homeWidgets.weatherRefresh', lang)}
             </button>
           </div>
 
-          {loading && <p className="text-sm text-gray-400">{tKey('homeWidgets.loadingWeather', lang)}</p>}
-
-          {error && !loading && (
-            <div>
-              <p className="text-sm text-gray-500">—</p>
-              <div className="mt-2">
-                <img src="https://wttr.in/Beijing_0pqm_lang=zh.png" alt="Weather" className="w-full max-w-md mx-auto rounded-lg" crossOrigin="anonymous" />
-              </div>
-            </div>
+          {!weatherQueried && (
+            <p className="text-sm text-gray-400">{tKey('homeWidgets.loadingWeather', lang)}</p>
           )}
 
-          {current && !loading && (
+          {weatherQueried && (
             <div>
-              <p className="text-base font-medium text-gray-100 mb-2">{current.city}</p>
-              <div className="grid grid-cols-3 gap-2 text-center mb-3">
-                <div className="bg-dark-700 rounded-lg p-2">
-                  <p className="text-xs text-gray-400 mb-0.5">{tKey('homeWidgets.temperature', lang)}</p>
-                  <p className="text-lg font-bold text-gold-400">{current.temp}°C</p>
-                  <p className="text-xs text-gray-500">体感 {current.feelsLike}°C</p>
-                </div>
-                <div className="bg-dark-700 rounded-lg p-2">
-                  <p className="text-xs text-gray-400 mb-0.5">{tKey('homeWidgets.condition', lang)}</p>
-                  <p className="text-lg font-bold text-gray-100">{current.condition}</p>
-                </div>
-                <div className="bg-dark-700 rounded-lg p-2">
-                  <p className="text-xs text-gray-400 mb-0.5">{tKey('homeWidgets.humidity', lang)}</p>
-                  <p className="text-lg font-bold text-gray-100">{current.humidity}%</p>
-                </div>
-                <div className="bg-dark-700 rounded-lg p-2">
-                  <p className="text-xs text-gray-400 mb-0.5">{tKey('homeWidgets.wind', lang)}</p>
-                  <p className="text-sm font-semibold text-gray-100">{current.wind}</p>
-                </div>
-                <div className="bg-dark-700 rounded-lg p-2">
-                  <p className="text-xs text-gray-400 mb-0.5">紫外线</p>
-                  <p className="text-sm font-semibold text-gray-100">{current.uv || '—'}</p>
-                </div>
-                <div className="bg-dark-700 rounded-lg p-2">
-                  <p className="text-xs text-gray-400 mb-0.5">能见度</p>
-                  <p className="text-sm font-semibold text-gray-100">{current.visibility ? current.visibility + ' km' : '—'}</p>
+              {/* 当前实况 + 今明预报 */}
+              <div className="mb-3 text-center">
+                <img
+                  src={imgFailed ? fallbackImgUrl : weatherImgUrl}
+                  alt="Weather"
+                  className="max-w-full h-auto mx-auto rounded-lg"
+                  crossOrigin="anonymous"
+                  onError={(e) => {
+                    const img = e.target as HTMLImageElement
+                    // 尝试备用 city
+                    if (!img.dataset.fallback) {
+                      img.dataset.fallback = '1'
+                      img.src = fallbackImgUrl
+                    } else {
+                      setImgFailed(true)
+                    }
+                  }}
+                />
+              </div>
+
+              {/* 7日预报趋势图（合并在一张卡片内） */}
+              <div className="mt-3 pt-3 border-t border-dark-700">
+                <p className="text-xs text-gold-400 font-medium mb-2 text-center">
+                  📊 {tKey('homeWidgets.forecast7', lang)}
+                </p>
+                <div className="text-center overflow-x-auto">
+                  <img
+                    src={imgFailed ? fallbackForecastUrl : forecastImgUrl}
+                    alt="7日天气预报"
+                    className="max-w-full h-auto mx-auto rounded-lg"
+                    crossOrigin="anonymous"
+                    onError={(e) => {
+                      const img = e.target as HTMLImageElement
+                      if (!img.dataset.fallback) {
+                        img.dataset.fallback = '1'
+                        img.src = imgFailed ? fallbackForecastUrl : forecastImgUrl.replace('_0p_', '_2p_')
+                      }
+                    }}
+                  />
                 </div>
               </div>
             </div>
           )}
         </div>
       </div>
-
-      {/* 7日天气预报 */}
-      {forecast.length > 0 && !loading && (
-        <div className="max-w-6xl mx-auto px-4 mb-8">
-          <h3 className="text-base font-semibold text-gold-400 font-serif mb-3 text-center">
-            📊 {tKey('homeWidgets.forecast7', lang)}
-          </h3>
-          <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-2">
-            {forecast.map((day, i) => (
-              <div key={i} className="bg-dark-800/60 backdrop-blur rounded-xl border border-dark-600 p-3 text-center">
-                <p className="text-sm font-medium text-gold-400 mb-1">
-                  {i === 0 ? tKey('homeWidgets.today', lang) : tKey('homeWidgets.day' + day.dayOfWeek, lang) || '周' + day.dayOfWeek}
-                </p>
-                <p className="text-xs text-gray-500 mb-2">{day.date}</p>
-                <div className="text-2xl mb-1">
-                  {day.condition.includes('晴') ? '☀️' :
-                   day.condition.includes('云') ? '⛅' :
-                   day.condition.includes('阴') ? '☁️' :
-                   day.condition.includes('雨') ? '🌧️' :
-                   day.condition.includes('雷') ? '⛈️' :
-                   day.condition.includes('雪') ? '❄️' :
-                   day.condition.includes('雾') || day.condition.includes('霾') ? '🌫️' : '☀️'}
-                </div>
-                <p className="text-xs text-gray-400 mb-1">{day.condition}</p>
-                <div className="flex justify-center gap-1 text-sm">
-                  <span className="text-red-400 font-medium">{day.tempMax}°</span>
-                  <span className="text-blue-400 font-medium">{day.tempMin}°</span>
-                </div>
-                <p className="text-xs text-gray-500 mt-1">{day.humidity ? '💧' + day.humidity + '%' : ''}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* 天气趋势图 */}
-      {!loading && (
-        <div className="max-w-6xl mx-auto px-4 mb-8">
-          <h3 className="text-base font-semibold text-gold-400 font-serif mb-3 text-center">
-            🌡 {tKey('homeWidgets.forecastGraph', lang)}
-          </h3>
-          <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-4 overflow-x-auto text-center">
-            <div className="inline-block">
-              <img src="https://wttr.in/Beijing_0pq_lang=zh.png" alt="7日天气趋势"
-                className="max-w-full h-auto rounded-lg" crossOrigin="anonymous" />
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   )
 }
