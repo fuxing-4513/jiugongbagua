@@ -1,0 +1,1 @@
+const fs=require('fs');const c=fs.readFileSync('C:/Users/4513/.openclaw/workspace/jiugong-bagua/src/app/bazi/BaziClient.tsx','utf8');const parts=c.split('大运');for(let i=0;i<parts.length;i++){if(parts[i].includes('bg-dark-700')||parts[i].includes('万'))console.log('Section',i,':',parts[i].substring(0,1000))}
