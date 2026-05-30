@@ -692,8 +692,22 @@ function analyzeWuxing(gzArr: string[]): {
   // ── 命挂天干 ──
 const SHI_CHEN_GAN: Record<string, Record<string, string>> = {   '甲':{'子':'甲','丑':'乙','寅':'丙','卯':'丁','辰':'戊','巳':'己','午':'庚','未':'辛','申':'壬','酉':'癸','戌':'甲','亥':'乙'},   '乙':{'子':'丙','丑':'丁','寅':'戊','卯':'己','辰':'庚','巳':'辛','午':'壬','未':'癸','申':'甲','酉':'乙','戌':'丙','亥':'丁'},   '丙':{'子':'戊','丑':'己','寅':'庚','卯':'辛','辰':'壬','巳':'癸','午':'甲','未':'乙','申':'丙','酉':'丁','戌':'戊','亥':'己'},   '丁':{'子':'庚','丑':'辛','寅':'壬','卯':'癸','辰':'甲','巳':'乙','午':'丙','未':'丁','申':'戊','酉':'己','戌':'庚','亥':'辛'},   '戊':{'子':'壬','丑':'癸','寅':'甲','卯':'乙','辰':'丙','巳':'丁','午':'戊','未':'己','申':'庚','酉':'辛','戌':'壬','亥':'癸'},   '己':{'子':'甲','丑':'乙','寅':'丙','卯':'丁','辰':'戊','巳':'己','午':'庚','未':'辛','申':'壬','酉':'癸','戌':'甲','亥':'乙'},   '庚':{'子':'丙','丑':'丁','寅':'戊','卯':'己','辰':'庚','巳':'辛','午':'壬','未':'癸','申':'甲','酉':'乙','戌':'丙','亥':'丁'},   '辛':{'子':'戊','丑':'己','寅':'庚','卯':'辛','辰':'壬','巳':'癸','午':'甲','未':'乙','申':'丙','酉':'丁','戌':'戊','亥':'己'},   '壬':{'子':'庚','丑':'辛','寅':'壬','卯':'癸','辰':'甲','巳':'乙','午':'丙','未':'丁','申':'戊','酉':'己','戌':'庚','亥':'辛'},   '癸':{'子':'壬','丑':'癸','寅':'甲','卯':'乙','辰':'丙','巳':'丁','午':'戊','未':'己','申':'庚','酉':'辛','戌':'壬','亥':'癸'}, }  // ── 时辰对应的地支 ──
 const SHI_CHEN_DIZHI: Record<number, string> = {   0:'子',1:'丑',2:'丑',3:'寅',4:'寅',5:'卯',6:'卯',7:'辰',8:'辰',9:'巳',10:'巳',11:'午',   12:'午',13:'未',14:'未',15:'申',16:'申',17:'酉',18:'酉',19:'戌',20:'戌',21:'亥',22:'亥',23:'子' }  // ── 纳音五行 ──
-const NAYIN: Record<string, string> = {   '甲子':'海中金','乙丑':'海中金','丙寅':'炉中火','丁卯':'炉中火','戊辰':'大林木','己巳':'大林木',   '庚午':'路旁土','辛未':'路旁土','壬申':'剑锋金','癸酉':'剑锋金','甲戌':'山头火','乙亥':'山头火',   '丙子':'涧下水','丁丑':'涧下水','戊寅':'城头土','己卯':'城头土','庚辰':'白蜡金','辛巳':'白蜡金',   '壬午':'杨柳木','癸未':'杨柳木','甲申':'泉中水','乙酉':'泉中水','丙戌':'屋上土','丁亥':'屋上土',   '戊子':'霹雳火','己丑':'霹雳火','庚寅':'松柏木','辛卯':'松柏木','壬辰':'长流水','癸巳':'长流水',   '甲午':'沙中金','乙未':'沙中金','丙申':'山下火','丁酉':'山下火','戊戌':'平地木','己亥':'平地木',   '庚子':'壁上土','辛丑':'壁上土','壬寅':'金箔金','癸卯':'金箔金','甲辰':'覆灯火','乙巳':'覆灯火',   '丙午':'天河水','丁未':'天河水','戊申':'大驿土','己酉':'大驿土','庚戌':'钗钏金','辛亥':'钗钏金',   '壬子':'桑柘木','癸丑':'桑柘木','甲寅':'大溪水','乙卯':'大溪水','丙辰':'沙中土','丁巳':'沙中土',   '戊午':'天上火','己未':'天上火','庚申':'石榴木','辛酉':'石榴木','壬戌':'大海水','癸亥':'大海水', }  // ── 八字排盘 ──
-function calcBazi(lunarYear: number, lunarMonth: number, lunarDay: number, hourDz: string): string[] {
+const NAYIN: Record<string, string> = {   '甲子':'海中金','乙丑':'海中金','丙寅':'炉中火','丁卯':'炉中火','戊辰':'大林木','己巳':'大林木',   '庚午':'路旁土','辛未':'路旁土','壬申':'剑锋金','癸酉':'剑锋金','甲戌':'山头火','乙亥':'山头火',   '丙子':'涧下水','丁丑':'涧下水','戊寅':'城头土','己卯':'城头土','庚辰':'白蜡金','辛巳':'白蜡金',   '壬午':'杨柳木','癸未':'杨柳木','甲申':'泉中水','乙酉':'泉中水','丙戌':'屋上土','丁亥':'屋上土',   '戊子':'霹雳火','己丑':'霹雳火','庚寅':'松柏木','辛卯':'松柏木','壬辰':'长流水','癸巳':'长流水',   '甲午':'沙中金','乙未':'沙中金','丙申':'山下火','丁酉':'山下火','戊戌':'平地木','己亥':'平地木',   '庚子':'壁上土','辛丑':'壁上土','壬寅':'金箔金','癸卯':'金箔金','甲辰':'覆灯火','乙巳':'覆灯火',   '丙午':'天河水','丁未':'天河水','戊申':'大驿土','己酉':'大驿土','庚戌':'钗钏金','辛亥':'钗钏金',   '壬子':'桑柘木','癸丑':'桑柘木','甲寅':'大溪水','乙卯':'大溪水','丙辰':'沙中土','丁巳':'沙中土',   '戊午':'天上火','己未':'天上火','庚申':'石榴木','辛酉':'石榴木','壬戌':'大海水','癸亥':'大海水', }  // ── 藏干（地支含的天干）──
+const CANG_GAN: Record<string, string> = {
+  '子':'癸','丑':'己癸辛','寅':'甲丙戊','卯':'乙','辰':'戊乙癸','巳':'丙戊庚',
+  '午':'丁己','未':'己丁乙','申':'庚壬戊','酉':'辛','戌':'戊辛丁','亥':'壬甲'
+}
+
+// ── 八字排盘 ──
+function calcBazi(lunarYear: number, lunarMonth: number, lunarDay: number, hourDz: string): {
+  pillars: string[];   // [年柱, 月柱, 日柱, 时柱]
+  nayin: string[];    // 纳音
+  wxTg: string[];     // 天干五行
+  wxDz: string[];     // 地支五行
+  cangGan: string[];  // 藏干
+  tgChars: string[];  // 天干字符
+  dzChars: string[];  // 地支字符
+} {
   const nianGan = '甲乙丙丁戊己庚辛壬癸'[(lunarYear - 4) % 10]
   const nianZhi = '子丑寅卯辰巳午未申酉戌亥'[(lunarYear - 4) % 12]
   const nianGz = nianGan + nianZhi
@@ -719,9 +733,21 @@ function calcBazi(lunarYear: number, lunarMonth: number, lunarDay: number, hourD
   const shiGan = SHI_CHEN_GAN[riGan]?.[hourDz] || '甲'
   const shiGz = shiGan + hourDz
 
-  return [nianGz, yueGz, riGz, shiGz]
+  const pillars = [nianGz, yueGz, riGz, shiGz]
+  const tgChars = [nianGan, yueGan, riGan, shiGan]
+  const dzChars = [nianZhi, yueZhi, riZhi, hourDz]
+
+  return {
+    pillars,
+    nayin: pillars.map(p => NAYIN[p] || '—'),
+    wxTg: tgChars.map(c => WX_TG[c] || '土'),
+    wxDz: dzChars.map(c => WX_DZ[c] || '土'),
+    cangGan: dzChars.map(c => CANG_GAN[c] || ''),
+    tgChars,
+    dzChars,
+  }
 }
-// ── 计算天干地支持续 ──
+// ── 计算天干地支 ──
 const TIAN_GAN = '甲乙丙丁戊己庚辛壬癸'
 const DI_ZHI = '子丑寅卯辰巳午未申酉戌亥'
 const WX_TG: Record<string, string> = {   '甲':'木','乙':'木','丙':'火','丁':'火','戊':'土','己':'土','庚':'金','辛':'金','壬':'水','癸':'水' }
@@ -871,7 +897,12 @@ export default function NamingClient() {
   const [wxResults, setWxResults] = useState<NameResult[]>([])
   const [wxError, setWxError] = useState('')
   const [lunarInfo, setLunarInfo] = useState('')
-  const [wxData, setWxData] = useState<{wxCount:Record<string,number>; riZhu:string; riZhuWx:string; bodyStrength:string; yongShen:string} | null>(null)
+  const [baziResult, setBaziResult] = useState<{
+    pillars: string[]; nayin: string[]; wxTg: string[]; wxDz: string[]; cangGan: string[];
+    tgChars: string[]; dzChars: string[];
+    wxCount: Record<string,number>; riZhu: string; riZhuWx: string;
+    bodyStrength: string; yongShen: string;
+  } | null>(null)
   const [poemBatch, setPoemBatch] = useState<PoemNameEntry[]>([])
 
   const handleWuxingSubmit = useCallback(() => {
@@ -891,9 +922,9 @@ export default function NamingClient() {
         setLunarInfo('公历：' + solar.getYear() + '年' + solar.getMonth() + '月' + solar.getDay() + '日')
       }
       const ly = lunar.getYear(), lm = lunar.getMonth(), ld = lunar.getDay()
-      const gzArr = calcBazi(ly, lm, ld, hourDz)
-      const analysis = analyzeWuxing(gzArr)
-      setWxData(analysis)
+      const bazi = calcBazi(ly, lm, ld, hourDz)
+      const analysis = analyzeWuxing(bazi.pillars)
+      setBaziResult({...bazi, ...analysis})
       const names = generateNames(surname.trim(), analysis.wxCount, analysis.yongShen, gender)
       setWxResults(names)
     } catch (e) {
@@ -902,10 +933,10 @@ export default function NamingClient() {
   }, [surname, calType, sYear, sMonth, sDay, sHour, gender])
 
   const handleRegenerate = useCallback(() => {
-    if (!surname.trim() || !wxData) return
-    const names = generateNames(surname.trim(), wxData.wxCount, wxData.yongShen, gender)
+    if (!surname.trim() || !baziResult) return
+    const names = generateNames(surname.trim(), baziResult.wxCount, baziResult.yongShen, gender)
     setWxResults(names)
-  }, [surname, wxData, gender])
+  }, [surname, baziResult, gender])
 
   const handleGushi = useCallback(() => {
     const batch = pickRandomN(POEM_NAMES, 8)
@@ -967,7 +998,7 @@ export default function NamingClient() {
               <div><label className="block text-xs text-gray-400 mb-1">时辰</label>
                 <select value={sHour} onChange={e=>setSHour(e.target.value)}
                   className="w-full px-2 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200 text-sm focus:outline-none focus:border-gold-500">
-                  {HOUR_OPTS.filter((v,i,a)=>a.findIndex(t=>t.l.split(' ')[0]===v.l.split(' ')[0])===i).map(o=><option key={o.v} value={o.v}>{o.l}</option>)}
+                  {Object.entries(HOUR_OPTS.reduce((acc, o) => { const k = o.l.split(' ')[0]; if (!acc[k]) acc[k] = o; return acc }, {} as Record<string,typeof HOUR_OPTS[0]>)).map(([,o]) => <option key={o.v} value={o.v}>{o.l}</option>)}
                 </select></div>
               <div><label className="block text-xs text-gray-400 mb-1">性别</label>
                 <div className="flex gap-2 mt-1">
@@ -984,33 +1015,112 @@ export default function NamingClient() {
             {wxError && <p className="text-xs text-red-400 mt-2">{wxError}</p>}
           </div>
 
-          {/* 八字分析 */}
-          {wxData && (
-            <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-5">
-              <h3 className="text-sm font-semibold text-gray-200 mb-3">八字五行分析</h3>
-              <div className="flex flex-wrap gap-2 mb-3">
-                {Object.entries(wxData.wxCount).map(([wx, cnt]) => (
-                  <span key={wx} className={`text-xs px-2 py-1 rounded border ${WXC[wx]||'bg-dark-700 border-dark-600'}`}>
-                    {wx}：{cnt}个
-                  </span>
-                ))}
+          {/* 八字命盘 + 五行分析 */}
+          {baziResult && (() => {
+            const b = baziResult
+            const pillarLabels = ['年柱','月柱','日柱','时柱']
+            const totalWx = Object.values(b.wxCount).reduce((a, c) => a + c, 0) || 1
+            const wxColor: Record<string,string> = {'木':'from-green-400 to-green-600','火':'from-red-400 to-red-600','土':'from-amber-400 to-amber-600','金':'from-yellow-400 to-yellow-600','水':'from-blue-400 to-blue-600'}
+            const wxBg: Record<string,string> = {'木':'bg-green-700/30','火':'bg-red-700/30','土':'bg-amber-700/30','金':'bg-yellow-700/30','水':'bg-blue-700/30'}
+            return (
+              <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-5">
+                <h3 className="text-sm font-semibold text-gray-200 mb-4">八字命盘</h3>
+
+                {/* 四柱表格 */}
+                <div className="overflow-x-auto mb-4">
+                  <table className="w-full text-xs">
+                    <thead>
+                      <tr className="border-b border-dark-600">
+                        <th className="px-2 py-1.5 text-left text-gray-500"></th>
+                        {pillarLabels.map((pl, i) => (
+                          <th key={i} className="px-3 py-1.5 text-center text-gray-400 font-medium">{pl}</th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr className="border-b border-dark-600/50">
+                        <td className="px-2 py-2 text-gray-500">天干</td>
+                        {b.tgChars.map((c, i) => (
+                          <td key={i} className={`px-3 py-2 text-center text-sm font-bold ${WXC[b.wxTg[i]]?.split(' ')[1] || 'text-gray-300'}`}>{c}</td>
+                        ))}
+                      </tr>
+                      <tr className="border-b border-dark-600/50">
+                        <td className="px-2 py-2 text-gray-500">地支</td>
+                        {b.dzChars.map((c, i) => (
+                          <td key={i} className={`px-3 py-2 text-center text-sm font-bold ${WXC[b.wxDz[i]]?.split(' ')[1] || 'text-gray-300'}`}>{c}</td>
+                        ))}
+                      </tr>
+                      <tr className="border-b border-dark-600/50">
+                        <td className="px-2 py-2 text-gray-500">藏干</td>
+                        {b.cangGan.map((cg, i) => (
+                          <td key={i} className="px-3 py-2 text-center text-xs text-gray-400">{cg || '—'}</td>
+                        ))}
+                      </tr>
+                      <tr>
+                        <td className="px-2 py-2 text-gray-500">纳音</td>
+                        {b.nayin.map((n, i) => (
+                          <td key={i} className="px-3 py-2 text-center text-xs text-gold-400">{n}</td>
+                        ))}
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                {/* 五行旺衰柱状条 */}
+                <div className="mb-4">
+                  <h4 className="text-xs text-gray-400 mb-2">五行旺衰</h4>
+                  <div className="flex gap-2">
+                    {['木','火','土','金','水'].map(wx => {
+                      const cnt = b.wxCount[wx] || 0
+                      const pct = Math.round((cnt / totalWx) * 100)
+                      return (
+                        <div key={wx} className="flex-1">
+                          <div className="text-center text-[10px] mb-1">
+                            <span className={`font-semibold ${WXC[wx]?.split(' ')[1] || 'text-gray-400'}`}>{wx}</span>
+                          </div>
+                          <div className={`h-16 rounded-md flex flex-col justify-end overflow-hidden ${wxBg[wx] || 'bg-dark-700'}`}>
+                            <div className={`rounded-t bg-gradient-to-t ${wxColor[wx] || wxColor['土']} transition-all duration-500`}
+                              style={{height: Math.max(cnt > 0 ? pct : 4, 4) + '%'}}>
+                            </div>
+                          </div>
+                          <div className="text-center text-[10px] text-gray-500 mt-1">{cnt}</div>
+                        </div>
+                      )
+                    })}
+                  </div>
+                </div>
+
+                {/* 命盘解读 */}
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs">
+                  <div className="bg-dark-700 rounded-lg p-3">
+                    <span className="text-gray-500 block">日主</span>
+                    <span className={`text-sm font-bold ${WXC[b.riZhuWx]?.split(' ')[1] || 'text-gray-200'}`}>{b.riZhu}（{b.riZhuWx}）</span>
+                  </div>
+                  <div className="bg-dark-700 rounded-lg p-3">
+                    <span className="text-gray-500 block">身强弱</span>
+                    <span className={`text-sm font-semibold ${b.bodyStrength==='身强'?'text-red-400':b.bodyStrength==='身弱'?'text-blue-400':'text-yellow-400'}`}>{b.bodyStrength}</span>
+                  </div>
+                  <div className="bg-dark-700 rounded-lg p-3">
+                    <span className="text-gray-500 block">用神</span>
+                    <span className={`text-sm font-bold ${WXC[b.yongShen]?.split(' ')[1] || 'text-gold-400'}`}>{b.yongShen}</span>
+                  </div>
+                </div>
+
+                {/* 用神建议 */}
+                <div className="mt-3 bg-dark-700/50 rounded-lg p-3 border border-dark-600">
+                  <p className="text-xs text-gray-400 leading-relaxed">
+                    <span className="text-gold-400 font-semibold">{b.bodyStrength}，用神为{b.yongShen}。</span>
+                    {b.bodyStrength === '身强'
+                      ? ` 八字${b.riZhuWx}旺，宜用${KE_CYCLE[b.riZhuWx]||'土'}、${Object.entries(SHENG_CYCLE).find(([k]) => k === b.riZhuWx)?.[1]||''}五行来平衡命局。建议起名选带「${KE_CYCLE[b.riZhuWx]||'土'}」「${Object.entries(SHENG_CYCLE).find(([k]) => k === b.riZhuWx)?.[1]||''}」属性的字。`
+                      : b.bodyStrength === '身弱'
+                        ? ` 八字${b.riZhuWx}偏弱，宜用${SHENG_CYCLE[b.riZhuWx]||'水'}、${b.riZhuWx}五行来生扶命局。建议起名选带「${SHENG_CYCLE[b.riZhuWx]||'水'}」「${b.riZhuWx}」属性的字。`
+                        : ` 八字五行中和，${b.riZhuWx}日主平衡，可以${b.riZhuWx}为基稍加生扶。`
+                    }
+                  </p>
+                </div>
               </div>
-              <div className="grid grid-cols-3 gap-3 text-xs">
-                <div className="bg-dark-700 rounded-lg p-3">
-                  <span className="text-gray-500">日主：</span>
-                  <span className="text-gray-200">{wxData.riZhu}（{wxData.riZhuWx}）</span>
-                </div>
-                <div className="bg-dark-700 rounded-lg p-3">
-                  <span className="text-gray-500">身强弱：</span>
-                  <span className={`font-semibold ${wxData.bodyStrength==='身强'?'text-red-400':wxData.bodyStrength==='身弱'?'text-blue-400':'text-yellow-400'}`}>{wxData.bodyStrength}</span>
-                </div>
-                <div className="bg-dark-700 rounded-lg p-3">
-                  <span className="text-gray-500">用神：</span>
-                  <span className={`font-semibold ${WXC[wxData.yongShen]?.split(' ')[1]||'text-gold-400'}`}>{wxData.yongShen}</span>
-                </div>
-              </div>
-            </div>
-          )}
+            )
+          })()}
 
           {/* 名字结果 */}
           {wxResults.length > 0 && (
