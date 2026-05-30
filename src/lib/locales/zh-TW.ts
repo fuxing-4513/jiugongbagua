@@ -80,6 +80,11 @@ export const zhTW = {
       desc: '易學知識、命理資料、傳統文化文章',
       emoji: '📚',
     },
+    hehun: {
+      name: '合婚測算',
+      desc: '八字合婚，生肖五行匹配分析',
+      emoji: '💑',
+    },
     experts: {
       name: '專家預約',
       desc: '資深命理專家在線諮詢預約',

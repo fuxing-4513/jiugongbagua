@@ -1,148 +1,318 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef, useEffect, useCallback } from 'react'
+import { ALL_CATEGORIES, LEVEL_COLORS } from './lingqian-data'
+import type { LingqianCategory, LingqianItem } from './types'
 
-const QIAN = [
-  {num:1,title:'开天辟地',level:'上上',poem:'巍巍独步向云间，玉殿千官第一班；富贵荣华天付汝，福如东海寿如山。',desc:'天地初开，万物始成。此签为上上之兆，所求皆遂，前程似锦。'},
-  {num:2,title:'蓝桥求浆',level:'中平',poem:'蓝桥春水漾轻波，云英玉杵待如何；莫道仙凡终有隔，人间自有好姻缘。',desc:'姻缘之事，水到渠成。耐心等待，自有佳期。'},
-  {num:3,title:'姜公垂钓',level:'中平',poem:'渭水河边执钓竿，文王来访遇贤良；八十年来甘守志，一朝际会佐朝堂。',desc:'守得云开见月明，大器晚成之兆。宜耐心等待时机。'},
-  {num:4,title:'织女投梭',level:'下下',poem:'银河耿耿隔天高，织女停梭望鹊桥；一年一度长相会，空使檀郎恨寂寥。',desc:'事多阻隔，好事多磨。宜静心等待，不可操之过急。'},
-  {num:5,title:'苏武还朝',level:'中平',poem:'北海寒毡十九年，孤忠耿耿对苍天；一朝得遂还乡愿，雪满征衣泪满巾。',desc:'历经磨难，终得圆满。忠义之心，天必佑之。'},
-  {num:6,title:'管鲍分金',level:'上上',poem:'管鲍相交义气深，黄金分赠见真心；同心共济成佳话，千古传扬直到今。',desc:'交友得人，合作顺利。金兰之谊，可共患难。'},
-  {num:7,title:'苏小妹观灯',level:'中平',poem:'灯花灿烂照庭前，试看文章锦上妍；好把经纶藏腹内，一朝得遇贵人怜。',desc:'才华终有施展之日，宜积蓄实力等待伯乐。'},
-  {num:8,title:'李太白对月',level:'中平',poem:'举杯邀月月无语，对影成三意气豪；诗酒风流千古颂，功名于我如鸿毛。',desc:'淡泊明志，宁静致远。不求功名，自有风流。'},
-  {num:9,title:'嫦娥奔月',level:'上上',poem:'碧海青天夜夜心，广寒宫里度光阴；仙家也有凄凉处，不及人间情意深。',desc:'高处不胜寒，人间重真情。此签主情缘。'},
-  {num:10,title:'范蠡归隐',level:'上上',poem:'功成身退泛扁舟，五湖烟雨任遨游；千金散尽还复聚，留得英名万古留。',desc:'功成身退，急流勇退。财运亨通，来去自如。'},
-  {num:11,title:'韩信拜将',level:'上上',poem:'胯下之辱志未灰，登坛拜将显雄才；汉家四百年来业，尽是将军手自开。',desc:'忍辱负重，终成大器。事业宏图大展之兆。'},
-  {num:12,title:'王羲之换鹅',level:'中平',poem:'黄庭一卷换白鹅，笔走龙蛇意如何；书法风流千古事，何须金玉满堂多。',desc:'以艺换利，雅事一桩。宜发挥所长。'},
-  {num:13,title:'张生跳墙',level:'下下',poem:'月色溶溶夜正深，墙头偷望意难禁；风流反被风流误，莫待无花空折枝。',desc:'欲速则不达，感情之事不可急进。慎防因小失大。'},
-  {num:14,title:'子路负米',level:'中平',poem:'百里负米奉亲尝，孝心一片感上苍；但得萱堂春永驻，何须名利满朝堂。',desc:'孝心可嘉，百善孝为先。宜以家庭为重。'},
-  {num:15,title:'陶渊明赏菊',level:'上上',poem:'采菊东篱见南山，悠然心意自闲闲；世间名利都看破，只羡桃源不羡仙。',desc:'知足常乐，淡泊名利。田园之乐，胜于庙堂。'},
-  {num:16,title:'刘备招亲',level:'中平',poem:'东吴招亲入虎穴，锦囊妙计破重围；龙凤呈祥终有日，不枉英雄费心机。',desc:'冒险求成，凭智谋可化险为夷。姻缘天定。'},
-  {num:17,title:'伍员过关',level:'中平',poem:'昭关一夜白眉头，父兄冤仇恨未休；幸得渔翁相救渡，英雄终得报深仇。',desc:'一时困顿，终得贵人相助。坚持即见光明。'},
-  {num:18,title:'孟母三迁',level:'上上',poem:'三迁择邻教子方，断机劝学著名扬；贤母自古传佳话，麟趾呈祥继世长。',desc:'教育得法，后嗣昌隆。宜重视子女教育。'},
-  {num:19,title:'曹娥泣江',level:'下下',poem:'孝女寻父泣江滨，七日不食感天神；波涛万里寻亲骨，寸心千古永留名。',desc:'至孝感天，然非人人可为。凡事量力而行。'},
-  {num:20,title:'庄子鼓盆',level:'下下',poem:'鼓盆而歌意如何，生死关头看破多；蝶梦周庄谁是梦，人间万事一南柯。',desc:'看破世事，放下执念。此签带有警示之意。'},
-  {num:21,title:'郭巨埋儿',level:'中平',poem:'埋儿奉母事堪哀，孝感苍天金自来；至诚孝道能回天，莫以非常为怪哉。',desc:'至孝动天，但法不可取。宜以合理方式尽孝。'},
-  {num:22,title:'贵妃醉酒',level:'中平',poem:'玉楼宴罢醉颜红，百媚千娇一笑中；莫道红颜多薄命，承恩只在雨露浓。',desc:'得意之时，莫忘形骸。宜持盈保泰。'},
-  {num:23,title:'牛郎织女',level:'中平',poem:'鹊桥万里渡银河，一岁相逢奈若何；天上人间同此恨，多情总被无情磨。',desc:'异地之恋，聚少离多。贵在坚持。'},
-  {num:24,title:'羲皇画卦',level:'上上',poem:'一画开天混沌分，阴阳八卦定乾坤；圣人不语垂经训，万古长明日月新。',desc:'开创之象，智慧启迪。宜创新求变。'},
-  {num:25,title:'孙膑下山',level:'中平',poem:'鬼谷门中隐几年，兵书战策腹中填；一朝下山施奇计，马陵道上射庞涓。',desc:'学成出山，大显身手。宜用智谋取胜。'},
-  {num:26,title:'文君当垆',level:'中平',poem:'当垆卖酒度晨昏，文君慧眼识王孙；贫贱不移真情在，富贵回头尚有根。',desc:'真情比金坚，共度艰难方显珍贵。'},
-  {num:27,title:'卞和献玉',level:'下下',poem:'荆山采玉献君王，刖足犹能守志刚；终得良工雕琢后，和氏之璧美名扬。',desc:'怀才不遇，终有见天之日。宜坚定信念。'},
-  {num:28,title:'孟尝君养士',level:'上上',poem:'三千宾客集门下，鸡鸣狗盗各争先；一朝得脱秦关险，始知广结善因缘。',desc:'广结善缘，得道多助。人际关系大好。'},
-  {num:29,title:'子牙封神',level:'上上',poem:'斩将封神列宿明，周家八百赖经营；太公在此诸神避，百无禁忌万事兴。',desc:'诸事顺利，百无禁忌。大吉之兆。'},
-  {num:30,title:'鲁班修桥',level:'中平',poem:'巧手神工造石桥，千年稳固不倾摇；莫道人间无巧匠，天工开物看今朝。',desc:'精工出细活，宜专注技艺。事业可成。'},
-  {num:31,title:'伯牙碎琴',level:'中平',poem:'高山流水遇知音，钟子期亡琴亦沉；千古知音最难觅，一弦一柱思华年。',desc:'知音难觅，真情可贵。珍惜眼前之人。'},
-  {num:32,title:'玉环羞花',level:'中平',poem:'回眸一笑百媚生，六宫粉黛无颜色；华清池水洗凝脂，富贵荣华盛极则。',desc:'盛极必衰，乐极生悲。宜谦逊持中。'},
-  {num:33,title:'孟姜寻夫',level:'下下',poem:'万里寻夫到塞边，长城哭倒泪涟涟；谁知白骨埋墙下，千古伤心孟姜篇。',desc:'痴情一片，结局悲凉。宜理智看待感情。'},
-  {num:34,title:'相如完璧',level:'上上',poem:'完璧归赵显奇才，渑池会上展雄才；将相和好国家兴，智勇双全福自来。',desc:'智勇兼备，不辱使命。事业有成之兆。'},
-  {num:35,title:'张骞通西域',level:'上上',poem:'大漠孤烟万里行，丝绸古道起驼铃；凿空西域功千古，博望威名震汉庭。',desc:'开拓新局，前途无量。宜向外发展。'},
-  {num:36,title:'黛玉葬花',level:'下下',poem:'花谢花飞花满天，红消香断有谁怜；一朝春尽红颜老，花落人亡两不知。',desc:'伤感之签，宜注意身体健康，勿过度思虑。'},
-  {num:37,title:'刘伶醉卧',level:'中平',poem:'竹林深处醉犹眠，天地为家日月悬；世人笑我太疯癫，我笑世人看不穿。',desc:'豁达大度，不拘小节。宜保持洒脱心态。'},
-  {num:38,title:'王昭君出塞',level:'下下',poem:'马上琵琶出汉关，明妃泪眼望长安；画师误点丹青笔，辜负红颜恨未阑。',desc:'命运弄人，身不由己。宜随遇而安。'},
-  {num:39,title:'船小浪大',level:'中平',poem:'一叶扁舟泛海中，浪高风急势汹汹；但凭心定身安稳，自有神人送好风。',desc:'虽有风浪，但稳坐钓鱼船。宜镇定面对。'},
-  {num:40,title:'张良拾履',level:'上上',poem:'圯桥进履老人怜，一卷阴符授青年；运筹帷幄兴汉业，功成身退伴云烟。',desc:'虚心受教，得遇高人。谦逊可获贵人提携。'},
-  {num:41,title:'西门豹治邺',level:'中平',poem:'破除迷信治邺城，河伯娶妇止恶行；智勇从来能服众，一方百姓得安宁。',desc:'破除旧习，推行新政。宜果断行事。'},
-  {num:42,title:'郑和七下',level:'上上',poem:'宝船万里下西洋，四海宾服国运昌；七下重洋开海路，三保功勋万古扬。',desc:'远行大吉，海外发展有利。宜拓展眼界。'},
-  {num:43,title:'屈原投江',level:'下下',poem:'离骚一曲断人肠，楚水悠悠恨正长；千古忠魂何处觅，汨罗江上粽飘香。',desc:'忠而见疑，直而受谤。宜审时度势。'},
-  {num:44,title:'岳飞抗金',level:'中平',poem:'精忠报国志未酬，风波亭上泪空流；英雄自古多磨难，留取丹心照汗青。',desc:'壮志未酬，令人扼腕。但正气长存，名垂青史。'},
-  {num:45,title:'商鞅变法',level:'中平',poem:'徙木立信在城南，变法图强不畏难；多年积弊一朝改，秦国从此霸中原。',desc:'改革图新，虽难必行。宜有破釜沉舟之决心。'},
-  {num:46,title:'郑庄公掘地',level:'中平',poem:'黄泉相见母子和，掘地及泉意如何；孝义两全心良苦，千古佳话不嫌多。',desc:'孝义两全，用心良苦。家庭和睦最重要。'},
-  {num:47,title:'刘晨阮肇',level:'中平',poem:'天台山上采药游，桃源洞里遇仙俦；归来已过百年后，始知仙境难久留。',desc:'机缘巧合，遇合非常。宜珍惜眼前缘分。'},
-  {num:48,title:'曹操赠袍',level:'上上',poem:'赤壁鏖兵败走时，云长义释感心知；赠袍一领情深厚，他日华容报恩迟。',desc:'恩义两全，知恩图报。有贵人相助之兆。'},
-  {num:49,title:'班超投笔',level:'上上',poem:'投笔从戎志气高，三十六国使节操；威震西域功勋著，万里封侯有定标。',desc:'弃文从武，大展宏图。宜立志高远。'},
-  {num:50,title:'太白进酒',level:'中平',poem:'人生得意须尽欢，莫使金樽空对月；天生我才必有用，千金散尽还复来。',desc:'及时行乐，但不可放纵。自信人生，必有作为。'},
-  {num:51,title:'孔融让梨',level:'上上',poem:'四岁让梨传美名，孝悌之道本天生；谦让从来为美德，家和万事自然兴。',desc:'谦让有礼，家庭和睦。美德传家，福泽绵长。'},
-  {num:52,title:'包公断案',level:'上上',poem:'铁面无私坐开封，明镜高悬照奸凶；龙虎狗铡分善恶，千古青天仰包公。',desc:'明辨是非，公正无私。冤情得雪，正义得伸。'},
-  {num:53,title:'夸父逐日',level:'下下',poem:'夸父追日涉长途，渴饮河渭未能苏；邓林犹在身先死，徒令后人叹呜呼。',desc:'心比天高，力有不逮。宜量力而行。'},
-  {num:54,title:'精卫填海',level:'中平',poem:'精卫衔微木，将以填沧海；刑天舞干戚，猛志固常在。',desc:'志坚可穿石。持之以恒，必有收获。'},
-  {num:55,title:'神农尝草',level:'上上',poem:'神农尝草遍山川，百药精华著简篇；济世活人功最大，至今万姓仰先贤。',desc:'造福大众，功德无量。宜行善积德。'},
-  {num:56,title:'大禹治水',level:'上上',poem:'三过家门不入内，疏通九水定华夏；八年于外劳心力，从此洪水平天下。',desc:'舍小家为大家，功在社稷。大公无私，必获成功。'},
-  {num:57,title:'桀犬吠尧',level:'下下',poem:'桀犬吠尧各为主，是非颠倒何时无；莫道人心多险恶，且看清浊自分殊。',desc:'是非颠倒，善恶不分。宜明辨是非。'},
-  {num:58,title:'勾践尝胆',level:'中平',poem:'卧薪尝胆廿年间，忍辱含羞志未残；三千越甲终吞吴，苦心人天不负焉。',desc:'忍辱负重，终成大业。有志者事竟成。'},
-  {num:59,title:'萧何月下',level:'上上',poem:'月下追贤意最诚，萧何识才荐韩信；汉家得士定天下，伯乐功高万古名。',desc:'识人善任，得才相助。宜广纳贤才。'},
-  {num:60,title:'廉颇负荆',level:'上上',poem:'负荆请罪过，良将能屈伸；将相重和好，赵国得安宁。',desc:'知错能改，善莫大焉。和解为上，团结为要。'},
-  {num:61,title:'尧舜禅让',level:'上上',poem:'唐虞盛世德为先，禅让天下万古传；公天下变家天下，唯有圣明堪比肩。',desc:'德高望重，天下归心。宜以德服人。'},
-  {num:62,title:'赤松炼丹',level:'中平',poem:'种瓜得瓜豆得豆，种因结果理当然；积善之家有余庆，积不善家有余殃。',desc:'因果不爽，善恶有报。宜多行善事。'},
-  {num:63,title:'董永卖身',level:'中平',poem:'卖身葬父孝心纯，天遣仙姬下凡尘；百日姻缘虽短暂，孝感天下万古闻。',desc:'至孝感天，得遇奇缘。孝道为百行之首。'},
-  {num:64,title:'红线盗盒',level:'中平',poem:'红线夜盗合金盒，巧计全城免干戈；女子亦有惊人艺，莫道巾帼无奇谋。',desc:'智谋过人，以巧取胜。不可轻视任何人。'},
-  {num:65,title:'女娲补天',level:'上上',poem:'炼石补天功业伟，抟土造人创世奇；大地山河重整顿，从此宇宙始安熙。',desc:'大展宏图，化险为夷。有扭转乾坤之力。'},
-  {num:66,title:'崔莺待月',level:'中平',poem:'待月西厢下，迎风户半开；隔墙花影动，疑是玉人来。',desc:'好事多磨，耐心等待。佳期将近。'},
-  {num:67,title:'丹朱围棋',level:'中平',poem:'黑白纵横十九路，布局分明争胜负；世事如棋局局新，成败得失转眼故。',desc:'世事如棋，变幻莫测。宜深思熟虑。'},
-  {num:68,title:'梁鸿举案',level:'上上',poem:'举案齐眉敬如宾，梁鸿夫妇德堪珍；相敬如宾千古颂，夫妻恩爱万年春。',desc:'夫妻和睦，相敬如宾。家庭幸福美满。'},
-  {num:69,title:'仓颉造字',level:'上上',poem:'天雨粟来鬼夜哭，仓颉造字泄玄机；文明从此开新页，万古文章有所依。',desc:'开创文明，功在千秋。宜重视文化学问。'},
-  {num:70,title:'后羿射日',level:'上上',poom:'羿弓射落九金乌，大地清凉万物苏；除暴安良功第一，千秋万世仰雄图。',desc:'除暴安良，为民除害。英勇果断，可成大事。'},
-  {num:71,title:'弄玉吹箫',level:'上上',poem:'弄玉吹箫引凤凰，双双飞上彩云翔；神仙眷属人间少，佳偶天成配成双。',desc:'佳偶天成，天作之合。姻缘美满之兆。'},
-  {num:72,title:'太公遇文王',level:'上上',poem:'文王渭水遇钓翁，八百基业从此兴；君臣际会风云变，一遇风云便化龙。',desc:'遇贵人，得机会。风云际会，飞黄腾达。'},
-  {num:73,title:'三顾茅庐',level:'上上',poem:'三顾茅庐请卧龙，隆中一对定三足；出师未捷身先死，长使英雄泪满襟。',desc:'诚心求贤，终得良才。虚心求教，必有所得。'},
-  {num:74,title:'伯乐相马',level:'上上',poem:'千里马常有，伯乐不常有；一朝遇识主，驰骋万里途。',desc:'得遇识才之人，才华得以施展。好运当至。'},
-  {num:75,title:'草船借箭',level:'上上',poem:'草船借箭妙计施，不费分文得万支；东风不与周郎便，铜雀春深锁二乔。',desc:'智谋过人，事半功倍。善用天时地利人和。'},
-  {num:76,title:'空城退敌',level:'上上',poem:'城头抚琴退司马，空城妙计古今夸；临危不惧胆气壮，智勇双全保国家。',desc:'临危不乱，智退强敌。处变不惊，化险为夷。'},
-  {num:77,title:'庄周梦蝶',level:'中平',poem:'栩栩然蝴蝶也，蘧蘧然周也；物化无端谁解，逍遥一梦千年。',desc:'物我两忘，超然物外。宜修炼心性。'},
-  {num:78,title:'叶公好龙',level:'下下',poem:'叶公好龙非真爱，天龙下降失颜色；画蛇添足事无成，叶公之好不可效。',desc:'表面功夫，难成大事。宜真诚待人。'},
-  {num:79,title:'刻舟求剑',level:'下下',poem:'刻舟求剑愚莫及，胶柱鼓瑟事难成；时移世易当应变，守株待兔两无成。',desc:'固执不变，难成大事。宜顺应时势。'},
-  {num:80,title:'守株待兔',level:'下下',poem:'偶然得兔守枯株，荒废田畴岁月虚；侥幸之心不可有，勤劳才是立身途。',desc:'侥幸难以长久，勤劳才能立足。宜踏实努力。'},
-  {num:81,title:'塞翁失马',level:'中平',poem:'塞翁失马焉知福，得马折足祸福伏；世事无常皆如此，祸福相依莫悲喜。',desc:'祸福相倚，得失无常。宜保持平常心。'},
-  {num:82,title:'画龙点睛',level:'上上',poem:'点睛龙飞去，破壁入云霄；妙手传神韵，声名自此高。',desc:'画龙点睛，事业因关键一举而飞升。'},
-  {num:83,title:'老马识途',level:'中平',poem:'老马识途知归路，迷途觅道有来踪；经验丰富是财富，莫笑前人守旧风。',desc:'经验可贵，老成持重。宜借鉴前人智慧。'},
-  {num:84,title:'愚公移山',level:'中平',poem:'愚公移山志不移，子孙相继无穷期；精诚所至金石开，天帝命人代搬移。',desc:'坚持不懈，终能感动上天。持之以恒最重要。'},
-  {num:85,title:'邯郸学步',level:'下下',poem:'邯郸学步未成技，爬行而归笑煞人；东施效颦亦可厌，效法他人失本真。',desc:'模仿他人，失去自我。宜做回自己。'},
-  {num:86,title:'买椟还珠',level:'下下',poem:'买椟还珠不识宝，取舍颠倒令人恼；世人多被外表惑，真金常在沙砾中。',desc:'重表轻里，取舍不当。宜识真宝。'},
-  {num:87,title:'郑人买履',level:'下下',poem:'郑人买履守尺度，宁信尺码不信足；拘泥成规不知变，可笑之至世人知。',desc:'拘泥不化，不知变通。宜灵活处事。'},
-  {num:88,title:'拔苗助长',level:'下下',poem:'拔苗助长欲速达，苗枯槁兮空嗟呀；欲速不达古有训，循序渐进是良法。',desc:'欲速则不达，宜按部就班，循序渐进。'},
-  {num:89,title:'杞人忧天',level:'下下',poem:'杞人无事忧天倾，终日惶惶不得宁；世上本无许多事，庸人自扰心不宁。',desc:'忧心过重，庸人自扰。宜放宽心胸。'},
-  {num:90,title:'狐假虎威',level:'下下',poem:'狐假虎威吓百兽，一旦事败再无颜；借势欺人终不久，自立才是立身基。',desc:'依赖他人，终非长久之计。宜自强自立。'},
-  {num:91,title:'鹬蚌相争',level:'下下',poem:'鹬蚌相争两不让，渔翁得利在一旁；争来争去为何事，两败俱伤最堪伤。',desc:'两虎相争，必有一伤。宜以和为贵。'},
-  {num:92,title:'涸辙之鱼',level:'下下',poem:'涸辙之鱼盼水来，斗升之水亦堪哀；远水难解近渴急，不如早作防旱谋。',desc:'末路之困，亟待援手。宜未雨绸缪。'},
-  {num:93,title:'乘风破浪',level:'上上',poem:'长风破浪会有时，直挂云帆济沧海；天生我才终有用，乘风破浪展雄才。',desc:'壮志凌云，前途无量。正是大展宏图之时。'},
-  {num:94,title:'铁杵磨针',level:'中平',poem:'铁杵磨成针，功到自然成；只要功夫深，滴水可穿石。',desc:'持之以恒，万事可成。功夫不负有心人。'},
-  {num:95,title:'鲤鱼跃龙门',level:'上上',poem:'龙门三级浪，鲤跃化龙飞；一朝登天去，不负十年威。',desc:'飞黄腾达，鱼跃龙门。事业学业将有大成。'},
-  {num:96,title:'满汉全席',level:'上上',poem:'百味珍馐尽在席，口福深厚天下稀；但教肠胃消受得，一生富贵无与齐。',desc:'丰衣足食，享尽人间富贵。大吉之兆。'},
-  {num:97,title:'花好月圆',level:'上上',poem:'花开红艳月正圆，良辰美景奈何天；且把欢心共明月，莫教虚度好华年。',desc:'花好月圆，万事如意。正是人生得意时。'},
-  {num:98,title:'福如东海',level:'上上',poem:'福如东海长流水，寿比南山不老松；更有财源滚滚至，富贵荣华保太平。',desc:'福寿双全，富贵绵长。大吉大利之签。'},
-  {num:99,title:'凤凰于飞',level:'上上',poem:'凤凰于飞翙翙羽，梧桐枝上择木栖；和鸣锵锵声闻野，百年好合永相依。',desc:'凤凰于飞，和鸣锵锵。姻缘美满，百年好合。'},
-  {num:100,title:'九九归一',level:'上上',poem:'九九归一大道通，万法归宗终有终；上上大吉无不利，万事如意福无穷。',desc:'九九归一，圆满之象。万事大吉，百事亨通。'},
-]
+// ======== 签筒摇晃动画 CSS ========
+const SHAKE_KEYFRAMES = `
+@keyframes qian-shake {
+  0% { transform: rotate(-3deg) translateX(0); }
+  10% { transform: rotate(4deg) translateX(-2px); }
+  20% { transform: rotate(-5deg) translateX(3px); }
+  30% { transform: rotate(6deg) translateX(-4px); }
+  40% { transform: rotate(-4deg) translateX(5px); }
+  50% { transform: rotate(7deg) translateX(-3px); }
+  60% { transform: rotate(-3deg) translateX(2px); }
+  70% { transform: rotate(5deg) translateX(-1px); }
+  80% { transform: rotate(-2deg) translateX(0); }
+  90% { transform: rotate(1deg) translateX(0); }
+  100% { transform: rotate(0deg) translateX(0); }
+}
+@keyframes qian-fly {
+  0% { transform: translateY(0) rotate(0deg) scale(1); opacity: 1; }
+  30% { transform: translateY(-120px) rotate(-20deg) scale(1.1); opacity: 1; }
+  60% { transform: translateY(-40px) rotate(10deg) scale(0.95); opacity: 0.9; }
+  80% { transform: translateY(-80px) rotate(-5deg) scale(1.05); opacity: 0.95; }
+  100% { transform: translateY(-60px) rotate(0deg) scale(1); opacity: 1; }
+}
+@keyframes qian-glow {
+  0%, 100% { box-shadow: 0 0 5px rgba(251,191,36,0.3); }
+  50% { box-shadow: 0 0 20px rgba(251,191,36,0.6), 0 0 40px rgba(251,191,36,0.3); }
+}
+@keyframes stick-pop {
+  0% { transform: scale(0) rotate(-10deg); opacity: 0; }
+  50% { transform: scale(1.15) rotate(5deg); opacity: 1; }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+@keyframes incense-spiral {
+  0% { opacity: 0.6; transform: translateY(0) translateX(0) scale(1); }
+  25% { opacity: 0.3; transform: translateY(-15px) translateX(8px) scale(0.9); }
+  50% { opacity: 0.5; transform: translateY(-30px) translateX(-5px) scale(0.8); }
+  75% { opacity: 0.2; transform: translateY(-45px) translateX(10px) scale(0.7); }
+  100% { opacity: 0; transform: translateY(-60px) translateX(0) scale(0.5); }
+}
+`
 
-const LEVEL_C: Record<string,string> = {'上上':'text-green-400 bg-green-900/30 border-green-700','中平':'text-yellow-400 bg-yellow-900/30 border-yellow-700','下下':'text-red-400 bg-red-900/30 border-red-700'}
+// ======== 签筒 SVG 组件 ========
+function QianTong({ shaking, showResult }: { shaking: boolean; showResult: boolean }) {
+  return (
+    <svg viewBox="0 0 200 280" className="w-48 h-64 sm:w-56 sm:h-72 mx-auto drop-shadow-xl"
+      style={{ animation: shaking ? 'qian-shake 0.4s ease-in-out infinite' : 'none' }}>
+      {/* 签筒身体 - 竹筒纹理 */}
+      <defs>
+        <linearGradient id="bamboo" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stopColor="#b45309" />
+          <stop offset="20%" stopColor="#d97706" />
+          <stop offset="40%" stopColor="#b45309" />
+          <stop offset="60%" stopColor="#d97706" />
+          <stop offset="80%" stopColor="#92400e" />
+          <stop offset="100%" stopColor="#b45309" />
+        </linearGradient>
+        <linearGradient id="bambooInner" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stopColor="#92400e" />
+          <stop offset="50%" stopColor="#b45309" />
+          <stop offset="100%" stopColor="#78350f" />
+        </linearGradient>
+        <filter id="shadow2">
+          <feDropShadow dx="0" dy="4" stdDeviation="6" floodColor="#000" floodOpacity="0.4" />
+        </filter>
+      </defs>
+      {/* 签筒底部 */}
+      <ellipse cx="100" cy="250" rx="65" ry="12" fill="#78350f" />
+      {/* 签筒身体 */}
+      <path d="M35,90 L25,245 Q25,255 35,255 L165,255 Q175,255 175,245 L165,90 Z" fill="url(#bamboo)" filter="url(#shadow2)" />
+      {/* 签筒内胆 */}
+      <path d="M40,95 L30,240 Q30,248 40,248 L160,248 Q170,248 170,240 L160,95 Z" fill="url(#bambooInner)" />
+      {/* 竹节纹理 */}
+      <line x1="38" y1="140" x2="162" y2="140" stroke="#78350f" strokeWidth="1.5" opacity="0.4" />
+      <line x1="36" y1="180" x2="164" y2="180" stroke="#78350f" strokeWidth="1.5" opacity="0.4" />
+      <line x1="34" y1="220" x2="166" y2="220" stroke="#78350f" strokeWidth="1.5" opacity="0.4" />
+      {/* 筒口金边 */}
+      <ellipse cx="100" cy="90" rx="65" ry="15" fill="#f59e0b" />
+      <ellipse cx="100" cy="92" rx="62" ry="13" fill="#d97706" />
+      <ellipse cx="100" cy="95" rx="58" ry="11" fill="#78350f" />
+      {/* 签筒中的签 */}
+      {!showResult && Array.from({length: 12}).map((_, i) => (
+        <line key={i} x1={75 + Math.sin(i*0.8)*25} y1={95} x2={70 + Math.sin(i*0.8)*30} y2={35 - i*1.5}
+          stroke="#fcd34d" strokeWidth="3" strokeLinecap="round" opacity={0.5 + Math.random()*0.3}
+          style={{ animation: shaking ? `stick-pop 0.3s ease-out ${i*0.05}s` : 'none' }}
+        />
+      ))}
+      {/* 跳出签 */}
+      {showResult && (
+        <g style={{ animation: 'qian-fly 0.8s ease-out forwards' }}>
+          <text x="100" y="30" textAnchor="middle" fill="#fcd34d" fontSize="12" fontWeight="bold"
+            style={{ animation: 'qian-glow 1.5s ease-in-out infinite' }}>
+            ──
+          </text>
+          <text x="100" y="10" textAnchor="middle" fill="#f59e0b" fontSize="10" fontWeight="bold">灵签</text>
+        </g>
+      )}
+      {/* 装饰绳结 */}
+      <circle cx="100" cy="253" r="4" fill="#dc2626" />
+      <circle cx="100" cy="253" r="2" fill="#ef4444" />
+      {/* 香火烟雾 */}
+      {shaking && Array.from({length: 3}).map((_, i) => (
+        <g key={`smoke-${i}`}
+          style={{ animation: `incense-spiral 2s ease-out ${i*0.4}s infinite`, transformOrigin: `${70+i*30}px 260px` }}>
+          <circle cx={70+i*30} cy="260" r="3" fill="#fef3c7" opacity="0.30" />
+        </g>
+      ))}
+    </svg>
+  )
+}
 
+// ======== 签文卡片 ========
+function QianCard({ item, visible }: { item: LingqianItem; visible: boolean }) {
+  if (!visible || !item) return null
+  const lc = LEVEL_COLORS[item.level] || 'bg-dark-800/80 border-dark-600'
+  return (
+    <div className="space-y-4 animate-[stick-pop_0.5s_ease-out]">
+      {/* 签头：签号+吉凶+签题 */}
+      <div className={`rounded-xl border-2 p-5 text-center ${lc} backdrop-blur`}
+        style={{ animation: 'qian-glow 2s ease-in-out infinite' }}>
+        <p className="text-xs opacity-70 mb-1">第 {item.id} 签</p>
+        <p className="text-sm font-bold mb-2">{item.level} · {item.title}</p>
+        <div className="w-16 h-0.5 mx-auto rounded-full bg-current opacity-30" />
+      </div>
+
+      {/* 签诗 */}
+      <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-5">
+        <h3 className="text-sm font-semibold text-gold-400 mb-2 flex items-center gap-2">
+          <span>📜</span> 签诗
+        </h3>
+        <p className="text-sm text-gray-200 leading-loose whitespace-pre-line font-serif tracking-wide">
+          {item.poem}
+        </p>
+      </div>
+
+      {/* 断语 */}
+      <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-gold-600/30 p-5">
+        <h3 className="text-sm font-semibold text-gold-400 mb-2 flex items-center gap-2">
+          <span>🏷️</span> 断语
+        </h3>
+        <p className="text-base font-bold text-gold-300 leading-relaxed">{item.verdict}</p>
+      </div>
+
+      {/* 签意 */}
+      <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-5">
+        <h3 className="text-sm font-semibold text-gold-400 mb-2 flex items-center gap-2">
+          <span>💡</span> 签意解析
+        </h3>
+        <p className="text-sm text-gray-300 leading-relaxed">{item.meaning}</p>
+        {item.advice && (
+          <div className="mt-3 pt-3 border-t border-dark-600">
+            <p className="text-xs text-gold-400/70 mb-1">📌 建议</p>
+            <p className="text-sm text-gray-300">{item.advice}</p>
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+// ======== 主组件 ========
 export default function LingqianClient() {
-  const [qian, setQian] = useState<any>(null)
+  const [selectedCat, setSelectedCat] = useState<string>(ALL_CATEGORIES[0]?.key || '')
+  const [qian, setQian] = useState<LingqianItem | null>(null)
+  const [shaking, setShaking] = useState(false)
+  const [showResult, setShowResult] = useState(false)
   const [userQ, setUserQ] = useState('')
+  const [phase, setPhase] = useState<'idle'|'praying'|'shaking'|'done'>('idle')
+  const styleRef = useRef<HTMLStyleElement>(null)
 
-  const draw = () => {
-    const idx = Math.floor(Math.random() * QIAN.length)
-    setQian(QIAN[idx])
+  const category = ALL_CATEGORIES.find(c => c.key === selectedCat) || ALL_CATEGORIES[0]
+  const drawCount = category?.items?.length || 0
+
+  const draw = useCallback(() => {
+    if (shaking || !drawCount) return
+
+    setShowResult(false)
+    setQian(null)
+    setPhase('praying')
+
+    // Phase 1: 诚心祈祷 (1.5s)
+    setTimeout(() => {
+      setPhase('shaking')
+      setShaking(true)
+
+      // Phase 2: 摇签 (1.5-2.5s)
+      setTimeout(() => {
+        setShaking(false)
+        const idx = Math.floor(Math.random() * drawCount)
+        const selected = category!.items[idx]
+        setQian(selected)
+
+        // Phase 3: 签弹出 (0.3s后显示结果)
+        setTimeout(() => {
+          setShowResult(true)
+          setPhase('done')
+        }, 300)
+      }, 1800 + Math.random() * 800)
+    }, 1500)
+  }, [shaking, drawCount, category])
+
+  const reset = () => {
+    setQian(null)
+    setShowResult(false)
+    setPhase('idle')
+    setShaking(false)
   }
 
-  const q = qian
+  if (!category) return <div className="max-w-2xl mx-auto px-4 py-10 text-red-400">加载灵签数据失败</div>
 
-  return (<div className="max-w-2xl mx-auto px-4 py-10">
-    <h1 className="text-3xl font-bold text-gold-400 font-serif mb-3">灵签占卜</h1>
-    <p className="text-gray-400 mb-6">心生诚念，默问所求，然后摇签</p>
+  return (
+    <div className="max-w-2xl mx-auto px-4 py-10">
+      <style ref={styleRef}>{SHAKE_KEYFRAMES}</style>
 
-    <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-6 mb-8 text-center">
-      <div className="mb-4">
-        <label className="text-xs text-gray-400 block mb-2">心中所问（可选）</label>
-        <input type="text" value={userQ} onChange={e=>setUserQ(e.target.value)} placeholder="如：求姻缘、事业、财运…" className="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200 text-sm text-center" />
+      {/* 标题 */}
+      <div className="text-center mb-6">
+        <h1 className="text-3xl font-bold text-gold-400 font-serif mb-1">灵签占卜</h1>
+        <p className="text-sm text-gray-400">心生诚念，默问所求，然后摇签</p>
       </div>
-      <button onClick={draw} className="bg-gold-600 hover:bg-gold-500 text-dark-900 font-semibold px-8 py-3 rounded-lg text-lg transition-colors active:scale-95">🙏 摇签</button>
+
+      {/* 签种选择器 — 随时可切换，切换后自动重置可摇 */}
+      <div className="flex flex-wrap gap-1.5 mb-6 justify-center">
+        {ALL_CATEGORIES.map(cat => (
+          <button key={cat.key}
+            onClick={() => {
+              if (selectedCat === cat.key) return
+              reset()
+              setSelectedCat(cat.key)
+            }}
+            className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+              selectedCat === cat.key
+                ? 'bg-gold-600 text-dark-900 shadow-lg shadow-gold-600/20'
+                : 'bg-dark-700/50 text-gray-300 border border-dark-600 hover:border-gold-500/50 hover:bg-dark-700'
+            }`}>
+            {cat.icon} {cat.name}
+          </button>
+        ))}
+      </div>
+
+      {/* 签筒区 */}
+      <div className="bg-dark-800/60 backdrop-blur rounded-2xl border border-dark-600 p-6 mb-6 text-center">
+        {/* 问事输入 */}
+        <div className="mb-4">
+          <label className="text-xs text-gray-400 block mb-2">心中所问（可选）</label>
+          <input type="text" value={userQ} onChange={e=>setUserQ(e.target.value)}
+            placeholder={`如：求姻缘、事业、财运…`}
+            className="w-full px-4 py-2.5 bg-dark-700/70 border border-dark-600 rounded-xl text-gray-200 text-sm text-center placeholder-gray-500 focus:border-gold-500/50 focus:outline-none transition-colors"
+            disabled={phase !== 'idle'} />
+        </div>
+
+        {/* 签筒 */}
+        <div className="relative py-2">
+          <QianTong shaking={shaking} showResult={showResult} />
+
+          {/* 状态文字 */}
+          <div className="mt-3 text-sm">
+            {phase === 'idle' && (
+              <p className="text-gray-400">🙏 诚心默念后点击下方摇签</p>
+            )}
+            {phase === 'praying' && (
+              <p className="text-gold-400 animate-pulse">🙏 诚心祈请中...</p>
+            )}
+            {phase === 'shaking' && (
+              <p className="text-gold-300" style={{ animation: 'qian-glow 0.5s ease-in-out infinite' }}>
+                🎋 正在摇签...
+              </p>
+            )}
+            {phase === 'done' && (
+              <p className="text-emerald-400">✨ 签已落定</p>
+            )}
+          </div>
+        </div>
+
+        {/* 摇签按钮 */}
+        <button onClick={draw} disabled={phase !== 'idle'}
+          className={`mt-2 px-10 py-3 rounded-xl text-base font-bold transition-all active:scale-95 ${
+            phase === 'idle'
+              ? 'bg-gradient-to-r from-gold-500 to-amber-500 text-dark-900 shadow-lg shadow-gold-500/20 hover:shadow-xl hover:shadow-gold-500/30'
+              : 'bg-dark-600 text-gray-400 cursor-not-allowed'
+          }`}>
+          {phase === 'idle' ? '🎋 摇签' : '🎋 请稍候...'}
+        </button>
+
+        {phase === 'done' && (
+          <p className="mt-2 text-xs text-gray-500">
+            签筒中共 {drawCount} 支灵签 · 第 {qian?.id} 签
+          </p>
+        )}
+
+        {/* 当前签种说明 */}
+        {phase === 'idle' && (
+          <p className="mt-3 text-xs text-gray-500">
+            {category.icon} {category.name} · 共 {category.total} 签
+          </p>
+        )}
+      </div>
+
+      {/* 结果展示 */}
+      <div className="transition-all duration-500">
+        {qian && <QianCard item={qian} visible={showResult} />}
+      </div>
+
+      {/* 再摇一次 */}
+      {phase === 'done' && (
+        <div className="text-center mt-6">
+          <button onClick={reset}
+            className="px-6 py-2 rounded-lg text-sm text-gray-300 bg-dark-700 border border-dark-600 hover:border-gold-500/50 transition-colors">
+            🔄 再摇一次
+          </button>
+        </div>
+      )}
     </div>
-
-    {q && (<div className="space-y-4">
-      <div className={`rounded-xl border p-5 text-center ${LEVEL_C[q.level] || 'bg-dark-800/80 border-dark-600'}`}>
-        <p className="text-xs text-gray-500 mb-1">第 {q.num} 签 · {q.level}</p>
-        <p className="text-lg font-bold text-gold-400 font-serif">{q.title}</p>
-      </div>
-      <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-5">
-        <h3 className="text-sm font-semibold text-gold-400 mb-2">签诗</h3>
-        <p className="text-sm text-gray-200 leading-loose whitespace-pre-line">{q.poem || q.poom}</p>
-      </div>
-      <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-5">
-        <h3 className="text-sm font-semibold text-gold-400 mb-2">解签</h3>
-        <p className="text-sm text-gray-300 leading-relaxed">{q.desc}</p>
-      </div>
-    </div>)}
-  </div>)
+  )
 }

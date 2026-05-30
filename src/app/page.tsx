@@ -31,6 +31,7 @@ const modules: ModuleInfo[] = [
   { key: 'taluo', nameKey: 'modules.taluo.name', descKey: 'modules.taluo.desc', emoji: '🃏', href: '/taluo' },
   { key: 'cezi', nameKey: 'modules.cezi.name', descKey: 'modules.cezi.desc', emoji: '🖌', href: '/cezi' },
   { key: 'wenku', nameKey: 'modules.wenku.name', descKey: 'modules.wenku.desc', emoji: '📚', href: '/wenku' },
+  { key: 'hehun', nameKey: 'modules.hehun.name', descKey: 'modules.hehun.desc', emoji: '💑', href: '/hehun' },
   { key: 'experts', nameKey: 'modules.experts.name', descKey: 'modules.experts.desc', emoji: '👨‍🏫', href: '/experts' },
 ]
 

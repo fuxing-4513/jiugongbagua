@@ -1,0 +1,10 @@
+const fs = require('fs');
+const c = fs.readFileSync('C:/Users/4513/.openclaw/workspace/jiugong-bagua/src/app/xingming/NamingClient.tsx', 'utf8');
+console.log('File size:', c.length, 'bytes');
+console.log('Has export default:', c.includes('export default'));
+console.log('Position:', c.indexOf('export default'));
+console.log('Lines:', c.split('\n').length);
+console.log('Starts with use client:', c.trim().startsWith("'use client'"));
+console.log('Last 50 chars:', c.slice(-50));
+console.log('Ends with double brace:', c.trimEnd().endsWith('})'));
+console.log('Ends with brace:', c.trimEnd().endsWith('}'));

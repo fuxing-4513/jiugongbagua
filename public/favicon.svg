@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Outer circle -->
+  <circle cx="50" cy="50" r="48" fill="white" stroke="black" stroke-width="2"/>
+  <!-- Black half (bottom + top right quarter) -->
+  <path d="M50 2 A48 48 0 0 1 50 98 A24 24 0 0 1 50 50 A24 24 0 0 0 50 2 Z" fill="black"/>
+  <!-- White dot in black area (top) -->
+  <circle cx="50" cy="26" r="8" fill="white"/>
+  <!-- Black dot in white area (bottom) -->
+  <circle cx="50" cy="74" r="8" fill="black"/>
+</svg>

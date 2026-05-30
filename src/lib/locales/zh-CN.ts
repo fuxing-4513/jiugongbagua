@@ -80,6 +80,11 @@ export const zhCN = {
       desc: '易学知识、命理资料、传统文化文章',
       emoji: '📚',
     },
+    hehun: {
+      name: '合婚测算',
+      desc: '八字合婚，生肖五行匹配分析',
+      emoji: '💑',
+    },
     experts: {
       name: '专家预约',
       desc: '资深命理专家在线咨询预约',

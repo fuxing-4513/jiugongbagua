@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { useLocale } from '@/lib/i18n'
+import NamingClient from './NamingClient'
 
 function tk(key: string, lang: Record<string, unknown>): string {
   const keys = key.split('.'); let v: unknown = lang
@@ -477,6 +478,7 @@ const gradeC: Record<string, string> = {'大吉':'text-green-400','吉':'text-gr
 export default function XingmingClient() {
   const { t } = useLocale()
   const lang = t as unknown as Record<string, unknown>
+  const [tab, setTab] = useState<'score'|'naming'>('score')
 
   const [lastName, setLastName] = useState('')
   const [firstName, setFirstName] = useState('')
@@ -540,7 +542,19 @@ export default function XingmingClient() {
   const r = result
 
   return (<div className="max-w-3xl mx-auto px-4 py-10">
-    <h1 className="text-3xl font-bold text-gold-400 font-serif mb-3">姓名打分</h1>
+    <h1 className="text-3xl font-bold text-gold-400 font-serif mb-3">姓名</h1>
+    <p className="text-gray-400 mb-6">姓名打分 & 起名服务</p>
+    
+    {/* Tab 切换 */}
+    <div className="flex gap-1 bg-dark-700 rounded-lg p-1 mb-6 max-w-sm mx-auto">
+      <button onClick={()=>setTab('score')}
+        className={`flex-1 px-4 py-2 text-sm rounded-md transition-colors ${tab==='score'?'bg-gold-600 text-dark-900 font-semibold':'text-gray-400 hover:text-gray-200'}`}>姓名打分</button>
+      <button onClick={()=>setTab('naming')}
+        className={`flex-1 px-4 py-2 text-sm rounded-md transition-colors ${tab==='naming'?'bg-gold-600 text-dark-900 font-semibold':'text-gray-400 hover:text-gray-200'}`}>起名服务</button>
+    </div>
+    
+    {tab === 'naming' ? <NamingClient /> : (
+    <>
     <p className="text-gray-400 mb-6">基于康熙字典笔画·五格数理·三才五行配置给姓名打分</p>
 
     <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-6 mb-8">
@@ -651,5 +665,6 @@ export default function XingmingClient() {
         <p className="text-[9px] text-gray-500 mt-2">说明：若五格数理暗示的凶数运较多，表示易破财、事业不顺、影响健康和家庭；女命狐独运、首领运及刚性运较多，则代表婚姻不顺。</p>
       </div>
     </div>)}
+    </>)}
   </div>)
 }

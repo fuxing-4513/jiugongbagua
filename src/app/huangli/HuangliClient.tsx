@@ -444,12 +444,14 @@ export default function HuangliClient() {
         </div>
       </div>
     </div>
+
       {/* 老黄历吉时查询 */}
+      <div className="max-w-3xl mx-auto px-4">
       <div className="bg-white rounded-xl border border-red-100 p-4 mb-4">
         <h2 className="text-base font-bold text-red-900 mb-1">老黄历吉时查询</h2>
         <p className="text-xs text-gray-400 mb-3">今日十二时辰（子时→亥时）星神·冲煞·宜忌·财神</p>
         {(()=>{const sc=genShiChen(data.ganZhiDay.charAt(0),data.ganZhiDay.charAt(1),data.dayOfYear);return(
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             {sc.map((s,i)=>(
               <div key={i} className={`rounded-lg px-3 py-2 text-xs border ${s.starGod.includes("吉")?"bg-green-50/50 border-green-200/60":"bg-red-50/30 border-red-200/50"} hover:shadow-sm transition-shadow`}>
                 <div className="flex items-center gap-1.5 mb-0.5">
@@ -470,8 +472,10 @@ export default function HuangliClient() {
           </div>
         )})()}
       </div>
+      </div>
 
       {/* 二十四节气时间表 */}
+      <div className="max-w-3xl mx-auto px-4">
       <div className="bg-white rounded-xl border border-red-100 p-4 mb-4">
         <h2 className="text-base font-bold text-red-900 mb-1">二十四节气时间表</h2>
         <p className="text-xs text-gray-400 mb-3">{year}年 太阳到达黄经各节点 · 共24节气 · 每季6个</p>
@@ -500,6 +504,7 @@ export default function HuangliClient() {
             )
           })}
         </div>
+      </div>
       </div>
 
   </>)

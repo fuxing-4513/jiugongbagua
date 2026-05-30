@@ -80,6 +80,11 @@ export const en = {
       desc: 'Articles on I-Ching, Feng Shui and Chinese metaphysics',
       emoji: '📚',
     },
+    hehun: {
+      name: 'Marriage Compatibility',
+      desc: 'Bazi marriage matching, zodiac &amp; five elements analysis',
+      emoji: '💑',
+    },
     experts: {
       name: 'Book an Expert',
       desc: 'Schedule a consultation with experienced masters',
