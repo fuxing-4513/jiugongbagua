@@ -63,7 +63,27 @@ export default function HomePage() {
       {/* Home Widgets: 黄历 + 天气 */}
       <HomeWidgets />
 
-      {/* Card Grid */}
+      {/* 十二生肖百科区块 */}
+      <div className="mb-10">
+        <h2 className="text-xl font-semibold text-gold-400 font-serif mb-4 text-center">🐉 十二生肖百科</h2>
+        <p className="text-center text-gray-500 text-sm mb-5">点击生肖了解起源传说、性格特征、文化象征与运势</p>
+        <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-12 gap-2">
+          {[
+            {emoji:'🐭',name:'鼠'},{emoji:'🐮',name:'牛'},{emoji:'🐯',name:'虎'},{emoji:'🐰',name:'兔'},
+            {emoji:'🐲',name:'龙'},{emoji:'🐍',name:'蛇'},{emoji:'🐴',name:'马'},{emoji:'🐏',name:'羊'},
+            {emoji:'🐵',name:'猴'},{emoji:'🐔',name:'鸡'},{emoji:'🐶',name:'狗'},{emoji:'🐷',name:'猪'}
+          ].map(s => (
+            <Link key={s.name} href="/shengxiao"
+              className="group flex flex-col items-center p-3 rounded-xl bg-dark-700/50 border border-dark-600 hover:border-gold-500/50 transition-all duration-200">
+              <span className="text-2xl mb-1">{s.emoji}</span>
+              <span className="text-xs font-medium text-gray-400 group-hover:text-gold-400">{s.name}</span>
+            </Link>
+          ))}
+        </div>
+      </div>
+
+      {/* Tools Grid */}
+      <h2 className="text-xl font-semibold text-gold-400 font-serif mb-4 text-center">🔮 全部工具</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {modules.map((mod) => (
           <Link
