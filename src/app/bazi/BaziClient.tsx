@@ -444,7 +444,7 @@ export default function BaziClient() {
                 {result.pills.map((x:any,i:number)=><td key={i} className={`p-2 border border-dark-600 text-center font-medium ${ssColor(x.ssG)}`}>{x.ssG}</td>)}
               </tr>
               <tr><td className="p-2 border border-dark-600 text-gray-500 bg-dark-700">地支</td>
-                {result.pills.map((x:any,i:number)=><td key={i} className="p-2 border border-dark-600 text-center font-bold text-amber-400 font-serif">{x.zhi}</td>)}
+                {result.pills.map((x:any,i:number)=><td key={i} className="p-2 border border-dark-600 text-center font-bold text-amber-400 font-serif text-base">{x.zhi}</td>)}
               </tr>
               <tr><td className="p-2 border border-dark-600 text-gray-500 bg-dark-700">地支十神</td>
                 {result.pills.map((x:any,i:number)=><td key={i} className="p-2 border border-dark-600 text-center font-medium text-cyan-300">{x.ssZ}</td>)}
