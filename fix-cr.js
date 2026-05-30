@@ -1,1 +1,0 @@
-const fs=require('fs');const c=fs.readFileSync('C:/Users/4513/.openclaw/workspace/jiugong-bagua/src/app/bazi/BaziClient.tsx','utf8');c=c.replace("}'use client'","}\n'use client'");fs.writeFileSync('C:/Users/4513/.openclaw/workspace/jiugong-bagua/src/app/bazi/BaziClient.tsx',c,'utf8');console.log('fixed')

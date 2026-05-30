@@ -1,1 +1,0 @@
-const fs=require('fs');const c=fs.readFileSync('C:/Users/4513/.openclaw/workspace/jiugong-bagua/src/app/bazi/BaziClient.tsx','utf8');const i=c.indexOf('流年大运');if(i>0)console.log(c.substring(i,i+3000))

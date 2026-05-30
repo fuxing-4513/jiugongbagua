@@ -1,1 +1,0 @@
-const fs=require('fs');const c=fs.readFileSync('C:/Users/4513/.openclaw/workspace/jiugong-bagua/src/app/bazi/BaziClient.tsx','utf8');const i=c.indexOf('dayun');if(i>0)console.log(c.substring(i-500,i+2000))

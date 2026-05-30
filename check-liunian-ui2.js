@@ -1,1 +1,0 @@
-const fs=require('fs');const c=fs.readFileSync('C:/Users/4513/.openclaw/workspace/jiugong-bagua/src/app/bazi/BaziClient.tsx','utf8');const i=c.indexOf('大运');if(i<0)process.exit();console.log(c.substring(i+500,i+2500))
