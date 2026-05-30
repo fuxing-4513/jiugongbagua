@@ -255,9 +255,9 @@ function getMarriageAdvice(dims: HehunDim[], mRes: FullResult, wRes: FullResult)
   return tips
 }
 
-interface PersonForm { name: string; cal: 'solar' | 'lunar'; year: string; month: string; day: string; hour: string }export default function HehunClient() {
-  const [m, setM] = useState<PersonForm>({name:'',cal:'solar',year:'1990',month:'1',day:'1',hour:'0'})
-  const [w, setW] = useState<PersonForm>({name:'',cal:'solar',year:'1992',month:'1',day:'1',hour:'0'})
+interface PersonForm { name: string; cal: 'solar' | 'lunar'; year: string; month: string; day: string; hour: string; isLeap: boolean }export default function HehunClient() {
+  const [m, setM] = useState<PersonForm>({name:'',cal:'solar',year:'1990',month:'1',day:'1',hour:'0',isLeap:false})
+  const [w, setW] = useState<PersonForm>({name:'',cal:'solar',year:'1992',month:'1',day:'1',hour:'0',isLeap:false})
   const [res, setRes] = useState<{mRes:FullResult;wRes:FullResult;dims:HehunDim[];total:number;level:string;tips:string[]}|null>(null)
   const [err, setErr] = useState('')
 
@@ -267,8 +267,8 @@ interface PersonForm { name: string; cal: 'solar' | 'lunar'; year: string; month
     if (!my||!mm||!md||!wy||!wm||!wd) { setErr('请选择有效的出生日期'); return }
     try {
       const mDz=SHI_CHEN[mh]||'子', wDz=SHI_CHEN[wh]||'子'
-      const mL=m.cal==='solar'?Solar.fromYmd(my,mm,md).getLunar():Lunar.fromYmd(my,mm,md)
-      const wL=w.cal==='solar'?Solar.fromYmd(wy,wm,wd).getLunar():Lunar.fromYmd(wy,wm,wd)
+      const mL=m.cal==='solar'?Solar.fromYmd(my,mm,md).getLunar():Lunar.fromYmd(my, m.isLeap?-mm:mm, md)
+      const wL=w.cal==='solar'?Solar.fromYmd(wy,wm,wd).getLunar():Lunar.fromYmd(wy, w.isLeap?-wm:wm, wd)
       const mB=calcBazi(mL.getYear(),mL.getMonth(),mL.getDay(),mDz), wB=calcBazi(wL.getYear(),wL.getMonth(),wL.getDay(),wDz)
       const mA=analyzeWx(mB), wA=analyzeWx(wB), mAn=getAnimal(mL.getYear()), wAn=getAnimal(wL.getYear())
       const dims: HehunDim[] = [
@@ -291,7 +291,7 @@ interface PersonForm { name: string; cal: 'solar' | 'lunar'; year: string; month
 
   const doSwitch = useCallback((g:'m'|'w',nc:'solar'|'lunar') => {
     const p=g==='m'?m:w,sp=g==='m'?setM:setW; const y=+p.year,mm=+p.month,d=+p.day
-    if(!isNaN(y)&&!isNaN(mm)&&!isNaN(d)){try{if(nc==='solar'&&p.cal==='lunar'){const s=Lunar.fromYmd(y,mm,d).getSolar();sp({...p,cal:nc,year:s.getYear()+'',month:s.getMonth()+'',day:s.getDay()+''})}else if(nc==='lunar'&&p.cal==='solar'){const l=Solar.fromYmd(y,mm,d).getLunar();sp({...p,cal:nc,year:l.getYear()+'',month:l.getMonth()+'',day:l.getDay()+''})}else sp({...p,cal:nc})}catch{sp({...p,cal:nc})}}else sp({...p,cal:nc})
+    if(!isNaN(y)&&!isNaN(mm)&&!isNaN(d)){try{if(nc==='solar'&&p.cal==='lunar'){const s=Lunar.fromYmd(y,p.isLeap?-mm:mm,d).getSolar();sp({...p,cal:nc,year:s.getYear()+'',month:s.getMonth()+'',day:s.getDay()+'',isLeap:false})}else if(nc==='lunar'&&p.cal==='solar'){const l=Solar.fromYmd(y,mm,d).getLunar();sp({...p,cal:nc,year:l.getYear()+'',month:l.getMonth()+'',day:l.getDay()+'',isLeap:false})}else sp({...p,cal:nc,isLeap:false})}catch{sp({...p,cal:nc,isLeap:false})}}else sp({...p,cal:nc,isLeap:false})
   },[m,w])
   const cy = new Date().getFullYear()
 
@@ -425,6 +425,12 @@ interface PersonForm { name: string; cal: 'solar' | 'lunar'; year: string; month
                 <div><label className="block text-[10px] text-gray-500 mb-1">日</label><select value={s.p.day} onChange={e=>s.sp({...s.p,day:e.target.value})} className="w-full px-1 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200 text-xs focus:outline-none focus:border-gold-500">{Array.from({length:31},(_,i)=><option key={i+1}>{i+1}</option>)}</select></div>
                 <div><label className="block text-[10px] text-gray-500 mb-1">时</label><select value={s.p.hour} onChange={e=>s.sp({...s.p,hour:e.target.value})} className="w-full px-1 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200 text-xs focus:outline-none focus:border-gold-500">{HOUR_OPTS.map(o=><option key={o.v} value={o.v}>{o.l}</option>)}</select></div>
               </div>
+              {s.p.cal==='lunar' && (
+                <label className="flex items-center gap-2 mt-2 text-xs text-gray-300 cursor-pointer select-none">
+                  <input type="checkbox" checked={s.p.isLeap} onChange={e=>s.sp({...s.p,isLeap:e.target.checked})} className="accent-gold-500" />
+                  闰月
+                </label>
+              )}
             </div>
           ))}
         </div>

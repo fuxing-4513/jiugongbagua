@@ -1,6 +1,7 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
+import { Solar, Lunar } from 'lunar-typescript'
 
 const TRIGRAMS: Record<string,{name:string,wx:string,attr:string}> = {
   '乾':{name:'乾为天',wx:'金',attr:'健'},
@@ -79,15 +80,36 @@ const GUA_NAMES: Record<string,{name:string;poem:string}> = {
   '坤坤':{name:'坤为地',poem:'坤者，顺也。厚德载物，君子以厚德载物。'},
 }
 
+type QiguaMethod = 'number' | 'lunarTime' | 'solarTime' | 'auto'
+
 export default function MeihuaClient() {
+  const [method, setMethod] = useState<QiguaMethod>('number')
+  const [gender, setGender] = useState('男')
+  const [matter, setMatter] = useState('')
+
+  // 数字起卦
   const [num1, setNum1] = useState('')
   const [num2, setNum2] = useState('')
   const [num3, setNum3] = useState('')
-  const [result, setResult] = useState<any>(null)
 
-  const calc = () => {
-    const n1 = parseInt(num1) || 0, n2 = parseInt(num2) || 0, n3 = parseInt(num3) || 0
-    if (!n1 || !n2 || !n3) return
+  // 农历时间起卦
+  const [lYear, setLYear] = useState(String(new Date().getFullYear()))
+  const [lMonth, setLMonth] = useState('1')
+  const [lDay, setLDay] = useState('1')
+  const [lHour, setLHour] = useState('0')
+  const [lIsLeap, setLIsLeap] = useState(false)
+
+  // 公历时间起卦
+  const [sYear, setSYear] = useState(String(new Date().getFullYear()))
+  const [sMonth, setSMonth] = useState(String(new Date().getMonth() + 1))
+  const [sDay, setSDay] = useState(String(new Date().getDate()))
+  const [sHour, setSHour] = useState('0')
+
+  const [result, setResult] = useState<any>(null)
+  const [error, setError] = useState('')
+
+  // 梅花易数：三数分别对应上卦、下卦、动爻
+  const calcFromNumbers = useCallback((n1: number, n2: number, n3: number) => {
     const upperKey = ((n1 % 8 === 0) ? 8 : n1 % 8).toString()
     const lowerKey = ((n2 % 8 === 0) ? 8 : n2 % 8).toString()
     const moving = ((n3 % 6 === 0) ? 6 : n3 % 6)
@@ -97,50 +119,214 @@ export default function MeihuaClient() {
     const gua = GUA_NAMES[guaKey] || {name:upper+lower+'卦',poem:'变化之象，随缘而行。'}
     const upperT = TRIGRAMS[upper]
     const lowerT = TRIGRAMS[lower]
-    setResult({ upper, lower, gua, moving, upperT, lowerT, n1, n2, n3 })
-  }
+
+    // 计算变卦（动爻变阴/阳）
+    const yaoLines = Array.from({length:6}, (_,i) => {
+      const idx = i + 1
+      if (idx <= 3) {
+        // 下卦（低位）
+        const bin = ['坤','震','坎','兑','艮','离','巽','乾'].indexOf(lower)
+        return (bin & (1 << (2 - i))) !== 0 ? '阳' : '阴'
+      } else {
+        const bin = ['坤','震','坎','兑','艮','离','巽','乾'].indexOf(upper)
+        return (bin & (1 << (5 - i))) !== 0 ? '阳' : '阴'
+      }
+    })
+    const changeYao = [...yaoLines]
+    // 动爻：倒着数——第1爻是最下面，第6爻最上面
+    const realMoving = moving
+    const yaoIdx = 6 - realMoving // 从底部数
+    changeYao[yaoIdx] = changeYao[yaoIdx] === '阳' ? '阴' : '阳'
+    const changeUpperYao = changeYao.slice(3).join('')
+    const changeLowerYao = changeYao.slice(0,3).join('')
+    const changeUpperBin = ['坤','震','坎','兑','艮','离','巽','乾'].findIndex((_,i) => {
+      const b = (changeLowerYao[2] === '阳' ? 4 : 0) + (changeLowerYao[1] === '阳' ? 2 : 0) + (changeLowerYao[0] === '阳' ? 1 : 0)
+      return i === b
+    })
+    // 正确计算变卦的上卦
+    const cub = (changeUpperYao[2] === '阳' ? 4 : 0) + (changeUpperYao[1] === '阳' ? 2 : 0) + (changeUpperYao[0] === '阳' ? 1 : 0)
+    const changeUpper = ['坤','震','坎','兑','艮','离','巽','乾'][cub] || upper
+    const clb = (changeLowerYao[2] === '阳' ? 4 : 0) + (changeLowerYao[1] === '阳' ? 2 : 0) + (changeLowerYao[0] === '阳' ? 1 : 0)
+    const changeLower = ['坤','震','坎','兑','艮','离','巽','乾'][clb] || lower
+    const changeGuaKey = changeUpper + changeLower
+    const changeGua = GUA_NAMES[changeGuaKey] || {name:changeUpper+changeLower+'卦',poem:''}
+
+    setResult({
+      method: 'number',
+      upper, lower, moving: realMoving,
+      upperT, lowerT, gua, changeGua,
+      changeUpper, changeLower,
+      sourceStr: `数字 ${n1} · ${n2} · ${n3}`,
+    })
+  }, [])
+
+  const doCalc = useCallback(() => {
+    setError(''); setResult(null)
+    if (method === 'number') {
+      const n1 = parseInt(num1) || 0, n2 = parseInt(num2) || 0, n3 = parseInt(num3) || 0
+      if (!n1 || !n2 || !n3) { setError('请填写三个数字'); return }
+      calcFromNumbers(n1, n2, n3)
+    } else if (method === 'lunarTime') {
+      const y = parseInt(lYear), m = parseInt(lMonth), d = parseInt(lDay), h = parseInt(lHour)
+      if (isNaN(y)||isNaN(m)||isNaN(d)||m<1||m>12||d<1||d>30) { setError('农历日期无效'); return }
+      try {
+        const lm = lIsLeap ? -m : m
+        const lunar = Lunar.fromYmd(y, lm, d)
+        // 取 年干序号+月+日 作为三数
+        const tgIdx = '甲乙丙丁戊己庚辛壬癸'.indexOf(lunar.getYearGan()) + 1
+        const n1 = tgIdx, n2 = lunar.getMonth(), n3 = lunar.getDay()
+        // 上面计算出来的 n2 可能是负数（闰月），取绝对值
+        const absN2 = Math.abs(n2)
+        // h作为第四个参考，整体取和再取余
+        const adjN1 = n1 + h, adjN2 = absN2 + m, adjN3 = n3 + d
+        calcFromNumbers(adjN1, adjN2, adjN3)
+        setResult((prev: any) => ({ ...prev,
+          sourceStr: `农历 ${y}年${lIsLeap?'闰':''}${m}月${d}日 · ${lHour}时`,
+          method: 'lunarTime',
+        }))
+      } catch(e) { setError('农历日期转换出错，请检查是否闰月或日期无效') }
+    } else if (method === 'solarTime') {
+      const y = parseInt(sYear), m = parseInt(sMonth), d = parseInt(sDay), h = parseInt(sHour)
+      if (isNaN(y)||isNaN(m)||isNaN(d)||m<1||m>12||d<1||d>31) { setError('公历日期无效'); return }
+      try {
+        // 公历转农历再取数
+        const solar = Solar.fromYmd(y, m, d)
+        const lunar = solar.getLunar()
+        const tgIdx = '甲乙丙丁戊己庚辛壬癸'.indexOf(lunar.getYearGan()) + 1
+        const n1 = tgIdx + y % 10, n2 = lunar.getMonth(), n3 = lunar.getDay()
+        const adjN1 = n1 + h, adjN2 = Math.abs(n2) + m, adjN3 = n3 + d
+        calcFromNumbers(adjN1, adjN2, adjN3)
+        setResult((prev: any) => ({ ...prev,
+          sourceStr: `公历 ${y}年${m}月${d}日 · ${h}时`,
+          method: 'solarTime',
+        }))
+      } catch(e) { setError('公历日期转换出错') }
+    } else if (method === 'auto') {
+      const n1 = Math.floor(Math.random() * 49) + 1
+      const n2 = Math.floor(Math.random() * 49) + 1
+      const n3 = Math.floor(Math.random() * 49) + 1
+      calcFromNumbers(n1, n2, n3)
+      setResult((prev: any) => ({ ...prev,
+        sourceStr: `电脑自动起卦 ${n1} · ${n2} · ${n3}`,
+        method: 'auto',
+      }))
+    }
+  }, [method, num1, num2, num3, lYear, lMonth, lDay, lHour, lIsLeap, sYear, sMonth, sDay, sHour, calcFromNumbers])
 
   const r = result
 
   return (<div className="max-w-2xl mx-auto px-4 py-10">
-    <h1 className="text-3xl font-bold text-gold-400 font-serif mb-3">梅花易数</h1>
-    <p className="text-gray-400 mb-6">输入三个数字（或随意想三个数），起卦预测吉凶</p>
+    <h1 className="text-3xl font-bold text-gold-400 font-serif mb-1">梅花易数</h1>
+    <p className="text-gray-400 mb-2">随心起卦，洞察先机。支持数字、时间、自动三种方式。</p>
 
-    <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-6 mb-8">
-      <div className="grid grid-cols-3 gap-3 mb-4">
-        <div><label className="text-xs text-gray-400 block mb-1">上卦数</label>
-          <input type="number" value={num1} onChange={e=>setNum1(e.target.value)} placeholder="随意数字" className="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200" /></div>
-        <div><label className="text-xs text-gray-400 block mb-1">下卦数</label>
-          <input type="number" value={num2} onChange={e=>setNum2(e.target.value)} placeholder="随意数字" className="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200" /></div>
-        <div><label className="text-xs text-gray-400 block mb-1">动爻</label>
-          <input type="number" value={num3} onChange={e=>setNum3(e.target.value)} placeholder="随意数字" className="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200" /></div>
+    <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-5 mb-8">
+      {/* 方式选择 */}
+      <div className="flex flex-wrap gap-2 mb-4">
+        <button onClick={()=>setMethod('number')} className={`px-3 py-1.5 text-xs rounded-lg transition-colors ${method==='number'?'bg-gold-600 text-dark-900 font-semibold':'bg-dark-700 text-gray-400 border border-dark-600'}`}>🔢 数字起卦</button>
+        <button onClick={()=>setMethod('lunarTime')} className={`px-3 py-1.5 text-xs rounded-lg transition-colors ${method==='lunarTime'?'bg-gold-600 text-dark-900 font-semibold':'bg-dark-700 text-gray-400 border border-dark-600'}`}>🌙 农历时间</button>
+        <button onClick={()=>setMethod('solarTime')} className={`px-3 py-1.5 text-xs rounded-lg transition-colors ${method==='solarTime'?'bg-gold-600 text-dark-900 font-semibold':'bg-dark-700 text-gray-400 border border-dark-600'}`}>☀️ 公历时间</button>
+        <button onClick={()=>setMethod('auto')} className={`px-3 py-1.5 text-xs rounded-lg transition-colors ${method==='auto'?'bg-gold-600 text-dark-900 font-semibold':'bg-dark-700 text-gray-400 border border-dark-600'}`}>🤖 电脑自动</button>
       </div>
-      <button onClick={calc} className="bg-gold-600 hover:bg-gold-500 text-dark-900 font-semibold px-6 py-2.5 rounded-lg transition-colors active:scale-95">起卦</button>
+
+      {/* 性别 + 事由 */}
+      <div className="flex gap-3 mb-4">
+        <select value={gender} onChange={e=>setGender(e.target.value)} className="px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200 text-xs">
+          <option value="男">男</option><option value="女">女</option>
+        </select>
+        <input type="text" value={matter} onChange={e=>setMatter(e.target.value)} placeholder="预测何事（选填，如：工作、感情、财运...）" maxLength={50}
+          className="flex-1 px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200 text-xs focus:outline-none focus:border-gold-500" />
+      </div>
+
+      {/* 数字起卦 */}
+      {method === 'number' && (
+        <div className="grid grid-cols-3 gap-3 mb-4">
+          <div><label className="text-xs text-gray-400 block mb-1">上卦数</label>
+            <input type="number" value={num1} onChange={e=>setNum1(e.target.value)} placeholder="随意数字" className="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200" /></div>
+          <div><label className="text-xs text-gray-400 block mb-1">下卦数</label>
+            <input type="number" value={num2} onChange={e=>setNum2(e.target.value)} placeholder="随意数字" className="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200" /></div>
+          <div><label className="text-xs text-gray-400 block mb-1">动爻数</label>
+            <input type="number" value={num3} onChange={e=>setNum3(e.target.value)} placeholder="随意数字" className="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200" /></div>
+        </div>
+      )}
+
+      {/* 农历时间起卦 */}
+      {method === 'lunarTime' && (
+        <div className="mb-4">
+          <div className="grid grid-cols-4 gap-3 mb-2">
+            <div><label className="text-xs text-gray-400 block mb-1">农历年</label>
+              <input type="number" value={lYear} onChange={e=>setLYear(e.target.value)} className="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200" /></div>
+            <div><label className="text-xs text-gray-400 block mb-1">农历月</label>
+              <input type="number" min={1} max={12} value={lMonth} onChange={e=>setLMonth(e.target.value)} className="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200" /></div>
+            <div><label className="text-xs text-gray-400 block mb-1">农历日</label>
+              <input type="number" min={1} max={30} value={lDay} onChange={e=>setLDay(e.target.value)} className="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200" /></div>
+            <div><label className="text-xs text-gray-400 block mb-1">时辰</label>
+              <select value={lHour} onChange={e=>setLHour(e.target.value)} className="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200 text-xs">
+                {[{v:'0',l:'子时(23-01)'},{v:'2',l:'丑时(01-03)'},{v:'4',l:'寅时(03-05)'},{v:'6',l:'卯时(05-07)'},{v:'8',l:'辰时(07-09)'},{v:'10',l:'巳时(09-11)'},{v:'12',l:'午时(11-13)'},{v:'14',l:'未时(13-15)'},{v:'16',l:'申时(15-17)'},{v:'18',l:'酉时(17-19)'},{v:'20',l:'戌时(19-21)'},{v:'22',l:'亥时(21-23)'}].map(o=><option key={o.v} value={o.v}>{o.l}</option>)}
+              </select></div>
+          </div>
+          <label className="flex items-center gap-2 text-xs text-gray-300 cursor-pointer select-none">
+            <input type="checkbox" checked={lIsLeap} onChange={e=>setLIsLeap(e.target.checked)} className="accent-gold-500" />
+            闰月
+          </label>
+        </div>
+      )}
+
+      {/* 公历时间起卦 */}
+      {method === 'solarTime' && (
+        <div className="grid grid-cols-4 gap-3 mb-4">
+          <div><label className="text-xs text-gray-400 block mb-1">年份</label>
+            <input type="number" value={sYear} onChange={e=>setSYear(e.target.value)} className="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200" /></div>
+          <div><label className="text-xs text-gray-400 block mb-1">月份</label>
+            <input type="number" min={1} max={12} value={sMonth} onChange={e=>setSMonth(e.target.value)} className="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200" /></div>
+          <div><label className="text-xs text-gray-400 block mb-1">日</label>
+            <input type="number" min={1} max={31} value={sDay} onChange={e=>setSDay(e.target.value)} className="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200" /></div>
+          <div><label className="text-xs text-gray-400 block mb-1">时辰</label>
+            <select value={sHour} onChange={e=>setSHour(e.target.value)} className="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200 text-xs">
+              {[{v:'0',l:'子时(23-01)'},{v:'2',l:'丑时(01-03)'},{v:'4',l:'寅时(03-05)'},{v:'6',l:'卯时(05-07)'},{v:'8',l:'辰时(07-09)'},{v:'10',l:'巳时(09-11)'},{v:'12',l:'午时(11-13)'},{v:'14',l:'未时(13-15)'},{v:'16',l:'申时(15-17)'},{v:'18',l:'酉时(17-19)'},{v:'20',l:'戌时(19-21)'},{v:'22',l:'亥时(21-23)'}].map(o=><option key={o.v} value={o.v}>{o.l}</option>)}
+            </select></div>
+        </div>
+      )}
+
+      {/* 电脑自动 - 无需输入 */}
+
+      {error && <p className="text-xs text-red-400 mb-2">{error}</p>}
+      <button onClick={doCalc} className="bg-gold-600 hover:bg-gold-500 text-dark-900 font-semibold px-6 py-2.5 rounded-lg transition-colors active:scale-95">起卦</button>
     </div>
 
     {r && (<div className="space-y-4">
-      <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-5 text-center">
+      <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-4 text-center">
+        <p className="text-[10px] text-gray-500 mb-1">{r.sourceStr}</p>
         <p className="text-lg font-bold text-gold-400 font-serif mb-1">本卦：{r.gua.name}</p>
         <p className="text-xs text-gray-500">
           上卦：{r.upper}（{r.upperT?.name}·{r.upperT?.wx}·{r.upperT?.attr}） · 
           下卦：{r.lower}（{r.lowerT?.name}·{r.lowerT?.wx}·{r.lowerT?.attr}）
         </p>
-        <p className="text-xs text-gray-400 mt-1">动爻：第{r.moving}爻（从下往上数）</p>
+        <p className="text-xs text-gray-400 mt-1">动爻：第{r.moving}爻（从下往上数） · 变卦：{r.changeGua?.name || `${r.changeUpper}${r.changeLower}卦`}</p>
+        {gender && <p className="text-[10px] text-gray-500 mt-1">占者：{gender} · {matter || '预测何事'}</p>}
       </div>
+
       <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-5">
-        <h3 className="text-sm font-semibold text-gold-400 mb-2">卦辞</h3>
+        <h3 className="text-sm font-semibold text-gold-400 mb-2">本卦 · 卦辞</h3>
         <p className="text-sm text-gray-300 leading-relaxed">{r.gua.poem}</p>
       </div>
+
+      {r.changeGua?.poem && (
+        <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-5">
+          <h3 className="text-sm font-semibold text-gold-400 mb-2">变卦 · 卦辞</h3>
+          <p className="text-sm text-gray-300 leading-relaxed">{r.changeGua.poem}</p>
+        </div>
+      )}
+
       <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-5">
         <h3 className="text-sm font-semibold text-gold-400 mb-2">五行生克</h3>
         <p className="text-xs text-gray-300">
           上卦{r.upper}属{r.upperT?.wx}，下卦{r.lower}属{r.lowerT?.wx}。
           {r.upperT?.wx === r.lowerT?.wx ? '比和之象，诸事顺利。' :
-           (r.upperT?.wx === '金' && r.lowerT?.wx === '土' || r.upperT?.wx === '木' && r.lowerT?.wx === '水') ? '上卦生下卦，主吉。' :
-           (r.upperT?.wx === '金' && r.lowerT?.wx === '火') ? '下卦克上卦，先吉后凶，宜谨慎。' :
-           (r.upperT?.wx === '火' && r.lowerT?.wx === '木') ? '下卦生上卦，得贵人助。' : '相克之象，需谨慎应对。'}
+           (r.upperT?.wx === '金' && r.lowerT?.wx === '土' || r.upperT?.wx === '木' && r.lowerT?.wx === '水' || r.upperT?.wx === '水' && r.lowerT?.wx === '金' || r.upperT?.wx === '火' && r.lowerT?.wx === '木' || r.upperT?.wx === '土' && r.lowerT?.wx === '火') ? '上卦生下卦，主吉，根基牢固。' :
+           (r.upperT?.wx === '金' && r.lowerT?.wx === '火' || r.upperT?.wx === '火' && r.lowerT?.wx === '水' || r.upperT?.wx === '水' && r.lowerT?.wx === '土' || r.upperT?.wx === '土' && r.lowerT?.wx === '木' || r.upperT?.wx === '木' && r.lowerT?.wx === '金') ? '上卦克下卦，先难后易。' : '相克之象，需谨慎应对。'}
         </p>
       </div>
+
       <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-5">
         <h3 className="text-sm font-semibold text-gold-400 mb-2">动爻解读</h3>
         <p className="text-xs text-gray-300">

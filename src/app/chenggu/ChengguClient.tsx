@@ -222,6 +222,7 @@ export default function ChengguClient() {
   const [month, setMonth] = useState('1')
   const [day, setDay] = useState('1')
   const [hourIdx, setHourIdx] = useState(5)
+  const [isLeapMonth, setIsLeapMonth] = useState(false)
   const [result, setResult] = useState<any>(null)
 
   const calc = () => {
@@ -234,7 +235,7 @@ export default function ChengguClient() {
         solarLabel = solar.toFullString()
         lunarLabel = lunar.toFullString()
       } else {
-        lunar = Lunar.fromYmd(y, m, d)
+        lunar = Lunar.fromYmd(y, isLeapMonth ? -m : m, d)
         lunarLabel = lunar.toFullString()
         try { solarLabel = lunar.getSolar().toFullString() } catch { solarLabel = '—' }
       }
@@ -289,6 +290,12 @@ export default function ChengguClient() {
           <input type="number" min={1} max={12} value={month} onChange={e=>setMonth(e.target.value)} className="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200" /></div>
         <div><label className="text-xs text-gray-400 block mb-1">{isSolar?'阳历':'阴历'}日</label>
           <input type="number" min={1} max={31} value={day} onChange={e=>setDay(e.target.value)} className="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200" /></div>
+        {!isSolar && (
+          <label className="flex items-center gap-2 text-xs text-gray-300 cursor-pointer select-none self-end pb-1">
+            <input type="checkbox" checked={isLeapMonth} onChange={e=>{setIsLeapMonth(e.target.checked);setResult(null)}} className="accent-gold-500" />
+            闰月
+          </label>
+        )}
         <div><label className="text-xs text-gray-400 block mb-1">时辰</label>
           <select value={hourIdx} onChange={e=>setHourIdx(parseInt(e.target.value))} className="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200 text-sm">
             {HOUR_DZ.map((dz,i)=><option key={i} value={i}>{dz}时 ({HOUR_RANGES[i][0]}-{HOUR_RANGES[i][1]}点)</option>)}

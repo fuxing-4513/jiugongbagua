@@ -243,26 +243,29 @@ export default function BaziClient() {
   const [day, setDay] = useState(String(now.getDate()))
   const [hour, setHour] = useState('11')
   const [gender, setGender] = useState('男')
+  const [isLeapMonth, setIsLeapMonth] = useState(false)
   const [bzTg, setBzTg] = useState(['甲','甲','甲','甲'])
   const [bzDz, setBzDz] = useState(['子','寅','午','子'])
   const [bzYear, setBzYear] = useState(String(new Date().getFullYear()))
   const [result, setResult] = useState<any>(null)
   const [error, setError] = useState('')
 
+  const getLunarMonth = () => isLeapMonth ? -parseInt(month) : parseInt(month)
+
   const switchCal = (newCal: 'solar'|'lunar') => {
     const y=parseInt(year),m=parseInt(month),d=parseInt(day)
     if (!isNaN(y)&&!isNaN(m)&&!isNaN(d)&&m>=1&&m<=12&&d>=1&&d<=31) {
       try {
         if (newCal==='solar' && cal==='lunar') {
-          const lun=Lunar.fromYmd(y,m,d); const sol=lun.getSolar()
-          setYear(String(sol.getYear())); setMonth(String(sol.getMonth())); setDay(String(sol.getDay()))
+          const lun=Lunar.fromYmd(y, isLeapMonth ? -m : m, d); const sol=lun.getSolar()
+          setYear(String(sol.getYear())); setMonth(String(sol.getMonth())); setDay(String(sol.getDay())); setIsLeapMonth(false)
         } else if (newCal==='lunar' && cal==='solar') {
           const sol=Solar.fromYmd(y,m,d); const lun=sol.getLunar()
           setYear(String(lun.getYear())); setMonth(String(lun.getMonth())); setDay(String(lun.getDay()))
         }
       } catch {}
     }
-    setCal(newCal)
+    setCal(newCal); setIsLeapMonth(false)
   }
 
   const doCalc = () => {
@@ -334,7 +337,8 @@ export default function BaziClient() {
     try {
       let ec, solar, lunar
       if (cal === 'lunar') {
-        lunar = Lunar.fromYmd(y, m, d)
+        const lm = isLeapMonth ? -m : m
+        lunar = Lunar.fromYmd(y, lm, d)
         const ls = lunar.getSolar()
         solar = Solar.fromYmdHms(ls.getYear(), ls.getMonth(), ls.getDay(), h, 0, 0)
         ec = solar.getLunar().getEightChar()
@@ -418,6 +422,12 @@ export default function BaziClient() {
           <select value={gender} onChange={e=>setGender(e.target.value)} className="px-4 py-1.5 bg-dark-700 border border-dark-600 rounded-lg text-gray-200 text-xs">
             <option value="男">男</option><option value="女">女</option>
           </select>
+          {cal==='lunar' && (
+            <label className="flex items-center gap-2 px-3 py-1.5 bg-dark-700 border border-dark-600 rounded-lg text-xs text-gray-300 cursor-pointer select-none">
+              <input type="checkbox" checked={isLeapMonth} onChange={e=>setIsLeapMonth(e.target.checked)} className="accent-gold-500" />
+              闰月
+            </label>
+          )}
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-3">
           {[{l:'年',v:year,s:setYear},{l:'月',v:month,s:setMonth},{l:'日',v:day,s:setDay}].map((f,i)=>(
