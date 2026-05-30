@@ -19,6 +19,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/cezi',
     '/wenku',
     '/experts',
+    '/hehun',
+    '/chenggu',
+    '/fengshui',
+    '/lingqian',
+    '/meihua',
+    '/qimen',
+    '/shengxiao',
+    '/xingzuo',
   ]
 
   return pages.map((page) => ({
