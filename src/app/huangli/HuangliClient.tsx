@@ -91,9 +91,9 @@ function generateHuangli(year: number, month: number, day: number): HuangliResul
 
     const eightChar = lunar.getEightChar()
 
-    const ganZhiYear = `${eightChar.getYear()}${eightChar.getYearZhi()}`
-    const ganZhiMonth = `${eightChar.getMonth()}${eightChar.getMonthZhi()}`
-    const ganZhiDay = `${eightChar.getDay()}${eightChar.getDayZhi()}`
+    const ganZhiYear = `${eightChar.getYear()}`
+    const ganZhiMonth = `${eightChar.getMonth()}`
+    const ganZhiDay = `${eightChar.getDay()}`
 
     const zodiacIndex = (lunar.getYear() - 4) % 12
     const zodiacArr = ['鼠', '牛', '虎', '兔', '龙', '蛇', '马', '羊', '猴', '鸡', '狗', '猪']

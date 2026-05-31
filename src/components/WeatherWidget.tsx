@@ -102,12 +102,16 @@ function parseWttrJson(raw: any): WeatherData | null {
   const area = raw.nearest_area?.[0]?.areaName?.[0]?.value || raw.request?.[0]?.query || ''
   const condCode = cc.weatherCode || '113'
   const [emoji, label] = COND_MAP[condCode] || ['🌤', '未知']
+  // 从天气预报数组获取当天高温低温
+  const todayWeather = raw.weather?.[0]
+  const todayHigh = todayWeather?.maxtempC || ''
+  const todayLow = todayWeather?.mintempC || ''
   return {
     city: area,
     temp: cc.temp_C || '—',
     feelsLike: cc.FeelsLikeC || cc.temp_C || '—',
-    high: cc.tempMax_C || cc.temp_C || '—',
-    low: cc.tempMin_C || cc.temp_C || '—',
+    high: todayHigh || cc.temp_C || '—',
+    low: todayLow || cc.temp_C || '—',
     humidity: cc.humidity || '—',
     windDir: cc.winddir16Point || cc.winddirDegree || '—',
     windSpeed: cc.windspeedKmph || '0',
