@@ -108,9 +108,7 @@ export default function WeatherWidget() {
   const cityEncoded = encodeURIComponent(weatherCity || 'Beijing')
   const langParam = locale.startsWith('zh') ? 'zh' : 'en'
   const weatherImgUrl = `https://wttr.in/${cityEncoded}_2pq_lang=${langParam}_m.png`
-  const forecastImgUrl = `https://wttr.in/${cityEncoded}_0p_lang=${langParam}_m.png`
   const fallbackImgUrl = `https://wttr.in/Beijing_2pq_lang=${langParam}_m.png`
-  const fallbackForecastUrl = `https://wttr.in/Beijing_0p_lang=${langParam}_m.png`
 
   return (
     <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-5">
@@ -147,25 +145,7 @@ export default function WeatherWidget() {
               }}
             />
           </div>
-          <div className="mt-3 pt-3 border-t border-dark-700">
-            <p className="text-xs text-gold-400 font-medium mb-2 text-center">
-              📊 {tKey('homeWidgets.forecast7', lang)}
-            </p>
-            <div className="text-center overflow-x-auto">
-              <img
-                src={imgFailed ? fallbackForecastUrl : forecastImgUrl}
-                alt="7日天气预报"
-                className="max-w-full h-auto mx-auto rounded-lg"
-                crossOrigin="anonymous"
-                onError={(e) => {
-                  const img = e.target as HTMLImageElement
-                  if (!img.dataset.fallback2) {
-                    img.dataset.fallback2 = '1'
-                  }
-                }}
-              />
-            </div>
-          </div>
+
         </div>
       )}
     </div>
