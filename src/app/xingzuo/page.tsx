@@ -1,18 +1,12 @@
+import type { Metadata } from 'next'
 import XingzuoClient from './XingzuoClient'
 
-export const metadata = {
-  title: '星座运势 - 九宫八卦',
-  description: '十二星座百科与年度运势，了解星座起源、性格特征、事业财运、健康生活和年度运程。',
+export const metadata: Metadata = {
+  title: '星座运势查询',
+  description: '十二星座运势查询，包含白羊座、金牛座、双子座、巨蟹座、狮子座、处女座、天秤座、天蝎座、射手座、摩羯座、水瓶座、双鱼座的运势分析。',
+  keywords: '星座运势,星座,十二星座,今日运势,明日运势',
+  openGraph: { title: '星座运势查询', description: '十二星座运势查询，包含白羊座、金牛座、双子座等十二星座的运势分析。' },
+  alternates: { canonical: 'https://jiugongbagua.com/xingzuo', languages: { 'zh-CN': 'https://jiugongbagua.com/xingzuo', 'zh-TW': 'https://jiugongbagua.com/xingzuo?lang=zh-TW', 'en': 'https://jiugongbagua.com/xingzuo?lang=en' } },
 }
 
-export default function XingzuoPage() {
-  return (
-    <div className="min-h-screen py-6 px-3">
-      <div className="max-w-5xl mx-auto mb-6">
-        <h1 className="text-2xl sm:text-3xl font-bold text-gold-400 font-serif text-center">✨ 星座运势</h1>
-        <p className="text-center text-gray-500 text-sm mt-1">十二星座百科与年度运势解析</p>
-      </div>
-      <XingzuoClient />
-    </div>
-  )
-}
+export default function XingzuoPage() { return <XingzuoClient /> }

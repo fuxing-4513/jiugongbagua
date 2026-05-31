@@ -2,14 +2,11 @@ import type { Metadata } from 'next'
 import XingmingClient from './XingmingClient'
 
 export const metadata: Metadata = {
-  title: '姓名打分 - 九宫八卦',
-  description: '基于康熙字典笔画·五格数理和三才五行配置给姓名打分，提供天格、人格、地格、外格、总格完整解读。',
-  openGraph: {
-    title: '姓名打分 - 九宫八卦',
-    description: '康熙字典笔画五格数理姓名打分，81数理吉凶，三才五行配置。',
-  },
+  title: '姓名测试打分免费',
+  description: '姓名测试打分免费在线工具，基于五格数理、三才配置、五行属性分析姓名吉凶，起名改名参考。',
+  keywords: '姓名测试,姓名打分,起名,五格数理,三才配置',
+  openGraph: { title: '姓名测试打分免费', description: '姓名测试打分免费在线工具，基于五格数理、三才配置分析姓名吉凶。' },
+  alternates: { canonical: 'https://jiugongbagua.com/xingming', languages: { 'zh-CN': 'https://jiugongbagua.com/xingming', 'zh-TW': 'https://jiugongbagua.com/xingming?lang=zh-TW', 'en': 'https://jiugongbagua.com/xingming?lang=en' } },
 }
 
-export default function XingmingPage() {
-  return <XingmingClient />
-}
+export default function XingmingPage() { return <XingmingClient /> }

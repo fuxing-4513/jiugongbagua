@@ -2,14 +2,11 @@ import type { Metadata } from 'next'
 import ZiweiClient from './ZiweiClient'
 
 export const metadata: Metadata = {
-  title: '紫微斗数排盘 - 九宫八卦',
-  description: '输入出生信息，基于 iztro 专业排盘引擎生成紫微斗数命盘，查看十二宫星曜分布、四化飞星、命主身主等完整紫微斗数信息。',
-  openGraph: {
-    title: '紫微斗数排盘 - 九宫八卦',
-    description: '专业紫微斗数命盘排盘工具，十二宫星曜完整呈现。',
-  },
+  title: '紫微斗数排盘在线',
+  description: '紫微斗数在线排盘免费算命，输入出生信息即可排出紫微命盘，包含十二宫、星曜解析、四化飞星。传统紫微斗数命理分析。',
+  keywords: '紫微斗数,免费排盘,紫微命盘,十二宫,星曜,四化飞星',
+  openGraph: { title: '紫微斗数排盘在线', description: '紫微斗数在线排盘免费算命，输入出生信息即可排出紫微命盘。' },
+  alternates: { canonical: 'https://jiugongbagua.com/ziwei', languages: { 'zh-CN': 'https://jiugongbagua.com/ziwei', 'zh-TW': 'https://jiugongbagua.com/ziwei?lang=zh-TW', 'en': 'https://jiugongbagua.com/ziwei?lang=en' } },
 }
 
-export default function ZiweiPage() {
-  return <ZiweiClient />
-}
+export default function ZiweiPage() { return <ZiweiClient /> }

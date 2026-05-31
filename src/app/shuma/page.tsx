@@ -2,14 +2,11 @@ import type { Metadata } from 'next'
 import ShumaClient from './ShumaClient'
 
 export const metadata: Metadata = {
-  title: '号码测吉凶 - 九宫八卦',
-  description: '基于八星磁场理论的手机号码数字能量分析，输入手机号快速分析财运、事业、感情等数字磁场信息。',
-  openGraph: {
-    title: '号码测吉凶 - 九宫八卦',
-    description: '八星磁场手机号分析，在线免费测算手机号码吉凶。',
-  },
+  title: '号码测吉凶在线',
+  description: '手机号码测吉凶、车牌号测吉凶在线免费，基于数理吉凶分析，数字能量解读。',
+  keywords: '号码测吉凶,手机号吉凶,车牌号吉凶,数字吉凶',
+  openGraph: { title: '号码测吉凶在线', description: '手机号码测吉凶、车牌号测吉凶在线免费，基于数理吉凶分析。' },
+  alternates: { canonical: 'https://jiugongbagua.com/shuma', languages: { 'zh-CN': 'https://jiugongbagua.com/shuma', 'zh-TW': 'https://jiugongbagua.com/shuma?lang=zh-TW', 'en': 'https://jiugongbagua.com/shuma?lang=en' } },
 }
 
-export default function ShumaPage() {
-  return <ShumaClient />
-}
+export default function ShumaPage() { return <ShumaClient /> }

@@ -1,18 +1,12 @@
+import type { Metadata } from 'next'
 import ShengxiaoClient from './ShengxiaoClient'
 
-export const metadata = {
-  title: '十二生肖 - 九宫八卦',
-  description: '十二生肖百科，了解每个生肖的起源传说、性格特征、文化象征、民俗艺术与运势分析。',
+export const metadata: Metadata = {
+  title: '十二生肖百科',
+  description: '十二生肖百科大全，子鼠丑牛寅虎卯兔辰龙巳蛇午马未羊申猴酉鸡戌狗亥猪。十二生肖起源传说、性格特征、文化象征、运势解析。',
+  keywords: '十二生肖,生肖百科,生肖运势,生肖性格,鼠牛虎兔龙蛇马羊猴鸡狗猪',
+  openGraph: { title: '十二生肖百科', description: '十二生肖百科大全，子鼠丑牛寅虎卯兔辰龙巳蛇午马未羊申猴酉鸡戌狗亥猪。生肖起源传说、性格特征。' },
+  alternates: { canonical: 'https://jiugongbagua.com/shengxiao', languages: { 'zh-CN': 'https://jiugongbagua.com/shengxiao', 'zh-TW': 'https://jiugongbagua.com/shengxiao?lang=zh-TW', 'en': 'https://jiugongbagua.com/shengxiao?lang=en' } },
 }
 
-export default function ShengxiaoPage() {
-  return (
-    <div className="min-h-screen py-6 px-3">
-      <div className="max-w-5xl mx-auto mb-6">
-        <h1 className="text-2xl sm:text-3xl font-bold text-gold-400 font-serif text-center">🐉 十二生肖</h1>
-        <p className="text-center text-gray-500 text-sm mt-1">子鼠丑牛寅虎卯兔·辰龙巳蛇午马未羊·申猴酉鸡戌狗亥猪</p>
-      </div>
-      <ShengxiaoClient />
-    </div>
-  )
-}
+export default function ShengxiaoPage() { return <ShengxiaoClient /> }

@@ -2,14 +2,11 @@ import type { Metadata } from 'next'
 import LiuyaoClient from './LiuyaoClient'
 
 export const metadata: Metadata = {
-  title: '六爻占卜 - 九宫八卦',
-  description: '在线六爻起卦，三枚硬币法模拟传统摇卦，64卦卦辞爻辞完整解读。',
-  openGraph: {
-    title: '六爻占卜 - 九宫八卦',
-    description: '在线六爻起卦占卜，卦象解读吉凶祸福。',
-  },
+  title: '六爻占卜在线免费',
+  description: '六爻占卜在线起卦解卦，传统纳甲筮法，输入三个数字或随机起卦，分析卦象爻辞、世应、用神，预测吉凶。',
+  keywords: '六爻占卜,免费起卦,纳甲筮法,周易占卜,卦象解卦',
+  openGraph: { title: '六爻占卜在线免费', description: '六爻占卜在线起卦解卦，传统纳甲筮法，输入三个数字或随机起卦。' },
+  alternates: { canonical: 'https://jiugongbagua.com/liuyao', languages: { 'zh-CN': 'https://jiugongbagua.com/liuyao', 'zh-TW': 'https://jiugongbagua.com/liuyao?lang=zh-TW', 'en': 'https://jiugongbagua.com/liuyao?lang=en' } },
 }
 
-export default function LiuyaoPage() {
-  return <LiuyaoClient />
-}
+export default function LiuyaoPage() { return <LiuyaoClient /> }

@@ -37,14 +37,7 @@ export const metadata: Metadata = {
     follow: true,
     googleBot: { index: true, follow: true },
   },
-  alternates: {
-    canonical: baseUrl,
-    languages: {
-      'zh-CN': baseUrl,
-      'zh-TW': `${baseUrl}/?lang=zh-TW`,
-      'en': `${baseUrl}/?lang=en`,
-    },
-  },
+  // alternates moved to individual pages for per-route canonical/hreflang
   verification: {
     google: '', // 留空，未来可填入 Google Search Console ID
   },

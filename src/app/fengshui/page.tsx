@@ -1,9 +1,12 @@
-﻿import type { Metadata } from 'next'
+import type { Metadata } from 'next'
 import FengshuiClient from './FengshuiClient'
 
 export const metadata: Metadata = {
-  title: '风水罗盘 - 九宫八卦',
-  description: '风水罗盘在线测算',
+  title: '风水罗盘在线',
+  description: '风水罗盘在线工具，传统风水罗盘指南针，包含八卦方位、二十四山、九宫飞星等风水基础知识。',
+  keywords: '风水罗盘,罗盘在线,风水,二十四山,八卦方位',
+  openGraph: { title: '风水罗盘在线', description: '风水罗盘在线工具，传统风水罗盘指南针，包含八卦方位、二十四山等风水知识。' },
+  alternates: { canonical: 'https://jiugongbagua.com/fengshui', languages: { 'zh-CN': 'https://jiugongbagua.com/fengshui', 'zh-TW': 'https://jiugongbagua.com/fengshui?lang=zh-TW', 'en': 'https://jiugongbagua.com/fengshui?lang=en' } },
 }
 
-export default function Page() { return <FengshuiClient /> }
+export default function FengshuiPage() { return <FengshuiClient /> }
