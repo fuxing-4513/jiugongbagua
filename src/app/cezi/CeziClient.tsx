@@ -28,17 +28,6 @@ export interface CharData {
 
 const DICT_SIZE = Object.keys(DICT).length
 
-// 传统测字五行：笔画尾数法（河图数理）
-// 1/6→水, 2/7→火, 3/8→木, 4/9→金, 5/0→土
-function calcWuxing(strokes: number): string {
-  const n = strokes % 10
-  if (n === 1 || n === 6) return '水'
-  if (n === 2 || n === 7) return '火'
-  if (n === 3 || n === 8) return '木'
-  if (n === 4 || n === 9) return '金'
-  return '土'
-}
-
 // 简繁对照映射（常用有差别的字）
 const SIMPLIFIED_TO_TRADITIONAL: Record<string, string> = {
   '阿':'阿', '啊':'啊', '爱':'愛', '安':'安', '案':'案', '暗':'暗', '傲':'傲', '八':'八', '巴':'巴', '把':'把', '坝':'壩', '吧':'吧', '柏':'柏', '拜':'拜',
@@ -297,8 +286,6 @@ export default function CeziClient() {
 
 /* ===== 单字结果组件 ===== */
 function SingleCharResult({ data: result }: { data: CharData }) {
-  // 使用笔画尾数法修正五行
-  const realWuxing = calcWuxing(result.s)
   // 繁体转换
   const trad = toTraditional(result.c)
   return (
@@ -314,9 +301,9 @@ function SingleCharResult({ data: result }: { data: CharData }) {
           <p className="text-xs text-gray-500 mb-1">笔画</p>
           <p className="text-lg font-bold text-gray-200">{result.s}画</p>
         </div>
-        <div className={`rounded-lg p-3 text-center border ${WUXING_COLORS[realWuxing] || 'bg-dark-700 border-dark-600'}`}>
+        <div className={`rounded-lg p-3 text-center border ${WUXING_COLORS[result.w] || 'bg-dark-700 border-dark-600'}`}>
           <p className="text-xs text-gray-500 mb-1">五行</p>
-          <p className="text-lg font-bold">{realWuxing}</p>
+          <p className="text-lg font-bold">{result.w}</p>
         </div>
         <div className="bg-dark-700 rounded-lg p-3 text-center">
           <p className="text-xs text-gray-500 mb-1">寓意</p>
