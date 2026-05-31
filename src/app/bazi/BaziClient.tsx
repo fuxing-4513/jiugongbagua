@@ -688,7 +688,7 @@ export default function BaziClient() {
         </div>
       </div>
 
-      {/* 五行+神煞 */}
+      {/* 第一行：五行分布 + 命宫身宫胎元旬空 */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-4">
           <h3 className="text-sm font-semibold text-gray-200 mb-3">五行分布</h3>
@@ -701,28 +701,44 @@ export default function BaziClient() {
           </div>
           <p className="text-xs text-gray-300">日主{result.dg}属{wxM[result.dg]} · {result.str.level}</p>
         </div>
-        <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-4">
-          <h3 className="text-sm font-semibold text-gray-200 mb-3">神煞详解 <span className="text-[10px] font-normal text-gray-500">（各柱分布见上表）</span></h3>
-          <div className="space-y-2">
-            {result.shenSha.map((s:any,i:number)=>(
-              <div key={i} className={`text-xs p-2 rounded border ${shenShaTagColor(s.type)}`}>
-                <span className="font-semibold mr-1.5">{s.name}</span>
-                <span className={`text-[10px] ${s.type==='吉'?'text-gold-400/70':s.type==='凶'?'text-red-400/70':'text-gray-500'}`}>（{s.type}）</span>
-                <p className="text-[11px] text-gray-400 mt-1 leading-relaxed">{s.meaning}</p>
-                {s.resolve && <p className="text-[10px] text-amber-400/60 mt-1 leading-relaxed">✦ 化解：{s.resolve}</p>}
-              </div>
-            ))}
-          </div>
-          <div className="mt-3 pt-3 border-t border-dark-600 grid grid-cols-2 gap-2 text-[10px]">
-            <div><span className="text-gray-500">命宫</span><span className="text-gray-300 ml-2">{result.mingGong}</span></div>
-            <div><span className="text-gray-500">身宫</span><span className="text-gray-300 ml-2">{result.shenGong}</span></div>
-            <div><span className="text-gray-500">胎元</span><span className="text-gray-300 ml-2">{result.taiYuan}</span></div>
-            <div><span className="text-gray-500">旬空</span><span className="text-gray-300 ml-2">{result.xunKong}</span></div>
+        <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-4 flex flex-col justify-center">
+          <h3 className="text-sm font-semibold text-gray-200 mb-3">命宫 · 身宫 · 胎元 · 旬空</h3>
+          <div className="grid grid-cols-2 gap-3">
+            <div className="bg-dark-700/60 rounded-lg p-3 border border-dark-600">
+              <p className="text-[10px] text-gray-500 mb-1">命宫</p>
+              <p className="text-sm font-semibold text-gold-300">{result.mingGong}</p>
+            </div>
+            <div className="bg-dark-700/60 rounded-lg p-3 border border-dark-600">
+              <p className="text-[10px] text-gray-500 mb-1">身宫</p>
+              <p className="text-sm font-semibold text-blue-300">{result.shenGong}</p>
+            </div>
+            <div className="bg-dark-700/60 rounded-lg p-3 border border-dark-600">
+              <p className="text-[10px] text-gray-500 mb-1">胎元</p>
+              <p className="text-sm font-semibold text-purple-300">{result.taiYuan}</p>
+            </div>
+            <div className="bg-dark-700/60 rounded-lg p-3 border border-dark-600">
+              <p className="text-[10px] text-gray-500 mb-1">旬空</p>
+              <p className="text-sm font-semibold text-amber-300">{result.xunKong}</p>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* 命理批断 - 概述+古籍 */}
+      {/* 第二行：神煞详解（独占） */}
+      <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-4">
+        <h3 className="text-sm font-semibold text-gray-200 mb-3">神煞详解 <span className="text-[10px] font-normal text-gray-500">（各柱分布见上表）</span></h3>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
+          {result.shenSha.map((s:any,i:number)=>(
+            <div key={i} className={`text-xs p-3 rounded border ${shenShaTagColor(s.type)}`}>
+              <span className="font-semibold mr-1.5">{s.name}</span>
+              <span className={`text-[10px] ${s.type==='吉'?'text-gold-400/70':s.type==='凶'?'text-red-400/70':'text-gray-500'}`}>（{s.type}）</span>
+              <p className="text-[11px] text-gray-400 mt-1.5 leading-relaxed">{s.meaning}</p>
+              {s.resolve && <p className="text-[10px] text-amber-400/60 mt-1.5 leading-relaxed">✦ 化解：{s.resolve}</p>}
+            </div>
+          ))}
+        </div>
+      </div>
+{/* 命理批断 - 概述+古籍 */}
       <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-gold-500/30 p-4">
         <h3 className="text-sm font-semibold text-gold-300 mb-3">📜 命理批断</h3>
         {result.analysis.general.map((s:string,i:number)=><p key={i} className="text-xs text-gray-300 mb-1.5 leading-relaxed">{s}</p>)}
