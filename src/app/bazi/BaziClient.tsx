@@ -593,10 +593,39 @@ export default function BaziClient() {
           )}
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-3">
-          {[{l:'年',v:year,s:setYear},{l:'月',v:month,s:setMonth},{l:'日',v:day,s:setDay}].map((f,i)=>(
-            <div key={i}><label className="block text-xs text-gray-500 mb-1">{f.l}</label>
-            <input type="number" value={f.v} onChange={e=>f.s(e.target.value)} className="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200 focus:outline-none focus:border-gold-500 text-sm" /></div>
-          ))}
+          {(() => {
+            const yNum = parseInt(year) || 0, mNum = parseInt(month) || 0
+            let maxD = 31
+            if (cal === 'solar') {
+              if (mNum >= 1 && mNum <= 12) maxD = new Date(yNum, mNum, 0).getDate()
+            } else {
+              // lunar: 根据农历大小月推算（仅做UI限制，计算时还会二次校验）
+              // 大月30天 小月29天，暂统一30天让后端校验
+              if (mNum >= 1 && mNum <= 12) {
+                if ([1,3,5,7,8,10,12].includes(mNum)) maxD = 30
+                else maxD = 29
+              }
+            }
+            return [{l:'年',v:year,s:setYear,min:1900,max:2100},{l:'月',v:month,s:setMonth,min:1,max:12},{l:'日',v:day,s:setDay,min:1,max:maxD}].map((f,i) => (
+              <div key={i}><label className="block text-xs text-gray-500 mb-1">{f.l}</label>
+              <input type="number" value={f.v} onChange={e => {
+                const v = e.target.value
+                f.s(v)
+                // 日超出max时自动回缩
+                if (i === 1 && mNum >= 1 && mNum <= 12) {
+                  const ny = parseInt(year) || 0, nm = parseInt(v) || 0
+                  let nd = 31
+                  if (cal === 'solar') {
+                    if (nm >= 1 && nm <= 12) nd = new Date(ny, nm, 0).getDate()
+                  } else {
+                    if (nm >= 1 && nm <= 12) nd = [1,3,5,7,8,10,12].includes(nm) ? 30 : 29
+                  }
+                  const curDay = parseInt(day) || 1
+                  if (curDay > nd) setDay(String(nd))
+                }
+              }} min={f.min} max={f.max} className="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200 focus:outline-none focus:border-gold-500 text-sm" /></div>
+            ))
+          })()}
           <div><label className="block text-xs text-gray-500 mb-1">时</label>
             <select value={hour} onChange={e=>setHour(e.target.value)} className="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200 text-sm"><option value="">选择时辰</option>{hourOpts.map(o=><option key={o.v} value={o.v}>{o.l}</option>)}</select>
           </div>
