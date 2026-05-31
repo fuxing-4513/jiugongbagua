@@ -14,8 +14,15 @@ function tk(key: string, lang: Record<string, unknown>): string {
   return typeof v === 'string' ? v : key
 }
 
+export interface SancaiExplanation {
+  总论: string; 性格: string; 意志: string; 事业: string; 家庭: string;
+  婚姻: string; 子女: string; 社交: string; 精神: string;
+  财运: string; 健康: string; 老运: string;
+}
+
 export interface CharData {
-  c: string; s: number; w: string; m: string; i: string
+  c: string; s: number; w: string; m: string; i: string;
+  k?: string; e?: SancaiExplanation;
 }
 
 const DICT_SIZE = Object.keys(DICT).length
@@ -114,6 +121,27 @@ export default function CeziClient() {
             <h3 className="text-sm font-semibold text-gold-300 mb-3">测字解读</h3>
             <p className="text-sm text-gray-300 leading-relaxed">{result.i}</p>
           </div>
+
+          {result.k && (
+            <div className="bg-dark-700/50 rounded-xl p-4 border border-dark-600 mt-4">
+              <h3 className="text-xs font-semibold text-gold-400 mb-2">📖 康熙字源</h3>
+              <p className="text-xs text-gray-400 italic">{result.k}</p>
+            </div>
+          )}
+
+          {result.e && (
+            <div className="bg-dark-700/50 rounded-xl p-4 border border-dark-600 mt-4">
+              <h3 className="text-xs font-semibold text-gold-400 mb-3">🔱 三才五格 · 数理解析</h3>
+              <div className="grid grid-cols-2 gap-x-4 gap-y-2.5">
+                {Object.entries(result.e).map(([key, val]) => (
+                  <div key={key} className="text-xs">
+                    <span className="text-gray-500">{key}：</span>
+                    <span className="text-gray-300">{val}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       )}
     </div>
