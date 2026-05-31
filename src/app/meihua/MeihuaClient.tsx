@@ -2,6 +2,8 @@
 
 import { useState, useCallback } from 'react'
 import { Solar, Lunar } from 'lunar-typescript'
+import { MEIHUA_DUANCI, GuaDuanCi, getGuaRelation, LIFETIME_GUA_EXPLANATION, getNayinWuxing } from '@/lib/meihua-duanci'
+import { TIAN_GAN, DI_ZHI } from '@/lib/bazi-constants'
 
 const TRIGRAMS: Record<string,{name:string,wx:string,attr:string}> = {
   '乾':{name:'乾为天',wx:'金',attr:'健'},
@@ -189,7 +191,7 @@ function matchAllegory(text: string) {
   return best
 }
 
-type QiguaMethod = 'number' | 'lunarTime' | 'solarTime' | 'auto' | 'symbolism'
+type QiguaMethod = 'number' | 'lunarTime' | 'solarTime' | 'auto' | 'symbolism' | 'lifetime'
 
 export default function MeihuaClient() {
   const [method, setMethod] = useState<QiguaMethod>('number')
@@ -204,6 +206,9 @@ export default function MeihuaClient() {
   const [sDay, setSDay] = useState(String(new Date().getDate())); const [sHour, setSHour] = useState('0')
   const [symbolText, setSymbolText] = useState('')
   const [symbolMode, setSymbolMode] = useState<'auto' | 'stroke' | 'word'>('auto')
+  const [ltYear, setLtYear] = useState(String(new Date().getFullYear()))
+  const [ltMonth, setLtMonth] = useState('1'); const [ltDay, setLtDay] = useState('1')
+  const [ltHour, setLtHour] = useState('0'); const [ltGender, setLtGender] = useState('男')
   const [result, setResult] = useState<any>(null)
   const [error, setError] = useState('')
 
@@ -326,8 +331,48 @@ export default function MeihuaClient() {
       }
       const r = calcFromNumbers(n1, n2, n3)
       setResult({ ...r, sourceStr, method: 'symbolism', detailLines, symbolText: text, matched })
+    } else if (method === 'lifetime') {
+      const y = parseInt(ltYear), m = parseInt(ltMonth), d = parseInt(ltDay), h = parseInt(ltHour)
+      if (isNaN(y) || isNaN(m) || isNaN(d) || m < 1 || m > 12 || d < 1 || d > 31) { setError('出生日期无效'); return }
+      try {
+        const solar = Solar.fromYmd(y, m, d)
+        const lunar = solar.getLunar()
+        const yearGanZhi = lunar.getYearInGanZhi() // 如 '甲子'
+        const monthGanZhi = lunar.getMonthInGanZhi()
+        const dayGanZhi = lunar.getDayInGanZhi()
+        const hourGanZhi = lunar.getTimeInGanZhi()
+        // 纳音五行
+        const nayin = getNayinWuxing(y)
+        // 上卦: 年天干 + 月天干 => 数字
+        const yearGan = yearGanZhi[0]
+        const monthGan = monthGanZhi[0]
+        const dayGan = dayGanZhi[0]
+        const hourGan = hourGanZhi[0]
+        const yearGanIdx = '甲乙丙丁戊己庚辛壬癸'.indexOf(yearGan) + 1
+        const monthGanIdx = '甲乙丙丁戊己庚辛壬癸'.indexOf(monthGan) + 1
+        const dayGanIdx = '甲乙丙丁戊己庚辛壬癸'.indexOf(dayGan) + 1
+        const hourGanIdx = '甲乙丙丁戊己庚辛壬癸'.indexOf(hourGan) + 1
+        // 上卦 = (年天干序 + 月天干序) % 8
+        const n1 = yearGanIdx + monthGanIdx
+        // 下卦 = (日天干序 + 时天干序) % 8
+        const n2 = dayGanIdx + hourGanIdx
+        // 动爻 = (年 + 月 + 日) % 6
+        const n3 = yearGanIdx + monthGanIdx + dayGanIdx + parseInt(ltHour) / 2
+        const r = calcFromNumbers(Math.max(n1, 1), Math.max(n2, 1), Math.max(Math.round(n3), 1))
+        setResult({
+          ...r, method: 'lifetime',
+          sourceStr: `终身卦 · 出生 ${y}年${m}月${d}日 · ${['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥'][h/2]}时`,
+          ltInfo: {
+            birthday: `${y}/${m}/${d}`, hour: `${['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥'][h/2]}时`,
+            ganzhi: `${yearGanZhi}年 ${monthGanZhi}月 ${dayGanZhi}日 ${hourGanZhi}时`,
+            nayin, gender: ltGender,
+          }
+        })
+      } catch (e: any) {
+        setError('出生日期转换出错: ' + (e?.message || ''))
+      }
     }
-  }, [method, num1, num2, num3, lYear, lMonth, lDay, lHour, lIsLeap, sYear, sMonth, sDay, sHour, symbolText, symbolMode, calcFromNumbers])
+  }, [method, num1, num2, num3, lYear, lMonth, lDay, lHour, lIsLeap, sYear, sMonth, sDay, sHour, symbolText, symbolMode, ltYear, ltMonth, ltDay, ltHour, ltGender, calcFromNumbers])
 
   const r = result
 
@@ -338,7 +383,7 @@ export default function MeihuaClient() {
 
   return (<div className="max-w-2xl mx-auto px-4 py-10">
     <h1 className="text-3xl font-bold text-gold-400 font-serif mb-1">梅花易数</h1>
-    <p className="text-gray-400 mb-2">随心起卦，洞察先机。支持数字、时间、自动、万物取象四种方式。</p>
+    <p className="text-gray-400 mb-2">随心起卦，洞察先机。支持数字、时间、自动、万物取象、终身卦五种方式。</p>
 
     <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-5 mb-8">
       <div className="flex flex-wrap gap-2 mb-4">
@@ -347,6 +392,7 @@ export default function MeihuaClient() {
         <button onClick={() => setMethod('solarTime')} className={btnClass('solarTime')}>☀️ 公历时间</button>
         <button onClick={() => setMethod('symbolism')} className={btnClass('symbolism')}>🌿 万物取象</button>
         <button onClick={() => setMethod('auto')} className={btnClass('auto')}>🤖 电脑自动</button>
+        <button onClick={() => setMethod('lifetime')} className={btnClass('lifetime')}>♾️ 终身卦</button>
       </div>
 
       <div className="flex gap-3 mb-4">
@@ -400,6 +446,28 @@ export default function MeihuaClient() {
             <select value={sHour} onChange={e => setSHour(e.target.value)} className="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200 text-xs">
               {hourlyOptions.map(o => <option key={o.v} value={o.v}>{o.l}</option>)}
             </select></div>
+        </div>
+      )}
+
+      {method === 'lifetime' && (
+        <div className="mb-4">
+          <p className="text-xs text-gray-400 mb-3 leading-relaxed">{LIFETIME_GUA_EXPLANATION}</p>
+          <div className="grid grid-cols-5 gap-3 mb-2">
+            <div><label className="text-xs text-gray-400 block mb-1">出生年</label>
+              <input type="number" value={ltYear} onChange={e => setLtYear(e.target.value)} className="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200" /></div>
+            <div><label className="text-xs text-gray-400 block mb-1">月</label>
+              <input type="number" min={1} max={12} value={ltMonth} onChange={e => setLtMonth(e.target.value)} className="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200" /></div>
+            <div><label className="text-xs text-gray-400 block mb-1">日</label>
+              <input type="number" min={1} max={31} value={ltDay} onChange={e => setLtDay(e.target.value)} className="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200" /></div>
+            <div><label className="text-xs text-gray-400 block mb-1">时辰</label>
+              <select value={ltHour} onChange={e => setLtHour(e.target.value)} className="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200 text-xs">
+                {hourlyOptions.map(o => <option key={o.v} value={o.v}>{o.l}</option>)}
+              </select></div>
+            <div><label className="text-xs text-gray-400 block mb-1">性别</label>
+              <select value={ltGender} onChange={e => setLtGender(e.target.value)} className="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200 text-xs">
+                <option value="男">男</option><option value="女">女</option>
+              </select></div>
+          </div>
         </div>
       )}
 
@@ -471,6 +539,37 @@ export default function MeihuaClient() {
            (r.upperT?.wx === '金' && r.lowerT?.wx === '土' || r.upperT?.wx === '木' && r.lowerT?.wx === '水' || r.upperT?.wx === '水' && r.lowerT?.wx === '金' || r.upperT?.wx === '火' && r.lowerT?.wx === '木' || r.upperT?.wx === '土' && r.lowerT?.wx === '火') ? '上卦生下卦，主吉，根基牢固。' :
            (r.upperT?.wx === '金' && r.lowerT?.wx === '火' || r.upperT?.wx === '火' && r.lowerT?.wx === '水' || r.upperT?.wx === '水' && r.lowerT?.wx === '土' || r.upperT?.wx === '土' && r.lowerT?.wx === '木' || r.upperT?.wx === '木' && r.lowerT?.wx === '金') ? '上卦克下卦，先难后易。' : '相克之象，需谨慎应对。'}
         </p>
+        {(() => {
+          const guaKey = r.upper + r.lower
+          const duan = (MEIHUA_DUANCI as any)[guaKey] as GuaDuanCi | undefined
+          if (!duan) return null
+          return (
+            <div className="mt-4 space-y-3">
+              <div>
+                <h4 className="text-xs font-semibold text-gold-500 mb-1">📜 梅花易数断辞</h4>
+                <p className="text-xs text-gray-300 leading-relaxed">{duan.overall}</p>
+              </div>
+              <div className="grid grid-cols-2 gap-2">
+                <div className="bg-dark-700/40 rounded-lg p-3">
+                  <p className="text-[10px] text-cyan-400 font-medium mb-1">💼 事业</p>
+                  <p className="text-[11px] text-gray-300 leading-relaxed">{duan.career}</p>
+                </div>
+                <div className="bg-dark-700/40 rounded-lg p-3">
+                  <p className="text-[10px] text-pink-400 font-medium mb-1">❤️ 感情</p>
+                  <p className="text-[11px] text-gray-300 leading-relaxed">{duan.love}</p>
+                </div>
+                <div className="bg-dark-700/40 rounded-lg p-3">
+                  <p className="text-[10px] text-green-400 font-medium mb-1">🌿 健康</p>
+                  <p className="text-[11px] text-gray-300 leading-relaxed">{duan.health}</p>
+                </div>
+                <div className="bg-dark-700/40 rounded-lg p-3">
+                  <p className="text-[10px] text-yellow-400 font-medium mb-1">💰 财运</p>
+                  <p className="text-[11px] text-gray-300 leading-relaxed">{duan.wealth}</p>
+                </div>
+              </div>
+            </div>
+          )
+        })()}
       </div>
 
       <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-5">
@@ -486,6 +585,31 @@ export default function MeihuaClient() {
             属{r.matched.trigram}卦，其象为：{r.matched.meaning}。
             以此物象入卦，得本卦{r.gua.name}，变卦{r.changeGua?.name}。
           </p>
+        </div>
+      )}
+
+      {method === 'lifetime' && r.ltInfo && (
+        <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-5">
+          <h3 className="text-sm font-semibold text-gold-400 mb-3">📋 终身卦信息</h3>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
+            <div className="bg-dark-700/50 rounded-lg p-2.5">
+              <p className="text-gray-500 mb-0.5">出生</p>
+              <p className="text-gray-200 font-medium">{r.ltInfo.birthday}</p>
+            </div>
+            <div className="bg-dark-700/50 rounded-lg p-2.5">
+              <p className="text-gray-500 mb-0.5">时辰</p>
+              <p className="text-gray-200 font-medium">{r.ltInfo.hour}</p>
+            </div>
+            <div className="bg-dark-700/50 rounded-lg p-2.5">
+              <p className="text-gray-500 mb-0.5">性别</p>
+              <p className="text-gray-200 font-medium">{r.ltInfo.gender}</p>
+            </div>
+            <div className="bg-dark-700/50 rounded-lg p-2.5">
+              <p className="text-gray-500 mb-0.5">纳音</p>
+              <p className="text-gray-200 font-medium">{r.ltInfo.nayin}</p>
+            </div>
+          </div>
+          <p className="text-xs text-gray-400 mt-2">{r.ltInfo.ganzhi}</p>
         </div>
       )}
     </div>)}
