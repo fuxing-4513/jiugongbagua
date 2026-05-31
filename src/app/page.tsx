@@ -96,7 +96,7 @@ export default function HomePage() {
 
       {/* 十二生肖百科区块 */}
       <div className="mb-10">
-        <h2 className="text-xl font-semibold text-gold-400 font-serif mb-4 text-center">🐉 十二生肖百科</h2>
+        <h2 className="text-xl font-semibold text-gold-400 font-serif mb-4 text-center">🐉 十二生肖</h2>
         <p className="text-center text-gray-500 text-sm mb-5">点击生肖了解起源传说、性格特征、文化象征与运势</p>
         <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-12 gap-2">
           {[

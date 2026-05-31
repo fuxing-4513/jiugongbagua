@@ -19,8 +19,8 @@ export const zhCN = {
   },
   modules: {
     bazi: {
-      name: '八字算命',
-      desc: '根据出生年月日时推算八字命盘，解读命运格局',
+      name: '四柱八字',
+      desc: '根据出生年月日时推算四柱命盘，解读命运格局',
       emoji: '📜',
     },
     ziwei: {
@@ -60,7 +60,7 @@ export const zhCN = {
     },
     fengshui: { name:'风水罗盘', desc: '八宅风水、九宫飞星、房屋布局分析', emoji: '🧭' },
     chenggu: { name:'称骨算命', desc: '袁天罡称骨法，测算一生福禄', emoji: '⚖️' },
-    shengxiao: { name:'生肖运势', desc: '十二生肖每日每周每月运势', emoji: '🐉' },
+    shengxiao: { name:'十二生肖', desc: '十二生肖每日每周每月运势', emoji: '🐉' },
     xingzuo: { name:'星座占卜', desc: '十二星座每日运势和性格分析', emoji: '♈' },
     qimen: { name:'奇门遁甲', desc: '三奇八门排盘预测吉凶', emoji: '🌀' },
     meihua: { name:'梅花易数', desc: '万物皆可占的易学方法', emoji: '🌸' },
@@ -156,8 +156,8 @@ export const zhCN = {
     day六: '六',
   },
   bazi: {
-    title: '八字算命',
-    desc: '输入您的出生信息，系统将根据天干地支推算出您的八字命盘，解读命运格局。',
+    title: '四柱八字',
+    desc: '输入您的出生信息，系统将根据天干地支推算出您的四柱命盘，解读命运格局。',
     birthInfo: '出生信息',
     resultTitle: '您的八字命盘',
     heavenlyStems: '天干',
