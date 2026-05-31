@@ -20,7 +20,7 @@ const modules: ModuleInfo[] = [
   { key: 'jiemeng', nameKey: 'modules.jiemeng.name', descKey: 'modules.jiemeng.desc', emoji: '💤', href: '/jiemeng' },
   { key: 'fengshui', nameKey: 'modules.fengshui.name', descKey: 'modules.fengshui.desc', emoji: '🧭', href: '/fengshui' },
   { key: 'chenggu', nameKey: 'modules.chenggu.name', descKey: 'modules.chenggu.desc', emoji: '⚖️', href: '/chenggu' },
-  { key: 'shengxiao', nameKey: 'modules.shengxiao.name', descKey: 'modules.shengxiao.desc', emoji: '🐉', href: '/shengxiao' },
+  // 已移至首页十二生肖百科区块展示
   { key: 'xingzuo', nameKey: 'modules.xingzuo.name', descKey: 'modules.xingzuo.desc', emoji: '♈', href: '/xingzuo' },
   { key: 'qimen', nameKey: 'modules.qimen.name', descKey: 'modules.qimen.desc', emoji: '🌀', href: '/qimen' },
   { key: 'meihua', nameKey: 'modules.meihua.name', descKey: 'modules.meihua.desc', emoji: '🌸', href: '/meihua' },
