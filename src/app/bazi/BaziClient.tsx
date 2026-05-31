@@ -289,7 +289,7 @@ function comprehensiveAnalysis(dg: string, dz: string, wx: Record<string,number>
   const ssEffs = [
     ssEffect(shenSha, '文昌'), ssEffect(shenSha, '华盖'), ssEffect(shenSha, '桃花'),
     ssEffect(shenSha, '羊刃'), ssEffect(shenSha, '孤辰'), ssEffect(shenSha, '天乙'),
-  ].filter(e => e.has).map(e => `「${shenSha.find(s=>e.effect.includes(s.slice(0,2)))||''}」${e.effect}`).join('')
+  ].filter(e => e.has).map(e => `「${(shenSha.find((s:any)=>e.effect.includes(typeof s === 'string' ? s : s.name))||{name:''}).name}」${e.effect}`).join('')
 
   // 十神对性格影响
   const ssN = pillars.map((p: any) => p.ssGan)
@@ -314,8 +314,8 @@ function comprehensiveAnalysis(dg: string, dz: string, wx: Record<string,number>
 
   // ═══ 4. 感情分析 ═══
   const riZhiSS = pillars[2]?.ssZhi
-  const hasTH = shenSha.some(s => s.includes('桃花'))
-  const hasGC = shenSha.some(s => s.includes('孤辰'))
+  const hasTH = shenSha.some((s:any) => (typeof s === 'string' ? s : s.name).includes('桃花'))
+  const hasGC = shenSha.some((s:any) => (typeof s === 'string' ? s : s.name).includes('孤辰'))
   let love = ''
   if (gender === '男') {
     // 男命看财星
@@ -343,7 +343,7 @@ function comprehensiveAnalysis(dg: string, dz: string, wx: Record<string,number>
   const hasGY = ssN.includes('正官') || ssN.includes('七杀')
   const hasSY = ssN.includes('正印') || ssN.includes('偏印')
   const hasSS = ssN.includes('食神') || ssN.includes('伤官')
-  const hasYM = shenSha.some(s => s.includes('驿马'))
+  const hasYM = shenSha.some((s:any) => (typeof s === 'string' ? s : s.name).includes('驿马'))
 
   if (hasGY && hasSY) career += '官印相生，贵格。宜公务员、事业单位、教育科研，仕途顺遂。'
   else if (hasSS && hasCY) career += '食伤生财，富格。宜经商、创业、自由职业，以技艺才华赚钱。'
@@ -480,16 +480,25 @@ export default function BaziClient() {
           yearDiShi: '', monthDiShi: '', dayDiShi: '', timeDiShi: '',
           dayun: dayunArr, analysis,
         })
-      } catch(e){ setError('排盘出错，请检查天干地支和出生年份') }
+      } catch(e){ setError('排盘出错：' + ((e as any)?.message || '请检查天干地支和出生年份')) }
       return
     }
     
     const y = parseInt(year), m = parseInt(month), d = parseInt(day), h = parseInt(hour)
-    if (isNaN(y)||isNaN(m)||isNaN(d)||isNaN(h)||m<1||m>12||d<1||d>31||h<0||h>23){setError('日期无效');return}
+    if (isNaN(y)||isNaN(m)||isNaN(d)||isNaN(h)||m<1||m>12||d<1||d>31||h<0||h>23){setError('日期无效：年份、月份、日期或时辰不正确');return}
     try {
       let ec, solar, lunar
       if (cal === 'lunar') {
         const lm = isLeapMonth ? -m : m
+        if (!Lunar.fromYmd) { setError('日期库未加载'); return }
+        // 预检查输入的农历月日是否存在
+        let maxDays = 30
+        try {
+          Lunar.fromYmd(y, lm, 30)
+        } catch {
+          maxDays = 29
+        }
+        if (d > maxDays) { setError('该农历月只有' + maxDays + '天，请输入1-' + maxDays + '日'); return }
         lunar = Lunar.fromYmd(y, lm, d)
         const ls = lunar.getSolar()
         solar = Solar.fromYmdHms(ls.getYear(), ls.getMonth(), ls.getDay(), h, 0, 0)
@@ -542,7 +551,7 @@ export default function BaziClient() {
         dayDiShi: ec.getDayDiShi(), timeDiShi: ec.getTimeDiShi(),
         dayun, analysis,
       })
-    } catch(e){ setError('计算出错，请检查日期') }
+    } catch(e){ setError('计算出错：' + ((e as any)?.message || '请检查日期是否有效')) }
   }
 
   const ssColor = (s: string) => {
