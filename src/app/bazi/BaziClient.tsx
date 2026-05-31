@@ -36,7 +36,7 @@ const wxPersonality: Record<string,{positive:string,negative:string,style:string
   水:{positive:'聪慧包容、志向远大，机智灵活善于变通。性情深沉内敛，如渊似海有容人之量。',negative:'心性不定、容易动摇，有时过于圆滑让人捉摸不透。',style:'水主智，其性聪，其情善。外观丰腴，面色黑亮，头脑灵活足智多谋。'},
 }
 
-// ═══════════ 神煞系统 ═══════════
+// ═══════════ 神煞系统 — 升级版（每柱独立计算） ═══════════
 const TIANYI: Record<string,string[]> = {甲:['丑','未'],乙:['子','申'],丙:['亥','酉'],丁:['亥','酉'],戊:['丑','未'],己:['子','申'],庚:['寅','午'],辛:['寅','午'],壬:['卯','巳'],癸:['卯','巳']}
 const WENCHANG: Record<string,string> = {甲:'巳',乙:'午',丙:'申',丁:'酉',戊:'申',己:'酉',庚:'亥',辛:'子',壬:'寅',癸:'卯'}
 const YIMA: Record<string,string> = {申:'寅',子:'寅',辰:'寅',寅:'申',午:'申',戌:'申',巳:'亥',酉:'亥',丑:'亥',亥:'巳',卯:'巳',未:'巳'}
@@ -45,22 +45,64 @@ const YANGREN: Record<string,string> = {甲:'卯',乙:'寅',丙:'午',丁:'巳',
 const HUAGAI: Record<string,string> = {申:'辰',子:'辰',辰:'辰',寅:'戌',午:'戌',戌:'戌',巳:'丑',酉:'丑',丑:'丑',亥:'未',卯:'未',未:'未'}
 const JIESHA: Record<string,string> = {申:'巳',子:'巳',辰:'巳',寅:'亥',午:'亥',戌:'亥',巳:'寅',酉:'寅',丑:'寅',亥:'申',卯:'申',未:'申'}
 const GUCHEN: Record<string,string> = {亥:'寅',子:'寅',丑:'寅',寅:'巳',卯:'巳',辰:'巳',巳:'申',午:'申',未:'申',申:'亥',酉:'亥',戌:'亥'}
+const GUASU: Record<string,string> = {亥:'戌',子:'戌',丑:'戌',寅:'丑',卯:'丑',辰:'丑',巳:'辰',午:'辰',未:'辰',申:'未',酉:'未',戌:'未'}
 const TIANDE: Record<string,string> = {寅:'丁',卯:'申',辰:'壬',巳:'辛',午:'亥',未:'甲',申:'癸',酉:'寅',戌:'丙',亥:'乙',子:'巳',丑:'庚'}
 const YUEDE: Record<string,string> = {寅:'丙',卯:'甲',辰:'壬',巳:'庚',午:'丙',未:'甲',申:'壬',酉:'庚',戌:'丙',亥:'甲',子:'壬',丑:'庚'}
+const JIANGXING: Record<string,string> = {寅:'子',午:'子',戌:'子',申:'午',子:'午',辰:'午',巳:'酉',酉:'酉',丑:'酉',亥:'卯',卯:'卯',未:'卯'}
+const JINYU: Record<string,string> = {甲:'辰',乙:'巳',丙:'未',丁:'申',戊:'未',己:'申',庚:'戌',辛:'亥',壬:'丑',癸:'寅'}
+const TIANCHU: Record<string,string> = {甲:'巳',乙:'午',丙:'巳',丁:'午',戊:'申',己:'酉',庚:'亥',辛:'子',壬:'寅',癸:'卯'}
+const FUXING: Record<string,string> = {甲:'子',乙:'丑',丙:'子',丁:'丑',戊:'丑',己:'未',庚:'丑',辛:'未',壬:'丑',癸:'未'}
+const TIANSHENG: Record<string,string> = {巳:'乙',酉:'乙',丑:'乙',申:'丁',子:'丁',辰:'丁',亥:'己',卯:'己',未:'己',寅:'辛',午:'辛',戌:'辛'}
+const XUETANG: Record<string,string> = {甲:'未',乙:'午',丙:'申',丁:'酉',戊:'申',己:'酉',庚:'亥',辛:'子',壬:'寅',癸:'卯'}
 
-function calcShenSha(dg: string, yearZhi: string, monthZhi: string, dayZhi: string): string[] {
-  const r: string[] = []; const z = [yearZhi, monthZhi, dayZhi]; const g = [dg]
-  const ty = TIANYI[dg] || []; for (const x of z) { if (ty.includes(x)) { r.push(`天乙贵人（${x}）`); break } }
-  const wc = WENCHANG[dg]; if (wc && z.includes(wc)) r.push(`文昌贵人（${wc}）`)
-  const ym = YIMA[yearZhi]; if (ym && z.slice(1).includes(ym)) r.push(`驿马（${ym}）`)
-  const th = TAOHUA[yearZhi]; if (th && z.includes(th)) r.push(`桃花（${th}）`)
-  const yr = YANGREN[dg]; if (yr && z.includes(yr)) r.push(`羊刃（${yr}）`)
-  const hg = HUAGAI[yearZhi]; if (hg && z.includes(hg)) r.push(`华盖（${hg}）`)
-  const js = JIESHA[yearZhi]; if (js && z.includes(js)) r.push(`劫煞（${js}）`)
-  const gc = GUCHEN[yearZhi]; if (gc && z.includes(gc)) r.push(`孤辰（${gc}）`)
-  const td = TIANDE[monthZhi]; if (td && g.includes(td)) r.push('天德贵人')
-  const yd = YUEDE[monthZhi]; if (yd && g.includes(yd)) r.push('月德贵人')
-  return r.length > 0 ? r : ['无特殊神煞']
+/** 每柱独立神煞 — 返回每柱所带神煞列表 */
+interface PillarShenSha { pillarName: string; items: string[] }
+
+function calcPillarShenSha(tg: string[], dz: string[], dayGan: string): PillarShenSha[] {
+  const pillarNames = ['年柱','月柱','日柱','时柱']
+  return [0,1,2,3].map(i => {
+    const g = tg[i], z = dz[i]
+    const items: string[] = []
+    const ty = TIANYI[dayGan] || []; if (ty.includes(z)) items.push('天乙贵人')
+    const wc = WENCHANG[dayGan]; if (wc === z) items.push('文昌')
+    const ym = YIMA[dz[0]]; if (ym === z) items.push('驿马')
+    const th = TAOHUA[dz[0]]; if (th === z) items.push('桃花')
+    const yr = YANGREN[dayGan]; if (yr === z) items.push('羊刃')
+    const hg = HUAGAI[dz[0]]; if (hg === z) items.push('华盖')
+    const js = JIESHA[dz[0]]; if (js === z) items.push('劫煞')
+    const gc = GUCHEN[dz[0]]; if (gc === z) items.push('孤辰')
+    const gs = GUASU[dz[0]]; if (gs === z) items.push('寡宿')
+    const td = TIANDE[dz[1]]; if (td === g) items.push('天德')
+    const yd = YUEDE[dz[1]]; if (yd === g) items.push('月德')
+    const jx = JIANGXING[dz[0]]; if (jx === z) items.push('将星')
+    const jy = JINYU[dayGan]; if (jy === z) items.push('金舆')
+    const tc = TIANCHU[g]; if (tc === z) items.push('天厨')
+    const fx = FUXING[dayGan]; if (fx === z) items.push('福星')
+    const tians = TIANSHENG[dz[0]]; if (tians && tians === g) items.push('天赦')
+    const xt = XUETANG[dayGan]; if (xt === z) items.push('学堂')
+    return { pillarName: pillarNames[i], items: items.length > 0 ? items : ['—'] }
+  })
+}
+
+function getPillarShenShaLabel(items: string[]): string {
+  const names: Record<string,string> = {
+    '天乙贵人':'✨天乙','文昌':'📖文昌','驿马':'🏇驿马','桃花':'🌸桃花','羊刃':'⚔️羊刃',
+    '华盖':'🎭华盖','劫煞':'⚠️劫煞','孤辰':'🌙孤辰','寡宿':'☁️寡宿',
+    '天德':'☀️天德','月德':'🌙月德','将星':'⭐将星','金舆':'🚗金舆',
+    '天厨':'🍳天厨','福星':'🎁福星','天赦':'🙏天赦','学堂':'📚学堂',
+  }
+  return items.filter(x => x !== '—').map(x => names[x] || x).join(' ') || '—'
+}
+
+/** 从每柱神煞中合并出全局神煞列表 */
+function mergeShenSha(pillarShenSha: PillarShenSha[]): string[] {
+  const all = new Set<string>()
+  for (const p of pillarShenSha) {
+    for (const item of p.items) {
+      if (item !== '—') all.add(item)
+    }
+  }
+  return all.size > 0 ? [...all] : ['无特殊神煞']
 }
 
 // ═══════════ 《穷通宝鉴》调侯 ═══════════
@@ -287,7 +329,8 @@ export default function BaziClient() {
           for (const c of (hA[p.zhi] || '')) { if (wxM[c] && wx[wxM[c]]!==undefined) wx[wxM[c]]++ }
         }
         const str = strength(wx, dg)
-        const shenSha = calcShenSha(dg, dz[0], dz[1], dz[2])
+        const pillarShenSha = calcPillarShenSha(tg, dz, dg);
+        const shenSha = mergeShenSha(pillarShenSha)
         const zodiac = ['鼠','牛','虎','兔','龙','蛇','马','羊','猴','鸡','狗','猪'][((birthYear - 4) % 12 + 12) % 12]
         const lunar = { getYear: () => birthYear, getMonth: () => 1, getDay: () => 1, getYearShengXiao: () => zodiac, toFullString: () => '', getYearInChinese: () => '', getMonthInChinese: () => '', getDayInChinese: () => '' }
         const analysis = comprehensiveAnalysis(dg, dz[2], wx, pills, zodiac, lunar as any, dz[1], shenSha, gender)
@@ -324,6 +367,7 @@ export default function BaziClient() {
           bazi: tg[0]+dz[0]+'年 '+tg[1]+dz[1]+'月 '+tg[2]+dz[2]+'日 '+tg[3]+dz[3]+'时',
           solarStr: '', lunarStr: '直接输入八字排盘 · ' + birthYear + '年（大运估算，起运3岁）',
           pills, wx, dg, str, zodiac, shenSha,
+          pillarShenSha,
           mingGong: '—', shenGong: '—', taiYuan: '—', xunKong: '—',
           yearDiShi: '', monthDiShi: '', dayDiShi: '', timeDiShi: '',
           dayun: dayunArr, analysis,
@@ -369,7 +413,8 @@ export default function BaziClient() {
       }
       const str = strength(wx, dg)
       const zodiac = lunar.getYearShengXiao()
-      const shenSha = calcShenSha(dg, yearZhi, monthZhi, dz)
+      const pillarShenSha = calcPillarShenSha([ec.getYearGan(),ec.getMonthGan(),dg,ec.getTimeGan()], [ec.getYearZhi(),ec.getMonthZhi(),dz,ec.getTimeZhi()], dg)
+      const shenSha = mergeShenSha(pillarShenSha)
 
       const dayun: any[] = []
       try { const yun=ec.getYun(gender==='男'?1:0); const stems=['甲','乙','丙','丁','戊','己','庚','辛','壬','癸']; const branches=['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥']; for(const x of yun.getDaYun()){const gz=x.getGanZhi();if(!gz)continue;const sy=x.getStartYear();const years=[];for(let i=0;i<10;i++){const yy=sy+i;years.push({year:yy,gz:stems[((yy-4)%10+10)%10]+branches[((yy-4)%12+12)%12],age:x.getStartAge()+i})};dayun.push({gz,age:x.getStartAge(),startYear:sy,years})} } catch{}
@@ -382,6 +427,7 @@ export default function BaziClient() {
         solarStr: `公历${solar.getYear()}年${solar.getMonth()}月${solar.getDay()}日`,
         lunarStr: `农历${lunar.getYearInChinese()}年${lunar.getMonthInChinese()}月${lunar.getDayInChinese()}`,
         pills, wx, dg, str, zodiac, shenSha,
+        pillarShenSha,
         mingGong: ec.getMingGong(), shenGong: ec.getShenGong(), taiYuan: ec.getTaiYuan(),
         xunKong: ec.getDayXunKong(),
         yearDiShi: ec.getYearDiShi(), monthDiShi: ec.getMonthDiShi(),
@@ -515,6 +561,11 @@ export default function BaziClient() {
               <tr><td className="p-2 border border-dark-600 text-gray-500 bg-dark-700">十二长生</td>
                 {[result.yearDiShi,result.monthDiShi,result.dayDiShi,result.timeDiShi].map((v:any,i:number)=><td key={i} className="p-2 border border-dark-600 text-center text-gray-400">{v}</td>)}
               </tr>
+              <tr><td className="p-2 border border-dark-600 text-gray-500 bg-dark-700">神煞</td>
+                {(result.pillarShenSha||[]).map((p:any,i:number)=><td key={i} className="p-2 border border-dark-600 text-center font-medium text-[10px] leading-relaxed">
+                  {getPillarShenShaLabel(p.items)}
+                </td>)}
+              </tr>
             </tbody>
           </table>
         </div>
@@ -534,7 +585,7 @@ export default function BaziClient() {
           <p className="text-xs text-gray-300">日主{result.dg}属{wxM[result.dg]} · {result.str.level}</p>
         </div>
         <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-4">
-          <h3 className="text-sm font-semibold text-gray-200 mb-3">神煞</h3>
+          <h3 className="text-sm font-semibold text-gray-200 mb-3">神煞详解 <span className="text-[10px] font-normal text-gray-500">（各柱分布见上表）</span></h3>
           <div className="space-y-1.5">
             {result.shenSha.map((s:string,i:number)=>(
               <span key={i} className={`inline-block text-xs mr-1.5 mb-1 px-2 py-1 rounded ${
