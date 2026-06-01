@@ -38,8 +38,8 @@ html {
 body {
   font-family: var(--font-sans);
   background:
-    url('/beidou-bg.svg') no-repeat right top / min(900px, 70vw) auto,
-    linear-gradient(180deg, var(--color-dark-900) 0%, #0f0f1a 40%, #1a1a2e 70%, var(--color-dark-900) 100%);
+    url('/beidou-bg.svg') no-repeat center center / cover,
+    #050510;
   color: #d1d5db;
   background-attachment: fixed;
 }
@@ -47,6 +47,20 @@ body {
 .font-serif {
   font-family: var(--font-serif);
 }
+
+/* ── 全局玻璃态板块 —— 半透明+模糊，露出背景星空 ── */
+.glass-panel {
+  background: rgba(15, 15, 25, 0.45);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(251, 191, 36, 0.08);
+}
+
+/* 全局：所有暗色卡片/区域半透明化，透出星空背景 */
+.bg-dark-900 { background: rgba(15, 15, 15, 0.5) !important; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+.bg-dark-800 { background: rgba(26, 26, 26, 0.45) !important; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+.bg-dark-700 { background: rgba(37, 37, 37, 0.4) !important; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+.bg-dark-600 { background: rgba(45, 45, 45, 0.35) !important; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
 
 /* ── 铜钱翻转动画 ── */
 @keyframes coinFlip0 {
@@ -85,11 +99,11 @@ body {
 
 /* ── 宇宙光晕呼吸动画 ── */
 @keyframes cosmicPulse {
-  0%, 100% { opacity: 0.25; }
-  50% { opacity: 0.45; }
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.7; }
 }
 
-/* 页面顶部金色光晕覆盖层 */
+/* 页面金色光晕覆盖层 —— 在所有内容之上，pointer-events穿透 */
 .cosmic-overlay {
   position: fixed;
   top: 0;
@@ -97,10 +111,15 @@ body {
   width: 100%;
   height: 100%;
   pointer-events: none;
-  z-index: 0;
+  z-index: 9999;
   background:
-    radial-gradient(ellipse 600px 400px at 70% 30%, rgba(251,191,36,0.06) 0%, transparent 70%),
-    radial-gradient(ellipse 500px 350px at 30% 60%, rgba(251,191,36,0.04) 0%, transparent 70%),
-    radial-gradient(ellipse 400px 300px at 80% 75%, rgba(245,158,11,0.05) 0%, transparent 70%);
-  animation: cosmicPulse 8s ease-in-out infinite;
+    /* 中央北斗区域大光晕 */
+    radial-gradient(ellipse 800px 500px at 50% 55%, rgba(251,191,36,0.10) 0%, transparent 70%),
+    /* 顶部北极星光晕 */
+    radial-gradient(ellipse 500px 300px at 52% 20%, rgba(254,243,199,0.12) 0%, transparent 65%),
+    /* 左下辅助光晕 */
+    radial-gradient(ellipse 400px 350px at 25% 70%, rgba(245,158,11,0.06) 0%, transparent 70%),
+    /* 右下辅助光晕 */
+    radial-gradient(ellipse 350px 300px at 75% 65%, rgba(251,191,36,0.05) 0%, transparent 70%);
+  animation: cosmicPulse 6s ease-in-out infinite;
 }
