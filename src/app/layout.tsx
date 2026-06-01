@@ -97,6 +97,7 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-screen flex flex-col">
+        <div className="cosmic-overlay" aria-hidden="true" />
         <LocaleProvider>
           <Nav />
           <main className="flex-1 pt-16">
