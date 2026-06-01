@@ -99,11 +99,11 @@ body {
 
 /* ── 宇宙光晕呼吸动画 ── */
 @keyframes cosmicPulse {
-  0%, 100% { opacity: 0.4; }
-  50% { opacity: 0.7; }
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.5; }
 }
 
-/* 页面金色光晕覆盖层 —— 在所有内容之上，pointer-events穿透 */
+/* 页面金色光晕覆盖层 */
 .cosmic-overlay {
   position: fixed;
   top: 0;
@@ -113,13 +113,9 @@ body {
   pointer-events: none;
   z-index: 9999;
   background:
-    /* 中央北斗区域大光晕 */
-    radial-gradient(ellipse 800px 500px at 50% 55%, rgba(251,191,36,0.10) 0%, transparent 70%),
-    /* 顶部北极星光晕 */
-    radial-gradient(ellipse 500px 300px at 52% 20%, rgba(254,243,199,0.12) 0%, transparent 65%),
-    /* 左下辅助光晕 */
-    radial-gradient(ellipse 400px 350px at 25% 70%, rgba(245,158,11,0.06) 0%, transparent 70%),
-    /* 右下辅助光晕 */
-    radial-gradient(ellipse 350px 300px at 75% 65%, rgba(251,191,36,0.05) 0%, transparent 70%);
-  animation: cosmicPulse 6s ease-in-out infinite;
+    radial-gradient(ellipse 600px 350px at 55% 50%, rgba(251,191,36,0.05) 0%, transparent 60%),
+    radial-gradient(ellipse 400px 200px at 50% 15%, rgba(254,243,199,0.07) 0%, transparent 55%),
+    radial-gradient(ellipse 300px 250px at 25% 70%, rgba(245,158,11,0.04) 0%, transparent 65%),
+    radial-gradient(ellipse 300px 250px at 75% 65%, rgba(251,191,36,0.03) 0%, transparent 65%);
+  animation: cosmicPulse 8s ease-in-out infinite;
 }
