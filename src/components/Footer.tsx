@@ -79,7 +79,7 @@ export default function Footer() {
           {/* Other Links */}
           <div>
             <h3 className="text-sm font-semibold text-gold-300 uppercase tracking-wider mb-3">
-              {getTFlat('nav.knowledge')}
+              {getTFlat('nav.wenku')}
             </h3>
             <Link href="/wenku" className="block text-sm text-gold-300/70 hover:text-gray-300 transition-colors mb-4">
               {getTFlat('modules.wenku.name')}

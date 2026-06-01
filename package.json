@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "postbuild": "node -e \"require('fs').writeFileSync('out/CNAME','www.jiugongbagua.com')\"",
+    "postbuild": "node -e \"var f=require('fs');f.writeFileSync('out/CNAME','www.jiugongbagua.com');f.writeFileSync('out/.nojekyll','')\"",
     "start": "next start",
     "lint": "eslint",
     "deploy": "npm run build && npm run postbuild && npx gh-pages -d out --no-history"

@@ -1,4 +1,4 @@
-﻿'use client'
+'use client'
 
 import Link from 'next/link'
 import { useState } from 'react'
@@ -99,13 +99,25 @@ export default function Nav() {
             href="/wenku"
             className="text-sm text-gray-300 hover:text-gold-400 transition-colors"
           >
-            {getT('nav.knowledge')}
+            {getT('nav.wenku')}
           </Link>
           <Link
-            href="/experts"
+            href="/glossary"
             className="text-sm text-gray-300 hover:text-gold-400 transition-colors"
           >
-            {getT('nav.experts')}
+            {getT('nav.glossary')}
+          </Link>
+          <Link
+            href="/heluo"
+            className="text-sm text-gray-300 hover:text-gold-400 transition-colors"
+          >
+            {getT('nav.heluo')}
+          </Link>
+          <Link
+            href="/app"
+            className="text-sm text-gold-400 hover:text-gold-300 transition-colors font-medium"
+          >
+            {getT('nav.app')}
           </Link>
 
           {/* Language Switcher */}
@@ -129,7 +141,7 @@ export default function Nav() {
                       onClick={() => handleLangChange(key)}
                       className={`block w-full text-left px-4 py-2 text-sm transition-colors ${
                         locale === key
-                          ? 'bg-red-50 text-red-700 font-medium'
+                          ? 'bg-dark-600 text-gold-400 font-medium'
                           : 'text-gray-300 hover:bg-dark-600 hover:text-gold-400'
                       }`}
                     >
@@ -162,7 +174,7 @@ export default function Nav() {
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-t border-dark-600 bg-white">
+        <div className="md:hidden border-t border-dark-600 bg-dark-800">
           <div className="px-4 py-3 space-y-2">
             <Link
               href="/"
@@ -172,13 +184,13 @@ export default function Nav() {
               {getT('nav.home')}
             </Link>
             <div className="py-2">
-              <p className="text-xs text-gray-400 mb-1">{getT('nav.tools')}</p>
+              <p className="text-xs text-gray-500 mb-1">{getT('nav.tools')}</p>
               <div className="grid grid-cols-2 gap-1">
                 {toolModules.map((mod) => (
                   <Link
                     key={mod.href}
                     href={mod.href}
-                    className="block py-1.5 text-sm text-gray-600 hover:text-gold-400"
+                    className="block py-1.5 text-sm text-gray-400 hover:text-gold-400"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     {getT(mod.key)}
@@ -191,17 +203,31 @@ export default function Nav() {
               className="block py-2 text-sm text-gray-300 hover:text-gold-400"
               onClick={() => setMobileMenuOpen(false)}
             >
-              {getT('nav.knowledge')}
+              {getT('nav.wenku')}
             </Link>
             <Link
-              href="/experts"
+              href="/glossary"
               className="block py-2 text-sm text-gray-300 hover:text-gold-400"
               onClick={() => setMobileMenuOpen(false)}
             >
-              {getT('nav.experts')}
+              {getT('nav.glossary')}
             </Link>
-            <div className="pt-2 border-t border-gray-100">
-              <p className="text-xs text-gray-400 mb-1">{getT('nav.language')}</p>
+            <Link
+              href="/heluo"
+              className="block py-2 text-sm text-gray-300 hover:text-gold-400"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              {getT('nav.heluo')}
+            </Link>
+            <Link
+              href="/app"
+              className="block py-2 text-sm text-gold-400 hover:text-gold-300 font-medium"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              {getT('nav.app')}
+            </Link>
+            <div className="pt-2 border-t border-dark-600">
+              <p className="text-xs text-gray-500 mb-1">{getT('nav.language')}</p>
               <div className="flex gap-2">
                 {(Object.entries(localeNames) as [SupportedLocale, string][]).map(([key, name]) => (
                   <button
@@ -212,8 +238,8 @@ export default function Nav() {
                     }}
                     className={`text-sm px-2 py-1 rounded ${
                       locale === key
-                        ? 'bg-red-100 text-red-700'
-                        : 'text-gray-600 hover:text-gold-400'
+                        ? 'bg-dark-600 text-gold-400'
+                        : 'text-gray-400 hover:text-gold-400'
                     }`}
                   >
                     {name}

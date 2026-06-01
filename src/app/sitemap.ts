@@ -27,6 +27,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/qimen',
     '/shengxiao',
     '/xingzuo',
+    '/glossary',
+    '/heluo',
+    '/wiki',
+    '/faq',
+    '/app',
   ]
 
   return pages.map((page) => ({
