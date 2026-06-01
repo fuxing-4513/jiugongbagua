@@ -37,8 +37,11 @@ html {
 
 body {
   font-family: var(--font-sans);
-  background: var(--color-dark-900);
+  background:
+    url('/beidou-bg.svg') no-repeat right top / min(900px, 70vw) auto,
+    linear-gradient(180deg, var(--color-dark-900) 0%, #0f0f1a 40%, #1a1a2e 70%, var(--color-dark-900) 100%);
   color: #d1d5db;
+  background-attachment: fixed;
 }
 
 .font-serif {

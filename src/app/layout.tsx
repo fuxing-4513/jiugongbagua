@@ -96,7 +96,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="min-h-screen flex flex-col bg-gradient-to-b from-dark-900 to-dark-800">
+      <body className="min-h-screen flex flex-col">
         <LocaleProvider>
           <Nav />
           <main className="flex-1 pt-16">
