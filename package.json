@@ -9,8 +9,8 @@
     "start": "next start",
     "lint": "eslint",
     "deploy": "npm run build && npm run postbuild && npx gh-pages -d out --no-history",
-    "backup": "powershell -ExecutionPolicy Bypass -File scripts/backup.ps1",
-    "restore": "powershell -ExecutionPolicy Bypass -File scripts/backup.ps1 -Restore",
+    "backup": "powershell -ExecutionPolicy Bypass -File scripts/backup.ps1 backup",
+    "restore": "powershell -ExecutionPolicy Bypass -File scripts/backup.ps1 list",
     "stars": "node scripts/generate-stars.js"
   },
   "dependencies": {
