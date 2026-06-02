@@ -8,7 +8,10 @@
     "postbuild": "node -e \"var f=require('fs');f.writeFileSync('out/CNAME','www.jiugongbagua.com');f.writeFileSync('out/.nojekyll','')\"",
     "start": "next start",
     "lint": "eslint",
-    "deploy": "npm run build && npm run postbuild && npx gh-pages -d out --no-history"
+    "deploy": "npm run build && npm run postbuild && npx gh-pages -d out --no-history",
+    "backup": "powershell -ExecutionPolicy Bypass -File scripts/backup.ps1",
+    "restore": "powershell -ExecutionPolicy Bypass -File scripts/backup.ps1 -Restore",
+    "stars": "node scripts/generate-stars.js"
   },
   "dependencies": {
     "bazi": "^0.0.9",
