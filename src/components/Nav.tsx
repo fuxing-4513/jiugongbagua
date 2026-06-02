@@ -49,7 +49,7 @@ export default function Nav() {
     <nav className="fixed top-0 left-0 right-0 z-50 glass-panel shadow-sm">
       <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2">
+        <Link href="/" className="flex items-center gap-2 flex-shrink-0">
           <span className="text-2xl">☯</span>
           <span className="text-xl font-bold text-gold-400 font-serif">
             {getT('site.name')}
@@ -57,15 +57,18 @@ export default function Nav() {
         </Link>
 
         {/* Desktop Nav */}
-        <div className="hidden md:flex items-center gap-6">
-          <Link
-            href="/"
-            className="text-sm text-gray-300 hover:text-gold-400 transition-colors"
-          >
+        <div className="hidden lg:flex items-center gap-5">
+          <Link href="/" className="text-sm text-gray-300 hover:text-gold-400 transition-colors">
             {getT('nav.home')}
           </Link>
 
-          {/* Tools Dropdown */}
+          {/* 核心模块直接平铺 */}
+          <Link href="/bazi" className="text-sm text-gray-300 hover:text-gold-400 transition-colors">{getT('nav.bazi')}</Link>
+          <Link href="/ziwei" className="text-sm text-gray-300 hover:text-gold-400 transition-colors">{getT('nav.ziwei')}</Link>
+          <Link href="/liuyao" className="text-sm text-gray-300 hover:text-gold-400 transition-colors">{getT('nav.liuyao')}</Link>
+          <Link href="/huangli" className="text-sm text-gray-300 hover:text-gold-400 transition-colors">{getT('nav.huangli')}</Link>
+
+          {/* 更多工具 Dropdown */}
           <div className="relative">
             <button
               onClick={() => setToolsOpen(!toolsOpen)}
@@ -79,11 +82,9 @@ export default function Nav() {
             {toolsOpen && (
               <>
                 <div className="fixed inset-0 z-10" onClick={() => setToolsOpen(false)} />
-                <div className="absolute top-full right-0 mt-2 w-48 bg-dark-700 rounded-lg shadow-lg border border-dark-600 py-2 z-20">
+                <div className="absolute top-full right-0 mt-2 w-48 bg-dark-700 rounded-lg shadow-lg border border-dark-600 py-2 z-20 max-h-80 overflow-y-auto">
                   {toolModules.map((mod) => (
-                    <Link
-                      key={mod.href}
-                      href={mod.href}
+                    <Link key={mod.href} href={mod.href}
                       className="block px-4 py-2 text-sm text-gray-300 hover:bg-dark-600 hover:text-gold-400 transition-colors"
                       onClick={() => setToolsOpen(false)}
                     >
@@ -95,58 +96,26 @@ export default function Nav() {
             )}
           </div>
 
-          <Link
-            href="/wenku"
-            className="text-sm text-gray-300 hover:text-gold-400 transition-colors"
-          >
-            {getT('nav.wenku')}
-          </Link>
-          <Link
-            href="/glossary"
-            className="text-sm text-gray-300 hover:text-gold-400 transition-colors"
-          >
-            {getT('nav.glossary')}
-          </Link>
-          <Link
-            href="/heluo"
-            className="text-sm text-gray-300 hover:text-gold-400 transition-colors"
-          >
-            {getT('nav.heluo')}
-          </Link>
-          <Link
-            href="/app"
-            className="text-sm text-gold-400 hover:text-gold-300 transition-colors font-medium"
-          >
-            {getT('nav.app')}
-          </Link>
+          <Link href="/wenku" className="text-sm text-gray-300 hover:text-gold-400 transition-colors">{getT('nav.wenku')}</Link>
+          <Link href="/glossary" className="text-sm text-gray-300 hover:text-gold-400 transition-colors">{getT('nav.glossary')}</Link>
+          <Link href="/app" className="text-sm text-gold-400 hover:text-gold-300 transition-colors font-medium">{getT('nav.app')}</Link>
 
-          {/* Language Switcher */}
+          {/* Language */}
           <div className="relative">
             <button
               onClick={() => setLangOpen(!langOpen)}
               className="text-sm text-gray-300 hover:text-gold-400 transition-colors flex items-center gap-1 border border-dark-600 rounded px-2 py-1"
             >
               🌐 {localeNames[locale]}
-              <svg className={`w-3 h-3 transition-transform ${langOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-              </svg>
             </button>
             {langOpen && (
               <>
                 <div className="fixed inset-0 z-10" onClick={() => setLangOpen(false)} />
                 <div className="absolute top-full right-0 mt-2 w-36 bg-dark-700 rounded-lg shadow-lg border border-dark-600 py-2 z-20">
                   {(Object.entries(localeNames) as [SupportedLocale, string][]).map(([key, name]) => (
-                    <button
-                      key={key}
-                      onClick={() => handleLangChange(key)}
-                      className={`block w-full text-left px-4 py-2 text-sm transition-colors ${
-                        locale === key
-                          ? 'bg-dark-600 text-gold-400 font-medium'
-                          : 'text-gray-300 hover:bg-dark-600 hover:text-gold-400'
-                      }`}
-                    >
-                      {name}
-                    </button>
+                    <button key={key} onClick={() => handleLangChange(key)}
+                      className={`block w-full text-left px-4 py-2 text-sm transition-colors ${locale === key ? 'bg-dark-600 text-gold-400 font-medium' : 'text-gray-300 hover:bg-dark-600 hover:text-gold-400'}`}
+                    >{name}</button>
                   ))}
                 </div>
               </>
@@ -155,95 +124,44 @@ export default function Nav() {
         </div>
 
         {/* Mobile Menu Button */}
-        <button
-          className="md:hidden text-gray-300"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          aria-label="Toggle menu"
-        >
+        <button className="lg:hidden text-gray-300" onClick={() => setMobileMenuOpen(!mobileMenuOpen)} aria-label="Toggle menu">
           {mobileMenuOpen ? (
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
           ) : (
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" /></svg>
           )}
         </button>
       </div>
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-t border-dark-600 bg-dark-800">
+        <div className="lg:hidden border-t border-dark-600 bg-dark-800">
           <div className="px-4 py-3 space-y-2">
-            <Link
-              href="/"
-              className="block py-2 text-sm text-gray-300 hover:text-gold-400"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              {getT('nav.home')}
-            </Link>
+            <Link href="/" className="block py-2 text-sm text-gray-300 hover:text-gold-400" onClick={() => setMobileMenuOpen(false)}>{getT('nav.home')}</Link>
+            <Link href="/bazi" className="block py-2 text-sm text-gray-300 hover:text-gold-400" onClick={() => setMobileMenuOpen(false)}>{getT('nav.bazi')}</Link>
+            <Link href="/ziwei" className="block py-2 text-sm text-gray-300 hover:text-gold-400" onClick={() => setMobileMenuOpen(false)}>{getT('nav.ziwei')}</Link>
+            <Link href="/liuyao" className="block py-2 text-sm text-gray-300 hover:text-gold-400" onClick={() => setMobileMenuOpen(false)}>{getT('nav.liuyao')}</Link>
+            <Link href="/huangli" className="block py-2 text-sm text-gray-300 hover:text-gold-400" onClick={() => setMobileMenuOpen(false)}>{getT('nav.huangli')}</Link>
             <div className="py-2">
               <p className="text-xs text-gray-500 mb-1">{getT('nav.tools')}</p>
               <div className="grid grid-cols-2 gap-1">
                 {toolModules.map((mod) => (
-                  <Link
-                    key={mod.href}
-                    href={mod.href}
-                    className="block py-1.5 text-sm text-gray-400 hover:text-gold-400"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    {getT(mod.key)}
-                  </Link>
+                  <Link key={mod.href} href={mod.href} className="block py-1.5 text-sm text-gray-400 hover:text-gold-400" onClick={() => setMobileMenuOpen(false)}>{getT(mod.key)}</Link>
                 ))}
               </div>
             </div>
-            <Link
-              href="/wenku"
-              className="block py-2 text-sm text-gray-300 hover:text-gold-400"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              {getT('nav.wenku')}
-            </Link>
-            <Link
-              href="/glossary"
-              className="block py-2 text-sm text-gray-300 hover:text-gold-400"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              {getT('nav.glossary')}
-            </Link>
-            <Link
-              href="/heluo"
-              className="block py-2 text-sm text-gray-300 hover:text-gold-400"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              {getT('nav.heluo')}
-            </Link>
-            <Link
-              href="/app"
-              className="block py-2 text-sm text-gold-400 hover:text-gold-300 font-medium"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              {getT('nav.app')}
-            </Link>
+            <Link href="/wenku" className="block py-2 text-sm text-gray-300 hover:text-gold-400" onClick={() => setMobileMenuOpen(false)}>{getT('nav.wenku')}</Link>
+            <Link href="/glossary" className="block py-2 text-sm text-gray-300 hover:text-gold-400" onClick={() => setMobileMenuOpen(false)}>{getT('nav.glossary')}</Link>
+            <Link href="/app" className="block py-2 text-sm text-gold-400 hover:text-gold-300 font-medium" onClick={() => setMobileMenuOpen(false)}>{getT('nav.app')}</Link>
+            <Link href="/help" className="block py-2 text-sm text-gray-400 hover:text-gold-400" onClick={() => setMobileMenuOpen(false)}>{getT('nav.help')}</Link>
+            <Link href="/contact" className="block py-2 text-sm text-gray-400 hover:text-gold-400" onClick={() => setMobileMenuOpen(false)}>{getT('nav.contact')}</Link>
             <div className="pt-2 border-t border-dark-600">
               <p className="text-xs text-gray-500 mb-1">{getT('nav.language')}</p>
               <div className="flex gap-2">
                 {(Object.entries(localeNames) as [SupportedLocale, string][]).map(([key, name]) => (
-                  <button
-                    key={key}
-                    onClick={() => {
-                      handleLangChange(key)
-                      setMobileMenuOpen(false)
-                    }}
-                    className={`text-sm px-2 py-1 rounded ${
-                      locale === key
-                        ? 'bg-dark-600 text-gold-400'
-                        : 'text-gray-400 hover:text-gold-400'
-                    }`}
-                  >
-                    {name}
-                  </button>
+                  <button key={key} onClick={() => { handleLangChange(key); setMobileMenuOpen(false) }}
+                    className={`text-sm px-2 py-1 rounded ${locale === key ? 'bg-dark-600 text-gold-400' : 'text-gray-400 hover:text-gold-400'}`}
+                  >{name}</button>
                 ))}
               </div>
             </div>
