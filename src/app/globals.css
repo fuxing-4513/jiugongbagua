@@ -48,19 +48,19 @@ body {
   font-family: var(--font-serif);
 }
 
-/* ── 全局玻璃态板块 —— 半透明+模糊，露出背景星空 ── */
+/* ── 全局玻璃态板块 —— 深蓝紫色调半透明+模糊，融入星空背景 ── */
 .glass-panel {
-  background: rgba(15, 15, 25, 0.45);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(251, 191, 36, 0.08);
+  background: rgba(8, 8, 24, 0.40);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(251, 191, 36, 0.10);
 }
 
-/* 全局：所有暗色卡片/区域半透明化，透出星空背景 */
-.bg-dark-900 { background: rgba(15, 15, 15, 0.5) !important; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
-.bg-dark-800 { background: rgba(26, 26, 26, 0.45) !important; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
-.bg-dark-700 { background: rgba(37, 37, 37, 0.4) !important; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
-.bg-dark-600 { background: rgba(45, 45, 45, 0.35) !important; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+/* 全局：所有暗色卡片/区域改为深蓝紫基调，与星空背景 #010108-#03061a 色系协调 */
+.bg-dark-900 { background: rgba(5, 5, 18, 0.55) !important; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+.bg-dark-800 { background: rgba(8, 8, 24, 0.48) !important; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+.bg-dark-700 { background: rgba(10, 10, 28, 0.42) !important; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+.bg-dark-600 { background: rgba(12, 14, 32, 0.36) !important; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
 
 /* ── 铜钱翻转动画 ── */
 @keyframes coinFlip0 {

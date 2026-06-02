@@ -1,4 +1,4 @@
-// 九宫八卦 浩瀚星空 v3 — 彩色漫射光晕 + 北斗七星居中纵贯
+// 九宫八卦 浩瀚星空 v4 — 强漫射光晕 + 北斗延伸全版 + 板块底色协调
 const fs = require('fs');
 const path = require('path');
 
@@ -27,70 +27,79 @@ out.push(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" fill="
   <feMerge><feMergeNode in="b2"/><feMergeNode in="b1"/><feMergeNode in="SourceGraphic"/></feMerge>
 </filter>
 <filter id="beidouGlow" x="-200%" y="-200%" width="500%" height="500%">
-  <feGaussianBlur in="SourceGraphic" stdDeviation="2"/>
+  <feGaussianBlur in="SourceGraphic" stdDeviation="3"/>
 </filter>
-<filter id="diffuseBlur" x="-30%" y="-30%" width="160%" height="160%">
+<!-- 漫射光晕滤镜：大幅扩展边界防止裁剪 -->
+<filter id="diffuseBlur" x="-80%" y="-80%" width="260%" height="260%">
   <feGaussianBlur in="SourceGraphic" stdDeviation="80"/>
 </filter>
-<filter id="diffuseBlur2" x="-30%" y="-30%" width="160%" height="160%">
-  <feGaussianBlur in="SourceGraphic" stdDeviation="120"/>
+<filter id="diffuseBlur2" x="-80%" y="-80%" width="260%" height="260%">
+  <feGaussianBlur in="SourceGraphic" stdDeviation="140"/>
 </filter>
-<filter id="diffuseBlur3" x="-30%" y="-30%" width="160%" height="160%">
-  <feGaussianBlur in="SourceGraphic" stdDeviation="50"/>
+<filter id="diffuseBlur3" x="-80%" y="-80%" width="260%" height="260%">
+  <feGaussianBlur in="SourceGraphic" stdDeviation="60"/>
+</filter>
+<filter id="diffuseBlur4" x="-80%" y="-80%" width="260%" height="260%">
+  <feGaussianBlur in="SourceGraphic" stdDeviation="100"/>
 </filter>
 
-<!-- 彩色漫射光晕渐变 -->
-<radialGradient id="diffuseWarm" cx="50%" cy="40%" r="55%">
-  <stop offset="0%" stop-color="#3a2010" stop-opacity="0.07"/>
-  <stop offset="25%" stop-color="#2a1808" stop-opacity="0.04"/>
-  <stop offset="55%" stop-color="#140c04" stop-opacity="0.015"/>
+<!-- 彩色漫射光晕渐变 v4 — 2-3x 透明度 -->
+<radialGradient id="diffuseWarm" cx="50%" cy="35%" r="60%">
+  <stop offset="0%" stop-color="#4a2810" stop-opacity="0.15"/>
+  <stop offset="25%" stop-color="#3a1c08" stop-opacity="0.10"/>
+  <stop offset="55%" stop-color="#1a0c04" stop-opacity="0.04"/>
   <stop offset="100%" stop-color="transparent" stop-opacity="0"/>
 </radialGradient>
-<radialGradient id="diffuseBlue" cx="50%" cy="65%" r="60%">
-  <stop offset="0%" stop-color="#0a1a3a" stop-opacity="0.08"/>
-  <stop offset="30%" stop-color="#081830" stop-opacity="0.04"/>
-  <stop offset="60%" stop-color="#040c1a" stop-opacity="0.015"/>
+<radialGradient id="diffuseBlue" cx="50%" cy="70%" r="65%">
+  <stop offset="0%" stop-color="#0a1e4a" stop-opacity="0.18"/>
+  <stop offset="30%" stop-color="#081838" stop-opacity="0.10"/>
+  <stop offset="60%" stop-color="#040c20" stop-opacity="0.04"/>
   <stop offset="100%" stop-color="transparent" stop-opacity="0"/>
 </radialGradient>
-<radialGradient id="diffusePurple" cx="50%" cy="50%" r="50%">
-  <stop offset="0%" stop-color="#1a0d2e" stop-opacity="0.06"/>
-  <stop offset="35%" stop-color="#100820" stop-opacity="0.03"/>
-  <stop offset="70%" stop-color="#080410" stop-opacity="0.01"/>
+<radialGradient id="diffusePurple" cx="50%" cy="48%" r="55%">
+  <stop offset="0%" stop-color="#201040" stop-opacity="0.14"/>
+  <stop offset="35%" stop-color="#140828" stop-opacity="0.08"/>
+  <stop offset="70%" stop-color="#080414" stop-opacity="0.03"/>
   <stop offset="100%" stop-color="transparent" stop-opacity="0"/>
 </radialGradient>
-<radialGradient id="diffuseTeal" cx="40%" cy="55%" r="45%">
-  <stop offset="0%" stop-color="#081a20" stop-opacity="0.05"/>
-  <stop offset="40%" stop-color="#041015" stop-opacity="0.02"/>
+<radialGradient id="diffuseTeal" cx="35%" cy="58%" r="50%">
+  <stop offset="0%" stop-color="#0a2430" stop-opacity="0.12"/>
+  <stop offset="40%" stop-color="#051820" stop-opacity="0.06"/>
   <stop offset="100%" stop-color="transparent" stop-opacity="0"/>
 </radialGradient>
-<radialGradient id="diffuseGold" cx="50%" cy="45%" r="35%">
-  <stop offset="0%" stop-color="#2a1a08" stop-opacity="0.04"/>
-  <stop offset="50%" stop-color="#150c04" stop-opacity="0.015"/>
+<radialGradient id="diffuseGold" cx="50%" cy="42%" r="40%">
+  <stop offset="0%" stop-color="#3a2008" stop-opacity="0.10"/>
+  <stop offset="50%" stop-color="#1a0e04" stop-opacity="0.04"/>
   <stop offset="100%" stop-color="transparent" stop-opacity="0"/>
 </radialGradient>
-<radialGradient id="diffuseCyan" cx="50%" cy="30%" r="40%">
-  <stop offset="0%" stop-color="#061a25" stop-opacity="0.05"/>
+<radialGradient id="diffuseCyan" cx="45%" cy="25%" r="45%">
+  <stop offset="0%" stop-color="#082230" stop-opacity="0.12"/>
+  <stop offset="100%" stop-color="transparent" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="diffuseRose" cx="60%" cy="55%" r="40%">
+  <stop offset="0%" stop-color="#2a0a18" stop-opacity="0.08"/>
+  <stop offset="50%" stop-color="#140610" stop-opacity="0.03"/>
   <stop offset="100%" stop-color="transparent" stop-opacity="0"/>
 </radialGradient>
 
 <!-- 星云 -->
-<radialGradient id="nebula1" cx="35%" cy="35%" r="55%">
-  <stop offset="0%" stop-color="#0d0d2e" stop-opacity="0.05"/>
-  <stop offset="30%" stop-color="#080820" stop-opacity="0.02"/>
+<radialGradient id="nebula1" cx="30%" cy="30%" r="60%">
+  <stop offset="0%" stop-color="#0d0d2e" stop-opacity="0.08"/>
+  <stop offset="30%" stop-color="#080820" stop-opacity="0.04"/>
   <stop offset="100%" stop-color="transparent" stop-opacity="0"/>
 </radialGradient>
-<radialGradient id="nebula2" cx="65%" cy="60%" r="50%">
-  <stop offset="0%" stop-color="#0a1028" stop-opacity="0.04"/>
+<radialGradient id="nebula2" cx="70%" cy="62%" r="50%">
+  <stop offset="0%" stop-color="#0a1028" stop-opacity="0.06"/>
   <stop offset="100%" stop-color="transparent" stop-opacity="0"/>
 </radialGradient>
 <radialGradient id="polarisGlow" cx="50%" cy="50%" r="50%">
-  <stop offset="0%" stop-color="#fefce8" stop-opacity="0.02"/>
+  <stop offset="0%" stop-color="#fefce8" stop-opacity="0.025"/>
   <stop offset="100%" stop-color="transparent" stop-opacity="0"/>
 </radialGradient>
 <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
   <stop offset="0%" stop-color="#010108"/>
   <stop offset="25%" stop-color="#020412"/>
-  <stop offset="50%" stop-color="#030618"/>
+  <stop offset="50%" stop-color="#03061a"/>
   <stop offset="75%" stop-color="#020515"/>
   <stop offset="100%" stop-color="#010108"/>
 </linearGradient>
@@ -99,34 +108,28 @@ out.push(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" fill="
 // 天空底
 out.push(`<rect width="${W}" height="${H}" fill="url(#skyGrad)"/>`);
 
-// ===== 多层彩色漫射光晕 =====
-// 底部蓝色漫射（模拟地平线气辉）
-out.push(`<ellipse cx="${CX}" cy="${H*0.8}" rx="${W*0.6}" ry="${H*0.3}" fill="url(#diffuseBlue)" filter="url(#diffuseBlur)"/>`);
-// 中央紫色漫射
+// ===== 多层彩色漫射光晕 v4 =====
+out.push(`<ellipse cx="${CX}" cy="${H*0.75}" rx="${W*0.55}" ry="${H*0.3}" fill="url(#diffuseBlue)" filter="url(#diffuseBlur)"/>`);
 out.push(`<ellipse cx="${CX}" cy="${CY}" rx="${W*0.5}" ry="${H*0.45}" fill="url(#diffusePurple)" filter="url(#diffuseBlur2)"/>`);
-// 上方暖色漫射
-out.push(`<ellipse cx="${CX}" cy="${H*0.35}" rx="${W*0.45}" ry="${H*0.3}" fill="url(#diffuseWarm)" filter="url(#diffuseBlur)"/>`);
-// 青蓝调漫射（左侧）
-out.push(`<ellipse cx="${W*0.3}" cy="${H*0.5}" rx="${W*0.4}" ry="${H*0.35}" fill="url(#diffuseCyan)" filter="url(#diffuseBlur3)"/>`);
-// 暗金漫射（中央偏右）
-out.push(`<ellipse cx="${W*0.55}" cy="${H*0.45}" rx="${W*0.3}" ry="${H*0.25}" fill="url(#diffuseGold)" filter="url(#diffuseBlur3)"/>`);
-// 青绿漫射（右下）
-out.push(`<ellipse cx="${W*0.65}" cy="${H*0.65}" rx="${W*0.35}" ry="${H*0.3}" fill="url(#diffuseTeal)" filter="url(#diffuseBlur3)"/>`);
-// 额外一层深蓝底部
-out.push(`<ellipse cx="${CX}" cy="${H*0.85}" rx="${W*0.55}" ry="${H*0.25}" fill="url(#diffuseBlue)" filter="url(#diffuseBlur2)"/>`);
+out.push(`<ellipse cx="${CX}" cy="${H*0.32}" rx="${W*0.5}" ry="${H*0.32}" fill="url(#diffuseWarm)" filter="url(#diffuseBlur)"/>`);
+out.push(`<ellipse cx="${W*0.3}" cy="${H*0.52}" rx="${W*0.4}" ry="${H*0.35}" fill="url(#diffuseCyan)" filter="url(#diffuseBlur3)"/>`);
+out.push(`<ellipse cx="${W*0.55}" cy="${H*0.42}" rx="${W*0.32}" ry="${H*0.28}" fill="url(#diffuseGold)" filter="url(#diffuseBlur3)"/>`);
+out.push(`<ellipse cx="${W*0.62}" cy="${H*0.62}" rx="${W*0.38}" ry="${H*0.3}" fill="url(#diffuseTeal)" filter="url(#diffuseBlur3)"/>`);
+out.push(`<ellipse cx="${W*0.55}" cy="${H*0.55}" rx="${W*0.3}" ry="${H*0.25}" fill="url(#diffuseRose)" filter="url(#diffuseBlur4)"/>`);
+out.push(`<ellipse cx="${CX}" cy="${H*0.82}" rx="${W*0.5}" ry="${H*0.22}" fill="url(#diffuseBlue)" filter="url(#diffuseBlur2)"/>`);
 
 // 星云
-out.push(`<ellipse cx="${W*0.35}" cy="${H*0.3}" rx="${W*0.5}" ry="${H*0.4}" fill="url(#nebula1)" filter="url(#diffuseBlur3)"/>`);
-out.push(`<ellipse cx="${W*0.65}" cy="${H*0.6}" rx="${W*0.45}" ry="${H*0.35}" fill="url(#nebula2)" filter="url(#diffuseBlur3)"/>`);
+out.push(`<ellipse cx="${W*0.32}" cy="${H*0.28}" rx="${W*0.48}" ry="${H*0.38}" fill="url(#nebula1)" filter="url(#diffuseBlur4)"/>`);
+out.push(`<ellipse cx="${W*0.68}" cy="${H*0.62}" rx="${W*0.42}" ry="${H*0.33}" fill="url(#nebula2)" filter="url(#diffuseBlur4)"/>`);
 
 // ===== 星星层 =====
-function horizonBright(y) { return Math.max(0.15, 1 - y / H * 0.7); }
+function horizonBright(y) { return Math.max(0.12, 1 - y / H * 0.75); }
 
-// L0: 极微星 2500颗
+// L0: 极微星 2800颗
 let l0 = '';
-for (let i = 0; i < 2500; i++) {
+for (let i = 0; i < 2800; i++) {
   const x = rnd(0, W), y = rnd(0, H);
-  l0 += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${rnd(0.15,0.35).toFixed(3)}" fill="${clr([0x70,0x80,0xb0],[0x90,0xa0,0xc8],rand())}" opacity="${(rnd(0.04,0.15)*horizonBright(y)).toFixed(3)}"/>\n`;
+  l0 += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${rnd(0.12,0.35).toFixed(3)}" fill="${clr([0x70,0x80,0xb0],[0x98,0xa8,0xd0],rand())}" opacity="${(rnd(0.04,0.16)*horizonBright(y)).toFixed(3)}"/>\n`;
 }
 out.push(`<g>${l0}</g>`);
 
@@ -134,7 +137,7 @@ out.push(`<g>${l0}</g>`);
 let l1 = '';
 for (let i = 0; i < 1000; i++) {
   const x = rnd(0, W), y = rnd(0, H);
-  l1 += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${rnd(0.3,0.7).toFixed(2)}" fill="${clr([0x88,0x95,0xc0],[0xb0,0xbc,0xd8],rand())}" opacity="${(rnd(0.08,0.25)*horizonBright(y)).toFixed(2)}"/>\n`;
+  l1 += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${rnd(0.3,0.7).toFixed(2)}" fill="${clr([0x88,0x95,0xc0],[0xb0,0xbc,0xd8],rand())}" opacity="${(rnd(0.08,0.28)*horizonBright(y)).toFixed(2)}"/>\n`;
 }
 out.push(`<g>${l1}</g>`);
 
@@ -144,7 +147,7 @@ for (let i = 0; i < 500; i++) {
   const x = rnd(0, W), y = rnd(0, H);
   const warm = rand() > 0.7;
   const c = warm ? clr([0xee,0xdd,0xbb],[0xff,0xf4,0xe0],rand()) : clr([0xb8,0xc8,0xe8],[0xe0,0xe8,0xf8],rand());
-  l2 += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${rnd(0.6,1.2).toFixed(2)}" fill="${c}" opacity="${(rnd(0.15,0.40)*horizonBright(y)).toFixed(2)}"/>\n`;
+  l2 += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${rnd(0.6,1.2).toFixed(2)}" fill="${c}" opacity="${(rnd(0.15,0.42)*horizonBright(y)).toFixed(2)}"/>\n`;
 }
 out.push(`<g>${l2}</g>`);
 
@@ -188,46 +191,45 @@ for (const cc of clusters) {
   out.push(cl);
 }
 
-// ===== 北斗七星 — 居中纵贯 =====
-// 从顶部 ~12% 到底部 ~82%，纵贯画面中央
+// ===== 北斗七星 v4 — 大尺度纵贯全版 =====
+// 覆盖 y=30 到 y=870（几乎全版），半径和光晕均放大
 const dipper = [
-  { name:'天枢', x:540, y:130, r:3.0, halo:6 },  // 最上
-  { name:'天璇', x:620, y:240, r:3.0, halo:6 },
-  { name:'天玑', x:680, y:360, r:2.8, halo:5 },
-  { name:'天权', x:760, y:500, r:2.8, halo:5 },
-  { name:'玉衡', x:680, y:580, r:3.5, halo:7 },  // 中心最亮
-  { name:'开阳', x:740, y:680, r:2.6, halo:5 },
-  { name:'摇光', x:800, y:760, r:2.6, halo:5 },  // 最下
+  { name:'天枢', x:580, y:40,  r:4.5, halo:14 },  // 顶部 ~5%
+  { name:'天璇', x:660, y:180, r:4.5, halo:14 },
+  { name:'天玑', x:720, y:360, r:4.0, halo:12 },
+  { name:'天权', x:820, y:520, r:4.0, halo:12 },
+  { name:'玉衡', x:720, y:600, r:5.0, halo:16 },  // 中心最大
+  { name:'开阳', x:780, y:730, r:3.8, halo:11 },
+  { name:'摇光', x:840, y:870, r:3.5, halo:10 },  // 底部 ~97%
 ];
-// 北极星在斗柄延长线上方
-const p = { x: 480, y: 50 };
+const polaris = { x: 510, y: -20 }; // 北极星在画面顶部外
 
 // 北极星光晕
-out.push(`<circle cx="${p.x}" cy="${p.y}" r="80" fill="url(#polarisGlow)"/>`);
+out.push(`<circle cx="${polaris.x}" cy="${polaris.y+40}" r="100" fill="url(#polarisGlow)"/>`);
 
-// 连线（极淡虚线）
-out.push(`<g stroke="#fcd34d" stroke-width="0.4" opacity="0.05" fill="none" stroke-dasharray="2 16">
+// 连线（加深一点）
+out.push(`<g stroke="#fcd34d" stroke-width="0.5" opacity="0.06" fill="none" stroke-dasharray="2 18">
 <line x1="${dipper[0].x}" y1="${dipper[0].y}" x2="${dipper[1].x}" y2="${dipper[1].y}"/>
 <line x1="${dipper[1].x}" y1="${dipper[1].y}" x2="${dipper[2].x}" y2="${dipper[2].y}"/>
 <line x1="${dipper[2].x}" y1="${dipper[2].y}" x2="${dipper[3].x}" y2="${dipper[3].y}"/>
 <line x1="${dipper[3].x}" y1="${dipper[3].y}" x2="${dipper[4].x}" y2="${dipper[4].y}"/>
 <line x1="${dipper[4].x}" y1="${dipper[4].y}" x2="${dipper[5].x}" y2="${dipper[5].y}"/>
 <line x1="${dipper[5].x}" y1="${dipper[5].y}" x2="${dipper[6].x}" y2="${dipper[6].y}"/>
-<line x1="${dipper[0].x}" y1="${dipper[0].y}" x2="${p.x}" y2="${p.y}" opacity="0.03" stroke-dasharray="1 20"/>
+<line x1="${dipper[0].x}" y1="${dipper[0].y}" x2="${polaris.x}" y2="${polaris.y+40}" opacity="0.03" stroke-dasharray="1 24"/>
 </g>`);
 
 // 七星本体
 out.push(`<g filter="url(#beidouGlow)">`);
 for (const s of dipper) {
-  out.push(`<circle cx="${s.x}" cy="${s.y}" r="${s.halo}" fill="#fcd34d" opacity="0.03"/>`);
-  out.push(`<circle cx="${s.x}" cy="${s.y}" r="${s.r}" fill="#fff8e8" opacity="0.20"/>`);
+  out.push(`<circle cx="${s.x}" cy="${s.y}" r="${s.halo}" fill="#fcd34d" opacity="0.04"/>`);
+  out.push(`<circle cx="${s.x}" cy="${s.y}" r="${s.r}" fill="#fff8e8" opacity="0.18"/>`);
 }
 // 北极星
-out.push(`<circle cx="${p.x}" cy="${p.y}" r="5" fill="#fefce8" opacity="0.03"/>`);
-out.push(`<circle cx="${p.x}" cy="${p.y}" r="2" fill="#ffffff" opacity="0.30"/>`);
-out.push(`<circle cx="${p.x}" cy="${p.y}" r="0.8" fill="#ffffff" opacity="0.50"/>`);
-out.push(`<line x1="${p.x}" y1="${p.y-7}" x2="${p.x}" y2="${p.y+7}" stroke="#fefce8" stroke-width="0.4" opacity="0.08"/>`);
-out.push(`<line x1="${p.x-7}" y1="${p.y}" x2="${p.x+7}" y2="${p.y}" stroke="#fefce8" stroke-width="0.4" opacity="0.08"/>`);
+out.push(`<circle cx="${polaris.x}" cy="${polaris.y+40}" r="7" fill="#fefce8" opacity="0.03"/>`);
+out.push(`<circle cx="${polaris.x}" cy="${polaris.y+40}" r="2.5" fill="#ffffff" opacity="0.30"/>`);
+out.push(`<circle cx="${polaris.x}" cy="${polaris.y+40}" r="1.0" fill="#ffffff" opacity="0.50"/>`);
+out.push(`<line x1="${polaris.x}" y1="${polaris.y+30}" x2="${polaris.x}" y2="${polaris.y+50}" stroke="#fefce8" stroke-width="0.5" opacity="0.08"/>`);
+out.push(`<line x1="${polaris.x-8}" y1="${polaris.y+40}" x2="${polaris.x+8}" y2="${polaris.y+40}" stroke="#fefce8" stroke-width="0.5" opacity="0.08"/>`);
 out.push(`</g>`);
 
 // 右下角极淡八卦
@@ -247,5 +249,5 @@ fs.writeFileSync(path.join(root, 'out', 'beidou-bg.svg'), svg, 'utf-8');
 fs.writeFileSync(path.join(root, 'public', 'beidou-bg.svg'), svg, 'utf-8');
 
 const kb = (Buffer.byteLength(svg)/1024).toFixed(1);
-const total = 2500+1000+500+150+25;
-console.log(`v3: ${kb} KB | ${total} stars (${2500}+${1000}+${500}+${150}+${25}) + 7 diffuse color halos + Beidou centered vertical`);
+const total = 2800+1000+500+150+25;
+console.log(`v4: ${kb} KB | ${total} stars | 8 diffuse color layers (2-3x opacity + expanded filter bounds) | Big Dipper: y=40→870 full canvas`);
