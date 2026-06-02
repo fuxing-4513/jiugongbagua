@@ -1,11 +1,7 @@
-// 九宫八卦 星空背景生成器
-// 用法: node scripts/generate-stars.js
-// 生成逼真的星空 SVG，输出到 out/beidou-bg.svg 和 public/beidou-bg.svg
-
+// 九宫八卦 浩瀚星空 v3 — 彩色漫射光晕 + 北斗七星居中纵贯
 const fs = require('fs');
 const path = require('path');
 
-// ── Mulberry32 seeded PRNG ──
 function mulberry32(a) {
   return function() {
     a |= 0; a = a + 0x6D2B79F5 | 0;
@@ -15,211 +11,241 @@ function mulberry32(a) {
   };
 }
 const rand = mulberry32(42);
-
-// ── Helpers ──
-function randBetween(a, b) { return a + rand() * (b - a); }
-function randInt(a, b) { return Math.floor(randBetween(a, b + 1)); }
-function hexColor(r, g, b) { return '#' + [r, g, b].map(c => c.toString(16).padStart(2, '0')).join(''); }
-function lerpColor(c1, c2, t) {
-  const r = Math.round(c1[0] + (c2[0] - c1[0]) * t);
-  const g = Math.round(c1[1] + (c2[1] - c1[1]) * t);
-  const b = Math.round(c1[2] + (c2[2] - c1[2]) * t);
-  return hexColor(r, g, b);
+function rnd(a, b) { return a + rand() * (b - a); }
+function clr(c1, c2, t) {
+  return '#' + [0,1,2].map(i => Math.round(c1[i] + (c2[i] - c1[i]) * t).toString(16).padStart(2, '0')).join('');
 }
-const W = 1440, H = 900;
+const W = 1440, H = 900, CX = W/2, CY = H/2;
 
-// ── Parts array ──
-let parts = [];
+let out = [];
 
-// ── SVG wrapper ──
-function svgTag() {
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" fill="none">`;
-}
-
-// ── Defs: filters, gradients ──
-parts.push(`<defs>
-<filter id="starGlow" x="-100%" y="-100%" width="300%" height="300%">
-  <feGaussianBlur in="SourceGraphic" stdDeviation="0.8" result="b1"/>
-  <feGaussianBlur in="SourceGraphic" stdDeviation="2.5" result="b2"/>
+out.push(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" fill="none">
+<defs>
+<filter id="starGlow" x="-300%" y="-300%" width="700%" height="700%">
+  <feGaussianBlur in="SourceGraphic" stdDeviation="1.5" result="b1"/>
+  <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="b2"/>
   <feMerge><feMergeNode in="b2"/><feMergeNode in="b1"/><feMergeNode in="SourceGraphic"/></feMerge>
 </filter>
-<filter id="beidouGlow" x="-150%" y="-150%" width="400%" height="400%">
-  <feGaussianBlur in="SourceGraphic" stdDeviation="2" result="b1"/>
-  <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="b2"/>
-  <feMerge><feMergeNode in="b2"/><feMergeNode in="b1"/><feMergeNode in="SourceGraphic"/></feMerge>
+<filter id="beidouGlow" x="-200%" y="-200%" width="500%" height="500%">
+  <feGaussianBlur in="SourceGraphic" stdDeviation="2"/>
 </filter>
-<filter id="nebulaBlur" x="-50%" y="-50%" width="200%" height="200%">
-  <feGaussianBlur in="SourceGraphic" stdDeviation="40"/>
+<filter id="diffuseBlur" x="-30%" y="-30%" width="160%" height="160%">
+  <feGaussianBlur in="SourceGraphic" stdDeviation="80"/>
 </filter>
-<linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
-  <stop offset="0%" stop-color="#01010a"/>
-  <stop offset="30%" stop-color="#020418"/>
-  <stop offset="60%" stop-color="#03081a"/>
-  <stop offset="100%" stop-color="#01010a"/>
-</linearGradient>
-<radialGradient id="nebulaA" cx="40%" cy="35%" r="55%">
-  <stop offset="0%" stop-color="#1a1a4e" stop-opacity="0.04"/>
-  <stop offset="40%" stop-color="#0e0e3a" stop-opacity="0.015"/>
+<filter id="diffuseBlur2" x="-30%" y="-30%" width="160%" height="160%">
+  <feGaussianBlur in="SourceGraphic" stdDeviation="120"/>
+</filter>
+<filter id="diffuseBlur3" x="-30%" y="-30%" width="160%" height="160%">
+  <feGaussianBlur in="SourceGraphic" stdDeviation="50"/>
+</filter>
+
+<!-- 彩色漫射光晕渐变 -->
+<radialGradient id="diffuseWarm" cx="50%" cy="40%" r="55%">
+  <stop offset="0%" stop-color="#3a2010" stop-opacity="0.07"/>
+  <stop offset="25%" stop-color="#2a1808" stop-opacity="0.04"/>
+  <stop offset="55%" stop-color="#140c04" stop-opacity="0.015"/>
   <stop offset="100%" stop-color="transparent" stop-opacity="0"/>
 </radialGradient>
-<radialGradient id="nebulaB" cx="65%" cy="55%" r="50%">
-  <stop offset="0%" stop-color="#162040" stop-opacity="0.05"/>
-  <stop offset="35%" stop-color="#0c1030" stop-opacity="0.02"/>
+<radialGradient id="diffuseBlue" cx="50%" cy="65%" r="60%">
+  <stop offset="0%" stop-color="#0a1a3a" stop-opacity="0.08"/>
+  <stop offset="30%" stop-color="#081830" stop-opacity="0.04"/>
+  <stop offset="60%" stop-color="#040c1a" stop-opacity="0.015"/>
   <stop offset="100%" stop-color="transparent" stop-opacity="0"/>
 </radialGradient>
-<radialGradient id="nebulaC" cx="25%" cy="70%" r="45%">
-  <stop offset="0%" stop-color="#120d2e" stop-opacity="0.035"/>
+<radialGradient id="diffusePurple" cx="50%" cy="50%" r="50%">
+  <stop offset="0%" stop-color="#1a0d2e" stop-opacity="0.06"/>
+  <stop offset="35%" stop-color="#100820" stop-opacity="0.03"/>
+  <stop offset="70%" stop-color="#080410" stop-opacity="0.01"/>
   <stop offset="100%" stop-color="transparent" stop-opacity="0"/>
 </radialGradient>
-<radialGradient id="milkyWay" x1="30%" y1="0%" x2="70%" y2="100%">
-  <stop offset="0%" stop-color="#1e2d5a" stop-opacity="0.03"/>
-  <stop offset="25%" stop-color="#263a6e" stop-opacity="0.05"/>
-  <stop offset="50%" stop-color="#1a2e55" stop-opacity="0.04"/>
-  <stop offset="75%" stop-color="#0f1a35" stop-opacity="0.02"/>
+<radialGradient id="diffuseTeal" cx="40%" cy="55%" r="45%">
+  <stop offset="0%" stop-color="#081a20" stop-opacity="0.05"/>
+  <stop offset="40%" stop-color="#041015" stop-opacity="0.02"/>
+  <stop offset="100%" stop-color="transparent" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="diffuseGold" cx="50%" cy="45%" r="35%">
+  <stop offset="0%" stop-color="#2a1a08" stop-opacity="0.04"/>
+  <stop offset="50%" stop-color="#150c04" stop-opacity="0.015"/>
+  <stop offset="100%" stop-color="transparent" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="diffuseCyan" cx="50%" cy="30%" r="40%">
+  <stop offset="0%" stop-color="#061a25" stop-opacity="0.05"/>
+  <stop offset="100%" stop-color="transparent" stop-opacity="0"/>
+</radialGradient>
+
+<!-- 星云 -->
+<radialGradient id="nebula1" cx="35%" cy="35%" r="55%">
+  <stop offset="0%" stop-color="#0d0d2e" stop-opacity="0.05"/>
+  <stop offset="30%" stop-color="#080820" stop-opacity="0.02"/>
+  <stop offset="100%" stop-color="transparent" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="nebula2" cx="65%" cy="60%" r="50%">
+  <stop offset="0%" stop-color="#0a1028" stop-opacity="0.04"/>
   <stop offset="100%" stop-color="transparent" stop-opacity="0"/>
 </radialGradient>
 <radialGradient id="polarisGlow" cx="50%" cy="50%" r="50%">
-  <stop offset="0%" stop-color="#fefce8" stop-opacity="0.03"/>
-  <stop offset="50%" stop-color="#fef3c7" stop-opacity="0.01"/>
+  <stop offset="0%" stop-color="#fefce8" stop-opacity="0.02"/>
   <stop offset="100%" stop-color="transparent" stop-opacity="0"/>
 </radialGradient>
+<linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+  <stop offset="0%" stop-color="#010108"/>
+  <stop offset="25%" stop-color="#020412"/>
+  <stop offset="50%" stop-color="#030618"/>
+  <stop offset="75%" stop-color="#020515"/>
+  <stop offset="100%" stop-color="#010108"/>
+</linearGradient>
 </defs>`);
 
-// ── Sky background ──
-parts.push(`<rect width="${W}" height="${H}" fill="url(#skyGrad)"/>`);
+// 天空底
+out.push(`<rect width="${W}" height="${H}" fill="url(#skyGrad)"/>`);
 
-// ── Nebulae ──
-parts.push(`<ellipse cx="${W*0.4}" cy="${H*0.35}" rx="${W*0.55}" ry="${H*0.45}" fill="url(#nebulaA)"/>`);
-parts.push(`<ellipse cx="${W*0.65}" cy="${H*0.55}" rx="${W*0.50}" ry="${H*0.40}" fill="url(#nebulaB)"/>`);
-parts.push(`<ellipse cx="${W*0.25}" cy="${H*0.70}" rx="${W*0.40}" ry="${H*0.35}" fill="url(#nebulaC)"/>`);
-// Milky way band (tilted)
-parts.push(`<ellipse cx="${W*0.5}" cy="${H*0.5}" rx="${W*0.6}" ry="${H*0.2}" fill="url(#milkyWay)" transform="rotate(-30,${W*0.5},${H*0.5})"/>`);
+// ===== 多层彩色漫射光晕 =====
+// 底部蓝色漫射（模拟地平线气辉）
+out.push(`<ellipse cx="${CX}" cy="${H*0.8}" rx="${W*0.6}" ry="${H*0.3}" fill="url(#diffuseBlue)" filter="url(#diffuseBlur)"/>`);
+// 中央紫色漫射
+out.push(`<ellipse cx="${CX}" cy="${CY}" rx="${W*0.5}" ry="${H*0.45}" fill="url(#diffusePurple)" filter="url(#diffuseBlur2)"/>`);
+// 上方暖色漫射
+out.push(`<ellipse cx="${CX}" cy="${H*0.35}" rx="${W*0.45}" ry="${H*0.3}" fill="url(#diffuseWarm)" filter="url(#diffuseBlur)"/>`);
+// 青蓝调漫射（左侧）
+out.push(`<ellipse cx="${W*0.3}" cy="${H*0.5}" rx="${W*0.4}" ry="${H*0.35}" fill="url(#diffuseCyan)" filter="url(#diffuseBlur3)"/>`);
+// 暗金漫射（中央偏右）
+out.push(`<ellipse cx="${W*0.55}" cy="${H*0.45}" rx="${W*0.3}" ry="${H*0.25}" fill="url(#diffuseGold)" filter="url(#diffuseBlur3)"/>`);
+// 青绿漫射（右下）
+out.push(`<ellipse cx="${W*0.65}" cy="${H*0.65}" rx="${W*0.35}" ry="${H*0.3}" fill="url(#diffuseTeal)" filter="url(#diffuseBlur3)"/>`);
+// 额外一层深蓝底部
+out.push(`<ellipse cx="${CX}" cy="${H*0.85}" rx="${W*0.55}" ry="${H*0.25}" fill="url(#diffuseBlue)" filter="url(#diffuseBlur2)"/>`);
 
-// ── Star layers ──
-// Layer 1: micro stars (~600)
-let microStars = '';
-for (let i = 0; i < 600; i++) {
-  const x = randBetween(0, W);
-  const y = randBetween(0, H);
-  const r = randBetween(0.2, 0.5);
-  const c1 = [0x88, 0x99, 0xcc]; // #8899cc
-  const c2 = [0xaa, 0xbb, 0xdd]; // #aabbdd
-  const color = lerpColor(c1, c2, rand());
-  const op = randBetween(0.08, 0.25);
-  microStars += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r.toFixed(2)}" fill="${color}" opacity="${op.toFixed(2)}"/>\n`;
+// 星云
+out.push(`<ellipse cx="${W*0.35}" cy="${H*0.3}" rx="${W*0.5}" ry="${H*0.4}" fill="url(#nebula1)" filter="url(#diffuseBlur3)"/>`);
+out.push(`<ellipse cx="${W*0.65}" cy="${H*0.6}" rx="${W*0.45}" ry="${H*0.35}" fill="url(#nebula2)" filter="url(#diffuseBlur3)"/>`);
+
+// ===== 星星层 =====
+function horizonBright(y) { return Math.max(0.15, 1 - y / H * 0.7); }
+
+// L0: 极微星 2500颗
+let l0 = '';
+for (let i = 0; i < 2500; i++) {
+  const x = rnd(0, W), y = rnd(0, H);
+  l0 += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${rnd(0.15,0.35).toFixed(3)}" fill="${clr([0x70,0x80,0xb0],[0x90,0xa0,0xc8],rand())}" opacity="${(rnd(0.04,0.15)*horizonBright(y)).toFixed(3)}"/>\n`;
 }
-parts.push(microStars);
+out.push(`<g>${l0}</g>`);
 
-// Layer 2: dim stars (~200)
-let dimStars = '';
-for (let i = 0; i < 200; i++) {
-  const x = randBetween(0, W);
-  const y = randBetween(0, H);
-  const r = randBetween(0.5, 1.0);
-  const c1 = [0x88, 0x99, 0xcc]; // #8899cc
-  const c2 = [0xc8, 0xd0, 0xe0]; // #c8d0e0
-  const color = lerpColor(c1, c2, rand());
-  const op = randBetween(0.12, 0.35);
-  dimStars += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r.toFixed(2)}" fill="${color}" opacity="${op.toFixed(2)}"/>\n`;
+// L1: 暗星 1000颗
+let l1 = '';
+for (let i = 0; i < 1000; i++) {
+  const x = rnd(0, W), y = rnd(0, H);
+  l1 += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${rnd(0.3,0.7).toFixed(2)}" fill="${clr([0x88,0x95,0xc0],[0xb0,0xbc,0xd8],rand())}" opacity="${(rnd(0.08,0.25)*horizonBright(y)).toFixed(2)}"/>\n`;
 }
-parts.push(dimStars);
+out.push(`<g>${l1}</g>`);
 
-// Layer 3: bright stars (~60)
-let brightStars = '';
-for (let i = 0; i < 60; i++) {
-  const x = randBetween(0, W);
-  const y = randBetween(0, H);
-  const r = randBetween(1.0, 2.0);
-  const c1 = [0xc8, 0xd0, 0xe0]; // #c8d0e0
-  const c2 = [0xee, 0xdd, 0xcc]; // #eeddcc
-  const color = lerpColor(c1, c2, rand());
-  const op = randBetween(0.25, 0.55);
-  brightStars += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r.toFixed(2)}" fill="${color}" opacity="${op.toFixed(2)}"/>\n`;
+// L2: 中亮星 500颗
+let l2 = '';
+for (let i = 0; i < 500; i++) {
+  const x = rnd(0, W), y = rnd(0, H);
+  const warm = rand() > 0.7;
+  const c = warm ? clr([0xee,0xdd,0xbb],[0xff,0xf4,0xe0],rand()) : clr([0xb8,0xc8,0xe8],[0xe0,0xe8,0xf8],rand());
+  l2 += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${rnd(0.6,1.2).toFixed(2)}" fill="${c}" opacity="${(rnd(0.15,0.40)*horizonBright(y)).toFixed(2)}"/>\n`;
 }
-parts.push(brightStars);
+out.push(`<g>${l2}</g>`);
 
-// Layer 4: very bright stars (~12)
-let vBrightStars = '';
-for (let i = 0; i < 12; i++) {
-  const x = randBetween(0, W);
-  const y = randBetween(0, H);
-  const r = randBetween(1.5, 2.5);
-  const c1 = [0xee, 0xdd, 0xcc]; // #eeddcc
-  const c2 = [0xff, 0xf8, 0xe8]; // #fff8e8
-  const color = lerpColor(c1, c2, rand());
-  const op = randBetween(0.4, 0.75);
-  vBrightStars += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r.toFixed(2)}" fill="${color}" opacity="${op.toFixed(2)}"/>\n`;
+// L3: 亮星 150颗
+let l3 = '';
+for (let i = 0; i < 150; i++) {
+  const x = rnd(0, W), y = rnd(0, H);
+  const warm = rand() > 0.5;
+  const c = warm ? clr([0xff,0xf0,0xd0],[0xff,0xfa,0xf0],rand()) : clr([0xe0,0xe8,0xff],[0xf8,0xfa,0xff],rand());
+  l3 += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${rnd(1.0,2.0).toFixed(2)}" fill="${c}" opacity="${(rnd(0.30,0.65)*horizonBright(y)).toFixed(2)}"/>\n`;
 }
-parts.push(vBrightStars);
+out.push(`<g filter="url(#starGlow)">${l3}</g>`);
 
-// ── Big Dipper (extremely subtle, 若隐若现) ──
-const dipper = [
-  { name: '天枢', x: 500, y: 350, r: 3.5, halo: 8 },
-  { name: '天璇', x: 620, y: 400, r: 3.2, halo: 7 },
-  { name: '天玑', x: 720, y: 440, r: 3.0, halo: 7 },
-  { name: '天权', x: 800, y: 530, r: 2.8, halo: 6 },
-  { name: '玉衡', x: 680, y: 600, r: 4.0, halo: 9 },
-  { name: '开阳', x: 720, y: 700, r: 3.0, halo: 7 },
-  { name: '摇光', x: 840, y: 780, r: 2.8, halo: 6 },
+// L4: 极亮星 25颗（带十字星芒）
+let l4 = '';
+for (let i = 0; i < 25; i++) {
+  const x = rnd(0, W), y = rnd(0, H);
+  const r = rnd(1.5, 3.0);
+  const c = clr([0xff,0xf8,0xe8],[0xff,0xff,0xff],rand());
+  const op = rnd(0.45, 0.85) * horizonBright(y);
+  l4 += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r.toFixed(2)}" fill="${c}" opacity="${op.toFixed(2)}"/>\n`;
+  const cr = r * 3.5;
+  l4 += `<line x1="${x.toFixed(1)}" y1="${(y-cr).toFixed(1)}" x2="${x.toFixed(1)}" y2="${(y+cr).toFixed(1)}" stroke="${c}" stroke-width="0.3" opacity="${(op*0.25).toFixed(2)}"/>\n`;
+  l4 += `<line x1="${(x-cr).toFixed(1)}" y1="${y.toFixed(1)}" x2="${(x+cr).toFixed(1)}" y2="${y.toFixed(1)}" stroke="${c}" stroke-width="0.3" opacity="${(op*0.25).toFixed(2)}"/>\n`;
+}
+out.push(`<g filter="url(#starGlow)">${l4}</g>`);
+
+// 星团
+const clusters = [
+  { cx: 380, cy: 200, n: 30, r: 65 },
+  { cx: 1080, cy: 320, n: 22, r: 50 },
+  { cx: 750, cy: 850, n: 15, r: 35 },
 ];
-const polaris = { x: 520, y: 120 };
-
-// Polaris faint glow
-parts.push(`<circle cx="${polaris.x}" cy="${polaris.y}" r="120" fill="url(#polarisGlow)"/>`);
-
-// Connection lines (extremely faint)
-let dipperLines = '<g stroke="#fcd34d" stroke-width="0.5" opacity="0.08" fill="none" stroke-dasharray="3 12">\n';
-dipperLines += `<line x1="${dipper[0].x}" y1="${dipper[0].y}" x2="${dipper[1].x}" y2="${dipper[1].y}"/>\n`;
-dipperLines += `<line x1="${dipper[1].x}" y1="${dipper[1].y}" x2="${dipper[2].x}" y2="${dipper[2].y}"/>\n`;
-dipperLines += `<line x1="${dipper[2].x}" y1="${dipper[2].y}" x2="${dipper[3].x}" y2="${dipper[3].y}"/>\n`;
-dipperLines += `<line x1="${dipper[3].x}" y1="${dipper[3].y}" x2="${dipper[4].x}" y2="${dipper[4].y}"/>\n`;
-dipperLines += `<line x1="${dipper[4].x}" y1="${dipper[4].y}" x2="${dipper[5].x}" y2="${dipper[5].y}"/>\n`;
-dipperLines += `<line x1="${dipper[5].x}" y1="${dipper[5].y}" x2="${dipper[6].x}" y2="${dipper[6].y}"/>\n`;
-dipperLines += `<line x1="${dipper[0].x}" y1="${dipper[0].y}" x2="${polaris.x}" y2="${polaris.y}" opacity="0.04" stroke-dasharray="2 15"/>\n`;
-dipperLines += '</g>\n';
-parts.push(dipperLines);
-
-// Big Dipper stars
-let dipperStars = '<g filter="url(#beidouGlow)">\n';
-for (const star of dipper) {
-  // Outer halo (very faint)
-  dipperStars += `<circle cx="${star.x}" cy="${star.y}" r="${star.halo}" fill="#fcd34d" opacity="${randBetween(0.05,0.09).toFixed(2)}"/>\n`;
-  // Core star (subtle)
-  dipperStars += `<circle cx="${star.x}" cy="${star.y}" r="${star.r}" fill="#fff8e8" opacity="${randBetween(0.22,0.38).toFixed(2)}"/>\n`;
+for (const cc of clusters) {
+  let cl = '';
+  for (let i = 0; i < cc.n; i++) {
+    const a = rnd(0, Math.PI*2), d = rnd(0, cc.r);
+    const x = cc.cx + Math.cos(a) * d, y = cc.cy + Math.sin(a) * d;
+    cl += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${rnd(0.3,1.0).toFixed(2)}" fill="${clr([0xc0,0xd0,0xf0],[0xf0,0xf4,0xff],rand())}" opacity="${(rnd(0.12,0.40)*(1-d/cc.r)).toFixed(2)}"/>\n`;
+  }
+  out.push(cl);
 }
-// Polaris
-dipperStars += `<circle cx="${polaris.x}" cy="${polaris.y}" r="2.5" fill="#ffffff" opacity="0.40"/>\n`;
-dipperStars += `<circle cx="${polaris.x}" cy="${polaris.y}" r="1.2" fill="#ffffff" opacity="0.65"/>\n`;
-// Polaris cross (faint)
-dipperStars += `<line x1="${polaris.x}" y1="${polaris.y-10}" x2="${polaris.x}" y2="${polaris.y+10}" stroke="#fefce8" stroke-width="0.5" opacity="0.15"/>\n`;
-dipperStars += `<line x1="${polaris.x-10}" y1="${polaris.y}" x2="${polaris.x+10}" y2="${polaris.y}" stroke="#fefce8" stroke-width="0.5" opacity="0.15"/>\n`;
-dipperStars += '</g>\n';
-parts.push(dipperStars);
 
-// ── Bagua in corner (extremely faint) ──
-const baguaX = W - 140, baguaY = H - 140;
-parts.push(`<g transform="translate(${baguaX},${baguaY}) scale(0.6)" opacity="0.02">
-  <circle cx="50" cy="50" r="50" stroke="#fbbf24" stroke-width="2" fill="none"/>
-  <path d="M50,0 A25,25 0 0,1 50,50 A25,25 0 0,0 50,100 A50,50 0 0,1 50,0" fill="#fbbf24"/>
-  <circle cx="50" cy="25" r="8" fill="#01010a"/>
-  <circle cx="50" cy="75" r="8" fill="#fbbf24"/>
+// ===== 北斗七星 — 居中纵贯 =====
+// 从顶部 ~12% 到底部 ~82%，纵贯画面中央
+const dipper = [
+  { name:'天枢', x:540, y:130, r:3.0, halo:6 },  // 最上
+  { name:'天璇', x:620, y:240, r:3.0, halo:6 },
+  { name:'天玑', x:680, y:360, r:2.8, halo:5 },
+  { name:'天权', x:760, y:500, r:2.8, halo:5 },
+  { name:'玉衡', x:680, y:580, r:3.5, halo:7 },  // 中心最亮
+  { name:'开阳', x:740, y:680, r:2.6, halo:5 },
+  { name:'摇光', x:800, y:760, r:2.6, halo:5 },  // 最下
+];
+// 北极星在斗柄延长线上方
+const p = { x: 480, y: 50 };
+
+// 北极星光晕
+out.push(`<circle cx="${p.x}" cy="${p.y}" r="80" fill="url(#polarisGlow)"/>`);
+
+// 连线（极淡虚线）
+out.push(`<g stroke="#fcd34d" stroke-width="0.4" opacity="0.05" fill="none" stroke-dasharray="2 16">
+<line x1="${dipper[0].x}" y1="${dipper[0].y}" x2="${dipper[1].x}" y2="${dipper[1].y}"/>
+<line x1="${dipper[1].x}" y1="${dipper[1].y}" x2="${dipper[2].x}" y2="${dipper[2].y}"/>
+<line x1="${dipper[2].x}" y1="${dipper[2].y}" x2="${dipper[3].x}" y2="${dipper[3].y}"/>
+<line x1="${dipper[3].x}" y1="${dipper[3].y}" x2="${dipper[4].x}" y2="${dipper[4].y}"/>
+<line x1="${dipper[4].x}" y1="${dipper[4].y}" x2="${dipper[5].x}" y2="${dipper[5].y}"/>
+<line x1="${dipper[5].x}" y1="${dipper[5].y}" x2="${dipper[6].x}" y2="${dipper[6].y}"/>
+<line x1="${dipper[0].x}" y1="${dipper[0].y}" x2="${p.x}" y2="${p.y}" opacity="0.03" stroke-dasharray="1 20"/>
 </g>`);
 
-// ── Close SVG ──
-parts.push('</svg>');
+// 七星本体
+out.push(`<g filter="url(#beidouGlow)">`);
+for (const s of dipper) {
+  out.push(`<circle cx="${s.x}" cy="${s.y}" r="${s.halo}" fill="#fcd34d" opacity="0.03"/>`);
+  out.push(`<circle cx="${s.x}" cy="${s.y}" r="${s.r}" fill="#fff8e8" opacity="0.20"/>`);
+}
+// 北极星
+out.push(`<circle cx="${p.x}" cy="${p.y}" r="5" fill="#fefce8" opacity="0.03"/>`);
+out.push(`<circle cx="${p.x}" cy="${p.y}" r="2" fill="#ffffff" opacity="0.30"/>`);
+out.push(`<circle cx="${p.x}" cy="${p.y}" r="0.8" fill="#ffffff" opacity="0.50"/>`);
+out.push(`<line x1="${p.x}" y1="${p.y-7}" x2="${p.x}" y2="${p.y+7}" stroke="#fefce8" stroke-width="0.4" opacity="0.08"/>`);
+out.push(`<line x1="${p.x-7}" y1="${p.y}" x2="${p.x+7}" y2="${p.y}" stroke="#fefce8" stroke-width="0.4" opacity="0.08"/>`);
+out.push(`</g>`);
 
-const svg = parts.join('\n');
+// 右下角极淡八卦
+out.push(`<g transform="translate(${W-130},${H-130}) scale(0.55)" opacity="0.012">
+<circle cx="50" cy="50" r="50" stroke="#fbbf24" stroke-width="2" fill="none"/>
+<path d="M50,0 A25,25 0 0,1 50,50 A25,25 0 0,0 50,100 A50,50 0 0,1 50,0" fill="#fbbf24"/>
+<circle cx="50" cy="25" r="8" fill="#010108"/>
+<circle cx="50" cy="75" r="8" fill="#fbbf24"/>
+</g>`);
 
-// ── Write output ──
-const rootDir = path.resolve(__dirname, '..');
-const outPath = path.join(rootDir, 'out', 'beidou-bg.svg');
-const pubPath = path.join(rootDir, 'public', 'beidou-bg.svg');
+out.push('</svg>');
 
-fs.writeFileSync(outPath, svg, 'utf-8');
-fs.writeFileSync(pubPath, svg, 'utf-8');
+const svg = out.join('\n');
+const root = path.resolve(__dirname, '..');
+fs.mkdirSync(path.join(root, 'out'), { recursive: true });
+fs.writeFileSync(path.join(root, 'out', 'beidou-bg.svg'), svg, 'utf-8');
+fs.writeFileSync(path.join(root, 'public', 'beidou-bg.svg'), svg, 'utf-8');
 
-const kb = (Buffer.byteLength(svg) / 1024).toFixed(1);
-console.log(`✅ 星空背景已生成 (${kb} KB)`);
-console.log(`   out/beidou-bg.svg`);
-console.log(`   public/beidou-bg.svg`);
-console.log(`   ${600+200+60+12}=872 颗星星 + 4层星云 + 北斗七星(若隐若现)`);
+const kb = (Buffer.byteLength(svg)/1024).toFixed(1);
+const total = 2500+1000+500+150+25;
+console.log(`v3: ${kb} KB | ${total} stars (${2500}+${1000}+${500}+${150}+${25}) + 7 diffuse color halos + Beidou centered vertical`);
