@@ -36,8 +36,6 @@ export const zhCN = {
     heroCta: '立即排盘 · 免费',
     heroHeritage: '查看学派源流',
     trustStrip: '免费 · 古籍原文背书 · AI 深度批命 · 简繁双显 · 19+ 工具模块',
-    classroom: '八字命理课堂',
-    classroomDesc: '每天学一点玄学知识，知命而进取',
     shengxiao: '十二生肖',
     shengxiaoDesc: '点击生肖了解起源传说、性格特征、文化象征与运势',
     allTools: '全部工具',

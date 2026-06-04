@@ -36,8 +36,6 @@ export const en = {
     heroCta: 'Chart Now · Free',
     heroHeritage: 'View Scholarly Lineage',
     trustStrip: 'Free · Classical Text Sourced · AI Deep Reading · Multi-Language · 19+ Tools',
-    classroom: 'Ba Zi Classroom',
-    classroomDesc: 'Learn a bit of metaphysics every day — know your destiny and forge ahead',
     shengxiao: 'Chinese Zodiac',
     shengxiaoDesc: 'Tap a zodiac sign to explore its origin, traits, symbolism, and fortune',
     allTools: 'All Tools',

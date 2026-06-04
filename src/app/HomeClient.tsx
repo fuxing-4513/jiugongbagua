@@ -92,34 +92,6 @@ export default function HomeClient() {
       {/* ===== 免费排盘 ===== */}
       <FreeChartWidget />
 
-      {/* ===== 八字命理课堂 ===== */}
-      <section className="mb-10">
-        <h2 className="text-xl font-semibold text-gold-400 font-serif mb-4 text-center">
-          {getT('home.classroom')}
-        </h2>
-        <p className="text-center text-gray-500 text-sm mb-5">
-          {getT('home.classroomDesc')}
-        </p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-          {[0,1,2,3,4,5,6,7].map((i) => {
-            const raw = (t as any)?.baziClassroom?.topics?.[i]
-            if (!raw) return null
-            return (
-              <Link key={i} href="/wenku"
-                className="group bg-dark-700/60 rounded-xl border border-dark-600 p-4 hover:border-gold-500/50 hover:bg-dark-700 transition-all duration-200"
-              >
-                <h3 className="text-sm font-semibold text-gray-200 group-hover:text-gold-400 transition-colors mb-1.5">
-                  {raw.title}
-                </h3>
-                <p className="text-xs text-gray-500 leading-relaxed">
-                  {raw.desc}
-                </p>
-              </Link>
-            )
-          })}
-        </div>
-      </section>
-
       {/* ===== 十二生肖百科 ===== */}
       <div className="mb-10">
         <h2 className="text-xl font-semibold text-gold-400 font-serif mb-4 text-center">🐉 十二生肖</h2>
