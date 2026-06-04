@@ -69,20 +69,6 @@ export default function HomeClient() {
         {/* 古籍引用 */}
         <ClassicQuotes />
 
-        {/* CTA 按钮组 */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mt-6">
-          <Link href="/app"
-            className="px-8 py-3 bg-gold-400 text-dark-900 rounded-lg font-semibold text-lg hover:bg-gold-300 transition-all shadow-lg shadow-gold-400/20 hover:shadow-gold-400/40"
-          >
-            {getT('home.heroCta')}
-          </Link>
-          <Link href="#heritage"
-            className="px-6 py-3 border border-gold-400/30 rounded-lg text-gold-400 font-medium hover:bg-gold-400/10 transition-colors"
-          >
-            {getT('home.heroHeritage')}
-          </Link>
-        </div>
-
       </section>
 
       {/* ===== 免费排盘 ===== */}

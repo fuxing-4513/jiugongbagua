@@ -33,8 +33,6 @@ export const zhTW = {
     heroDesc: '承襲陳希夷、邵康節、京房等命理大家學派源流，引《滴天髓》《紫微斗數全書》《周易》《三命通會》古籍原文，以 AI 為你深度批命。',
     heroQuote: '天行健，君子以自強不息。',
     heroQuoteSource: '《易經·乾卦》',
-    heroCta: '立即排盤 · 免費',
-    heroHeritage: '查看學派源流',
     shengxiao: '十二生肖',
     shengxiaoDesc: '點擊生肖了解起源傳說、性格特徵、文化象徵與運勢',
     allTools: '全部工具',

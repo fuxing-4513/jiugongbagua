@@ -33,8 +33,6 @@ export const zhCN = {
     heroDesc: '承袭陈希夷、邵康节、京房等命理大家学派源流，引《滴天髓》《紫微斗数全书》《周易》《三命通会》古籍原文，以 AI 为你深度批命。',
     heroQuote: '天行健，君子以自强不息。',
     heroQuoteSource: '《易经·乾卦》',
-    heroCta: '立即排盘 · 免费',
-    heroHeritage: '查看学派源流',
     shengxiao: '十二生肖',
     shengxiaoDesc: '点击生肖了解起源传说、性格特征、文化象征与运势',
     allTools: '全部工具',

@@ -33,8 +33,6 @@ export const en = {
     heroDesc: 'Following the scholarly lineages of Chen Xiyi, Shao Kangjie, Jing Fang and other masters, drawing from classics like "Di Tian Sui", "Zi Wei Dou Shu Complete Book", "I Ching", and "San Ming Tong Hui" — with AI delivering deep destiny readings.',
     heroQuote: 'Heaven moves with vigor; the noble one strives unceasingly for self-improvement.',
     heroQuoteSource: 'I Ching · Qian Hexagram',
-    heroCta: 'Chart Now · Free',
-    heroHeritage: 'View Scholarly Lineage',
     shengxiao: 'Chinese Zodiac',
     shengxiaoDesc: 'Tap a zodiac sign to explore its origin, traits, symbolism, and fortune',
     allTools: 'All Tools',
