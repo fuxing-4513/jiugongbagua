@@ -35,7 +35,6 @@ export const zhCN = {
     heroQuoteSource: '《易经·乾卦》',
     heroCta: '立即排盘 · 免费',
     heroHeritage: '查看学派源流',
-    trustStrip: '免费 · 古籍原文背书 · AI 深度批命 · 简繁双显 · 19+ 工具模块',
     shengxiao: '十二生肖',
     shengxiaoDesc: '点击生肖了解起源传说、性格特征、文化象征与运势',
     allTools: '全部工具',

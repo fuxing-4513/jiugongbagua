@@ -83,10 +83,6 @@ export default function HomeClient() {
           </Link>
         </div>
 
-        {/* 信任横条 */}
-        <p className="mt-6 text-xs text-gray-500 tracking-wide">
-          {getT('home.trustStrip')}
-        </p>
       </section>
 
       {/* ===== 免费排盘 ===== */}

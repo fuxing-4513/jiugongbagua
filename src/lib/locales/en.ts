@@ -35,7 +35,6 @@ export const en = {
     heroQuoteSource: 'I Ching · Qian Hexagram',
     heroCta: 'Chart Now · Free',
     heroHeritage: 'View Scholarly Lineage',
-    trustStrip: 'Free · Classical Text Sourced · AI Deep Reading · Multi-Language · 19+ Tools',
     shengxiao: 'Chinese Zodiac',
     shengxiaoDesc: 'Tap a zodiac sign to explore its origin, traits, symbolism, and fortune',
     allTools: 'All Tools',
