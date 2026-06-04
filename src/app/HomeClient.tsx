@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { useLocale } from '@/lib/i18n'
-import HomeWidgets from '@/components/HomeWidgets'
+
 import HeritageSection from '@/components/HeritageSection'
 import ClassicQuotes from '@/components/ClassicQuotes'
 import BottomCTA from '@/components/BottomCTA'
@@ -87,8 +87,6 @@ export default function HomeClient() {
         </p>
       </section>
 
-      {/* ===== Home Widgets: 黄历 + 天气 ===== */}
-      <HomeWidgets />
 
       {/* ===== 八字命理课堂 ===== */}
       <section className="mb-10">
