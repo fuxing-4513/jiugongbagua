@@ -1,6 +1,7 @@
 'use client'
 import { useState, useCallback } from 'react'
-import { Solar, Lunar } from 'lunar-typescript'
+import { Solar, Lunar, LunarYear } from 'lunar-typescript'
+import { getMaxDay } from '@/components/CalendarInput'
 
 // ── 五行基础 ──
 const WX_TG: Record<string, string> = {甲:'木',乙:'木',丙:'火',丁:'火',戊:'土',己:'土',庚:'金',辛:'金',壬:'水',癸:'水'}
@@ -422,7 +423,7 @@ interface PersonForm { name: string; cal: 'solar' | 'lunar'; year: string; month
               <div className="grid grid-cols-4 gap-2">
                 <div><label className="block text-[10px] text-gray-500 mb-1">年</label><select value={s.p.year} onChange={e=>s.sp({...s.p,year:e.target.value})} className="w-full px-1 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200 text-xs focus:outline-none focus:border-gold-500">{Array.from({length:121},(_,i)=>cy-60+i).map(y=><option key={y}>{y}</option>)}</select></div>
                 <div><label className="block text-[10px] text-gray-500 mb-1">月</label><select value={s.p.month} onChange={e=>s.sp({...s.p,month:e.target.value})} className="w-full px-1 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200 text-xs focus:outline-none focus:border-gold-500">{Array.from({length:12},(_,i)=><option key={i+1}>{i+1}</option>)}</select></div>
-                <div><label className="block text-[10px] text-gray-500 mb-1">日</label><select value={s.p.day} onChange={e=>s.sp({...s.p,day:e.target.value})} className="w-full px-1 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200 text-xs focus:outline-none focus:border-gold-500">{Array.from({length:31},(_,i)=><option key={i+1}>{i+1}</option>)}</select></div>
+                <div><label className="block text-[10px] text-gray-500 mb-1">日</label><select value={s.p.day} onChange={e=>s.sp({...s.p,day:e.target.value})} className="w-full px-1 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200 text-xs focus:outline-none focus:border-gold-500">{Array.from({length: getMaxDay(s.p.cal, +s.p.year, +s.p.month)},(_,i)=><option key={i+1}>{i+1}</option>)}</select></div>
                 <div><label className="block text-[10px] text-gray-500 mb-1">时</label><select value={s.p.hour} onChange={e=>s.sp({...s.p,hour:e.target.value})} className="w-full px-1 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200 text-xs focus:outline-none focus:border-gold-500">{HOUR_OPTS.map(o=><option key={o.v} value={o.v}>{o.l}</option>)}</select></div>
               </div>
               {s.p.cal==='lunar' && (

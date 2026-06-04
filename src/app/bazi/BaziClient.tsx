@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { useLocale } from '@/lib/i18n'
 import { Solar, Lunar } from 'lunar-typescript'
+import CalendarInput, { type CalendarType } from '@/components/CalendarInput'
 
 function tk(key: string, lang: Record<string, unknown>): string {
   const keys = key.split('.'); let v: unknown = lang
@@ -578,59 +579,37 @@ export default function BaziClient() {
         </select>
       </div>
 
-      {mode === 'date' && (<>
-        <div className="flex gap-3 mb-4">
-          <button onClick={()=>switchCal('solar')} className={`px-4 py-1.5 rounded-lg text-xs transition-colors ${cal==='solar'?'bg-gold-600 text-dark-900 font-semibold':'bg-dark-700 text-gray-400 border border-dark-600'}`}>公历</button>
-          <button onClick={()=>switchCal('lunar')} className={`px-4 py-1.5 rounded-lg text-xs transition-colors ${cal==='lunar'?'bg-gold-600 text-dark-900 font-semibold':'bg-dark-700 text-gray-400 border border-dark-600'}`}>农历</button>
-          <select value={gender} onChange={e=>setGender(e.target.value)} className="px-4 py-1.5 bg-dark-700 border border-dark-600 rounded-lg text-gray-200 text-xs">
-            <option value="男">男</option><option value="女">女</option>
-          </select>
-          {cal==='lunar' && (
-            <label className="flex items-center gap-2 px-3 py-1.5 bg-dark-700 border border-dark-600 rounded-lg text-xs text-gray-300 cursor-pointer select-none">
-              <input type="checkbox" checked={isLeapMonth} onChange={e=>setIsLeapMonth(e.target.checked)} className="accent-gold-500" />
-              闰月
-            </label>
-          )}
-        </div>
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-3">
-          {(() => {
-            const yNum = parseInt(year) || 0, mNum = parseInt(month) || 0
-            let maxD = 31
-            if (cal === 'solar') {
-              if (mNum >= 1 && mNum <= 12) maxD = new Date(yNum, mNum, 0).getDate()
-            } else {
-              // lunar: 根据农历大小月推算（仅做UI限制，计算时还会二次校验）
-              // 大月30天 小月29天，暂统一30天让后端校验
-              if (mNum >= 1 && mNum <= 12) {
-                if ([1,3,5,7,8,10,12].includes(mNum)) maxD = 30
-                else maxD = 29
-              }
-            }
-            return [{l:'年',v:year,s:setYear,min:1900,max:2100},{l:'月',v:month,s:setMonth,min:1,max:12},{l:'日',v:day,s:setDay,min:1,max:maxD}].map((f,i) => (
-              <div key={i}><label className="block text-xs text-gray-500 mb-1">{f.l}</label>
-              <input type="number" value={f.v} onChange={e => {
-                const v = e.target.value
-                f.s(v)
-                // 日超出max时自动回缩
-                if (i === 1 && mNum >= 1 && mNum <= 12) {
-                  const ny = parseInt(year) || 0, nm = parseInt(v) || 0
-                  let nd = 31
-                  if (cal === 'solar') {
-                    if (nm >= 1 && nm <= 12) nd = new Date(ny, nm, 0).getDate()
-                  } else {
-                    if (nm >= 1 && nm <= 12) nd = [1,3,5,7,8,10,12].includes(nm) ? 30 : 29
-                  }
-                  const curDay = parseInt(day) || 1
-                  if (curDay > nd) setDay(String(nd))
-                }
-              }} min={f.min} max={f.max} className="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200 focus:outline-none focus:border-gold-500 text-sm" /></div>
-            ))
-          })()}
-          <div><label className="block text-xs text-gray-500 mb-1">时</label>
-            <select value={hour} onChange={e=>setHour(e.target.value)} className="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200 text-sm"><option value="">选择时辰</option>{hourOpts.map(o=><option key={o.v} value={o.v}>{o.l}</option>)}</select>
+      {mode === 'date' && (
+        <div className="space-y-4">
+          <CalendarInput
+            calendarType={cal as CalendarType}
+            year={year}
+            month={month}
+            day={day}
+            hour={hour}
+            isLeapMonth={isLeapMonth}
+            onCalendarTypeChange={(newCal) => {
+              // switchCal also handles date conversion
+              if (newCal !== cal) switchCal(newCal as 'solar' | 'lunar')
+            }}
+            onYearChange={setYear}
+            onMonthChange={(v) => { setMonth(v); setIsLeapMonth(false) }}
+            onDayChange={setDay}
+            onHourChange={setHour}
+            onLeapMonthChange={setIsLeapMonth}
+            label='' compact
+          />
+          <div className="flex items-center gap-2">
+            <span className="text-xs text-gray-400">性别：</span>
+            <div className="flex bg-dark-700 rounded-lg p-1 gap-1">
+              <button onClick={() => setGender('男')}
+                className={`px-4 py-1.5 rounded-md text-xs font-medium transition-all ${gender === '男' ? 'bg-blue-500 text-white' : 'text-gray-400'}`}>♂ 男</button>
+              <button onClick={() => setGender('女')}
+                className={`px-4 py-1.5 rounded-md text-xs font-medium transition-all ${gender === '女' ? 'bg-pink-500 text-white' : 'text-gray-400'}`}>♀ 女</button>
+            </div>
           </div>
         </div>
-      </>)}
+      )}
 
       {mode === 'bazi' && (<div className="mb-4">
         <p className="text-[11px] text-gray-500 mb-3">直接输入您已知的四柱八字（天干+地支分别选择）</p>

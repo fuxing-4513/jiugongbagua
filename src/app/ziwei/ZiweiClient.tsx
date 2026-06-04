@@ -2,30 +2,8 @@
 
 import { useState, useMemo } from 'react'
 import { astro } from 'iztro'
-import { Solar, Lunar, LunarYear, LunarMonth } from 'lunar-typescript'
-
-type CalendarType = 'solar' | 'lunar'
-
-const hourOptions = [
-  { value: '0', label: '子时 23:00-00:59' }, { value: '1', label: '丑时 01:00-02:59' },
-  { value: '2', label: '寅时 03:00-04:59' }, { value: '3', label: '卯时 05:00-06:59' },
-  { value: '4', label: '辰时 07:00-08:59' }, { value: '5', label: '巳时 09:00-10:59' },
-  { value: '6', label: '午时 11:00-12:59' }, { value: '7', label: '未时 13:00-14:59' },
-  { value: '8', label: '申时 15:00-16:59' }, { value: '9', label: '酉时 17:00-18:59' },
-  { value: '10', label: '戌时 19:00-20:59' }, { value: '11', label: '亥时 21:00-22:59' },
-]
-
-// Solar month days
-const SOLAR_DAYS = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
-
-function isLeapYear(y: number): boolean {
-  return (y % 4 === 0 && y % 100 !== 0) || y % 400 === 0
-}
-
-function getSolarDaysInMonth(y: number, m: number): number {
-  if (m === 2) return isLeapYear(y) ? 29 : 28
-  return SOLAR_DAYS[m]
-}
+import { Lunar } from 'lunar-typescript'
+import CalendarInput, { type CalendarType, getMaxDay, lunarToSolarDate } from '@/components/CalendarInput'
 
 // ── Brightness lookup ──
 const BRIGHTNESS: Record<string, { label: string; color: string; level: number; desc: string }> = {
@@ -53,7 +31,6 @@ const AUSPICIOUS_MAJORS = new Set([
 const INAUSPICIOUS_MAJORS = new Set([
   '廉贞', '巨门', '贪狼', '七杀', '破军', '擎羊', '陀罗', '火星', '铃星', '地空', '地劫'
 ])
-// Neutral majors: 武曲(wu qu)
 
 // ── 紫微格局检测 ──
 interface PatternResult {
@@ -65,65 +42,46 @@ interface PatternResult {
 function detectPatterns(palaces: any[], soulPalace: any): PatternResult[] {
   const patterns: PatternResult[] = []
   const getPalaceByName = (name: string) => palaces.find((p: any) => p.name === name)
-
   const soulStars = (soulPalace?.majorStars || []).map((s: any) => s.name)
   const soulBranch = soulPalace?.earthlyBranch || ''
-  const allMajorStars: Record<string, string[]> = {} // name -> brightness
 
-  palaces.forEach((p: any) => {
-    (p.majorStars || []).forEach((s: any) => {
-      if (!allMajorStars[s.name]) allMajorStars[s.name] = []
-      allMajorStars[s.name].push(s.brightness || '')
-    })
-  })
-
-  // 紫府同宫格：紫微+天府同在寅/申
+  // 紫府同宫格
   if (soulStars.includes('紫微') && soulStars.includes('天府') && (soulBranch === '寅' || soulBranch === '申')) {
     patterns.push({ name: '紫府同宫格', desc: '紫微天府二帝星同守命宫，帝王之象，主贵气非凡，一生衣食无忧，事业有成。', rating: '上' })
   }
-
-  // 日照雷门格：太阳在卯宫（命宫在卯且太阳在命）
+  // 日照雷门格
   if (soulStars.includes('太阳') && soulBranch === '卯') {
     patterns.push({ name: '日照雷门格', desc: '旭日东升于卯，如日照雷门，光辉灿烂。主早年发达，声名远播。', rating: '上' })
   }
-
-  // 月朗天门格：太阴在亥
+  // 月朗天门格
   if (soulStars.includes('太阴') && soulBranch === '亥') {
     patterns.push({ name: '月朗天门格', desc: '太阴在亥为月朗天门，主温润清贵，智慧过人，适合文职、艺术。', rating: '上' })
   }
-
-  // 日月并明格：太阳在午+太阴在未
-  const taiyangPalace = getPalaceByName('命宫') // check if 太阳 in 午 or 太阴 in 未
-  // Simplified: check if solar in noon (午) position
+  // 日丽中天格
   if (soulStars.includes('太阳') && soulBranch === '午') {
     patterns.push({ name: '日丽中天格', desc: '太阳居午宫，如日中天，光辉至极。主权势显赫，名扬四海。', rating: '上' })
   }
-
-  // 机月同梁格：天机+太阴+天同+天梁齐聚命宫或三方
+  // 机月同梁格
   const jiYueTongLiang = ['天机', '太阴', '天同', '天梁']
   const hasJiYue = jiYueTongLiang.filter(s => soulStars.includes(s))
   if (hasJiYue.length >= 3) {
     patterns.push({ name: '机月同梁格（偏格）', desc: '天机、太阴、天同、天梁齐聚，主智谋机变，宜公职、策划、文秘之职。', rating: '中上' })
   }
-
-  // 巨日同宫格：巨门+太阳同在寅/申
+  // 巨日同宫格
   if (soulStars.includes('巨门') && soulStars.includes('太阳') && (soulBranch === '寅' || soulBranch === '申')) {
     patterns.push({ name: '巨日同宫格', desc: '巨门与太阳同宫，以口为业，宜律师、教师、媒体等行业，能言善辩。', rating: '中' })
   }
-
-  // 雄宿乾元格：廉贞在寅申+贪狼
+  // 雄宿乾元格
   if (soulStars.includes('廉贞') && soulStars.includes('贪狼') && (soulBranch === '寅' || soulBranch === '申')) {
     patterns.push({ name: '雄宿乾元格', desc: '廉贞贪狼居寅申，雄宿镇乾元。才华出众，多才艺，但情感复杂。', rating: '中' })
   }
-
-  // 杀破狼格：七杀+破军+贪狼分守命、财、官
+  // 杀破狼格
   const shaPolang = ['七杀', '破军', '贪狼']
   const hasShaPoLang = shaPolang.filter(s => soulStars.includes(s))
   if (hasShaPoLang.length >= 2) {
     patterns.push({ name: '杀破狼格', desc: '七杀、破军、贪狼坐命，主变动、开创、冒险精神强。一生波澜壮阔，宜创业从商。', rating: '中' })
   }
-
-  // 府相朝垣格：天府+天相在三方四正会照
+  // 府相朝垣格
   if (soulStars.includes('天府') || soulStars.includes('天相')) {
     const caiBo = getPalaceByName('财帛')
     const guanLu = getPalaceByName('官禄')
@@ -134,16 +92,10 @@ function detectPatterns(palaces: any[], soulPalace: any): PatternResult[] {
       patterns.push({ name: '府相朝垣格', desc: '天府天相会照，稳重踏实，一生衣食丰足，宜从事金融、管理行业。', rating: '中上' })
     }
   }
-
-  // 明珠出海格：日在卯+月在亥，命宫在未
-  // 简化：命宫在未且有日月照
-  // (skip full check for brevity)
-
-  // 君臣庆会格：紫微+左辅/右弼同在命宫
+  // 君臣庆会格
   if (soulStars.includes('紫微') && (soulStars.includes('左辅') || soulStars.includes('右弼'))) {
     patterns.push({ name: '君臣庆会格', desc: '紫微帝星得左右辅弼，君臣相得，主贵气加身，有领导才能，得贵人相助。', rating: '上' })
   }
-
   return patterns
 }
 
@@ -156,7 +108,6 @@ function analyzeSoulPalace(soulPalace: any, allPalaces: any[]) {
   const branch = soulPalace.earthlyBranch || ''
   const stem = soulPalace.heavenlyStem || ''
 
-  // 1. 主星亮度分析
   const brightnessAnalysis = majors.map((star: any) => {
     const b = BRIGHTNESS[star.brightness || ''] || BRIGHTNESS['']
     let eval_ = ''
@@ -168,11 +119,9 @@ function analyzeSoulPalace(soulPalace: any, allPalaces: any[]) {
     return { name: star.name, brightness: b.label, level: b.level, color: b.color, desc: b.desc, evaluation: eval_ }
   })
 
-  // 2. 吉凶星统计
   const auspiciousCount = majors.filter((s: any) => AUSPICIOUS_MAJORS.has(s.name)).length
   const inauspiciousCount = majors.filter((s: any) => INAUSPICIOUS_MAJORS.has(s.name)).length
 
-  // Minor stars: 吉星/煞星
   const auspiciousMinors = ['天魁', '天钺', '文昌', '文曲', '左辅', '右弼', '禄存', '天马', '三台', '八座', '恩光', '天贵', '龙池', '凤阁', '台辅', '封诰']
   const inauspiciousMinors = ['擎羊', '陀罗', '火星', '铃星', '地空', '地劫', '天刑', '天姚', '阴煞', '劫煞', '破碎', '蜚廉', '孤辰', '寡宿']
   const minorAuspicious = minors.filter((s: any) => auspiciousMinors.includes(s.name)).length
@@ -198,10 +147,8 @@ function analyzeSoulPalace(soulPalace: any, allPalaces: any[]) {
     fortuneLevel = '大凶'; fortuneColor = 'text-red-400'; fortuneDesc = '煞星汇聚，一生多有波折，需修身养性，行善积德。'
   }
 
-  // 3. 格局分析
   const patterns = detectPatterns(allPalaces, soulPalace)
 
-  // 4. 命宫四化分析
   const sihuaAnalysis = majors
     .filter((star: any) => star.mutagen)
     .map((star: any) => {
@@ -231,90 +178,26 @@ export default function ZiweiClient() {
   const [isLeapMonth, setIsLeapMonth] = useState(false)
   const [result, setResult] = useState<any>(null)
   const [error, setError] = useState('')
-  const [validationMsg, setValidationMsg] = useState('')
 
   const y = parseInt(year) || 2000
   const m = parseInt(month) || 1
   const d = parseInt(day) || 1
 
-  // ── Date validation ──
-  const maxDay = useMemo(() => {
-    if (calendarType === 'solar') {
-      return getSolarDaysInMonth(y, m)
-    }
-    // Lunar: get the actual day count for this lunar month
-    try {
-      const lm = LunarMonth.fromYm(y, m)
-      return lm?.getDayCount?.() ? lm.getDayCount() : 30
-    } catch {
-      return 30
-    }
-  }, [calendarType, y, m])
-
-  // Leap month detection
-  const hasLeapMonth = useMemo(() => {
-    if (calendarType !== 'lunar') return false
-    try {
-      const ly = LunarYear.fromYear(y)
-      return ly.getLeapMonth() === m
-    } catch {
-      return false
-    }
-  }, [calendarType, y, m])
-
-  // Year has any leap month (for info display)
-  const yearLeapMonth = useMemo(() => {
-    if (calendarType !== 'lunar') return 0
-    try {
-      return LunarYear.fromYear(y).getLeapMonth()
-    } catch {
-      return 0
-    }
-  }, [calendarType, y])
-
-  // Validate inputs on change
-  useMemo(() => {
-    const yy = parseInt(year)
-    const mm = parseInt(month)
-    const dd = parseInt(day)
-
-    if (isNaN(yy) || yy < 1900 || yy > 2100) {
-      setValidationMsg('请输入 1900-2100 之间的年份')
-      return
-    }
-    if (isNaN(mm) || mm < 1 || (calendarType === 'solar' && mm > 12) || (calendarType === 'lunar' && mm > 12)) {
-      setValidationMsg('请输入有效的月份')
-      return
-    }
-    if (isNaN(dd) || dd < 1 || dd > maxDay) {
-      setValidationMsg(calendarType === 'solar'
-        ? `${y}年${m}月有 ${maxDay} 天，请输入 1-${maxDay}`
-        : `农历${m}月有 ${maxDay} 天，请输入 1-${maxDay}`)
-      return
-    }
-    setValidationMsg('')
-  }, [year, month, day, maxDay, calendarType])
-
   const analyze = () => {
     setError('')
-    if (validationMsg) {
-      setError(validationMsg)
-      return
-    }
+    const maxDay = getMaxDay(calendarType, y, m)
+    if (y < 1900 || y > 2100) { setError('年份需在 1900-2100 之间'); return }
+    if (m < 1 || m > 12) { setError('请输入有效月份'); return }
+    if (d < 1 || d > maxDay) { setError(`${calendarType === 'solar' ? `${y}年${m}月` : `农历${m}月`}有 ${maxDay} 天，请输入 1-${maxDay}`); return }
 
     try {
       const h = parseInt(hour)
       let solarDateStr: string
-
       if (calendarType === 'solar') {
         solarDateStr = `${y}-${String(m).padStart(2, '0')}-${String(d).padStart(2, '0')}`
       } else {
-        // Lunar → Solar conversion using lunar-typescript
-        const lunar = Lunar.fromYmd(y, m, d)
-        const solar = lunar.getSolar()
-        solarDateStr = `${solar.getYear()}-${String(solar.getMonth()).padStart(2, '0')}-${String(solar.getDay()).padStart(2, '0')}`
+        solarDateStr = lunarToSolarDate(y, m, d, isLeapMonth)
       }
-
       const r = astro.bySolar(solarDateStr, h, gender === 'M' ? 'male' : 'female')
       setResult(r as any)
     } catch (e: any) {
@@ -322,7 +205,6 @@ export default function ZiweiClient() {
     }
   }
 
-  // Extract 命宫
   const soulPalace = useMemo(() => {
     if (!result?.palaces) return null
     return result.palaces.find((p: any) => p.name === '命宫') || null
@@ -339,100 +221,47 @@ export default function ZiweiClient() {
       <p className="text-gray-400 mb-6">紫微斗数命盘排盘——四化·庙旺·大限·格局全解析</p>
 
       {/* Input Card */}
-      <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-6 mb-8">
-        {/* Calendar Type Toggle */}
-        <div className="flex items-center gap-3 mb-5">
-          <span className="text-sm text-gray-400">历法：</span>
+      <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-6 mb-8 max-w-lg mx-auto">
+        <CalendarInput
+          calendarType={calendarType}
+          year={year}
+          month={month}
+          day={day}
+          hour={hour}
+          isLeapMonth={isLeapMonth}
+          onCalendarTypeChange={setCalendarType}
+          onYearChange={setYear}
+          onMonthChange={setMonth}
+          onDayChange={setDay}
+          onHourChange={setHour}
+          onLeapMonthChange={setIsLeapMonth}
+          label="出生日期"
+        />
+
+        {/* Gender */}
+        <div className="mt-4">
+          <label className="text-sm text-gray-400 block mb-1">性别</label>
           <div className="flex bg-dark-700 rounded-lg p-1 gap-1">
             <button
-              onClick={() => { setCalendarType('solar'); setIsLeapMonth(false) }}
-              className={`px-4 py-1.5 rounded-md text-sm font-medium transition-all ${
-                calendarType === 'solar'
-                  ? 'bg-gold-500 text-dark-900'
-                  : 'text-gray-400 hover:text-gray-200'
-              }`}
-            >
-              ☀️ 阳历（公历）
-            </button>
+              onClick={() => setGender('M')}
+              className={`flex-1 py-2 rounded-md text-sm font-medium transition-all ${gender === 'M' ? 'bg-blue-500 text-white' : 'text-gray-400 hover:text-gray-200'}`}
+            >♂ 男</button>
             <button
-              onClick={() => setCalendarType('lunar')}
-              className={`px-4 py-1.5 rounded-md text-sm font-medium transition-all ${
-                calendarType === 'lunar'
-                  ? 'bg-gold-500 text-dark-900'
-                  : 'text-gray-400 hover:text-gray-200'
-              }`}
-            >
-              🌙 阴历（农历）
-            </button>
-          </div>
-          {yearLeapMonth > 0 && calendarType === 'lunar' && (
-            <span className="text-xs text-amber-400/70">{y}年闰{yearLeapMonth}月</span>
-          )}
-        </div>
-
-        <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 mb-4">
-          <div>
-            <label className="text-xs text-gray-400 block mb-1">年</label>
-            <input type="number" value={year} onChange={e => setYear(e.target.value)}
-              min={1900} max={2100}
-              className="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200 text-sm" />
-          </div>
-          <div>
-            <label className="text-xs text-gray-400 block mb-1">月</label>
-            <input type="number" value={month} onChange={e => { setMonth(e.target.value); setIsLeapMonth(false) }}
-              min={1} max={calendarType === 'lunar' ? 12 : 12}
-              className="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200 text-sm" />
-            {calendarType === 'lunar' && (
-              <p className="text-[10px] text-gray-500 mt-0.5">农历月份</p>
-            )}
-          </div>
-          <div>
-            <label className="text-xs text-gray-400 block mb-1">日</label>
-            <input type="number" value={day} onChange={e => setDay(e.target.value)}
-              min={1} max={maxDay}
-              className="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200 text-sm" />
-            <p className="text-[10px] text-gray-500 mt-0.5">共 {maxDay} 天</p>
-          </div>
-          <div>
-            <label className="text-xs text-gray-400 block mb-1">时辰</label>
-            <select value={hour} onChange={e => setHour(e.target.value)}
-              className="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200 text-sm">
-              {hourOptions.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
-            </select>
-          </div>
-          <div>
-            <label className="text-xs text-gray-400 block mb-1">性别</label>
-            <select value={gender} onChange={e => setGender(e.target.value as 'M' | 'F')}
-              className="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200">
-              <option value="M">男</option><option value="F">女</option>
-            </select>
+              onClick={() => setGender('F')}
+              className={`flex-1 py-2 rounded-md text-sm font-medium transition-all ${gender === 'F' ? 'bg-pink-500 text-white' : 'text-gray-400 hover:text-gray-200'}`}
+            >♀ 女</button>
           </div>
         </div>
 
-        {/* Leap Month Toggle (only for lunar) */}
-        {hasLeapMonth && (
-          <div className="mb-4 flex items-center gap-2">
-            <input type="checkbox" id="leapMonth" checked={isLeapMonth} onChange={e => setIsLeapMonth(e.target.checked)}
-              className="rounded accent-gold-500" />
-            <label htmlFor="leapMonth" className="text-sm text-amber-400 cursor-pointer">
-              闰{month}月（当前年为闰月）
-            </label>
-          </div>
-        )}
-
-        {validationMsg && (
-          <p className="text-xs text-amber-400 mb-3">⚠ {validationMsg}</p>
-        )}
         {error && (
-          <p className="text-sm text-red-400 mb-3">{error}</p>
+          <p className="text-sm text-red-400 mt-3">{error}</p>
         )}
 
         <button onClick={analyze}
-          className="bg-gold-600 hover:bg-gold-500 text-dark-900 font-semibold px-6 py-2.5 rounded-lg transition-colors active:scale-95 disabled:opacity-50"
-          disabled={!!validationMsg}>
+          className="w-full mt-4 bg-gold-600 hover:bg-gold-500 text-dark-900 font-semibold py-3 rounded-lg transition-colors active:scale-[0.98] text-lg">
           排盘
         </button>
-        <p className="text-[10px] text-gray-600 mt-2">
+        <p className="text-center text-[10px] text-gray-600 mt-2">
           {calendarType === 'solar' ? '阳历：公历日期直接排盘' : '阴历：农历日期自动换算为公历后进行排盘'}
         </p>
       </div>
@@ -455,7 +284,7 @@ export default function ZiweiClient() {
             </div>
           </div>
 
-          {/* ===== 🏠 命宫详解（新增）===== */}
+          {/* ===== 命宫详解 ===== */}
           {soulAnalysis && (
             <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-gold-500/30 p-6">
               <h3 className="text-lg font-semibold text-gold-400 font-serif mb-4 flex items-center gap-2">
@@ -464,7 +293,6 @@ export default function ZiweiClient() {
               </h3>
 
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-                {/* 主星亮度分析 */}
                 <div>
                   <h4 className="text-sm font-medium text-gold-300 mb-3">✦ 主星亮度</h4>
                   {soulAnalysis.brightnessAnalysis.length > 0 ? (
@@ -490,7 +318,6 @@ export default function ZiweiClient() {
                   )}
                 </div>
 
-                {/* 吉凶分析 */}
                 <div>
                   <h4 className="text-sm font-medium text-gold-300 mb-3">✦ 吉凶分析</h4>
                   <div className="bg-dark-700/60 rounded-lg p-4 space-y-3">
@@ -511,7 +338,6 @@ export default function ZiweiClient() {
                     </div>
                   </div>
 
-                  {/* 四化 */}
                   {soulAnalysis.sihuaAnalysis.length > 0 && (
                     <div className="mt-3">
                       <h4 className="text-xs font-medium text-gold-300 mb-2">✦ 四化飞星</h4>
@@ -529,7 +355,6 @@ export default function ZiweiClient() {
                 </div>
               </div>
 
-              {/* 格局分析 */}
               {soulAnalysis.patterns.length > 0 && (
                 <div className="mt-5 pt-4 border-t border-dark-600">
                   <h4 className="text-sm font-medium text-gold-300 mb-3">✦ 格局分析</h4>
@@ -569,7 +394,6 @@ export default function ZiweiClient() {
                       ? 'border-gold-500/60 bg-gold-900/15'
                       : 'border-dark-600 bg-dark-800/80'
                   }`}>
-                  {/* 宫名 + 大限 */}
                   <div className="flex items-center justify-between mb-1">
                     <p className={`text-xs font-medium ${palace.name === '命宫' ? 'text-gold-300' : 'text-gold-400'}`}>
                       {palace.name}
@@ -582,7 +406,6 @@ export default function ZiweiClient() {
                   </div>
                   <p className="text-[9px] text-gray-600 mb-2">{palace.heavenlyStem}{palace.earthlyBranch}</p>
 
-                  {/* 主星 + 庙旺 + 四化 */}
                   {majors.length > 0 ? majors.map((star: any, i: number) => (
                     <p key={i} className="text-xs font-semibold text-gold-300 flex items-center gap-1 flex-wrap">
                       <span>{star.name}</span>
@@ -601,7 +424,6 @@ export default function ZiweiClient() {
                     <p className="text-[10px] text-gray-600 italic">—</p>
                   )}
 
-                  {/* 辅星 */}
                   {minors.length > 0 && (
                     <div className="mt-1 pt-1 border-t border-dark-600 flex flex-wrap gap-x-1.5">
                       {minors.map((star: any, i: number) => (

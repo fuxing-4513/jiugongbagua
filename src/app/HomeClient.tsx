@@ -1,11 +1,13 @@
 'use client'
 
+import { useState } from 'react'
 import Link from 'next/link'
 import { useLocale } from '@/lib/i18n'
 
 import HeritageSection from '@/components/HeritageSection'
 import ClassicQuotes from '@/components/ClassicQuotes'
 import BottomCTA from '@/components/BottomCTA'
+import CalendarInput, { type CalendarType, getMaxDay, getYearLeapMonth, lunarToSolarDate } from '@/components/CalendarInput'
 
 interface ModuleInfo {
   key: string
@@ -87,6 +89,8 @@ export default function HomeClient() {
         </p>
       </section>
 
+      {/* ===== 免费排盘 ===== */}
+      <FreeChartWidget />
 
       {/* ===== 八字命理课堂 ===== */}
       <section className="mb-10">
@@ -170,5 +174,77 @@ export default function HomeClient() {
       {/* ===== 底部 CTA ===== */}
       <BottomCTA />
     </div>
+  )
+}
+
+// ── 免费排盘 Widget ──
+function FreeChartWidget() {
+  const { t } = useLocale()
+  const [calendarType, setCalendarType] = useState<CalendarType>('solar')
+  const [year, setYear] = useState(String(new Date().getFullYear()))
+  const [month, setMonth] = useState(String(new Date().getMonth() + 1))
+  const [day, setDay] = useState(String(new Date().getDate()))
+  const [hour, setHour] = useState('6')
+  const [isLeapMonth, setIsLeapMonth] = useState(false)
+
+  const y = parseInt(year) || 2000
+  const m = parseInt(month) || 1
+  const d = parseInt(day) || 1
+
+  // Compute chart link
+  const chartHref = (() => {
+    const h = parseInt(hour)
+    const maxDay = getMaxDay(calendarType, y, m)
+    if (y < 1900 || y > 2100 || m < 1 || m > 12 || d < 1 || d > maxDay) return '#'
+    let solarDate: string
+    if (calendarType === 'solar') {
+      solarDate = `${y}-${String(m).padStart(2, '0')}-${String(d).padStart(2, '0')}`
+    } else {
+      solarDate = lunarToSolarDate(y, m, d, isLeapMonth)
+    }
+    return `/app?date=${solarDate}&hour=${h}&calendar=${calendarType}`
+  })()
+
+  const isValid = !chartHref.startsWith('#')
+
+  return (
+    <section className="max-w-xl mx-auto mb-10">
+      <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-gold-500/20 p-6">
+        <h2 className="text-xl font-semibold text-gold-400 font-serif mb-1 text-center">🔮 立即排盘</h2>
+        <p className="text-xs text-gray-500 text-center mb-5">输入出生信息，AI 即刻为您深度批命</p>
+
+        <CalendarInput
+          calendarType={calendarType}
+          year={year}
+          month={month}
+          day={day}
+          hour={hour}
+          isLeapMonth={isLeapMonth}
+          onCalendarTypeChange={setCalendarType}
+          onYearChange={setYear}
+          onMonthChange={setMonth}
+          onDayChange={setDay}
+          onHourChange={setHour}
+          onLeapMonthChange={setIsLeapMonth}
+          label=""
+        />
+
+        <Link
+          href={chartHref}
+          className={`block w-full mt-5 py-3 rounded-lg text-center font-semibold text-lg transition-all ${
+            isValid
+              ? 'bg-gold-400 text-dark-900 hover:bg-gold-300 shadow-lg shadow-gold-400/20 hover:shadow-gold-400/40 active:scale-[0.98]'
+              : 'bg-dark-600 text-gray-500 cursor-not-allowed pointer-events-none'
+          }`}
+          onClick={e => { if (!isValid) e.preventDefault() }}
+        >
+          立即排盘 · 免费 🚀
+        </Link>
+
+        <p className="text-center text-[10px] text-gray-600 mt-3">
+          支持阳历/阴历 · 精确到时辰 · 19+ 命理模块 · AI 深度解读
+        </p>
+      </div>
+    </section>
   )
 }

@@ -2,6 +2,7 @@
 
 import { useState, useCallback } from 'react'
 import { Solar, Lunar } from 'lunar-typescript'
+import { getMaxDay, getLunarDaysInMonth } from '@/components/CalendarInput'
 import { MEIHUA_DUANCI, GuaDuanCi, getGuaRelation, LIFETIME_GUA_EXPLANATION, getNayinWuxing } from '@/lib/meihua-duanci'
 import { TIAN_GAN, DI_ZHI } from '@/lib/bazi-constants'
 
@@ -422,7 +423,7 @@ export default function MeihuaClient() {
             <div><label className="text-xs text-gray-400 block mb-1">农历月</label>
               <input type="number" min={1} max={12} value={lMonth} onChange={e => setLMonth(e.target.value)} className="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200" /></div>
             <div><label className="text-xs text-gray-400 block mb-1">农历日</label>
-              <input type="number" min={1} max={30} value={lDay} onChange={e => setLDay(e.target.value)} className="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200" /></div>
+              <input type="number" min={1} max={getLunarDaysInMonth(+lYear, +lMonth)} value={lDay} onChange={e => setLDay(e.target.value)} className="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200" /></div>
             <div><label className="text-xs text-gray-400 block mb-1">时辰</label>
               <select value={lHour} onChange={e => setLHour(e.target.value)} className="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200 text-xs">
                 {hourlyOptions.map(o => <option key={o.v} value={o.v}>{o.l}</option>)}
@@ -441,7 +442,7 @@ export default function MeihuaClient() {
           <div><label className="text-xs text-gray-400 block mb-1">月份</label>
             <input type="number" min={1} max={12} value={sMonth} onChange={e => setSMonth(e.target.value)} className="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200" /></div>
           <div><label className="text-xs text-gray-400 block mb-1">日</label>
-            <input type="number" min={1} max={31} value={sDay} onChange={e => setSDay(e.target.value)} className="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200" /></div>
+            <input type="number" min={1} max={getMaxDay('solar', +sYear, +sMonth)} value={sDay} onChange={e => setSDay(e.target.value)} className="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200" /></div>
           <div><label className="text-xs text-gray-400 block mb-1">时辰</label>
             <select value={sHour} onChange={e => setSHour(e.target.value)} className="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200 text-xs">
               {hourlyOptions.map(o => <option key={o.v} value={o.v}>{o.l}</option>)}
@@ -458,7 +459,7 @@ export default function MeihuaClient() {
             <div><label className="text-xs text-gray-400 block mb-1">月</label>
               <input type="number" min={1} max={12} value={ltMonth} onChange={e => setLtMonth(e.target.value)} className="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200" /></div>
             <div><label className="text-xs text-gray-400 block mb-1">日</label>
-              <input type="number" min={1} max={31} value={ltDay} onChange={e => setLtDay(e.target.value)} className="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200" /></div>
+              <input type="number" min={1} max={getMaxDay('solar', +ltYear, +ltMonth)} value={ltDay} onChange={e => setLtDay(e.target.value)} className="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200" /></div>
             <div><label className="text-xs text-gray-400 block mb-1">时辰</label>
               <select value={ltHour} onChange={e => setLtHour(e.target.value)} className="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200 text-xs">
                 {hourlyOptions.map(o => <option key={o.v} value={o.v}>{o.l}</option>)}

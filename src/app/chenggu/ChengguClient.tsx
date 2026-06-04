@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { Solar, Lunar } from 'lunar-typescript'
+import CalendarInput, { type CalendarType, getMaxDay } from '@/components/CalendarInput'
 
 const YEAR_W: Record<string,number> = {
   '甲子':1.2,'乙丑':0.9,'丙寅':0.6,'丁卯':0.7,'戊辰':1.2,'己巳':0.5,'庚午':0.9,'辛未':0.8,'壬申':0.7,'癸酉':0.8,
@@ -216,20 +217,21 @@ function mingShuAnalysis(liang: number, qian: number, level: string, gender: str
 }
 
 export default function ChengguClient() {
-  const [isSolar, setIsSolar] = useState(true)
+  const [calendarType, setCalendarType] = useState<CalendarType>('solar')
   const [gender, setGender] = useState<'male'|'female'>('male')
   const [year, setYear] = useState('1990')
   const [month, setMonth] = useState('1')
   const [day, setDay] = useState('1')
-  const [hourIdx, setHourIdx] = useState(5)
+  const [hour, setHour] = useState('5')
   const [isLeapMonth, setIsLeapMonth] = useState(false)
   const [result, setResult] = useState<any>(null)
 
   const calc = () => {
     try {
       const y = parseInt(year), m = parseInt(month), d = parseInt(day)
+      const hIdx = parseInt(hour)
       let lunar: any, solarLabel: string, lunarLabel: string
-      if (isSolar) {
+      if (calendarType === 'solar') {
         const solar = Solar.fromYmd(y, m, d)
         lunar = solar.getLunar()
         solarLabel = solar.toFullString()
@@ -245,8 +247,8 @@ export default function ChengguClient() {
       const yearW = YEAR_W[gzYear] || 0
       const monthW = MONTH_W[lMonth] || 0
       const dayW = DAY_W[lDay] || 0
-      const dz = HOUR_DZ[hourIdx]
-      const hourW = HOUR_W[hourIdx] || 0
+      const dz = HOUR_DZ[hIdx]
+      const hourW = HOUR_W[hIdx] || 0
       const total = yearW + monthW + dayW + hourW
       const totalStr = total.toFixed(1)
       const liang = Math.floor(total)
@@ -265,43 +267,37 @@ export default function ChengguClient() {
     <p className="text-gray-400 mb-6">袁天罡称骨法：支持阳历/阴历输入，自动换算。男命女命分断，精准解读命运骨重。</p>
 
     <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-6 mb-8">
-      {/* 历法选择 */}
-      <div className="flex gap-2 mb-4">
-        <button onClick={()=>{setIsSolar(true);setResult(null)}}
-          className={`px-3 py-1.5 text-xs rounded-lg transition-colors ${isSolar?'bg-gold-600 text-dark-900':'bg-dark-700 text-gray-400 border border-dark-600'}`}>☀️ 阳历</button>
-        <button onClick={()=>{setIsSolar(false);setResult(null)}}
-          className={`px-3 py-1.5 text-xs rounded-lg transition-colors ${!isSolar?'bg-gold-600 text-dark-900':'bg-dark-700 text-gray-400 border border-dark-600'}`}>🌙 阴历</button>
-        <span className="text-[10px] text-gray-500 self-center ml-2">自动换算阴阳历</span>
+      {/* 历法 & 性别 */}
+      <div className="space-y-4">
+        <CalendarInput
+          calendarType={calendarType}
+          year={year}
+          month={month}
+          day={day}
+          hour={hour}
+          isLeapMonth={isLeapMonth}
+          onCalendarTypeChange={(t) => { setCalendarType(t); setResult(null) }}
+          onYearChange={setYear}
+          onMonthChange={(v) => { setMonth(v); setIsLeapMonth(false) }}
+          onDayChange={setDay}
+          onHourChange={setHour}
+          onLeapMonthChange={setIsLeapMonth}
+          label="出生日期"
+        />
+
+        <div className="flex items-center gap-2">
+          <span className="text-xs text-gray-400">性别：</span>
+          <div className="flex bg-dark-700 rounded-lg p-1 gap-1">
+            <button onClick={()=>{setGender('male');setResult(null)}}
+              className={`px-4 py-1.5 rounded-md text-xs font-medium transition-all ${gender==='male'?'bg-blue-500 text-white':'text-gray-400'}`}>♂ 男命</button>
+            <button onClick={()=>{setGender('female');setResult(null)}}
+              className={`px-4 py-1.5 rounded-md text-xs font-medium transition-all ${gender==='female'?'bg-pink-500 text-white':'text-gray-400'}`}>♀ 女命</button>
+          </div>
+          <span className="text-[10px] text-gray-500 ml-1">男女断语不同</span>
+        </div>
       </div>
 
-      {/* 性别选择 */}
-      <div className="flex gap-2 mb-4">
-        <button onClick={()=>{setGender('male');setResult(null)}}
-          className={`px-4 py-1.5 text-xs rounded-lg transition-colors ${gender==='male'?'bg-blue-700 text-white':'bg-dark-700 text-gray-400 border border-dark-600'}`}>♂ 男命</button>
-        <button onClick={()=>{setGender('female');setResult(null)}}
-          className={`px-4 py-1.5 text-xs rounded-lg transition-colors ${gender==='female'?'bg-rose-700 text-white':'bg-dark-700 text-gray-400 border border-dark-600'}`}>♀ 女命</button>
-        <span className="text-[10px] text-gray-500 self-center ml-2">男女断语不同</span>
-      </div>
-
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
-        <div><label className="text-xs text-gray-400 block mb-1">{isSolar?'阳历':'阴历'}年</label>
-          <input type="number" value={year} onChange={e=>setYear(e.target.value)} className="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200" /></div>
-        <div><label className="text-xs text-gray-400 block mb-1">{isSolar?'阳历':'阴历'}月</label>
-          <input type="number" min={1} max={12} value={month} onChange={e=>setMonth(e.target.value)} className="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200" /></div>
-        <div><label className="text-xs text-gray-400 block mb-1">{isSolar?'阳历':'阴历'}日</label>
-          <input type="number" min={1} max={31} value={day} onChange={e=>setDay(e.target.value)} className="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200" /></div>
-        {!isSolar && (
-          <label className="flex items-center gap-2 text-xs text-gray-300 cursor-pointer select-none self-end pb-1">
-            <input type="checkbox" checked={isLeapMonth} onChange={e=>{setIsLeapMonth(e.target.checked);setResult(null)}} className="accent-gold-500" />
-            闰月
-          </label>
-        )}
-        <div><label className="text-xs text-gray-400 block mb-1">时辰</label>
-          <select value={hourIdx} onChange={e=>setHourIdx(parseInt(e.target.value))} className="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200 text-sm">
-            {HOUR_DZ.map((dz,i)=><option key={i} value={i}>{dz}时 ({HOUR_RANGES[i][0]}-{HOUR_RANGES[i][1]}点)</option>)}
-          </select></div>
-      </div>
-      <button onClick={calc} className="bg-gold-600 hover:bg-gold-500 text-dark-900 font-semibold px-6 py-2.5 rounded-lg transition-colors active:scale-95">称骨测算</button>
+      <button onClick={calc} className="bg-gold-600 hover:bg-gold-500 text-dark-900 font-semibold px-6 py-2.5 rounded-lg transition-colors active:scale-95 mt-4">称骨测算</button>
     </div>
 
     {r && (<div className="space-y-4">
