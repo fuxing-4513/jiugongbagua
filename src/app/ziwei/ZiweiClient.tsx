@@ -120,91 +120,187 @@ const STAR_DESC: Record<string, string> = {
 interface PatternDef { name: string; desc: string; rating: string }
 interface StarInfo { name: string; brightness?: string; mutagen?: string }
 
-function detectPatterns(palaces: { name: string; majorStars: StarInfo[]; earthlyBranch: string }[]): PatternDef[] {
+type PalaceForPattern = { name: string; majorStars: StarInfo[]; minorStars: StarInfo[]; adjectiveStars: StarInfo[]; earthlyBranch: string }
+
+function detectPatterns(palaces: PalaceForPattern[], bornSihua: { star: string }[]): PatternDef[] {
   const patterns: PatternDef[] = []
   const getP = (n: string) => palaces.find(p => p.name === n)
   const getStars = (n: string) => (getP(n)?.majorStars || []).map((s: StarInfo) => s.name)
   const soul = getP('命宫')
   const ss = soul ? getStars('命宫') : []
   const sb = soul?.earthlyBranch || ''
-  const has = (n: string, star: string) => (getStars(n)||[]).includes(star)
-  const hasAny = (n: string, stars: string[]) => stars.some(s => (getStars(n)||[]).includes(s))
+  const has = (n: string, star: string) => (getStars(n) || []).includes(star)
+  const hasAny = (n: string, stars: string[]) => stars.some(s => (getStars(n) || []).includes(s))
 
-  // ═══ 顶级格局 ═══
-  if (has('命宫','紫微') && has('命宫','天府') && (sb==='寅'||sb==='申'))
-    patterns.push({ name:'紫府同宮格', desc:'紫微天府二帝星同守命宮，帝王之象，主貴氣非凡，一生衣食無憂，事業有成。', rating:'上' })
-  if (has('命宫','紫微') && hasAny('命宫',['左辅','右弼']))
-    patterns.push({ name:'君臣慶會格', desc:'紫微帝星得左右輔弼拱照，君臣相得，主貴氣加身，有領導才能，得貴人相助。', rating:'上' })
-  if (has('命宫','太阳') && sb==='卯')
-    patterns.push({ name:'日照雷門格', desc:'旭日東升於卯，如日照雷門，光輝燦爛。主早年發達，聲名遠播。', rating:'上' })
-  if (has('命宫','太阳') && sb==='午')
-    patterns.push({ name:'日麗中天格', desc:'太陽居午宮，如日中天，光輝至極。主權勢顯赫，名揚四海。', rating:'上' })
-  if (has('命宫','太阴') && sb==='亥')
-    patterns.push({ name:'月朗天門格', desc:'太陰在亥為月朗天門，主溫潤清貴，智慧過人，適合文職、藝術。', rating:'上' })
-  if (has('命宫','太阴') && sb==='酉')
-    patterns.push({ name:'月生滄海格', desc:'太陰在酉，如月出海，主富貴清雅，宜文職才藝。', rating:'上' })
-  if (has('命宫','武曲') && has('命宫','贪狼') && (sb==='丑'||sb==='未'))
-    patterns.push({ name:'武貪不發少年格', desc:'武曲貪狼在丑未守命，主中年後大發達，少年辛苦磨練。', rating:'上' })
-  if (has('命宫','七杀') && hasAny('迁移',['紫微','天府']) && (sb==='寅'||sb==='申'))
-    patterns.push({ name:'七殺朝斗格', desc:'七殺在寅申對宮紫微天府，為貴格，也可成富。作風強勢，攻擊力強。為達目的較不擇手段，可能損及旁人利益。', rating:'上' })
-  if (has('命宫','廉贞') && has('命宫','贪狼') && (sb==='巳'||sb==='亥'))
-    patterns.push({ name:'泛水桃花格', desc:'廉貞貪狼居巳亥，泛水桃花，風流倜儻，才華出眾，但感情複雜。', rating:'中' })
+  // 三方四正：命宫 + 财帛 + 官禄
+  const triStars = (p: string) => {
+    const q = getP(p); if (!q) return []
+    return [...(q.majorStars || []).map(s => s.name), ...(q.minorStars || []).map(s => s.name), ...(q.adjectiveStars || []).map(s => s.name)]
+  }
+  const triAll = [...new Set([...triStars('命宫'), ...triStars('财帛'), ...triStars('官禄')])]
+  const triHas = (star: string) => triAll.includes(star)
+  const triHasAny = (stars: string[]) => stars.some(s => triAll.includes(s))
+  const triHasAll = (stars: string[]) => stars.every(s => triAll.includes(s))
 
-  // ═══ 中上级格局 ═══
-  if (['天机','太阴','天同','天梁'].filter(x => ss.includes(x)).length >= 3)
-    patterns.push({ name:'機月同梁格', desc:'天機、太陰、天同、天梁齊聚，主智謀機變，宜公職、策劃、文秘之職。吏人優裕之格。', rating:'中上' })
-  if (has('命宫','紫微') && hasAny('命宫',['七杀']))
-    patterns.push({ name:'紫殺格', desc:'紫微七殺同守命宮，化殺為權，威權顯赫，宜軍警、管理。', rating:'中上' })
-  if (has('命宫','紫微') && hasAny('命宫',['破军']))
-    patterns.push({ name:'紫破格', desc:'紫微破軍同守命宮，開創性強，宜創業、革新，但變動較大。', rating:'中上' })
-  if (has('命宫','紫微') && hasAny('命宫',['贪狼']))
-    patterns.push({ name:'紫貪格', desc:'紫微貪狼同守命宮，多才多藝，桃花旺盛，宜演藝、公關行業。', rating:'中' })
-  if (has('命宫','廉贞') && hasAny('命宫',['七杀']))
-    patterns.push({ name:'廉貞七殺格', desc:'廉貞七殺同守命宮，積富之人。性格果決剛毅，做事雷厲風行。', rating:'中上' })
-  if (has('命宫','廉贞') && hasAny('命宫',['破军']))
-    patterns.push({ name:'廉貞破軍格', desc:'廉貞破軍同守命宮，浪裡行舟，變動多端，宜開拓型事業。', rating:'中' })
-  if (hasAny('命宫',['天府','天相']) && (has('财帛','天府')||has('官禄','天府')))
-    patterns.push({ name:'府相朝垣格', desc:'天府天相朝照，穩重踏實，一生衣食豐足，宜從事金融、管理行業。', rating:'中上' })
-  if (['文昌','文曲','左辅','右弼','天魁','天钺'].filter(x => ss.includes(x)).length >= 3)
-    patterns.push({ name:'文星拱命格', desc:'輔弼昌曲魁鉞會照，聰明多藝，宜文職、學術研究。文采出眾。', rating:'中上' })
-  if (hasAny('命宫',['文昌','文曲']) && has('命宫','天同'))
-    patterns.push({ name:'文華天同格', desc:'天同帶文昌文曲，才華橫溢，宜文藝創作。', rating:'中上' })
-  if (has('命宫','天机') && hasAny('命宫',['文昌','文曲']))
-    patterns.push({ name:'文曲天機格', desc:'天機配文昌文曲，聰明絕頂，擅策劃謀略，宜智庫顧問。', rating:'中上' })
+  // 迁移宫（对宫）
+  const qiStars = (getP('迁移')?.majorStars || []).map(s => s.name)
 
-  // ═══ 中级格局 ═══
-  if (has('命宫','巨门') && has('命宫','太阳') && (sb==='寅'||sb==='申'))
-    patterns.push({ name:'巨日同宮格', desc:'巨門與太陽同宮，以口為業，宜律師、教師、媒體等行業，能言善辯。', rating:'中' })
-  if (has('命宫','巨门') && has('命宫','天机') && (sb==='卯'||sb==='酉'))
-    patterns.push({ name:'巨機同臨格', desc:'巨門天機同守卯酉，智慧過人，口才出眾，宜研究、顧問行業。', rating:'中' })
-  if (has('命宫','巨门') && hasAny('命宫',['天同']))
-    patterns.push({ name:'巨同格', desc:'巨門天同守命，內外兼具，表面溫和內心犀利。', rating:'中' })
-  if (['七杀','破军','贪狼'].filter(x => ss.includes(x)).length >= 2)
-    patterns.push({ name:'殺破狼格', desc:'七殺、破軍、貪狼坐命，主變動、開創、冒險精神強。一生波瀾壯闊，宜創業從商。', rating:'中' })
-  if (has('命宫','武曲') && has('命宫','七杀') && (sb==='卯'||sb==='酉'))
-    patterns.push({ name:'武殺格', desc:'武曲七殺同守卯酉，剛毅果決，宜軍警、工業、外科醫生。', rating:'中' })
-  if (has('命宫','武曲') && hasAny('命宫',['破军']))
-    patterns.push({ name:'武破格', desc:'武曲破軍同守命宮，動盪中求發展，宜開創新事業。', rating:'中' })
-  if (has('命宫','廉贞') && hasAny('命宫',['天府']))
-    patterns.push({ name:'廉府格', desc:'廉貞天府同守，才華內斂，宜管理、行政。', rating:'中上' })
-  if (has('命宫','廉贞') && hasAny('命宫',['天相']))
-    patterns.push({ name:'廉相格', desc:'廉貞天相同守，能文能武，宜公務、服務行業。', rating:'中' })
-  if (has('命宫','天相') && has('命宫','太阳'))
-    patterns.push({ name:'陽梁昌祿格', desc:'太陽天相會照，主科甲功名，利學業考試。', rating:'中上' })
+  const sihuaStars = bornSihua.map(s => s.star)
 
-  // ═══ 特殊格局 ═══
-  if (hasAny('命宫',['禄存','天马']) || (has('命宫','禄存') && hasAny('迁移',['天马'])))
-    patterns.push({ name:'祿馬交馳格', desc:'祿存天馬交會，主奔波勞碌而招財，宜外地發展。', rating:'中' })
-  if (has('命宫','天梁') && hasAny('命宫',['文昌','文曲']) && hasAny('命宫',['天魁','天钺']))
-    patterns.push({ name:'陽梁昌祿格', desc:'天梁配昌曲魁鉞，學術權威之象，宜教育、學術、法律。', rating:'中上' })
-  if (has('命宫','天同') && has('命宫','天梁') && (sb==='寅'||sb==='申'))
-    patterns.push({ name:'同梁拱照格', desc:'天同天梁在寅申，福壽雙全，宜慈善、宗教行業。', rating:'中上' })
-  if (has('命宫','天同') && hasAny('命宫',['太阴']))
-    patterns.push({ name:'同陰格', desc:'天同太陰同守，溫柔體貼，宜服務、藝術行業。', rating:'中' })
-  if (hasAny('命宫',['天姚','红鸾']) && ['文昌','文曲'].filter(x=>ss.includes(x)).length>=1)
-    patterns.push({ name:'桃花夾命格', desc:'桃花配文星，風流才子型，宜演藝、文藝。', rating:'中' })
-  if (['地空','地劫'].filter(x => ss.includes(x)).length >= 1 && ['文昌','文曲'].filter(x => ss.includes(x)).length >= 1)
-    patterns.push({ name:'空劫夾命格', desc:'空劫配昌曲，思想獨特，不入俗流，宜創意行業。', rating:'中' })
+  // ═══════════════════════════════════════════
+  // 顶级格局（上格）
+  // ═══════════════════════════════════════════
+
+  // 紫府同宫
+  if (has('命宫', '紫微') && has('命宫', '天府'))
+    patterns.push({ name: '紫府同宮格', desc: '紫微天府二帝星同守命宮，帝王之象，主貴氣非凡，一生衣食無憂，事業有成。' + (sb === '寅' || sb === '申' ? '寅申為正格，格局更高。' : ''), rating: '上' })
+
+  // 君臣庆会
+  if (has('命宫', '紫微') && hasAny('命宫', ['左辅', '右弼']))
+    patterns.push({ name: '君臣慶會格', desc: '紫微帝星得左右輔弼拱照，君臣相得，主貴氣加身，有領導才能，得貴人相助。', rating: '上' })
+
+  // 日照雷门
+  if (has('命宫', '太阳') && sb === '卯')
+    patterns.push({ name: '日照雷門格', desc: '旭日東升於卯，如日照雷門，光輝燦爛。主早年發達，聲名遠播。', rating: '上' })
+
+  // 日丽中天
+  if (has('命宫', '太阳') && sb === '午')
+    patterns.push({ name: '日麗中天格', desc: '太陽居午宮，如日中天，光輝至極。主權勢顯赫，名揚四海。', rating: '上' })
+
+  // 月朗天门
+  if (has('命宫', '太阴') && sb === '亥')
+    patterns.push({ name: '月朗天門格', desc: '太陰在亥為月朗天門，主溫潤清貴，智慧過人，適合文職、藝術。', rating: '上' })
+
+  // 月生沧海
+  if (has('命宫', '太阴') && sb === '酉')
+    patterns.push({ name: '月生滄海格', desc: '太陰在酉，如月出海，主富貴清雅，宜文職才藝。', rating: '上' })
+
+  // 七杀朝斗
+  if (has('命宫', '七杀') && hasAny('迁移', ['紫微', '天府']))
+    patterns.push({ name: '七殺朝斗格', desc: '七殺在命，對宮紫微天府照拱，為上貴格局。作風強勢，攻擊力強，有領導力。' + (sb === '寅' || sb === '申' ? '寅申為正格。' : ''), rating: '上' })
+
+  // 武贪格
+  if (has('命宫', '武曲') && has('命宫', '贪狼'))
+    patterns.push({ name: '武貪不發少年格', desc: '武曲貪狼守命，主中年後大發達，少年辛苦磨練。' + (sb === '丑' || sb === '未' ? '丑未為正格。' : ''), rating: '上' })
+
+  // 紫微朝垣（三方见紫微）
+  if (!has('命宫', '紫微') && triHas('紫微'))
+    patterns.push({ name: '紫微朝垣格', desc: '三方四正中紫微照拱，貴氣加身，得上司提攜，有領導才能。', rating: '上' })
+
+  // 三奇加会（科权禄）
+  const sihuaLabels = bornSihua.map(s => s.star)
+  if (sihuaLabels.length >= 3 && ['禄', '权', '科'].every(t => bornSihua.some(s => s.star.includes(t) || t === '')))
+    patterns.push({ name: '三奇加會格', desc: '科權祿三奇會合，主才華出眾，名利雙收，一生有特殊成就。', rating: '上' })
+
+  // ═══════════════════════════════════════════
+  // 中上级格局
+  // ═══════════════════════════════════════════
+
+  // 府相朝垣
+  if (triHas('天府') && triHas('天相'))
+    patterns.push({ name: '府相朝垣格', desc: '天府天相在三方四正朝照，穩重踏實，一生衣食豐足，宜從事金融、管理行業。', rating: '中上' })
+
+  // 机月同梁
+  if (['天机', '太阴', '天同', '天梁'].filter(x => triHas(x)).length >= 3)
+    patterns.push({ name: '機月同梁格', desc: '天機、太陰、天同、天梁在三方四正齊聚，主智謀機變，宜公職、策劃、文秘之職。吏人優裕之格。', rating: '中上' })
+
+  // 阳梁昌禄
+  if (triHas('太阳') && triHas('天梁') && triHasAny(['文昌', '禄存']))
+    patterns.push({ name: '陽梁昌祿格', desc: '太陽天梁配文昌或祿存，主科甲功名，利學業考試，適合學術研究。', rating: '中上' })
+
+  // 文星拱命
+  if (['文昌', '文曲', '左辅', '右弼', '天魁', '天钺'].filter(x => triHas(x)).length >= 4)
+    patterns.push({ name: '文星拱命格', desc: '輔弼昌曲魁鉞會照，聰明多藝，宜文職、學術研究，文采出眾。', rating: '中上' })
+
+  // 紫微+七杀/破军/贪狼
+  if (has('命宫', '紫微') && has('命宫', '七杀'))
+    patterns.push({ name: '紫殺格', desc: '紫微七殺同守命宮，化殺為權，威權顯赫，宜軍警、管理。', rating: '中上' })
+  if (has('命宫', '紫微') && has('命宫', '破军'))
+    patterns.push({ name: '紫破格', desc: '紫微破軍同守命宮，開創性強，宜創業、革新，但變動較大。', rating: '中上' })
+  if (has('命宫', '紫微') && has('命宫', '贪狼'))
+    patterns.push({ name: '紫貪格', desc: '紫微貪狼同守命宮，多才多藝，桃花旺盛，宜演藝、公關行業。', rating: '中' })
+
+  // 廉贞组合
+  if (has('命宫', '廉贞') && has('命宫', '七杀'))
+    patterns.push({ name: '廉貞七殺格', desc: '廉貞七殺同守命宮，積富之人。性格果決剛毅，做事雷厲風行。', rating: '中上' })
+  if (has('命宫', '廉贞') && has('命宫', '破军'))
+    patterns.push({ name: '廉貞破軍格', desc: '廉貞破軍同守命宮，浪裡行舟，變動多端，宜開拓型事業。', rating: '中' })
+  if (has('命宫', '廉贞') && has('命宫', '天府'))
+    patterns.push({ name: '廉府格', desc: '廉貞天府同守命宮，才華內斂，能文能武，宜管理、行政。', rating: '中上' })
+  if (has('命宫', '廉贞') && has('命宫', '天相'))
+    patterns.push({ name: '廉相格', desc: '廉貞天相同守命宮，能文能武，宜公務、服務行業。', rating: '中' })
+  if (has('命宫', '廉贞') && has('命宫', '贪狼') && (sb === '巳' || sb === '亥'))
+    patterns.push({ name: '泛水桃花格', desc: '廉貞貪狼居巳亥，泛水桃花，風流倜儻，才華出眾，但感情複雜。', rating: '中' })
+
+  // 武曲组合
+  if (has('命宫', '武曲') && has('命宫', '七杀'))
+    patterns.push({ name: '武殺格', desc: '武曲七殺同守命宮，剛毅果決，宜軍警、工業、外科醫生。', rating: '中' })
+  if (has('命宫', '武曲') && has('命宫', '破军'))
+    patterns.push({ name: '武破格', desc: '武曲破軍同守命宮，動盪中求發展，宜開創新事業。', rating: '中' })
+  if (has('命宫', '武曲') && has('命宫', '天府'))
+    patterns.push({ name: '武府格', desc: '武曲天府同守命宮，文武兼備，剛柔並濟，宜管理崗位，財運穩定。', rating: '中上' })
+  if (has('命宫', '武曲') && has('命宫', '天相'))
+    patterns.push({ name: '武相格', desc: '武曲天相同守命宮，剛正不阿，宜公職、企業管理。', rating: '中上' })
+
+  // ═══════════════════════════════════════════
+  // 中级格局
+  // ═══════════════════════════════════════════
+
+  // 巨日
+  if (has('命宫', '巨门') && has('命宫', '太阳'))
+    patterns.push({ name: '巨日同宮格', desc: '巨門與太陽同宮，以口為業，宜律師、教師、媒體等行業，能言善辯。', rating: '中' })
+
+  // 巨机
+  if (has('命宫', '巨门') && has('命宫', '天机'))
+    patterns.push({ name: '巨機同臨格', desc: '巨門天機同守命宮，智慧過人，口才出眾，宜研究、顧問行業。', rating: '中' })
+
+  // 杀破狼
+  if (['七杀', '破军', '贪狼'].filter(x => triHas(x)).length >= 2)
+    patterns.push({ name: '殺破狼格', desc: '七殺、破軍、貪狼在三方四正，主變動、開創、冒險精神強。一生波瀾壯闊，宜創業從商。', rating: '中' })
+
+  // 同梁
+  if (triHas('天同') && triHas('天梁'))
+    patterns.push({ name: '同梁拱照格', desc: '天同天梁在三方照拱，福壽雙全，宜慈善、宗教、公務行業。', rating: '中上' })
+
+  // 同阴
+  if (has('命宫', '天同') && has('命宫', '太阴'))
+    patterns.push({ name: '同陰格', desc: '天同太陰同守命宮，溫柔體貼，宜服務、藝術行業。', rating: '中' })
+
+  // 禄马交驰
+  if ((has('命宫', '禄存') && triHas('天马')) || (triHas('禄存') && triHas('天马')))
+    patterns.push({ name: '祿馬交馳格', desc: '祿存天馬交會，主奔波勞碌而招財，宜外地發展、經商貿易。', rating: '中' })
+
+  // 六吉汇聚
+  const liuji = ['左辅', '右弼', '文昌', '文曲', '天魁', '天钺']
+  const liujiCount = liuji.filter(x => triHas(x)).length
+  if (liujiCount >= 3)
+    patterns.push({ name: '六吉拱命格', desc: `六吉星中${liujiCount}顆會照三方四正，貴人多助，處處逢源，事半功倍。`, rating: liujiCount >= 5 ? '上' : '中上' })
+
+  // 六煞回避
+  const liusha = ['擎羊', '陀罗', '火星', '铃星', '地空', '地劫']
+  const liushaCount = liusha.filter(x => triHas(x)).length
+  if (liushaCount >= 3)
+    patterns.push({ name: '六煞聚會格', desc: `六煞星中${liushaCount}顆在三方四正，一生多波折考驗，需修身養性，行善積德化解。`, rating: '中下' })
+
+  // 空劫拱命
+  if (triHas('地空') && triHas('地劫'))
+    patterns.push({ name: '空劫夾命格', desc: '地空地劫在三方四正，思想獨特，不入俗流，宜創意、藝術行業，但需防虛幻不實。', rating: '中' })
+
+  // 昌曲夹命
+  if (triHas('文昌') && triHas('文曲'))
+    patterns.push({ name: '昌曲拱命格', desc: '文昌文曲在三方四正，文采出眾，學業有成，宜學術、文學、藝術。', rating: '中上' })
+
+  // 魁钺夹命
+  if (triHas('天魁') && triHas('天钺'))
+    patterns.push({ name: '魁鉞拱命格', desc: '天魁天鉞在三方四正，貴人運極佳，得上司長輩提攜，宜公職。', rating: '中上' })
+
+  // 日月并明
+  if (triHas('太阳') && triHas('太阴'))
+    patterns.push({ name: '日月並明格', desc: '太陽太陰在三方四正，陰陽調和，事業家庭兩全，一生光明磊落。', rating: '中上' })
+
+  // 辅弼拱主
+  if (has('命宫', '紫微') && triHasAny(['左辅', '右弼']))
+    patterns.push({ name: '輔弼拱主格', desc: '紫微坐命，左輔右弼在三方拱照，帝星得輔，權威更盛。', rating: '上' })
 
   return patterns
 }
@@ -308,8 +404,8 @@ export default function ZiweiClient() {
   // ── Patterns ──
   const patterns = useMemo(() => {
     if (!soulPalace) return []
-    return detectPatterns(palaces as { name: string; majorStars: StarInfo[]; earthlyBranch: string }[])
-  }, [soulPalace, palaces])
+    return detectPatterns(palaces as PalaceForPattern[], bornSihua as { star: string }[])
+  }, [soulPalace, palaces, bornSihua])
   const patternIndex = patterns.length > 0 ? Math.min(100, 50 + patterns.length * 15) : 50
 
   // ── Star descriptions ──
