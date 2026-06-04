@@ -2,7 +2,8 @@
 
 import { useState, useCallback } from 'react'
 import { Solar, Lunar } from 'lunar-typescript'
-import { getMaxDay, getLunarDaysInMonth } from '@/components/CalendarInput'
+import { getMaxDay, getLunarDaysInMonth, lunarToSolarDate } from '@/components/CalendarInput'
+import CalendarInput, { type CalendarType } from '@/components/CalendarInput'
 import { MEIHUA_DUANCI, GuaDuanCi, getGuaRelation, LIFETIME_GUA_EXPLANATION, getNayinWuxing } from '@/lib/meihua-duanci'
 import { TIAN_GAN, DI_ZHI } from '@/lib/bazi-constants'
 
@@ -192,19 +193,19 @@ function matchAllegory(text: string) {
   return best
 }
 
-type QiguaMethod = 'number' | 'lunarTime' | 'solarTime' | 'auto' | 'symbolism' | 'lifetime'
+type QiguaMethod = 'number' | 'calendarTime' | 'auto' | 'symbolism' | 'lifetime'
 
 export default function MeihuaClient() {
   const [method, setMethod] = useState<QiguaMethod>('number')
   const [gender, setGender] = useState('男')
   const [matter, setMatter] = useState('')
   const [num1, setNum1] = useState(''); const [num2, setNum2] = useState(''); const [num3, setNum3] = useState('')
-  const [lYear, setLYear] = useState(String(new Date().getFullYear()))
-  const [lMonth, setLMonth] = useState('1'); const [lDay, setLDay] = useState('1'); const [lHour, setLHour] = useState('0')
-  const [lIsLeap, setLIsLeap] = useState(false)
-  const [sYear, setSYear] = useState(String(new Date().getFullYear()))
-  const [sMonth, setSMonth] = useState(String(new Date().getMonth() + 1))
-  const [sDay, setSDay] = useState(String(new Date().getDate())); const [sHour, setSHour] = useState('0')
+  const [calendarType, setCalendarType] = useState<CalendarType>('solar')
+  const [calYear, setCalYear] = useState(String(new Date().getFullYear()))
+  const [calMonth, setCalMonth] = useState(String(new Date().getMonth() + 1))
+  const [calDay, setCalDay] = useState(String(new Date().getDate()))
+  const [calHour, setCalHour] = useState('0')
+  const [calIsLeap, setCalIsLeap] = useState(false)
   const [symbolText, setSymbolText] = useState('')
   const [symbolMode, setSymbolMode] = useState<'auto' | 'stroke' | 'word'>('auto')
   const [ltYear, setLtYear] = useState(String(new Date().getFullYear()))
@@ -255,26 +256,25 @@ export default function MeihuaClient() {
       if (!n1 || !n2 || !n3) { setError('请填写三个数字'); return }
       const r = calcFromNumbers(n1, n2, n3)
       setResult({ ...r, sourceStr: `数字 ${n1} · ${n2} · ${n3}`, method: 'number' })
-    } else if (method === 'lunarTime') {
-      const y = parseInt(lYear), m = parseInt(lMonth), d = parseInt(lDay), h = parseInt(lHour)
-      if (isNaN(y) || isNaN(m) || isNaN(d) || m < 1 || m > 12 || d < 1 || d > 30) { setError('农历日期无效'); return }
+    } else if (method === 'calendarTime') {
+      const y = parseInt(calYear), m = parseInt(calMonth), d = parseInt(calDay), h = parseInt(calHour)
+      const maxD = getMaxDay(calendarType, y, m)
+      if (isNaN(y) || isNaN(m) || isNaN(d) || m < 1 || m > 12 || d < 1 || d > maxD) { setError('日期无效'); return }
       try {
-        const lm = lIsLeap ? -m : m
-        const lunar = Lunar.fromYmd(y, lm, d)
+        let lunar: any
+        let sourceLabel: string
+        if (calendarType === 'solar') {
+          const solar = Solar.fromYmd(y, m, d)
+          lunar = solar.getLunar()
+          sourceLabel = `公历 ${y}年${m}月${d}日`
+        } else {
+          lunar = Lunar.fromYmd(y, calIsLeap ? -m : m, d)
+          sourceLabel = `农历 ${y}年${calIsLeap ? '闰' : ''}${m}月${d}日`
+        }
         const tgIdx = '甲乙丙丁戊己庚辛壬癸'.indexOf(lunar.getYearGan()) + 1
         const r = calcFromNumbers(tgIdx + h, Math.abs(lunar.getMonth()) + m, lunar.getDay() + d)
-        setResult({ ...r, sourceStr: `农历 ${y}年${lIsLeap ? '闰' : ''}${m}月${d}日 · ${['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥'][h/2]}时`, method: 'lunarTime' })
-      } catch { setError('农历日期转换出错') }
-    } else if (method === 'solarTime') {
-      const y = parseInt(sYear), m = parseInt(sMonth), d = parseInt(sDay), h = parseInt(sHour)
-      if (isNaN(y) || isNaN(m) || isNaN(d) || m < 1 || m > 12 || d < 1 || d > 31) { setError('公历日期无效'); return }
-      try {
-        const solar = Solar.fromYmd(y, m, d)
-        const lunar = solar.getLunar()
-        const tgIdx = '甲乙丙丁戊己庚辛壬癸'.indexOf(lunar.getYearGan()) + 1
-        const r = calcFromNumbers(tgIdx + h, Math.abs(lunar.getMonth()) + m, lunar.getDay() + d)
-        setResult({ ...r, sourceStr: `公历 ${y}年${m}月${d}日 · ${['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥'][h/2]}时`, method: 'solarTime' })
-      } catch { setError('公历日期转换出错') }
+        setResult({ ...r, sourceStr: `${sourceLabel} · ${['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥'][h/2]}时`, method: 'calendarTime' })
+      } catch { setError('日期转换出错') }
     } else if (method === 'auto') {
       const n1 = Math.floor(Math.random() * 49) + 1
       const n2 = Math.floor(Math.random() * 49) + 1
@@ -373,7 +373,7 @@ export default function MeihuaClient() {
         setError('出生日期转换出错: ' + (e?.message || ''))
       }
     }
-  }, [method, num1, num2, num3, lYear, lMonth, lDay, lHour, lIsLeap, sYear, sMonth, sDay, sHour, symbolText, symbolMode, ltYear, ltMonth, ltDay, ltHour, ltGender, calcFromNumbers])
+  }, [method, num1, num2, num3, calendarType, calYear, calMonth, calDay, calHour, calIsLeap, symbolText, symbolMode, ltYear, ltMonth, ltDay, ltHour, ltGender, calcFromNumbers])
 
   const r = result
 
@@ -389,8 +389,7 @@ export default function MeihuaClient() {
     <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-5 mb-8">
       <div className="flex flex-wrap gap-2 mb-4">
         <button onClick={() => setMethod('number')} className={btnClass('number')}>🔢 数字起卦</button>
-        <button onClick={() => setMethod('lunarTime')} className={btnClass('lunarTime')}>🌙 农历时间</button>
-        <button onClick={() => setMethod('solarTime')} className={btnClass('solarTime')}>☀️ 公历时间</button>
+        <button onClick={() => setMethod('calendarTime')} className={btnClass('calendarTime')}>📅 时间起卦</button>
         <button onClick={() => setMethod('symbolism')} className={btnClass('symbolism')}>🌿 万物取象</button>
         <button onClick={() => setMethod('auto')} className={btnClass('auto')}>🤖 电脑自动</button>
         <button onClick={() => setMethod('lifetime')} className={btnClass('lifetime')}>♾️ 终身卦</button>
@@ -415,38 +414,23 @@ export default function MeihuaClient() {
         </div>
       )}
 
-      {method === 'lunarTime' && (
+      {method === 'calendarTime' && (
         <div className="mb-4">
-          <div className="grid grid-cols-4 gap-3 mb-2">
-            <div><label className="text-xs text-gray-400 block mb-1">农历年</label>
-              <input type="number" value={lYear} onChange={e => setLYear(e.target.value)} className="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200" /></div>
-            <div><label className="text-xs text-gray-400 block mb-1">农历月</label>
-              <input type="number" min={1} max={12} value={lMonth} onChange={e => setLMonth(e.target.value)} className="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200" /></div>
-            <div><label className="text-xs text-gray-400 block mb-1">农历日</label>
-              <input type="number" min={1} max={getLunarDaysInMonth(+lYear, +lMonth)} value={lDay} onChange={e => setLDay(e.target.value)} className="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200" /></div>
-            <div><label className="text-xs text-gray-400 block mb-1">时辰</label>
-              <select value={lHour} onChange={e => setLHour(e.target.value)} className="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200 text-xs">
-                {hourlyOptions.map(o => <option key={o.v} value={o.v}>{o.l}</option>)}
-              </select></div>
-          </div>
-          <label className="flex items-center gap-2 text-xs text-gray-300 cursor-pointer select-none">
-            <input type="checkbox" checked={lIsLeap} onChange={e => setLIsLeap(e.target.checked)} className="accent-gold-500" />闰月
-          </label>
-        </div>
-      )}
-
-      {method === 'solarTime' && (
-        <div className="grid grid-cols-4 gap-3 mb-4">
-          <div><label className="text-xs text-gray-400 block mb-1">年份</label>
-            <input type="number" value={sYear} onChange={e => setSYear(e.target.value)} className="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200" /></div>
-          <div><label className="text-xs text-gray-400 block mb-1">月份</label>
-            <input type="number" min={1} max={12} value={sMonth} onChange={e => setSMonth(e.target.value)} className="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200" /></div>
-          <div><label className="text-xs text-gray-400 block mb-1">日</label>
-            <input type="number" min={1} max={getMaxDay('solar', +sYear, +sMonth)} value={sDay} onChange={e => setSDay(e.target.value)} className="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200" /></div>
-          <div><label className="text-xs text-gray-400 block mb-1">时辰</label>
-            <select value={sHour} onChange={e => setSHour(e.target.value)} className="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200 text-xs">
-              {hourlyOptions.map(o => <option key={o.v} value={o.v}>{o.l}</option>)}
-            </select></div>
+          <CalendarInput
+            calendarType={calendarType}
+            year={calYear}
+            month={calMonth}
+            day={calDay}
+            hour={calHour}
+            isLeapMonth={calIsLeap}
+            onCalendarTypeChange={setCalendarType}
+            onYearChange={setCalYear}
+            onMonthChange={(v) => { setCalMonth(v); setCalIsLeap(false) }}
+            onDayChange={setCalDay}
+            onHourChange={setCalHour}
+            onLeapMonthChange={setCalIsLeap}
+            label='' compact
+          />
         </div>
       )}
 

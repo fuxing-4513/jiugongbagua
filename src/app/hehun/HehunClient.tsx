@@ -2,6 +2,7 @@
 import { useState, useCallback } from 'react'
 import { Solar, Lunar, LunarYear } from 'lunar-typescript'
 import { getMaxDay } from '@/components/CalendarInput'
+import CalendarInput, { type CalendarType } from '@/components/CalendarInput'
 
 // ── 五行基础 ──
 const WX_TG: Record<string, string> = {甲:'木',乙:'木',丙:'火',丁:'火',戊:'土',己:'土',庚:'金',辛:'金',壬:'水',癸:'水'}
@@ -419,19 +420,21 @@ interface PersonForm { name: string; cal: 'solar' | 'lunar'; year: string; month
             <div key={s.l}>
               <h3 className={'text-sm font-semibold mb-3 '+(s.l==='男方'?'text-blue-400':'text-pink-400')}>{s.l==='男方'?'👨':'👩'} {s.l}</h3>
               <input value={s.p.name} onChange={e=>s.sp({...s.p,name:e.target.value})} placeholder={s.l+'姓名'} maxLength={10} className="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200 text-sm mb-3 focus:outline-none focus:border-gold-500"/>
-              <div className="flex gap-2 mb-3">{(['solar','lunar'] as const).map(c=><button key={c} onClick={()=>doSwitch(s.g,c)} className={'px-3 py-1 text-xs rounded-lg '+(s.p.cal===c?'bg-gold-600 text-dark-900':'bg-dark-700 text-gray-400 border border-dark-600')}>{c==='solar'?'阳历':'阴历'}</button>)}</div>
-              <div className="grid grid-cols-4 gap-2">
-                <div><label className="block text-[10px] text-gray-500 mb-1">年</label><select value={s.p.year} onChange={e=>s.sp({...s.p,year:e.target.value})} className="w-full px-1 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200 text-xs focus:outline-none focus:border-gold-500">{Array.from({length:121},(_,i)=>cy-60+i).map(y=><option key={y}>{y}</option>)}</select></div>
-                <div><label className="block text-[10px] text-gray-500 mb-1">月</label><select value={s.p.month} onChange={e=>s.sp({...s.p,month:e.target.value})} className="w-full px-1 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200 text-xs focus:outline-none focus:border-gold-500">{Array.from({length:12},(_,i)=><option key={i+1}>{i+1}</option>)}</select></div>
-                <div><label className="block text-[10px] text-gray-500 mb-1">日</label><select value={s.p.day} onChange={e=>s.sp({...s.p,day:e.target.value})} className="w-full px-1 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200 text-xs focus:outline-none focus:border-gold-500">{Array.from({length: getMaxDay(s.p.cal, +s.p.year, +s.p.month)},(_,i)=><option key={i+1}>{i+1}</option>)}</select></div>
-                <div><label className="block text-[10px] text-gray-500 mb-1">时</label><select value={s.p.hour} onChange={e=>s.sp({...s.p,hour:e.target.value})} className="w-full px-1 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200 text-xs focus:outline-none focus:border-gold-500">{HOUR_OPTS.map(o=><option key={o.v} value={o.v}>{o.l}</option>)}</select></div>
-              </div>
-              {s.p.cal==='lunar' && (
-                <label className="flex items-center gap-2 mt-2 text-xs text-gray-300 cursor-pointer select-none">
-                  <input type="checkbox" checked={s.p.isLeap} onChange={e=>s.sp({...s.p,isLeap:e.target.checked})} className="accent-gold-500" />
-                  闰月
-                </label>
-              )}
+              <CalendarInput
+                calendarType={s.p.cal as CalendarType}
+                year={s.p.year}
+                month={s.p.month}
+                day={s.p.day}
+                hour={s.p.hour}
+                isLeapMonth={s.p.isLeap}
+                onCalendarTypeChange={(newCal) => { if (newCal !== s.p.cal) doSwitch(s.g, newCal) }}
+                onYearChange={(v) => s.sp({...s.p, year: v})}
+                onMonthChange={(v) => { s.sp({...s.p, month: v, isLeap: false}) }}
+                onDayChange={(v) => s.sp({...s.p, day: v})}
+                onHourChange={(v) => s.sp({...s.p, hour: v})}
+                onLeapMonthChange={(v) => s.sp({...s.p, isLeap: v})}
+                label='' compact
+              />
             </div>
           ))}
         </div>
