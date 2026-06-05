@@ -3,6 +3,10 @@
 import { useState } from 'react'
 import { useLocale } from '@/lib/i18n'
 import NamingClient from './NamingClient'
+import dynamic from 'next/dynamic'
+
+// 动态加载起名用字组件（数据量大，独立 chunk）
+const NamingChars = dynamic(() => import('@/components/NamingChars'), { ssr: false })
 
 function tk(key: string, lang: Record<string, unknown>): string {
   const keys = key.split('.'); let v: unknown = lang
@@ -478,7 +482,7 @@ const gradeC: Record<string, string> = {'大吉':'text-green-400','吉':'text-gr
 export default function XingmingClient() {
   const { t } = useLocale()
   const lang = t as unknown as Record<string, unknown>
-  const [tab, setTab] = useState<'score'|'naming'>('score')
+  const [tab, setTab] = useState<'score'|'naming'|'wuxing'>('score')
 
   const [lastName, setLastName] = useState('')
   const [firstName, setFirstName] = useState('')
@@ -546,14 +550,16 @@ export default function XingmingClient() {
     <p className="text-gray-400 mb-6">姓名打分 & 起名服务</p>
     
     {/* Tab 切换 */}
-    <div className="flex gap-1 bg-dark-700 rounded-lg p-1 mb-6 max-w-sm mx-auto">
+    <div className="flex gap-1 bg-dark-700 rounded-lg p-1 mb-6 max-w-md mx-auto">
       <button onClick={()=>setTab('score')}
-        className={`flex-1 px-4 py-2 text-sm rounded-md transition-colors ${tab==='score'?'bg-gold-600 text-dark-900 font-semibold':'text-gray-400 hover:text-gray-200'}`}>姓名打分</button>
+        className={`flex-1 px-3 py-2 text-xs sm:text-sm rounded-md transition-colors ${tab==='score'?'bg-gold-600 text-dark-900 font-semibold':'text-gray-400 hover:text-gray-200'}`}>姓名打分</button>
       <button onClick={()=>setTab('naming')}
-        className={`flex-1 px-4 py-2 text-sm rounded-md transition-colors ${tab==='naming'?'bg-gold-600 text-dark-900 font-semibold':'text-gray-400 hover:text-gray-200'}`}>起名服务</button>
+        className={`flex-1 px-3 py-2 text-xs sm:text-sm rounded-md transition-colors ${tab==='naming'?'bg-gold-600 text-dark-900 font-semibold':'text-gray-400 hover:text-gray-200'}`}>起名服务</button>
+      <button onClick={()=>setTab('wuxing')}
+        className={`flex-1 px-3 py-2 text-xs sm:text-sm rounded-md transition-colors ${tab==='wuxing'?'bg-gold-600 text-dark-900 font-semibold':'text-gray-400 hover:text-gray-200'}`}>起名用字</button>
     </div>
     
-    {tab === 'naming' ? <NamingClient /> : (
+    {tab === 'naming' ? <NamingClient /> : tab === 'wuxing' ? <NamingChars /> : (
     <>
     <p className="text-gray-400 mb-6">基于康熙字典笔画·五格数理·三才五行配置给姓名打分</p>
 

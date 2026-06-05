@@ -1,0 +1,11622 @@
+{
+  "generated": "2026-06-05T12:32:10.691Z",
+  "source": "kangxizidian.com.cn",
+  "element": "tu",
+  "elementName": "土",
+  "total": 1659,
+  "chars": [
+    {
+      "zi": "一",
+      "pinyin": "yī",
+      "bihua": 1,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "乙",
+      "pinyin": "yǐ",
+      "bihua": 1,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "又",
+      "pinyin": "yòu",
+      "bihua": 2,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "乂",
+      "pinyin": "yì",
+      "bihua": 2,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "丆",
+      "pinyin": "hǎn",
+      "bihua": 2,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "匚",
+      "pinyin": "fāng",
+      "bihua": 2,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "匸",
+      "pinyin": "xì",
+      "bihua": 2,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "乄",
+      "pinyin": "wǔ",
+      "bihua": 2,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "丫",
+      "pinyin": "yā",
+      "bihua": 3,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "山",
+      "pinyin": "shān",
+      "bihua": 3,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "亿",
+      "pinyin": "yì",
+      "bihua": 3,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "卫",
+      "pinyin": "wèi",
+      "bihua": 3,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "也",
+      "pinyin": "yě",
+      "bihua": 3,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "与",
+      "pinyin": "yǔ",
+      "bihua": 3,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "土",
+      "pinyin": "tǔ",
+      "bihua": 3,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "个",
+      "pinyin": "gè",
+      "bihua": 3,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "丸",
+      "pinyin": "wán",
+      "bihua": 3,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "己",
+      "pinyin": "jǐ",
+      "bihua": 3,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "兀",
+      "pinyin": "wù",
+      "bihua": 3,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "兀",
+      "pinyin": "",
+      "bihua": 3,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "于",
+      "pinyin": "yú",
+      "bihua": 3,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "尢",
+      "pinyin": "yóu",
+      "bihua": 3,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "丬",
+      "pinyin": "pán",
+      "bihua": 3,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "乊",
+      "pinyin": "yī",
+      "bihua": 3,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "囗",
+      "pinyin": "wéi",
+      "bihua": 3,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "韦",
+      "pinyin": "wéi",
+      "bihua": 4,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "忆",
+      "pinyin": "yì",
+      "bihua": 4,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "友",
+      "pinyin": "yǒu",
+      "bihua": 4,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "允",
+      "pinyin": "yǔn",
+      "bihua": 4,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "尹",
+      "pinyin": "yǐn",
+      "bihua": 4,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "曰",
+      "pinyin": "yuē",
+      "bihua": 4,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "以",
+      "pinyin": "yǐ",
+      "bihua": 4,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "尤",
+      "pinyin": "yóu",
+      "bihua": 4,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "王",
+      "pinyin": "wáng",
+      "bihua": 4,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "夭",
+      "pinyin": "yāo",
+      "bihua": 4,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "引",
+      "pinyin": "yǐn",
+      "bihua": 4,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "予",
+      "pinyin": "yú",
+      "bihua": 4,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "瓦",
+      "pinyin": "wǎ",
+      "bihua": 4,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "切",
+      "pinyin": "qiē",
+      "bihua": 4,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "切",
+      "pinyin": "",
+      "bihua": 4,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "卬",
+      "pinyin": "yǎng",
+      "bihua": 4,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "牜",
+      "pinyin": "niú",
+      "bihua": 4,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "圠",
+      "pinyin": "yà",
+      "bihua": 4,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "厄",
+      "pinyin": "è",
+      "bihua": 4,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "圡",
+      "pinyin": "tǔ",
+      "bihua": 4,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "永",
+      "pinyin": "yǒng",
+      "bihua": 5,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "圣",
+      "pinyin": "shèng",
+      "bihua": 5,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "叶",
+      "pinyin": "yè",
+      "bihua": 5,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "艾",
+      "pinyin": "ài",
+      "bihua": 5,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "仔",
+      "pinyin": "zī",
+      "bihua": 5,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "戊",
+      "pinyin": "wù",
+      "bihua": 5,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "央",
+      "pinyin": "yāng",
+      "bihua": 5,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "凹",
+      "pinyin": "āo",
+      "bihua": 5,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鸟",
+      "pinyin": "niǎo",
+      "bihua": 5,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "屷",
+      "pinyin": "huì",
+      "bihua": 5,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "右",
+      "pinyin": "yòu",
+      "bihua": 5,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "圢",
+      "pinyin": "tǐng",
+      "bihua": 5,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "由",
+      "pinyin": "yóu",
+      "bihua": 5,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "弍",
+      "pinyin": "èr",
+      "bihua": 5,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "邘",
+      "pinyin": "yú",
+      "bihua": 5,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "屳",
+      "pinyin": "xiān",
+      "bihua": 5,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "仩",
+      "pinyin": "cháng",
+      "bihua": 5,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "幼",
+      "pinyin": "yòu",
+      "bihua": 5,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "尒",
+      "pinyin": "ěr",
+      "bihua": 5,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "屵",
+      "pinyin": "àn",
+      "bihua": 5,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "孕",
+      "pinyin": "yùn",
+      "bihua": 5,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "用",
+      "pinyin": "yòng",
+      "bihua": 5,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "尓",
+      "pinyin": "ěr",
+      "bihua": 5,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "圦",
+      "pinyin": "kuài",
+      "bihua": 5,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "圧",
+      "pinyin": "yā",
+      "bihua": 5,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "厈",
+      "pinyin": "hàn",
+      "bihua": 5,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "阢",
+      "pinyin": "wù",
+      "bihua": 5,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "安",
+      "pinyin": "ān",
+      "bihua": 6,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "伟",
+      "pinyin": "wěi",
+      "bihua": 6,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "阳",
+      "pinyin": "yáng",
+      "bihua": 6,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "亚",
+      "pinyin": "yà",
+      "bihua": 6,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "亦",
+      "pinyin": "yì",
+      "bihua": 6,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "有",
+      "pinyin": "yǒu",
+      "bihua": 6,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "戌",
+      "pinyin": "xū",
+      "bihua": 6,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "伊",
+      "pinyin": "yī",
+      "bihua": 6,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "伍",
+      "pinyin": "wǔ",
+      "bihua": 6,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "优",
+      "pinyin": "yōu",
+      "bihua": 6,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "宇",
+      "pinyin": "yǔ",
+      "bihua": 6,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "羊",
+      "pinyin": "yáng",
+      "bihua": 6,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "因",
+      "pinyin": "yīn",
+      "bihua": 6,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "延",
+      "pinyin": "yán",
+      "bihua": 6,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "屹",
+      "pinyin": "yì",
+      "bihua": 6,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "羽",
+      "pinyin": "yǔ",
+      "bihua": 6,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "羽",
+      "pinyin": "yǔ",
+      "bihua": 6,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "衣",
+      "pinyin": "yī",
+      "bihua": 6,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "地",
+      "pinyin": "dì",
+      "bihua": 6,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "似",
+      "pinyin": "sì",
+      "bihua": 6,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "充",
+      "pinyin": "chōng",
+      "bihua": 6,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "阴",
+      "pinyin": "yīn",
+      "bihua": 6,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "屿",
+      "pinyin": "yǔ",
+      "bihua": 6,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "约",
+      "pinyin": "yuē",
+      "bihua": 6,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "戍",
+      "pinyin": "shù",
+      "bihua": 6,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "异",
+      "pinyin": "yì",
+      "bihua": 6,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "団",
+      "pinyin": "tuán",
+      "bihua": 6,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "讴",
+      "pinyin": "ōu",
+      "bihua": 6,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "夷",
+      "pinyin": "yí",
+      "bihua": 6,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "圳",
+      "pinyin": "zhèn",
+      "bihua": 6,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "屾",
+      "pinyin": "shēn",
+      "bihua": 6,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "岋",
+      "pinyin": "è",
+      "bihua": 6,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "邬",
+      "pinyin": "wū",
+      "bihua": 6,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "伢",
+      "pinyin": "yá",
+      "bihua": 6,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "纡",
+      "pinyin": "yū",
+      "bihua": 6,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "屽",
+      "pinyin": "hàn",
+      "bihua": 6,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "爷",
+      "pinyin": "yé",
+      "bihua": 6,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "灰",
+      "pinyin": "huī",
+      "bihua": 6,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "屺",
+      "pinyin": "qǐ",
+      "bihua": 6,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "艮",
+      "pinyin": "gèn",
+      "bihua": 6,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "迂",
+      "pinyin": "yū",
+      "bihua": 6,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "圪",
+      "pinyin": "gē",
+      "bihua": 6,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "压",
+      "pinyin": "yā",
+      "bihua": 6,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "仵",
+      "pinyin": "wǔ",
+      "bihua": 6,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "圫",
+      "pinyin": "tuō",
+      "bihua": 6,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "圷",
+      "pinyin": "xià",
+      "bihua": 6,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "吖",
+      "pinyin": "ā",
+      "bihua": 6,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "吐",
+      "pinyin": "tǔ",
+      "bihua": 6,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "圭",
+      "pinyin": "guī",
+      "bihua": 6,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "岌",
+      "pinyin": "jí",
+      "bihua": 6,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "圩",
+      "pinyin": "wéi",
+      "bihua": 6,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "圹",
+      "pinyin": "kuàng",
+      "bihua": 6,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "圬",
+      "pinyin": "wū",
+      "bihua": 6,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "伌",
+      "pinyin": "ài",
+      "bihua": 6,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "圸",
+      "pinyin": "shān",
+      "bihua": 6,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "毎",
+      "pinyin": "měi",
+      "bihua": 6,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "圾",
+      "pinyin": "jī",
+      "bihua": 6,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "弐",
+      "pinyin": "èr",
+      "bihua": 6,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "赱",
+      "pinyin": "zǒu",
+      "bihua": 6,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "覀",
+      "pinyin": "yà",
+      "bihua": 6,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "圯",
+      "pinyin": "yí",
+      "bihua": 6,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "圮",
+      "pinyin": "pǐ",
+      "bihua": 6,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "圴",
+      "pinyin": "zhuó",
+      "bihua": 6,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "讶",
+      "pinyin": "yà",
+      "bihua": 6,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "乭",
+      "pinyin": "shí",
+      "bihua": 6,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "轩",
+      "pinyin": "xuān",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "岚",
+      "pinyin": "lán",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "园",
+      "pinyin": "yuán",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "辰",
+      "pinyin": "chén",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "辰",
+      "pinyin": "",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "佑",
+      "pinyin": "yòu",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "牡",
+      "pinyin": "mǔ",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "坊",
+      "pinyin": "fāng",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "均",
+      "pinyin": "jūn",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "运",
+      "pinyin": "yùn",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "围",
+      "pinyin": "wéi",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "余",
+      "pinyin": "yú",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "邺",
+      "pinyin": "yè",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "邮",
+      "pinyin": "yóu",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "纬",
+      "pinyin": "wěi",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "圻",
+      "pinyin": "qí",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "坂",
+      "pinyin": "bǎn",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "远",
+      "pinyin": "yuǎn",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "完",
+      "pinyin": "wán",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "佚",
+      "pinyin": "yì",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "玘",
+      "pinyin": "qǐ",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "坝",
+      "pinyin": "bà",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "应",
+      "pinyin": "yīng",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "肚",
+      "pinyin": "dù",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "位",
+      "pinyin": "wèi",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "医",
+      "pinyin": "yī",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "攸",
+      "pinyin": "yōu",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "邑",
+      "pinyin": "yì",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "迎",
+      "pinyin": "yíng",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "帏",
+      "pinyin": "wéi",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "岗",
+      "pinyin": "gāng",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "员",
+      "pinyin": "yuán",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "佣",
+      "pinyin": "yōng",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "岈",
+      "pinyin": "yá",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "岐",
+      "pinyin": "qí",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "岜",
+      "pinyin": "bā",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "冶",
+      "pinyin": "yě",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "牤",
+      "pinyin": "māng",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "岍",
+      "pinyin": "qiān",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "矣",
+      "pinyin": "yǐ",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "岄",
+      "pinyin": "yuè",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "诒",
+      "pinyin": "yí",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "岆",
+      "pinyin": "yǎo",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "块",
+      "pinyin": "kuài",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "闱",
+      "pinyin": "wéi",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "岇",
+      "pinyin": "áng",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "犹",
+      "pinyin": "yóu",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "岙",
+      "pinyin": "ào",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "岉",
+      "pinyin": "wù",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "岏",
+      "pinyin": "wán",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "阿",
+      "pinyin": "ā",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "附",
+      "pinyin": "fù",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "庑",
+      "pinyin": "wǔ",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "妑",
+      "pinyin": "pā",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "矶",
+      "pinyin": "jī",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "岘",
+      "pinyin": "xiàn",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "岖",
+      "pinyin": "qū",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "吘",
+      "pinyin": "ǒu",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "芺",
+      "pinyin": "ǎo",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "吪",
+      "pinyin": "é",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "呓",
+      "pinyin": "yì",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "扷",
+      "pinyin": "bā",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "呜",
+      "pinyin": "wū",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "迓",
+      "pinyin": "yà",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "迕",
+      "pinyin": "wǔ",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "呀",
+      "pinyin": "yā",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "役",
+      "pinyin": "yì",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "址",
+      "pinyin": "zhǐ",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "抑",
+      "pinyin": "yì",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "饮",
+      "pinyin": "yǐn",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "欤",
+      "pinyin": "yú",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "岅",
+      "pinyin": "bǎn",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "坎",
+      "pinyin": "kǎn",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "忧",
+      "pinyin": "yōu",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "坏",
+      "pinyin": "huài",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "坑",
+      "pinyin": "kēng",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "坄",
+      "pinyin": "yì",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "囮",
+      "pinyin": "é",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "坒",
+      "pinyin": "bì",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "坞",
+      "pinyin": "wù",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "违",
+      "pinyin": "wéi",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "坈",
+      "pinyin": "rǒng",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "吲",
+      "pinyin": "yǐn",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "怃",
+      "pinyin": "wǔ",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "忤",
+      "pinyin": "wǔ",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "応",
+      "pinyin": "yīng",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "秃",
+      "pinyin": "tū",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "坠",
+      "pinyin": "zhuì",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "坍",
+      "pinyin": "tān",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "坛",
+      "pinyin": "tán",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "圼",
+      "pinyin": "niè",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "奀",
+      "pinyin": "ēn",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "氙",
+      "pinyin": "xiān",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "毐",
+      "pinyin": "ǎi",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "狁",
+      "pinyin": "yǔn",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "坁",
+      "pinyin": "zhǐ",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "坉",
+      "pinyin": "tún",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "坌",
+      "pinyin": "bèn",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "呕",
+      "pinyin": "ǒu",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "坜",
+      "pinyin": "lì",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "坟",
+      "pinyin": "fén",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "阸",
+      "pinyin": "è",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "佦",
+      "pinyin": "yòu",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "卣",
+      "pinyin": "yǒu",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "甬",
+      "pinyin": "yǒng",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "怄",
+      "pinyin": "òu",
+      "bihua": 7,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "岩",
+      "pinyin": "yán",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "旺",
+      "pinyin": "wàng",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "育",
+      "pinyin": "yù",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "玮",
+      "pinyin": "wěi",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "咏",
+      "pinyin": "yǒng",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "怡",
+      "pinyin": "yí",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "坡",
+      "pinyin": "pō",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "坤",
+      "pinyin": "kūn",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "坦",
+      "pinyin": "tǎn",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "玥",
+      "pinyin": "yuè",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "岷",
+      "pinyin": "mín",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "依",
+      "pinyin": "yī",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "侑",
+      "pinyin": "yòu",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "岭",
+      "pinyin": "lǐng",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "祎",
+      "pinyin": "yī",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "昀",
+      "pinyin": "yún",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "诣",
+      "pinyin": "yì",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "怿",
+      "pinyin": "yì",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "话",
+      "pinyin": "huà",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "峄",
+      "pinyin": "yì",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "肴",
+      "pinyin": "yáo",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "鸢",
+      "pinyin": "yuān",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "呦",
+      "pinyin": "yōu",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "画",
+      "pinyin": "huà",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "宛",
+      "pinyin": "wǎn",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "矿",
+      "pinyin": "kuàng",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "委",
+      "pinyin": "wěi",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "往",
+      "pinyin": "wǎng",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "饴",
+      "pinyin": "yí",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "坩",
+      "pinyin": "gān",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "郓",
+      "pinyin": "yùn",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "爬",
+      "pinyin": "pá",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "诞",
+      "pinyin": "dàn",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "岫",
+      "pinyin": "xiù",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "岹",
+      "pinyin": "tiáo",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "岿",
+      "pinyin": "kuī",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "拥",
+      "pinyin": "yōng",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "帕",
+      "pinyin": "pà",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "侕",
+      "pinyin": "ér",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "矸",
+      "pinyin": "gān",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "矹",
+      "pinyin": "wù",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "欧",
+      "pinyin": "ōu",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "岧",
+      "pinyin": "tiáo",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "坨",
+      "pinyin": "tuó",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "妿",
+      "pinyin": "ē",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "岢",
+      "pinyin": "kě",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "峁",
+      "pinyin": "mǎo",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "坪",
+      "pinyin": "píng",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "矾",
+      "pinyin": "fán",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "岽",
+      "pinyin": "dōng",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "瓯",
+      "pinyin": "ōu",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "矷",
+      "pinyin": "zǐ",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "岰",
+      "pinyin": "ào",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "岞",
+      "pinyin": "zuò",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "岣",
+      "pinyin": "gǒu",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "殴",
+      "pinyin": "ōu",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "衩",
+      "pinyin": "chà",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "佮",
+      "pinyin": "gé",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "迤",
+      "pinyin": "yǐ",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "侒",
+      "pinyin": "ān",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "佾",
+      "pinyin": "yì",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "岝",
+      "pinyin": "zuò",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "岬",
+      "pinyin": "jiǎ",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "岟",
+      "pinyin": "yǎng",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "奄",
+      "pinyin": "yǎn",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "岵",
+      "pinyin": "hù",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "侢",
+      "pinyin": "dài",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "坫",
+      "pinyin": "diàn",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "侂",
+      "pinyin": "tuō",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "岻",
+      "pinyin": "dī",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "岴",
+      "pinyin": "qū",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "臾",
+      "pinyin": "yú",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "岾",
+      "pinyin": "zhān",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "坾",
+      "pinyin": "zhù",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "岮",
+      "pinyin": "tuó",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "俢",
+      "pinyin": "xiū",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "垄",
+      "pinyin": "lǒng",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "夜",
+      "pinyin": "yè",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "垁",
+      "pinyin": "zhì",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "坣",
+      "pinyin": "táng",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "坬",
+      "pinyin": "guà",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "坭",
+      "pinyin": "ní",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "坷",
+      "pinyin": "kē",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "押",
+      "pinyin": "yā",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "拗",
+      "pinyin": "ǎo",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "坱",
+      "pinyin": "yǎng",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "瓮",
+      "pinyin": "wèng",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "坳",
+      "pinyin": "ào",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "坺",
+      "pinyin": "fá",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "峀",
+      "pinyin": "xiù",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "坻",
+      "pinyin": "dǐ",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "坶",
+      "pinyin": "mù",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "坢",
+      "pinyin": "pǎn",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "怏",
+      "pinyin": "yàng",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "峅",
+      "pinyin": "biàn",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "肫",
+      "pinyin": "zhūn",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "坧",
+      "pinyin": "zhǐ",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "坸",
+      "pinyin": "gòu",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "坹",
+      "pinyin": "xuè",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "垅",
+      "pinyin": "lǒng",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "砐",
+      "pinyin": "è",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "肮",
+      "pinyin": "āng",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "垃",
+      "pinyin": "lā",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "盂",
+      "pinyin": "yú",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "盱",
+      "pinyin": "xū",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "氜",
+      "pinyin": "yáng",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "垆",
+      "pinyin": "lú",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "垇",
+      "pinyin": "ào",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "垉",
+      "pinyin": "páo",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "垊",
+      "pinyin": "mín",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "靣",
+      "pinyin": "miàn",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "诩",
+      "pinyin": "xǔ",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "怕",
+      "pinyin": "pà",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "废",
+      "pinyin": "fèi",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "岤",
+      "pinyin": "xuè",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "於",
+      "pinyin": "yú",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "茔",
+      "pinyin": "yíng",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "匼",
+      "pinyin": "kē",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "呝",
+      "pinyin": "è",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "坯",
+      "pinyin": "pī",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "坮",
+      "pinyin": "tái",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "耶",
+      "pinyin": "yé",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "缷",
+      "pinyin": "xiè",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "秊",
+      "pinyin": "",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "坿",
+      "pinyin": "fù",
+      "bihua": 8,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鸥",
+      "pinyin": "ōu",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "爰",
+      "pinyin": "yuán",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "禹",
+      "pinyin": "yǔ",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "胡",
+      "pinyin": "hú",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "城",
+      "pinyin": "chéng",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "昶",
+      "pinyin": "chǎng",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "勋",
+      "pinyin": "xūn",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "勇",
+      "pinyin": "yǒng",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "峥",
+      "pinyin": "zhēng",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "音",
+      "pinyin": "yīn",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "威",
+      "pinyin": "wēi",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "养",
+      "pinyin": "yǎng",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "咿",
+      "pinyin": "yī",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "昹",
+      "pinyin": "ǎi",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "垣",
+      "pinyin": "yuán",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "姚",
+      "pinyin": "yáo",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "砚",
+      "pinyin": "yàn",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "娅",
+      "pinyin": "yà",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "垦",
+      "pinyin": "kěn",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "玵",
+      "pinyin": "án",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "娈",
+      "pinyin": "luán",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "宥",
+      "pinyin": "yòu",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "姶",
+      "pinyin": "è",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "姻",
+      "pinyin": "yīn",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "胃",
+      "pinyin": "wèi",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "峦",
+      "pinyin": "luán",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "贻",
+      "pinyin": "yí",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "垚",
+      "pinyin": "yáo",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "费",
+      "pinyin": "fèi",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "奎",
+      "pinyin": "kuí",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "峣",
+      "pinyin": "yáo",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "屋",
+      "pinyin": "wū",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "闺",
+      "pinyin": "guī",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "砖",
+      "pinyin": "zhuān",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "恽",
+      "pinyin": "yùn",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "陨",
+      "pinyin": "yǔn",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "垠",
+      "pinyin": "yín",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "峒",
+      "pinyin": "tóng",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "姨",
+      "pinyin": "yí",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "型",
+      "pinyin": "xíng",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "峤",
+      "pinyin": "jiào",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "砜",
+      "pinyin": "fēng",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "垯",
+      "pinyin": "dá",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "峓",
+      "pinyin": "yí",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "娃",
+      "pinyin": "wá",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "囿",
+      "pinyin": "yòu",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "窃",
+      "pinyin": "qiè",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "趴",
+      "pinyin": "pā",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "峟",
+      "pinyin": "yòu",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "袄",
+      "pinyin": "ǎo",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "牵",
+      "pinyin": "qiān",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "院",
+      "pinyin": "yuàn",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "砑",
+      "pinyin": "yà",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "俥",
+      "pinyin": "chē",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "诱",
+      "pinyin": "yòu",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "要",
+      "pinyin": "yào",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "俑",
+      "pinyin": "yǒng",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "垱",
+      "pinyin": "dàng",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "峏",
+      "pinyin": "ér",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "砍",
+      "pinyin": "kǎn",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "垬",
+      "pinyin": "hóng",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "砙",
+      "pinyin": "wǎ",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "砌",
+      "pinyin": "qì",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "垟",
+      "pinyin": "yáng",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "峎",
+      "pinyin": "ěn",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "垛",
+      "pinyin": "duǒ",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "埏",
+      "pinyin": "yán",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "砋",
+      "pinyin": "zhǐ",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "砓",
+      "pinyin": "zhé",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "峇",
+      "pinyin": "kè",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "峖",
+      "pinyin": "ān",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "巺",
+      "pinyin": "xùn",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "按",
+      "pinyin": "àn",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "幽",
+      "pinyin": "yōu",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "垙",
+      "pinyin": "guāng",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "垫",
+      "pinyin": "diàn",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "峑",
+      "pinyin": "quán",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "垳",
+      "pinyin": "háng",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "垒",
+      "pinyin": "lěi",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "峋",
+      "pinyin": "xún",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "峕",
+      "pinyin": "shí",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "咽",
+      "pinyin": "yān",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "垮",
+      "pinyin": "kuǎ",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "峉",
+      "pinyin": "é",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "垥",
+      "pinyin": "xié",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "垭",
+      "pinyin": "yā",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "峞",
+      "pinyin": "wéi",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "垜",
+      "pinyin": "duǒ",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "垧",
+      "pinyin": "shǎng",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "旀",
+      "pinyin": "mèi",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "垹",
+      "pinyin": "bāng",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "垌",
+      "pinyin": "dòng",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "郧",
+      "pinyin": "yún",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "垪",
+      "pinyin": "bìng",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "垴",
+      "pinyin": "nǎo",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "垢",
+      "pinyin": "gòu",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "垓",
+      "pinyin": "gāi",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "峡",
+      "pinyin": "xiá",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "垔",
+      "pinyin": "yīn",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "哑",
+      "pinyin": "yǎ",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "垏",
+      "pinyin": "lǜ",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "峐",
+      "pinyin": "gāi",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "哇",
+      "pinyin": "wā",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "垡",
+      "pinyin": "fá",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "砘",
+      "pinyin": "dùn",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "垩",
+      "pinyin": "è",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "氠",
+      "pinyin": "shēn",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "畏",
+      "pinyin": "wèi",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "俬",
+      "pinyin": "sī",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "垤",
+      "pinyin": "dié",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "垲",
+      "pinyin": "kǎi",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "巼",
+      "pinyin": "phas",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "砗",
+      "pinyin": "chē",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "垝",
+      "pinyin": "guǐ",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "砕",
+      "pinyin": "suì",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "垞",
+      "pinyin": "chá",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "砭",
+      "pinyin": "biān",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "匽",
+      "pinyin": "yǎn",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "哀",
+      "pinyin": "āi",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "咡",
+      "pinyin": "èr",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "咦",
+      "pinyin": "yí",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鸦",
+      "pinyin": "yā",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "咢",
+      "pinyin": "è",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "咹",
+      "pinyin": "è",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "盆",
+      "pinyin": "pén",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "変",
+      "pinyin": "biàn",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "诬",
+      "pinyin": "wū",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "误",
+      "pinyin": "wù",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "垗",
+      "pinyin": "zhào",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "祐",
+      "pinyin": "yòu",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "侮",
+      "pinyin": "wǔ",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "垰",
+      "pinyin": "kǎ",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "舁",
+      "pinyin": "yú",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "垵",
+      "pinyin": "ǎn",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "羑",
+      "pinyin": "yǒu",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "窀",
+      "pinyin": "zhūn",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "舣",
+      "pinyin": "yǐ",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "砈",
+      "pinyin": "è",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "砉",
+      "pinyin": "xū",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "砒",
+      "pinyin": "pī",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "峫",
+      "pinyin": "xié",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "砛",
+      "pinyin": "jīn",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "疣",
+      "pinyin": "yóu",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "恹",
+      "pinyin": "yān",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "廽",
+      "pinyin": "huí",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "疭",
+      "pinyin": "zòng",
+      "bihua": 9,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "娴",
+      "pinyin": "xián",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "恩",
+      "pinyin": "ēn",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "彧",
+      "pinyin": "yù",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "殷",
+      "pinyin": "yīn",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "圆",
+      "pinyin": "yuán",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "胭",
+      "pinyin": "yān",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "晏",
+      "pinyin": "yàn",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "艳",
+      "pinyin": "yàn",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "容",
+      "pinyin": "róng",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "爱",
+      "pinyin": "ài",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "峬",
+      "pinyin": "bū",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "峯",
+      "pinyin": "fēng",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "砺",
+      "pinyin": "lì",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "宴",
+      "pinyin": "yàn",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "峭",
+      "pinyin": "qiào",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "砾",
+      "pinyin": "lì",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "娓",
+      "pinyin": "wěi",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "袁",
+      "pinyin": "yuán",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "阅",
+      "pinyin": "yuè",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "准",
+      "pinyin": "zhǔn",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "袅",
+      "pinyin": "niǎo",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "鸳",
+      "pinyin": "yuān",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "峮",
+      "pinyin": "qún",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "翁",
+      "pinyin": "wēng",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "顼",
+      "pinyin": "xū",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "砥",
+      "pinyin": "dǐ",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "馀",
+      "pinyin": "yú",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "益",
+      "pinyin": "yì",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "益",
+      "pinyin": "",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "础",
+      "pinyin": "chǔ",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "埇",
+      "pinyin": "yǒng",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "酏",
+      "pinyin": "yǐ",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "峲",
+      "pinyin": "lǐ",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "盎",
+      "pinyin": "àng",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "峨",
+      "pinyin": "é",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "破",
+      "pinyin": "pò",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "胺",
+      "pinyin": "àn",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "砝",
+      "pinyin": "fǎ",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "埂",
+      "pinyin": "gěng",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "埗",
+      "pinyin": "bù",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "垿",
+      "pinyin": "xù",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "砫",
+      "pinyin": "zhù",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "埕",
+      "pinyin": "chéng",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "砩",
+      "pinyin": "fú",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "砷",
+      "pinyin": "shēn",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "峿",
+      "pinyin": "wú",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "琊",
+      "pinyin": "yá",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "猂",
+      "pinyin": "hàn",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "砻",
+      "pinyin": "lóng",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "砟",
+      "pinyin": "zhǎ",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "峾",
+      "pinyin": "yín",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "崃",
+      "pinyin": "lái",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "峺",
+      "pinyin": "gěng",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "峼",
+      "pinyin": "gào",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "敖",
+      "pinyin": "áo",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "谀",
+      "pinyin": "yú",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "崁",
+      "pinyin": "kàn",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "崂",
+      "pinyin": "láo",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "诿",
+      "pinyin": "wěi",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "峩",
+      "pinyin": "é",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "峵",
+      "pinyin": "róng",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "埑",
+      "pinyin": "zhé",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "埙",
+      "pinyin": "xūn",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "敋",
+      "pinyin": "gé",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "眙",
+      "pinyin": "yí",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "盐",
+      "pinyin": "yán",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "轾",
+      "pinyin": "zhì",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "捂",
+      "pinyin": "wǔ",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "埚",
+      "pinyin": "guō",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "垷",
+      "pinyin": "xiàn",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "埔",
+      "pinyin": "pǔ",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "眑",
+      "pinyin": "yǎo",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "峹",
+      "pinyin": "tú",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "埃",
+      "pinyin": "āi",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "垶",
+      "pinyin": "xīng",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "埓",
+      "pinyin": "liè",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "毦",
+      "pinyin": "ěr",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "氤",
+      "pinyin": "yīn",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "垾",
+      "pinyin": "hàn",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "埁",
+      "pinyin": "cén",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "埛",
+      "pinyin": "jiōng",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "﨏",
+      "pinyin": "",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "垼",
+      "pinyin": "yì",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "俺",
+      "pinyin": "ǎn",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "氧",
+      "pinyin": "yǎng",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "峷",
+      "pinyin": "shēn",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "埄",
+      "pinyin": "běng",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "埒",
+      "pinyin": "liè",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "恙",
+      "pinyin": "yàng",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "砿",
+      "pinyin": "kuàng",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "监",
+      "pinyin": "jiān",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "案",
+      "pinyin": "àn",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "硁",
+      "pinyin": "kēng",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "豻",
+      "pinyin": "àn",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "叞",
+      "pinyin": "wèi",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "砬",
+      "pinyin": "lì",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "砣",
+      "pinyin": "tuó",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "砹",
+      "pinyin": "ài",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "蚓",
+      "pinyin": "yǐn",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "蚜",
+      "pinyin": "yá",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "欬",
+      "pinyin": "kài",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "唉",
+      "pinyin": "āi",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "晕",
+      "pinyin": "yùn",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鸭",
+      "pinyin": "yā",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "砸",
+      "pinyin": "zá",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "胹",
+      "pinyin": "ér",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "啊",
+      "pinyin": "ā",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "埋",
+      "pinyin": "mái",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "砤",
+      "pinyin": "tuó",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "砧",
+      "pinyin": "zhēn",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "砰",
+      "pinyin": "pēng",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "砨",
+      "pinyin": "ě",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "唔",
+      "pinyin": "wú",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "垽",
+      "pinyin": "yìn",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "郩",
+      "pinyin": "xiáo",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "氩",
+      "pinyin": "yà",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "恶",
+      "pinyin": "è",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "胰",
+      "pinyin": "yí",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "崄",
+      "pinyin": "xiǎn",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "唡",
+      "pinyin": "liǎng",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "砽",
+      "pinyin": "yòng",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "匎",
+      "pinyin": "è",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "夞",
+      "pinyin": "oes",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "挨",
+      "pinyin": "āi",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "冤",
+      "pinyin": "yuān",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "蚅",
+      "pinyin": "è",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "訑",
+      "pinyin": "dàn",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "倹",
+      "pinyin": "jiǎn",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "垻",
+      "pinyin": "bà",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "狳",
+      "pinyin": "yú",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "狺",
+      "pinyin": "yín",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "峱",
+      "pinyin": "náo",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "峳",
+      "pinyin": "yōu",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "峴",
+      "pinyin": "xiàn",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "眢",
+      "pinyin": "yuān",
+      "bihua": 10,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "硕",
+      "pinyin": "shuò",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "悠",
+      "pinyin": "yōu",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "硏",
+      "pinyin": "yán",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "跃",
+      "pinyin": "yuè",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "崨",
+      "pinyin": "jié",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "逸",
+      "pinyin": "yì",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "逸",
+      "pinyin": "",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "维",
+      "pinyin": "wéi",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "婉",
+      "pinyin": "wǎn",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "崭",
+      "pinyin": "zhǎn",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "惟",
+      "pinyin": "wéi",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "黄",
+      "pinyin": "huáng",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "翌",
+      "pinyin": "yì",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "野",
+      "pinyin": "yě",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "堂",
+      "pinyin": "táng",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "堆",
+      "pinyin": "duī",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "焉",
+      "pinyin": "yān",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "唯",
+      "pinyin": "wéi",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "域",
+      "pinyin": "yù",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "窕",
+      "pinyin": "tiǎo",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "基",
+      "pinyin": "jī",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "崟",
+      "pinyin": "yín",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "隐",
+      "pinyin": "yǐn",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "谓",
+      "pinyin": "wèi",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "培",
+      "pinyin": "péi",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "尉",
+      "pinyin": "wèi",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "寅",
+      "pinyin": "yín",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "谙",
+      "pinyin": "ān",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "堃",
+      "pinyin": "kūn",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "偃",
+      "pinyin": "yǎn",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "庸",
+      "pinyin": "yōng",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "眺",
+      "pinyin": "tiào",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "逵",
+      "pinyin": "kuí",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "硒",
+      "pinyin": "xī",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "堉",
+      "pinyin": "yù",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "崆",
+      "pinyin": "kōng",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "牾",
+      "pinyin": "wǔ",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "崎",
+      "pinyin": "qí",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "娾",
+      "pinyin": "ǎi",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "酝",
+      "pinyin": "yùn",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "堐",
+      "pinyin": "yá",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "硐",
+      "pinyin": "dòng",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "崛",
+      "pinyin": "jué",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "硖",
+      "pinyin": "xiá",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "硙",
+      "pinyin": "wéi",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "猗",
+      "pinyin": "yī",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "帷",
+      "pinyin": "wéi",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "硭",
+      "pinyin": "máng",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "婩",
+      "pinyin": "n",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "硌",
+      "pinyin": "luò",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "硚",
+      "pinyin": "qiáo",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "婴",
+      "pinyin": "yīng",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "隅",
+      "pinyin": "yú",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "崉",
+      "pinyin": "tà",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "崥",
+      "pinyin": "pí",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "硅",
+      "pinyin": "guī",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "掖",
+      "pinyin": "yè",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "硗",
+      "pinyin": "qiāo",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "移",
+      "pinyin": "yí",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "崓",
+      "pinyin": "gù",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "崞",
+      "pinyin": "guō",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "崤",
+      "pinyin": "xiáo",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "崮",
+      "pinyin": "gù",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "崰",
+      "pinyin": "zī",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "埴",
+      "pinyin": "zhí",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "眭",
+      "pinyin": "guì",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "崝",
+      "pinyin": "zhēng",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "崦",
+      "pinyin": "yān",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "埸",
+      "pinyin": "yì",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "硔",
+      "pinyin": "hóng",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "勖",
+      "pinyin": "xù",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "堓",
+      "pinyin": "àn",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "崣",
+      "pinyin": "wěi",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "埥",
+      "pinyin": "qīng",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "堀",
+      "pinyin": "kū",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "堋",
+      "pinyin": "péng",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "崕",
+      "pinyin": "yá",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "掹",
+      "pinyin": "mēng",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "堏",
+      "pinyin": "fāng",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "崖",
+      "pinyin": "yá",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "堎",
+      "pinyin": "lèng",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "愥",
+      "pinyin": "yīng",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "殻",
+      "pinyin": "ké",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "捱",
+      "pinyin": "ái",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "堕",
+      "pinyin": "duò",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "壸",
+      "pinyin": "kǔn",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "敐",
+      "pinyin": "chén",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "埤",
+      "pinyin": "pí",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "埶",
+      "pinyin": "yì",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "惯",
+      "pinyin": "guàn",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "埽",
+      "pinyin": "sào",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "堑",
+      "pinyin": "qiàn",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "崫",
+      "pinyin": "jué",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "埜",
+      "pinyin": "yě",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "揶",
+      "pinyin": "yé",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "恿",
+      "pinyin": "yǒng",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "堌",
+      "pinyin": "gù",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "袬",
+      "pinyin": "yù",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "埝",
+      "pinyin": "niàn",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "堈",
+      "pinyin": "gāng",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "埯",
+      "pinyin": "ǎn",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "埿",
+      "pinyin": "ní",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "卾",
+      "pinyin": "è",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "堍",
+      "pinyin": "tù",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "堒",
+      "pinyin": "kūn",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "埭",
+      "pinyin": "dài",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "埲",
+      "pinyin": "běng",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "埠",
+      "pinyin": "bù",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "珴",
+      "pinyin": "é",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "邫",
+      "pinyin": "bāng",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "庵",
+      "pinyin": "ān",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "蚴",
+      "pinyin": "yòu",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "埣",
+      "pinyin": "suì",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "畦",
+      "pinyin": "qí",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "袌",
+      "pinyin": "bào",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "欲",
+      "pinyin": "yù",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "唵",
+      "pinyin": "ǎn",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "敔",
+      "pinyin": "yǔ",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "硋",
+      "pinyin": "ài",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "痖",
+      "pinyin": "yǎ",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "痒",
+      "pinyin": "yǎng",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "敓",
+      "pinyin": "duó",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "崍",
+      "pinyin": "lái",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "髙",
+      "pinyin": "gāo",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "堊",
+      "pinyin": "è",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "朘",
+      "pinyin": "juān",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "硃",
+      "pinyin": "zhū",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "喐",
+      "pinyin": "huò",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "堔",
+      "pinyin": "shēn",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "硆",
+      "pinyin": "è",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "崢",
+      "pinyin": "zhēng",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "堝",
+      "pinyin": "guō",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "硎",
+      "pinyin": "xíng",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "痍",
+      "pinyin": "yí",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "崩",
+      "pinyin": "bēng",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "硓",
+      "pinyin": "lǎo",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "硘",
+      "pinyin": "qíng",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "隂",
+      "pinyin": "yīn",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "硛",
+      "pinyin": "ceok",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "掵",
+      "pinyin": "mìng",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "阉",
+      "pinyin": "yān",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "隌",
+      "pinyin": "àn",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "唲",
+      "pinyin": "ér",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "袞",
+      "pinyin": "gǔn",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "啀",
+      "pinyin": "ái",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "啈",
+      "pinyin": "hēng",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "蚰",
+      "pinyin": "yóu",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "偔",
+      "pinyin": "è",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "袻",
+      "pinyin": "ér",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "埡",
+      "pinyin": "yà",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "埦",
+      "pinyin": "wǎn",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "裄",
+      "pinyin": "háng",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "啪",
+      "pinyin": "pā",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "啰",
+      "pinyin": "luō",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "猟",
+      "pinyin": "liè",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "殒",
+      "pinyin": "yǔn",
+      "bihua": 11,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "皒",
+      "pinyin": "é",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "瑛",
+      "pinyin": "yīng",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "奥",
+      "pinyin": "ào",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "嵘",
+      "pinyin": "róng",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "越",
+      "pinyin": "yuè",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "傲",
+      "pinyin": "ào",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "壹",
+      "pinyin": "yī",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "温",
+      "pinyin": "wēn",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "翕",
+      "pinyin": "xī",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "崱",
+      "pinyin": "zè",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "嵃",
+      "pinyin": "yǎn",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "缘",
+      "pinyin": "yuán",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "琬",
+      "pinyin": "wǎn",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "粤",
+      "pinyin": "yuè",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "媞",
+      "pinyin": "tí",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "敩",
+      "pinyin": "xiào",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "釉",
+      "pinyin": "yòu",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "崴",
+      "pinyin": "wǎi",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "愔",
+      "pinyin": "yīn",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "嵚",
+      "pinyin": "qīn",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "援",
+      "pinyin": "yuán",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "琟",
+      "pinyin": "wéi",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "堰",
+      "pinyin": "yàn",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "硣",
+      "pinyin": "xiāo",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "塅",
+      "pinyin": "duàn",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "琙",
+      "pinyin": "yù",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "遐",
+      "pinyin": "xiá",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "嵉",
+      "pinyin": "tíng",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "嵛",
+      "pinyin": "yú",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "握",
+      "pinyin": "wò",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "堠",
+      "pinyin": "hòu",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "硢",
+      "pinyin": "yù",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "硷",
+      "pinyin": "jiǎn",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "塭",
+      "pinyin": "wēn",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "蜒",
+      "pinyin": "yán",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "嵋",
+      "pinyin": "méi",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "硝",
+      "pinyin": "xiāo",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "硧",
+      "pinyin": "yǒng",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "塇",
+      "pinyin": "xuān",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "堡",
+      "pinyin": "bǎo",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "黑",
+      "pinyin": "hēi",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "嵄",
+      "pinyin": "měi",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "崵",
+      "pinyin": "yáng",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鱿",
+      "pinyin": "yóu",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "确",
+      "pinyin": "què",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "硳",
+      "pinyin": "ceok",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "翔",
+      "pinyin": "xiáng",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "厫",
+      "pinyin": "áo",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "隘",
+      "pinyin": "ài",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "遃",
+      "pinyin": "yǎn",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "硵",
+      "pinyin": "lǔ",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "嵎",
+      "pinyin": "yú",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "婺",
+      "pinyin": "wù",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "崹",
+      "pinyin": "tí",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "嵔",
+      "pinyin": "wēi",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "嵀",
+      "pinyin": "zhù",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "揖",
+      "pinyin": "yī",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "嵖",
+      "pinyin": "chá",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "奠",
+      "pinyin": "diàn",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "堣",
+      "pinyin": "yú",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "崸",
+      "pinyin": "yáng",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "崿",
+      "pinyin": "è",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "硲",
+      "pinyin": "yù",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "嵬",
+      "pinyin": "wéi",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "嵍",
+      "pinyin": "wù",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "跖",
+      "pinyin": "zhí",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "媪",
+      "pinyin": "ǎo",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "堤",
+      "pinyin": "dī",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "堞",
+      "pinyin": "dié",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "堾",
+      "pinyin": "chuǎn",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "猬",
+      "pinyin": "wèi",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "堮",
+      "pinyin": "è",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "嵓",
+      "pinyin": "yán",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "堪",
+      "pinyin": "kān",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "崻",
+      "pinyin": "zhì",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鼋",
+      "pinyin": "yuán",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "嵕",
+      "pinyin": "zōng",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "崺",
+      "pinyin": "yǐ",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "嵏",
+      "pinyin": "zōng",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "嵫",
+      "pinyin": "zī",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "塃",
+      "pinyin": "huāng",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "揞",
+      "pinyin": "ǎn",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "奡",
+      "pinyin": "ào",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "崾",
+      "pinyin": "yǎo",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "揠",
+      "pinyin": "yà",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "崽",
+      "pinyin": "zǎi",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "衕",
+      "pinyin": "tòng",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "塁",
+      "pinyin": "lěi",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "塄",
+      "pinyin": "léng",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "堫",
+      "pinyin": "zōng",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "堟",
+      "pinyin": "zhuàn",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "塈",
+      "pinyin": "jì",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "堛",
+      "pinyin": "bì",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "圎",
+      "pinyin": "yuán",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "堘",
+      "pinyin": "chéng",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "嵝",
+      "pinyin": "lǒu",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "堩",
+      "pinyin": "gèng",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "蛙",
+      "pinyin": "wā",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "愠",
+      "pinyin": "yùn",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "堢",
+      "pinyin": "bǎo",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "堨",
+      "pinyin": "è",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "圐",
+      "pinyin": "kū",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "堹",
+      "pinyin": "zhòng",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "塦",
+      "pinyin": "zhèn",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "隞",
+      "pinyin": "áo",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "腌",
+      "pinyin": "ā",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "腋",
+      "pinyin": "yè",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "堙",
+      "pinyin": "yīn",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "圏",
+      "pinyin": "quān",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "骛",
+      "pinyin": "wù",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "﨩",
+      "pinyin": "dǎo",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "喁",
+      "pinyin": "yóng",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "蛭",
+      "pinyin": "zhì",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "堬",
+      "pinyin": "yú",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "睋",
+      "pinyin": "é",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "痦",
+      "pinyin": "wù",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "硪",
+      "pinyin": "wò",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "歮",
+      "pinyin": "sè",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "氭",
+      "pinyin": "dōng",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "氯",
+      "pinyin": "lǜ",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "喂",
+      "pinyin": "wèi",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "聏",
+      "pinyin": "ér",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "媕",
+      "pinyin": "ān",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "蛯",
+      "pinyin": "lǎo",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "喑",
+      "pinyin": "yīn",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "堗",
+      "pinyin": "tū",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "氬",
+      "pinyin": "yà",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "嵐",
+      "pinyin": "",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "崳",
+      "pinyin": "yú",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "絠",
+      "pinyin": "gǎi",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "頇",
+      "pinyin": "hān",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "硤",
+      "pinyin": "xiá",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "堷",
+      "pinyin": "yìn",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "颋",
+      "pinyin": "tǐng",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "硨",
+      "pinyin": "chē",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "隑",
+      "pinyin": "qí",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "喹",
+      "pinyin": "kuí",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "塀",
+      "pinyin": "píng",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "硴",
+      "pinyin": "huā",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "硶",
+      "pinyin": "chěn",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "嵐",
+      "pinyin": "lán",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "嵗",
+      "pinyin": "suì",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "塟",
+      "pinyin": "zàng",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "晻",
+      "pinyin": "àn",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "詒",
+      "pinyin": "yí",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "靔",
+      "pinyin": "tiān",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "猥",
+      "pinyin": "wěi",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "啽",
+      "pinyin": "ān",
+      "bihua": 12,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "意",
+      "pinyin": "yì",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "韵",
+      "pinyin": "yùn",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "嫒",
+      "pinyin": "ài",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "塬",
+      "pinyin": "yuán",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "嵩",
+      "pinyin": "sōng",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "颐",
+      "pinyin": "yí",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "雍",
+      "pinyin": "yōng",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "誉",
+      "pinyin": "yù",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "裔",
+      "pinyin": "yì",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "韫",
+      "pinyin": "yùn",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "瑀",
+      "pinyin": "yǔ",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "韪",
+      "pinyin": "wěi",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "瑕",
+      "pinyin": "xiá",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "塘",
+      "pinyin": "táng",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "稚",
+      "pinyin": "zhì",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "碤",
+      "pinyin": "yīng",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "塑",
+      "pinyin": "sù",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "填",
+      "pinyin": "tián",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "圕",
+      "pinyin": "tuān",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "猷",
+      "pinyin": "yóu",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "遨",
+      "pinyin": "áo",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "嵊",
+      "pinyin": "shèng",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "硺",
+      "pinyin": "zhuó",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鄢",
+      "pinyin": "yān",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "廒",
+      "pinyin": "áo",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "塱",
+      "pinyin": "lǎng",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "堽",
+      "pinyin": "gāng",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "硹",
+      "pinyin": "sōng",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "嵱",
+      "pinyin": "yǒng",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "衙",
+      "pinyin": "yá",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "硼",
+      "pinyin": "péng",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "硽",
+      "pinyin": "yān",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "塕",
+      "pinyin": "wěng",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "跬",
+      "pinyin": "kuǐ",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "碌",
+      "pinyin": "",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "碌",
+      "pinyin": "lù",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "碓",
+      "pinyin": "duì",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "碖",
+      "pinyin": "lún",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "碛",
+      "pinyin": "qì",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "碇",
+      "pinyin": "dìng",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "碏",
+      "pinyin": "què",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鄞",
+      "pinyin": "yín",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "碚",
+      "pinyin": "bèi",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "碉",
+      "pinyin": "diāo",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "嵦",
+      "pinyin": "kǎi",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "碗",
+      "pinyin": "wǎn",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "碰",
+      "pinyin": "pèng",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "嵡",
+      "pinyin": "wěng",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "碘",
+      "pinyin": "diǎn",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "嵴",
+      "pinyin": "jǐ",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "睚",
+      "pinyin": "yá",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "嵞",
+      "pinyin": "tú",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "碜",
+      "pinyin": "chěn",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "嵠",
+      "pinyin": "xī",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "嵵",
+      "pinyin": "shí",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "墷",
+      "pinyin": "yè",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "慠",
+      "pinyin": "ào",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "嶅",
+      "pinyin": "áo",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "塨",
+      "pinyin": "gōng",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "歳",
+      "pinyin": "suì",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "塐",
+      "pinyin": "sù",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "廅",
+      "pinyin": "è",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "塝",
+      "pinyin": "bàng",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "搕",
+      "pinyin": "kē",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "獓",
+      "pinyin": "áo",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "嵤",
+      "pinyin": "róng",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "嫯",
+      "pinyin": "ào",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "郌",
+      "pinyin": "guī",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "墎",
+      "pinyin": "guō",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "嵶",
+      "pinyin": "ruò",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "猿",
+      "pinyin": "yuán",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "獉",
+      "pinyin": "zhēn",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "碒",
+      "pinyin": "yín",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "碔",
+      "pinyin": "wǔ",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "塣",
+      "pinyin": "zhèng",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "塩",
+      "pinyin": "yán",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "碢",
+      "pinyin": "tuó",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "郒",
+      "pinyin": "láng",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "衘",
+      "pinyin": "xián",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "塯",
+      "pinyin": "liù",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "塌",
+      "pinyin": "tā",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鹌",
+      "pinyin": "ān",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "塎",
+      "pinyin": "yǒng",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "暗",
+      "pinyin": "àn",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "嵨",
+      "pinyin": "wù",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "搹",
+      "pinyin": "è",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "塧",
+      "pinyin": "ài",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "腤",
+      "pinyin": "ān",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鹉",
+      "pinyin": "wǔ",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "蛹",
+      "pinyin": "yǒng",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "氲",
+      "pinyin": "yūn",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "碍",
+      "pinyin": "ài",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "蜈",
+      "pinyin": "wú",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "矮",
+      "pinyin": "ǎi",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "碑",
+      "pinyin": "bēi",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "碎",
+      "pinyin": "suì",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "嗸",
+      "pinyin": "áo",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "腢",
+      "pinyin": "ǒu",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "塪",
+      "pinyin": "xiàn",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "氱",
+      "pinyin": "yǎng",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "遝",
+      "pinyin": "tà",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "靵",
+      "pinyin": "niǔ",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "裺",
+      "pinyin": "yǎn",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "詻",
+      "pinyin": "luò",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "靹",
+      "pinyin": "nà",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "褃",
+      "pinyin": "kèn",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "頊",
+      "pinyin": "xū",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "頋",
+      "pinyin": "ě",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "頍",
+      "pinyin": "kuǐ",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "頎",
+      "pinyin": "qí",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "媼",
+      "pinyin": "ǎo",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "鄘",
+      "pinyin": "yōng",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "痱",
+      "pinyin": "fèi",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "嗁",
+      "pinyin": "tí",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "辠",
+      "pinyin": "zuì",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "痷",
+      "pinyin": "ān",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "骜",
+      "pinyin": "ào",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "塋",
+      "pinyin": "yíng",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "痿",
+      "pinyin": "wěi",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "働",
+      "pinyin": "dòng",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "塏",
+      "pinyin": "kǎi",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "嗌",
+      "pinyin": "yì",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "瘀",
+      "pinyin": "yū",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "塒",
+      "pinyin": "shí",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "甂",
+      "pinyin": "biān",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "甅",
+      "pinyin": "líwǎ",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "颫",
+      "pinyin": "fú",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "甆",
+      "pinyin": "cí",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "塚",
+      "pinyin": "zhǒng",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "骯",
+      "pinyin": "k",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "嗡",
+      "pinyin": "wēng",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "嵭",
+      "pinyin": "bēng",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "塚",
+      "pinyin": "",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "塮",
+      "pinyin": "xiè",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "嗳",
+      "pinyin": "ǎi",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "艉",
+      "pinyin": "wěi",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "嗷",
+      "pinyin": "áo",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "琧",
+      "pinyin": "è",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "觟",
+      "pinyin": "huà",
+      "bihua": 13,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "嫣",
+      "pinyin": "yān",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "旖",
+      "pinyin": "yǐ",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "境",
+      "pinyin": "jìng",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "翟",
+      "pinyin": "dí",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "稳",
+      "pinyin": "wěn",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "碹",
+      "pinyin": "xuàn",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "缨",
+      "pinyin": "yīng",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "碪",
+      "pinyin": "zhēn",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "瑷",
+      "pinyin": "ài",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "磁",
+      "pinyin": "cí",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "辕",
+      "pinyin": "yuán",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "墁",
+      "pinyin": "màn",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "墘",
+      "pinyin": "qián",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "璈",
+      "pinyin": "áo",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "敱",
+      "pinyin": "ái",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "碟",
+      "pinyin": "dié",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "碣",
+      "pinyin": "jié",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "碳",
+      "pinyin": "tàn",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "墉",
+      "pinyin": "yōng",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鹜",
+      "pinyin": "wù",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "碝",
+      "pinyin": "ruǎn",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "墭",
+      "pinyin": "shèng",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "碱",
+      "pinyin": "jiǎn",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "碶",
+      "pinyin": "qì",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鲑",
+      "pinyin": "guī",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "磋",
+      "pinyin": "cuō",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "徳",
+      "pinyin": "dé",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "嶊",
+      "pinyin": "zuǐ",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "嶍",
+      "pinyin": "xí",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "牄",
+      "pinyin": "qiāng",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "嶀",
+      "pinyin": "tū",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "碬",
+      "pinyin": "xiá",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "嶑",
+      "pinyin": "xiàng",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "寤",
+      "pinyin": "wù",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "嶂",
+      "pinyin": "zhàng",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "墕",
+      "pinyin": "yàn",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "貋",
+      "pinyin": "àn",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "嵸",
+      "pinyin": "zōng",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "墌",
+      "pinyin": "zhǐ",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "墇",
+      "pinyin": "zhàng",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "撄",
+      "pinyin": "yīng",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "増",
+      "pinyin": "zēng",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "墙",
+      "pinyin": "qiáng",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "墚",
+      "pinyin": "liáng",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "嵷",
+      "pinyin": "sǒng",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "墛",
+      "pinyin": "wèi",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "歴",
+      "pinyin": "lì",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "墅",
+      "pinyin": "shù",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "塾",
+      "pinyin": "shú",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "塽",
+      "pinyin": "shuǎng",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "夀",
+      "pinyin": "shòu",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "墒",
+      "pinyin": "shāng",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "塸",
+      "pinyin": "ōu",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "塼",
+      "pinyin": "zhuān",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "墖",
+      "pinyin": "tǎ",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "墂",
+      "pinyin": "biāo",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "碞",
+      "pinyin": "yán",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "塺",
+      "pinyin": "méi",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "墋",
+      "pinyin": "chěn",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "墟",
+      "pinyin": "xū",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "塶",
+      "pinyin": "lù",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "摮",
+      "pinyin": "áo",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "碥",
+      "pinyin": "biǎn",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "敳",
+      "pinyin": "ái",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "慐",
+      "pinyin": "gōng",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "獒",
+      "pinyin": "áo",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "碨",
+      "pinyin": "wěi",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "磀",
+      "pinyin": "é",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "碴",
+      "pinyin": "chá",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "碵",
+      "pinyin": "tián",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "碷",
+      "pinyin": "dùn",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "碸",
+      "pinyin": "fēng",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "魟",
+      "pinyin": "hóng",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "嘊",
+      "pinyin": "ái",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "嘘",
+      "pinyin": "xū",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "夤",
+      "pinyin": "yín",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "靻",
+      "pinyin": "zǔ",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "嘤",
+      "pinyin": "yīng",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "罯",
+      "pinyin": "ǎn",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "踊",
+      "pinyin": "yǒng",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "誐",
+      "pinyin": "é",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "墸",
+      "pinyin": "zhù",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "頕",
+      "pinyin": "dān",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "頙",
+      "pinyin": "chè",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "誝",
+      "pinyin": "ān",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鲔",
+      "pinyin": "wěi",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "廎",
+      "pinyin": "qǐng",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "瑴",
+      "pinyin": "jué",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "蝁",
+      "pinyin": "è",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "僫",
+      "pinyin": "è",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "慵",
+      "pinyin": "yōng",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "塴",
+      "pinyin": "bèng",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "韍",
+      "pinyin": "fú",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "嶁",
+      "pinyin": "lǒu",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "碭",
+      "pinyin": "dàng",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "嶇",
+      "pinyin": "qū",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "罂",
+      "pinyin": "yīng",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "碲",
+      "pinyin": "dì",
+      "bihua": 14,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "靥",
+      "pinyin": "yè",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "磊",
+      "pinyin": "lěi",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "磊",
+      "pinyin": "",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "慰",
+      "pinyin": "wèi",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "璎",
+      "pinyin": "yīng",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "增",
+      "pinyin": "zēng",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "影",
+      "pinyin": "yǐng",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "豫",
+      "pinyin": "yù",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "墩",
+      "pinyin": "dūn",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "鞋",
+      "pinyin": "xié",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鞍",
+      "pinyin": "ān",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "磔",
+      "pinyin": "zhé",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "懊",
+      "pinyin": "ào",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "嶝",
+      "pinyin": "dèng",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "蝴",
+      "pinyin": "hú",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "豌",
+      "pinyin": "wān",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "嶟",
+      "pinyin": "zūn",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "碾",
+      "pinyin": "niǎn",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "磘",
+      "pinyin": "yáo",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "墺",
+      "pinyin": "ào",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "磤",
+      "pinyin": "yīn",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "嶚",
+      "pinyin": "liáo",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "墡",
+      "pinyin": "shàn",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "磝",
+      "pinyin": "áo",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "嶙",
+      "pinyin": "lín",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "嶓",
+      "pinyin": "bō",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "糊",
+      "pinyin": "hū",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "磅",
+      "pinyin": "bàng",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "磌",
+      "pinyin": "tián",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "廤",
+      "pinyin": "kù",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "嶒",
+      "pinyin": "céng",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "嶘",
+      "pinyin": "zhàn",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "磎",
+      "pinyin": "xī",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鲪",
+      "pinyin": "jūn",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "墪",
+      "pinyin": "dūn",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "嶖",
+      "pinyin": "yān",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "墀",
+      "pinyin": "chí",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "嶜",
+      "pinyin": "qín",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "牅",
+      "pinyin": "yōng",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "牖",
+      "pinyin": "yǒu",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "嶡",
+      "pinyin": "jué",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "磗",
+      "pinyin": "zhuān",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "擙",
+      "pinyin": "ào",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "郶",
+      "pinyin": "bù",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "嘿",
+      "pinyin": "hēi",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "墢",
+      "pinyin": "fá",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "墵",
+      "pinyin": "tán",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "墹",
+      "pinyin": "jiàn",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "磙",
+      "pinyin": "gǔn",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "碿",
+      "pinyin": "sù",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "磃",
+      "pinyin": "sī",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "磕",
+      "pinyin": "kē",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "蝣",
+      "pinyin": "yóu",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "嶔",
+      "pinyin": "qīn",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "嶗",
+      "pinyin": "láo",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "魦",
+      "pinyin": "shā",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "磄",
+      "pinyin": "táng",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "糈",
+      "pinyin": "xǔ",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "蝰",
+      "pinyin": "kuí",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "嶠",
+      "pinyin": "jiào",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "嶢",
+      "pinyin": "yáo",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "魭",
+      "pinyin": "yuán",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "墝",
+      "pinyin": "qiāo",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "磐",
+      "pinyin": "pán",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "蝹",
+      "pinyin": "yūn",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "磑",
+      "pinyin": "ái",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "磒",
+      "pinyin": "yǔn",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "魴",
+      "pinyin": "fáng",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "魶",
+      "pinyin": "nà",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "魷",
+      "pinyin": "yóu",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "魸",
+      "pinyin": "piàn",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鹶",
+      "pinyin": "jīn",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "魹",
+      "pinyin": "mó",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "醃",
+      "pinyin": "yān",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "墯",
+      "pinyin": "duò",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鴁",
+      "pinyin": "yāo",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "徵",
+      "pinyin": "zhǐ",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鞌",
+      "pinyin": "ān",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "墶",
+      "pinyin": "dā",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鴎",
+      "pinyin": "ōu",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "頜",
+      "pinyin": "hé",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "噁",
+      "pinyin": "wù",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "頛",
+      "pinyin": "lèi",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "頝",
+      "pinyin": "qiāo",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "頞",
+      "pinyin": "è",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "頟",
+      "pinyin": "é",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "頠",
+      "pinyin": "wěi",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "頢",
+      "pinyin": "kuò",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "頡",
+      "pinyin": "jié",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "頧",
+      "pinyin": "duǐ",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "噎",
+      "pinyin": "yē",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "踫",
+      "pinyin": "pèng",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "頪",
+      "pinyin": "lèi",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "麩",
+      "pinyin": "fū",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "麪",
+      "pinyin": "miàn",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "頲",
+      "pinyin": "tǐng",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "麫",
+      "pinyin": "miàn",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "躷",
+      "pinyin": "ǎi",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "颳",
+      "pinyin": "guā",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "韏",
+      "pinyin": "quàn",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "韑",
+      "pinyin": "wěi",
+      "bihua": 15,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "融",
+      "pinyin": "róng",
+      "bihua": 16,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "衡",
+      "pinyin": "héng",
+      "bihua": 16,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "曌",
+      "pinyin": "zhào",
+      "bihua": 16,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "嶦",
+      "pinyin": "zhān",
+      "bihua": 16,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "嶪",
+      "pinyin": "yè",
+      "bihua": 16,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "燕",
+      "pinyin": "yàn",
+      "bihua": 16,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "嶫",
+      "pinyin": "yè",
+      "bihua": 16,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "歙",
+      "pinyin": "xī",
+      "bihua": 16,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "磨",
+      "pinyin": "mó",
+      "bihua": 16,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鹦",
+      "pinyin": "yīng",
+      "bihua": 16,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "磦",
+      "pinyin": "biāo",
+      "bihua": 16,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "盦",
+      "pinyin": "ān",
+      "bihua": 16,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "磫",
+      "pinyin": "zōng",
+      "bihua": 16,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "儗",
+      "pinyin": "nǐ",
+      "bihua": 16,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "嶶",
+      "pinyin": "wēi",
+      "bihua": 16,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "嶬",
+      "pinyin": "yí",
+      "bihua": 16,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "壅",
+      "pinyin": "yōng",
+      "bihua": 16,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "嶵",
+      "pinyin": "zuì",
+      "bihua": 16,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "壁",
+      "pinyin": "bì",
+      "bihua": 16,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "醗",
+      "pinyin": "pō",
+      "bihua": 16,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "壆",
+      "pinyin": "xué",
+      "bihua": 16,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "郺",
+      "pinyin": "yōng",
+      "bihua": 16,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "壒",
+      "pinyin": "ài",
+      "bihua": 16,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "墽",
+      "pinyin": "qiāo",
+      "bihua": 16,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "壌",
+      "pinyin": "rǎng",
+      "bihua": 16,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "壀",
+      "pinyin": "pí",
+      "bihua": 16,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "墿",
+      "pinyin": "yì",
+      "bihua": 16,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "壄",
+      "pinyin": "yě",
+      "bihua": 16,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "頼",
+      "pinyin": "lài",
+      "bihua": 16,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "磖",
+      "pinyin": "lá",
+      "bihua": 16,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "瘾",
+      "pinyin": "yǐn",
+      "bihua": 16,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "頽",
+      "pinyin": "tuí",
+      "bihua": 16,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "儑",
+      "pinyin": "án",
+      "bihua": 16,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "諰",
+      "pinyin": "xǐ",
+      "bihua": 16,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "殪",
+      "pinyin": "yì",
+      "bihua": 16,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "諳",
+      "pinyin": "ān",
+      "bihua": 16,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "朥",
+      "pinyin": "láo",
+      "bihua": 16,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "嶧",
+      "pinyin": "yì",
+      "bihua": 16,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "嶨",
+      "pinyin": "xué",
+      "bihua": 16,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "嶮",
+      "pinyin": "xiǎn",
+      "bihua": 16,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "魻",
+      "pinyin": "xiá",
+      "bihua": 16,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "聱",
+      "pinyin": "áo",
+      "bihua": 16,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "魼",
+      "pinyin": "qū",
+      "bihua": 16,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "魿",
+      "pinyin": "líng",
+      "bihua": 16,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "螈",
+      "pinyin": "yuán",
+      "bihua": 16,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鮁",
+      "pinyin": "bà",
+      "bihua": 16,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鮄",
+      "pinyin": "fú",
+      "bihua": 16,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "磧",
+      "pinyin": "qì",
+      "bihua": 16,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鮌",
+      "pinyin": "gǔn",
+      "bihua": 16,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鮍",
+      "pinyin": "pí",
+      "bihua": 16,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鮎",
+      "pinyin": "nián",
+      "bihua": 16,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "磮",
+      "pinyin": "lún",
+      "bihua": 16,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鮕",
+      "pinyin": "gū",
+      "bihua": 16,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鮖",
+      "pinyin": "shí",
+      "bihua": 16,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鴘",
+      "pinyin": "biǎn",
+      "bihua": 16,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "壊",
+      "pinyin": "huài",
+      "bihua": 16,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "壋",
+      "pinyin": "dàng",
+      "bihua": 16,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "磺",
+      "pinyin": "huáng",
+      "bihua": 16,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "覨",
+      "pinyin": "è",
+      "bihua": 16,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鴢",
+      "pinyin": "yāo",
+      "bihua": 16,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "螯",
+      "pinyin": "áo",
+      "bihua": 16,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "頯",
+      "pinyin": "kuí",
+      "bihua": 16,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "頱",
+      "pinyin": "luō",
+      "bihua": 16,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鴪",
+      "pinyin": "yù",
+      "bihua": 16,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鴫",
+      "pinyin": "tián",
+      "bihua": 16,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "麬",
+      "pinyin": "fū",
+      "bihua": 16,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "麭",
+      "pinyin": "pào",
+      "bihua": 16,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "颴",
+      "pinyin": "xuàn",
+      "bihua": 16,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "頷",
+      "pinyin": "hàn",
+      "bihua": 16,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "颵",
+      "pinyin": "xiāo",
+      "bihua": 16,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鴱",
+      "pinyin": "ài",
+      "bihua": 16,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "麮",
+      "pinyin": "qù",
+      "bihua": 16,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "膶",
+      "pinyin": "rùn",
+      "bihua": 16,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "噫",
+      "pinyin": "yī",
+      "bihua": 16,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "噯",
+      "pinyin": "ǎi",
+      "bihua": 16,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "膺",
+      "pinyin": "yīng",
+      "bihua": 17,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "壕",
+      "pinyin": "háo",
+      "bihua": 17,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "臆",
+      "pinyin": "yì",
+      "bihua": 17,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "臃",
+      "pinyin": "yōng",
+      "bihua": 17,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "璴",
+      "pinyin": "chǔ",
+      "bihua": 17,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "黝",
+      "pinyin": "yǒu",
+      "bihua": 17,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "礁",
+      "pinyin": "jiāo",
+      "bihua": 17,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "磴",
+      "pinyin": "dèng",
+      "bihua": 17,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "翳",
+      "pinyin": "yì",
+      "bihua": 17,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "嶾",
+      "pinyin": "yǐn",
+      "bihua": 17,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "馣",
+      "pinyin": "ān",
+      "bihua": 17,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "嶷",
+      "pinyin": "yí",
+      "bihua": 17,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "磰",
+      "pinyin": "shàn",
+      "bihua": 17,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "礈",
+      "pinyin": "zhuì",
+      "bihua": 17,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "嶿",
+      "pinyin": "rū",
+      "bihua": 17,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "礀",
+      "pinyin": "jiàn",
+      "bihua": 17,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鳀",
+      "pinyin": "tí",
+      "bihua": 17,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "醠",
+      "pinyin": "àng",
+      "bihua": 17,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "懝",
+      "pinyin": "ài",
+      "bihua": 17,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "礅",
+      "pinyin": "dūn",
+      "bihua": 17,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "罆",
+      "pinyin": "guàn",
+      "bihua": 17,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "癌",
+      "pinyin": "ái",
+      "bihua": 17,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鍽",
+      "pinyin": "biān",
+      "bihua": 17,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "嬬",
+      "pinyin": "rú",
+      "bihua": 17,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "嬭",
+      "pinyin": "nǎi",
+      "bihua": 17,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "嬲",
+      "pinyin": "niǎo",
+      "bihua": 17,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鎇",
+      "pinyin": "méi",
+      "bihua": 17,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "嶸",
+      "pinyin": "róng",
+      "bihua": 17,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "磯",
+      "pinyin": "jī",
+      "bihua": 17,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "磳",
+      "pinyin": "zēng",
+      "bihua": 17,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "磶",
+      "pinyin": "xì",
+      "bihua": 17,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "曖",
+      "pinyin": "ài",
+      "bihua": 17,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鞡",
+      "pinyin": "la",
+      "bihua": 17,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "磽",
+      "pinyin": "qiāo",
+      "bihua": 17,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鮜",
+      "pinyin": "hòu",
+      "bihua": 17,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "壎",
+      "pinyin": "xūn",
+      "bihua": 17,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鮞",
+      "pinyin": "ér",
+      "bihua": 17,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鮟",
+      "pinyin": "ān",
+      "bihua": 17,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "壑",
+      "pinyin": "hè",
+      "bihua": 17,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "鮡",
+      "pinyin": "zhào",
+      "bihua": 17,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "壐",
+      "pinyin": "xǐ",
+      "bihua": 17,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "辪",
+      "pinyin": "xuē",
+      "bihua": 17,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "礂",
+      "pinyin": "xī",
+      "bihua": 17,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "礃",
+      "pinyin": "zhǎng",
+      "bihua": 17,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "龠",
+      "pinyin": "yuè",
+      "bihua": 17,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "礄",
+      "pinyin": "qiáo",
+      "bihua": 17,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鮥",
+      "pinyin": "luò",
+      "bihua": 17,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "壖",
+      "pinyin": "ruán",
+      "bihua": 17,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "壗",
+      "pinyin": "jìn",
+      "bihua": 17,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "礇",
+      "pinyin": "yù",
+      "bihua": 17,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "壙",
+      "pinyin": "kuàng",
+      "bihua": 17,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鮫",
+      "pinyin": "jiāo",
+      "bihua": 17,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鮬",
+      "pinyin": "kū",
+      "bihua": 17,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "謷",
+      "pinyin": "áo",
+      "bihua": 17,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "謸",
+      "pinyin": "áo",
+      "bihua": 17,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鮰",
+      "pinyin": "huí",
+      "bihua": 17,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "麯",
+      "pinyin": "qū",
+      "bihua": 17,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鮱",
+      "pinyin": "lǎo",
+      "bihua": 17,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "麰",
+      "pinyin": "móu",
+      "bihua": 17,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "颷",
+      "pinyin": "biāo",
+      "bihua": 17,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鴳",
+      "pinyin": "yàn",
+      "bihua": 17,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "顀",
+      "pinyin": "chuí",
+      "bihua": 17,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "顁",
+      "pinyin": "dìng",
+      "bihua": 17,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "顃",
+      "pinyin": "tán",
+      "bihua": 17,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "顄",
+      "pinyin": "hàn",
+      "bihua": 17,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "闇",
+      "pinyin": "àn",
+      "bihua": 17,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "顇",
+      "pinyin": "cuì",
+      "bihua": 17,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "顉",
+      "pinyin": "qīn",
+      "bihua": 17,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "闎",
+      "pinyin": "quán",
+      "bihua": 17,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "闏",
+      "pinyin": "phdeng",
+      "bihua": 17,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鵇",
+      "pinyin": "nián",
+      "bihua": 17,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "璦",
+      "pinyin": "ài",
+      "bihua": 17,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "韕",
+      "pinyin": "kuò",
+      "bihua": 17,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "皧",
+      "pinyin": "ài",
+      "bihua": 18,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "璧",
+      "pinyin": "bì",
+      "bihua": 18,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "蹦",
+      "pinyin": "bèng",
+      "bihua": 18,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鳌",
+      "pinyin": "áo",
+      "bihua": 18,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "礉",
+      "pinyin": "hé",
+      "bihua": 18,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "礞",
+      "pinyin": "méng",
+      "bihua": 18,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "巀",
+      "pinyin": "jié",
+      "bihua": 18,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "盫",
+      "pinyin": "ān",
+      "bihua": 18,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "礠",
+      "pinyin": "cí",
+      "bihua": 18,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鄨",
+      "pinyin": "bì",
+      "bihua": 18,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "瞹",
+      "pinyin": "ài",
+      "bihua": 18,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鼬",
+      "pinyin": "yòu",
+      "bihua": 18,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "髄",
+      "pinyin": "suí",
+      "bihua": 18,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "臓",
+      "pinyin": "zàng",
+      "bihua": 18,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "礒",
+      "pinyin": "yǐ",
+      "bihua": 18,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "顕",
+      "pinyin": "xiǎn",
+      "bihua": 18,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "礑",
+      "pinyin": "dàng",
+      "bihua": 18,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "歞",
+      "pinyin": "è",
+      "bihua": 18,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "顝",
+      "pinyin": "kuī",
+      "bihua": 18,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "礡",
+      "pinyin": "bō",
+      "bihua": 18,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "臑",
+      "pinyin": "nào",
+      "bihua": 18,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "罈",
+      "pinyin": "tán",
+      "bihua": 18,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鯗",
+      "pinyin": "xiǎng",
+      "bihua": 18,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "黟",
+      "pinyin": "yī",
+      "bihua": 18,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鵣",
+      "pinyin": "lài",
+      "bihua": 18,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鵤",
+      "pinyin": "zān",
+      "bihua": 18,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "癔",
+      "pinyin": "yì",
+      "bihua": 18,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鯽",
+      "pinyin": "jì",
+      "bihua": 18,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "騒",
+      "pinyin": "sāo",
+      "bihua": 18,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "馤",
+      "pinyin": "ài",
+      "bihua": 18,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "彝",
+      "pinyin": "yí",
+      "bihua": 18,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鬩",
+      "pinyin": "xì",
+      "bihua": 18,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "礌",
+      "pinyin": "léi",
+      "bihua": 18,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "礋",
+      "pinyin": "zé",
+      "bihua": 18,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "壝",
+      "pinyin": "wéi",
+      "bihua": 18,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "礏",
+      "pinyin": "yè",
+      "bihua": 18,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "麱",
+      "pinyin": "fū",
+      "bihua": 18,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "礓",
+      "pinyin": "jiāng",
+      "bihua": 18,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "麲",
+      "pinyin": "xiàn",
+      "bihua": 18,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鮵",
+      "pinyin": "tuō",
+      "bihua": 18,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鮶",
+      "pinyin": "jūn",
+      "bihua": 18,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "礖",
+      "pinyin": "yù",
+      "bihua": 18,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鮷",
+      "pinyin": "tí",
+      "bihua": 18,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "頾",
+      "pinyin": "zī",
+      "bihua": 18,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "颼",
+      "pinyin": "sōu",
+      "bihua": 18,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鮸",
+      "pinyin": "miǎn",
+      "bihua": 18,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "頿",
+      "pinyin": "zī",
+      "bihua": 18,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "颾",
+      "pinyin": "sāo",
+      "bihua": 18,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鮹",
+      "pinyin": "shāo",
+      "bihua": 18,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "礜",
+      "pinyin": "yù",
+      "bihua": 18,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鮾",
+      "pinyin": "něi",
+      "bihua": 18,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鯀",
+      "pinyin": "gǔn",
+      "bihua": 18,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鮿",
+      "pinyin": "zhé",
+      "bihua": 18,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鯁",
+      "pinyin": "gěng",
+      "bihua": 18,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鯂",
+      "pinyin": "sū",
+      "bihua": 18,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鯃",
+      "pinyin": "wú",
+      "bihua": 18,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鯄",
+      "pinyin": "qiú",
+      "bihua": 18,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鯆",
+      "pinyin": "pū",
+      "bihua": 18,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "顎",
+      "pinyin": "è",
+      "bihua": 18,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "顏",
+      "pinyin": "yán",
+      "bihua": 18,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "顐",
+      "pinyin": "wèn",
+      "bihua": 18,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "顒",
+      "pinyin": "yóng",
+      "bihua": 18,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "顓",
+      "pinyin": "zhuān",
+      "bihua": 18,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "鯏",
+      "pinyin": "lí",
+      "bihua": 18,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鯐",
+      "pinyin": "zǒu",
+      "bihua": 18,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "韙",
+      "pinyin": "wěi",
+      "bihua": 18,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "疆",
+      "pinyin": "jiāng",
+      "bihua": 19,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "鳙",
+      "pinyin": "yōng",
+      "bihua": 19,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "嬿",
+      "pinyin": "yàn",
+      "bihua": 19,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "壡",
+      "pinyin": "ruì",
+      "bihua": 19,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "巅",
+      "pinyin": "diān",
+      "bihua": 19,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "顗",
+      "pinyin": "yǐ",
+      "bihua": 19,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "顚",
+      "pinyin": "diān",
+      "bihua": 19,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "爊",
+      "pinyin": "āo",
+      "bihua": 19,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鯕",
+      "pinyin": "qí",
+      "bihua": 19,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "韜",
+      "pinyin": "tāo",
+      "bihua": 19,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "顛",
+      "pinyin": "diān",
+      "bihua": 19,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "顜",
+      "pinyin": "jiǎng",
+      "bihua": 19,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鯘",
+      "pinyin": "něi",
+      "bihua": 19,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "韟",
+      "pinyin": "gāo",
+      "bihua": 19,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鯞",
+      "pinyin": "zhǒu",
+      "bihua": 19,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鯠",
+      "pinyin": "lái",
+      "bihua": 19,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鯟",
+      "pinyin": "dōng",
+      "bihua": 19,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "譪",
+      "pinyin": "ǎi",
+      "bihua": 19,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鯢",
+      "pinyin": "ní",
+      "bihua": 19,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鯤",
+      "pinyin": "kūn",
+      "bihua": 19,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鯥",
+      "pinyin": "lù",
+      "bihua": 19,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鯦",
+      "pinyin": "jiù",
+      "bihua": 19,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鵪",
+      "pinyin": "ān",
+      "bihua": 19,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "韲",
+      "pinyin": "jī",
+      "bihua": 19,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鯮",
+      "pinyin": "zōng",
+      "bihua": 19,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鯰",
+      "pinyin": "nián",
+      "bihua": 19,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鯴",
+      "pinyin": "shī",
+      "bihua": 19,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鹸",
+      "pinyin": "jiǎn",
+      "bihua": 19,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "繶",
+      "pinyin": "yì",
+      "bihua": 19,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鬍",
+      "pinyin": "hú",
+      "bihua": 19,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鰎",
+      "pinyin": "jiǎn",
+      "bihua": 19,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鶍",
+      "pinyin": "yì",
+      "bihua": 19,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鶎",
+      "pinyin": "zūn",
+      "bihua": 19,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "騨",
+      "pinyin": "tuó",
+      "bihua": 19,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "壚",
+      "pinyin": "lú",
+      "bihua": 19,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "壜",
+      "pinyin": "tán",
+      "bihua": 19,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "壢",
+      "pinyin": "lì",
+      "bihua": 19,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "礘",
+      "pinyin": "è",
+      "bihua": 19,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "颿",
+      "pinyin": "fān",
+      "bihua": 19,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "礪",
+      "pinyin": "",
+      "bihua": 19,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "礢",
+      "pinyin": "yǎng",
+      "bihua": 19,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "譌",
+      "pinyin": "é",
+      "bihua": 19,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "礤",
+      "pinyin": "cǎ",
+      "bihua": 19,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "礪",
+      "pinyin": "lì",
+      "bihua": 19,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "顖",
+      "pinyin": "xìn",
+      "bihua": 19,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鯔",
+      "pinyin": "zī",
+      "bihua": 19,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "巍",
+      "pinyin": "wēi",
+      "bihua": 20,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "鼯",
+      "pinyin": "wú",
+      "bihua": 20,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "巄",
+      "pinyin": "lóng",
+      "bihua": 20,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "壤",
+      "pinyin": "rǎng",
+      "bihua": 20,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "礩",
+      "pinyin": "zhì",
+      "bihua": 20,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "礥",
+      "pinyin": "xián",
+      "bihua": 20,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "巏",
+      "pinyin": "quán",
+      "bihua": 20,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "礧",
+      "pinyin": "léi",
+      "bihua": 20,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "醷",
+      "pinyin": "yì",
+      "bihua": 20,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "巉",
+      "pinyin": "chán",
+      "bihua": 20,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "巊",
+      "pinyin": "yǐng",
+      "bihua": 20,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "壦",
+      "pinyin": "xūn",
+      "bihua": 20,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "顟",
+      "pinyin": "láo",
+      "bihua": 20,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "顡",
+      "pinyin": "wài",
+      "bihua": 20,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "顠",
+      "pinyin": "piǎo",
+      "bihua": 20,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "巇",
+      "pinyin": "xī",
+      "bihua": 20,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "顢",
+      "pinyin": "mān",
+      "bihua": 20,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "顣",
+      "pinyin": "cù",
+      "bihua": 20,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "韽",
+      "pinyin": "ān",
+      "bihua": 20,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鯷",
+      "pinyin": "tí",
+      "bihua": 20,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鹺",
+      "pinyin": "cuó",
+      "bihua": 20,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鯼",
+      "pinyin": "zōng",
+      "bihua": 20,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鯿",
+      "pinyin": "biān",
+      "bihua": 20,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鯾",
+      "pinyin": "biān",
+      "bihua": 20,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鰁",
+      "pinyin": "quán",
+      "bihua": 20,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鰅",
+      "pinyin": "yú",
+      "bihua": 20,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鰊",
+      "pinyin": "liàn",
+      "bihua": 20,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鰋",
+      "pinyin": "yǎn",
+      "bihua": 20,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鰖",
+      "pinyin": "tuǒ",
+      "bihua": 20,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鰘",
+      "pinyin": "shì",
+      "bihua": 20,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鶕",
+      "pinyin": "ān",
+      "bihua": 20,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鶣",
+      "pinyin": "piān",
+      "bihua": 20,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鰦",
+      "pinyin": "zī",
+      "bihua": 20,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "麵",
+      "pinyin": "miàn",
+      "bihua": 20,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "驁",
+      "pinyin": "ào",
+      "bihua": 20,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "衊",
+      "pinyin": "miè",
+      "bihua": 20,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "飃",
+      "pinyin": "piāo",
+      "bihua": 20,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "礴",
+      "pinyin": "bó",
+      "bihua": 21,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "礳",
+      "pinyin": "mò",
+      "bihua": 21,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "羻",
+      "pinyin": "qiàng",
+      "bihua": 21,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "譺",
+      "pinyin": "ài",
+      "bihua": 21,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "灍",
+      "pinyin": "jué",
+      "bihua": 21,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鷔",
+      "pinyin": "áo",
+      "bihua": 21,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "顤",
+      "pinyin": "yáo",
+      "bihua": 21,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "顦",
+      "pinyin": "qiáo",
+      "bihua": 21,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "顨",
+      "pinyin": "xùn",
+      "bihua": 21,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鹻",
+      "pinyin": "jiǎn",
+      "bihua": 21,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "嚻",
+      "pinyin": "xiāo",
+      "bihua": 21,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "蠡",
+      "pinyin": "lǐ",
+      "bihua": 21,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "囂",
+      "pinyin": "xiāo",
+      "bihua": 21,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鰜",
+      "pinyin": "jiān",
+      "bihua": 21,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鰝",
+      "pinyin": "hào",
+      "bihua": 21,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鰞",
+      "pinyin": "wū",
+      "bihua": 21,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鰥",
+      "pinyin": "guān",
+      "bihua": 21,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "趰",
+      "pinyin": "ěr",
+      "bihua": 21,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鰮",
+      "pinyin": "wēn",
+      "bihua": 21,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "騹",
+      "pinyin": "qí",
+      "bihua": 21,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "麶",
+      "pinyin": "chi",
+      "bihua": 21,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "驇",
+      "pinyin": "zhì",
+      "bihua": 21,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "懿",
+      "pinyin": "yì",
+      "bihua": 22,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "鹳",
+      "pinyin": "guàn",
+      "bihua": 22,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "礲",
+      "pinyin": "lóng",
+      "bihua": 22,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "巓",
+      "pinyin": "diān",
+      "bihua": 22,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "巗",
+      "pinyin": "yán",
+      "bihua": 22,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "壧",
+      "pinyin": "yán",
+      "bihua": 22,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "礶",
+      "pinyin": "guàn",
+      "bihua": 22,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "礷",
+      "pinyin": "jiān",
+      "bihua": 22,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "礵",
+      "pinyin": "shuāng",
+      "bihua": 22,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鱄",
+      "pinyin": "zhuān",
+      "bihua": 22,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鰴",
+      "pinyin": "huī",
+      "bihua": 22,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鰽",
+      "pinyin": "qiú",
+      "bihua": 22,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "顩",
+      "pinyin": "yǎn",
+      "bihua": 22,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "顪",
+      "pinyin": "huì",
+      "bihua": 22,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "顭",
+      "pinyin": "méng",
+      "bihua": 22,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鼇",
+      "pinyin": "áo",
+      "bihua": 22,
+      "wuxing": "tu",
+      "isJi": true
+    },
+    {
+      "zi": "巖",
+      "pinyin": "yán",
+      "bihua": 22,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "巕",
+      "pinyin": "niè",
+      "bihua": 22,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鰳",
+      "pinyin": "lè",
+      "bihua": 22,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鰻",
+      "pinyin": "mán",
+      "bihua": 22,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鱅",
+      "pinyin": "yōng",
+      "bihua": 22,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鱉",
+      "pinyin": "biē",
+      "bihua": 22,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "饔",
+      "pinyin": "yōng",
+      "bihua": 22,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "礱",
+      "pinyin": "lóng",
+      "bihua": 22,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "罐",
+      "pinyin": "guàn",
+      "bihua": 23,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "巚",
+      "pinyin": "yǎn",
+      "bihua": 23,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "巘",
+      "pinyin": "yǎn",
+      "bihua": 23,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鱕",
+      "pinyin": "fān",
+      "bihua": 23,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鱙",
+      "pinyin": "yáo",
+      "bihua": 23,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鱦",
+      "pinyin": "yìng",
+      "bihua": 23,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "顬",
+      "pinyin": "rú",
+      "bihua": 23,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "巔",
+      "pinyin": "diān",
+      "bihua": 23,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "囐",
+      "pinyin": "yàn",
+      "bihua": 23,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鱏",
+      "pinyin": "xún",
+      "bihua": 23,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "礹",
+      "pinyin": "yán",
+      "bihua": 24,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鱞",
+      "pinyin": "guān",
+      "bihua": 24,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鱟",
+      "pinyin": "hòu",
+      "bihua": 24,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "韥",
+      "pinyin": "dú",
+      "bihua": 24,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "顰",
+      "pinyin": "pín",
+      "bihua": 24,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鱯",
+      "pinyin": "hù",
+      "bihua": 24,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "顲",
+      "pinyin": "lǎn",
+      "bihua": 25,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "壪",
+      "pinyin": "wān",
+      "bihua": 25,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "圞",
+      "pinyin": "luán",
+      "bihua": 26,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鱲",
+      "pinyin": "liè",
+      "bihua": 26,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "顳",
+      "pinyin": "niè",
+      "bihua": 27,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "龞",
+      "pinyin": "biē",
+      "bihua": 27,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "飍",
+      "pinyin": "xiū",
+      "bihua": 27,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "欟",
+      "pinyin": "guàn",
+      "bihua": 28,
+      "wuxing": "tu",
+      "isJi": false
+    },
+    {
+      "zi": "鬱",
+      "pinyin": "yù",
+      "bihua": 29,
+      "wuxing": "tu",
+      "isJi": false
+    }
+  ]
+}
