@@ -99,6 +99,7 @@ export default function Nav() {
           <Link href="/wenku" className="text-sm text-gray-300 hover:text-gold-400 transition-colors">{getT('nav.wenku')}</Link>
           <Link href="/glossary" className="text-sm text-gray-300 hover:text-gold-400 transition-colors">{getT('nav.glossary')}</Link>
           <Link href="/app" className="text-sm text-gold-400 hover:text-gold-300 transition-colors font-medium">{getT('nav.app')}</Link>
+          <Link href="/profile" className="text-sm text-gray-300 hover:text-gold-400 transition-colors" title="我的收藏">👤 我的</Link>
 
           {/* Language */}
           <div className="relative">
@@ -153,6 +154,7 @@ export default function Nav() {
             <Link href="/wenku" className="block py-2 text-sm text-gray-300 hover:text-gold-400" onClick={() => setMobileMenuOpen(false)}>{getT('nav.wenku')}</Link>
             <Link href="/glossary" className="block py-2 text-sm text-gray-300 hover:text-gold-400" onClick={() => setMobileMenuOpen(false)}>{getT('nav.glossary')}</Link>
             <Link href="/app" className="block py-2 text-sm text-gold-400 hover:text-gold-300 font-medium" onClick={() => setMobileMenuOpen(false)}>{getT('nav.app')}</Link>
+            <Link href="/profile" className="block py-2 text-sm text-gray-300 hover:text-gold-400" onClick={() => setMobileMenuOpen(false)}>👤 我的收藏</Link>
             <Link href="/help" className="block py-2 text-sm text-gray-400 hover:text-gold-400" onClick={() => setMobileMenuOpen(false)}>{getT('nav.help')}</Link>
             <Link href="/contact" className="block py-2 text-sm text-gray-400 hover:text-gold-400" onClick={() => setMobileMenuOpen(false)}>{getT('nav.contact')}</Link>
             <div className="pt-2 border-t border-dark-600">

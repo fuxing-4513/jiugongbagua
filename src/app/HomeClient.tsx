@@ -93,6 +93,11 @@ export default function HomeClient() {
         </div>
       </div>
 
+      {/* ===== 学派源流 ===== */}
+      <div id="heritage">
+        <HeritageSection />
+      </div>
+
       {/* ===== 全部工具 Grid（含古籍引用）===== */}
       <h2 className="text-xl font-semibold text-gold-400 font-serif mb-4 text-center">🔮 全部工具</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-12">
@@ -118,11 +123,6 @@ export default function HomeClient() {
             )}
           </Link>
         ))}
-      </div>
-
-      {/* ===== 学派源流 ===== */}
-      <div id="heritage">
-        <HeritageSection />
       </div>
 
       {/* ===== 底部 CTA ===== */}

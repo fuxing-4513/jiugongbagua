@@ -1,9 +1,12 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { useLocale } from '@/lib/i18n'
 import { Solar, Lunar } from 'lunar-typescript'
 import CalendarInput, { type CalendarType } from '@/components/CalendarInput'
+import TrueSolarTime, { calcTrueSolarHour } from '@/components/TrueSolarTime'
+import DayunChart from '@/components/DayunChart'
+import { saveChart } from '@/lib/collections'
 
 function tk(key: string, lang: Record<string, unknown>): string {
   const keys = key.split('.'); let v: unknown = lang
@@ -400,6 +403,12 @@ export default function BaziClient() {
   const [bzYear, setBzYear] = useState(String(new Date().getFullYear()))
   const [result, setResult] = useState<any>(null)
   const [error, setError] = useState('')
+  const [saved, setSaved] = useState(false)
+
+  // 真太阳时状态
+  const [useTrueSolar, setUseTrueSolar] = useState(false)
+  const [longitude, setLongitude] = useState(116.4)
+  const [timezone, setTimezone] = useState(8)
 
   const getLunarMonth = () => isLeapMonth ? -parseInt(month) : parseInt(month)
 
@@ -471,6 +480,10 @@ export default function BaziClient() {
           dayunArr.push({ gz: dyGz, age: startAge, startYear, years })
         }
 
+        // 计算当前年龄（bazi mode）
+        const now3 = new Date()
+        let curAge2 = now3.getFullYear() - birthYear
+
         setResult({
           dateStr: '直接排盘 · ' + birthYear + '年 ' + tg[0]+dz[0]+'年 '+tg[1]+dz[1]+'月 '+tg[2]+dz[2]+'日 '+tg[3]+dz[3]+'时 · '+gender+'命',
           bazi: tg[0]+dz[0]+'年 '+tg[1]+dz[1]+'月 '+tg[2]+dz[2]+'日 '+tg[3]+dz[3]+'时',
@@ -480,6 +493,7 @@ export default function BaziClient() {
           mingGong: '—', shenGong: '—', taiYuan: '—', xunKong: '—',
           yearDiShi: '', monthDiShi: '', dayDiShi: '', timeDiShi: '',
           dayun: dayunArr, analysis,
+          currentAge: curAge2, birthYear,
         })
       } catch(e){ setError('排盘出错：' + ((e as any)?.message || '请检查天干地支和出生年份')) }
       return
@@ -488,6 +502,17 @@ export default function BaziClient() {
     const y = parseInt(year), m = parseInt(month), d = parseInt(day), h = parseInt(hour)
     if (isNaN(y)||isNaN(m)||isNaN(d)||isNaN(h)||m<1||m>12||d<1||d>31||h<0||h>23){setError('日期无效：年份、月份、日期或时辰不正确');return}
     try {
+      // 真太阳时 + 时区调整
+      let adjustedHour = h
+      const dateStr = `${y}-${String(m).padStart(2,'0')}-${String(d).padStart(2,'0')}`
+      if (useTrueSolar) {
+        adjustedHour = calcTrueSolarHour(dateStr, h, longitude)
+      } else if (timezone !== 8) {
+        // 非北京时区
+        adjustedHour = h + (timezone - 8)
+      }
+      const finalHour = Math.round(adjustedHour) % 24
+
       let ec, solar, lunar
       if (cal === 'lunar') {
         const lm = isLeapMonth ? -m : m
@@ -502,10 +527,10 @@ export default function BaziClient() {
         if (d > maxDays) { setError('该农历月只有' + maxDays + '天，请输入1-' + maxDays + '日'); return }
         lunar = Lunar.fromYmd(y, lm, d)
         const ls = lunar.getSolar()
-        solar = Solar.fromYmdHms(ls.getYear(), ls.getMonth(), ls.getDay(), h, 0, 0)
+        solar = Solar.fromYmdHms(ls.getYear(), ls.getMonth(), ls.getDay(), finalHour, 0, 0)
         ec = solar.getLunar().getEightChar()
       } else {
-        solar = Solar.fromYmdHms(y, m, d, h, 0, 0)
+        solar = Solar.fromYmdHms(y, m, d, finalHour, 0, 0)
         lunar = solar.getLunar()
         ec = lunar.getEightChar()
       }
@@ -539,6 +564,12 @@ export default function BaziClient() {
 
       const analysis = comprehensiveAnalysis(dg, dz, wx, pills, zodiac, lunar, monthZhi, shenSha, gender)
 
+      // 计算当前年龄
+      const now2 = new Date()
+      const birthDate = new Date(solar.getYear(), solar.getMonth() - 1, solar.getDay())
+      let currentAge = now2.getFullYear() - solar.getYear()
+      if (now2 < new Date(now2.getFullYear(), solar.getMonth() - 1, solar.getDay())) currentAge--
+
       setResult({
         cal, dateStr: `${cal==='solar'?`公历${solar.toFullString()}`:`农历${lunar.toFullString()}`} · ${gender}命`,
         bazi: `${pills[0].gz}年 ${pills[1].gz}月 ${pills[2].gz}日 ${pills[3].gz}时`,
@@ -551,6 +582,8 @@ export default function BaziClient() {
         yearDiShi: ec.getYearDiShi(), monthDiShi: ec.getMonthDiShi(),
         dayDiShi: ec.getDayDiShi(), timeDiShi: ec.getTimeDiShi(),
         dayun, analysis,
+        currentAge, birthYear: solar.getYear(),
+        useTrueSolar, trueSolarInfo: useTrueSolar ? `真太阳时 · 经度${longitude}°E` : '',
       })
     } catch(e){ setError('计算出错：' + ((e as any)?.message || '请检查日期是否有效')) }
   }
@@ -608,6 +641,15 @@ export default function BaziClient() {
                 className={`px-4 py-1.5 rounded-md text-xs font-medium transition-all ${gender === '女' ? 'bg-pink-500 text-white' : 'text-gray-400'}`}>♀ 女</button>
             </div>
           </div>
+          <TrueSolarTime
+            enabled={useTrueSolar}
+            onToggle={setUseTrueSolar}
+            longitude={longitude}
+            onLongitudeChange={setLongitude}
+            timezone={timezone}
+            onTimezoneChange={setTimezone}
+            compact
+          />
         </div>
       )}
 
@@ -781,23 +823,33 @@ export default function BaziClient() {
         </div>
       )}
 
-      {/* 大运 */}
-      {result.dayun.length > 0 && (<div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-4">
-        <h3 className="text-sm font-semibold text-gray-200 mb-3">十年大运 · 逐年流年</h3>
-        <div className="space-y-3">
-          {result.dayun.map((dy:any,i:number)=>(
-            <div key={i}><p className="text-xs text-gold-400 font-serif font-semibold mb-1.5">{dy.gz}运（{dy.age}~{dy.age+9}岁）</p>
-              <div className="grid grid-cols-2 sm:grid-cols-5 gap-1">
-                {dy.years?.map((y:any,j:number)=>(
-                  <span key={j} className="text-[11px] px-2 py-1 rounded border bg-dark-700 border-dark-600 hover:border-gold-500/50 transition-colors text-center">
-                    <span className="text-gray-400">{y.year}</span> <span className="text-amber-300 font-serif">{y.gz}</span> <span className="text-gray-500">({y.age})</span>
-                  </span>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>)}
+
+      {/* 收藏按钮 */}
+      <div className="flex justify-center gap-3">
+        <button
+          onClick={() => {
+            if (saved) return
+            saveChart({
+              type: 'bazi',
+              name: `八字命盘 · ${result.bazi || ''}`,
+              summary: `${result.dateStr || ''} · ${result.lunarStr || ''} · 日主${result.dg || ''}`,
+              data: result,
+            })
+            setSaved(true)
+            setTimeout(() => setSaved(false), 2000)
+          }}
+          className={`text-sm px-4 py-2 rounded-lg border transition-all ${
+            saved
+              ? 'border-green-500 bg-green-500/20 text-green-400'
+              : 'border-gold-500/50 text-gold-400 hover:bg-gold-500/10'
+          }`}
+        >
+          {saved ? '✅ 已收藏' : '⭐ 收藏命盘'}
+        </button>
+      </div>
+
+      {/* 大运可视化 */}
+      <DayunChart dayun={result.dayun} currentAge={result.currentAge} birthYear={result.birthYear} />
     </div>)}
   </div>)
 }
