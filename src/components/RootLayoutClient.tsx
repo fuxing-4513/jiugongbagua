@@ -1,49 +1,17 @@
-import type { Metadata } from 'next'
-import LayoutClient from '@/components/LayoutClient'
-import './globals.css'
+'use client'
 
-const baseUrl = 'https://jiugongbagua.com'
-const baseDescription = '九宫八卦是中国传统命理文化平台，提供八字算命、紫微斗数、六爻占卜、小六壬、周公解梦、姓名测试、号码测吉凶、黄历择日、塔罗占卜、测字等在线服务。'
+import { LocaleProvider, useLocale } from '@/lib/i18n'
+import Nav from '@/components/Nav'
+import Footer from '@/components/Footer'
+import ErrorBoundary from '@/components/ErrorBoundary'
 
-export const metadata: Metadata = {
-  metadataBase: new URL(baseUrl),
-  title: {
-    default: '九宫八卦 - 中国传统命理文化平台',
-    template: '%s | 九宫八卦',
-  },
-  description: baseDescription,
-  keywords: ['九宫八卦','八字算命','紫微斗数','六爻占卜','小六壬','周公解梦','姓名测试','号码测吉凶','黄历','塔罗占卜','测字','命理','易经','梅花易数','合婚','传统文化','奇门遁甲'],
-  authors: [{ name: '九宫八卦' }],
-  creator: '九宫八卦',
-  publisher: '九宫八卦',
-  openGraph: {
-    title: '九宫八卦 - 传统命理在线测算平台',
-    description: '传承经典 · 智慧启航。八字算命、紫微斗数、六爻占卜、梅花易数、小六壬等二十余种传统命理服务。',
-    type: 'website',
-    locale: 'zh_CN',
-    siteName: '九宫八卦',
-    url: baseUrl,
-  },
-  twitter: {
-    card: 'summary',
-    title: '九宫八卦 - 中国传统命理文化平台',
-    description: baseDescription,
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: { index: true, follow: true },
-  },
-  verification: { google: '' },
-}
-
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+function RootInner({ children }: { children: React.ReactNode }) {
+  const { locale } = useLocale()
   return (
-    <html lang="zh-Hans" suppressHydrationWarning>
+    <html lang={locale === 'en' ? 'en' : locale === 'zh-TW' ? 'zh-Hant' : 'zh-Hans'} suppressHydrationWarning>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        {/* CSP 安全策略 */}
         <meta
           httpEquiv="Content-Security-Policy"
           content={
@@ -73,12 +41,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 '@context': 'https://schema.org',
                 '@type': 'WebSite',
                 name: '九宫八卦',
-                url: baseUrl,
+                url: 'https://jiugongbagua.com',
                 description: '中国传统命理文化平台',
                 inLanguage: ['zh-CN', 'zh-TW', 'en'],
                 potentialAction: {
                   '@type': 'SearchAction',
-                  target: { '@type': 'EntryPoint', urlTemplate: `${baseUrl}/wenku?q={search_term_string}` },
+                  target: {
+                    '@type': 'EntryPoint',
+                    urlTemplate: 'https://jiugongbagua.com/wenku?q={search_term_string}',
+                  },
                   'query-input': 'required name=search_term_string',
                 },
               },
@@ -86,8 +57,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 '@context': 'https://schema.org',
                 '@type': 'WebApplication',
                 name: '九宫八卦命理测算平台',
-                url: baseUrl,
-                description: baseDescription,
+                url: 'https://jiugongbagua.com',
+                description: '九宫八卦是中国传统命理文化平台，提供八字算命、紫微斗数、六爻占卜、小六壬、周公解梦、姓名测试、号码测吉凶、黄历择日、塔罗占卜、测字等在线服务。',
                 applicationCategory: 'LifestyleApplication',
                 operatingSystem: 'All',
               },
@@ -95,7 +66,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 '@context': 'https://schema.org',
                 '@type': 'BreadcrumbList',
                 itemListElement: [
-                  { '@type': 'ListItem', position: 1, name: '首页', item: baseUrl },
+                  { '@type': 'ListItem', position: 1, name: '首页', item: 'https://jiugongbagua.com' },
                 ],
               },
             ]),
@@ -103,8 +74,23 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body className="min-h-screen flex flex-col">
-        <LayoutClient>{children}</LayoutClient>
+        <div className="cosmic-overlay" aria-hidden="true" />
+        <ErrorBoundary>
+          <Nav />
+          <main className="flex-1 pt-16">
+            {children}
+          </main>
+          <Footer />
+        </ErrorBoundary>
       </body>
     </html>
+  )
+}
+
+export default function RootLayoutClient({ children }: { children: React.ReactNode }) {
+  return (
+    <LocaleProvider>
+      <RootInner>{children}</RootInner>
+    </LocaleProvider>
   )
 }

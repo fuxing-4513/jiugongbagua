@@ -73,6 +73,8 @@ export default function Nav() {
             <button
               onClick={() => setToolsOpen(!toolsOpen)}
               className="text-sm text-gray-300 hover:text-gold-400 transition-colors flex items-center gap-1"
+              aria-label="更多工具"
+              aria-expanded={toolsOpen}
             >
               {getT('nav.tools')}
               <svg className={`w-3 h-3 transition-transform ${toolsOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -106,6 +108,8 @@ export default function Nav() {
             <button
               onClick={() => setLangOpen(!langOpen)}
               className="text-sm text-gray-300 hover:text-gold-400 transition-colors flex items-center gap-1 border border-dark-600 rounded px-2 py-1"
+              aria-label="切换语言"
+              aria-expanded={langOpen}
             >
               🌐 {localeNames[locale]}
             </button>
@@ -115,6 +119,7 @@ export default function Nav() {
                 <div className="absolute top-full right-0 mt-2 w-36 bg-dark-700 rounded-lg shadow-lg border border-dark-600 py-2 z-20">
                   {(Object.entries(localeNames) as [SupportedLocale, string][]).map(([key, name]) => (
                     <button key={key} onClick={() => handleLangChange(key)}
+                      aria-label={`切换至${name}`}
                       className={`block w-full text-left px-4 py-2 text-sm transition-colors ${locale === key ? 'bg-dark-600 text-gold-400 font-medium' : 'text-gray-300 hover:bg-dark-600 hover:text-gold-400'}`}
                     >{name}</button>
                   ))}

@@ -59,7 +59,7 @@ export default function DayunChart({ dayun, currentAge }: Props) {
 
   // 自动滚动到当前大运
   useEffect(() => {
-    if (scrollRef.current && currentDYIndex >= 0) {
+    if (scrollRef.current && currentDYIndex >= 0 && currentDYIndex < scrollRef.current.children.length) {
       const el = scrollRef.current.children[currentDYIndex] as HTMLElement
       if (el) {
         el.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' })

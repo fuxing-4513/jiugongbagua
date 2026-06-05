@@ -1,18 +1,16 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useState } from 'react'
+import dynamic from 'next/dynamic'
 import { useLocale } from '@/lib/i18n'
 import { Solar, Lunar } from 'lunar-typescript'
 import CalendarInput, { type CalendarType } from '@/components/CalendarInput'
-import TrueSolarTime, { calcTrueSolarHour } from '@/components/TrueSolarTime'
-import DayunChart from '@/components/DayunChart'
 import { saveChart } from '@/lib/collections'
+import { calcTrueSolarHour } from '@/lib/solar-time'
 
-function tk(key: string, lang: Record<string, unknown>): string {
-  const keys = key.split('.'); let v: unknown = lang
-  for (const k of keys) { if (typeof v !== 'object' || v === null) return key; v = (v as Record<string, unknown>)[k] }
-  return typeof v === 'string' ? v : key
-}
+// 非首屏大组件按需加载，减小 initial bundle
+const TrueSolarTime = dynamic(() => import('@/components/TrueSolarTime'), { ssr: false })
+const DayunChart = dynamic(() => import('@/components/DayunChart'), { ssr: false })
 
 const hourOpts = [
   {v:'0',l:'子初 23:00-00:59'},{v:'1',l:'丑初 01:00-01:59'},{v:'2',l:'丑正 02:00-02:59'},
@@ -605,8 +603,8 @@ export default function BaziClient() {
     <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-6 mb-8">
       
       <div className="flex gap-2 mb-4 flex-wrap">
-        <button onClick={()=>setMode('date')} className={`px-3 py-1.5 rounded-lg text-xs transition-colors ${mode==='date'?'bg-gold-600 text-dark-900 font-semibold':'bg-dark-700 text-gray-400 border border-dark-600'}`}>✨ 公历/农历</button>
-        <button onClick={()=>setMode('bazi')} className={`px-3 py-1.5 rounded-lg text-xs transition-colors ${mode==='bazi'?'bg-gold-600 text-dark-900 font-semibold':'bg-dark-700 text-gray-400 border border-dark-600'}`}>🔮 直接排盘</button>
+        <button onClick={()=>setMode('date')} aria-label="按日期排盘" className={`px-3 py-1.5 rounded-lg text-xs transition-colors ${mode==='date'?'bg-gold-600 text-dark-900 font-semibold':'bg-dark-700 text-gray-400 border border-dark-600'}`}>✨ 公历/农历</button>
+        <button onClick={()=>setMode('bazi')} aria-label="直接输入八字排盘" className={`px-3 py-1.5 rounded-lg text-xs transition-colors ${mode==='bazi'?'bg-gold-600 text-dark-900 font-semibold':'bg-dark-700 text-gray-400 border border-dark-600'}`}>🔮 直接排盘</button>
         <select value={gender} onChange={e=>setGender(e.target.value)} className="px-3 py-1.5 bg-dark-700 border border-dark-600 rounded-lg text-gray-200 text-xs">
           <option value="男">男</option><option value="女">女</option>
         </select>
@@ -635,9 +633,9 @@ export default function BaziClient() {
           <div className="flex items-center gap-2">
             <span className="text-xs text-gray-400">性别：</span>
             <div className="flex bg-dark-700 rounded-lg p-1 gap-1">
-              <button onClick={() => setGender('男')}
+              <button onClick={() => setGender('男')} aria-label="选择男性"
                 className={`px-4 py-1.5 rounded-md text-xs font-medium transition-all ${gender === '男' ? 'bg-blue-500 text-white' : 'text-gray-400'}`}>♂ 男</button>
-              <button onClick={() => setGender('女')}
+              <button onClick={() => setGender('女')} aria-label="选择女性"
                 className={`px-4 py-1.5 rounded-md text-xs font-medium transition-all ${gender === '女' ? 'bg-pink-500 text-white' : 'text-gray-400'}`}>♀ 女</button>
             </div>
           </div>
@@ -680,7 +678,7 @@ export default function BaziClient() {
       </div>)}
 
       {error && <p className="text-xs text-red-400 mb-2">{error}</p>}
-      <button onClick={doCalc} className="bg-gold-600 hover:bg-gold-500 text-dark-900 font-semibold px-6 py-2 rounded-lg text-sm transition-colors active:scale-95">开始算命</button>
+      <button onClick={doCalc} aria-label="开始排盘测算" className="bg-gold-600 hover:bg-gold-500 text-dark-900 font-semibold px-6 py-2 rounded-lg text-sm transition-colors active:scale-95">开始算命</button>
     </div>
 
     {result && (<div className="space-y-4">

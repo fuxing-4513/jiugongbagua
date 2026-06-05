@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { calcTrueSolarHour } from '@/lib/solar-time'
 
 // ── 中国主要城市经度 ──
 const CITIES: { name: string; lng: number }[] = [
@@ -19,46 +20,6 @@ const CITIES: { name: string; lng: number }[] = [
   { name: '澳门', lng: 113.5 }, { name: '台北', lng: 121.5 },
 ]
 
-/**
- * 计算真太阳时调整后的小时数
- * @param dateStr 日期字符串 YYYY-MM-DD
- * @param hour 北京时间小时数 (0-23)
- * @param longitude 经度
- * @returns 调整后的小时（可能带小数）
- */
-export function calcTrueSolarHour(dateStr: string, hour: number, longitude: number): number {
-  // 均时差计算（简化版）
-  const d = new Date(dateStr + 'T12:00:00+08:00')
-  const dayOfYear = Math.floor((d.getTime() - new Date(d.getFullYear(), 0, 0).getTime()) / 86400000)
-  
-  // 均时差公式（分钟）
-  const B = (360 / 365) * (dayOfYear - 81)
-  const B_rad = (B * Math.PI) / 180
-  const EoT = 9.87 * Math.sin(2 * B_rad) - 7.53 * Math.cos(B_rad) - 1.5 * Math.sin(B_rad)
-  
-  // 经度修正：北京时区以120°E为基准，每差1°相差4分钟
-  const lngOffset = (longitude - 120) * 4
-  
-  // 总调整 = 经度修正 + 均时差（分钟）
-  const totalOffset = lngOffset + EoT
-  
-  // 返回调整后的小时
-  return hour + totalOffset / 60
-}
-
-/**
- * 计算时区调整后的小时数
- */
-export function calcTimezoneHour(hour: number, utcOffset: number): number {
-  // 北京时间 = UTC+8
-  // utcOffset 是目标时区的UTC偏移
-  const beijingOffset = 8
-  const diff = utcOffset - beijingOffset
-  let adjusted = hour + diff
-  if (adjusted < 0) adjusted += 24
-  if (adjusted >= 24) adjusted -= 24
-  return adjusted
-}
 
 interface Props {
   enabled: boolean

@@ -30,11 +30,23 @@ const localeNames: Record<SupportedLocale, string> = {
   'en': 'English',
 }
 
+const LOCALE_KEY = 'jiugong-locale'
+
+function getStoredLocale(): SupportedLocale {
+  if (typeof window === 'undefined') return 'zh-CN'
+  try {
+    const v = localStorage.getItem(LOCALE_KEY)
+    if (v === 'zh-CN' || v === 'zh-TW' || v === 'en') return v
+  } catch {}
+  return 'zh-CN'
+}
+
 export function LocaleProvider({ children }: { children: React.ReactNode }) {
-  const [locale, setLocaleState] = useState<SupportedLocale>('zh-CN')
+  const [locale, setLocaleState] = useState<SupportedLocale>(getStoredLocale)
 
   const setLocale = useCallback((newLocale: SupportedLocale) => {
     setLocaleState(newLocale)
+    try { localStorage.setItem(LOCALE_KEY, newLocale) } catch {}
   }, [])
 
   const t = locales[locale] as LocaleType

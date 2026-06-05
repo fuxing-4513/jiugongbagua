@@ -49,19 +49,23 @@ export default function NamingChars() {
 
   // 加载列表 & 详情数据
   useEffect(() => {
+    const controller = new AbortController()
     setLoading(true)
     setListData(null)
     setDetailData(null)
     
     // 并行加载列表和详情
     Promise.all([
-      fetch(`/data/wuxing-${activeEl}.json`).then(r => r.json()),
-      fetch(`/data/wuxing-detail-${activeEl}.json`).then(r => r.json()).catch(() => null),
+      fetch(`/data/wuxing-${activeEl}.json`, { signal: controller.signal }).then(r => r.json()),
+      fetch(`/data/wuxing-detail-${activeEl}.json`, { signal: controller.signal }).then(r => r.json()).catch(() => null),
     ]).then(([list, detail]) => {
       setListData(list)
       if (detail) setDetailData(detail)
       setLoading(false)
-    }).catch(() => setLoading(false))
+    }).catch((e) => {
+      if (e?.name !== 'AbortError') setLoading(false)
+    })
+    return () => controller.abort()
   }, [activeEl])
 
   // 构建笔画分组
