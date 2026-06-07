@@ -43,6 +43,7 @@ export default function AppClient() {
 
   const [analyzed, setAnalyzed] = useState(false);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [errorMsg, setErrorMsg] = useState('');
   const [baziResult, setBaziResult] = useState<BaziChartResult | null>(null);
   const [ziweiResult, setZiweiResult] = useState<any>(null);
 
@@ -82,19 +83,20 @@ export default function AppClient() {
     if (!isValid) return;
     setIsAnalyzing(true);
     setAnalyzed(false);
+    setBaziResult(null);
+    setZiweiResult(null);
+    setErrorMsg('');
 
-    await new Promise(r => setTimeout(r, 300));
+    await new Promise(r => setTimeout(r, 500));
 
     if (activeModule === 'bazi') {
       if (inputMode === 'bazi') {
-        // Direct Bazi input
         try {
           const result = computeBaziChart({ tg: bzTg, dz: bzDz, birthYear: parseInt(bzYear), gender });
           setBaziResult(result);
-          setZiweiResult(null);
-        } catch(e) { console.error(e); }
+          setAnalyzed(true);
+        } catch(e: any) { console.error(e); setErrorMsg('排盘失败: ' + (e?.message || '未知错误')); }
       } else {
-        // Date input → calculate Bazi from date
         try {
           const tg: string[] = [], dz: string[] = [];
           let solar: any;
@@ -105,37 +107,40 @@ export default function AppClient() {
             solar = lun.getSolar();
           }
           const bazi = solar.getBaZi();
+          if (!bazi) throw new Error('日期超出八字计算范围');
           const finalHour = Math.round(resolvedHour) % 24;
           const timeZhiIdx = Math.floor((finalHour + 1) / 2) % 12;
-          tg.push(bazi.getYearGan() as string, bazi.getMonthGan() as string, bazi.getDayGan() as string, T_GAN[Math.abs((T_GAN.indexOf(bazi.getDayGan() as string) * 2 + timeZhiIdx) % 10)]);
-          dz.push(bazi.getYearZhi() as string, bazi.getMonthZhi() as string, bazi.getDayZhi() as string, T_ZHI[timeZhiIdx]);
+          const dayGan = bazi.getDayGan();
+          const dayGanIdx = T_GAN.indexOf(dayGan);
+          if (dayGanIdx < 0) throw new Error('日干计算失败: ' + dayGan);
+          const timeGanIdx = (dayGanIdx * 2 + timeZhiIdx) % 10;
+          tg.push(bazi.getYearGan(), bazi.getMonthGan(), dayGan, T_GAN[timeGanIdx]);
+          dz.push(bazi.getYearZhi(), bazi.getMonthZhi(), bazi.getDayZhi(), T_ZHI[timeZhiIdx]);
           const result = computeBaziChart({ tg, dz, birthYear: solar.getYear(), gender });
           setBaziResult(result);
-          setZiweiResult(null);
-        } catch(e) { console.error(e); }
+          setAnalyzed(true);
+        } catch(e: any) { console.error(e); setErrorMsg('八字排盘失败: ' + (e?.message || '未知错误')); }
       }
     } else {
-      // Ziwei
       try {
-        const { astro } = await import('iztro');
+        const iztro = await import('iztro');
+        const { astro } = iztro;
         let solar: any;
         if (calendarType === 'solar') solar = Solar.fromYmd(y, m, d);
         else {
           const lm = isLeapMonth ? -m : m;
           solar = Lunar.fromYmd(y, lm, d).getSolar();
         }
-        const bazi = solar.getBaZi();
+        if (!solar) throw new Error('日期超出紫微计算范围');
         const finalHour = Math.round(resolvedHour) % 24;
-        const timeIdx = Math.floor((finalHour + 1) / 2) % 12;
-        const tzhi = T_ZHI[timeIdx];
-        const astroData = astro.bySolar(solar.toFullString(), finalHour, gender as any);
+        const dateStr = `${solar.getYear()}-${solar.getMonth()}-${solar.getDay()}`;
+        const astroData = astro.bySolar(dateStr, finalHour, gender as any);
         setZiweiResult(astroData);
-        setBaziResult(null);
-      } catch(e) { console.error('Ziwei error:', e); }
+        setAnalyzed(true);
+      } catch(e: any) { console.error('Ziwei error:', e); setErrorMsg('紫微排盘失败: ' + (e?.message || '未知错误，请检查日期或尝试其他模式')); }
     }
 
     setIsAnalyzing(false);
-    setAnalyzed(true);
   };
 
   return (
@@ -263,6 +268,14 @@ export default function AppClient() {
         </button>
         {!analyzed && !isAnalyzing && <p className="text-xs text-gray-500 mt-2">选择模块，填写信息，点击按钮查看完整命理分析</p>}
       </div>
+
+      {/* Error Message */}
+      {errorMsg && (
+        <div className="max-w-lg mx-auto mb-8 bg-red-900/20 border border-red-700/40 rounded-xl p-4 text-center">
+          <p className="text-red-400 text-sm">⚠️ {errorMsg}</p>
+          <p className="text-xs text-red-500/70 mt-1">请检查输入信息或尝试其他排盘模式</p>
+        </div>
+      )}
 
       {/* Results */}
       {analyzed && baziResult && <BaziResultView result={baziResult} name={name} />}
