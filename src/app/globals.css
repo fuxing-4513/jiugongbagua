@@ -39,21 +39,21 @@ body {
   font-family: var(--font-sans);
   background:
     /* 🌌 银河星系底色 */
-    radial-gradient(ellipse 130% 100% at 50% 100%, #0a1040 0%, #020215 55%),
-    /* 🌸 左上粉色玫瑰星云 */
-    radial-gradient(ellipse 900px 600px at 18% 20%, rgba(255, 80, 150, 0.7) 0%, rgba(255, 40, 120, 0.4) 20%, rgba(200, 20, 100, 0.15) 40%, transparent 55%),
+    radial-gradient(ellipse 160% 120% at 50% 110%, #0a1040 0%, #020215 60%),
+    /* 🌸 左上粉色玫瑰星云 — 高饱和大覆盖 */
+    radial-gradient(ellipse 1000px 700px at 15% 15%, rgba(255, 100, 150, 0.65) 0%, rgba(255, 60, 130, 0.35) 18%, rgba(220, 20, 120, 0.18) 40%, transparent 55%),
     /* 🔵 右上青蓝猎户星云 */
-    radial-gradient(ellipse 800px 550px at 82% 22%, rgba(30, 180, 255, 0.6) 0%, rgba(20, 140, 230, 0.3) 20%, rgba(10, 80, 180, 0.1) 40%, transparent 58%),
+    radial-gradient(ellipse 900px 650px at 85% 18%, rgba(40, 190, 255, 0.55) 0%, rgba(20, 150, 240, 0.3) 18%, rgba(10, 90, 200, 0.12) 40%, transparent 58%),
     /* 💜 中央偏右紫色星云 */
-    radial-gradient(ellipse 750px 500px at 62% 45%, rgba(140, 40, 240, 0.55) 0%, rgba(100, 20, 180, 0.25) 25%, rgba(60, 10, 140, 0.1) 45%, transparent 58%),
+    radial-gradient(ellipse 850px 600px at 60% 40%, rgba(160, 50, 240, 0.5) 0%, rgba(110, 30, 200, 0.25) 25%, rgba(70, 15, 160, 0.1) 45%, transparent 58%),
     /* 🟡 中央金色星系核心 */
-    radial-gradient(ellipse 800px 400px at 48% 35%, rgba(255, 200, 60, 0.5) 0%, rgba(251, 180, 30, 0.25) 30%, rgba(200, 140, 20, 0.1) 50%, transparent 60%),
+    radial-gradient(ellipse 900px 500px at 45% 30%, rgba(255, 210, 70, 0.45) 0%, rgba(251, 180, 30, 0.22) 30%, rgba(220, 150, 25, 0.1) 50%, transparent 60%),
     /* 🌊 右下翠蓝星云 */
-    radial-gradient(ellipse 700px 450px at 68% 65%, rgba(15, 210, 210, 0.55) 0%, rgba(10, 160, 170, 0.25) 30%, rgba(5, 100, 110, 0.08) 50%, transparent 58%),
+    radial-gradient(ellipse 800px 500px at 72% 60%, rgba(20, 220, 220, 0.5) 0%, rgba(10, 170, 180, 0.25) 30%, rgba(5, 110, 120, 0.08) 50%, transparent 58%),
     /* 🍊 左下暖橙鸢尾星云 */
-    radial-gradient(ellipse 600px 400px at 25% 58%, rgba(255, 150, 50, 0.5) 0%, rgba(250, 100, 40, 0.2) 30%, rgba(200, 60, 20, 0.08) 50%, transparent 58%),
+    radial-gradient(ellipse 700px 450px at 22% 55%, rgba(255, 160, 60, 0.45) 0%, rgba(250, 110, 45, 0.2) 30%, rgba(220, 70, 30, 0.08) 50%, transparent 58%),
     /* 🟣 底部紫红调 */
-    radial-gradient(ellipse 700px 300px at 50% 88%, rgba(140, 40, 240, 0.4) 0%, rgba(80, 10, 160, 0.15) 40%, transparent 55%),
+    radial-gradient(ellipse 800px 400px at 50% 85%, rgba(160, 50, 240, 0.4) 0%, rgba(90, 15, 170, 0.15) 40%, transparent 55%),
     /* ⭐ 星空点阵 */
     url('/beidou-bg.svg') no-repeat center center / cover,
     #020210;
@@ -67,32 +67,32 @@ body {
 
 /* ── 全局玻璃态板块 —— 深蓝紫色调半透明+模糊，融入星空背景 ── */
 .glass-panel {
-  background: rgba(8, 8, 30, 0.28);
-  backdrop-filter: blur(18px) saturate(1.2);
-  -webkit-backdrop-filter: blur(18px) saturate(1.2);
+  background: rgba(8, 8, 30, 0.12);
+  backdrop-filter: blur(4px) saturate(1.5);
+  -webkit-backdrop-filter: blur(4px) saturate(1.5);
   border: 1px solid rgba(180, 140, 255, 0.15);
 }
 
 /* 全局：所有暗色卡片/区域添加毛玻璃效果，透出星空背景 */
 .bg-dark-900,
 [class*="bg-dark-900/"] {
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
 }
 .bg-dark-800,
 [class*="bg-dark-800/"] {
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
 }
 .bg-dark-700,
 [class*="bg-dark-700/"] {
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
 }
 .bg-dark-600,
 [class*="bg-dark-600/"] {
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
 }
 
 /* ── 铜钱翻转动画 ── */
@@ -147,21 +147,21 @@ body {
   z-index: 0;
   background:
     /* ☀️ 中央暖白星系核心 */
-    radial-gradient(ellipse 600px 350px at 48% 42%, rgba(255, 245, 170, 0.35) 0%, rgba(251, 220, 80, 0.2) 25%, rgba(200, 170, 40, 0.08) 50%, transparent 60%),
+    radial-gradient(ellipse 700px 400px at 48% 40%, rgba(255, 250, 180, 0.4) 0%, rgba(251, 225, 90, 0.22) 25%, rgba(200, 175, 40, 0.08) 50%, transparent 60%),
     /* ✨ 顶部银白亮区 */
-    radial-gradient(ellipse 500px 200px at 50% 5%, rgba(255, 255, 240, 0.4) 0%, rgba(255, 250, 220, 0.2) 25%, transparent 50%),
+    radial-gradient(ellipse 600px 250px at 50% 8%, rgba(255, 255, 245, 0.5) 0%, rgba(255, 252, 230, 0.25) 25%, transparent 50%),
     /* 🌸 左上粉色辉光 */
-    radial-gradient(ellipse 400px 250px at 18% 28%, rgba(255, 170, 220, 0.25) 0%, rgba(250, 120, 190, 0.12) 30%, transparent 55%),
+    radial-gradient(ellipse 450px 300px at 18% 25%, rgba(255, 180, 225, 0.3) 0%, rgba(250, 130, 195, 0.15) 30%, transparent 55%),
     /* 🔵 右上青蓝辉光 */
-    radial-gradient(ellipse 350px 220px at 82% 25%, rgba(100, 210, 255, 0.25) 0%, rgba(50, 170, 240, 0.12) 30%, transparent 55%),
+    radial-gradient(ellipse 400px 250px at 82% 22%, rgba(110, 220, 255, 0.3) 0%, rgba(55, 180, 245, 0.15) 30%, transparent 55%),
     /* 💜 右侧紫辉 */
-    radial-gradient(ellipse 300px 200px at 72% 52%, rgba(180, 90, 255, 0.2) 0%, rgba(120, 40, 200, 0.08) 35%, transparent 55%),
+    radial-gradient(ellipse 350px 250px at 72% 50%, rgba(180, 100, 255, 0.25) 0%, rgba(130, 50, 210, 0.1) 35%, transparent 55%),
     /* 🍊 左侧暖橙 */
-    radial-gradient(ellipse 350px 200px at 22% 60%, rgba(255, 180, 90, 0.22) 0%, rgba(240, 120, 50, 0.1) 35%, transparent 55%),
+    radial-gradient(ellipse 400px 250px at 22% 58%, rgba(255, 185, 90, 0.25) 0%, rgba(240, 130, 55, 0.12) 35%, transparent 55%),
     /* 🌊 右下翠蓝 */
-    radial-gradient(ellipse 350px 180px at 70% 68%, rgba(40, 220, 220, 0.2) 0%, rgba(20, 160, 170, 0.08) 35%, transparent 55%),
+    radial-gradient(ellipse 400px 220px at 70% 65%, rgba(50, 225, 225, 0.25) 0%, rgba(25, 170, 175, 0.1) 35%, transparent 55%),
     /* 🌙 底部暖金 */
-    radial-gradient(ellipse 450px 150px at 50% 92%, rgba(251, 225, 100, 0.15) 0%, rgba(200, 180, 60, 0.06) 40%, transparent 55%);
+    radial-gradient(ellipse 500px 200px at 50% 90%, rgba(251, 230, 105, 0.2) 0%, rgba(200, 185, 65, 0.08) 40%, transparent 55%);
   animation: cosmicPulse 6s ease-in-out infinite;
 }
 
@@ -175,28 +175,28 @@ body {
   height: 100%;
   background:
     /* 白金星 */
-    radial-gradient(circle 4px at 20% 15%, rgba(255, 255, 245, 0.8) 0%, transparent 100%),
-    radial-gradient(circle 3px at 75% 20%, rgba(255, 250, 225, 0.75) 0%, transparent 100%),
-    radial-gradient(circle 5px at 52% 38%, rgba(255, 248, 210, 0.7) 0%, transparent 100%),
-    radial-gradient(circle 3px at 42% 28%, rgba(255, 252, 240, 0.7) 0%, transparent 100%),
+    radial-gradient(circle 5px at 18% 12%, rgba(255, 255, 250, 0.9) 0%, transparent 100%),
+    radial-gradient(circle 4px at 75% 18%, rgba(255, 252, 235, 0.85) 0%, transparent 100%),
+    radial-gradient(circle 6px at 50% 35%, rgba(255, 250, 220, 0.82) 0%, transparent 100%),
+    radial-gradient(circle 4px at 40% 22%, rgba(255, 253, 245, 0.82) 0%, transparent 100%),
     /* 蓝星 */
-    radial-gradient(circle 4px at 82% 32%, rgba(160, 230, 255, 0.75) 0%, transparent 100%),
-    radial-gradient(circle 3px at 18% 50%, rgba(140, 220, 255, 0.7) 0%, transparent 100%),
+    radial-gradient(circle 5px at 80% 30%, rgba(170, 235, 255, 0.85) 0%, transparent 100%),
+    radial-gradient(circle 4px at 15% 45%, rgba(150, 225, 255, 0.8) 0%, transparent 100%),
     /* 粉金星 */
-    radial-gradient(circle 4px at 30% 18%, rgba(255, 200, 230, 0.72) 0%, transparent 100%),
-    radial-gradient(circle 3px at 68% 55%, rgba(255, 180, 220, 0.65) 0%, transparent 100%),
+    radial-gradient(circle 5px at 28% 15%, rgba(255, 210, 235, 0.82) 0%, transparent 100%),
+    radial-gradient(circle 4px at 65% 52%, rgba(255, 185, 225, 0.75) 0%, transparent 100%),
     /* 金橙星 */
-    radial-gradient(circle 5px at 48% 60%, rgba(255, 220, 100, 0.7) 0%, transparent 100%),
-    radial-gradient(circle 3px at 85% 48%, rgba(255, 200, 85, 0.65) 0%, transparent 100%),
+    radial-gradient(circle 6px at 45% 55%, rgba(255, 225, 110, 0.8) 0%, transparent 100%),
+    radial-gradient(circle 4px at 85% 45%, rgba(255, 205, 90, 0.75) 0%, transparent 100%),
     /* 翠绿星 */
-    radial-gradient(circle 3px at 62% 72%, rgba(120, 240, 220, 0.65) 0%, transparent 100%),
-    radial-gradient(circle 4px at 15% 68%, rgba(90, 230, 200, 0.6) 0%, transparent 100%),
+    radial-gradient(circle 4px at 60% 68%, rgba(130, 245, 230, 0.75) 0%, transparent 100%),
+    radial-gradient(circle 5px at 12% 62%, rgba(100, 235, 210, 0.7) 0%, transparent 100%),
     /* 紫星 */
-    radial-gradient(circle 4px at 72% 42%, rgba(220, 160, 255, 0.65) 0%, transparent 100%),
-    radial-gradient(circle 3px at 58% 80%, rgba(200, 140, 255, 0.6) 0%, transparent 100%),
+    radial-gradient(circle 5px at 70% 40%, rgba(225, 170, 255, 0.75) 0%, transparent 100%),
+    radial-gradient(circle 4px at 55% 75%, rgba(210, 150, 255, 0.7) 0%, transparent 100%),
     /* 底部微星 */
-    radial-gradient(circle 2px at 35% 85%, rgba(255, 248, 200, 0.65) 0%, transparent 100%),
-    radial-gradient(circle 2px at 78% 82%, rgba(255, 238, 165, 0.62) 0%, transparent 100%);
+    radial-gradient(circle 3px at 32% 80%, rgba(255, 250, 205, 0.75) 0%, transparent 100%),
+    radial-gradient(circle 3px at 78% 78%, rgba(255, 240, 170, 0.72) 0%, transparent 100%);
   animation: sparklePulse 4s ease-in-out infinite alternate;
 }
 
