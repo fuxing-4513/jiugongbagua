@@ -111,6 +111,9 @@ export default function AppClient() {
           财富格局 · 十年大运 · 流年指引 — 三大深度维度，解锁您的完整命运图谱
         </p>
         <div className="flex flex-wrap gap-3 justify-center">
+          <button className="px-5 py-2 bg-dark-800 border border-amber-500/30 text-amber-600 rounded-full text-sm font-medium hover:bg-amber-50 transition-all">
+            🎫 单次解锁 ¥9.9
+          </button>
           <button className="px-6 py-2.5 bg-gradient-to-r from-amber-500 to-yellow-500 text-white rounded-full text-sm font-bold shadow-lg shadow-amber-200 hover:shadow-xl transition-all">
             💎 月卡 ¥29.9/月
           </button>
@@ -175,7 +178,7 @@ function DimensionCard({ dim, data }: { dim: AnalysisDimension; data: unknown })
           {showLockTip && (
             <div className="mt-2 text-xs text-amber-600 bg-amber-50 rounded-lg p-2.5 border border-amber-200">
               💡 VIP 会员可查看完整的{ dim.label }分析报告。<br />
-              月卡 ¥29.9 · 年卡 ¥199 · 永久 ¥499
+              单次 ¥9.9 · 月卡 ¥29.9 · 年卡 ¥199 · 永久 ¥499
             </div>
           )}
         </div>
