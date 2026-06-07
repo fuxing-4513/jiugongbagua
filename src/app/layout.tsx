@@ -64,8 +64,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta httpEquiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
         <meta httpEquiv="Pragma" content="no-cache" />
         <meta httpEquiv="Expires" content="0" />
-        {/* 银河照片背景 — 真实星云 */}
-        <style dangerouslySetInnerHTML={{ __html: `body{font-family:var(--font-sans);background:url(/galaxy-bg.jpg) no-repeat center center fixed;background-size:cover;color:#e0e0e0!important}.cosmic-overlay{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;background:radial-gradient(ellipse 600px 350px at 48% 40%,rgba(255,250,200,.3) 0%,rgba(251,230,100,.15) 30%,transparent 65%),radial-gradient(ellipse 500px 220px at 50% 6%,rgba(255,255,245,.35) 0%,rgba(255,252,230,.18) 30%,transparent 55%),radial-gradient(ellipse 400px 250px at 16% 25%,rgba(255,190,235,.2) 0%,rgba(250,140,205,.1) 35%,transparent 60%),radial-gradient(ellipse 350px 220px at 84% 22%,rgba(120,230,255,.2) 0%,rgba(65,190,250,.1) 35%,transparent 60%),radial-gradient(ellipse 350px 200px at 20% 58%,rgba(255,200,105,.15) 0%,transparent 60%),radial-gradient(ellipse 350px 180px at 72% 65%,rgba(60,235,235,.15) 0%,transparent 60%),radial-gradient(ellipse 450px 150px at 50% 92%,rgba(251,235,110,.12) 0%,transparent 60%);animation:cosmicPulse 6s ease-in-out infinite}.cosmic-overlay::before{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:radial-gradient(circle 4px at 18% 12%,rgba(255,255,250,.7) 0%,transparent 100%),radial-gradient(circle 3px at 75% 16%,rgba(255,252,235,.65) 0%,transparent 100%),radial-gradient(circle 5px at 50% 32%,rgba(255,250,220,.62) 0%,transparent 100%),radial-gradient(circle 4px at 80% 28%,rgba(180,240,255,.65) 0%,transparent 100%),radial-gradient(circle 4px at 28% 15%,rgba(255,220,240,.62) 0%,transparent 100%),radial-gradient(circle 5px at 45% 52%,rgba(255,235,120,.6) 0%,transparent 100%),radial-gradient(circle 4px at 10% 60%,rgba(110,245,220,.55) 0%,transparent 100%),radial-gradient(circle 4px at 72% 38%,rgba(235,180,255,.58) 0%,transparent 100%),radial-gradient(circle 2px at 45% 24%,rgba(255,255,255,.7) 0%,transparent 100%),radial-gradient(circle 2px at 68% 22%,rgba(255,255,255,.65) 0%,transparent 100%);animation:sparklePulse 4s ease-in-out infinite alternate}@keyframes cosmicPulse{0%,100%{opacity:.65}50%{opacity:.9}}@keyframes sparklePulse{0%{opacity:.7}50%{opacity:1}100%{opacity:.7}}` }} />
+        {/* 浅色主题 —— 白色背景，减眼疲劳 */}
+        <style dangerouslySetInnerHTML={{ __html: `body{font-family:var(--font-sans);background:#faf9f6!important;color:#2d2d3f!important}.cosmic-overlay{display:none!important}` }} />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <link rel="icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" href="/favicon.svg" />
@@ -98,7 +98,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 operatingSystem: 'All',
               },
               {
-                '@context': 'https://schema.org',
+                '@context': 'https\Schema.org',
                 '@type': 'BreadcrumbList',
                 itemListElement: [
                   { '@type': 'ListItem', position: 1, name: '首页', item: baseUrl },
