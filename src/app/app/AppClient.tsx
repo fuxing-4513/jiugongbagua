@@ -3,6 +3,7 @@
 import { useState, useMemo } from 'react';
 import dynamic from 'next/dynamic';
 import { computeBaziChart, type BaziChartResult, type PillarShenSha, getPillarShenShaLabel } from '@/lib/bazi-engine';
+import { BRIGHTNESS, STAR_DESC, detectPatterns, type PatternDef } from '@/lib/ziwei-data';
 import CalendarInput, { type CalendarType, getMaxDay } from '@/components/CalendarInput';
 import { calcTrueSolarHour } from '@/lib/solar-time';
 import { Solar, Lunar } from 'lunar-typescript';
@@ -457,88 +458,107 @@ function BaziResultView({ result, name }: { result: BaziChartResult; name: strin
 }
 
 /* ══════════════ Ziwei Result View ══════════════ */
-const BRIGHTNESS: Record<string, { label: string; color: string }> = {
-  '庙': { label: '廟', color: 'text-green-400' },
-  '旺': { label: '旺', color: 'text-green-300' },
-  '得': { label: '得', color: 'text-blue-300' },
-  '利': { label: '利', color: 'text-cyan-300' },
-  '平': { label: '平', color: 'text-yellow-400' },
-  '不': { label: '不', color: 'text-orange-400' },
-  '陷': { label: '陷', color: 'text-red-400' },
-};
+// BRIGHTNESS imported from @/lib/ziwei-data
 
 function ZiweiResultView({ data, name }: { data: any; name: string }) {
   const palaces = Array.isArray(data?.palaces) ? data.palaces : [];
-  const allStars: any[] = [];
+  const soulPalace = palaces.find((p: any) => p.name === '命宫');
+  const bodyBranch = data?.earthlyBranchOfBodyPalace;
 
+  const allStars: any[] = [];
   palaces.forEach((p: any) => {
-    const stars = [...(p?.majorStars || []), ...(p?.minorStars || []), ...(p?.adjectiveStars || [])];
-    stars.forEach((s: any) => {
-      if (!allStars.find(x => x.name === s.name)) {
-        allStars.push({ name: s.name, type: s.type, brightness: s.brightness });
-      }
+    [...(p?.majorStars || []), ...(p?.minorStars || []), ...(p?.adjectiveStars || [])].forEach((s: any) => {
+      if (!allStars.find(x => x.name === s.name)) allStars.push(s);
     });
   });
+  allStars.sort((a, b) => {
+    if (a.type === 'major' && b.type !== 'major') return -1;
+    if (a.type !== 'major' && b.type === 'major') return 1;
+    return (BRIGHTNESS[b.brightness]?.level || 0) - (BRIGHTNESS[a.brightness]?.level || 0);
+  });
+
+  const patterns = detectPatterns(palaces);
+  const soulStars = (soulPalace?.majorStars || []).map((s: any) => s.name);
 
   return (
     <section className="space-y-6">
       <div className="bg-dark-800/80 border border-dark-600 rounded-xl p-4 text-center">
-        <p className="text-xs text-gray-500 mb-1">{name ? `${name} · ` : ''}紫微斗数命盘</p>
-        <p className="text-base font-bold text-purple-400 font-serif">紫微斗数 · 十二宫</p>
+        <p className="text-xs text-gray-500 mb-1">{name ? `${name} · ` : ''}紫微斗数命盘{bodyBranch && <> · 身宮：{soulPalace?.earthlyBranch}（{soulPalace?.name}）</>}</p>
+        <p className="text-base font-bold text-purple-400 font-serif">命宮：<span className="text-gold-400">{soulStars.join('、') || '無主星'}</span> {soulPalace?.heavenlyStem}{soulPalace?.earthlyBranch}</p>
       </div>
 
-      {/* 12 Palaces */}
       <div className="bg-dark-800/80 border border-dark-600 rounded-xl p-4">
-        <h3 className="text-sm font-semibold text-purple-300 font-serif mb-3 text-center">十二宫一览</h3>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
-          {palaces.map((p: any, i: number) => {
-            const stars = [...(p?.majorStars || []), ...(p?.minorStars || [])];
+        <h3 className="text-sm font-semibold text-purple-300 font-serif mb-3 text-center">主星亮度</h3>
+        <div className="flex flex-wrap gap-2 justify-center">
+          {allStars.map((s, i) => {
+            const b = BRIGHTNESS[s.brightness] || { label: '—', color: 'text-gray-500' };
             return (
-              <div key={i} className="bg-dark-700/50 border border-dark-600 rounded-lg p-2.5">
-                <p className="text-[10px] text-purple-400 font-bold mb-1">{p.name || `宫${i+1}`}{p.isBodyPalace ? ' 🏠' : ''}{p.isOriginalPalace ? ' 📍' : ''}</p>
-                <div className="space-y-0.5">
-                  {stars.slice(0, 4).map((s: any, j: number) => {
-                    const b = BRIGHTNESS[s.brightness || ''];
-                    return (
-                      <div key={j} className="flex items-center justify-between text-[10px]">
-                        <span className={s.type === 'major' ? 'text-purple-300 font-medium' : 'text-gray-400'}>
-                          {s.name}
-                        </span>
-                        {b && <span className={b.color}>{b.label}</span>}
-                      </div>
-                    );
-                  })}
-                  {stars.length > 4 && <p className="text-[9px] text-gray-600">+{stars.length - 4} 星...</p>}
-                </div>
+              <div key={i} className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs border ${s.type==='major'?'bg-purple-900/30 border-purple-700/40':'bg-dark-700/50 border-dark-600'}`}>
+                <span className={s.type==='major'?'text-purple-300 font-medium':'text-gray-400'}>{s.type==='major'?'⭐':'·'} {s.name}</span>
+                <span className={`${b.color} text-[10px] font-medium`}>{b.label}</span>
               </div>
             );
           })}
         </div>
       </div>
 
-      {/* All Stars with brightness */}
-      {allStars.length > 0 && (
-        <div className="bg-dark-800/80 border border-dark-600 rounded-xl p-4">
-          <h3 className="text-sm font-semibold text-purple-300 font-serif mb-3 text-center">主星亮度与吉凶</h3>
-          <div className="space-y-1.5">
-            {allStars.map((s, i) => {
-              const b = BRIGHTNESS[s.brightness] || { label: '—', color: 'text-gray-500' };
-              const isGood = ['庙','旺','得'].includes(s.brightness);
-              const isBad = ['陷','不'].includes(s.brightness);
+      <div className="bg-dark-800/80 border border-dark-600 rounded-xl p-4">
+        <h3 className="text-sm font-semibold text-purple-300 font-serif mb-3 text-center">格局分析</h3>
+        {patterns.length > 0 ? (
+          <div className="space-y-2">
+            {patterns.map((p: PatternDef, i: number) => (
+              <div key={i} className={`p-3 rounded-lg border text-xs ${p.rating==='上'?'bg-green-900/20 border-green-700/30':p.rating==='中上'?'bg-blue-900/20 border-blue-700/30':'bg-dark-700/50 border-dark-600'}`}>
+                <div className="flex items-center gap-2 mb-1">
+                  <span className={p.rating==='上'?'text-green-400':p.rating==='中上'?'text-blue-400':'text-yellow-400'}>{p.rating==='上'?'🏆':p.rating==='中上'?'💎':'✨'} {p.name}</span>
+                  <span className={`text-[10px] px-1.5 py-0.5 rounded ${p.rating==='上'?'bg-green-900/40 text-green-400':p.rating==='中上'?'bg-blue-900/40 text-blue-400':'bg-yellow-900/30 text-yellow-400'}`}>{p.rating}</span>
+                </div>
+                <p className="text-gray-300 leading-relaxed">{p.desc}</p>
+              </div>
+            ))}
+          </div>
+        ) : <p className="text-xs text-gray-600 text-center">未檢測到特殊格局，命盤平穩。</p>}
+      </div>
+
+      <div className="bg-dark-800/80 border border-dark-600 rounded-xl p-4">
+        <h3 className="text-sm font-semibold text-purple-300 font-serif mb-3 text-center">本命——命宮之各星說明</h3>
+        {soulStars.length > 0 ? (
+          <div className="space-y-3">
+            {soulStars.map((starName: string) => {
+              const desc = STAR_DESC[starName];
+              if (!desc) return null;
               return (
-                <div key={i} className={`flex items-center justify-between text-xs p-1.5 rounded ${isGood ? 'bg-green-900/10' : isBad ? 'bg-red-900/10' : 'bg-dark-700/30'}`}>
-                  <span className={s.type === 'major' ? 'text-purple-300 font-medium' : 'text-gray-400'}>
-                    {s.type === 'major' ? '⭐' : '·'} {s.name}
-                  </span>
-                  <span className={`${b.color} ${isBad ? 'text-red-400' : ''}`}>
-                    {b.label} {isGood ? '（吉）' : isBad ? '（凶）' : '（平）'}
-                  </span>
+                <div key={starName} className="bg-dark-700/50 border border-dark-600 rounded-lg p-3">
+                  <p className="text-sm font-medium text-purple-300 mb-1">⭐ {starName}</p>
+                  <p className="text-xs text-gray-300 leading-relaxed">{desc}</p>
                 </div>
               );
             })}
           </div>
+        ) : (
+          <div className="text-center">
+            <p className="text-xs text-gray-500">命宮無主星</p>
+            <p className="text-[10px] text-gray-600 mt-1">命宮無主星時，借對宮（遷移宮）主星為用。</p>
+          </div>
+        )}
+      </div>
+
+      <div className="bg-dark-800/80 border border-dark-600 rounded-xl p-4">
+        <h3 className="text-sm font-semibold text-purple-300 font-serif mb-3 text-center">十二宮一覽</h3>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
+          {palaces.map((p: any, i: number) => {
+            const stars = [...(p?.majorStars || []), ...(p?.minorStars || [])];
+            return (
+              <div key={i} className="bg-dark-700/50 border border-dark-600 rounded-lg p-2.5">
+                <p className="text-[10px] text-purple-400 font-bold mb-1">{p.name}{p.isBodyPalace?' 🏠':''}{p.isOriginalPalace?' 📍':''}</p>
+                <div className="space-y-0.5">
+                  {stars.slice(0,4).map((s:any,j:number)=>{const b=BRIGHTNESS[s.brightness||''];return(<div key={j} className="flex items-center justify-between text-[10px]"><span className={s.type==='major'?'text-purple-300 font-medium':'text-gray-400'}>{s.name}</span>{b&&<span className={b.color}>{b.label}</span>}</div>)})}
+                  {stars.length>4&&<p className="text-[9px] text-gray-600">+{stars.length-4}星...</p>}
+                </div>
+              </div>
+            );
+          })}
         </div>
-      )}
+      </div>
     </section>
   );
 }
