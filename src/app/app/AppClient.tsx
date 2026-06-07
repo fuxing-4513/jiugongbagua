@@ -468,14 +468,14 @@ const BRIGHTNESS: Record<string, { label: string; color: string }> = {
 };
 
 function ZiweiResultView({ data, name }: { data: any; name: string }) {
-  const palaces = data?.palace || data?.twelvePalace || [];
+  const palaces = Array.isArray(data?.palaces) ? data.palaces : [];
   const allStars: any[] = [];
 
   palaces.forEach((p: any) => {
-    const stars = p?.heavenlyStems || p?.stars || [];
+    const stars = [...(p?.majorStars || []), ...(p?.minorStars || []), ...(p?.adjectiveStars || [])];
     stars.forEach((s: any) => {
-      if (!allStars.find(x => x.name === (s.name || s.starName))) {
-        allStars.push({ name: s.name || s.starName, type: s.type, brightness: s.brightness || s.light });
+      if (!allStars.find(x => x.name === s.name)) {
+        allStars.push({ name: s.name, type: s.type, brightness: s.brightness });
       }
     });
   });
@@ -492,17 +492,17 @@ function ZiweiResultView({ data, name }: { data: any; name: string }) {
         <h3 className="text-sm font-semibold text-purple-300 font-serif mb-3 text-center">十二宫一览</h3>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
           {palaces.map((p: any, i: number) => {
-            const stars = p?.heavenlyStems || p?.stars || [];
+            const stars = [...(p?.majorStars || []), ...(p?.minorStars || [])];
             return (
               <div key={i} className="bg-dark-700/50 border border-dark-600 rounded-lg p-2.5">
-                <p className="text-[10px] text-purple-400 font-bold mb-1">{p.name || p.palaceName || `宫${i+1}`}</p>
+                <p className="text-[10px] text-purple-400 font-bold mb-1">{p.name || `宫${i+1}`}{p.isBodyPalace ? ' 🏠' : ''}{p.isOriginalPalace ? ' 📍' : ''}</p>
                 <div className="space-y-0.5">
                   {stars.slice(0, 4).map((s: any, j: number) => {
-                    const b = BRIGHTNESS[s.brightness || s.light || ''];
+                    const b = BRIGHTNESS[s.brightness || ''];
                     return (
                       <div key={j} className="flex items-center justify-between text-[10px]">
                         <span className={s.type === 'major' ? 'text-purple-300 font-medium' : 'text-gray-400'}>
-                          {s.name || s.starName}
+                          {s.name}
                         </span>
                         {b && <span className={b.color}>{b.label}</span>}
                       </div>
