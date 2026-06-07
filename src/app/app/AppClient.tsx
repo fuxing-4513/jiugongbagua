@@ -7,9 +7,6 @@ import CalendarInput, { type CalendarType, getMaxDay } from '@/components/Calend
 const modules = [
   { id: 'bazi', name: '四柱八字', emoji: '📜' },
   { id: 'ziwei', name: '紫微斗数', emoji: '⭐' },
-  { id: 'liuyao', name: '六爻占卜', emoji: '☯' },
-  { id: 'xiaoliuren', name: '小六壬', emoji: '👋' },
-  { id: 'lingqian', name: '灵签', emoji: '🏮' },
 ];
 
 export default function AppClient() {
