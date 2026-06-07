@@ -24,7 +24,7 @@ const categoryColors: Record<string, string> = {
   '数字文化': 'bg-cyan-900/40 text-cyan-300 border-cyan-700',
   '姓名文化': 'bg-indigo-900/40 text-indigo-300 border-indigo-700',
   '解梦文化': 'bg-yellow-900/40 text-yellow-300 border-yellow-700',
-  '占卜方法': 'bg-orange-900/40 text-orange-300 border-orange-700',
+  '方法类别': 'bg-orange-900/40 text-orange-300 border-orange-700',
   '风水文化': 'bg-amber-900/40 text-amber-300 border-amber-700',
   '传统文化': 'bg-rose-900/40 text-rose-300 border-rose-700',
   '生肖文化': 'bg-pink-900/40 text-pink-300 border-pink-700',

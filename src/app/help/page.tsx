@@ -20,7 +20,7 @@ export default function HelpPage() {
           <ul className="space-y-2 text-sm text-gray-400">
             <li>· 推荐从首页「八字命理课堂」开始学习基础知识</li>
             <li>· 然后试试「四柱八字」——只需输入出生年月日时即可排盘</li>
-            <li>· 快速占卜可以试试「小六壬」或「六爻占卜」</li>
+            <li>· 快速预测可以试试「小六壬」或「六爻」</li>
             <li>· 基础功能<strong className="text-gray-300">无需注册</strong>即可使用</li>
           </ul>
         </div>
@@ -32,8 +32,8 @@ export default function HelpPage() {
           <ul className="space-y-2 text-sm text-gray-400">
             <li>· <strong className="text-gray-300">八字排盘：</strong>输入出生年月日时，系统自动生成四柱命盘和解读</li>
             <li>· <strong className="text-gray-300">紫微斗数：</strong>输入生辰后生成十二宫命盘，含主星、辅星、四化分析</li>
-            <li>· <strong className="text-gray-300">六爻占卜：</strong>支持电脑自动起卦、手工摇卦、报数起卦三种方式</li>
-            <li>· <strong className="text-gray-300">小六壬：</strong>输入当前农历月日时即可快速占卜</li>
+            <li>· <strong className="text-gray-300">六爻：</strong>支持电脑自动起卦、手工摇卦、报数起卦三种方式</li>
+            <li>· <strong className="text-gray-300">小六壬：</strong>输入当前农历月日时即可快速预测</li>
             <li>· <strong className="text-gray-300">黄历：</strong>每日自动显示宜忌、吉神方位、冲煞等信息</li>
           </ul>
         </div>

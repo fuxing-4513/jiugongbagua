@@ -218,7 +218,7 @@ export default function LingqianClient() {
 
       {/* 标题 */}
       <div className="text-center mb-6">
-        <h1 className="text-3xl font-bold text-gold-400 font-serif mb-1">灵签占卜</h1>
+        <h1 className="text-3xl font-bold text-gold-400 font-serif mb-1">灵签</h1>
         <p className="text-sm text-gray-400">心生诚念，默问所求，然后摇签</p>
       </div>
 

@@ -317,7 +317,7 @@ export default function LiuyaoClient() {
     return () => { if (autoTimerRef.current) clearTimeout(autoTimerRef.current) }
   }, [])
 
-  // ── 完成占卜 ──
+  // ── 完成起卦 ──
   const finishCast = (lines: number[], changing: number[]) => {
     const lower = lines.slice(0, 3).reverse(); const upper = lines.slice(3, 6).reverse()
     let li = 0, ui = 0; for (let i = 0; i < 3; i++) { li = (li << 1) | lower[i]; ui = (ui << 1) | upper[i] }
@@ -360,7 +360,7 @@ export default function LiuyaoClient() {
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-10">
-      <h1 className="text-3xl font-bold text-gold-400 font-serif mb-3">六爻占卜</h1>
+      <h1 className="text-3xl font-bold text-gold-400 font-serif mb-3">六爻</h1>
       <p className="text-gray-400 mb-6">三枚铜钱 · 逐爻摇卦 · 世应六亲 · 卦象全解</p>
 
       {/* 模式切换 */}

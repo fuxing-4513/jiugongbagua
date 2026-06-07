@@ -8,7 +8,7 @@ const TABS = [
   { key: 'all', label: '全部', icon: '📋' },
   { key: 'bazi', label: '八字命盘', icon: '📜' },
   { key: 'ziwei', label: '紫微斗数', icon: '⭐' },
-  { key: 'liuyao', label: '六爻占卜', icon: '☯' },
+  { key: 'liuyao', label: '六爻', icon: '☯' },
   { key: 'qian', label: '签文', icon: '🏮' },
   { key: 'other', label: '其他', icon: '📌' },
 ]
@@ -95,7 +95,7 @@ export default function ProfilePage() {
               紫微斗数
             </Link>
             <Link href="/liuyao" className="text-xs bg-dark-700 hover:bg-dark-600 text-gray-300 border border-dark-600 px-4 py-2 rounded-lg transition-colors">
-              六爻占卜
+              六爻
             </Link>
           </div>
         </div>
