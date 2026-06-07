@@ -62,6 +62,7 @@ export const zhTW = {
     hehun: { name: '合婚測算', desc: '八字合婚，生肖五行匹配分析', source: '《三元合婚法》', emoji: '💑' },
     experts: { name: '專家預約', desc: '資深命理專家線上諮詢預約', source: '', emoji: '👨‍🏫' },
     heluo: { name: '河洛推命', desc: '河圖洛書數理推命，天地之數定乾坤', source: '《河圖洛書》《皇極經世》', emoji: '☯' },
+    shengxiao: { name: '十二生肖', desc: '十二生肖起源傳說、性格特徵與文化象徵', source: '《生肖文化》', emoji: '🐉' },
   },
   heritage: {
     sectionTitle: '學派源流',

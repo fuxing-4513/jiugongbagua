@@ -62,6 +62,7 @@ export const en = {
     hehun: { name: 'Marriage Match', desc: 'Ba Zi marriage compatibility, zodiac and five-element matching analysis', source: '"San Yuan Marriage Method"', emoji: '💑' },
     experts: { name: 'Expert Booking', desc: 'Book online consultations with experienced destiny experts', source: '', emoji: '👨‍🏫' },
     heluo: { name: 'Heluo Numerology', desc: 'He Tu Luo Shu numerological destiny — cosmic numbers reveal the universe', source: '"He Tu Luo Shu", "Huang Ji Jing Shi"', emoji: '☯' },
+    shengxiao: { name: 'Chinese Zodiac', desc: 'Twelve zodiac signs: origins, personality traits, and cultural symbolism', source: '"Zodiac Culture"', emoji: '🐉' },
   },
   heritage: {
     sectionTitle: 'Scholarly Lineage',
