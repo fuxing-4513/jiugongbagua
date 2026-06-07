@@ -1,13 +1,20 @@
 'use client';
 
 import { useState } from 'react';
+import dynamic from 'next/dynamic';
 import { analysisDimensions, getFreeDimensions, getVipDimensions, type AnalysisDimension } from '@/lib/ai-analysis';
 import CalendarInput, { type CalendarType, getMaxDay } from '@/components/CalendarInput';
+import { calcTrueSolarHour } from '@/lib/solar-time';
+
+const TrueSolarTime = dynamic(() => import('@/components/TrueSolarTime'), { ssr: false });
 
 const modules = [
   { id: 'bazi', name: '四柱八字', emoji: '📜' },
   { id: 'ziwei', name: '紫微斗数', emoji: '⭐' },
 ];
+
+const T_GAN = ['甲','乙','丙','丁','戊','己','庚','辛','壬','癸'];
+const T_ZHI = ['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥'];
 
 export default function AppClient() {
   const [activeModule, setActiveModule] = useState('bazi');
@@ -19,6 +26,20 @@ export default function AppClient() {
   const [isLeapMonth, setIsLeapMonth] = useState(false);
   const [name, setName] = useState('');
 
+  // 排盘模式: date = 日历选日期, bazi = 直接输入八字
+  const [inputMode, setInputMode] = useState<'date'|'bazi'>('date');
+  const [bzTg, setBzTg] = useState(['','','','']);
+  const [bzDz, setBzDz] = useState(['','','','']);
+  const [bzYear, setBzYear] = useState('1984');
+
+  // 真太阳时
+  const [trueSolarOn, setTrueSolarOn] = useState(false);
+  const [trueSolarLng, setTrueSolarLng] = useState(116.4);
+
+  // 分析状态
+  const [analyzed, setAnalyzed] = useState(false);
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
+
   const freeDims = getFreeDimensions();
   const vipDims = getVipDimensions();
   const allDims = [...freeDims, ...vipDims];
@@ -26,16 +47,33 @@ export default function AppClient() {
   const y = parseInt(year) || 1990;
   const m = parseInt(month) || 1;
   const d = parseInt(day) || 1;
-  const maxDay = getMaxDay(calendarType, y, m);
+  const h = parseInt(hour) || 6;
 
+  // 真太阳时校正后的时辰
+  const resolvedHour = trueSolarOn
+    ? calcTrueSolarHour(`${y}-${String(m).padStart(2,'0')}-${String(d).padStart(2,'0')}`, h, trueSolarLng)
+    : h;
+
+  const maxDay = getMaxDay(calendarType, y, m);
   const validationMsg = (() => {
-    if (y < 1900 || y > 2100) return '年份需在 1900-2100 之间';
-    if (m < 1 || m > 12) return '请输入有效月份';
-    if (d < 1 || d > maxDay) return `该月只有 ${maxDay} 天，请输入 1-${maxDay}`;
+    if (inputMode === 'date') {
+      if (y < 1900 || y > 2100) return '年份需在 1900-2100 之间';
+      if (m < 1 || m > 12) return '请输入有效月份';
+      if (d < 1 || d > maxDay) return `该月只有 ${maxDay} 天，请输入 1-${maxDay}`;
+    }
     return '';
   })();
-
   const isValid = !validationMsg;
+
+  const handleAnalyze = () => {
+    if (!isValid) return;
+    setIsAnalyzing(true);
+    // 短暂延迟模拟分析过程
+    setTimeout(() => {
+      setAnalyzed(true);
+      setIsAnalyzing(false);
+    }, 600);
+  };
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-10">
@@ -44,86 +82,221 @@ export default function AppClient() {
         <p className="text-gray-400">多模块命理排盘 · AI辅助智能解读</p>
       </div>
 
-      {/* Module Tabs */}
-      <div className="flex flex-wrap gap-2 justify-center mb-8">
+      {/* ── 排盘模块选择 ── */}
+      <div className="flex flex-wrap gap-3 justify-center mb-8">
         {modules.map(mod => (
           <button
             key={mod.id}
-            onClick={() => setActiveModule(mod.id)}
-            className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+            onClick={() => { setActiveModule(mod.id); setAnalyzed(false); }}
+            className={`px-5 py-3 rounded-xl text-sm font-medium transition-all ${
               activeModule === mod.id
-                ? 'bg-gold-500 text-dark-900 shadow-lg'
+                ? 'bg-gold-500 text-dark-900 shadow-lg shadow-gold-400/30 scale-105'
                 : 'bg-dark-800 text-gray-400 hover:text-gold-500 border border-dark-600'
             }`}
           >
-            {mod.emoji} {mod.name}
+            <span className="text-xl mr-1.5">{mod.emoji}</span>
+            {mod.name}
           </button>
         ))}
       </div>
 
-      {/* Input Form */}
-      <div className="bg-dark-800 border border-dark-600 rounded-lg p-6 mb-8 max-w-md mx-auto shadow-sm">
-        <div className="space-y-4">
-          <div>
-            <label className="block text-sm text-gray-400 mb-1">姓名（选填）</label>
-            <input type="text" value={name} onChange={e => setName(e.target.value)}
-              placeholder="输入姓名" className="w-full bg-dark-700 border border-dark-600 rounded px-3 py-2 text-gray-200 text-sm" />
+      {/* ── 输入区 ── */}
+      <div className="bg-dark-800 border border-dark-600 rounded-xl p-6 mb-8 max-w-lg mx-auto shadow-sm">
+        {/* 姓名 */}
+        <div className="mb-4">
+          <label className="block text-sm text-gray-400 mb-1">姓名（选填）</label>
+          <input type="text" value={name} onChange={e => setName(e.target.value)}
+            placeholder="输入姓名" className="w-full bg-dark-700 border border-dark-600 rounded-lg px-3 py-2 text-gray-200 text-sm" />
+        </div>
+
+        {/* 排盘模式切换 — 仅四柱八字支持直接排盘 */}
+        {activeModule === 'bazi' && (
+          <div className="flex gap-2 mb-4">
+            <button
+              onClick={() => setInputMode('date')}
+              className={`flex-1 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+                inputMode === 'date' ? 'bg-gold-600 text-dark-900' : 'bg-dark-700 text-gray-400 border border-dark-600'
+              }`}
+            >
+              📅 公历/农历排盘
+            </button>
+            <button
+              onClick={() => setInputMode('bazi')}
+              className={`flex-1 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+                inputMode === 'bazi' ? 'bg-gold-600 text-dark-900' : 'bg-dark-700 text-gray-400 border border-dark-600'
+              }`}
+            >
+              🀄 直接排盘
+            </button>
+          </div>
+        )}
+
+        {/* 日历输入模式 */}
+        {inputMode === 'date' && (
+          <div className="space-y-3">
+            <CalendarInput
+              calendarType={calendarType}
+              year={year}
+              month={month}
+              day={day}
+              hour={hour}
+              isLeapMonth={isLeapMonth}
+              onCalendarTypeChange={setCalendarType}
+              onYearChange={setYear}
+              onMonthChange={setMonth}
+              onDayChange={setDay}
+              onHourChange={setHour}
+              onLeapMonthChange={setIsLeapMonth}
+              label=""
+            />
+
+            {/* 真太阳时 */}
+            {activeModule === 'bazi' && (
+              <div className="pt-2 border-t border-dark-600">
+                <TrueSolarTime
+                  enabled={trueSolarOn}
+                  onToggle={setTrueSolarOn}
+                  longitude={trueSolarLng}
+                  onLongitudeChange={setTrueSolarLng}
+                  compact
+                />
+                {trueSolarOn && (
+                  <p className="text-[10px] text-amber-600/70 mt-1">
+                    ⏱ 校正后时辰：{resolvedHour}时
+                  </p>
+                )}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* 直接排盘模式 — 输入八字 */}
+        {inputMode === 'bazi' && (
+          <div className="space-y-3">
+            <p className="text-xs text-gray-500">请直接输入四柱天干地支：</p>
+            {['年柱','月柱','日柱','时柱'].map((label, i) => (
+              <div key={i} className="flex items-center gap-2">
+                <span className="text-xs text-gray-400 w-10">{label}</span>
+                <select
+                  value={bzTg[i]}
+                  onChange={e => { const a = [...bzTg]; a[i] = e.target.value; setBzTg(a); }}
+                  className="flex-1 bg-dark-700 border border-dark-600 rounded-lg px-2 py-1.5 text-gray-200 text-sm"
+                >
+                  <option value="">天干</option>
+                  {T_GAN.map(g => <option key={g} value={g}>{g}</option>)}
+                </select>
+                <select
+                  value={bzDz[i]}
+                  onChange={e => { const a = [...bzDz]; a[i] = e.target.value; setBzDz(a); }}
+                  className="flex-1 bg-dark-700 border border-dark-600 rounded-lg px-2 py-1.5 text-gray-200 text-sm"
+                >
+                  <option value="">地支</option>
+                  {T_ZHI.map(z => <option key={z} value={z}>{z}</option>)}
+                </select>
+              </div>
+            ))}
+
+            {/* 八字年份选择 */}
+            <div>
+              <label className="block text-xs text-gray-400 mb-1">公历出生年份（用于推算）</label>
+              <select
+                value={bzYear}
+                onChange={e => setBzYear(e.target.value)}
+                className="w-full bg-dark-700 border border-dark-600 rounded-lg px-3 py-1.5 text-gray-200 text-sm"
+              >
+                {Array.from({ length: 120 }, (_, i) => 1950 + i).map(y => (
+                  <option key={y} value={String(y)}>{y}年</option>
+                ))}
+              </select>
+            </div>
+          </div>
+        )}
+
+        {/* ⚠️ 校验提示 */}
+        {validationMsg && (
+          <p className="text-xs text-red-400 mt-3">{validationMsg}</p>
+        )}
+      </div>
+
+      {/* ── 🚀 启动排盘按钮 ── */}
+      <div className="text-center mb-10">
+        <button
+          onClick={handleAnalyze}
+          disabled={!isValid || isAnalyzing}
+          className={`px-10 py-3.5 rounded-full text-base font-bold shadow-lg transition-all ${
+            isValid && !isAnalyzing
+              ? 'bg-gradient-to-r from-gold-500 to-amber-500 text-dark-900 hover:shadow-xl hover:scale-105 active:scale-95'
+              : 'bg-dark-700 text-gray-500 cursor-not-allowed'
+          }`}
+        >
+          {isAnalyzing ? (
+            <span className="flex items-center gap-2">
+              <span className="animate-spin inline-block w-4 h-4 border-2 border-dark-900/30 border-t-dark-900 rounded-full" />
+              分析中...
+            </span>
+          ) : (
+            '🚀 启动排盘分析'
+          )}
+        </button>
+        {!analyzed && !isAnalyzing && (
+          <p className="text-xs text-gray-500 mt-2">选择模块，填写信息，点击按钮查看完整命理分析</p>
+        )}
+      </div>
+
+      {/* ── 分析结果区 ── */}
+      {analyzed && (
+        <section className="space-y-5">
+          <div className="flex items-center gap-2 mb-1">
+            <h3 className="text-sm font-medium text-gray-400">分析结果</h3>
+            {trueSolarOn && activeModule === 'bazi' && (
+              <span className="text-[10px] bg-amber-500/15 text-amber-600 px-2 py-0.5 rounded-full">
+                真太阳时 · {trueSolarLng.toFixed(1)}°E
+              </span>
+            )}
           </div>
 
-          <CalendarInput
-            calendarType={calendarType}
-            year={year}
-            month={month}
-            day={day}
-            hour={hour}
-            isLeapMonth={isLeapMonth}
-            onCalendarTypeChange={setCalendarType}
-            onYearChange={setYear}
-            onMonthChange={setMonth}
-            onDayChange={setDay}
-            onHourChange={setHour}
-            onLeapMonthChange={setIsLeapMonth}
-            label=""
-          />
-        </div>
-      </div>
-
-      {/* ── 所有分析维度竖排 ── */}
-      <section className="space-y-5">
-        <h3 className="text-sm font-medium text-gray-400 mb-1">分析维度</h3>
-
-        {allDims.map((dim: AnalysisDimension) => (
-          <DimensionCard
-            key={dim.key}
-            dim={dim}
-            data={{ module: activeModule, year: y, month: m, day: d, name }}
-          />
-        ))}
-      </section>
+          {allDims.map((dim: AnalysisDimension) => (
+            <DimensionCard
+              key={dim.key}
+              dim={dim}
+              data={{
+                module: activeModule,
+                year: y,
+                month: m,
+                day: d,
+                name,
+                hour: resolvedHour,
+              }}
+            />
+          ))}
+        </section>
+      )}
 
       {/* ── VIP 升级横幅 ── */}
-      <div className="mt-12 bg-gradient-to-r from-amber-50 to-yellow-50 border border-amber-200 rounded-xl p-6 text-center">
-        <div className="text-3xl mb-2">👑</div>
-        <h3 className="text-lg font-bold text-amber-700 mb-1">解锁 VIP 完整命理分析</h3>
-        <p className="text-sm text-amber-600 mb-4">
-          财富格局 · 十年大运 · 流年指引 — 三大深度维度，解锁您的完整命运图谱
-        </p>
-        <div className="flex flex-wrap gap-3 justify-center">
-          <button className="px-5 py-2 bg-dark-800 border border-amber-500/30 text-amber-600 rounded-full text-sm font-medium hover:bg-amber-50 transition-all">
-            🎫 单次解锁 ¥9.9
-          </button>
-          <button className="px-6 py-2.5 bg-gradient-to-r from-amber-500 to-yellow-500 text-white rounded-full text-sm font-bold shadow-lg shadow-amber-200 hover:shadow-xl transition-all">
-            💎 月卡 ¥29.9/月
-          </button>
-          <button className="px-6 py-2.5 bg-gradient-to-r from-gold-500 to-amber-500 text-dark-900 rounded-full text-sm font-bold shadow-lg shadow-amber-200 hover:shadow-xl transition-all">
-            ⭐ 年卡 ¥199/年（省 45%）
-          </button>
-          <button className="px-6 py-2.5 bg-gradient-to-r from-amber-600 to-yellow-600 text-white rounded-full text-sm font-bold shadow-lg shadow-amber-200 hover:shadow-xl transition-all">
-            🏆 永久卡 ¥499
-          </button>
+      {analyzed && (
+        <div className="mt-12 bg-gradient-to-r from-amber-50 to-yellow-50 border border-amber-200 rounded-xl p-6 text-center">
+          <div className="text-3xl mb-2">👑</div>
+          <h3 className="text-lg font-bold text-amber-700 mb-1">解锁 VIP 完整命理分析</h3>
+          <p className="text-sm text-amber-600 mb-4">
+            财富格局 · 十年大运 · 流年指引 — 三大深度维度，解锁您的完整命运图谱
+          </p>
+          <div className="flex flex-wrap gap-3 justify-center">
+            <button className="px-5 py-2 bg-dark-800 border border-amber-500/30 text-amber-600 rounded-full text-sm font-medium hover:bg-amber-50 transition-all">
+              🎫 单次解锁 ¥9.9
+            </button>
+            <button className="px-6 py-2.5 bg-gradient-to-r from-amber-500 to-yellow-500 text-white rounded-full text-sm font-bold shadow-lg shadow-amber-200 hover:shadow-xl transition-all">
+              💎 月卡 ¥29.9/月
+            </button>
+            <button className="px-6 py-2.5 bg-gradient-to-r from-gold-500 to-amber-500 text-dark-900 rounded-full text-sm font-bold shadow-lg shadow-amber-200 hover:shadow-xl transition-all">
+              ⭐ 年卡 ¥199/年（省 45%）
+            </button>
+            <button className="px-6 py-2.5 bg-gradient-to-r from-amber-600 to-yellow-600 text-white rounded-full text-sm font-bold shadow-lg shadow-amber-200 hover:shadow-xl transition-all">
+              🏆 永久卡 ¥499
+            </button>
+          </div>
+          <p className="text-xs text-amber-400 mt-3">开通后立即解锁所有 VIP 维度完整内容 · 支持微信/支付宝</p>
         </div>
-        <p className="text-xs text-amber-400 mt-3">开通后立即解锁所有 VIP 维度完整内容 · 支持微信/支付宝</p>
-      </div>
+      )}
     </div>
   );
 }
@@ -133,7 +306,6 @@ function DimensionCard({ dim, data }: { dim: AnalysisDimension; data: unknown })
   const [showLockTip, setShowLockTip] = useState(false);
 
   const previewLines = dim.generate(data).split('\n');
-  // Free: show all; VIP: show first 8 lines as preview
   const showFull = dim.free;
   const previewText = showFull
     ? previewLines.join('\n')
@@ -143,7 +315,6 @@ function DimensionCard({ dim, data }: { dim: AnalysisDimension; data: unknown })
     <div className={`bg-dark-800 border rounded-lg p-5 transition-all relative overflow-hidden ${
       dim.free ? 'border-dark-600' : 'border-amber-600/30'
     }`}>
-      {/* Header */}
       <div className="flex items-center gap-2 mb-3">
         <span className="text-lg">{dim.icon}</span>
         <h3 className={`text-sm font-medium ${dim.free ? 'text-gold-500' : 'text-amber-500'}`}>
@@ -156,7 +327,6 @@ function DimensionCard({ dim, data }: { dim: AnalysisDimension; data: unknown })
         )}
       </div>
 
-      {/* Content */}
       <div className={`text-gray-300 text-sm leading-relaxed whitespace-pre-line ${!showFull ? 'max-h-48 overflow-hidden relative' : ''}`}>
         {previewText}
         {!showFull && (
@@ -164,7 +334,6 @@ function DimensionCard({ dim, data }: { dim: AnalysisDimension; data: unknown })
         )}
       </div>
 
-      {/* VIP Lock */}
       {!dim.free && (
         <div className="mt-3 text-center">
           <button
