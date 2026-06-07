@@ -98,25 +98,14 @@ export default function AppClient() {
         } catch(e: any) { console.error(e); setErrorMsg('排盘失败: ' + (e?.message || '未知错误')); }
       } else {
         try {
-          const tg: string[] = [], dz: string[] = [];
-          let solar: any;
-          if (calendarType === 'solar') solar = Solar.fromYmd(y, m, d);
-          else {
-            const lm = isLeapMonth ? -m : m;
-            const lun = Lunar.fromYmd(y, lm, d);
-            solar = lun.getSolar();
-          }
-          const bazi = solar.getBaZi();
-          if (!bazi) throw new Error('日期超出八字计算范围');
           const finalHour = Math.round(resolvedHour) % 24;
-          const timeZhiIdx = Math.floor((finalHour + 1) / 2) % 12;
-          const dayGan = bazi.getDayGan();
-          const dayGanIdx = T_GAN.indexOf(dayGan);
-          if (dayGanIdx < 0) throw new Error('日干计算失败: ' + dayGan);
-          const timeGanIdx = (dayGanIdx * 2 + timeZhiIdx) % 10;
-          tg.push(bazi.getYearGan(), bazi.getMonthGan(), dayGan, T_GAN[timeGanIdx]);
-          dz.push(bazi.getYearZhi(), bazi.getMonthZhi(), bazi.getDayZhi(), T_ZHI[timeZhiIdx]);
-          const result = computeBaziChart({ tg, dz, birthYear: solar.getYear(), gender });
+          let lunar: any;
+          if (calendarType === 'solar') lunar = Solar.fromYmdHms(y, m, d, finalHour, 0, 0).getLunar();
+          else lunar = Lunar.fromYmdHms(y, isLeapMonth ? -m : m, d, finalHour, 0, 0);
+          if (!lunar) throw new Error('日期超出八字计算范围');
+          const tg = [lunar.getYearGan(), lunar.getMonthGan(), lunar.getDayGan(), lunar.getTimeGan()];
+          const dz = [lunar.getYearZhi(), lunar.getMonthZhi(), lunar.getDayZhi(), lunar.getTimeZhi()];
+          const result = computeBaziChart({ tg, dz, birthYear: y, gender });
           setBaziResult(result);
           setAnalyzed(true);
         } catch(e: any) { console.error(e); setErrorMsg('八字排盘失败: ' + (e?.message || '未知错误')); }
@@ -125,14 +114,11 @@ export default function AppClient() {
       try {
         const iztro = await import('iztro');
         const { astro } = iztro;
-        let solar: any;
-        if (calendarType === 'solar') solar = Solar.fromYmd(y, m, d);
-        else {
-          const lm = isLeapMonth ? -m : m;
-          solar = Lunar.fromYmd(y, lm, d).getSolar();
-        }
-        if (!solar) throw new Error('日期超出紫微计算范围');
         const finalHour = Math.round(resolvedHour) % 24;
+        let solar: any;
+        if (calendarType === 'solar') solar = Solar.fromYmdHms(y, m, d, finalHour, 0, 0);
+        else solar = Lunar.fromYmdHms(y, isLeapMonth ? -m : m, d, finalHour, 0, 0).getSolar();
+        if (!solar) throw new Error('日期超出紫微计算范围');
         const dateStr = `${solar.getYear()}-${solar.getMonth()}-${solar.getDay()}`;
         const astroData = astro.bySolar(dateStr, finalHour, gender as any);
         setZiweiResult(astroData);
