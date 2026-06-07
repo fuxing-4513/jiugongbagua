@@ -170,47 +170,110 @@ export default function AppClient() {
           </div>
         )}
 
-        {/* 直接排盘模式 — 输入八字 */}
-        {inputMode === 'bazi' && (
+        {/* 直接排盘模式 — 输入八字（阳干配阳支，阴干配阴支） */}
+        {inputMode === 'bazi' && (() => {
+          const YANG_GAN = ['甲','丙','戊','庚','壬'];
+          const YANG_ZHI = ['子','寅','辰','午','申','戌'];
+          const YIN_GAN  = ['乙','丁','己','辛','癸'];
+          const YIN_ZHI  = ['丑','卯','巳','未','酉','亥'];
+
+          // 生成年柱对应的有效出生年份
+          const validYears = (() => {
+            const tIdx = T_GAN.indexOf(bzTg[0]);
+            const dIdx = T_ZHI.indexOf(bzDz[0]);
+            if (tIdx < 0 || dIdx < 0) return [];
+            const ys: number[] = [];
+            for (let y = 1900; y <= 2100; y++) {
+              if (((y - 4) % 10 + 10) % 10 === tIdx && ((y - 4) % 12 + 12) % 12 === dIdx) {
+                ys.push(y);
+              }
+            }
+            return ys;
+          })();
+
+          return (
           <div className="space-y-3">
             <p className="text-xs text-gray-500">请直接输入四柱天干地支：</p>
-            {['年柱','月柱','日柱','时柱'].map((label, i) => (
+            {['年柱','月柱','日柱','时柱'].map((label, i) => {
+              // 根据已选天干决定可选地支
+              const selTg = bzTg[i];
+              const selDz = bzDz[i];
+              const allowedDz = selTg === '' ? T_ZHI
+                : YANG_GAN.includes(selTg) ? YANG_ZHI
+                : YANG_ZHI; // for yin gan, filter to yin zhi — wait, let me fix this
+              // Actually: if selTg is in YANG_GAN, only show YANG_ZHI; if in YIN_GAN, only show YIN_ZHI
+              const filteredDz = selTg === '' ? T_ZHI
+                : YANG_GAN.includes(selTg) ? YANG_ZHI
+                : YIN_ZHI;
+
+              // Reset zhi if current selection is incompatible
+              const isCompat = selTg === '' || selDz === '' || filteredDz.includes(selDz);
+
+              return (
               <div key={i} className="flex items-center gap-2">
                 <span className="text-xs text-gray-400 w-10">{label}</span>
                 <select
                   value={bzTg[i]}
-                  onChange={e => { const a = [...bzTg]; a[i] = e.target.value; setBzTg(a); }}
+                  onChange={e => {
+                    const a = [...bzTg]; a[i] = e.target.value;
+                    // Reset zhi when changing gan
+                    const b = [...bzDz];
+                    const newTg = e.target.value;
+                    const newDzOptions = newTg === '' ? T_ZHI : YANG_GAN.includes(newTg) ? YANG_ZHI : YIN_ZHI;
+                    if (b[i] !== '' && !newDzOptions.includes(b[i])) b[i] = '';
+                    setBzTg(a); setBzDz(b);
+                  }}
                   className="flex-1 bg-dark-700 border border-dark-600 rounded-lg px-2 py-1.5 text-gray-200 text-sm"
                 >
                   <option value="">天干</option>
                   {T_GAN.map(g => <option key={g} value={g}>{g}</option>)}
                 </select>
                 <select
-                  value={bzDz[i]}
+                  value={isCompat ? bzDz[i] : ''}
                   onChange={e => { const a = [...bzDz]; a[i] = e.target.value; setBzDz(a); }}
-                  className="flex-1 bg-dark-700 border border-dark-600 rounded-lg px-2 py-1.5 text-gray-200 text-sm"
+                  className={`flex-1 bg-dark-700 border rounded-lg px-2 py-1.5 text-gray-200 text-sm ${selTg && !filteredDz.includes(selDz) && selDz ? 'border-red-500/50' : 'border-dark-600'}`}
                 >
                   <option value="">地支</option>
-                  {T_ZHI.map(z => <option key={z} value={z}>{z}</option>)}
+                  {filteredDz.map(z => <option key={z} value={z}>{z}</option>)}
                 </select>
+                <span className="text-[10px] text-gray-600 w-6 text-center">{bzTg[i]}{bzDz[i]}</span>
               </div>
-            ))}
+            )})}
 
-            {/* 八字年份选择 */}
+            {/* 八字年份选择 — 仅显示年柱对应的有效年份（每60年一轮） */}
             <div>
-              <label className="block text-xs text-gray-400 mb-1">公历出生年份（用于推算）</label>
-              <select
-                value={bzYear}
-                onChange={e => setBzYear(e.target.value)}
-                className="w-full bg-dark-700 border border-dark-600 rounded-lg px-3 py-1.5 text-gray-200 text-sm"
-              >
-                {Array.from({ length: 120 }, (_, i) => 1950 + i).map(y => (
-                  <option key={y} value={String(y)}>{y}年</option>
-                ))}
-              </select>
+              <label className="block text-xs text-gray-400 mb-1">
+                出生年份 · {bzTg[0]}{bzDz[0]}年
+                {validYears.length === 0 && bzTg[0] && bzDz[0] && (
+                  <span className="text-red-400 ml-1">（该年柱组合不存在于干支纪年）</span>
+                )}
+              </label>
+              {validYears.length > 0 ? (
+                <div className="flex flex-wrap gap-1.5">
+                  {validYears.map(y => (
+                    <button
+                      key={y}
+                      type="button"
+                      onClick={() => setBzYear(String(y))}
+                      className={`px-2.5 py-1 rounded text-xs border transition-colors ${
+                        bzYear === String(y)
+                          ? 'bg-gold-600 text-dark-900 font-semibold border-gold-500'
+                          : 'bg-dark-700 text-gray-400 border-dark-600 hover:border-gold-500/50'
+                      }`}
+                    >
+                      {y}
+                    </button>
+                  ))}
+                </div>
+              ) : (
+                <p className="text-xs text-red-400">请先选择有效的年柱天干地支组合</p>
+              )}
+              {validYears.length > 0 && (
+                <p className="text-xs text-gray-600 mt-1">同八字每60年一轮回，请选择对应的出生年份</p>
+              )}
             </div>
           </div>
-        )}
+        )})()}
 
         {/* ⚠️ 校验提示 */}
         {validationMsg && (
