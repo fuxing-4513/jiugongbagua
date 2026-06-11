@@ -122,7 +122,7 @@ export default function JiemengClient() {
   return (
     <div className="max-w-3xl mx-auto px-4 py-10">
       <h1 className="text-3xl font-bold text-gold-400 font-serif mb-3">周公解梦</h1>
-      <p className="text-gray-400 mb-8">收录 1600+ 条梦境解析 · 含《周公解梦》《梦林玄解》《断梦秘书》古籍原文 · 支持多词组合搜索</p>
+      <p className="text-gray-400 mb-8">{loaded && dreamDB ? `收录 ${dreamDB.length} 条梦境解析` : '加载中...'} · 含《周公解梦》《梦林玄解》《断梦秘书》古籍原文 · 支持多词组合搜索</p>
 
       {/* 搜索框 */}
       <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-6 mb-4">
