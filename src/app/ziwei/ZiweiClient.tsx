@@ -326,6 +326,12 @@ export default function ZiweiClient() {
   const d = parseInt(day) || 1
 
   const maxDay = useMemo(() => getMaxDay(calendarType, y, m), [calendarType, y, m])
+  // 日期修正：历法切换或年月变化时自动修正
+  useEffect(() => {
+    if (parseInt(day) > maxDay) {
+      setDay(String(maxDay))
+    }
+  }, [calendarType, year, month, maxDay])
   const yearLeap = useMemo(() => calendarType === 'lunar' ? getYearLeapMonth(y) : 0, [calendarType, y])
   const hasLeap = calendarType === 'lunar' && yearLeap === m
 
