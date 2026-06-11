@@ -1,13 +1,6 @@
 'use client'
 
 import { useState, useEffect, useMemo, useRef } from 'react'
-import { useLocale } from '@/lib/i18n'
-
-function tk(key: string, lang: Record<string, unknown>): string {
-  const keys = key.split('.'); let v: unknown = lang
-  for (const k of keys) { if (typeof v !== 'object' || v === null) return key; v = (v as Record<string, unknown>)[k] }
-  return typeof v === 'string' ? v : key
-}
 
 interface Dream {
   keyword: string; title: string; category: string
@@ -50,8 +43,7 @@ const CAT_ICON: Record<string, string> = {
 const ALL_CATEGORIES = ['动物','自然','人物','物品','场景','情感','颜色','食物','现代']
 
 export default function JiemengClient() {
-  const { t } = useLocale()
-  const lang = t as unknown as Record<string, unknown>
+  // 已改用硬编码中文，无需 i18n
   const [loaded, setLoaded] = useState(false)
 
   const [keyword, setKeyword] = useState('')
@@ -129,8 +121,8 @@ export default function JiemengClient() {
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-10">
-      <h1 className="text-3xl font-bold text-gold-400 font-serif mb-3">{tk('jiemeng.title', lang)}</h1>
-      <p className="text-gray-400 mb-8">{tk('jiemeng.desc', lang)}</p>
+      <h1 className="text-3xl font-bold text-gold-400 font-serif mb-3">周公解梦</h1>
+      <p className="text-gray-400 mb-8">收录 1600+ 条梦境解析 · 含《周公解梦》《梦林玄解》《断梦秘书》古籍原文 · 支持多词组合搜索</p>
 
       {/* 搜索框 */}
       <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-6 mb-4">
