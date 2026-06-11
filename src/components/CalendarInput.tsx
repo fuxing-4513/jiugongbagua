@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo } from 'react'
+import { useMemo, useEffect } from 'react'
 import { Solar, Lunar, LunarYear, LunarMonth } from 'lunar-typescript'
 
 // ── Types ──
@@ -112,6 +112,14 @@ export default function CalendarInput({
 
   // ── Computed calendar data ──
   const maxDay = useMemo(() => getMaxDay(calendarType, y, m), [calendarType, y, m])
+
+  // 历法切换或年月变化时，自动修正天数（防止31号→阴历只有29天的问题）
+  useEffect(() => {
+    const dd = parseInt(day)
+    if (!isNaN(dd) && dd > maxDay) {
+      onDayChange(String(maxDay))
+    }
+  }, [calendarType, year, month, maxDay])
 
   const hasLeapMonth = useMemo(() => {
     if (calendarType !== 'lunar') return false
