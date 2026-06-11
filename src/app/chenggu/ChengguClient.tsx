@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { Solar, Lunar } from 'lunar-typescript'
+import ShareResult from '../../components/ShareResult'
 import CalendarInput, { type CalendarType, getMaxDay } from '@/components/CalendarInput'
 
 const YEAR_W: Record<string,number> = {
@@ -363,6 +364,13 @@ export default function ChengguClient() {
           <h4 className="text-gold-400 font-semibold mb-1 text-xs">🌟 一生运势提示</h4>
           <p className="text-gray-200 leading-relaxed text-xs">{r.mingShu.tips}</p>
         </div>
+              <div className="flex justify-end mt-3">
+                <ShareResult
+                  text={`${r.liang}两${r.qian}钱 - ${r.level}\n\n称骨诗: ${r.poem}\n解读: ${r.interpret}\n\n性格: ${r.mingShu.personality}\n婚姻: ${r.mingShu.marriage}\n事业: ${r.mingShu.career}\n财运: ${r.mingShu.wealth}\n健康: ${r.mingShu.health}`}
+                  title="【称骨算命结果】"
+                  label="📋 复制结果"
+                />
+              </div>
       </div>
     </div>)}
   </div>)

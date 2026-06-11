@@ -5,6 +5,7 @@ import { LocaleProvider, useLocale } from '@/lib/i18n'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import ErrorBoundary from '@/components/ErrorBoundary'
+import TopLoadingBar from '@/components/TopLoadingBar'
 
 function LayoutInner({ children }: { children: React.ReactNode }) {
   const { locale } = useLocale()
@@ -18,6 +19,7 @@ function LayoutInner({ children }: { children: React.ReactNode }) {
   return (
     <>
       <div className="cosmic-overlay" aria-hidden="true" />
+      <TopLoadingBar />
       <ErrorBoundary>
         <Nav />
         <main className="flex-1 pt-16">

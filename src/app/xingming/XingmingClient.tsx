@@ -1,7 +1,8 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
-import { useLocale } from '@/lib/i18n'
+import { useLocale } from '../../lib/i18n'
+import ShareResult from '../../components/ShareResult'
 import NamingClient from './NamingClient'
 import dynamic from 'next/dynamic'
 
@@ -704,6 +705,13 @@ export default function XingmingClient() {
           ))}
         </div>
         <p className="text-[9px] text-gray-500 mt-2">说明：若五格数理暗示的凶数运较多，表示易破财、事业不顺、影响健康和家庭；女命狐独运、首领运及刚性运较多，则代表婚姻不顺。</p>
+              <div className="flex justify-end mt-3">
+                <ShareResult
+                  text={`${r.fullName} - ${r.avgScore}分\n\n天格${r.tianGe.val}(${r.tianGe.wuxing}) ${r.shuLi.tianGe.ji}\n人格${r.renGe.val}(${r.renGe.wuxing}) ${r.shuLi.renGe.ji}\n地格${r.diGe.val}(${r.diGe.wuxing}) ${r.shuLi.diGe.ji}\n外格${r.waiGe.val}(${r.waiGe.wuxing}) ${r.shuLi.waiGe.ji}\n总格${r.zongGe.val}(${r.zongGe.wuxing}) ${r.shuLi.zongGe.ji}\n\n三才配置: ${r.sanCaiConfig.tianWx}-${r.sanCaiConfig.renWx}-${r.sanCaiConfig.diWx} (${r.sanCaiConfig.luck})`}
+                  title="【姓名打分结果】"
+                  label="📋 复制结果"
+                />
+              </div>
       </div>
     </div>)}
     </>)}

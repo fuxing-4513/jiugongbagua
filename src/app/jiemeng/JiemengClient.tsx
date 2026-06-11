@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useMemo, useRef } from 'react'
+import ShareResult from '@/components/ShareResult'
 
 interface Dream {
   keyword: string; title: string; category: string
@@ -280,6 +281,12 @@ export default function JiemengClient() {
                 <span key={i} className="text-[10px] bg-dark-700 text-gray-500 px-2 py-0.5 rounded">😴 {m.trim()}</span>
               ))}
             </div>
+              <div className="flex justify-end mt-2">
+                <ShareResult
+                  text={`${selectedDream.title}\n\n古籍原文: ${selectedDream.ancient}\n\n白话解析: ${selectedDream.modern}${selectedDream.detail !== selectedDream.modern ? `\n\n详细解读: ${selectedDream.detail}` : ""}`}
+                  label="📋 复制解梦"
+                />
+              </div>
           </div>
         </div>
       )}
