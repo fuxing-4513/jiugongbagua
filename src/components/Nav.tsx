@@ -4,25 +4,34 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { useLocale, type SupportedLocale } from '@/lib/i18n'
 
-const toolModules: { key: string; href: string }[] = [
-  { key: 'modules.bazi.name', href: '/bazi' },
-  { key: 'modules.ziwei.name', href: '/ziwei' },
-  { key: 'modules.liuyao.name', href: '/liuyao' },
-  { key: 'modules.xiaoliuren.name', href: '/xiaoliuren' },
-  { key: 'modules.jiemeng.name', href: '/jiemeng' },
-  { key: 'modules.xingming.name', href: '/xingming' },
-  { key: 'modules.shuma.name', href: '/shuma' },
-  { key: 'modules.huangli.name', href: '/huangli' },
-  { key: 'modules.taluo.name', href: '/taluo' },
-  { key: 'modules.cezi.name', href: '/cezi' },
-  { key: 'modules.chenggu.name', href: '/chenggu' },
-  { key: 'modules.fengshui.name', href: '/fengshui' },
-  { key: 'modules.lingqian.name', href: '/lingqian' },
-  { key: 'modules.meihua.name', href: '/meihua' },
-  { key: 'modules.qimen.name', href: '/qimen' },
-  { key: 'modules.shengxiao.name', href: '/shengxiao' },
-  { key: 'modules.xingzuo.name', href: '/xingzuo' },
+const toolCategories: { label: string; items: { key: string; href: string; emoji?: string }[] }[] = [
+  { label: '命理推算', items: [
+    { key: 'modules.bazi.name', href: '/bazi', emoji: '📜' },
+    { key: 'modules.ziwei.name', href: '/ziwei', emoji: '⭐' },
+    { key: 'modules.liuyao.name', href: '/liuyao', emoji: '📊' },
+    { key: 'modules.xiaoliuren.name', href: '/xiaoliuren', emoji: '🔢' },
+    { key: 'modules.chenggu.name', href: '/chenggu', emoji: '⚖️' },
+    { key: 'modules.meihua.name', href: '/meihua', emoji: '🌸' },
+    { key: 'modules.qimen.name', href: '/qimen', emoji: '🧭' },
+  ]},
+  { label: '生活测算', items: [
+    { key: 'modules.jiemeng.name', href: '/jiemeng', emoji: '💤' },
+    { key: 'modules.xingming.name', href: '/xingming', emoji: '📛' },
+    { key: 'modules.shuma.name', href: '/shuma', emoji: '🔢' },
+    { key: 'modules.cezi.name', href: '/cezi', emoji: '🖌️' },
+    { key: 'modules.taluo.name', href: '/taluo', emoji: '🃏' },
+    { key: 'modules.lingqian.name', href: '/lingqian', emoji: '🏮' },
+  ]},
+  { label: '知识文化', items: [
+    { key: 'modules.huangli.name', href: '/huangli', emoji: '📅' },
+    { key: 'modules.shengxiao.name', href: '/shengxiao', emoji: '🐯' },
+    { key: 'modules.xingzuo.name', href: '/xingzuo', emoji: '✨' },
+    { key: 'modules.fengshui.name', href: '/fengshui', emoji: '🏠' },
+  ]},
 ]
+
+// 平铺的工具总数
+const flatTools = toolCategories.flatMap(c => c.items)
 
 export default function Nav() {
   const { locale, t, setLocale, localeNames } = useLocale()
@@ -84,14 +93,21 @@ export default function Nav() {
             {toolsOpen && (
               <>
                 <div className="fixed inset-0 z-10" onClick={() => setToolsOpen(false)} />
-                <div className="absolute top-full right-0 mt-2 w-48 bg-dark-700 rounded-lg shadow-lg border border-dark-600 py-2 z-20 max-h-80 overflow-y-auto">
-                  {toolModules.map((mod) => (
-                    <Link key={mod.href} href={mod.href}
-                      className="block px-4 py-2 text-sm text-gray-300 hover:bg-dark-600 hover:text-gold-400 transition-colors"
-                      onClick={() => setToolsOpen(false)}
-                    >
-                      {getT(mod.key)}
-                    </Link>
+                <div className="absolute top-full right-0 mt-2 w-64 bg-dark-700 rounded-xl shadow-lg border border-dark-600 py-3 z-20 max-h-96 overflow-y-auto">
+                  {toolCategories.map((cat, ci) => (
+                    <div key={ci}>
+                      {ci > 0 && <div className="mx-3 my-1 border-t border-dark-600" />}
+                      <p className="px-4 pb-1 text-[10px] text-gray-500 font-medium uppercase tracking-wider">{cat.label}</p>
+                      {cat.items.map((mod) => (
+                        <Link key={mod.href} href={mod.href}
+                          className="flex items-center gap-2 px-4 py-1.5 text-sm text-gray-300 hover:bg-dark-600 hover:text-gold-400 transition-colors"
+                          onClick={() => setToolsOpen(false)}
+                        >
+                          <span className="text-xs">{mod.emoji||''}</span>
+                          <span>{getT(mod.key)}</span>
+                        </Link>
+                      ))}
+                    </div>
                   ))}
                 </div>
               </>
@@ -129,8 +145,8 @@ export default function Nav() {
           </div>
         </div>
 
-        {/* Mobile Menu Button */}
-        <button className="lg:hidden text-gray-300" onClick={() => setMobileMenuOpen(!mobileMenuOpen)} aria-label="Toggle menu">
+        {/* Mobile Menu Button - 增大触摸区域 */}
+        <button className="lg:hidden flex items-center justify-center w-10 h-10 text-gray-300 hover:text-gold-400 active:scale-95 transition-transform" onClick={() => setMobileMenuOpen(!mobileMenuOpen)} aria-label="Toggle menu">
           {mobileMenuOpen ? (
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
           ) : (
@@ -150,11 +166,19 @@ export default function Nav() {
             <Link href="/huangli" className="block py-2 text-sm text-gray-300 hover:text-gold-400" onClick={() => setMobileMenuOpen(false)}>{getT('nav.huangli')}</Link>
             <div className="py-2">
               <p className="text-xs text-gray-500 mb-1">{getT('nav.tools')}</p>
-              <div className="grid grid-cols-2 gap-1">
-                {toolModules.map((mod) => (
-                  <Link key={mod.href} href={mod.href} className="block py-1.5 text-sm text-gray-400 hover:text-gold-400" onClick={() => setMobileMenuOpen(false)}>{getT(mod.key)}</Link>
-                ))}
-              </div>
+              {toolCategories.map((cat, ci) => (
+                <div key={ci} className="mb-2">
+                  <p className="text-[10px] text-gray-600 px-1 mb-0.5">{cat.label}</p>
+                  <div className="grid grid-cols-2 gap-0.5">
+                    {cat.items.map((mod) => (
+                      <Link key={mod.href} href={mod.href} className="flex items-center gap-1 py-1 px-1 text-sm text-gray-400 hover:text-gold-400 rounded" onClick={() => setMobileMenuOpen(false)}>
+                        <span className="text-xs">{mod.emoji||''}</span>
+                        <span>{getT(mod.key)}</span>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              ))}
             </div>
             <Link href="/wenku" className="block py-2 text-sm text-gray-300 hover:text-gold-400" onClick={() => setMobileMenuOpen(false)}>{getT('nav.wenku')}</Link>
             <Link href="/glossary" className="block py-2 text-sm text-gray-300 hover:text-gold-400" onClick={() => setMobileMenuOpen(false)}>{getT('nav.glossary')}</Link>

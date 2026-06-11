@@ -1,123 +1,29 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-@theme {
-  --color-dark-900: #ffffff;
-  --color-dark-800: #f8f6f2;
-  --color-dark-700: #f0ece6;
-  --color-dark-600: #e8e3db;
-  --color-gold-300: #fcd34d;
-  --color-gold-400: #fbbf24;
-  --color-gold-500: #f59e0b;
-  --color-gold-600: #d97706;
-  --color-gold-700: #b45309;
-  /* 白底可读文字灰度 */
-  --color-gray-100: #f3f4f6;
-  --color-gray-200: #1e1e32;
-  --color-gray-300: #2d2d3f;
-  --color-gray-400: #4a4a5a;
-  --color-gray-500: #7a7a8a;
+/* ── 字体平滑 ── */
+html { scroll-behavior: smooth; }
+body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
 
-  --font-serif: 'Noto Serif SC', 'Georgia', serif;
-  --font-sans: 'Noto Sans SC', 'system-ui', sans-serif;
+/* ── 加载骨架屏 ── */
+.skeleton {
+  background: linear-gradient(90deg, #1a1a2e 25%, #16213e 50%, #1a1a2e 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
 }
+@keyframes skeleton-loading { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
 
-@font-face {
-  font-family: 'Noto Serif SC';
-  font-style: normal;
-  font-weight: 400;
-  src: url(https://fonts.gstatic.com/s/notoserifsc/v30/H4c8BXePl9DZ0Xe7gG9cyOj7mm63SzZBEtERe7Y.otf) format('opentype');
-  font-display: swap;
-}
+/* ── 页面过渡 ── */
+.page-enter { animation: fadeIn .3s ease-out; }
+@keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
 
-@font-face {
-  font-family: 'Noto Serif SC';
-  font-style: normal;
-  font-weight: 700;
-  src: url(https://fonts.gstatic.com/s/notoserifsc/v30/H4c8BXePl9DZ0Xe7gG9cyOj7mm63SzZBEtERe7Y.otf) format('opentype');
-  font-display: swap;
-}
+/* ── 按钮反馈 ── */
+.btn-press { transition: transform .15s; }
+.btn-press:active { transform: scale(.96); }
 
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  font-family: var(--font-sans);
-  background: #faf9f6;
-  color: #2d2d3f;
-}
-
-.font-serif {
-  font-family: var(--font-serif);
-}
-
-/* ── 全局玻璃态板块 —— 浅色半透明 + 柔和阴影 ── */
-.glass-panel {
-  background: rgba(255, 255, 255, 0.75);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(180, 160, 120, 0.2);
-  box-shadow: 0 2px 24px rgba(0, 0, 0, 0.04);
-}
-
-/* 全局：浅色卡片微调 */
-.bg-dark-900,
-[class*="bg-dark-900/"] {
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-}
-.bg-dark-800,
-[class*="bg-dark-800/"] {
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-}
-.bg-dark-700,
-[class*="bg-dark-700/"] {
-  backdrop-filter: blur(3px);
-  -webkit-backdrop-filter: blur(3px);
-}
-.bg-dark-600,
-[class*="bg-dark-600/"] {
-  backdrop-filter: blur(3px);
-  -webkit-backdrop-filter: blur(3px);
-}
-
-/* ── 铜钱翻转动画 ── */
-@keyframes coinFlip0 {
-  0% { transform: rotateY(0deg) rotateX(0deg); }
-  25% { transform: rotateY(360deg) rotateX(30deg); }
-  50% { transform: rotateY(720deg) rotateX(-20deg); }
-  75% { transform: rotateY(1080deg) rotateX(15deg); }
-  100% { transform: rotateY(1440deg) rotateX(0deg); }
-}
-
-@keyframes coinFlip1 {
-  0% { transform: rotateX(0deg) rotateY(0deg); }
-  25% { transform: rotateX(360deg) rotateY(-25deg); }
-  50% { transform: rotateX(720deg) rotateY(20deg); }
-  75% { transform: rotateX(1080deg) rotateY(-10deg); }
-  100% { transform: rotateX(1440deg) rotateY(0deg); }
-}
-
-@keyframes coinFlip2 {
-  0% { transform: rotateZ(0deg) rotateY(0deg); }
-  25% { transform: rotateZ(360deg) rotateY(35deg); }
-  50% { transform: rotateZ(720deg) rotateY(-15deg); }
-  75% { transform: rotateZ(1080deg) rotateY(20deg); }
-  100% { transform: rotateZ(1440deg) rotateY(0deg); }
-}
-
-/* ── 淡入动画 ── */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.animate-fadeIn {
-  animation: fadeIn 0.4s ease-out;
-}
-
-/* ── 浅色主题：隐藏星空/银河效果 ── */
-.cosmic-overlay {
-  display: none;
-}
+/* ── 暗色滚动条 ── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #0f0f1a; }
+::-webkit-scrollbar-thumb { background: #2a2a4a; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #3a3a5a; }
