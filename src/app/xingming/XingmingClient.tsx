@@ -1,12 +1,41 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useLocale } from '@/lib/i18n'
 import NamingClient from './NamingClient'
 import dynamic from 'next/dynamic'
 
 // 动态加载起名用字组件（数据量大，独立 chunk）
 const NamingChars = dynamic(() => import('@/components/NamingChars'), { ssr: false })
+
+// ── 异步加载康熙字典笔画库 ──
+let kangxiStrokes: Record<string, number> | null = null
+let kangxiLoading = false
+const kangxiCallbacks: Array<(ok: boolean) => void> = []
+
+function loadKangxi() {
+  if (kangxiStrokes) { return }  // 已加载
+  if (kangxiLoading) { return }  // 加载中
+  kangxiLoading = true
+  fetch('/data/kangxi.json')
+    .then(r => r.json())
+    .then(data => {
+      kangxiStrokes = {}
+      if (data && data.c) {
+        for (const [ch, st] of data.c) {
+          kangxiStrokes[ch] = st
+        }
+      }
+      kangxiLoading = false
+      kangxiCallbacks.forEach(cb => cb(true))
+      kangxiCallbacks.length = 0
+    })
+    .catch(() => {
+      kangxiLoading = false
+      kangxiCallbacks.forEach(cb => cb(false))
+      kangxiCallbacks.length = 0
+    })
+}
 
 function tk(key: string, lang: Record<string, unknown>): string {
   const keys = key.split('.'); let v: unknown = lang
@@ -391,7 +420,10 @@ const STROKES: Record<string, number> = {
   '玟':9,
 }
 
-function getStroke(char: string): number { return STROKES[char] || ((char.charCodeAt(0) - 0x4e00) % 20 + 1) }
+function getStroke(char: string): number {
+  if (kangxiStrokes && kangxiStrokes[char] !== undefined) return kangxiStrokes[char]
+  return STROKES[char] || ((char.charCodeAt(0) - 0x4e00) % 20 + 1)
+}
 
 // ── 五行映射 ──
 const WX: Record<string, string> = {
@@ -487,6 +519,9 @@ export default function XingmingClient() {
   const [lastName, setLastName] = useState('')
   const [firstName, setFirstName] = useState('')
   const [result, setResult] = useState<any>(null)
+
+  // 加载康熙字典笔画库（仅首次触发）
+  useEffect(() => { loadKangxi() }, [])
 
   const analyze = () => {
     const ln = lastName.trim()
