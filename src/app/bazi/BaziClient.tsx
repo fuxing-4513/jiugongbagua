@@ -167,8 +167,10 @@ function calcPillarShenSha(tg: string[], dz: string[], dayGan: string, dayZhi: s
     if (XUETANG_YEAR[tg[0]] === z && !items.some(x => x.name === '学堂')) push(items, '学堂', '吉')
     if (HONGYAN[dayGan] === z) push(items, '红艳', '中性')
     if (LIUXIA[dayGan] === z) push(items, '流霞', '凶')
-    // ══ 禄神（干禄，以每柱天干定支） ══
-    if (LU[g] === z) push(items, '禄神', '吉')
+    // ══ 禄神（日干之禄，查每柱地支是否含日主之临官位） ══
+    if (LU[dayGan] === z) push(items, '禄神', '吉')
+    // 兼查年干/月干/时干之禄（如甲禄到寅等，不重复显示）
+    if (LU[g] === z && g !== dayGan && !items.some(x => x.name === '禄神')) push(items, '禄神', '吉')
 
     // ══ 年支衍生 ══
     const yZhi = dz[0]
