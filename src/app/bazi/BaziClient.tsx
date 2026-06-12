@@ -60,6 +60,9 @@ const TAOHUA: Record<string,string> = {申:'酉',子:'酉',辰:'酉', 寅:'卯',
 const YANGREN: Record<string,string> = {甲:'卯',乙:'寅',丙:'午',丁:'巳',戊:'午',己:'巳',庚:'酉',辛:'申',壬:'子',癸:'亥'}
 const HUAGAI: Record<string,string> = {申:'辰',子:'辰',辰:'辰', 寅:'戌',午:'戌',戌:'戌', 巳:'丑',酉:'丑',丑:'丑', 亥:'未',卯:'未',未:'未'}
 const JIESHA: Record<string,string> = {申:'巳',子:'巳',辰:'巳', 寅:'亥',午:'亥',戌:'亥', 巳:'寅',酉:'寅',丑:'寅', 亥:'申',卯:'申',未:'申'}
+const ZAISHA: Record<string,string> = {申:'午',子:'午',辰:'午', 寅:'子',午:'子',戌:'子', 巳:'卯',酉:'卯',丑:'卯', 亥:'酉',卯:'酉',未:'酉'}
+const SUISHA: Record<string,string> = {申:'未',子:'未',辰:'未', 寅:'丑',午:'丑',戌:'丑', 巳:'辰',酉:'辰',丑:'辰', 亥:'戌',卯:'戌',未:'戌'}
+const WANGSHEN: Record<string,string> = {申:'亥',子:'亥',辰:'亥', 寅:'巳',午:'巳',戌:'巳', 巳:'申',酉:'申',丑:'申', 亥:'寅',卯:'寅',未:'寅'}
 const GUCHEN: Record<string,string> = {亥:'寅',子:'寅',丑:'寅', 寅:'巳',卯:'巳',辰:'巳', 巳:'申',午:'申',未:'申', 申:'亥',酉:'亥',戌:'亥'}
 const GUASU: Record<string,string> = {亥:'戌',子:'戌',丑:'戌', 寅:'丑',卯:'丑',辰:'丑', 巳:'辰',午:'辰',未:'辰', 申:'未',酉:'未',戌:'未'}
 const TIANDE: Record<string,string> = {寅:'丁',卯:'申',辰:'壬',巳:'辛',午:'亥',未:'甲',申:'癸',酉:'寅',戌:'丙',亥:'乙',子:'巳',丑:'庚'}
@@ -77,6 +80,7 @@ const TAIJI: Record<string,string> = {甲:'子午',乙:'子午',丙:'卯酉',丁
 const DEXIU: Record<string,string[]> = {寅:['丙','丁','戊','癸'],午:['丙','丁','戊','癸'],戌:['丙','丁','戊','癸'],申:['壬','癸','戊','己','庚','辛'],子:['壬','癸','戊','己','庚','辛'],辰:['壬','癸','戊','己','庚','辛'],巳:['庚','辛','甲','乙'],酉:['庚','辛','甲','乙'],丑:['庚','辛','甲','乙'],亥:['甲','乙','丙','丁'],卯:['甲','乙','丙','丁'],未:['甲','乙','丙','丁']}
 const TIANXI: Record<string,string> = {子:'酉',丑:'申',寅:'未',卯:'午',辰:'巳',巳:'辰',午:'卯',未:'寅',申:'丑',酉:'子',戌:'亥',亥:'戌'}
 const TIANYI_MED: Record<string,string> = {寅:'丑',卯:'子',辰:'亥',巳:'戌',午:'酉',未:'申',申:'未',酉:'午',戌:'巳',亥:'辰',子:'卯',丑:'寅'}
+const LU: Record<string,string> = {甲:'寅',乙:'卯',丙:'巳',丁:'午',戊:'巳',己:'午',庚:'申',辛:'酉',壬:'亥',癸:'子'}
 const HONGYAN: Record<string,string> = {甲:'午',乙:'午',丙:'寅',丁:'未',戊:'辰',己:'辰',庚:'戌',辛:'酉',壬:'子',癸:'申'}
 const LIUXIA: Record<string,string> = {甲:'酉',乙:'戌',丙:'未',丁:'申',戊:'巳',己:'午',庚:'辰',辛:'卯',壬:'亥',癸:'寅'}
 const YUANCHEN: Record<string,string> = {子:'巳',丑:'午',寅:'未',卯:'申',辰:'酉',巳:'戌',午:'亥',未:'子',申:'丑',酉:'寅',戌:'卯',亥:'辰'}
@@ -88,6 +92,8 @@ const SHIE: Set<string> = new Set(['甲辰','乙巳','丙申','丁亥','戊戌',
 const KUI_GANG_RI: Set<string> = new Set(['庚辰','庚戌','壬辰','戊戌'])
 const GULUAN: Set<string> = new Set(['乙巳','丁巳','辛亥','戊申','甲寅'])
 const YINYANG_CUO: Set<string> = new Set(['丙子','丁丑','戊寅','辛卯','壬辰','癸巳','丙午','丁未','戊申','辛酉','壬戌','癸亥'])
+const JINSHEN: Set<string> = new Set(['甲子','甲午','己卯','己酉'])
+const TUISHEN: Set<string> = new Set(['丁卯','丁酉','壬午','壬子'])
 const JIUCHOU: Set<string> = new Set(['戊子','戊午','壬子','壬午','丁卯','丁酉','己卯','己酉','辛卯','辛酉'])
 
 // ── 神煞详解字典（吉/凶/中性 + 涵义 + 化解） ──
@@ -110,8 +116,14 @@ const SHENSHA_INFO: Record<string,ShenShaInfo> = {
   '福星贵人':{type:'吉',meaning:'福禄寿喜之星。命带福星，福气自来、生活安稳少波折。乐观豁达，逢事有贵人相助。'},
   '天赦':{type:'吉',meaning:'上天赦免之星。命带天赦，生来罪过减半，纵有灾祸易化解、重罪轻罚。大吉之神。'},
   '学堂':{type:'吉',meaning:'学业宫位之星。命带学堂，聪明好学、学业有成，利于文化教育和科研学术之路。'},
+  '禄神':{type:'吉',meaning:'临官禄位之星。命带禄神，食禄丰厚、财运亨通、福禄双全。禄为养命之源，最喜旺相得地。'},
   '太极贵人':{type:'吉',meaning:'太极星，天地初分之神。命带太极贵人，一生多遇奇人异士点化，学识渊博且有独到见解，宜钻研玄学、哲学、命理等深奥学问。'},
   '德秀贵人':{type:'吉',meaning:'德以立身、秀以彰才。命带德秀贵人，品德高尚、才华出众、举止端雅，一生多得他人尊重和信任，名利双收。'},
+  '灾煞':{type:'凶',meaning:'血火灾祸之煞。命带灾煞，一生易有突发性灾难、意外伤害，需格外注意安全。',resolve:'君子不立危墙之下，避免危险活动和环境。定期体检，注意健康。'},
+  '岁煞':{type:'凶',meaning:'墓库杀伤之煞。命带岁煞，做事多阻碍，易有长辈或上级压力，身心易受牵制。',resolve:'宜平心静气，以柔克刚，避其锋芒。'},
+  '亡神':{type:'凶',meaning:'亡失惊厄之煞。命带亡神，心思深沉、机谋多变，但也易有官非口舌。',resolve:'宜光明磊落，避免暗中交易或不当谋略。'},
+  '进神':{type:'中性',meaning:'进德修业之格。命带进神，性格刚毅果断、做事积极进取，有始有终。男命多威严，女命多持家。'},
+  '退神':{type:'中性',meaning:'退让缓和之格。命带退神，性格温和退让，不喜竞争，随遇而安。宜从事稳定工作，不宜强求。'},
   '天喜':{type:'吉',meaning:'婚庆喜乐之星。命带天喜，主喜事临门，婚姻美满、生育顺利、欢乐祥和。'},
   '天医':{type:'吉',meaning:'天赐良医之星。命带天医，与医道有缘，宜学医或从事健康行业。自身防病能力较强。'},
   '红艳':{type:'中性',meaning:'浪漫风流之星。命带红艳，情感丰富多情，有异性魅力。但易有感情纠葛、多角关系。',resolve:'感情上宜专一慎重，避免多角关系。'},
@@ -155,6 +167,8 @@ function calcPillarShenSha(tg: string[], dz: string[], dayGan: string, dayZhi: s
     if (XUETANG_YEAR[tg[0]] === z && !items.some(x => x.name === '学堂')) push(items, '学堂', '吉')
     if (HONGYAN[dayGan] === z) push(items, '红艳', '中性')
     if (LIUXIA[dayGan] === z) push(items, '流霞', '凶')
+    // ══ 禄神（干禄，以每柱天干定支） ══
+    if (LU[g] === z) push(items, '禄神', '吉')
 
     // ══ 年支衍生 ══
     const yZhi = dz[0]
@@ -170,6 +184,9 @@ function calcPillarShenSha(tg: string[], dz: string[], dayGan: string, dayZhi: s
     if (DAHAO[yZhi] === z) push(items, '大耗', '凶')
     if (XIAOHAO[yZhi] === z) push(items, '小耗', '凶')
     const gj = GOUJIAO[yZhi]; if (gj) { if (z === gj[0] || z === gj[1]) push(items, '勾神', '凶'); if (z === gj[1] || z === gj[2]) push(items, '绞煞', '凶') }
+    if (ZAISHA[yZhi] === z) push(items, '灾煞', '凶')
+    if (SUISHA[yZhi] === z) push(items, '岁煞', '凶')
+    if (WANGSHEN[yZhi] === z) push(items, '亡神', '凶')
 
     // ══ 太极贵人（以年干或日干定支） ══
     if (TAIJI[tg[0]] && TAIJI[tg[0]].includes(z)) push(items, '太极贵人', '吉')
@@ -188,6 +205,10 @@ function calcPillarShenSha(tg: string[], dz: string[], dayGan: string, dayZhi: s
     // ══ 四废（时柱） ══
     if (i === 3) { const sf = SIFEI_MONTH[mZhi]; if (sf && sf.includes(z)) push(items, '四废', '凶') }
 
+    // ══ 天罗地网（每柱均查，辰巳为天罗，戌亥为地网） ══
+    if (z === '辰' || z === '巳') push(items, '天罗', '凶')
+    if (z === '戌' || z === '亥') push(items, '地网', '凶')
+
     // ══ 日柱特定组合 ══
     if (i === 2) {
       if (KUI_GANG_RI.has(dayGz)) push(items, '魁罡', '中性')
@@ -195,8 +216,8 @@ function calcPillarShenSha(tg: string[], dz: string[], dayGan: string, dayZhi: s
       if (GULUAN.has(dayGz)) push(items, '孤鸾杀', '凶')
       if (YINYANG_CUO.has(dayGz)) push(items, '阴阳差错', '凶')
       if (JIUCHOU.has(dayGz)) push(items, '九丑', '凶')
-      if (z === '辰') push(items, '天罗', '凶')
-      if (z === '戌') push(items, '地网', '凶')
+      if (JINSHEN.has(dayGz)) push(items, '进神', '中性')
+      if (TUISHEN.has(dayGz)) push(items, '退神', '中性')
     }
 
     // ══ 三奇贵人 ══
@@ -210,9 +231,9 @@ function calcPillarShenSha(tg: string[], dz: string[], dayGan: string, dayZhi: s
 function getPillarShenShaLabel(items: { name: string; type: '吉'|'凶'|'中性' }[]): string {
   const emoji: Record<string,string> = {
     '天乙贵人':'✨','文昌贵人':'📖','驿马':'🏇','桃花':'🌸','羊刃':'⚔️','华盖':'🎭','劫煞':'⚠️','孤辰':'🌙','寡宿':'☁️',
-    '天德贵人':'☀️','月德贵人':'🌙','将星':'⭐','金舆':'🚗','天厨':'🍳','福星贵人':'🎁','天赦':'🙏','学堂':'📚',
+    '天德贵人':'☀️','月德贵人':'🌙','将星':'⭐','金舆':'🚗','天厨':'🍳','禄神':'💰','福星贵人':'🎁','天赦':'🙏','学堂':'📚',
     '天喜':'🎊','天医':'🏥','红艳':'💋','流霞':'🩸','三奇贵人':'🌟','元辰':'💸','勾神':'🔗','绞煞':'🪢',
-    '大耗':'💧','小耗':'💦','天罗':'🕸️','地网':'🪤','四废':'🎈','十恶大败':'💀','魁罡':'🎯','孤鸾杀':'🕊️','阴阳差错':'⚡','九丑':'😈','太极贵人':'☯️','德秀贵人':'🌿',
+    '大耗':'💧','小耗':'💦','天罗':'🕸️','地网':'🪤','四废':'🎈','十恶大败':'💀','魁罡':'🎯','孤鸾杀':'🕊️','阴阳差错':'⚡','九丑':'😈','太极贵人':'☯️','德秀贵人':'🌿','灾煞':'🔥','岁煞':'🏚️','亡神':'👻','进神':'📈','退神':'📉',
   }
   return items.filter(x => x.name !== '—').map(x => (emoji[x.name] || '') + x.name).join(' ') || '—'
 }
