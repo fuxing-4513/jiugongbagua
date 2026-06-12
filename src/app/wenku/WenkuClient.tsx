@@ -30,7 +30,6 @@ const categoryColors: Record<string, string> = {
   '生肖文化': 'bg-pink-900/40 text-pink-300 border-pink-700',
   '塔罗文化': 'bg-violet-900/40 text-violet-300 border-violet-700',
   '择日文化': 'bg-teal-900/40 text-teal-300 border-teal-700',
-  '测字文化': 'bg-sky-900/40 text-sky-300 border-sky-700',
 }
 
 export default function WenkuClient() {

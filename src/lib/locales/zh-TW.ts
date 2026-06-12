@@ -60,7 +60,6 @@ export const zhTW = {
     shuma: { name: '號碼測吉凶', desc: '手機號、車牌號等數字能量分析', source: '《數字能量學》', emoji: '🔢' },
     huangli: { name: '黃曆擇日', desc: '每日黃曆宜忌查詢，擇吉日良辰', source: '傳統通書', emoji: '📅', today: '今日黃曆', lunarDate: '農曆日期', zodiac: '生肖', fiveElements: '五行納音', auspiciousDirection: '吉神方位', suitable: '宜', avoid: '忌' },
     taluo: { name: '塔羅', desc: '塔羅牌洞察過去現在未來', source: '塔羅經典', emoji: '🃏', submit: '開始測算' },
-    cezi: { name: '測字', desc: '單字測吉凶，漢字玄機解讀', source: '《測字秘牒》', emoji: '🖌', input: '輸入要測的字', submit: '開始測算' },
     wenku: { name: '知識文庫', desc: '易學知識、命理資料、傳統文化文章', source: '典籍彙編', emoji: '📚' },
     hehun: { name: '合婚測算', desc: '八字合婚，生肖五行匹配分析', source: '《三元合婚法》', emoji: '💑' },
     experts: { name: '專家預約', desc: '資深命理專家線上諮詢預約', source: '', emoji: '👨‍🏫', book: '立即預約', experience: '從業經驗', specialties: '擅長領域' },

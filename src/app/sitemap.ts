@@ -16,7 +16,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: '/shuma', priority: 0.7, changeFreq: 'weekly' as const },
     { path: '/huangli', priority: 0.7, changeFreq: 'daily' as const },
     { path: '/taluo', priority: 0.7, changeFreq: 'weekly' as const },
-    { path: '/cezi', priority: 0.7, changeFreq: 'weekly' as const },
     { path: '/wenku', priority: 0.8, changeFreq: 'weekly' as const },
     { path: '/experts', priority: 0.7, changeFreq: 'weekly' as const },
     { path: '/hehun', priority: 0.7, changeFreq: 'weekly' as const },

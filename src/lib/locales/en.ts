@@ -60,7 +60,6 @@ export const en = {
     shuma: { name: 'Number Fortune', desc: 'Numerical energy analysis for phone numbers, license plates, and more', source: '"Digital Energetics"', emoji: '🔢' },
     huangli: { name: 'Almanac Date Picker', desc: 'Daily almanac with auspicious and inauspicious activities, choose the best dates', source: 'Traditional Almanac', emoji: '📅', today: "Today's Almanac", lunarDate: 'Lunar Date', zodiac: 'Zodiac', fiveElements: 'Five Elements', auspiciousDirection: 'Auspicious Direction', suitable: 'Suitable', avoid: 'Avoid' },
     taluo: { name: 'Tarot Reading', desc: 'Tarot card reading — insight into past, present, and future', source: 'Tarot Classics', emoji: '🃏', submit: 'Start Calculation' },
-    cezi: { name: 'Character Divination', desc: 'Single-character fortune-telling — unlock the mysteries of Chinese characters', source: '"Ce Zi Mi Die"', emoji: '🖌', input: 'Enter a character', submit: 'Start Calculation' },
     wenku: { name: 'Knowledge Library', desc: 'I Ching knowledge, destiny resources, and traditional culture articles', source: 'Classical Anthology', emoji: '📚' },
     hehun: { name: 'Marriage Match', desc: 'Ba Zi marriage compatibility, zodiac and five-element matching analysis', source: '"San Yuan Marriage Method"', emoji: '💑' },
     experts: { name: 'Expert Booking', desc: 'Book online consultations with experienced destiny experts', source: '', emoji: '👨‍🏫', book: 'Book Now', experience: 'Experience', specialties: 'Specialties' },

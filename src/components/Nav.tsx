@@ -18,7 +18,6 @@ const toolCategories: { label: string; items: { key: string; href: string; emoji
     { key: 'modules.jiemeng.name', href: '/jiemeng', emoji: '💤' },
     { key: 'modules.xingming.name', href: '/xingming', emoji: '📛' },
     { key: 'modules.shuma.name', href: '/shuma', emoji: '🔢' },
-    { key: 'modules.cezi.name', href: '/cezi', emoji: '🖌️' },
     { key: 'modules.taluo.name', href: '/taluo', emoji: '🃏' },
     { key: 'modules.lingqian.name', href: '/lingqian', emoji: '🏮' },
   ]},
