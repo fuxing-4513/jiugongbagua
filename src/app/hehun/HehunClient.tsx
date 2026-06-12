@@ -296,7 +296,7 @@ interface PersonForm { name: string; cal: 'solar' | 'lunar'; year: string; month
         const b = p.bazi, a = p.analysis, pl = ['年','月','日','时']
         const total = Object.values(a.wxCount).reduce((a,b)=>a+b,0) || 1
         return (
-          <div key={i} className={'bg-dark-800/80 backdrop-blur rounded-xl border p-5 '+(i===0?'border-blue-500/20':'border-pink-500/20')}>
+          <div key={i} className={'bg-dark-800/80 rounded-xl border p-5 '+(i===0?'border-blue-500/20':'border-pink-500/20')}>
             <h3 className={'text-sm font-semibold mb-4 '+(i===0?'text-blue-400':'text-pink-400')}>{(i===0?'👨 男方':'👩 女方')} {p.name}</h3>
             <p className="text-[11px] text-gray-500 mb-3">生肖 {p.animal}</p>
             <div className="overflow-x-auto mb-3">
@@ -329,14 +329,14 @@ interface PersonForm { name: string; cal: 'solar' | 'lunar'; year: string; month
 
   const renderDetails = !res ? null : (
     <div className="space-y-4">
-      <div className="bg-gradient-to-br from-dark-800 to-dark-900 backdrop-blur rounded-2xl border border-gold-500/20 p-8 text-center">
+      <div className="bg-gradient-to-br from-dark-800 to-dark-900 rounded-2xl border border-gold-500/20 p-8 text-center">
         <p className="text-xs text-gray-400 mb-1">综合匹配度</p>
         <p className={'text-5xl font-bold font-serif mb-2 '+(res.total>=70?'text-green-400':res.total>=45?'text-yellow-400':'text-red-400')}>{res.total}%</p>
         <span className={'inline-block px-5 py-1.5 rounded-full text-sm font-semibold border '+(res.total>=70?'border-green-500/40 bg-green-900/20 text-green-400':res.total>=45?'border-yellow-500/40 bg-yellow-900/20 text-yellow-400':'border-red-500/40 bg-red-900/20 text-red-400')}>{res.level} 💍</span>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         {res.dims.map((d,i)=>(
-          <div key={i} className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-4">
+          <div key={i} className="bg-dark-800/80 rounded-xl border border-dark-600 p-4">
             <div className="flex justify-between items-center mb-1">
               <span className="text-xs text-gray-400">{d.label}</span>
               <span className={'text-base font-bold '+(d.score>=70?'text-green-400':d.score>=45?'text-yellow-400':'text-red-400')}>{d.score}</span>
@@ -348,7 +348,7 @@ interface PersonForm { name: string; cal: 'solar' | 'lunar'; year: string; month
             <p className="text-[10px] text-gray-400 mt-0.5">{d.desc}</p>
           </div>
         ))}
-      </div>      <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-5">
+      </div>      <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-5">
         <h3 className="text-xs font-semibold text-gray-200 mb-3">🔮 性格分析</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           <div className="bg-dark-700/50 rounded-lg p-3 border border-blue-500/10">
@@ -361,11 +361,11 @@ interface PersonForm { name: string; cal: 'solar' | 'lunar'; year: string; month
           </div>
         </div>
       </div>
-      <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-5">
+      <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-5">
         <h3 className="text-xs font-semibold text-gray-200 mb-3">💕 感情分析</h3>
         <ul className="space-y-1">{getEmotionDesc(res.mRes.bazi.riZhuWx,res.wRes.bazi.riZhuWx,res.mRes.analysis.yongShen,res.wRes.analysis.yongShen).map((t,i)=><li key={i} className="text-[11px] text-gray-400 leading-relaxed flex gap-1"><span className="text-gold-400 shrink-0 mt-0.5">•</span><span>{t}</span></li>)}</ul>
       </div>
-      <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-5">
+      <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-5">
         <h3 className="text-xs font-semibold text-gray-200 mb-3">💼 事业分析</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           <div className="bg-dark-700/50 rounded-lg p-3 border border-blue-500/10">
@@ -378,7 +378,7 @@ interface PersonForm { name: string; cal: 'solar' | 'lunar'; year: string; month
           </div>
         </div>
       </div>
-      <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-5">
+      <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-5">
         <h3 className="text-xs font-semibold text-gray-200 mb-3">💰 财运分析</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           <div className="bg-dark-700/50 rounded-lg p-3 border border-blue-500/10">
@@ -391,11 +391,11 @@ interface PersonForm { name: string; cal: 'solar' | 'lunar'; year: string; month
           </div>
         </div>
       </div>
-      <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-5">
+      <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-5">
         <h3 className="text-xs font-semibold text-gray-200 mb-3">🌟 其他看点</h3>
         <ul className="space-y-1">{(getOtherInsights(res.mRes.bazi,res.wRes.bazi).length>0?getOtherInsights(res.mRes.bazi,res.wRes.bazi):['无特殊看点']).map((t,i)=><li key={i} className="text-[11px] text-gray-400 leading-relaxed flex gap-1"><span className="text-gold-400 shrink-0 mt-0.5">•</span><span>{t}</span></li>)}</ul>
       </div>
-      <div className="bg-gradient-to-br from-dark-800 to-dark-900 backdrop-blur rounded-xl border border-gold-500/10 p-5">
+      <div className="bg-gradient-to-br from-dark-800 to-dark-900 rounded-xl border border-gold-500/10 p-5">
         <h3 className="text-xs font-semibold text-gray-200 mb-3">💡 婚姻建议</h3>
         <ul className="space-y-1.5">{res.tips.map((t,i)=><li key={i} className="text-[11px] text-gray-400 leading-relaxed flex gap-1"><span className="text-gold-400 shrink-0 mt-0.5">•</span><span>{t}</span></li>)}</ul>
       </div>
@@ -406,7 +406,7 @@ interface PersonForm { name: string; cal: 'solar' | 'lunar'; year: string; month
     <div className="max-w-5xl mx-auto px-4 py-10">
       <h1 className="text-3xl font-bold text-gold-400 font-serif text-center mb-1">💑 合婚测算</h1>
       <p className="text-gray-500 text-sm text-center mb-6">八字合婚·生肖五行·年命纳音·十神婚配 全方位分析</p>
-      <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-5 mb-8">
+      <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-5 mb-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           {[{l:'男方',p:m,sp:setM,g:'m' as const},{l:'女方',p:w,sp:setW,g:'w' as const}].map(s => (
             <div key={s.l}>

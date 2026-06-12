@@ -27,7 +27,7 @@ export default function ShengxiaoClient() {
   const d = DATA[sel]
 
   return (
-    <div className="bg-dark-800/80 backdrop-blur-sm rounded-2xl p-4 sm:p-6 max-w-4xl mx-auto">
+    <div className="bg-dark-800/80 rounded-2xl p-4 sm:p-6 max-w-4xl mx-auto">
       {/* 12生肖选择器 */}
       <div className="grid grid-cols-6 sm:grid-cols-12 gap-2 mb-6">
         {ANIMALS.map(a => (

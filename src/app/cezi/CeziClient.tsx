@@ -198,7 +198,7 @@ export default function CeziClient() {
       {/* ===== Single Char Tab ===== */}
       {tab === 'single' && (
         <>
-          <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-6 mb-6">
+          <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-6 mb-6">
             <label className="block text-xs text-gray-400 mb-2">{tk('modules.cezi.input', lang)}</label>
             <div className="flex gap-2">
               <input type="text" value={input} onChange={e => {
@@ -226,7 +226,7 @@ export default function CeziClient() {
           </div>
 
           {notFound && (
-            <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-amber-700/40 p-6 text-center">
+            <div className="bg-dark-800/80 rounded-xl border border-amber-700/40 p-6 text-center">
               <p className="text-amber-400">暂未收录 &ldquo;{input}&rdquo; 字的解读，请尝试其他汉字。</p>
               <p className="text-xs text-gray-500 mt-2">已收录 {DICT_SIZE} 个汉字，覆盖日常常用字的90%以上。</p>
             </div>
@@ -248,7 +248,7 @@ export default function CeziClient() {
             </p>
           </div>
 
-          <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-6 mb-6">
+          <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-6 mb-6">
             <label className="block text-xs text-gray-400 mb-4 text-center">请输入三个汉字（每字一格）</label>
             <div className="flex justify-center gap-4 mb-4">
               {[0,1,2].map(i => (
@@ -289,7 +289,7 @@ function SingleCharResult({ data: result }: { data: CharData }) {
   // 繁体转换
   const trad = toTraditional(result.c)
   return (
-    <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-6">
+    <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-6">
       <div className="flex justify-center mb-6">
         <div className="w-32 h-32 bg-gradient-to-br from-gold-900/30 to-dark-700 rounded-2xl border-2 border-gold-600/50 flex items-center justify-center">
           <span className="text-6xl font-bold text-gold-400 font-serif">{result.c}</span>
@@ -375,7 +375,7 @@ function ZhugeResult({ data, strokes, id, chars }: { data: ZhugeQianData; stroke
   return (
     <div className="space-y-4">
       {/* 签号与总笔画 */}
-      <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-5 flex items-center justify-between">
+      <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-5 flex items-center justify-between">
         <div>
           <p className="text-xs text-gray-500">所测三字</p>
           <p className="text-xl font-serif text-gold-400">{chars.join(' · ')}</p>
@@ -404,7 +404,7 @@ function ZhugeResult({ data, strokes, id, chars }: { data: ZhugeQianData; stroke
       </div>
 
       {/* 解签 */}
-      <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-5">
+      <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-5">
         <h4 className="text-xs font-semibold text-gold-400 mb-2">🔍 签文解读</h4>
         <p className="text-sm text-gray-300 leading-relaxed">{data.explanation}</p>
       </div>

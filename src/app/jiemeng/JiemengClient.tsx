@@ -126,7 +126,7 @@ export default function JiemengClient() {
       <p className="text-gray-400 mb-8">{loaded && dreamDB ? `收录 ${dreamDB.length} 条梦境解析` : '加载中...'} · 含《周公解梦》《梦林玄解》《断梦秘书》古籍原文 · 支持多词组合搜索</p>
 
       {/* 搜索框 */}
-      <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-6 mb-4">
+      <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-6 mb-4">
         <div className="flex gap-2">
           <input
             type="text"
@@ -188,7 +188,7 @@ export default function JiemengClient() {
           {pagedResults.map((dream, i) => (
             <div key={i}
               onClick={() => setSelectedDream(dream)}
-              className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-4 cursor-pointer hover:border-gold-500/40 transition-colors"
+              className="bg-dark-800/80 rounded-xl border border-dark-600 p-4 cursor-pointer hover:border-gold-500/40 transition-colors"
             >
               <div className="flex items-center gap-2 mb-1.5">
                 <span className="text-xs bg-dark-700 text-gray-400 px-1.5 py-0.5 rounded">{CAT_ICON[dream.category]||''} {dream.category}</span>
@@ -211,7 +211,7 @@ export default function JiemengClient() {
 
       {/* 无结果 */}
       {searched && results.length === 0 && (
-        <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-5 text-center">
+        <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-5 text-center">
           <p className="text-sm text-gray-400 mb-2">未找到 &quot;{keyword}&quot; 的相关解梦</p>
           <p className="text-xs text-gray-500">试试：蛇、掉牙、水、飞、考试、死人</p>
         </div>
@@ -237,7 +237,7 @@ export default function JiemengClient() {
 
       {/* 详情弹窗 */}
       {selectedDream && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4"
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4"
           onClick={() => setSelectedDream(null)}>
           <div className="bg-dark-800 border border-dark-600 rounded-2xl max-w-lg w-full max-h-[85vh] overflow-y-auto p-6"
             onClick={e => e.stopPropagation()}>

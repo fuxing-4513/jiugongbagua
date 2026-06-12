@@ -152,7 +152,7 @@ function FreeChartWidget() {
 
   return (
     <section className="max-w-xl mx-auto mb-10">
-      <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-gold-500/20 p-6">
+      <div className="bg-dark-800/80 rounded-xl border border-gold-500/20 p-6">
         <h2 className="text-xl font-semibold text-gold-400 font-serif mb-1 text-center">🔮 立即排盘</h2>
         <p className="text-xs text-gray-500 text-center mb-5">输入出生信息，AI 即刻为您深度批命</p>
 

@@ -316,7 +316,7 @@ export default function ShumaClient() {
       <p className="text-gray-400 mb-6">基于八星磁场理论，输入手机号快速分析数字能量组合与命主磁场特征。</p>
 
       {/* 输入 */}
-      <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-6 mb-6">
+      <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-6 mb-6">
         <div className="flex gap-2">
           <input type="text" value={phone} onChange={e => setPhone(e.target.value.toUpperCase().replace(/[^0-9A-Z]/g,'').slice(0,18))}
             placeholder="输入号码（手机/车牌/QQ/身份证等，字母自动转数字）"
@@ -328,7 +328,7 @@ export default function ShumaClient() {
 
       {/* 八星对照表 + 七星排列 */}
       <div className="grid grid-cols-1 sm:grid-cols-1 gap-4 mb-6">
-        <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-5">
+        <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-5">
           <h3 className="text-sm font-semibold text-gray-200 mb-3 text-center">八星磁场号码对照表</h3>
           <div className="grid grid-cols-4 sm:grid-cols-8 gap-1.5">
             {FIELD_LIST.map(f => (
@@ -346,7 +346,7 @@ export default function ShumaClient() {
         </div>
 
         {/* 七星排列 */}
-        <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-5">
+        <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-5">
           <h3 className="text-sm font-semibold text-gray-200 mb-3 text-center">北斗七星 · 对应天上七星排列</h3>
           <div className="grid grid-cols-7 gap-1">
             {STAR7.map((s, i) => (
@@ -362,7 +362,7 @@ export default function ShumaClient() {
 
       {/* 选中磁场详解 */}
       {selectedField && FIELDS[selectedField] && (
-        <div className="bg-dark-800/80 backdrop-blur rounded-xl border p-5 mb-6" style={{borderColor: FIELDS[selectedField].color + '40'}}>
+        <div className="bg-dark-800/80 rounded-xl border p-5 mb-6" style={{borderColor: FIELDS[selectedField].color + '40'}}>
           <div className="flex items-center gap-2 mb-2">
             <span className="text-sm font-bold font-serif" style={{color: FIELDS[selectedField].color}}>{FIELDS[selectedField].name}</span>
             <span className={`text-[10px] px-1.5 py-0.5 rounded border ${TYPE_STYLE[FIELDS[selectedField].type] || ''}`}>{FIELDS[selectedField].type}</span>
@@ -379,14 +379,14 @@ export default function ShumaClient() {
       {result && result.segments && (
         <div className="space-y-4">
           {/* 综合评分 */}
-          <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-5 text-center">
+          <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-5 text-center">
             <p className="text-xs text-gray-500 mb-1">综合评分</p>
             <p className={`text-4xl font-bold ${result.score >= 60 ? 'text-green-400' : result.score >= 40 ? 'text-yellow-400' : 'text-red-400'}`}>{result.score}</p>
             <p className={`text-sm mt-1 font-semibold ${result.score >= 60 ? 'text-green-400' : result.score >= 40 ? 'text-yellow-400' : 'text-red-400'}`}>{result.overall}</p>
           </div>
 
           {/* 号码分段 & 组合解析 */}
-          <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-5">
+          <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-5">
             <h3 className="text-sm font-semibold text-gray-200 mb-3">组合解析</h3>
             <div className="overflow-x-auto mb-3">
               <table className="w-full text-xs">
@@ -415,7 +415,7 @@ export default function ShumaClient() {
 
           {/* 号主磁场分析 */}
           {result.dominantData && (
-            <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-gold-500/30 p-5">
+            <div className="bg-dark-800/80 rounded-xl border border-gold-500/30 p-5">
               <h3 className="text-sm font-semibold text-gold-300 mb-2">号主 · 磁场最强的星（主要性格特征）</h3>
               <p className="text-xs text-gray-400 mb-2">主{result.dominantData.name} · {result.dominantData.star7}</p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
@@ -440,7 +440,7 @@ export default function ShumaClient() {
           )}
 
           {/* 对应七星排列 */}
-          <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-5">
+          <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-5">
             <h3 className="text-sm font-semibold text-gray-200 mb-3">对应天上七星排列（北斗七星）</h3>
             <div className="grid grid-cols-7 gap-1.5">
               {result.star7Results.map((s, i: number) => (
@@ -461,7 +461,7 @@ export default function ShumaClient() {
               const cnt = result.fieldCounts[f.key] || 0
               return (
                 <button key={f.key} onClick={() => setSelectedField(selectedField === f.key ? null : f.key)}
-                  className="bg-dark-800/80 backdrop-blur rounded-lg border border-dark-600 p-3 text-center hover:border-gold-500/50 transition-colors">
+                  className="bg-dark-800/80 rounded-lg border border-dark-600 p-3 text-center hover:border-gold-500/50 transition-colors">
                   <div className="flex items-center justify-center gap-1.5 mb-1">
                     <span className="text-xs font-semibold" style={{color: f.color}}>{f.name}</span>
                     <span className={`text-[9px] px-1 py-0.5 rounded ${TYPE_STYLE[f.type] || ''}`}>{f.type}</span>

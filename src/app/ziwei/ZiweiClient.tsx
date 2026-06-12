@@ -478,7 +478,7 @@ export default function ZiweiClient() {
       <p className="text-gray-400 mb-6 text-sm">四化 · 廟旺 · 大限 · 格局全解析 — 承《紫微斗數全書》古籍原文</p>
 
       {/* ═══ Input Form ═══ */}
-      <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-5 mb-8 max-w-2xl mx-auto">
+      <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-5 mb-8 max-w-2xl mx-auto">
         <table className="w-full text-sm"><tbody>
           <tr>
             <td className="text-gray-400 pr-3 py-1.5 w-12 align-middle">性別</td>

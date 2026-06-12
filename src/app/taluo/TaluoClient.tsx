@@ -129,7 +129,7 @@ export default function TaluoClient() {
       <p className="text-gray-400 mb-8">{tk('modules.taluo.desc', lang)}</p>
 
       {/* 牌阵选择 */}
-      <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-6 mb-6">
+      <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-6 mb-6">
         <div className="flex flex-wrap gap-3 items-center">
           {(['single', 'three', 'celtic'] as SpreadType[]).map(s => {
             const labels: Record<SpreadType, string> = { single: '单张牌', three: '三张牌', celtic: '凯尔特十字' }

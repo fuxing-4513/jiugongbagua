@@ -272,7 +272,7 @@ export default function ChengguClient() {
     <h1 className="text-3xl font-bold text-gold-400 font-serif mb-3">称骨算命</h1>
     <p className="text-gray-400 mb-6">袁天罡称骨法：支持阳历/阴历输入，自动换算。男命女命分断，精准解读命运骨重。</p>
 
-    <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-6 mb-8">
+    <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-6 mb-8">
       {/* 历法 & 性别 */}
       <div className="space-y-4">
         <CalendarInput
@@ -307,7 +307,7 @@ export default function ChengguClient() {
     </div>
 
     {r && (<div className="space-y-4">
-      <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-5 text-center">
+      <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-5 text-center">
         <p className="text-xs text-gray-500 mb-1">
           {r.gender === 'male' ? '♂ 男命' : '♀ 女命'} · 出生年柱：{r.gzYear}
         </p>
@@ -330,17 +330,17 @@ export default function ChengguClient() {
         ))}
       </div>
 
-      <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-5">
+      <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-5">
         <h3 className="text-sm font-semibold text-gold-400 mb-2">{r.gender === 'male' ? '♂ 男命称骨诗' : '♀ 女命称骨诗'}</h3>
         <p className="text-sm text-gray-200 leading-loose whitespace-pre-line">{r.poem}</p>
       </div>
-      <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-5">
+      <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-5">
         <h3 className="text-sm font-semibold text-gold-400 mb-2">{r.gender === 'male' ? '♂ 男命解读' : '♀ 女命解读'}</h3>
         <p className="text-sm text-gray-300 leading-relaxed">{r.interpret}</p>
       </div>
 
       {/* 命书分析 */}
-      <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-gold-500/30 p-5">
+      <div className="bg-dark-800/80 rounded-xl border border-gold-500/30 p-5">
         <h3 className="text-sm font-semibold text-gold-400 mb-3">📖 称骨命书</h3>
         <p className="text-xs text-amber-300 mb-3 leading-relaxed">{r.mingShu.overview}</p>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">

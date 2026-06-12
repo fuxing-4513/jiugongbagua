@@ -62,7 +62,7 @@ export default function QimenClient() {
     <h1 className="text-3xl font-bold text-gold-400 font-serif mb-3">奇门遁甲</h1>
     <p className="text-gray-400 mb-6">奇门遁甲排盘，八门九星神煞简析</p>
 
-    <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-6 mb-8">
+    <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-6 mb-8">
       <p className="text-xs text-gray-400 mb-3">选择时辰（或当前时辰）</p>
       <div className="grid grid-cols-4 gap-2 mb-4 max-w-sm">
         {['子(23-1)','丑(1-3)','寅(3-5)','卯(5-7)','辰(7-9)','巳(9-11)','午(11-13)','未(13-15)','申(15-17)','酉(17-19)','戌(19-21)','亥(21-23)'].map((label,i)=>(
@@ -74,36 +74,36 @@ export default function QimenClient() {
     </div>
 
     {r && (<div className="space-y-4">
-      <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-5 text-center">
+      <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-5 text-center">
         <p className="text-lg font-bold text-gold-400">时柱：{r.hourGan}{r.hourZhi}</p>
         <p className="text-[10px] text-gray-400">{YIN_YANG[r.hourGan]} · {r.hourZhi}时</p>
       </div>
 
       <div className="grid grid-cols-3 gap-3">
-        <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-4 text-center">
+        <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-4 text-center">
           <p className={`text-sm font-bold ${QIMEN_DOORS[r.doorIndex].luck==='大吉'?'text-green-400':QIMEN_DOORS[r.doorIndex].luck==='凶'||QIMEN_DOORS[r.doorIndex].luck==='大凶'?'text-red-400':'text-yellow-400'}`}>{QIMEN_DOORS[r.doorIndex].name}门</p>
           <p className="text-[10px] text-gray-500">{QIMEN_DOORS[r.doorIndex].dir} · {QIMEN_DOORS[r.doorIndex].luck}</p>
         </div>
-        <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-4 text-center">
+        <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-4 text-center">
           <p className={`text-sm font-bold ${QIMEN_STARS[r.starIndex].luck==='大吉'?'text-green-400':QIMEN_STARS[r.starIndex].luck==='凶'?'text-red-400':'text-yellow-400'}`}>{QIMEN_STARS[r.starIndex].name}星</p>
           <p className="text-[10px] text-gray-500">{QIMEN_STARS[r.starIndex].dir} · {QIMEN_STARS[r.starIndex].luck}</p>
         </div>
-        <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-4 text-center">
+        <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-4 text-center">
           <p className="text-sm font-bold text-gold-400">{QIMEN_GODS[r.godIndex]}</p>
           <p className="text-[10px] text-gray-500">神煞</p>
         </div>
       </div>
 
-      <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-4">
+      <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-4">
         <h3 className="text-xs font-semibold text-gold-400 mb-2">八门释义</h3>
         <p className="text-xs text-gray-300">{QIMEN_DOORS[r.doorIndex].meaning}</p>
       </div>
-      <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-4">
+      <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-4">
         <h3 className="text-xs font-semibold text-gold-400 mb-2">九星释义</h3>
         <p className="text-xs text-gray-300">{QIMEN_STARS[r.starIndex].meaning}</p>
       </div>
 
-      <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-4">
+      <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-4">
         <h3 className="text-xs font-semibold text-gray-200 mb-2">综合建议</h3>
         <p className="text-[11px] text-gray-300 leading-relaxed">
           当前{QIMEN_DOORS[r.doorIndex].name}{QIMEN_DOORS[r.doorIndex].luck}，

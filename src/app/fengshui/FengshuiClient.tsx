@@ -64,7 +64,7 @@ export default function FengshuiClient() {
     <p className="text-gray-400 mb-6">罗盘八卦方位查询与风水分析</p>
 
     {/* 八卦罗盘 */}
-    <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-6 mb-8">
+    <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-6 mb-8">
       <h3 className="text-sm font-semibold text-gold-400 mb-3 text-center">八卦方位盘</h3>
       <div className="grid grid-cols-4 gap-2 max-w-sm mx-auto">
         <div></div>
@@ -115,7 +115,7 @@ export default function FengshuiClient() {
     </div>
 
     {/* 方位查询 */}
-    <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-6 mb-8">
+    <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-6 mb-8">
       <h3 className="text-sm font-semibold text-gold-400 mb-3">方位查询</h3>
       <div className="flex gap-2 mb-4">
         <input type="text" value={dir} onChange={e=>setDir(e.target.value)} placeholder="输入方位（东/南/西/北/东南/西北/东北/西南）" className="flex-1 px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200 text-sm" />
@@ -137,7 +137,7 @@ export default function FengshuiClient() {
     </div>
 
     {/* 八卦列表 */}
-    <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-5">
+    <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-5">
       <h3 className="text-xs font-semibold text-gray-200 mb-3">八卦详表</h3>
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
         {BA_GUA.map(g => (

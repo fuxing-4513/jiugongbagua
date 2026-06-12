@@ -591,7 +591,7 @@ export default function XingmingClient() {
     <>
     <p className="text-gray-400 mb-6">基于康熙字典笔画·五格数理·三才五行配置给姓名打分</p>
 
-    <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-6 mb-8">
+    <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-6 mb-8">
       <div className="grid grid-cols-2 gap-4 mb-4">
         <div><label className="block text-xs text-gray-400 mb-1">姓氏</label>
           <input type="text" value={lastName} onChange={e => setLastName(e.target.value)}
@@ -606,7 +606,7 @@ export default function XingmingClient() {
 
     {r && (<div className="space-y-5">
       {/* 基本资料 */}
-      <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-5">
+      <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-5">
         <h3 className="text-sm font-semibold text-gray-200 mb-3">姓名基本资料</h3>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs text-gray-300">
           <div><span className="text-gray-500">姓名：</span>{r.fullName}</div>
@@ -624,7 +624,7 @@ export default function XingmingClient() {
       </div>
 
       {/* 五格数理 */}
-      <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-5">
+      <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-5">
         <h3 className="text-sm font-semibold text-gray-200 mb-3">姓名五格数理及五行</h3>
         <p className="text-xs text-gray-500 mb-3">其中天、人、地为三才：{r.sancai}</p>
         <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
@@ -641,7 +641,7 @@ export default function XingmingClient() {
 
       {/* 五格详解 */}
       {r.wuge.map((w, i: number) => (
-        <div key={i} className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-5">
+        <div key={i} className="bg-dark-800/80 rounded-xl border border-dark-600 p-5">
           <div className="flex items-center gap-2 mb-2">
             <h3 className="text-sm font-semibold text-gold-300">{w.key}{w.val}所示之{w.key === '天格' ? '先天运' : w.key === '人格' ? '主运' : w.key === '地格' ? '前运' : w.key === '外格' ? '副运' : '后运'}</h3>
             <span className={`text-[10px] px-1.5 py-0.5 rounded border ${w.score === '大吉' ? 'border-green-700 text-green-300 bg-green-900/30' : w.score === '凶' || w.score === '大凶' ? 'border-red-700 text-red-300 bg-red-900/30' : 'border-yellow-700 text-yellow-300 bg-yellow-900/30'}`}>{w.score}</span>
@@ -657,7 +657,7 @@ export default function XingmingClient() {
       ))}
 
       {/* 三才配置 */}
-      <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-5">
+      <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-5">
         <h3 className="text-sm font-semibold text-gray-200 mb-2">三才配置</h3>
         <p className="text-xs text-gray-500 mb-2">（三才配置吉凶为姓名测试之核心，请重点关注！）</p>
         <p className="text-xs text-gray-300 mb-3">您姓名的天地人三才配置为：{r.sancai}。{r.scScore === '吉' || r.scScore === '大吉' ? '三才配置良好，运势顺畅，根基稳固，家庭和睦，身体健康。' : r.scScore === '小吉' ? '三才配置尚可，虽有波折但总体平稳。' : '三才配置不佳，基础运薄弱，需多加注意健康和人际关系。'}</p>
@@ -678,7 +678,7 @@ export default function XingmingClient() {
       </div>
 
       {/* 总评 */}
-      <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-gold-500/30 p-5 text-center">
+      <div className="bg-dark-800/80 rounded-xl border border-gold-500/30 p-5 text-center">
         <p className="text-xs text-gray-500 mb-1">总评及打分</p>
         <p className={`text-4xl font-bold ${r.avgScore >= 80 ? 'text-green-400' : r.avgScore >= 60 ? 'text-yellow-400' : 'text-red-400'}`}>{r.avgScore}</p>
         <p className={`text-sm mt-1 font-semibold ${r.avgScore >= 80 ? 'text-green-400' : r.avgScore >= 60 ? 'text-yellow-400' : 'text-red-400'}`}>
@@ -687,7 +687,7 @@ export default function XingmingClient() {
       </div>
 
       {/* 数理暗示汇总 */}
-      <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-4">
+      <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-4">
         <h3 className="text-xs font-semibold text-gray-200 mb-2">数理暗示汇总</h3>
         <div className="flex flex-wrap gap-1">
           {r.wuge.map((w, i: number) => (

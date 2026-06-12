@@ -670,7 +670,7 @@ export default function BaziClient() {
     <h1 className="text-3xl font-bold text-gold-400 font-serif mb-3">生辰八字算命</h1>
     <p className="text-gray-400 mb-8">真太阳时排盘 · 神煞详解 · 古籍论断 · 性格/感情/事业/财运全面分析</p>
 
-    <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-6 mb-8">
+    <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-6 mb-8">
       
       <div className="flex gap-2 mb-4 flex-wrap">
         <button onClick={()=>setMode('date')} aria-label="按日期排盘" className={`px-3 py-1.5 rounded-lg text-xs transition-colors ${mode==='date'?'bg-gold-600 text-dark-900 font-semibold':'bg-dark-700 text-gray-400 border border-dark-600'}`}>✨ 公历/农历</button>
@@ -752,14 +752,14 @@ export default function BaziClient() {
     </div>
 
     {result && (<div className="space-y-4">
-      <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-4 text-center">
+      <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-4 text-center">
         <p className="text-xs text-gray-500 mb-1">{result.dateStr}</p>
         <p className="text-base font-bold text-gold-400 font-serif">{result.bazi}</p>
         <p className="text-xs text-gray-500 mt-1">{result.solarStr} · {result.lunarStr}</p>
       </div>
 
       {/* 四柱命盘 */}
-      <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-4">
+      <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-4">
         <h3 className="text-sm font-semibold text-gold-300 font-serif mb-3 text-center">四柱命盘</h3>
         <div className="overflow-x-auto">
           <table className="w-full text-xs border-collapse">
@@ -808,7 +808,7 @@ export default function BaziClient() {
 
       {/* 第一行：五行分布 + 命宫身宫胎元旬空 */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-        <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-4">
+        <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-4">
           <h3 className="text-sm font-semibold text-gray-200 mb-3">五行分布</h3>
           <div className="grid grid-cols-5 gap-1.5 mb-3">
             {
@@ -820,7 +820,7 @@ Object.entries(result.wx).map(([w,c]): React.ReactNode =>(
           </div>
           <p className="text-xs text-gray-300">日主{result.dg}属{wxM[result.dg]} · {result.str.level}</p>
         </div>
-        <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-4 flex flex-col justify-center">
+        <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-4 flex flex-col justify-center">
           <h3 className="text-sm font-semibold text-gray-200 mb-3">命宫 · 身宫 · 胎元 · 旬空</h3>
           <div className="grid grid-cols-2 gap-3">
             <div className="bg-dark-700/60 rounded-lg p-3 border border-dark-600">
@@ -844,7 +844,7 @@ Object.entries(result.wx).map(([w,c]): React.ReactNode =>(
       </div>
 
       {/* 第二行：神煞详解（独占） */}
-      <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-4">
+      <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-4">
         <h3 className="text-sm font-semibold text-gray-200 mb-3">神煞详解 <span className="text-[10px] font-normal text-gray-500">（各柱分布见上表）</span></h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
           {result.shenSha.map((s: ShenShaItem,i: number)=>(
@@ -858,7 +858,7 @@ Object.entries(result.wx).map(([w,c]): React.ReactNode =>(
         </div>
       </div>
 {/* 命理批断 - 概述+古籍 */}
-      <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-gold-500/30 p-4">
+      <div className="bg-dark-800/80 rounded-xl border border-gold-500/30 p-4">
         <h3 className="text-sm font-semibold text-gold-300 mb-3">📜 命理批断</h3>
         {result.analysis.general.map((s:string,i:number)=><p key={i} className="text-xs text-gray-300 mb-1.5 leading-relaxed">{s}</p>)}
         {result.analysis.classical.map((s:string,i:number)=><p key={i} className="text-xs text-amber-300 mb-1 font-medium leading-relaxed">{s}</p>)}
@@ -866,19 +866,19 @@ Object.entries(result.wx).map(([w,c]): React.ReactNode =>(
 
       {/* 四大分析模块 */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-        <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-4">
+        <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-4">
           <h3 className="text-sm font-semibold mb-2 text-blue-400">🧠 性格分析</h3>
           <p className="text-xs text-gray-300 leading-relaxed">{result.analysis.personality}</p>
         </div>
-        <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-4">
+        <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-4">
           <h3 className="text-sm font-semibold mb-2 text-pink-400">💕 感情分析</h3>
           <p className="text-xs text-gray-300 leading-relaxed">{result.analysis.love}</p>
         </div>
-        <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-4">
+        <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-4">
           <h3 className="text-sm font-semibold mb-2 text-cyan-400">💼 事业分析</h3>
           <p className="text-xs text-gray-300 leading-relaxed">{result.analysis.career}</p>
         </div>
-        <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-4">
+        <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-4">
           <h3 className="text-sm font-semibold mb-2 text-green-400">💰 财运分析</h3>
           <p className="text-xs text-gray-300 leading-relaxed">{result.analysis.wealth}</p>
         </div>
@@ -886,7 +886,7 @@ Object.entries(result.wx).map(([w,c]): React.ReactNode =>(
 
       {/* 其他 */}
       {result.analysis.other.length > 0 && (
-        <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-4">
+        <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-4">
           <h3 className="text-sm font-semibold text-gray-200 mb-2">📋 其他看点</h3>
           {result.analysis.other.map((s:string,i:number)=><p key={i} className="text-xs text-gray-400 mb-1">{s}</p>)}
         </div>

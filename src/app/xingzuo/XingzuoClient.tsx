@@ -45,7 +45,7 @@ export default function XingzuoClient() {
   const mm = monthlyMatters[selYear]?.[selYf]
 
   return (
-    <div className="bg-dark-800/80 backdrop-blur-sm rounded-2xl p-4 sm:p-6 max-w-4xl mx-auto">
+    <div className="bg-dark-800/80 rounded-2xl p-4 sm:p-6 max-w-4xl mx-auto">
       <div className="flex flex-wrap gap-2 mb-6">
         {['baike','yearly'].map(t => (
           <button key={t} onClick={() => setTab(t)}

@@ -376,7 +376,7 @@ export default function LiuyaoClient() {
 
       {/* ============ 手动摇卦区域 ============ */}
       {mode === 'manual' && !r && (
-        <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-6 mb-8">
+        <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-6 mb-8">
           {/* 卦象进度 */}
           <div className="flex justify-center mb-6">
             <div className="flex flex-col-reverse items-center gap-0.5">
@@ -475,7 +475,7 @@ export default function LiuyaoClient() {
 
       {/* ============ 自动起卦区域 ============ */}
       {mode === 'auto' && !r && (
-        <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-8 mb-8 min-h-[420px]">
+        <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-8 mb-8 min-h-[420px]">
           {autoAnimating ? (
             <div className="flex flex-col items-center gap-6">
               {/* 当前爻次 */}
@@ -595,7 +595,7 @@ export default function LiuyaoClient() {
         return (
         <div className="space-y-4 animate-fadeIn">
           {/* 卦名 & 卦象 */}
-          <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-5">
+          <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-5">
             <div className="text-center mb-3">
               <p className="text-2xl text-gold-400 font-serif mb-1">
                 {TRI[hd.upper]}{TRI[hd.lower]} {hd.name}
@@ -631,19 +631,19 @@ export default function LiuyaoClient() {
           </div>
 
           {/* 卦辞 - 核心 */}
-          <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-gold-600/30 p-5">
+          <div className="bg-dark-800/80 rounded-xl border border-gold-600/30 p-5">
             <h3 className="text-xs text-gold-500 font-bold mb-2 tracking-widest">⚜ 卦辞</h3>
             <p className="text-sm text-gray-200 leading-relaxed">{hd.guaci}</p>
           </div>
 
           {/* 象辞 */}
-          <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-5">
+          <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-5">
             <h3 className="text-xs text-gray-500 font-bold mb-2 tracking-widest">📜 象辞</h3>
             <p className="text-sm text-gray-300 leading-relaxed">{hd.xiangci}</p>
           </div>
 
           {/* 三位大师解读（三栏）*/}
-          <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-5">
+          <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-5">
             <h3 className="text-xs text-gray-500 font-bold mb-3 tracking-widest">🧙 三位大师解卦</h3>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               <div className="bg-dark-900/60 rounded-lg p-3 border border-dark-700">
@@ -662,7 +662,7 @@ export default function LiuyaoClient() {
           </div>
 
           {/* 六大领域解读 */}
-          <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-5">
+          <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-5">
             <h3 className="text-xs text-gray-500 font-bold mb-3 tracking-widest">📋 六领域建议</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
               {[
@@ -683,7 +683,7 @@ export default function LiuyaoClient() {
 
           {/* 变卦 */}
           {cvd && (
-            <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-amber-600/30 p-5">
+            <div className="bg-dark-800/80 rounded-xl border border-amber-600/30 p-5">
               <div className="text-center mb-2">
                 <p className="text-xs text-amber-500 mb-1">→ 变卦（动爻变化后的结果）</p>
                 <p className="text-lg text-gold-400 font-serif">

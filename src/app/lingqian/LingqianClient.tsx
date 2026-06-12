@@ -123,7 +123,7 @@ function QianCard({ item, visible }: { item: LingqianItem; visible: boolean }) {
   return (
     <div className="space-y-4 animate-[stick-pop_0.5s_ease-out]">
       {/* 签头：签号+吉凶+签题 */}
-      <div className={`rounded-xl border-2 p-5 text-center ${lc} backdrop-blur`}
+      <div className={`rounded-xl border-2 p-5 text-center ${lc}`}
         style={{ animation: 'qian-glow 2s ease-in-out infinite' }}>
         <p className="text-xs opacity-70 mb-1">第 {item.id} 签</p>
         <p className="text-sm font-bold mb-2">{item.level} · {item.title}</p>
@@ -131,7 +131,7 @@ function QianCard({ item, visible }: { item: LingqianItem; visible: boolean }) {
       </div>
 
       {/* 签诗 */}
-      <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-5">
+      <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-5">
         <h3 className="text-sm font-semibold text-gold-400 mb-2 flex items-center gap-2">
           <span>📜</span> 签诗
         </h3>
@@ -141,7 +141,7 @@ function QianCard({ item, visible }: { item: LingqianItem; visible: boolean }) {
       </div>
 
       {/* 断语 */}
-      <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-gold-600/30 p-5">
+      <div className="bg-dark-800/80 rounded-xl border border-gold-600/30 p-5">
         <h3 className="text-sm font-semibold text-gold-400 mb-2 flex items-center gap-2">
           <span>🏷️</span> 断语
         </h3>
@@ -149,7 +149,7 @@ function QianCard({ item, visible }: { item: LingqianItem; visible: boolean }) {
       </div>
 
       {/* 签意 */}
-      <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-5">
+      <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-5">
         <h3 className="text-sm font-semibold text-gold-400 mb-2 flex items-center gap-2">
           <span>💡</span> 签意解析
         </h3>
@@ -246,7 +246,7 @@ export default function LingqianClient() {
       </div>
 
       {/* 签筒区 */}
-      <div className="bg-dark-800/60 backdrop-blur rounded-2xl border border-dark-600 p-6 mb-6 text-center">
+      <div className="bg-dark-800/60 rounded-2xl border border-dark-600 p-6 mb-6 text-center">
         {/* 问事输入 */}
         <div className="mb-4">
           <label className="text-xs text-gray-400 block mb-2">心中所问（可选）</label>

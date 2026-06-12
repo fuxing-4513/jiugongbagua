@@ -69,7 +69,7 @@ export default function DayunChart({ dayun, currentAge }: Props) {
   if (!dayun.length) return null
 
   return (
-    <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-4">
+    <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-4">
       <h3 className="text-sm font-semibold text-gray-200 mb-1">
         📊 大运流年
         {currentAge && <span className="text-xs text-gray-500 font-normal ml-2">当前 {currentAge} 岁</span>}

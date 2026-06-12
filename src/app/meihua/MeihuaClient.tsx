@@ -396,7 +396,7 @@ export default function MeihuaClient() {
     <h1 className="text-3xl font-bold text-gold-400 font-serif mb-1">梅花易数</h1>
     <p className="text-gray-400 mb-2">随心起卦，洞察先机。支持数字、时间、自动、万物取象、终身卦五种方式。</p>
 
-    <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-5 mb-8">
+    <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-5 mb-8">
       <div className="flex flex-wrap gap-2 mb-4">
         <button onClick={() => setMethod('number')} className={btnClass('number')}>🔢 数字起卦</button>
         <button onClick={() => setMethod('calendarTime')} className={btnClass('calendarTime')}>📅 时间起卦</button>
@@ -500,7 +500,7 @@ export default function MeihuaClient() {
     </div>
 
     {r && (<div className="space-y-4">
-      <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-4 text-center">
+      <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-4 text-center">
         <p className="text-[10px] text-gray-500 mb-1">{r.sourceStr}</p>
         {r.detailLines && r.detailLines.map((line: string, i: number) => (
           <p key={i} className="text-[10px] text-gray-500">{line}</p>
@@ -514,19 +514,19 @@ export default function MeihuaClient() {
         {gender && <p className="text-[10px] text-gray-500 mt-1">占者：{gender} · {matter || '预测何事'}</p>}
       </div>
 
-      <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-5">
+      <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-5">
         <h3 className="text-sm font-semibold text-gold-400 mb-2">本卦 · 卦辞</h3>
         <p className="text-sm text-gray-300 leading-relaxed">{r.gua.poem}</p>
       </div>
 
       {r.changeGua?.poem && (
-        <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-5">
+        <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-5">
           <h3 className="text-sm font-semibold text-gold-400 mb-2">变卦 · 卦辞</h3>
           <p className="text-sm text-gray-300 leading-relaxed">{r.changeGua.poem}</p>
         </div>
       )}
 
-      <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-5">
+      <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-5">
         <h3 className="text-sm font-semibold text-gold-400 mb-2">五行生克</h3>
         <p className="text-xs text-gray-300">
           上卦{r.upper}属{r.upperT?.wx}，下卦{r.lower}属{r.lowerT?.wx}。
@@ -567,13 +567,13 @@ export default function MeihuaClient() {
         })()}
       </div>
 
-      <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-5">
+      <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-5">
         <h3 className="text-sm font-semibold text-gold-400 mb-2">动爻解读</h3>
         <p className="text-xs text-gray-300">第{r.moving}爻变动，表示事情正在发展变化中。{r.yaoInt}</p>
       </div>
 
       {method === 'symbolism' && r.matched && (
-        <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-gold-700/50 p-5">
+        <div className="bg-dark-800/80 rounded-xl border border-gold-700/50 p-5">
           <h3 className="text-sm font-semibold text-gold-400 mb-2">🌿 取象解析</h3>
           <p className="text-xs text-gray-300">
             你所见之「{r.symbolText}」匹配《梅花易数》万物类象中的「{r.matched.object}」,
@@ -584,7 +584,7 @@ export default function MeihuaClient() {
       )}
 
       {method === 'lifetime' && r.ltInfo && (
-        <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-5">
+        <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-5">
           <h3 className="text-sm font-semibold text-gold-400 mb-3">📋 终身卦信息</h3>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
             <div className="bg-dark-700/50 rounded-lg p-2.5">

@@ -85,7 +85,7 @@ export default function WenkuClient() {
 
       <div className="space-y-3">
         {filtered.map(article => (
-          <div key={article.id} className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 overflow-hidden transition-all duration-200 hover:border-dark-500">
+          <div key={article.id} className="bg-dark-800/80 rounded-xl border border-dark-600 overflow-hidden transition-all duration-200 hover:border-dark-500">
             <button onClick={() => setExpandedId(expandedId === article.id ? null : article.id)}
               className="w-full text-left p-4 flex items-start justify-between gap-3">
               <div className="flex-1 min-w-0">

@@ -937,7 +937,7 @@ export default function NamingClient() {
       {tab === 'wuxing' ? (
         <>
           {/* 输入区 */}
-          <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-6">
+          <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-6">
             <h3 className="text-sm font-semibold text-gray-200 mb-4">输入信息</h3>
 
             <div className="mb-4">
@@ -998,7 +998,7 @@ export default function NamingClient() {
             const wxColor: Record<string,string> = {'木':'from-green-400 to-green-600','火':'from-red-400 to-red-600','土':'from-amber-400 to-amber-600','金':'from-yellow-400 to-yellow-600','水':'from-blue-400 to-blue-600'}
             const wxBg: Record<string,string> = {'木':'bg-green-700/30','火':'bg-red-700/30','土':'bg-amber-700/30','金':'bg-yellow-700/30','水':'bg-blue-700/30'}
             return (
-              <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-5">
+              <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-5">
                 <h3 className="text-sm font-semibold text-gray-200 mb-4">八字命盘</h3>
 
                 {/* 四柱表格 */}
@@ -1102,7 +1102,7 @@ export default function NamingClient() {
             <>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {wxResults.map((r, i) => (
-                  <div key={i} className="bg-dark-800/80 backdrop-blur rounded-xl border border-gold-500/20 p-5 hover:border-gold-500/50 transition-all">
+                  <div key={i} className="bg-dark-800/80 rounded-xl border border-gold-500/20 p-5 hover:border-gold-500/50 transition-all">
                     <div className="flex items-center justify-between mb-3">
                       <span className="text-lg font-bold font-serif text-gold-400">{r.fullName}</span>
                       <span className={`text-lg font-bold ${r.avgScore>=80?'text-green-400':r.avgScore>=60?'text-yellow-400':'text-red-400'}`}>{r.avgScore}分</span>
@@ -1140,7 +1140,7 @@ export default function NamingClient() {
           {poemBatch.length === 0 && handleGushi()}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {poemBatch.map((entry, i) => (
-              <div key={i} className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-5 hover:border-gold-500/30 transition-all">
+              <div key={i} className="bg-dark-800/80 rounded-xl border border-dark-600 p-5 hover:border-gold-500/30 transition-all">
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-lg font-bold font-serif text-gold-400">{entry.name}</span>
                   <span className="text-[10px] px-2 py-0.5 rounded bg-dark-700 text-gray-400 border border-dark-600">{entry.source}</span>

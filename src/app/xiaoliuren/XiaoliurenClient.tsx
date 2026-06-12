@@ -35,7 +35,7 @@ export default function XiaoliurenClient() {
       <h1 className="text-3xl font-bold text-gold-400 font-serif mb-3">{getT('modules.xiaoliuren.name')}</h1>
       <p className="text-gray-400 mb-8">{getT('modules.xiaoliuren.desc')}</p>
 
-      <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-6 mb-8">
+      <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-6 mb-8">
         <div className="grid grid-cols-3 gap-4 mb-4">
           <div>
             <label className="block text-sm text-gray-300 mb-1">{getT('modules.xiaoliuren.num1')}</label>
@@ -59,7 +59,7 @@ export default function XiaoliurenClient() {
       </div>
 
       {showResult && result && (
-        <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-6">
+        <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-6">
           <h2 className="text-lg font-semibold text-gray-200 mb-4">{getT('modules.xiaoliuren.resultTitle')}</h2>
           <div className="bg-dark-700 rounded-lg p-4">
             <p className="text-lg font-bold text-gray-200">{result.name}</p>

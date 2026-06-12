@@ -232,7 +232,7 @@ export default function NamingChars() {
       {/* ── 详情弹窗 ── */}
       {selectedZi && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4" onClick={() => setSelectedZi(null)}>
-          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
+          <div className="absolute inset-0 bg-black/60" />
           <div
             className="relative bg-dark-800 border border-gold-500/30 rounded-2xl shadow-2xl max-w-lg w-full max-h-[85vh] overflow-y-auto p-6"
             onClick={e => e.stopPropagation()}
