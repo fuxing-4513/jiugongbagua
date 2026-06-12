@@ -139,7 +139,7 @@ const QT: Record<string,Record<number,string>> = {
 
 export function calcPillarShenSha(tg: string[], dz: string[], dayGan: string, dayZhi: string, dayGz: string): PillarShenSha[] {
   const pillarNames = ['年柱','月柱','日柱','时柱']
-  const push = (items: any[], name: string, type: '吉'|'凶'|'中性') => { if (!items.some((x:any) => x.name === name)) items.push({name, type}) }
+  const push = (items: { name: string; type: '吉'|'凶'|'中性' }[], name: string, type: '吉'|'凶'|'中性') => { if (!items.some(x => x.name === name)) items.push({name, type}) }
   return [0,1,2,3].map(i => {
     const g = tg[i], z = dz[i]
     const items: { name: string; type: '吉'|'凶'|'中性' }[] = []
@@ -216,11 +216,11 @@ export function getPillarShenShaLabel(items: { name: string; type: '吉'|'凶'|'
 
 export function strength(wx: Record<string,number>, dg: string): { level: string; detail: string } {
   const dw = wxM[dg]; const sheng: Record<string,string> = {木:'水',火:'木',土:'火',金:'土',水:'金'}
-  let bf = wx[dw] + (wx[sheng[dw]] || 0)
+  const bf = wx[dw] + (wx[sheng[dw]] || 0)
   return { level: bf >= 5 ? '身旺' : bf >= 3 ? '中和' : '身弱', detail: `日主${dg}属${dw}` }
 }
 
-export function comprehensiveAnalysis(dg: string, dz: string, wx: Record<string,number>, pills: PillarInfo[], zodiac: string, lunar: any, monthZhi: string, shenSha: ShenShaItem[], gender: string) {
+export function comprehensiveAnalysis(dg: string, dz: string, wx: Record<string,number>, pills: PillarInfo[], zodiac: string, lunar: { getMonth(): number }, monthZhi: string, shenSha: ShenShaItem[], gender: string) {
   const dw = wxM[dg]
   const shengWx: Record<string,string> = {木:'水',火:'木',土:'火',金:'土',水:'金'}
   const keWx: Record<string,string> = {木:'土',火:'金',土:'水',金:'木',水:'火'}
@@ -336,7 +336,7 @@ export function computeBaziChart(params: { tg: string[]; dz: string[]; birthYear
   const shenSha = mergeShenSha(pillarShenSha)
   const zodiac = ['鼠','牛','虎','兔','龙','蛇','马','羊','猴','鸡','狗','猪'][((birthYear - 4) % 12 + 12) % 12]
   const lunar = { getYear: () => birthYear, getMonth: () => 1, getDay: () => 1, getYearShengXiao: () => zodiac, toFullString: () => '', getYearInChinese: () => '', getMonthInChinese: () => '', getDayInChinese: () => '' }
-  const analysis = comprehensiveAnalysis(dg, dz[2], wx, pills, zodiac, lunar as any, dz[1], shenSha, gender)
+  const analysis = comprehensiveAnalysis(dg, dz[2], wx, pills, zodiac, lunar, dz[1], shenSha, gender)
 
   const tgIdx = ['甲','乙','丙','丁','戊','己','庚','辛','壬','癸'].indexOf(tg[0])
   const isYang = tgIdx % 2 === 0

@@ -1,7 +1,6 @@
 'use client'
 import { useState, useCallback } from 'react'
-import { Solar, Lunar, LunarYear } from 'lunar-typescript'
-import { getMaxDay } from '@/components/CalendarInput'
+import { Solar, Lunar } from 'lunar-typescript'
 import CalendarInput, { type CalendarType } from '@/components/CalendarInput'
 
 // ── 五行基础 ──
@@ -57,12 +56,6 @@ const DZ_XING: Record<string, string[]> = {
 }
 
 const SHI_CHEN: Record<number, string> = {0:'子',2:'丑',4:'寅',6:'卯',8:'辰',10:'巳',12:'午',14:'未',16:'申',18:'酉',20:'戌',22:'亥'}
-const HOUR_OPTS: {v:string;l:string}[] = [
-  {v:'0',l:'子时 23:00-01:00'},{v:'2',l:'丑时 01:00-03:00'},{v:'4',l:'寅时 03:00-05:00'},{v:'6',l:'卯时 05:00-07:00'},
-  {v:'8',l:'辰时 07:00-09:00'},{v:'10',l:'巳时 09:00-11:00'},{v:'12',l:'午时 11:00-13:00'},{v:'14',l:'未时 13:00-15:00'},
-  {v:'16',l:'申时 15:00-17:00'},{v:'18',l:'酉时 17:00-19:00'},{v:'20',l:'戌时 19:00-21:00'},{v:'22',l:'亥时 21:00-23:00'}
-]
-
 // ── 时干起法 ──
 const SHI_GAN: Record<string, Record<string, string>> = {
  '甲':{子:'甲',丑:'乙',寅:'丙',卯:'丁',辰:'戊',巳:'己',午:'庚',未:'辛',申:'壬',酉:'癸',戌:'甲',亥:'乙'},
@@ -288,14 +281,13 @@ interface PersonForm { name: string; cal: 'solar' | 'lunar'; year: string; month
       const total = calcTotalScore(dims); const level = getMaritalLevel(total)
       const tips = getMarriageAdvice(dims,{bazi:mB,analysis:mA,name:m.name||'男方',animal:mAn},{bazi:wB,analysis:wA,name:w.name||'女方',animal:wAn})
       setRes({mRes:{bazi:mB,analysis:mA,name:m.name||'男方',animal:mAn},wRes:{bazi:wB,analysis:wA,name:w.name||'女方',animal:wAn},dims,total,level,tips})
-    } catch(e) { setErr('排盘出错，请检查日期') }
+    } catch { setErr('排盘出错，请检查日期') }
   },[m,w])
 
   const doSwitch = useCallback((g:'m'|'w',nc:'solar'|'lunar') => {
     const p=g==='m'?m:w,sp=g==='m'?setM:setW; const y=+p.year,mm=+p.month,d=+p.day
     if(!isNaN(y)&&!isNaN(mm)&&!isNaN(d)){try{if(nc==='solar'&&p.cal==='lunar'){const s=Lunar.fromYmd(y,p.isLeap?-mm:mm,d).getSolar();sp({...p,cal:nc,year:s.getYear()+'',month:s.getMonth()+'',day:s.getDay()+'',isLeap:false})}else if(nc==='lunar'&&p.cal==='solar'){const l=Solar.fromYmd(y,mm,d).getLunar();sp({...p,cal:nc,year:l.getYear()+'',month:l.getMonth()+'',day:l.getDay()+'',isLeap:false})}else sp({...p,cal:nc,isLeap:false})}catch{sp({...p,cal:nc,isLeap:false})}}else sp({...p,cal:nc,isLeap:false})
   },[m,w])
-  const cy = new Date().getFullYear()
 
   const renderResult = !res ? null : (
     <div className="space-y-6">

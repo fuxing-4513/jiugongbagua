@@ -1,7 +1,7 @@
 'use client'
 
 import { useMemo, useEffect } from 'react'
-import { Solar, Lunar, LunarYear, LunarMonth } from 'lunar-typescript'
+import { Lunar, LunarYear, LunarMonth } from 'lunar-typescript'
 
 // ── Types ──
 export type CalendarType = 'solar' | 'lunar'

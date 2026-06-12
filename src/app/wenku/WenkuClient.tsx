@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from 'react'
 import { useLocale } from '@/lib/i18n'
-import { articles, type Article } from './wenkuData'
+import { articles } from './wenkuData'
 
 function tk(key: string, lang: Record<string, unknown>): string {
   const keys = key.split('.')

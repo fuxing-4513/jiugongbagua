@@ -98,7 +98,6 @@ export default function NamingChars() {
       }
     }
     // 没有详情数据，显示基本信息
-    const brief = listData?.byStroke
     let found: CharBrief | undefined
     for (const stroke of Object.keys(listData?.byStroke || {})) {
       found = listData?.byStroke[Number(stroke)]?.find(c => c.z === z)

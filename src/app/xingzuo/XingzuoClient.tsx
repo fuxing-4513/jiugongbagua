@@ -8,8 +8,8 @@ import m26 from './m2026.json'
 import m27 from './m2027.json'
 
 const CONSTELLATION_DATA = cd as Record<string,Record<string,string>>
-const yearlyFortune: Record<string,Record<string,Record<string,string>>> = {'2026': y26 as any, '2027': y27 as any}
-const monthlyMatters: Record<string,Record<string,string[]>> = {'2026': m26 as any, '2027': m27 as any}
+const yearlyFortune: Record<string,Record<string,Record<string,string>>> = {'2026': y26, '2027': y27}
+const monthlyMatters: Record<string,Record<string,string[]>> = {'2026': m26, '2027': m27}
 
 const SIGNS = [
   { name:'白羊座', en:'Aries', date:'3.21-4.19', emoji:'♈', el:'火', ruler:'火星' },

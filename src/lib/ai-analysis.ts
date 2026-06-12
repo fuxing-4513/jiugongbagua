@@ -18,7 +18,6 @@ const WU_XING = { '甲':'木','乙':'木','丙':'火','丁':'火','戊':'土','�
 const ZHI_WX = { '子':'水','丑':'土','寅':'木','卯':'木','辰':'土','巳':'火','午':'火','未':'土','申':'金','酉':'金','戌':'土','亥':'水' };
 const GAN_YINYANG = { '甲':'阳','乙':'阴','丙':'阳','丁':'阴','戊':'阳','己':'阴','庚':'阳','辛':'阴','壬':'阳','癸':'阴' };
 const ZHI_ZODIAC: Record<string,string> = { '子':'鼠','丑':'牛','寅':'虎','卯':'兔','辰':'龙','巳':'蛇','午':'马','未':'羊','申':'猴','酉':'鸡','戌':'狗','亥':'猪' };
-const ZHI_HOUR: Record<number,string> = { 0:'子',1:'丑',2:'寅',3:'卯',4:'辰',5:'巳',6:'午',7:'未',8:'申',9:'酉',10:'戌',11:'亥' };
 
 function yearGanZhi(year: number): { gan: string; zhi: string; wzGan: string; wzZhi: string } {
   const base = year - 4;
@@ -35,7 +34,6 @@ function monthGanZhi(yearGan: string, month: number): { gan: string; zhi: string
 }
 
 function dayGanZhiDoomsday(year: number, month: number, day: number): { gan: string; zhi: string } {
-  const C = Math.floor(year / 100);
   const y = year % 100;
   const anchor = (y + Math.floor(y / 4) + 2) % 7;
   const doomsdays = [0, 31, 28, 14, 4, 9, 6, 11, 8, 5, 10, 7, 12, 11]; // 0=jan, 13=dec
@@ -69,13 +67,6 @@ function getMonthName(year: number, month: number): string {
 function getDayName(year: number, month: number, day: number): string {
   const dz = dayGanZhiDoomsday(year, month, day);
   return `${dz.gan}${dz.zhi}日`;
-}
-
-function getHourName(hour: number): string {
-  const hIdx = Math.floor((hour + 1) / 2) % 12;
-  const z = ZHI_HOUR[hIdx];
-  // 日干-based hour stem: 甲己日甲子时, etc.
-  return `${z}时`;
 }
 
 interface AnalysisData {
@@ -145,7 +136,6 @@ ${fiveElementSummary(d)}。日主${dz.gan}属${dayWx}，${(GAN_YINYANG as Record
     key:'personality', label:'性格分析', icon:'🧠', free:true,
     generate:(data?: unknown) => {
       const d = extractData(data);
-      const yz = yearGanZhi(d.year);
       const dz = dayGanZhiDoomsday(d.year, d.month, d.day);
       const dw = (WU_XING as Record<string,string>)[dz.gan];
       const yy = (GAN_YINYANG as Record<string,string>)[dz.gan];
@@ -194,7 +184,6 @@ ${dw === '木' ? '• 适合行业：教育、出版、文化创意、林业、�
       const dw = (WU_XING as Record<string,string>)[dz.gan];
       const yy = (GAN_YINYANG as Record<string,string>)[dz.gan];
       const dzZhi = (ZHI_WX as Record<string,string>)[dz.zhi];
-      const yz = yearGanZhi(d.year);
       const z = dz.zhi;
       const zodiac = ZHI_ZODIAC[z];
       const greeting = d.name ? `${d.name}，` : '';

@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from 'react'
 import { useLocale, useT } from '@/lib/i18n'
-import { Solar, Lunar } from 'lunar-typescript'
+import { Solar } from 'lunar-typescript'
 
 interface HuangliResult {
   dateStr: string
@@ -30,7 +30,6 @@ interface HuangliResult {
 }
 
 const weekDayNames = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六']
-const weekDayNamesEn = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 
 const suitablePool = [
   '嫁娶', '开业', '搬家', '出行', '祭祀', '祈福', '求财', '入宅', '动土', '安床',
@@ -247,7 +246,7 @@ function genShiChen(g:string,d:string,n:number){
   return c.map((x,i)=>({name:x+"时",timeRange:t[i],starGod:sg[(n+i)%12][0]+"("+sg[(n+i)%12][1]+")",conflict:cf[(n+i)%12],suitable:(su[x]||["祭祀","祈福"]).slice(0,4).join("、"),avoid:(av[x]||["安葬"]).slice(0,3).join("、"),wealthGod:(w??["正南","正北","东北","正东"])[i%((w??["正南","正北","东北","正东"]).length)]+"方"}))
 }
 export default function HuangliClient() {
-  const { locale } = useLocale()
+  useLocale()
   const getT = useT()
 
   const now = new Date()
@@ -278,7 +277,6 @@ export default function HuangliClient() {
     setDay(d.getDate())
   }
 
-  const dateNum = year * 100 + month
 
   return (<>
     <div className="max-w-3xl mx-auto px-4 py-10">

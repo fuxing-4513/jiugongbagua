@@ -31,7 +31,6 @@ const nyColors: Record<string, string> = {
 
 // 干支→纳音五行
 function gz2wx(gz: string): string {
-  const t = gz[0], z = gz[1]
   const map: Record<string, string> = {
     '甲子':'金','乙丑':'金','丙寅':'火','丁卯':'火','戊辰':'木','己巳':'木',
     '庚午':'土','辛未':'土','壬申':'金','癸酉':'金','甲戌':'火','乙亥':'火',

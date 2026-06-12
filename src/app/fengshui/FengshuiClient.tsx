@@ -13,7 +13,6 @@ const BA_GUA = [
   {name:'坤',emoji:'☷',wx:'土',dir:'西南',num:2,attr:'地'},
 ]
 
-const DIRECTIONS = ['北','东北','东','东南','南','西南','西','西北']
 
 const LUOPAN_MEANING: Record<string,string> = {
   '乾': '乾为天，代表刚健、领导、父亲。在此方位布置有助于事业权威和领导力提升。',
@@ -43,7 +42,7 @@ const NINE_STARS: Record<string,string> = {
 
 export default function FengshuiClient() {
   const [dir, setDir] = useState('')
-  const [gua, setGua] = useState<any>(null)
+  const [gua, setGua] = useState<typeof BA_GUA[number] | null>(null)
   const [door, setDoor] = useState('')
   const [star, setStar] = useState('')
 

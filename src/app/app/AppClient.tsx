@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import dynamic from 'next/dynamic';
-import { computeBaziChart, type BaziChartResult, type PillarShenSha, getPillarShenShaLabel } from '@/lib/bazi-engine';
+import { computeBaziChart, type BaziChartResult, getPillarShenShaLabel } from '@/lib/bazi-engine';
 import { BRIGHTNESS, STAR_DESC, detectPatterns, type PatternDef } from '@/lib/ziwei-data';
 import CalendarInput, { type CalendarType, getMaxDay } from '@/components/CalendarInput';
 import { calcTrueSolarHour } from '@/lib/solar-time';
@@ -46,6 +46,7 @@ export default function AppClient() {
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
   const [baziResult, setBaziResult] = useState<BaziChartResult | null>(null);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [ziweiResult, setZiweiResult] = useState<any>(null);
 
   const y = parseInt(year) || 1990;
@@ -96,11 +97,11 @@ export default function AppClient() {
           const result = computeBaziChart({ tg: bzTg, dz: bzDz, birthYear: parseInt(bzYear), gender });
           setBaziResult(result);
           setAnalyzed(true);
-        } catch(e: any) { console.error(e); setErrorMsg('排盘失败: ' + (e?.message || '未知错误')); }
+        } catch(e: unknown) { console.error(e); setErrorMsg('排盘失败: ' + ((e as {message?: string})?.message || '未知错误')); }
       } else {
         try {
           const finalHour = Math.round(resolvedHour) % 24;
-          let lunar: any;
+          let lunar: Lunar;
           if (calendarType === 'solar') lunar = Solar.fromYmdHms(y, m, d, finalHour, 0, 0).getLunar();
           else lunar = Lunar.fromYmdHms(y, isLeapMonth ? -m : m, d, finalHour, 0, 0);
           if (!lunar) throw new Error('日期超出八字计算范围');
@@ -109,22 +110,22 @@ export default function AppClient() {
           const result = computeBaziChart({ tg, dz, birthYear: y, gender });
           setBaziResult(result);
           setAnalyzed(true);
-        } catch(e: any) { console.error(e); setErrorMsg('八字排盘失败: ' + (e?.message || '未知错误')); }
+        } catch(e: unknown) { console.error(e); setErrorMsg('八字排盘失败: ' + ((e as {message?: string})?.message || '未知错误')); }
       }
     } else {
       try {
         const iztro = await import('iztro');
         const { astro } = iztro;
         const finalHour = Math.round(resolvedHour) % 24;
-        let solar: any;
+        let solar: Solar;
         if (calendarType === 'solar') solar = Solar.fromYmdHms(y, m, d, finalHour, 0, 0);
         else solar = Lunar.fromYmdHms(y, isLeapMonth ? -m : m, d, finalHour, 0, 0).getSolar();
         if (!solar) throw new Error('日期超出紫微计算范围');
         const dateStr = `${solar.getYear()}-${solar.getMonth()}-${solar.getDay()}`;
-        const astroData = astro.bySolar(dateStr, finalHour, gender as any);
+        const astroData = astro.bySolar(dateStr, finalHour, gender as 'male' | 'female');
         setZiweiResult(astroData);
         setAnalyzed(true);
-      } catch(e: any) { console.error('Ziwei error:', e); setErrorMsg('紫微排盘失败: ' + (e?.message || '未知错误，请检查日期或尝试其他模式')); }
+      } catch(e: unknown) { console.error(e); setErrorMsg('紫微排盘失败: ' + ((e as {message?: string})?.message || '未知错误，请检查日期或尝试其他模式')); }
     }
 
     setIsAnalyzing(false);
@@ -460,25 +461,49 @@ function BaziResultView({ result, name }: { result: BaziChartResult; name: strin
 /* ══════════════ Ziwei Result View ══════════════ */
 // BRIGHTNESS imported from @/lib/ziwei-data
 
-function ZiweiResultView({ data, name }: { data: any; name: string }) {
-  const palaces = Array.isArray(data?.palaces) ? data.palaces : [];
-  const soulPalace = palaces.find((p: any) => p.name === '命宫');
-  const bodyBranch = data?.earthlyBranchOfBodyPalace;
+function ZiweiResultView({ data, name }: { data: Record<string, unknown>; name: string }) {
+      interface StarInfoForDisplay { name: string; type?: string; brightness?: string }
+  interface PalaceInfo {
+    name: string;
+    majorStars: StarInfoForDisplay[];
+    minorStars: StarInfoForDisplay[];
+    adjectiveStars: StarInfoForDisplay[];
+    earthlyBranch: string;
+    heavenlyStem?: string;
+    isBodyPalace?: boolean;
+    isOriginalPalace?: boolean;
+  }
+  const palaces: PalaceInfo[] = Array.isArray((data as Record<string, unknown>).palaces)
+    ? ((data as Record<string, unknown>).palaces as Record<string, unknown>[]).map(p => ({
+        name: String(p.name || ''),
+        majorStars: (p.majorStars as StarInfoForDisplay[]) || [],
+        minorStars: (p.minorStars as StarInfoForDisplay[]) || [],
+        adjectiveStars: (p.adjectiveStars as StarInfoForDisplay[]) || [],
+        earthlyBranch: String(p.earthlyBranch || ''),
+        heavenlyStem: String(p.heavenlyStem || ''),
+        isBodyPalace: Boolean(p.isBodyPalace),
+        isOriginalPalace: Boolean(p.isOriginalPalace),
+      }))
+    : [];
+  const soulPalace = palaces.find(p => p.name === '命宫');
+  const bodyBranch = (data as Record<string, string>).earthlyBranchOfBodyPalace;
 
-  const allStars: any[] = [];
-  palaces.forEach((p: any) => {
-    [...(p?.majorStars || []), ...(p?.minorStars || []), ...(p?.adjectiveStars || [])].forEach((s: any) => {
+  interface StarItem { name: string; type?: string; brightness?: string }
+  const allStars: StarItem[] = [];
+  palaces.forEach(p => {
+    const pAny = p as { majorStars?: StarItem[]; minorStars?: StarItem[]; adjectiveStars?: StarItem[] };
+    [...(pAny.majorStars || []), ...(pAny.minorStars || []), ...(pAny.adjectiveStars || [])].forEach(s => {
       if (!allStars.find(x => x.name === s.name)) allStars.push(s);
     });
   });
   allStars.sort((a, b) => {
     if (a.type === 'major' && b.type !== 'major') return -1;
     if (a.type !== 'major' && b.type === 'major') return 1;
-    return (BRIGHTNESS[b.brightness]?.level || 0) - (BRIGHTNESS[a.brightness]?.level || 0);
+    return (BRIGHTNESS[b.brightness || '']?.level || 0) - (BRIGHTNESS[a.brightness || '']?.level || 0);
   });
 
   const patterns = detectPatterns(palaces);
-  const soulStars = (soulPalace?.majorStars || []).map((s: any) => s.name);
+  const soulStars = ((soulPalace as { majorStars?: StarItem[] } | undefined)?.majorStars || []).map(s => s.name);
 
   return (
     <section className="space-y-6">
@@ -490,8 +515,8 @@ function ZiweiResultView({ data, name }: { data: any; name: string }) {
       <div className="bg-dark-800/80 border border-dark-600 rounded-xl p-4">
         <h3 className="text-sm font-semibold text-purple-300 font-serif mb-3 text-center">主星亮度</h3>
         <div className="flex flex-wrap gap-2 justify-center">
-          {allStars.map((s, i) => {
-            const b = BRIGHTNESS[s.brightness] || { label: '—', color: 'text-gray-500' };
+          {allStars.map((s: StarItem, i: number) => {
+            const b = BRIGHTNESS[s.brightness || ''] || { label: '—', color: 'text-gray-500' };
             return (
               <div key={i} className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs border ${s.type==='major'?'bg-purple-900/30 border-purple-700/40':'bg-dark-700/50 border-dark-600'}`}>
                 <span className={s.type==='major'?'text-purple-300 font-medium':'text-gray-400'}>{s.type==='major'?'⭐':'·'} {s.name}</span>
@@ -545,13 +570,13 @@ function ZiweiResultView({ data, name }: { data: any; name: string }) {
       <div className="bg-dark-800/80 border border-dark-600 rounded-xl p-4">
         <h3 className="text-sm font-semibold text-purple-300 font-serif mb-3 text-center">十二宮一覽</h3>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
-          {palaces.map((p: any, i: number) => {
-            const stars = [...(p?.majorStars || []), ...(p?.minorStars || [])];
+          {palaces.map((p: PalaceInfo, i: number) => {
+            const stars = [...p.majorStars, ...p.minorStars];
             return (
               <div key={i} className="bg-dark-700/50 border border-dark-600 rounded-lg p-2.5">
                 <p className="text-[10px] text-purple-400 font-bold mb-1">{p.name}{p.isBodyPalace?' 🏠':''}{p.isOriginalPalace?' 📍':''}</p>
                 <div className="space-y-0.5">
-                  {stars.slice(0,4).map((s:any,j:number)=>{const b=BRIGHTNESS[s.brightness||''];return(<div key={j} className="flex items-center justify-between text-[10px]"><span className={s.type==='major'?'text-purple-300 font-medium':'text-gray-400'}>{s.name}</span>{b&&<span className={b.color}>{b.label}</span>}</div>)})}
+                  {stars.slice(0,4).map((s: StarItem, j: number)=>{const b=BRIGHTNESS[s.brightness||''];return(<div key={j} className="flex items-center justify-between text-[10px]"><span className={s.type==='major'?'text-purple-300 font-medium':'text-gray-400'}>{s.name}</span>{b&&<span className={b.color}>{b.label}</span>}</div>)})}
                   {stars.length>4&&<p className="text-[9px] text-gray-600">+{stars.length-4}星...</p>}
                 </div>
               </div>

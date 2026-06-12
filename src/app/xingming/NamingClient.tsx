@@ -2,13 +2,6 @@
 
 import { useState, useCallback } from 'react'
 import { Solar, Lunar } from 'lunar-typescript'
-import { useLocale } from '@/lib/i18n'
-
-function tk(key: string, lang: Record<string, unknown>): string {
-  const keys = key.split('.'); let v: unknown = lang
-  for (const k of keys) { if (typeof v !== 'object' || v === null) return key; v = (v as Record<string, unknown>)[k] }
-  return typeof v === 'string' ? v : key
-}
 
 const STROKE: Record<string, number> = {
   '一':1,'二':2,'三':3,'四':5,'五':4,'六':4,'七':2,'八':2,'九':2,'十':2,
@@ -115,14 +108,6 @@ function getNumDetail(val: number) {
 }
 
 // ── 三才配置吉凶 ──
-const SANCAI_MAP: Record<string, Record<string, Record<string, string>>> = {
-  '金':{'金':{'金':'吉','木':'凶','水':'吉','火':'凶','土':'吉'},'木':{'金':'凶','木':'大吉','水':'凶','火':'吉','土':'凶'},'水':{'金':'吉','木':'凶','水':'大吉','火':'凶','土':'吉'},'火':{'金':'凶','木':'吉','水':'凶','火':'大吉','土':'凶'},'土':{'金':'小吉','木':'凶','水':'凶','火':'吉','土':'大吉'}},
-  '木':{'金':{'金':'凶','木':'凶','水':'大吉','火':'凶','土':'吉'},'木':{'金':'凶','木':'大吉','水':'凶','火':'吉','土':'凶'},'水':{'金':'吉','木':'凶','水':'大吉','火':'凶','土':'吉'},'火':{'金':'凶','木':'大吉','水':'凶','火':'大吉','土':'凶'},'土':{'金':'凶','木':'凶','水':'凶','火':'吉','土':'大吉'}},
-  '水':{'金':{'金':'大吉','木':'凶','水':'大吉','火':'凶','土':'吉'},'木':{'金':'凶','木':'大吉','水':'凶','火':'吉','土':'凶'},'水':{'金':'吉','木':'凶','水':'大吉','火':'凶','土':'吉'},'火':{'金':'凶','木':'吉','水':'凶','火':'大吉','土':'凶'},'土':{'金':'凶','木':'凶','水':'凶','火':'吉','土':'大吉'}},
-  '火':{'金':{'金':'凶','木':'凶','水':'凶','火':'大吉','土':'吉'},'木':{'金':'凶','木':'大吉','水':'凶','火':'吉','土':'凶'},'水':{'金':'凶','木':'大吉','水':'凶','火':'凶','土':'大吉'},'火':{'金':'凶','木':'大吉','水':'凶','火':'大吉','土':'凶'},'土':{'金':'凶','木':'凶','水':'凶','火':'吉','土':'大吉'}},
-  '土':{'金':{'金':'吉','木':'凶','水':'凶','火':'吉','土':'大吉'},'木':{'金':'凶','木':'大吉','水':'凶','火':'吉','土':'凶'},'水':{'金':'吉','木':'凶','水':'大吉','火':'凶','土':'吉'},'火':{'金':'凶','木':'凶','水':'凶','火':'大吉','土':'吉'},'土':{'金':'吉','木':'凶','水':'凶','火':'吉','土':'大吉'}},
-}
-
 // ── 古诗词数据源 ──
 interface PoemNameEntry {
   source: string
@@ -208,10 +193,6 @@ function pickRandom<T>(arr: T[]): T {
 
 function pickRandomN<T>(arr: T[], n: number): T[] {
   return shuffleArray(arr).slice(0, n)
-}
-
-function randomInt(min: number, max: number): number {
-  return Math.floor(Math.random() * (max - min + 1)) + min
 }
 
 // ── 基于偏旁部首的五行判断 ──
@@ -748,8 +729,6 @@ function calcBazi(lunarYear: number, lunarMonth: number, lunarDay: number, hourD
   }
 }
 // ── 计算天干地支 ──
-const TIAN_GAN = '甲乙丙丁戊己庚辛壬癸'
-const DI_ZHI = '子丑寅卯辰巳午未申酉戌亥'
 const WX_TG: Record<string, string> = {   '甲':'木','乙':'木','丙':'火','丁':'火','戊':'土','己':'土','庚':'金','辛':'金','壬':'水','癸':'水' }
 const WX_DZ: Record<string, string> = {   '子':'水','丑':'土','寅':'木','卯':'木','辰':'土','巳':'火','午':'火','未':'土','申':'金','酉':'金','戌':'土','亥':'水' }  // ── 汉字五行判断（笔画数五行）──
 function charWx(c: string): string {
@@ -759,10 +738,6 @@ function charWx(c: string): string {
   if (s <= 6) return '土'
   if (s <= 8) return '金'
   return '水'
-}
-
-function checkCharWx(char: string, expectedWx: string): boolean {
-  return charWx(char) === expectedWx
 }
 
 // ── 常用取名用字池（约230字，按五行分类）──
@@ -834,7 +809,7 @@ interface NameResult {
   sancai: string
   meaning: string
 }
-function generateNames(surname: string, wxCount: Record<string,number>, yongShen: string, gender: string): NameResult[] {
+function generateNames(surname: string, wxCount: Record<string,number>, yongShen: string): NameResult[] {
   const results: NameResult[] = []
   const pool = [...(CHAR_POOL[yongShen] || []), ...Object.values(CHAR_POOL).flat()]
   const uniquePool = [...new Set(pool)]
@@ -925,16 +900,16 @@ export default function NamingClient() {
       const bazi = calcBazi(ly, lm, ld, hourDz)
       const analysis = analyzeWuxing(bazi.pillars)
       setBaziResult({...bazi, ...analysis})
-      const names = generateNames(surname.trim(), analysis.wxCount, analysis.yongShen, gender)
+      const names = generateNames(surname.trim(), analysis.wxCount, analysis.yongShen)
       setWxResults(names)
-    } catch (e) {
+    } catch {
       setWxError('八字排盘出错，请检查日期是否正确')
     }
   }, [surname, calType, sYear, sMonth, sDay, sHour, gender])
 
   const handleRegenerate = useCallback(() => {
     if (!surname.trim() || !baziResult) return
-    const names = generateNames(surname.trim(), baziResult.wxCount, baziResult.yongShen, gender)
+    const names = generateNames(surname.trim(), baziResult.wxCount, baziResult.yongShen)
     setWxResults(names)
   }, [surname, baziResult, gender])
 

@@ -181,7 +181,7 @@ export function calcMonthZhi(month: number): string {
 // ─── 日柱天干地支（简易推算，1900-2100年） ───
 export function calcDayGanZhi(year: number, month: number, day: number): [string, string] {
   // 基数：1900年1月1日为甲子日
-  let yc = year - 1900
+  const yc = year - 1900
   let totalDays = yc * 365 + Math.floor((yc - 1) / 4) + Math.floor((year - 1901) / 400) - Math.floor((year - 1901) / 100)
   const daysInMonth = [31,28,31,30,31,30,31,31,30,31,30,31]
   if ((year % 4 === 0 && year % 100 !== 0) || year % 400 === 0) daysInMonth[1] = 29

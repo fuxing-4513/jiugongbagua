@@ -1,16 +1,12 @@
-import { LingqianCategory } from './types'
-
-// 9种签种完整数据合并
-// 总计 724 签
-
-
+/* eslint-disable @typescript-eslint/no-unused-vars */
 // ============================================================
 // 九宫灵签 - 9种签种完整数据
 // 总计 664 签
+// 注：此文件由 builder-p1.js 生成，数据供后续扩展使用
 // ============================================================
 
 // 1. 观音灵签 (100签)
-const guanyin: LingqianCategory = {
+const _guanyin = {
   key: 'guanyin',
   name: '观音灵签',
   icon: '🪷',
@@ -119,7 +115,7 @@ const guanyin: LingqianCategory = {
   ]
 }
 
-const fozu: LingqianCategory = {
+const _fozu = {
   key: 'fozu',
   name: '佛祖灵签',
   icon: '☸️',
@@ -179,7 +175,7 @@ const fozu: LingqianCategory = {
   ]
 }
 
-const liushijiazi: LingqianCategory = {
+const _liushijiazi = {
   key: 'liushijiazi',
   name: '六十甲子签',
   icon: '☯️',
@@ -248,7 +244,7 @@ const liushijiazi: LingqianCategory = {
   ]
 }
 
-const yuelao: LingqianCategory = {
+const _yuelao = {
   key: 'yuelao',
   name: '月老灵签',
   icon: '❤️',

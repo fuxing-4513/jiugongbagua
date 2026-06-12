@@ -1,8 +1,11 @@
 'use client'
 
-import { useState, useRef, useEffect, useCallback } from 'react'
+import { useState, useRef, useCallback } from 'react'
 import { ALL_CATEGORIES, LEVEL_COLORS } from './lingqian-data'
-import type { LingqianCategory, LingqianItem } from './types'
+import type { LingqianItem } from './types'
+
+// 签筒 12 支签的随机透明度（模块级常量，只生成一次）
+const STICK_OPACITIES = Array.from({length: 12}, () => 0.5 + Math.random() * 0.3)
 
 // ======== 签筒摇晃动画 CSS ========
 const SHAKE_KEYFRAMES = `
@@ -85,7 +88,7 @@ function QianTong({ shaking, showResult }: { shaking: boolean; showResult: boole
       {/* 签筒中的签 */}
       {!showResult && Array.from({length: 12}).map((_, i) => (
         <line key={i} x1={75 + Math.sin(i*0.8)*25} y1={95} x2={70 + Math.sin(i*0.8)*30} y2={35 - i*1.5}
-          stroke="#fcd34d" strokeWidth="3" strokeLinecap="round" opacity={0.5 + Math.random()*0.3}
+          stroke="#fcd34d" strokeWidth="3" strokeLinecap="round" opacity={STICK_OPACITIES[i]}
           style={{ animation: shaking ? `stick-pop 0.3s ease-out ${i*0.05}s` : 'none' }}
         />
       ))}
@@ -173,6 +176,7 @@ export default function LingqianClient() {
   const styleRef = useRef<HTMLStyleElement>(null)
 
   const category = ALL_CATEGORIES.find(c => c.key === selectedCat) || ALL_CATEGORIES[0]
+  // 签筒随机透明度
   const drawCount = category?.items?.length || 0
 
   const draw = useCallback(() => {

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useMemo, useCallback } from 'react'
+import { useState } from 'react'
 import { useLocale } from '@/lib/i18n'
 import { DICT } from './ceziDict'
 import { ZHUGE_384, type ZhugeQianData } from './zhuge384'

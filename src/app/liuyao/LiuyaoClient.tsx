@@ -1,13 +1,12 @@
 'use client'
 
-import { useState, useCallback, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
 // ── 64卦数据 ──
-import { HD, HexagramData } from './hexagram-data'
+import { HD, type HexagramData } from './hexagram-data'
 const H = HD
 
 const TRI: Record<string, string> = { '乾': '☰', '兑': '☱', '离': '☲', '震': '☳', '巽': '☴', '坎': '☵', '艮': '☶', '坤': '☷' }
-const TRI_SYMBOL: Record<number, string> = { 0: '☰', 1: '☱', 2: '☲', 3: '☳', 4: '☴', 5: '☵', 6: '☶', 7: '☷' }
 
 // ── 八宫五行六亲 ──
 const GONG_WX: Record<string, string> = { '乾': '金', '兑': '金', '离': '火', '震': '木', '巽': '木', '坎': '水', '艮': '土', '坤': '土' }
@@ -126,7 +125,7 @@ function Coin({ result, settled, delay, tossing, size }: { result: boolean; sett
 }
 
 // ── 单爻渲染 ──
-function YaoLine({ v, idx, shiYao, yingYao, gong, hexNum }: { v: number; idx: number; shiYao: number; yingYao: number; gong: string; hexNum: number }) {
+function YaoLine({ v, idx, shiYao, yingYao, gong }: { v: number; idx: number; shiYao: number; yingYao: number; gong: string; hexNum: number }) {
   const isShi = idx === shiYao; const isYing = idx === yingYao
   const yaos = YAO_WX[gong] || YAO_WX['乾']
   const wx = yaos[6 - idx] || '土'
@@ -161,7 +160,7 @@ function YaoLineWithChange({ v, idx, shiYao, yingYao, gong, hexNum, changing }: 
 
 export default function LiuyaoClient() {
   const [mode, setMode] = useState<'auto' | 'manual'>('manual')
-  const [result, setResult] = useState<any>(null)
+  const [result, setResult] = useState<{lines: number[]; changing: number[]; hexagram: HexagramData; cv: HexagramData | null; gong: string; shiYao: number; yingYao: number} | null>(null)
 
   // ── 手动摇卦状态 ──
   const [manualLines, setManualLines] = useState<number[]>([])
@@ -324,7 +323,7 @@ export default function LiuyaoClient() {
     const num = ui * 8 + li + 1
     const h = H[num] || H[1]
     const { gong, shiYao, yingYao } = getGong(num)
-    let cv: any = null
+    let cv: HexagramData | null = null
     if (changing.length > 0) {
       const cl = lines.map((v, i) => changing.includes(i) ? (v === 0 ? 1 : 0) : v)
       const cl2 = cl.slice(0, 3).reverse(); const cu = cl.slice(3, 6).reverse()
@@ -676,7 +675,7 @@ export default function LiuyaoClient() {
               ].map(item => (
                 <div key={item.key} className="bg-dark-900/60 rounded-lg p-2.5 border border-dark-700">
                   <p className="text-[10px] text-gold-600 font-bold mb-0.5">{item.label}</p>
-                  <p className="text-[12px] text-gray-300 leading-relaxed">{(hd as any)[item.key]}</p>
+                  <p className="text-[12px] text-gray-300 leading-relaxed">{hd[item.key as keyof HexagramData]}</p>
                 </div>
               ))}
             </div>

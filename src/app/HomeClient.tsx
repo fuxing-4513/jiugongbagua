@@ -7,7 +7,7 @@ import { useLocale, useT } from '@/lib/i18n'
 import HeritageSection from '@/components/HeritageSection'
 import ClassicQuotes from '@/components/ClassicQuotes'
 import BottomCTA from '@/components/BottomCTA'
-import CalendarInput, { type CalendarType, getMaxDay, getYearLeapMonth, lunarToSolarDate } from '@/components/CalendarInput'
+import CalendarInput, { type CalendarType, getMaxDay, lunarToSolarDate } from '@/components/CalendarInput'
 
 interface ModuleInfo {
   key: string
@@ -122,7 +122,7 @@ export default function HomeClient() {
 
 // ── 免费排盘 Widget ──
 function FreeChartWidget() {
-  const { t } = useLocale()
+  useLocale()
   const [calendarType, setCalendarType] = useState<CalendarType>('solar')
   const [year, setYear] = useState(String(new Date().getFullYear()))
   const [month, setMonth] = useState(String(new Date().getMonth() + 1))

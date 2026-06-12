@@ -2,10 +2,10 @@
 
 import { useState, useCallback } from 'react'
 import { Solar, Lunar } from 'lunar-typescript'
-import { getMaxDay, getLunarDaysInMonth, lunarToSolarDate } from '@/components/CalendarInput'
+import { getMaxDay } from '@/components/CalendarInput'
 import CalendarInput, { type CalendarType } from '@/components/CalendarInput'
-import { MEIHUA_DUANCI, GuaDuanCi, getGuaRelation, LIFETIME_GUA_EXPLANATION, getNayinWuxing } from '@/lib/meihua-duanci'
-import { TIAN_GAN, DI_ZHI } from '@/lib/bazi-constants'
+import { MEIHUA_DUANCI, GuaDuanCi, LIFETIME_GUA_EXPLANATION, getNayinWuxing } from '@/lib/meihua-duanci'
+
 
 const TRIGRAMS: Record<string,{name:string,wx:string,attr:string}> = {
   '乾':{name:'乾为天',wx:'金',attr:'健'},
@@ -211,7 +211,17 @@ export default function MeihuaClient() {
   const [ltYear, setLtYear] = useState(String(new Date().getFullYear()))
   const [ltMonth, setLtMonth] = useState('1'); const [ltDay, setLtDay] = useState('1')
   const [ltHour, setLtHour] = useState('0'); const [ltGender, setLtGender] = useState('男')
-  const [result, setResult] = useState<any>(null)
+  const [result, setResult] = useState<{
+    upper: string; lower: string; moving: number
+    upperT: { wx: string; name: string; attr: string } | undefined
+    lowerT: { wx: string; name: string; attr: string } | undefined
+    gua: { name: string; poem: string }
+    changeGua: { name: string; poem: string }
+    changeUpper: string; changeLower: string; yaoInt: string
+    sourceStr: string; method: string
+    detailLines?: string[]; symbolText?: string; matched?: { object?: string; trigram?: string; meaning?: string; emoji?: string } | null
+    ltInfo?: { birthday: string; hour: string; ganzhi: string; nayin: string; gender: string }
+  } | null>(null)
   const [error, setError] = useState('')
 
   const calcFromNumbers = useCallback((n1: number, n2: number, n3: number) => {
@@ -261,7 +271,7 @@ export default function MeihuaClient() {
       const maxD = getMaxDay(calendarType, y, m)
       if (isNaN(y) || isNaN(m) || isNaN(d) || m < 1 || m > 12 || d < 1 || d > maxD) { setError('日期无效'); return }
       try {
-        let lunar: any
+        let lunar: Lunar
         let sourceLabel: string
         if (calendarType === 'solar') {
           const solar = Solar.fromYmd(y, m, d)
@@ -290,7 +300,7 @@ export default function MeihuaClient() {
       const strokes = [...text].map(approxStrokes)
       const totalStrokes = strokes.reduce((a, b) => a + b, 0)
       let n1: number, n2: number, n3: number
-      let detailLines: string[] = []
+      const detailLines: string[] = []
       let sourceStr = ''
       if (matched) {
         const trigWx = TRIGRAMS[matched.trigram]?.wx || '土'
@@ -369,8 +379,8 @@ export default function MeihuaClient() {
             nayin, gender: ltGender,
           }
         })
-      } catch (e: any) {
-        setError('出生日期转换出错: ' + (e?.message || ''))
+      } catch (e: unknown) {
+        setError('出生日期转换出错: ' + ((e as {message?:string})?.message || ''))
       }
     }
   }, [method, num1, num2, num3, calendarType, calYear, calMonth, calDay, calHour, calIsLeap, symbolText, symbolMode, ltYear, ltMonth, ltDay, ltHour, ltGender, calcFromNumbers])
@@ -526,7 +536,7 @@ export default function MeihuaClient() {
         </p>
         {(() => {
           const guaKey = r.upper + r.lower
-          const duan = (MEIHUA_DUANCI as any)[guaKey] as GuaDuanCi | undefined
+          const duan = MEIHUA_DUANCI[guaKey] as GuaDuanCi | undefined
           if (!duan) return null
           return (
             <div className="mt-4 space-y-3">

@@ -30,9 +30,6 @@ const toolCategories: { label: string; items: { key: string; href: string; emoji
   ]},
 ]
 
-// 平铺的工具总数
-const flatTools = toolCategories.flatMap(c => c.items)
-
 export default function Nav() {
   const { locale, setLocale, localeNames } = useLocale()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)

@@ -148,7 +148,7 @@ export default function ExpertsClient() {
 
       <div className="mt-8 bg-amber-50 border border-amber-200 rounded-xl p-4">
         <p className="text-sm text-amber-800">
-          💡 预约说明：点击"预约"按钮后，我们的客服将在24小时内与您联系，确认咨询服务时间和方式。所有咨询均通过线上进行，支持文字、语音和视频多种形式。
+          💡 预约说明：点击&quot;预约&quot;按钮后，我们的客服将在24小时内与您联系，确认咨询服务时间和方式。所有咨询均通过线上进行，支持文字、语音和视频多种形式。
         </p>
       </div>
     </div>

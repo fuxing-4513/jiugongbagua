@@ -1,7 +1,7 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
-import { useLocale } from '../../lib/i18n'
+import { useState, useEffect } from 'react'
+
 import ShareResult from '../../components/ShareResult'
 import NamingClient from './NamingClient'
 import dynamic from 'next/dynamic'
@@ -38,11 +38,6 @@ function loadKangxi() {
     })
 }
 
-function tk(key: string, lang: Record<string, unknown>): string {
-  const keys = key.split('.'); let v: unknown = lang
-  for (const k of keys) { if (typeof v !== 'object' || v === null) return key; v = (v as Record<string, unknown>)[k] }
-  return typeof v === 'string' ? v : key
-}
 
 // ── 笔画字典 ──
 const STROKES: Record<string, number> = {
@@ -426,11 +421,6 @@ function getStroke(char: string): number {
   return STROKES[char] || ((char.charCodeAt(0) - 0x4e00) % 20 + 1)
 }
 
-// ── 五行映射 ──
-const WX: Record<string, string> = {
-'甲':'木','乙':'木','丙':'火','丁':'火','戊':'土','己':'土','庚':'金','辛':'金','壬':'水','癸':'水',
-'一':'木','二':'木','三':'火','四':'火','五':'土','六':'土','七':'金','八':'金','九':'水','十':'水',
-}
 function charWx(c: string): string {
   const s = getStroke(c)
   if (s <= 2) return '木'; if (s <= 4) return '火'; if (s <= 6) return '土'; if (s <= 8) return '金'; return '水'
@@ -513,13 +503,15 @@ const WXC: Record<string, string> = {'木':'bg-green-900/40 text-green-300 borde
 const gradeC: Record<string, string> = {'大吉':'text-green-400','吉':'text-green-500','中吉':'text-yellow-400','中':'text-yellow-500','凶':'text-red-400','大凶':'text-red-500'}
 
 export default function XingmingClient() {
-  const { t } = useLocale()
-  const lang = t as unknown as Record<string, unknown>
   const [tab, setTab] = useState<'score'|'naming'|'wuxing'>('score')
 
   const [lastName, setLastName] = useState('')
   const [firstName, setFirstName] = useState('')
-  const [result, setResult] = useState<any>(null)
+  const [result, setResult] = useState<{
+    fullName: string; ln: string; fn: string; sancai: string; scScore: string; avgScore: number;
+    chars: { char: string; stroke: number; wuxing: string; lucky: string }[];
+    wuge: { key: string; val: number; label: string; score: string; title: string; sign: string; meaning: string; type: string; wuxing: string }[];
+  } | null>(null)
 
   // 加载康熙字典笔画库（仅首次触发）
   useEffect(() => { loadKangxi() }, [])
@@ -622,7 +614,7 @@ export default function XingmingClient() {
           <div><span className="text-gray-500">名字：</span>{r.fn}</div>
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-2">
-          {r.chars.map((c: any, i: number) => (
+          {r.chars.map((c, i: number) => (
             <div key={i} className="bg-dark-700 rounded-lg p-3 text-center border border-dark-600">
               <p className="text-xl font-bold text-gold-400 font-serif">{c.char}</p>
               <p className="text-[10px] text-gray-500 mt-1">笔画：{c.stroke} · 五行：{c.wuxing} · {c.lucky}</p>
@@ -636,7 +628,7 @@ export default function XingmingClient() {
         <h3 className="text-sm font-semibold text-gray-200 mb-3">姓名五格数理及五行</h3>
         <p className="text-xs text-gray-500 mb-3">其中天、人、地为三才：{r.sancai}</p>
         <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
-          {r.wuge.map((w: any, i: number) => (
+          {r.wuge.map((w, i: number) => (
             <div key={i} className={`rounded-lg p-3 text-center border ${WXC[w.wuxing] || 'bg-dark-700 border-dark-600'}`}>
               <p className="text-[10px] text-gray-500 mb-0.5">{w.key}</p>
               <p className="text-sm font-bold text-gray-100">{w.val}</p>
@@ -648,7 +640,7 @@ export default function XingmingClient() {
       </div>
 
       {/* 五格详解 */}
-      {r.wuge.map((w: any, i: number) => (
+      {r.wuge.map((w, i: number) => (
         <div key={i} className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-5">
           <div className="flex items-center gap-2 mb-2">
             <h3 className="text-sm font-semibold text-gold-300">{w.key}{w.val}所示之{w.key === '天格' ? '先天运' : w.key === '人格' ? '主运' : w.key === '地格' ? '前运' : w.key === '外格' ? '副运' : '后运'}</h3>
@@ -698,7 +690,7 @@ export default function XingmingClient() {
       <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-4">
         <h3 className="text-xs font-semibold text-gray-200 mb-2">数理暗示汇总</h3>
         <div className="flex flex-wrap gap-1">
-          {r.wuge.map((w: any, i: number) => (
+          {r.wuge.map((w, i: number) => (
             <span key={i} className={`text-[10px] px-1.5 py-0.5 rounded border ${w.score === '大吉' || w.score === '吉' ? 'border-green-700/40 text-green-300 bg-green-900/20' : 'border-red-700/40 text-red-300 bg-red-900/20'}`}>
               {w.key}{w.val}：{w.score}
             </span>
@@ -707,7 +699,23 @@ export default function XingmingClient() {
         <p className="text-[9px] text-gray-500 mt-2">说明：若五格数理暗示的凶数运较多，表示易破财、事业不顺、影响健康和家庭；女命狐独运、首领运及刚性运较多，则代表婚姻不顺。</p>
               <div className="flex justify-end mt-3">
                 <ShareResult
-                  text={`${r.fullName} - ${r.avgScore}分\n\n天格${r.tianGe.val}(${r.tianGe.wuxing}) ${r.shuLi.tianGe.ji}\n人格${r.renGe.val}(${r.renGe.wuxing}) ${r.shuLi.renGe.ji}\n地格${r.diGe.val}(${r.diGe.wuxing}) ${r.shuLi.diGe.ji}\n外格${r.waiGe.val}(${r.waiGe.wuxing}) ${r.shuLi.waiGe.ji}\n总格${r.zongGe.val}(${r.zongGe.wuxing}) ${r.shuLi.zongGe.ji}\n\n三才配置: ${r.sanCaiConfig.tianWx}-${r.sanCaiConfig.renWx}-${r.sanCaiConfig.diWx} (${r.sanCaiConfig.luck})`}
+                  text={(() => {
+                    const [tian, ren, di, wai, zong] = r.wuge;
+                    const shuLi = {
+                      tianGe: { ji: r.wuge[0].score },
+                      renGe: { ji: r.wuge[1].score },
+                      diGe: { ji: r.wuge[2].score },
+                      waiGe: { ji: r.wuge[3].score },
+                      zongGe: { ji: r.wuge[4].score },
+                    };
+                    const sanCaiConfig = {
+                      tianWx: r.sancai.split('→')[0] || '',
+                      renWx: r.sancai.split('→')[1] || '',
+                      diWx: r.sancai.split('→')[2] || '',
+                      luck: '吉'
+                    };
+                    return `${r.fullName} - ${r.avgScore}分\n\n天格${tian.val}(${tian.wuxing}) ${shuLi.tianGe.ji}\n人格${ren.val}(${ren.wuxing}) ${shuLi.renGe.ji}\n地格${di.val}(${di.wuxing}) ${shuLi.diGe.ji}\n外格${wai.val}(${wai.wuxing}) ${shuLi.waiGe.ji}\n总格${zong.val}(${zong.wuxing}) ${shuLi.zongGe.ji}\n\n三才配置: ${sanCaiConfig.tianWx}-${sanCaiConfig.renWx}-${sanCaiConfig.diWx} (${sanCaiConfig.luck})`;
+                  })()}
                   title="【姓名打分结果】"
                   label="📋 复制结果"
                 />

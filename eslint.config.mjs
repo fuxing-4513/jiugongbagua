@@ -12,6 +12,9 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Data build scripts (standalone Node.js, not part of web app)
+    "src/app/xingming/*.js",
+    "src/app/lingqian/*.js",
   ]),
 ]);
 

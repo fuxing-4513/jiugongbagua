@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import dynamic from 'next/dynamic'
-import { useLocale } from '@/lib/i18n'
+
 import { Solar, Lunar } from 'lunar-typescript'
 import CalendarInput, { type CalendarType } from '@/components/CalendarInput'
 import { saveChart } from '@/lib/collections'
@@ -12,16 +12,28 @@ import { calcTrueSolarHour } from '@/lib/solar-time'
 const TrueSolarTime = dynamic(() => import('@/components/TrueSolarTime'), { ssr: false })
 const DayunChart = dynamic(() => import('@/components/DayunChart'), { ssr: false })
 
-const hourOpts = [
-  {v:'0',l:'子初 23:00-00:59'},{v:'1',l:'丑初 01:00-01:59'},{v:'2',l:'丑正 02:00-02:59'},
-  {v:'3',l:'寅初 03:00-03:59'},{v:'4',l:'寅正 04:00-04:59'},{v:'5',l:'卯初 05:00-05:59'},
-  {v:'6',l:'卯正 06:00-06:59'},{v:'7',l:'辰初 07:00-07:59'},{v:'8',l:'辰正 08:00-08:59'},
-  {v:'9',l:'巳初 09:00-09:59'},{v:'10',l:'巳正 10:00-10:59'},{v:'11',l:'午初 11:00-11:59'},
-  {v:'12',l:'午正 12:00-12:59'},{v:'13',l:'未初 13:00-13:59'},{v:'14',l:'未正 14:00-14:59'},
-  {v:'15',l:'申初 15:00-15:59'},{v:'16',l:'申正 16:00-16:59'},{v:'17',l:'酉初 17:00-17:59'},
-  {v:'18',l:'酉正 18:00-18:59'},{v:'19',l:'戌初 19:00-19:59'},{v:'20',l:'戌正 20:00-20:59'},
-  {v:'21',l:'亥初 21:00-21:59'},{v:'22',l:'亥正 22:00-22:59'},{v:'23',l:'子正 23:00-23:59'},
-]
+// hour options removed (unused)
+
+interface ShenShaItem { name: string; type: '吉'|'凶'|'中性'; meaning: string; resolve?: string }
+
+interface BaziResult {
+  cal?: string; dateStr: string; bazi: string; solarStr: string; lunarStr: string
+  pills: PillarInfo[]; wx: Record<string,number>; dg: string
+  str: { level: string; detail: string }; zodiac: string; shenSha: ShenShaItem[]
+  pillarShenSha: PillarShenSha[]
+  mingGong: string; shenGong: string; taiYuan: string; xunKong: string
+  yearDiShi: string; monthDiShi: string; dayDiShi: string; timeDiShi: string
+  dayun: { gz: string; age: number; startYear: number; years: { year: number; gz: string; age: number }[] }[]
+  analysis: BaziAnalysis; currentAge: number; birthYear: number
+  useTrueSolar?: boolean; trueSolarInfo?: string
+}
+
+interface PillarInfo {
+  gz: string; gan: string; zhi: string
+  ny: string; wxG: string; wxZ: string; hd: string
+  hdSS: { gan: string; ss: string }[]
+  ssG: string; ssZ: string
+}
 
 const wxM: Record<string,string> = {甲:'木',乙:'木',丙:'火',丁:'火',戊:'土',己:'土',庚:'金',辛:'金',壬:'水',癸:'水',子:'水',丑:'土',寅:'木',卯:'木',辰:'土',巳:'火',午:'火',未:'土',申:'金',酉:'金',戌:'土',亥:'水'}
 const ny: Record<string,string> = {甲子:'海中金',乙丑:'海中金',丙寅:'炉中火',丁卯:'炉中火',戊辰:'大林木',己巳:'大林木',庚午:'路旁土',辛未:'路旁土',壬申:'剑锋金',癸酉:'剑锋金',甲戌:'山头火',乙亥:'山头火',丙子:'涧下水',丁丑:'涧下水',戊寅:'城头土',己卯:'城头土',庚辰:'白蜡金',辛巳:'白蜡金',壬午:'杨柳木',癸未:'杨柳木',甲申:'泉中水',乙酉:'泉中水',丙戌:'屋上土',丁亥:'屋上土',戊子:'霹雳火',己丑:'霹雳火',庚寅:'松柏木',辛卯:'松柏木',壬辰:'长流水',癸巳:'长流水',甲午:'沙中金',乙未:'沙中金',丙申:'山下火',丁酉:'山下火',戊戌:'平地木',己亥:'平地木',庚子:'壁上土',辛丑:'壁上土',壬寅:'金箔金',癸卯:'金箔金',甲辰:'覆灯火',乙巳:'覆灯火',丙午:'天河水',丁未:'天河水',戊申:'大驿土',己酉:'大驿土',庚戌:'钗钏金',辛亥:'钗钏金',壬子:'桑柘木',癸丑:'桑柘木',甲寅:'大溪水',乙卯:'大溪水',丙辰:'沙中土',丁巳:'沙中土',戊午:'天上火',己未:'天上火',庚申:'石榴木',辛酉:'石榴木',壬戌:'大海水',癸亥:'大海水'}
@@ -120,7 +132,7 @@ interface PillarShenSha { pillarName: string; items: { name: string; type: '吉'
 
 function calcPillarShenSha(tg: string[], dz: string[], dayGan: string, dayZhi: string, dayGz: string): PillarShenSha[] {
   const pillarNames = ['年柱','月柱','日柱','时柱']
-  const push = (items: any[], name: string, type: '吉'|'凶'|'中性') => { if (!items.some((x:any) => x.name === name)) items.push({name, type}) }
+  const push = (items: { name: string; type: '吉'|'凶'|'中性' }[], name: string, type: '吉'|'凶'|'中性') => { if (!items.some(x => x.name === name)) items.push({name, type}) }
 
   return [0,1,2,3].map(i => {
     const g = tg[i], z = dz[i]
@@ -231,8 +243,8 @@ const QT: Record<string,Record<number,string>> = {
 
 // ═══════════ 神煞对性格的影响 ═══════════
 interface ShenShaEffect { has: boolean; effect: string }
-function ssEffect(shenSha: string[], key: string): ShenShaEffect {
-  const has = shenSha.some(s => typeof s === 'string' ? s.includes(key) : (s as any).name?.includes(key))
+function ssEffect(shenSha: ShenShaItem[], key: string): ShenShaEffect {
+  const has = shenSha.some(s => s.name.includes(key))
   const map: Record<string,string> = {
     天乙贵人:'命带天乙贵人，一生逢凶化吉遇难呈祥，人缘极佳，易得贵人提携。',
     文昌贵人:'命带文昌贵人，天生聪颖，学业出众，富有才华和创造力。',
@@ -259,7 +271,7 @@ interface BaziAnalysis {
   other: string[]
 }
 
-function comprehensiveAnalysis(dg: string, dz: string, wx: Record<string,number>, pillars: any[], zodiac: string, lunar: any, monthZhi: string, shenSha: any[], gender: string): BaziAnalysis {
+function comprehensiveAnalysis(dg: string, dz: string, wx: Record<string,number>, pillars: PillarInfo[], zodiac: string, lunar: { getMonth(): number }, monthZhi: string, shenSha: ShenShaItem[], gender: string): BaziAnalysis {
   const dw = wxM[dg]
   const shengWx: Record<string,string> = {木:'水',火:'木',土:'火',金:'土',水:'金'}
   const keWx: Record<string,string> = {木:'土',火:'金',土:'水',金:'木',水:'火'}
@@ -283,7 +295,7 @@ function comprehensiveAnalysis(dg: string, dz: string, wx: Record<string,number>
   const classical: string[] = []
   const qtText = QT[dg]?.[lMonth]
   if (qtText) classical.push(`《穷通宝鉴》云：生于${lMonth}月，${qtText}`)
-  classical.push(`《三命通会》曰：生于${mName}，日主${dg}属${dw}。四柱八字为${pillars.map((p:any)=>p.gz).join(' ')}，五行宜调和，大运顺逆须详推。`)
+  classical.push(`《三命通会》曰：生于${mName}，日主${dg}属${dw}。四柱八字为${pillars.map(p => p.gz).join(' ')}，五行宜调和，大运顺逆须详推。`)
 
   // ═══ 3. 性格分析 ═══
   const wp = wxPersonality[dw]
@@ -291,10 +303,10 @@ function comprehensiveAnalysis(dg: string, dz: string, wx: Record<string,number>
   const ssEffs = [
     ssEffect(shenSha, '文昌'), ssEffect(shenSha, '华盖'), ssEffect(shenSha, '桃花'),
     ssEffect(shenSha, '羊刃'), ssEffect(shenSha, '孤辰'), ssEffect(shenSha, '天乙'),
-  ].filter(e => e.has).map(e => `「${(shenSha.find((s:any)=>e.effect.includes(typeof s === 'string' ? s : s.name))||{name:''}).name}」${e.effect}`).join('')
+  ].filter(e => e.has).map(e => `「${(shenSha.find((s: ShenShaItem) => e.effect.includes(s.name))||{name: ''}).name}」${e.effect}`).join('')
 
   // 十神对性格影响
-  const ssN = pillars.map((p: any) => p.ssGan)
+  const ssN = pillars.map(p => p.ssG)
   const bjCount = ssN.filter((s:string) => s === '比肩' || s === '劫财').length
   const ssCount = ssN.filter((s:string) => s === '食神' || s === '伤官').length
   const cxCount = ssN.filter((s:string) => s === '正财' || s === '偏财').length
@@ -315,9 +327,9 @@ function comprehensiveAnalysis(dg: string, dz: string, wx: Record<string,number>
   if (ssEffs) personality += ` ${ssEffs}`
 
   // ═══ 4. 感情分析 ═══
-  const riZhiSS = pillars[2]?.ssZhi
-  const hasTH = shenSha.some((s:any) => (typeof s === 'string' ? s : s.name).includes('桃花'))
-  const hasGC = shenSha.some((s:any) => (typeof s === 'string' ? s : s.name).includes('孤辰'))
+  const riZhiSS = pillars[2]?.ssZ
+  const hasTH = shenSha.some(s => s.name.includes('桃花'))
+  const hasGC = shenSha.some(s => s.name.includes('孤辰'))
   let love = ''
   if (gender === '男') {
     // 男命看财星
@@ -345,7 +357,7 @@ function comprehensiveAnalysis(dg: string, dz: string, wx: Record<string,number>
   const hasGY = ssN.includes('正官') || ssN.includes('七杀')
   const hasSY = ssN.includes('正印') || ssN.includes('偏印')
   const hasSS = ssN.includes('食神') || ssN.includes('伤官')
-  const hasYM = shenSha.some((s:any) => (typeof s === 'string' ? s : s.name).includes('驿马'))
+  const hasYM = shenSha.some(s => s.name.includes('驿马'))
 
   if (hasGY && hasSY) career += '官印相生，贵格。宜公务员、事业单位、教育科研，仕途顺遂。'
   else if (hasSS && hasCY) career += '食伤生财，富格。宜经商、创业、自由职业，以技艺才华赚钱。'
@@ -367,7 +379,7 @@ function comprehensiveAnalysis(dg: string, dz: string, wx: Record<string,number>
 
   // ═══ 7. 其他 ═══
   const other: string[] = []
-  const ssDz = pillars[2]?.ssZhi
+  const ssDz = pillars[2]?.ssZ
   if (ssDz === '正财' || ssDz === '偏财') other.push('【婚姻】财星入夫妻宫，配偶贤惠持家，夫妻同心。')
   else if (ssDz === '正官' || ssDz === '七杀') other.push('【婚姻】官星入夫妻宫，配偶有为有担当。')
   else other.push('【婚姻】夫妻宫平和，婚姻稳定，互敬互谅。')
@@ -381,12 +393,12 @@ function comprehensiveAnalysis(dg: string, dz: string, wx: Record<string,number>
 // ═══════════ 日主强度 ═══════════
 function strength(wx: Record<string,number>, dg: string): { level: string; detail: string } {
   const dw = wxM[dg]; const sheng: Record<string,string> = {木:'水',火:'木',土:'火',金:'土',水:'金'}
-  let bf = wx[dw] + (wx[sheng[dw]] || 0)
+  const bf = wx[dw] + (wx[sheng[dw]] || 0)
   return { level: bf >= 5 ? '身旺' : bf >= 3 ? '中和' : '身弱', detail: `日主${dg}属${dw}` }
 }
 
 export default function BaziClient() {
-  const { t } = useLocale(); const lang = t as unknown as Record<string, unknown>
+
   const now = new Date()
   const [mode, setMode] = useState<'date'|'bazi'>('date')
   const [cal, setCal] = useState<'solar'|'lunar'>('solar')
@@ -399,7 +411,7 @@ export default function BaziClient() {
   const [bzTg, setBzTg] = useState(['甲','甲','甲','甲'])
   const [bzDz, setBzDz] = useState(['子','寅','午','子'])
   const [bzYear, setBzYear] = useState(String(new Date().getFullYear()))
-  const [result, setResult] = useState<any>(null)
+  const [result, setResult] = useState<BaziResult | null>(null)
   const [error, setError] = useState('')
   const [saved, setSaved] = useState(false)
 
@@ -408,7 +420,6 @@ export default function BaziClient() {
   const [longitude, setLongitude] = useState(116.4)
   const [timezone, setTimezone] = useState(8)
 
-  const getLunarMonth = () => isLeapMonth ? -parseInt(month) : parseInt(month)
 
   const switchCal = (newCal: 'solar'|'lunar') => {
     const y=parseInt(year),m=parseInt(month),d=parseInt(day)
@@ -433,7 +444,7 @@ export default function BaziClient() {
         const tg = bzTg as string[], dz = bzDz as string[], dg = tg[2]
         const birthYear = parseInt(bzYear)
         
-        function mk(gz: string, gan: string, zhi: string): any {
+        function mk(gz: string, gan: string, zhi: string): PillarInfo {
           const hdStems = (hA[zhi] || '').split('')
           const hdSS = hdStems.map(hs => ({ gan: hs, ss: ssM[dg]?.[hs] || '' }))
           return {gz, gan, zhi, ny: ny[gz]||'—', wxG: wxM[gan]||'', wxZ: wxM[zhi]||'', hd: hA[zhi]||'—', hdSS, ssG: ssM[dg]?.[gan]||'', ssZ: ssM[dg]?.[hG[zhi]||'']||''}
@@ -449,7 +460,7 @@ export default function BaziClient() {
         const shenSha = mergeShenSha(pillarShenSha)
         const zodiac = ['鼠','牛','虎','兔','龙','蛇','马','羊','猴','鸡','狗','猪'][((birthYear - 4) % 12 + 12) % 12]
         const lunar = { getYear: () => birthYear, getMonth: () => 1, getDay: () => 1, getYearShengXiao: () => zodiac, toFullString: () => '', getYearInChinese: () => '', getMonthInChinese: () => '', getDayInChinese: () => '' }
-        const analysis = comprehensiveAnalysis(dg, dz[2], wx, pills, zodiac, lunar as any, dz[1], shenSha, gender)
+        const analysis = comprehensiveAnalysis(dg, dz[2], wx, pills, zodiac, lunar, dz[1], shenSha, gender)
 
         // 手动排大运：年干阴阳定顺逆 + 出生年份确定岁数
         const tgIdx = ['甲','乙','丙','丁','戊','己','庚','辛','壬','癸'].indexOf(tg[0])
@@ -460,7 +471,7 @@ export default function BaziClient() {
         
         let mTgIdx = stems.indexOf(tg[1])
         let mDzIdx = branches.indexOf(dz[1])
-        const dayunArr: any[] = []
+        const dayunArr: { gz: string; age: number; startYear: number; years: { year: number; gz: string; age: number }[] }[] = []
         
         for (let step = 0; step < 8; step++) {
           if (forward) { mTgIdx = (mTgIdx + 1) % 10; mDzIdx = (mDzIdx + 1) % 12 }
@@ -480,7 +491,7 @@ export default function BaziClient() {
 
         // 计算当前年龄（bazi mode）
         const now3 = new Date()
-        let curAge2 = now3.getFullYear() - birthYear
+        const curAge2 = now3.getFullYear() - birthYear
 
         setResult({
           dateStr: '直接排盘 · ' + birthYear + '年 ' + tg[0]+dz[0]+'年 '+tg[1]+dz[1]+'月 '+tg[2]+dz[2]+'日 '+tg[3]+dz[3]+'时 · '+gender+'命',
@@ -493,7 +504,7 @@ export default function BaziClient() {
           dayun: dayunArr, analysis,
           currentAge: curAge2, birthYear,
         })
-      } catch(e){ setError('排盘出错：' + ((e as any)?.message || '请检查天干地支和出生年份')) }
+      } catch(e){ setError('排盘出错：' + ((e as {message?: string})?.message || '请检查天干地支和出生年份')) }
       return
     }
     
@@ -533,7 +544,6 @@ export default function BaziClient() {
         ec = lunar.getEightChar()
       }
       const dg = ec.getDayGan(), dz = ec.getDayZhi()
-      const yearGan = ec.getYearGan(), yearZhi = ec.getYearZhi()
       const monthZhi = ec.getMonthZhi()
 
       function mk(gz: string, gan: string, zhi: string) {
@@ -557,14 +567,13 @@ export default function BaziClient() {
       const pillarShenSha = calcPillarShenSha([ec.getYearGan(),ec.getMonthGan(),dg,ec.getTimeGan()], [ec.getYearZhi(),ec.getMonthZhi(),dz,ec.getTimeZhi()], dg, dz, dg+dz)
       const shenSha = mergeShenSha(pillarShenSha)
 
-      const dayun: any[] = []
+      const dayun: { gz: string; age: number; startYear: number; years: { year: number; gz: string; age: number }[] }[] = []
       try { const yun=ec.getYun(gender==='男'?1:0); const stems=['甲','乙','丙','丁','戊','己','庚','辛','壬','癸']; const branches=['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥']; for(const x of yun.getDaYun()){const gz=x.getGanZhi();if(!gz)continue;const sy=x.getStartYear();const years=[];for(let i=0;i<10;i++){const yy=sy+i;years.push({year:yy,gz:stems[((yy-4)%10+10)%10]+branches[((yy-4)%12+12)%12],age:x.getStartAge()+i})};dayun.push({gz,age:x.getStartAge(),startYear:sy,years})} } catch{}
 
       const analysis = comprehensiveAnalysis(dg, dz, wx, pills, zodiac, lunar, monthZhi, shenSha, gender)
 
       // 计算当前年龄
       const now2 = new Date()
-      const birthDate = new Date(solar.getYear(), solar.getMonth() - 1, solar.getDay())
       let currentAge = now2.getFullYear() - solar.getYear()
       if (now2 < new Date(now2.getFullYear(), solar.getMonth() - 1, solar.getDay())) currentAge--
 
@@ -583,7 +592,7 @@ export default function BaziClient() {
         currentAge, birthYear: solar.getYear(),
         useTrueSolar, trueSolarInfo: useTrueSolar ? `真太阳时 · 经度${longitude}°E` : '',
       })
-    } catch(e){ setError('计算出错：' + ((e as any)?.message || '请检查日期是否有效')) }
+    } catch(e){ setError('计算出错：' + ((e as {message?: string})?.message || '请检查日期是否有效')) }
   }
 
   const ssColor = (s: string) => {
@@ -698,36 +707,36 @@ export default function BaziClient() {
             </tr></thead>
             <tbody>
               <tr><td className="p-2 border border-dark-600 text-gray-500 bg-dark-700">天干</td>
-                {result.pills.map((x:any,i:number)=><td key={i} className="p-2 border border-dark-600 text-center font-bold text-gold-400 font-serif text-base">{x.gan}</td>)}
+                {result.pills.map((x: PillarInfo,i: number)=><td key={i} className="p-2 border border-dark-600 text-center font-bold text-gold-400 font-serif text-base">{x.gan}</td>)}
               </tr>
               <tr><td className="p-2 border border-dark-600 text-gray-500 bg-dark-700">天干十神</td>
-                {result.pills.map((x:any,i:number)=><td key={i} className={`p-2 border border-dark-600 text-center font-medium ${ssColor(x.ssG)}`}>{x.ssG}</td>)}
+                {result.pills.map((x: PillarInfo,i: number)=><td key={i} className={`p-2 border border-dark-600 text-center font-medium ${ssColor(x.ssG)}`}>{x.ssG}</td>)}
               </tr>
               <tr><td className="p-2 border border-dark-600 text-gray-500 bg-dark-700">地支</td>
-                {result.pills.map((x:any,i:number)=><td key={i} className="p-2 border border-dark-600 text-center font-bold text-amber-400 font-serif text-base">{x.zhi}</td>)}
+                {result.pills.map((x: PillarInfo,i: number)=><td key={i} className="p-2 border border-dark-600 text-center font-bold text-amber-400 font-serif text-base">{x.zhi}</td>)}
               </tr>
               <tr><td className="p-2 border border-dark-600 text-gray-500 bg-dark-700">地支十神</td>
-                {result.pills.map((x:any,i:number)=><td key={i} className="p-2 border border-dark-600 text-center font-medium text-cyan-300">{x.ssZ}</td>)}
+                {result.pills.map((x: PillarInfo,i: number)=><td key={i} className="p-2 border border-dark-600 text-center font-medium text-cyan-300">{x.ssZ}</td>)}
               </tr>
               <tr><td className="p-2 border border-dark-600 text-gray-500 bg-dark-700">藏干</td>
-                {result.pills.map((x:any,i:number)=><td key={i} className="p-2 border border-dark-600 text-center text-gray-400">{x.hd}</td>)}
+                {result.pills.map((x: PillarInfo,i: number)=><td key={i} className="p-2 border border-dark-600 text-center text-gray-400">{x.hd}</td>)}
               </tr>
               <tr><td className="p-2 border border-dark-600 text-gray-500 bg-dark-700">藏干十神</td>
-                {result.pills.map((x:any,i:number)=><td key={i} className="p-2 border border-dark-600 text-center">
-                  {x.hdSS?.map((h:any,j:number)=><span key={j} className={ssColor(h.ss)}>{h.gan}({h.ss}){' '}</span>)}
+                {result.pills.map((x: PillarInfo,i: number)=><td key={i} className="p-2 border border-dark-600 text-center">
+                  {x.hdSS?.map((h: {gan: string; ss: string},j: number)=><span key={j} className={ssColor(h.ss)}>{h.gan}({h.ss}){' '}</span>)}
                 </td>)}
               </tr>
               <tr><td className="p-2 border border-dark-600 text-gray-500 bg-dark-700">五行</td>
-                {result.pills.map((x:any,i:number)=><td key={i} className="p-2 border border-dark-600 text-center">{x.wxG}{x.wxZ}</td>)}
+                {result.pills.map((x: PillarInfo,i: number)=><td key={i} className="p-2 border border-dark-600 text-center">{x.wxG}{x.wxZ}</td>)}
               </tr>
               <tr><td className="p-2 border border-dark-600 text-gray-500 bg-dark-700">纳音</td>
-                {result.pills.map((x:any,i:number)=><td key={i} className="p-2 border border-dark-600 text-center text-gray-400">{x.ny}</td>)}
+                {result.pills.map((x: PillarInfo,i: number)=><td key={i} className="p-2 border border-dark-600 text-center text-gray-400">{x.ny}</td>)}
               </tr>
               <tr><td className="p-2 border border-dark-600 text-gray-500 bg-dark-700">十二长生</td>
-                {[result.yearDiShi,result.monthDiShi,result.dayDiShi,result.timeDiShi].map((v:any,i:number)=><td key={i} className="p-2 border border-dark-600 text-center text-gray-400">{v}</td>)}
+                {[result.yearDiShi,result.monthDiShi,result.dayDiShi,result.timeDiShi].map((v: string,i: number)=><td key={i} className="p-2 border border-dark-600 text-center text-gray-400">{v}</td>)}
               </tr>
               <tr><td className="p-2 border border-dark-600 text-gray-500 bg-dark-700">神煞</td>
-                {(result.pillarShenSha||[]).map((p:any,i:number)=><td key={i} className="p-2 border border-dark-600 text-center font-medium text-[10px] leading-relaxed">
+                {(result.pillarShenSha||[]).map((p: PillarShenSha,i: number)=><td key={i} className="p-2 border border-dark-600 text-center font-medium text-[10px] leading-relaxed">
                   {getPillarShenShaLabel(p.items)}
                 </td>)}
               </tr>
@@ -741,7 +750,8 @@ export default function BaziClient() {
         <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-4">
           <h3 className="text-sm font-semibold text-gray-200 mb-3">五行分布</h3>
           <div className="grid grid-cols-5 gap-1.5 mb-3">
-            {Object.entries(result.wx).map(([w,c]:any)=>(
+            {
+Object.entries(result.wx).map(([w,c]): React.ReactNode =>(
               <div key={w} className={`rounded-lg p-2 text-center border border-dark-600 ${w==='金'?'bg-yellow-900/40 text-yellow-300':w==='木'?'bg-green-900/40 text-green-300':w==='水'?'bg-blue-900/40 text-blue-300':w==='火'?'bg-red-900/40 text-red-300':'bg-amber-900/40 text-amber-300'}`}>
                 <p className="text-sm font-bold mb-0.5">{w}</p><p className="text-xs text-gray-400">{c}个</p>
               </div>
@@ -776,7 +786,7 @@ export default function BaziClient() {
       <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-4">
         <h3 className="text-sm font-semibold text-gray-200 mb-3">神煞详解 <span className="text-[10px] font-normal text-gray-500">（各柱分布见上表）</span></h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
-          {result.shenSha.map((s:any,i:number)=>(
+          {result.shenSha.map((s: ShenShaItem,i: number)=>(
             <div key={i} className={`text-xs p-3 rounded border ${shenShaTagColor(s.type)}`}>
               <span className="font-semibold mr-1.5">{s.name}</span>
               <span className={`text-[10px] ${s.type==='吉'?'text-gold-400/70':s.type==='凶'?'text-red-400/70':'text-gray-500'}`}>（{s.type}）</span>
@@ -831,7 +841,7 @@ export default function BaziClient() {
               type: 'bazi',
               name: `八字命盘 · ${result.bazi || ''}`,
               summary: `${result.dateStr || ''} · ${result.lunarStr || ''} · 日主${result.dg || ''}`,
-              data: result,
+              data: result as unknown as Record<string, unknown>,
             })
             setSaved(true)
             setTimeout(() => setSaved(false), 2000)
@@ -847,7 +857,7 @@ export default function BaziClient() {
       </div>
 
       {/* 大运可视化 */}
-      <DayunChart dayun={result.dayun} currentAge={result.currentAge} birthYear={result.birthYear} />
+      <DayunChart dayun={result.dayun as unknown as { gz: string; age: number; startYear: number; years: { year: number; gz: string; age: number }[] }[]} currentAge={result.currentAge} birthYear={result.birthYear} />
     </div>)}
   </div>)
 }

@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { Solar, Lunar } from 'lunar-typescript'
 import ShareResult from '../../components/ShareResult'
-import CalendarInput, { type CalendarType, getMaxDay } from '@/components/CalendarInput'
+import CalendarInput, { type CalendarType } from '@/components/CalendarInput'
 
 const YEAR_W: Record<string,number> = {
   '甲子':1.2,'乙丑':0.9,'丙寅':0.6,'丁卯':0.7,'戊辰':1.2,'己巳':0.5,'庚午':0.9,'辛未':0.8,'壬申':0.7,'癸酉':0.8,
@@ -16,7 +16,6 @@ const YEAR_W: Record<string,number> = {
 const MONTH_W = [0,0.6,0.7,1.8,0.9,0.5,1.6,0.9,1.5,1.8,0.8,0.9,0.5]
 const DAY_W: Record<number,number> = {1:0.5,2:1.0,3:0.8,4:1.5,5:1.6,6:1.5,7:0.8,8:1.6,9:0.6,10:0.6,11:0.9,12:0.9,13:0.8,14:0.9,15:1.0,16:0.8,17:0.9,18:1.8,19:0.5,20:1.5,21:1.0,22:0.9,23:0.8,24:0.9,25:1.5,26:1.8,27:0.7,28:0.8,29:1.6,30:0.6}
 const HOUR_DZ = ['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥']
-const HOUR_RANGES = [[23,1],[1,3],[3,5],[5,7],[7,9],[9,11],[11,13],[13,15],[15,17],[17,19],[19,21],[21,23]]
 const HOUR_W = [1.6,0.6,0.7,1.0,0.9,1.6,1.0,0.8,0.8,0.9,0.6,0.6]
 
 interface Fortune { poem: string; interpret: string; level: string }
@@ -225,13 +224,19 @@ export default function ChengguClient() {
   const [day, setDay] = useState('1')
   const [hour, setHour] = useState('5')
   const [isLeapMonth, setIsLeapMonth] = useState(false)
-  const [result, setResult] = useState<any>(null)
+  const [result, setResult] = useState<{
+    yearW: number; monthW: number; dayW: number; hourW: number;
+    total: number; liang: number; qian: number;
+    gzYear: string; lMonth: number; lDay: number; dz: string;
+    solarLabel: string; lunarLabel: string; gender: string;
+    mingShu: MingShu; poem: string; interpret: string; level: string;
+  } | null>(null)
 
   const calc = () => {
     try {
       const y = parseInt(year), m = parseInt(month), d = parseInt(day)
       const hIdx = parseInt(hour)
-      let lunar: any, solarLabel: string, lunarLabel: string
+      let lunar: Lunar, solarLabel: string, lunarLabel: string
       if (calendarType === 'solar') {
         const solar = Solar.fromYmd(y, m, d)
         lunar = solar.getLunar()

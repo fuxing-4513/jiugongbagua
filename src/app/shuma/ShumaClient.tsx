@@ -1,13 +1,7 @@
 'use client'
 
-import { useState, useCallback, useMemo } from 'react'
-import { useLocale } from '@/lib/i18n'
+import { useState, useCallback } from 'react'
 
-function tk(key: string, lang: Record<string, unknown>): string {
-  const keys = key.split('.'); let v: unknown = lang
-  for (const k of keys) { if (typeof v !== 'object' || v === null) return key; v = (v as Record<string, unknown>)[k] }
-  return typeof v === 'string' ? v : key
-}
 
 // ── 八星磁场数据（含详解、七星对应、号主分析） ──
 interface FieldFull {
@@ -242,11 +236,14 @@ const STAR7 = [
 ]
 
 export default function ShumaClient() {
-  const { t } = useLocale()
-  const lang = t as unknown as Record<string, unknown>
 
   const [phone, setPhone] = useState('')
-  const [result, setResult] = useState<any>(null)
+  const [result, setResult] = useState<{
+    digits: string; segments: { pair: number; position: number; fieldKey: string; fieldName: string; fieldType: string }[]
+    fieldCounts: Record<string, number>; aus: number; inaus: number; neut: number; score: number; overall: string
+    tail4: string; tailFields: string[]; dominantField: string; dominantData: FieldFull | null
+    pairAnalyses: { pair: number; text: string }[]; star7Results: (typeof STAR7[number] & { count: number })[]
+  } | null>(null)
   const [selectedField, setSelectedField] = useState<string | null>(null)
 
   const doAnalyze = useCallback(() => {
@@ -254,7 +251,7 @@ export default function ShumaClient() {
     const normalized = phone.toUpperCase().replace(/[A-Z]/g, c => String(c.charCodeAt(0) - 64))
     const digits = normalized.replace(/[^0-9]/g, '')
     if (digits.length < 3) return
-    const segments: any[] = []
+    const segments: { pair: number; position: number; fieldKey: string; fieldName: string; fieldType: string }[] = []
     const fieldCounts: Record<string, number> = {}
     for (const k of Object.keys(FIELDS)) fieldCounts[k] = 0
     for (let i = 0; i < digits.length - 1; i++) {
@@ -288,8 +285,8 @@ export default function ShumaClient() {
     for (let i = 0; i < digits.length - 1; i++) {
       const pair = parseInt(digits.substring(i, i + 2))
       const fk = numToField[pair]
-      if (fk && (FIELDS[fk] as any).pairMeanings?.[String(pair)]) {
-        pairAnalyses.push({ pair, text: (FIELDS[fk] as any).pairMeanings[String(pair)] })
+      if (fk && FIELDS[fk].pairMeanings?.[String(pair)]) {
+        pairAnalyses.push({ pair, text: FIELDS[fk].pairMeanings[String(pair)] })
       }
     }
 
@@ -397,7 +394,7 @@ export default function ShumaClient() {
                   <th className="py-1 pr-2 text-left">位置</th><th className="py-1 px-2 text-left">数字</th><th className="py-1 px-2 text-left">磁场</th><th className="py-1 pl-2 text-left">吉凶</th>
                 </tr></thead>
                 <tbody>
-                  {result.segments.map((s: any, i: number) => (
+                  {result.segments.map((s, i: number) => (
                     <tr key={i} className="border-b border-dark-700/50">
                       <td className="py-1 pr-2 text-gray-500">{s.position}-{s.position+1}位</td>
                       <td className="py-1 px-2 font-mono text-gray-200">{String(s.pair).padStart(2,'0')}</td>
@@ -410,7 +407,7 @@ export default function ShumaClient() {
             </div>
             {/* 详细组合解析 */}
             <div className="space-y-1.5">
-              {result.pairAnalyses.map((pa: any, i: number) => (
+              {result.pairAnalyses.map((pa, i: number) => (
                 <p key={i} className="text-[11px] text-gray-300 leading-relaxed"><span className="text-gold-400 font-mono">【{pa.pair}】</span>{pa.text}</p>
               ))}
             </div>
@@ -446,7 +443,7 @@ export default function ShumaClient() {
           <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-5">
             <h3 className="text-sm font-semibold text-gray-200 mb-3">对应天上七星排列（北斗七星）</h3>
             <div className="grid grid-cols-7 gap-1.5">
-              {result.star7Results.map((s: any, i: number) => (
+              {result.star7Results.map((s, i: number) => (
                 <div key={i} className={`text-center p-1.5 rounded-lg border ${s.count > 0 ? 'border-gold-500/50 bg-gold-900/10' : 'border-dark-600 bg-dark-700'}`}>
                   <div className="text-[10px] text-gray-500">{s.name.split('·')[0]}</div>
                   <div className={`text-[11px] font-semibold ${s.count > 0 ? 'text-gold-300' : 'text-gray-600'} font-serif`}>{s.field}</div>

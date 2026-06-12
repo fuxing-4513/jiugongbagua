@@ -1,8 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import { calcTrueSolarHour } from '@/lib/solar-time'
-
 // ── 中国主要城市经度 ──
 const CITIES: { name: string; lng: number }[] = [
   { name: '北京', lng: 116.4 }, { name: '上海', lng: 121.5 }, { name: '天津', lng: 117.2 },

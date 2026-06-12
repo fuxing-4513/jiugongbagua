@@ -1,8 +1,8 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useMemo } from 'react'
 import Link from 'next/link'
-import { getCharts, removeChart, type SavedChart } from '@/lib/collections'
+import { getCharts, removeChart } from '@/lib/collections'
 
 const TABS = [
   { key: 'all', label: '全部', icon: '📋' },
@@ -29,20 +29,18 @@ function formatDate(iso: string): string {
 
 export default function ProfilePage() {
   const [tab, setTab] = useState('all')
-  const [charts, setCharts] = useState<SavedChart[]>([])
+  const [refreshKey, setRefreshKey] = useState(0)
   const [confirmDelete, setConfirmDelete] = useState<string | null>(null)
 
-  const loadCharts = () => {
-    const items = tab === 'all' ? getCharts() : getCharts(tab)
-    setCharts(items)
-  }
-
-  useEffect(() => { loadCharts() }, [tab])
+  const charts = useMemo(() => {
+    return tab === 'all' ? getCharts() : getCharts(tab)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tab, refreshKey])
 
   const handleDelete = (id: string) => {
     removeChart(id)
     setConfirmDelete(null)
-    loadCharts()
+    setRefreshKey(k => k + 1)
   }
 
   const counts = {

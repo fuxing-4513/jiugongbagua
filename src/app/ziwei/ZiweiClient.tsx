@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useMemo, useCallback } from 'react'
+import { useState, useMemo, useCallback } from 'react'
 import { astro } from 'iztro'
 import { getMaxDay, lunarToSolarDate, getYearLeapMonth } from '@/components/CalendarInput'
 
@@ -127,7 +127,6 @@ function detectPatterns(palaces: PalaceForPattern[], bornSihua: { star: string }
   const getP = (n: string) => palaces.find(p => p.name === n)
   const getStars = (n: string) => (getP(n)?.majorStars || []).map((s: StarInfo) => s.name)
   const soul = getP('命宫')
-  const ss = soul ? getStars('命宫') : []
   const sb = soul?.earthlyBranch || ''
   const has = (n: string, star: string) => (getStars(n) || []).includes(star)
   const hasAny = (n: string, stars: string[]) => stars.some(s => (getStars(n) || []).includes(s))
@@ -140,12 +139,7 @@ function detectPatterns(palaces: PalaceForPattern[], bornSihua: { star: string }
   const triAll = [...new Set([...triStars('命宫'), ...triStars('财帛'), ...triStars('官禄')])]
   const triHas = (star: string) => triAll.includes(star)
   const triHasAny = (stars: string[]) => stars.some(s => triAll.includes(s))
-  const triHasAll = (stars: string[]) => stars.every(s => triAll.includes(s))
-
   // 迁移宫（对宫）
-  const qiStars = (getP('迁移')?.majorStars || []).map(s => s.name)
-
-  const sihuaStars = bornSihua.map(s => s.star)
 
   // ═══════════════════════════════════════════
   // 顶级格局（上格）
@@ -326,12 +320,8 @@ export default function ZiweiClient() {
   const d = parseInt(day) || 1
 
   const maxDay = useMemo(() => getMaxDay(calendarType, y, m), [calendarType, y, m])
-  // 日期修正：历法切换或年月变化时自动修正
-  useEffect(() => {
-    if (parseInt(day) > maxDay) {
-      setDay(String(maxDay))
-    }
-  }, [calendarType, year, month, maxDay])
+  // Use clamped day (derived, not state) for all computations
+  const clampedDay = String(Math.min(parseInt(day) || 1, maxDay))
   const yearLeap = useMemo(() => calendarType === 'lunar' ? getYearLeapMonth(y) : 0, [calendarType, y])
   const hasLeap = calendarType === 'lunar' && yearLeap === m
 
@@ -357,11 +347,9 @@ export default function ZiweiClient() {
 
   // ── Derived data ──
   type PalaceRaw = { name: string; earthlyBranch: string; heavenlyStem: string; isBodyPalace?: boolean; majorStars: FullStarInfo[]; minorStars: FullStarInfo[]; adjectiveStars: FullStarInfo[]; decadal?: { range: [number, number] }; ages?: { range: [number, number] } }
-  const palaces = (result?.palaces || []) as PalaceRaw[]
+  const palaces = useMemo(() => (result?.palaces || []) as PalaceRaw[], [result])
   const palaceMap = useMemo(() => Object.fromEntries(palaces.map(p => [p.earthlyBranch, p])), [palaces])
   const soulPalace = palaces.find(p => p.name === '命宫')
-  const bodyBranch = result?.earthlyBranchOfBodyPalace as string | undefined
-
   // ── Sihua (scan all palaces) ──
   const bornSihua = useMemo(() => {
     const list: { star: string; label: string; color: string }[] = []
@@ -528,7 +516,7 @@ export default function ZiweiClient() {
                   <input type="checkbox" checked={isLeap} onChange={e => setIsLeap(e.target.checked)} /> 閏月
                 </label>
               )}
-              <select value={day} onChange={e => setDay(e.target.value)}
+              <select value={clampedDay} onChange={e => setDay(e.target.value)}
                 className="px-1.5 py-1.5 bg-dark-700 border border-dark-500 rounded text-gray-200 text-sm">
                 {Array.from({ length: maxDay }, (_, i) => <option key={i + 1} value={i + 1}>{i + 1}</option>)}
               </select>

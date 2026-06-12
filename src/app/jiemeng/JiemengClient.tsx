@@ -112,7 +112,7 @@ export default function JiemengClient() {
       seen.add(d.category)
       return true
     }).map(d => ({ keyword: d.keyword, category: d.category }))
-  }, [loaded])
+  }, [])
 
   // 分页
   const [page, setPage] = useState(1)
@@ -142,7 +142,7 @@ export default function JiemengClient() {
           >搜索</button>
         </div>
         {loaded && dreamDB && (
-          <p className="text-[10px] text-gray-600 mt-2">📚 收录 {dreamDB.length} 条梦境解析 · 含《周公解梦》《梦林玄解》《断梦秘&#x200b;书》古籍原文 · 支持多词组合搜索</p>
+          <p className="text-[10px] text-gray-600 mt-2">📚 收录 {dreamDB.length} 条梦境解析 · 含《周公解梦》《梦林玄解》《断梦秘书》古籍原文 · 支持多词组合搜索</p>
         )}
       </div>
 
@@ -212,7 +212,7 @@ export default function JiemengClient() {
       {/* 无结果 */}
       {searched && results.length === 0 && (
         <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-5 text-center">
-          <p className="text-sm text-gray-400 mb-2">未找到 "{keyword}" 的相关解梦</p>
+          <p className="text-sm text-gray-400 mb-2">未找到 &quot;{keyword}&quot; 的相关解梦</p>
           <p className="text-xs text-gray-500">试试：蛇、掉牙、水、飞、考试、死人</p>
         </div>
       )}
@@ -249,7 +249,7 @@ export default function JiemengClient() {
                 <h2 className="text-lg font-bold text-gold-400">{selectedDream.title}</h2>
               </div>
               <button onClick={() => setSelectedDream(null)}
-                className="text-gray-500 hover:text-gray-300 text-xl leading-none">&times;</button>
+                className="text-gray-500 hover:text-gray-300 text-xl leading-none">{'\u00D7'}</button>
             </div>
 
             {/* 古籍原文 */}
