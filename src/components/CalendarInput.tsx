@@ -119,7 +119,7 @@ export default function CalendarInput({
     if (!isNaN(dd) && dd > maxDay) {
       onDayChange(String(maxDay))
     }
-  }, [calendarType, year, month, maxDay])
+  }, [calendarType, year, month, maxDay, day, onDayChange])
 
   const hasLeapMonth = useMemo(() => {
     if (calendarType !== 'lunar') return false

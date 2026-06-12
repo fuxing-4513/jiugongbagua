@@ -12,15 +12,17 @@ export default function TopLoadingBar() {
   const [progress, setProgress] = useState(0)
 
   useEffect(() => {
-    setLoading(true)
-    setProgress(30)
+    const t0 = setTimeout(() => {
+      setLoading(true)
+      setProgress(30)
+    }, 0)
     const t1 = setTimeout(() => setProgress(60), 100)
     const t2 = setTimeout(() => setProgress(85), 300)
     const t3 = setTimeout(() => {
       setProgress(100)
       setTimeout(() => setLoading(false), 200)
     }, 500)
-    return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3) }
+    return () => { clearTimeout(t0); clearTimeout(t1); clearTimeout(t2); clearTimeout(t3) }
   }, [pathname])
 
   if (!loading) return null

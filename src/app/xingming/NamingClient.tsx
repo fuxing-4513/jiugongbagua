@@ -905,13 +905,13 @@ export default function NamingClient() {
     } catch {
       setWxError('八字排盘出错，请检查日期是否正确')
     }
-  }, [surname, calType, sYear, sMonth, sDay, sHour, gender])
+  }, [surname, calType, sYear, sMonth, sDay, sHour])
 
   const handleRegenerate = useCallback(() => {
     if (!surname.trim() || !baziResult) return
     const names = generateNames(surname.trim(), baziResult.wxCount, baziResult.yongShen)
     setWxResults(names)
-  }, [surname, baziResult, gender])
+  }, [surname, baziResult])
 
   const handleGushi = useCallback(() => {
     const batch = pickRandomN(POEM_NAMES, 8)

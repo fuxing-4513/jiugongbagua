@@ -50,8 +50,8 @@ export default function NamingChars() {
   // 加载列表 & 详情数据
   useEffect(() => {
     const controller = new AbortController()
-    setLoading(true)
-    setListData(null)
+    // 清空旧数据（同步调用以保证 UI 立即响应）
+    setListData(null) // eslint-disable-line react-hooks/set-state-in-effect
     setDetailData(null)
     
     // 并行加载列表和详情
