@@ -397,6 +397,53 @@ function strength(wx: Record<string,number>, dg: string): { level: string; detai
   return { level: bf >= 5 ? '身旺' : bf >= 3 ? '中和' : '身弱', detail: `日主${dg}属${dw}` }
 }
 
+// ═══════════ 命宫/身宫/胎元/旬空 手动计算 ═══════════
+const _GAN = ['', '甲','乙','丙','丁','戊','己','庚','辛','壬','癸']
+const _MONTH_ZHI = ['', '寅','卯','辰','巳','午','未','申','酉','戌','亥','子','丑']
+const _ZHI = ['', '子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥']
+
+function calcMingGong(yearGan: string, monthZhi: string, timeZhi: string): string {
+  const mzi = _MONTH_ZHI.indexOf(monthZhi)
+  const tzi = _MONTH_ZHI.indexOf(timeZhi)
+  let offset = mzi + tzi
+  offset = (offset >= 14 ? 26 : 14) - offset
+  // 年干0-indexed（甲=0, 乙=1, …）
+  const ygi = _GAN.indexOf(yearGan) - 1
+  let ganIdx = (ygi + 1) * 2 + offset
+  while (ganIdx > 10) ganIdx -= 10
+  return _GAN[ganIdx] + _MONTH_ZHI[offset]
+}
+
+function calcShenGong(yearGan: string, monthZhi: string, timeZhi: string): string {
+  const mzi = _MONTH_ZHI.indexOf(monthZhi)
+  const tzi = _ZHI.indexOf(timeZhi)
+  let offset = mzi + tzi
+  if (offset > 12) offset -= 12
+  const ygi = _GAN.indexOf(yearGan) - 1
+  let ganIdx = (ygi + 1) * 2 + offset
+  while (ganIdx > 10) ganIdx -= 10
+  return _GAN[ganIdx] + _MONTH_ZHI[offset]
+}
+
+function calcTaiYuan(monthGan: string, monthZhi: string): string {
+  const gi = _GAN.indexOf(monthGan)
+  const zi = _MONTH_ZHI.indexOf(monthZhi)
+  const tyg = _GAN[gi + 1 > 10 ? gi + 1 - 10 : gi + 1]
+  const tyz = _MONTH_ZHI[zi + 3 > 12 ? zi + 3 - 12 : zi + 3]
+  return tyg + tyz
+}
+
+function calcXunKong(dayGan: string, dayZhi: string): string {
+  const gan0 = _GAN.indexOf(dayGan) - 1  // 0-based
+  const zhi0 = _ZHI.indexOf(dayZhi) - 1  // 0-based
+  const residue = (zhi0 - gan0 + 12) % 12
+  const kMap: Record<number,number> = {0:0, 2:5, 4:4, 6:3, 8:2, 10:1}
+  const k = kMap[residue] ?? 0
+  const cycleIdx = gan0 + 10 * k
+  const xunIdx = Math.floor(cycleIdx / 10)
+  return ['戌亥','申酉','午未','辰巳','寅卯','子丑'][xunIdx]
+}
+
 export default function BaziClient() {
 
   const now = new Date()
@@ -499,7 +546,7 @@ export default function BaziClient() {
           solarStr: '', lunarStr: '直接输入八字排盘 · ' + birthYear + '年（大运估算，起运3岁）',
           pills, wx, dg, str, zodiac, shenSha,
           pillarShenSha,
-          mingGong: '—', shenGong: '—', taiYuan: '—', xunKong: '—',
+          mingGong: calcMingGong(tg[0], dz[1], dz[3]), shenGong: calcShenGong(tg[0], dz[1], dz[3]), taiYuan: calcTaiYuan(tg[1], dz[1]), xunKong: calcXunKong(tg[2], dz[2]),
           yearDiShi: '', monthDiShi: '', dayDiShi: '', timeDiShi: '',
           dayun: dayunArr, analysis,
           currentAge: curAge2, birthYear,
