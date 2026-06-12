@@ -98,12 +98,12 @@ export default function ExpertsClient() {
 
             <div className="p-5">
               <div className="mb-4">
-                <p className="text-xs text-gray-400 mb-1">{getT('experts.experience')}</p>
+                <p className="text-xs text-gray-400 mb-1">{getT('modules.experts.experience')}</p>
                 <p className="text-sm font-medium text-gray-700">{expert.experience}</p>
               </div>
 
               <div className="mb-4">
-                <p className="text-xs text-gray-400 mb-1">{getT('experts.specialties')}</p>
+                <p className="text-xs text-gray-400 mb-1">{getT('modules.experts.specialties')}</p>
                 <div className="flex flex-wrap gap-1.5">
                   {expert.specialties.map((spec) => (
                     <span
@@ -138,7 +138,7 @@ export default function ExpertsClient() {
                     预约中...
                   </span>
                 ) : (
-                  `📮 ${getT('experts.book')}`
+                  `📮 ${getT('modules.experts.book')}`
                 )}
               </button>
             </div>

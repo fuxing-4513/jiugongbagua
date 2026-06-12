@@ -199,7 +199,7 @@ export default function CeziClient() {
       {tab === 'single' && (
         <>
           <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-6 mb-6">
-            <label className="block text-xs text-gray-400 mb-2">{tk('cezi.input', lang)}</label>
+            <label className="block text-xs text-gray-400 mb-2">{tk('modules.cezi.input', lang)}</label>
             <div className="flex gap-2">
               <input type="text" value={input} onChange={e => {
                 setInput(e.target.value.slice(0,1))
@@ -211,7 +211,7 @@ export default function CeziClient() {
               />
               <button onClick={analyze} disabled={input.length !== 1}
                 className="bg-gold-600 hover:bg-gold-500 text-dark-900 font-semibold px-6 py-2 rounded-lg transition-colors disabled:opacity-50 active:scale-95">
-                {tk('common.submit', lang)}
+                {tk('modules.cezi.submit', lang)}
               </button>
             </div>
             <p className="text-xs text-gray-600 mt-2">收录 {DICT_SIZE} 个汉字，含生僻字康熙字源</p>

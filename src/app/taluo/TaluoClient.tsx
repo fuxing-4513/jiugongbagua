@@ -143,7 +143,7 @@ export default function TaluoClient() {
           })}
           <button onClick={drawCards}
             className="ml-auto bg-gold-600 hover:bg-gold-500 text-dark-900 font-semibold px-6 py-2.5 rounded-lg transition-all active:scale-95">
-            🃏 {tk('common.submit', lang)}
+            🃏 {tk('modules.taluo.submit', lang)}
           </button>
         </div>
       </div>

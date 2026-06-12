@@ -38,17 +38,17 @@ export default function XiaoliurenClient() {
       <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-6 mb-8">
         <div className="grid grid-cols-3 gap-4 mb-4">
           <div>
-            <label className="block text-sm text-gray-300 mb-1">{getT('xiaoliuren.num1')}</label>
+            <label className="block text-sm text-gray-300 mb-1">{getT('modules.xiaoliuren.num1')}</label>
             <input type="number" min="1" max="12" value={num1} onChange={e => setNum1(e.target.value)}
               className="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200 placeholder-gray-500 focus:outline-none focus:border-gold-500" />
           </div>
           <div>
-            <label className="block text-sm text-gray-300 mb-1">{getT('xiaoliuren.num2')}</label>
+            <label className="block text-sm text-gray-300 mb-1">{getT('modules.xiaoliuren.num2')}</label>
             <input type="number" min="1" max="12" value={num2} onChange={e => setNum2(e.target.value)}
               className="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200 placeholder-gray-500 focus:outline-none focus:border-gold-500" />
           </div>
           <div>
-            <label className="block text-sm text-gray-300 mb-1">{getT('xiaoliuren.num3')}</label>
+            <label className="block text-sm text-gray-300 mb-1">{getT('modules.xiaoliuren.num3')}</label>
             <input type="number" min="1" max="12" value={num3} onChange={e => setNum3(e.target.value)}
               className="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200 placeholder-gray-500 focus:outline-none focus:border-gold-500" />
           </div>
@@ -60,11 +60,11 @@ export default function XiaoliurenClient() {
 
       {showResult && result && (
         <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-6">
-          <h2 className="text-lg font-semibold text-gray-200 mb-4">{getT('xiaoliuren.resultTitle')}</h2>
+          <h2 className="text-lg font-semibold text-gray-200 mb-4">{getT('modules.xiaoliuren.resultTitle')}</h2>
           <div className="bg-dark-700 rounded-lg p-4">
             <p className="text-lg font-bold text-gray-200">{result.name}</p>
             <p className={`text-sm font-semibold mt-1 ${result.fortune === '吉' ? 'text-green-400' : 'text-red-400'}`}>
-              {result.fortune === '吉' ? getT('xiaoliuren.lucky') : getT('xiaoliuren.unlucky')}
+              {result.fortune === '吉' ? getT('modules.xiaoliuren.lucky') : getT('modules.xiaoliuren.unlucky')}
             </p>
             <p className="text-sm text-gray-400 mt-2">{result.meaning}</p>
           </div>

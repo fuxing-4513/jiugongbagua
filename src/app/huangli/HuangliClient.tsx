@@ -334,25 +334,25 @@ export default function HuangliClient() {
 
       {/* Main Huangli Card */}
       <div className="bg-white rounded-xl border border-red-100 p-4 mb-4">
-        <h2 className="text-lg font-semibold text-red-900 mb-2">{getT('huangli.today')}</h2>
+        <h2 className="text-lg font-semibold text-red-900 mb-2">{getT('modules.huangli.today')}</h2>
         <p className="text-sm text-gray-500 mb-4">{data.dateStr} {data.weekDay}</p>
 
         {/* Quick Info */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
           <div className="bg-red-50 rounded-lg p-3 text-center">
-            <p className="text-xs text-gray-500">{getT('huangli.lunarDate')}</p>
+            <p className="text-xs text-gray-500">{getT('modules.huangli.lunarDate')}</p>
             <p className="text-base font-semibold text-gray-800 font-serif">{data.lunarDate}</p>
           </div>
           <div className="bg-red-50 rounded-lg p-3 text-center">
-            <p className="text-xs text-gray-500">{getT('huangli.zodiac')}</p>
+            <p className="text-xs text-gray-500">{getT('modules.huangli.zodiac')}</p>
             <p className="text-base font-semibold text-gray-800">{data.zodiac}</p>
           </div>
           <div className="bg-red-50 rounded-lg p-3 text-center">
-            <p className="text-xs text-gray-500">{getT('huangli.fiveElements')}</p>
+            <p className="text-xs text-gray-500">{getT('modules.huangli.fiveElements')}</p>
             <p className="text-base font-semibold text-gray-800">{data.season}</p>
           </div>
           <div className="bg-red-50 rounded-lg p-3 text-center">
-            <p className="text-xs text-gray-500">{getT('huangli.auspiciousDirection')}</p>
+            <p className="text-xs text-gray-500">{getT('modules.huangli.auspiciousDirection')}</p>
             <p className="text-base font-semibold text-gray-800">{data.auspiciousDirection}</p>
           </div>
         </div>
@@ -411,7 +411,7 @@ export default function HuangliClient() {
         {/* Suitable & Avoid */}
         <div className="space-y-4">
           <div>
-            <p className="text-sm font-semibold text-green-700 mb-2">{getT('huangli.suitable')}</p>
+            <p className="text-sm font-semibold text-green-700 mb-2">{getT('modules.huangli.suitable')}</p>
             <div className="flex flex-wrap gap-2">
               {data.suitable.map((item, i) => (
                 <span key={i} className="bg-green-50 text-green-700 text-sm px-3 py-1 rounded-full border border-green-200">
@@ -421,7 +421,7 @@ export default function HuangliClient() {
             </div>
           </div>
           <div>
-            <p className="text-sm font-semibold text-red-700 mb-2">{getT('huangli.avoid')}</p>
+            <p className="text-sm font-semibold text-red-700 mb-2">{getT('modules.huangli.avoid')}</p>
             <div className="flex flex-wrap gap-2">
               {data.avoid.map((item, i) => (
                 <span key={i} className="bg-red-50 text-red-700 text-sm px-3 py-1 rounded-full border border-red-200">
