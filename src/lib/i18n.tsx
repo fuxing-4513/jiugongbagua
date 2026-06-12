@@ -76,3 +76,24 @@ export function t(key: string, locale: LocaleType): string {
   }
   return typeof value === 'string' ? value : key
 }
+
+// Hook: returns a getT(key) function bound to current locale
+// Replaces duplicated inline getT across components
+export function useT() {
+  const { t: locale } = useLocale()
+  return useCallback((key: string): string => t(key, locale), [locale])
+}
+
+// Hook: returns a getTArray(key) function for array-valued locale keys
+export function useTArray() {
+  const { t: locale } = useLocale()
+  return useCallback((key: string): unknown[] => {
+    const keys = key.split('.')
+    let value: unknown = locale
+    for (const k of keys) {
+      if (typeof value !== 'object' || value === null) return []
+      value = (value as Record<string, unknown>)[k]
+    }
+    return Array.isArray(value) ? value : []
+  }, [locale])
+}

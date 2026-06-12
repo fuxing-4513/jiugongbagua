@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { useLocale } from '@/lib/i18n'
+import { useT } from '@/lib/i18n'
 
 interface Expert {
   id: number
@@ -48,17 +48,7 @@ const experts: Expert[] = [
 ]
 
 export default function ExpertsClient() {
-  const { t } = useLocale()
-
-  const getT = (key: string): string => {
-    const keys = key.split('.')
-    let value: unknown = t
-    for (const k of keys) {
-      if (typeof value !== 'object' || value === null) return key
-      value = (value as Record<string, unknown>)[k]
-    }
-    return typeof value === 'string' ? value : key
-  }
+  const getT = useT()
 
   const [bookingId, setBookingId] = useState<number | null>(null)
 

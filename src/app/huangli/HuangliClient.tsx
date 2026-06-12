@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useMemo } from 'react'
-import { useLocale } from '@/lib/i18n'
+import { useLocale, useT } from '@/lib/i18n'
 import { Solar, Lunar } from 'lunar-typescript'
 
 interface HuangliResult {
@@ -247,17 +247,8 @@ function genShiChen(g:string,d:string,n:number){
   return c.map((x,i)=>({name:x+"时",timeRange:t[i],starGod:sg[(n+i)%12][0]+"("+sg[(n+i)%12][1]+")",conflict:cf[(n+i)%12],suitable:(su[x]||["祭祀","祈福"]).slice(0,4).join("、"),avoid:(av[x]||["安葬"]).slice(0,3).join("、"),wealthGod:(w??["正南","正北","东北","正东"])[i%((w??["正南","正北","东北","正东"]).length)]+"方"}))
 }
 export default function HuangliClient() {
-  const { t, locale } = useLocale()
-
-  const getT = (key: string): string => {
-    const keys = key.split('.')
-    let value: unknown = t
-    for (const k of keys) {
-      if (typeof value !== 'object' || value === null) return key
-      value = (value as Record<string, unknown>)[k]
-    }
-    return typeof value === 'string' ? value : key
-  }
+  const { locale } = useLocale()
+  const getT = useT()
 
   const now = new Date()
   const [year, setYear] = useState(now.getFullYear())

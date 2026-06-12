@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { useState } from 'react'
-import { useLocale, type SupportedLocale } from '@/lib/i18n'
+import { useLocale, useT, type SupportedLocale } from '@/lib/i18n'
 
 const toolCategories: { label: string; items: { key: string; href: string; emoji?: string }[] }[] = [
   { label: '命理推算', items: [
@@ -34,20 +34,11 @@ const toolCategories: { label: string; items: { key: string; href: string; emoji
 const flatTools = toolCategories.flatMap(c => c.items)
 
 export default function Nav() {
-  const { locale, t, setLocale, localeNames } = useLocale()
+  const { locale, setLocale, localeNames } = useLocale()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [toolsOpen, setToolsOpen] = useState(false)
   const [langOpen, setLangOpen] = useState(false)
-
-  const getT = (key: string) => {
-    const keys = key.split('.')
-    let value: unknown = t
-    for (const k of keys) {
-      if (typeof value !== 'object' || value === null) return key
-      value = (value as Record<string, unknown>)[k]
-    }
-    return typeof value === 'string' ? value : key
-  }
+  const getT = useT()
 
   const handleLangChange = (lang: SupportedLocale) => {
     setLocale(lang)

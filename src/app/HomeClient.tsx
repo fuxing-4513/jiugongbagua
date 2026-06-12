@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { useLocale } from '@/lib/i18n'
+import { useLocale, useT } from '@/lib/i18n'
 
 import HeritageSection from '@/components/HeritageSection'
 import ClassicQuotes from '@/components/ClassicQuotes'
@@ -40,17 +40,7 @@ const modules: ModuleInfo[] = [
 ]
 
 export default function HomeClient() {
-  const { t } = useLocale()
-
-  const getT = (key: string) => {
-    const keys = key.split('.')
-    let value: unknown = t
-    for (const k of keys) {
-      if (typeof value !== 'object' || value === null) return key
-      value = (value as Record<string, unknown>)[k]
-    }
-    return typeof value === 'string' ? value : key
-  }
+  const getT = useT()
 
   return (
     <div className="max-w-6xl mx-auto px-4">

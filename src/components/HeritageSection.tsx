@@ -1,31 +1,20 @@
 'use client'
 
-import { useLocale } from '@/lib/i18n'
+import { useT, useTArray } from '@/lib/i18n'
+
+interface Scholar {
+  period: string
+  school: string
+  name: string
+  work: string
+  desc: string
+}
 
 export default function HeritageSection() {
-  const { t } = useLocale()
+  const getT = useT()
+  const getTArray = useTArray()
 
-  const getT = (key: string) => {
-    const keys = key.split('.')
-    let value: unknown = t
-    for (const k of keys) {
-      if (typeof value !== 'object' || value === null) return key
-      value = (value as Record<string, unknown>)[k]
-    }
-    return typeof value === 'string' ? value : key
-  }
-
-  const getTArray = (key: string) => {
-    const keys = key.split('.')
-    let value: unknown = t
-    for (const k of keys) {
-      if (typeof value !== 'object' || value === null) return []
-      value = (value as Record<string, unknown>)[k]
-    }
-    return Array.isArray(value) ? value as any[] : []
-  }
-
-  const scholars = getTArray('heritage.scholars')
+  const scholars = getTArray('heritage.scholars') as Scholar[]
 
   return (
     <section className="py-12">
@@ -38,7 +27,7 @@ export default function HeritageSection() {
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {scholars.map((s: any, i: number) => (
+          {scholars.map((s: Scholar, i: number) => (
             <div key={i}
               className="bg-dark-800/60 border border-dark-600 rounded-xl p-4 hover:border-gold-500/40 transition-all duration-200"
             >

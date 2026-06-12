@@ -1,20 +1,10 @@
 'use client'
 
 import Link from 'next/link'
-import { useLocale } from '@/lib/i18n'
+import { useT } from '@/lib/i18n'
 
 export default function Footer() {
-  const { t } = useLocale()
-
-  const getT = (key: string) => {
-    const keys = key.split('.')
-    let value: unknown = t
-    for (const k of keys) {
-      if (typeof value !== 'object' || value === null) return key
-      value = (value as Record<string, unknown>)[k]
-    }
-    return typeof value === 'string' ? value : key
-  }
+  const getT = useT()
 
   return (
     <footer className="glass-panel text-gray-300 mt-auto">

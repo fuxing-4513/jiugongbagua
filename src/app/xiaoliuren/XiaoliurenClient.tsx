@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { useLocale } from '@/lib/i18n'
+import { useT } from '@/lib/i18n'
 
 const palmMethods = [
   { name: '大安', fortune: '吉', meaning: '万事平安，谋事顺利' },
@@ -13,17 +13,7 @@ const palmMethods = [
 ]
 
 export default function XiaoliurenClient() {
-  const { t } = useLocale()
-
-  const getT = (key: string): string => {
-    const keys = key.split('.')
-    let value: unknown = t
-    for (const k of keys) {
-      if (typeof value !== 'object' || value === null) return key
-      value = (value as Record<string, unknown>)[k]
-    }
-    return typeof value === 'string' ? value : key
-  }
+  const getT = useT()
 
   const [num1, setNum1] = useState('3')
   const [num2, setNum2] = useState('6')
