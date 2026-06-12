@@ -19,6 +19,7 @@ const toolCategories: { label: string; items: { key: string; href: string; emoji
     { key: 'modules.xingming.name', href: '/xingming', emoji: '📛' },
     { key: 'modules.shuma.name', href: '/shuma', emoji: '🔢' },
     { key: 'modules.taluo.name', href: '/taluo', emoji: '🃏' },
+    { key: 'modules.taluoCards.name', href: '/taluo/cards' },
     { key: 'modules.lingqian.name', href: '/lingqian', emoji: '🏮' },
   ]},
   { label: '知识文化', items: [
