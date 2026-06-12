@@ -6,7 +6,7 @@ import ShareResult from '@/components/ShareResult'
 interface Dream {
   keyword: string; title: string; category: string
   tags: string[]; ancient: string; modern: string
-  detail: string; mood: string
+  detail: string; mood: string; psychology: string
 }
 
 // ── 加载外部解梦数据库 ──
@@ -52,6 +52,7 @@ export default function JiemengClient() {
   const [searched, setSearched] = useState(false)
   const [activeCategory, setActiveCategory] = useState('')
   const [selectedDream, setSelectedDream] = useState<Dream | null>(null)
+  const [psychoTab, setPsychoTab] = useState(false)
   const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined)
 
   // 加载数据
@@ -252,17 +253,58 @@ export default function JiemengClient() {
                 className="text-gray-500 hover:text-gray-300 text-xl leading-none">{'\u00D7'}</button>
             </div>
 
-            {/* 古籍原文 */}
-            <div className="bg-dark-900/60 rounded-lg p-4 mb-4 border border-dark-600/50">
-              <p className="text-xs text-gold-500/80 mb-1">📜 古籍原文</p>
-              <p className="text-sm text-gray-300 leading-relaxed">{selectedDream.ancient}</p>
+            {/* 视角切换标签 */}
+            <div className="flex gap-1 mb-4 bg-dark-900/60 rounded-lg p-1 border border-dark-600/50">
+              <button
+                onClick={() => setPsychoTab(false)}
+                className={`flex-1 text-sm py-1.5 rounded-md transition-colors ${
+                  !psychoTab ? 'bg-gold-600 text-dark-900 font-medium' : 'text-gray-400 hover:text-gray-200'
+                }`}
+              >📜 传统解梦</button>
+              <button
+                onClick={() => setPsychoTab(true)}
+                className={`flex-1 text-sm py-1.5 rounded-md transition-colors ${
+                  psychoTab ? 'bg-gold-600 text-dark-900 font-medium' : 'text-gray-400 hover:text-gray-200'
+                }`}
+              >🧠 心理学视角</button>
             </div>
 
-            {/* 现代白话 */}
-            <div className="mb-4">
-              <p className="text-xs text-blue-400/80 mb-1">💡 白话解析</p>
-              <p className="text-sm text-gray-300 leading-relaxed">{selectedDream.modern}</p>
-            </div>
+            {!psychoTab ? (
+              <>
+                {/* 古籍原文 */}
+                <div className="bg-dark-900/60 rounded-lg p-4 mb-4 border border-dark-600/50">
+                  <p className="text-xs text-gold-500/80 mb-1">📜 古籍原文</p>
+                  <p className="text-sm text-gray-300 leading-relaxed">{selectedDream.ancient}</p>
+                </div>
+
+                {/* 现代白话 */}
+                <div className="mb-4">
+                  <p className="text-xs text-blue-400/80 mb-1">💡 白话解析</p>
+                  <p className="text-sm text-gray-300 leading-relaxed">{selectedDream.modern}</p>
+                </div>
+              </>
+            ) : (
+              <>
+                {/* 心理学视角 */}
+                <div className="mb-4">
+                  <p className="text-xs text-violet-400/80 mb-1">🧠 心理学解读</p>
+                  {selectedDream.psychology ? (
+                    <div className="text-sm text-gray-300 leading-relaxed whitespace-pre-line">{selectedDream.psychology}</div>
+                  ) : (
+                    <div className="bg-dark-900/40 rounded-lg p-4 border border-dashed border-dark-600 text-center">
+                      <p className="text-sm text-gray-500 mb-1">✨ 心理学视角解读正在生成中</p>
+                      <p className="text-xs text-gray-600">涵盖荣格原型分析、弗洛伊德象征理论、格式塔梦境工作等多元视角，敬请期待</p>
+                    </div>
+                  )}
+                </div>
+                {selectedDream.psychology && (
+                  <div className="text-[10px] text-gray-600 italic">
+                    基于荣格分析心理学、弗洛伊德释梦理论及格式塔梦境工作法<br />
+                    仅供参考，不构成专业心理诊断
+                  </div>
+                )}
+              </>
+            )}
 
             {/* 详细解析 */}
             {selectedDream.detail && selectedDream.detail !== selectedDream.modern && (
