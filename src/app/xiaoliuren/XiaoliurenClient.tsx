@@ -32,8 +32,8 @@ export default function XiaoliurenClient() {
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-10">
-      <h1 className="text-3xl font-bold text-gold-400 font-serif mb-3">{getT('xiaoliuren.title')}</h1>
-      <p className="text-gray-400 mb-8">{getT('xiaoliuren.desc')}</p>
+      <h1 className="text-3xl font-bold text-gold-400 font-serif mb-3">{getT('modules.xiaoliuren.name')}</h1>
+      <p className="text-gray-400 mb-8">{getT('modules.xiaoliuren.desc')}</p>
 
       <div className="bg-dark-800/80 backdrop-blur rounded-xl border border-dark-600 p-6 mb-8">
         <div className="grid grid-cols-3 gap-4 mb-4">

@@ -76,8 +76,8 @@ export default function ExpertsClient() {
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-10">
-      <h1 className="text-3xl font-bold text-red-900 font-serif mb-3">{getT('experts.title')}</h1>
-      <p className="text-gray-600 mb-8">{getT('experts.desc')}</p>
+      <h1 className="text-3xl font-bold text-red-900 font-serif mb-3">{getT('modules.experts.name')}</h1>
+      <p className="text-gray-600 mb-8">{getT('modules.experts.desc')}</p>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {experts.map((expert) => (

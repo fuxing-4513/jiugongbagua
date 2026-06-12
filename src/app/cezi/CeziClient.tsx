@@ -178,8 +178,8 @@ export default function CeziClient() {
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-10">
-      <h1 className="text-3xl font-bold text-gold-400 font-serif mb-3">{tk('cezi.title', lang)}</h1>
-      <p className="text-gray-400 mb-8">{tk('cezi.desc', lang)}</p>
+      <h1 className="text-3xl font-bold text-gold-400 font-serif mb-3">{tk('modules.cezi.name', lang)}</h1>
+      <p className="text-gray-400 mb-8">{tk('modules.cezi.desc', lang)}</p>
 
       {/* Tab Switcher */}
       <div className="flex gap-1 mb-6 bg-dark-800/80 rounded-xl p-1 border border-dark-600 max-w-md mx-auto">

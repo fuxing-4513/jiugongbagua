@@ -56,8 +56,8 @@ export default function WenkuClient() {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-10">
-      <h1 className="text-3xl font-bold text-gold-400 font-serif mb-3">{tk('wenku.title', lang)}</h1>
-      <p className="text-gray-400 mb-6">{tk('wenku.desc', lang)}</p>
+      <h1 className="text-3xl font-bold text-gold-400 font-serif mb-3">{tk('modules.wenku.name', lang)}</h1>
+      <p className="text-gray-400 mb-6">{tk('modules.wenku.desc', lang)}</p>
 
       <div className="mb-4">
         <input type="text" value={searchQuery} onChange={e => setSearchQuery(e.target.value)}

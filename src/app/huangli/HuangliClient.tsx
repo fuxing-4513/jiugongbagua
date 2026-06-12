@@ -280,8 +280,8 @@ export default function HuangliClient() {
 
   return (<>
     <div className="max-w-3xl mx-auto px-4 py-10">
-      <h1 className="text-3xl font-bold text-red-900 font-serif mb-3">{getT('huangli.title')}</h1>
-      <p className="text-gray-600 mb-8">{getT('huangli.desc')}</p>
+      <h1 className="text-3xl font-bold text-red-900 font-serif mb-3">{getT('modules.huangli.name')}</h1>
+      <p className="text-gray-600 mb-8">{getT('modules.huangli.desc')}</p>
 
       {/* Date Navigator */}
       <div className="bg-white rounded-xl border border-red-100 p-4 mb-6">
