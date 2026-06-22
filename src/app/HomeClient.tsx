@@ -74,9 +74,9 @@ export default function HomeClient() {
             {emoji:'🐵',name:'猴'},{emoji:'🐔',name:'鸡'},{emoji:'🐶',name:'狗'},{emoji:'🐷',name:'猪'}
           ].map(s => (
             <Link key={s.name} href="/shengxiao"
-              className="group flex flex-col items-center p-3 rounded-xl bg-dark-700/50 border border-dark-600 hover:border-gold-500/50 transition-all duration-200">
+              className="group flex flex-col items-center p-3 rounded-xl bg-dark-700/50 border border-dark-600 hover:border-jade-400/50 transition-all duration-200">
               <span className="text-2xl mb-1">{s.emoji}</span>
-              <span className="text-xs font-medium text-gray-400 group-hover:text-gold-400">{s.name}</span>
+              <span className="text-xs font-medium text-gray-400 group-hover:text-jade-400">{s.name}</span>
             </Link>
           ))}
         </div>
@@ -94,12 +94,12 @@ export default function HomeClient() {
           <Link
             key={mod.key}
             href={mod.href}
-            className="group bg-dark-700 rounded-xl border border-dark-600 p-5 hover:border-gold-500 hover:shadow-md hover:shadow-gold-500/10 transition-all duration-200"
+            className="group bg-dark-700 rounded-xl border border-dark-600 p-5 hover:border-jade-400 hover:shadow-md hover:shadow-jade-500/10 transition-all duration-200"
           >
             <div className="text-3xl mb-3 group-hover:scale-110 transition-transform duration-200">
               {mod.emoji}
             </div>
-            <h3 className="text-base font-semibold text-gray-200 group-hover:text-gold-400 transition-colors mb-1">
+            <h3 className="text-base font-semibold text-gray-200 group-hover:text-jade-400 transition-colors mb-1">
               {getT(mod.nameKey)}
             </h3>
             <p className="text-xs text-gray-400 leading-relaxed mb-2">
@@ -152,7 +152,7 @@ function FreeChartWidget() {
 
   return (
     <section className="max-w-xl mx-auto mb-10">
-      <div className="bg-dark-800/80 rounded-xl border border-gold-500/20 p-6">
+      <div className="bg-dark-800/80 rounded-xl border border-jade-400/20 p-6">
         <h2 className="text-xl font-semibold text-gold-400 font-serif mb-1 text-center">🔮 立即排盘</h2>
         <p className="text-xs text-gray-500 text-center mb-5">输入出生信息，AI 即刻为您深度批命</p>
 
@@ -176,7 +176,7 @@ function FreeChartWidget() {
           href={chartHref}
           className={`block w-full mt-5 py-3 rounded-lg text-center font-semibold text-lg transition-all ${
             isValid
-              ? 'bg-gold-400 text-dark-900 hover:bg-gold-300 shadow-lg shadow-gold-400/20 hover:shadow-gold-400/40 active:scale-[0.98]'
+              ? 'bg-jade-400 text-dark-900 hover:bg-jade-300 shadow-lg shadow-jade-400/20 hover:shadow-jade-400/40 active:scale-[0.98]'
               : 'bg-dark-600 text-gray-500 cursor-not-allowed pointer-events-none'
           }`}
           onClick={e => { if (!isValid) e.preventDefault() }}

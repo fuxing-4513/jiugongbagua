@@ -29,7 +29,7 @@ export default function HeritageSection() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {scholars.map((s: Scholar, i: number) => (
             <div key={i}
-              className="bg-dark-800/60 border border-dark-600 rounded-xl p-4 hover:border-gold-500/40 transition-all duration-200"
+              className="bg-dark-800/60 border border-dark-600 rounded-xl p-4 hover:border-jade-400/40 transition-all duration-200"
             >
               <p className="text-[10px] text-gold-500/60 mb-1">{s.period} · {s.school}</p>
               <h3 className="text-base font-bold text-gold-400 font-serif">{s.name}</h3>

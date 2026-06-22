@@ -1,25 +1,32 @@
 @import "tailwindcss";
 
 @theme {
-  /* ── 暖墨底色系 ── */
-  --color-dark-950: #0d0a08;
-  --color-dark-900: #12100e;
-  --color-dark-850: #181410;
-  --color-dark-800: #221c16;
-  --color-dark-750: #2a221c;
-  --color-dark-700: #322822;
-  --color-dark-600: #3a3028;
-  --color-dark-500: #4a3e36;
+  /* ── 墨青灰底色系（B方案） ── */
+  --color-dark-950: #111214;
+  --color-dark-900: #14161a;
+  --color-dark-850: #181a1e;
+  --color-dark-800: #1c1e23;
+  --color-dark-750: #212328;
+  --color-dark-700: #252830;
+  --color-dark-600: #2c3038;
+  --color-dark-500: #383d45;
 
-  /* ── 古金色系 ── */
-  --color-gold-300: #e8c04a;
-  --color-gold-400: #d4a74a;
-  --color-gold-500: #bf9030;
-  --color-gold-600: #b8860b;
-  --color-gold-700: #8b6914;
-  --color-gold-900: #5c4010;
+  /* ── 古金色系（节制使用，仅标题） ── */
+  --color-gold-300: #d4b84a;
+  --color-gold-400: #c4a23a;
+  --color-gold-500: #a8882d;
+  --color-gold-600: #8b7020;
+  --color-gold-700: #6d5516;
+  --color-gold-900: #4a3810;
 
-  /* ── 朱红（重点色） ── */
+  /* ── 青玉色（B方案辅色） ── */
+  --color-jade-300: #7ab8a0;
+  --color-jade-400: #5b8c7a;
+  --color-jade-500: #4a7a68;
+  --color-jade-600: #3d6a58;
+  --color-jade-700: #2d5545;
+
+  /* ── 朱红（保留，少用） ── */
   --color-zhuhong: #c43a31;
   --color-zhuhong-dark: #a82f28;
 
@@ -63,22 +70,22 @@
 html { scroll-behavior: smooth; }
 body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
 
-/* ── 全局背景 — 暖墨底色 ── */
+/* ── 全局背景 — 墨青灰 ── */
 body {
   font-family: var(--font-sans);
-  background: #12100e;
-  color: #d4d0cc;
+  background: #14161a;
+  color: #c8c6c0;
 }
 
 .font-serif {
   font-family: var(--font-serif);
 }
 
-/* ── 面板（取消玻璃效果，改用实心底色加光晕） ── */
+/* ── 面板 ── */
 .glass-panel {
-  background: #221c16;
-  border: 1px solid rgba(140, 120, 100, 0.12);
-  box-shadow: 0 2px 24px rgba(0, 0, 0, 0.25);
+  background: #1c1e23;
+  border: 1px solid rgba(120, 140, 130, 0.12);
+  box-shadow: 0 2px 24px rgba(0, 0, 0, 0.3);
 }
 
 /* ── 星空背景叠加 ── */
@@ -88,18 +95,18 @@ body {
   pointer-events: none;
   z-index: -1;
   background:
-    radial-gradient(1.5px 1.5px at 10% 20%, rgba(200, 180, 160, 0.25) 50%, transparent 50%),
-    radial-gradient(1px 1px at 30% 60%, rgba(200, 180, 160, 0.15) 50%, transparent 50%),
-    radial-gradient(1.5px 1.5px at 50% 10%, rgba(200, 180, 160, 0.25) 50%, transparent 50%),
-    radial-gradient(1px 1px at 70% 40%, rgba(200, 180, 160, 0.12) 50%, transparent 50%),
-    radial-gradient(1.5px 1.5px at 90% 80%, rgba(200, 180, 160, 0.18) 50%, transparent 50%),
-    radial-gradient(1px 1px at 15% 85%, rgba(200, 180, 160, 0.12) 50%, transparent 50%),
-    radial-gradient(1.5px 1.5px at 85% 15%, rgba(200, 180, 160, 0.18) 50%, transparent 50%),
-    radial-gradient(1px 1px at 45% 45%, rgba(200, 180, 160, 0.08) 50%, transparent 50%),
-    radial-gradient(1.5px 1.5px at 60% 90%, rgba(200, 180, 160, 0.12) 50%, transparent 50%),
-    radial-gradient(1px 1px at 5% 50%, rgba(200, 180, 160, 0.08) 50%, transparent 50%),
-    radial-gradient(1.5px 1.5px at 75% 75%, rgba(200, 180, 160, 0.15) 50%, transparent 50%),
-    radial-gradient(1px 1px at 35% 85%, rgba(200, 180, 160, 0.12) 50%, transparent 50%);
+    radial-gradient(1.5px 1.5px at 10% 20%, rgba(160, 200, 180, 0.2) 50%, transparent 50%),
+    radial-gradient(1px 1px at 30% 60%, rgba(160, 200, 180, 0.12) 50%, transparent 50%),
+    radial-gradient(1.5px 1.5px at 50% 10%, rgba(160, 200, 180, 0.2) 50%, transparent 50%),
+    radial-gradient(1px 1px at 70% 40%, rgba(160, 200, 180, 0.1) 50%, transparent 50%),
+    radial-gradient(1.5px 1.5px at 90% 80%, rgba(160, 200, 180, 0.15) 50%, transparent 50%),
+    radial-gradient(1px 1px at 15% 85%, rgba(160, 200, 180, 0.1) 50%, transparent 50%),
+    radial-gradient(1.5px 1.5px at 85% 15%, rgba(160, 200, 180, 0.15) 50%, transparent 50%),
+    radial-gradient(1px 1px at 45% 45%, rgba(160, 200, 180, 0.06) 50%, transparent 50%),
+    radial-gradient(1.5px 1.5px at 60% 90%, rgba(160, 200, 180, 0.1) 50%, transparent 50%),
+    radial-gradient(1px 1px at 5% 50%, rgba(160, 200, 180, 0.06) 50%, transparent 50%),
+    radial-gradient(1.5px 1.5px at 75% 75%, rgba(160, 200, 180, 0.12) 50%, transparent 50%),
+    radial-gradient(1px 1px at 35% 85%, rgba(160, 200, 180, 0.1) 50%, transparent 50%);
   background-size: 200px 200px;
 }
 
@@ -128,14 +135,14 @@ body {
   100% { transform: rotateZ(1440deg) rotateY(0deg); }
 }
 
-/* ── 淡入动画（兼容旧引用） ── */
+/* ── 淡入动画 ── */
 .animate-fadeIn {
   animation: fadeIn 0.4s ease-out;
 }
 
 /* ── 加载骨架屏 ── */
 .skeleton {
-  background: linear-gradient(90deg, #1e1814 25%, #2a221c 50%, #1e1814 75%);
+  background: linear-gradient(90deg, #181a1e 25%, #252830 50%, #181a1e 75%);
   background-size: 200% 100%;
   animation: skeleton-loading 1.5s infinite;
 }
@@ -151,17 +158,17 @@ body {
 
 /* ── 暗色滚动条 ── */
 ::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: #12100e; }
-::-webkit-scrollbar-thumb { background: #2a221c; border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: #3a3028; }
+::-webkit-scrollbar-track { background: #14161a; }
+::-webkit-scrollbar-thumb { background: #252830; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #2c3038; }
 
 /* ── 古风点缀边框 ── */
 .ink-border {
-  border: 1px solid rgba(180, 150, 110, 0.2);
+  border: 1px solid rgba(120, 160, 140, 0.18);
 }
 
 /* ── 选中文字高亮 ── */
 ::selection {
-  background: rgba(196, 58, 49, 0.3);
-  color: #f0e8d8;
+  background: rgba(91, 140, 122, 0.35);
+  color: #e0ded8;
 }

@@ -13,13 +13,13 @@ export default function BottomCTA() {
         <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
           <Link
             href="/app"
-            className="px-8 py-3 bg-gold-400 text-dark-900 rounded-lg font-semibold text-lg hover:bg-gold-300 transition-all shadow-lg shadow-gold-400/20 hover:shadow-gold-400/40"
+            className="px-8 py-3 bg-jade-400 text-dark-900 rounded-lg font-semibold text-lg hover:bg-jade-300 transition-all shadow-lg shadow-jade-400/20 hover:shadow-jade-400/40"
           >
             开始 AI 排盘
           </Link>
           <Link
             href="/glossary"
-            className="px-6 py-3 border border-gold-400/30 rounded-lg text-gold-400 font-medium hover:bg-gold-400/10 transition-colors"
+            className="px-6 py-3 border border-jade-400/30 rounded-lg text-jade-400 font-medium hover:bg-jade-400/10 transition-colors"
           >
             术语百科
           </Link>
