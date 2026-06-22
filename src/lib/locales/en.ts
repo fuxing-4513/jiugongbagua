@@ -47,7 +47,7 @@ export const en = {
   modules: {
     bazi: { name: 'Ba Zi (Four Pillars)', desc: 'Calculate your Four Pillars destiny chart based on birth date and time, revealing your life pattern', source: '"Di Tian Sui", "San Ming Tong Hui"', emoji: '📜' },
     ziwei: { name: 'Zi Wei Dou Shu', desc: 'Purple Star Astrology chart with twelve palaces and star analysis', source: '"Zi Wei Dou Shu Complete Book"', emoji: '⭐' },
-    zonghe: { name: 'Cross Validate', desc: 'Bazi + Ziwei cross validation, six-dimension verification', emoji: '🔗' },
+    zonghe: { name: 'Cross Validate', desc: 'Bazi + Ziwei cross validation, six-dimension verification', source: '"Di Tian Sui", "Zi Wei Dou Shu"', emoji: '🔗' },
     liuyao: { name: 'Liu Yao Divination', desc: 'Six-line hexagram casting for fortune and misfortune prediction', source: '"I Ching", "Duan Yi Tian Ji"', emoji: '☯' },
     xiaoliuren: { name: 'Xiao Liu Ren', desc: 'Quick palm-reading divination for instant fortune-telling', source: '"Liu Ren Da Quan"', emoji: '👋', num1: 'Number 1 (month/hour)', num2: 'Number 2 (day)', num3: 'Number 3 (hour)', resultTitle: 'Result', lucky: 'Auspicious', unlucky: 'Inauspicious' },
     jiemeng: { name: 'Dream Interpretation', desc: 'Uncover the mysteries of your subconscious through dream analysis', source: '"Zhou Gong Dream Dictionary"', emoji: '💤' },
