@@ -117,7 +117,7 @@ export default function HomeClient() {
                 {getT(mod.descKey)}
               </p>
               {getT(mod.sourceKey) && getT(mod.sourceKey) !== mod.sourceKey && (
-                <p className="text-[10px] text-gold-500/50 font-serif italic">
+                <p className="text-[10px] text-gold-700 font-serif italic">
                   {getT(mod.sourceKey)}
                 </p>
               )}
