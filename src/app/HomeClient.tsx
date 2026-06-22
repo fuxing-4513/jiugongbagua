@@ -186,7 +186,7 @@ function FreeChartWidget() {
         href={chartHref}
         className={`block w-full mt-6 py-3 rounded-lg text-center font-semibold text-lg transition-all ${
           isValid
-            ? 'bg-jade-400 text-dark-900 hover:bg-jade-300 shadow-lg shadow-jade-400/20 hover:shadow-jade-400/40 active:scale-[0.98]'
+            ? 'bg-gold-500 text-dark-900 hover:bg-gold-400 shadow-lg shadow-gold-500/20 hover:shadow-gold-500/40 active:scale-[0.98]'
             : 'bg-dark-600 text-gray-500 cursor-not-allowed pointer-events-none'
         }`}
         onClick={e => { if (!isValid) e.preventDefault() }}

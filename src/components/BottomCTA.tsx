@@ -13,7 +13,7 @@ export default function BottomCTA() {
         <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
           <Link
             href="/app"
-            className="px-8 py-3 bg-jade-400 text-dark-900 rounded-lg font-semibold text-lg hover:bg-jade-300 transition-all shadow-lg shadow-jade-400/20 hover:shadow-jade-400/40"
+            className="px-8 py-3 bg-gold-500 text-dark-900 rounded-lg font-semibold text-lg hover:bg-gold-400 transition-all shadow-lg shadow-gold-500/30 hover:shadow-gold-500/50"
           >
             开始 AI 排盘
           </Link>
