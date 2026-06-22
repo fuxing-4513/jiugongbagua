@@ -1,13 +1,17 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import dynamic from 'next/dynamic'
 
 import { Solar, Lunar } from 'lunar-typescript'
 import CalendarInput, { type CalendarType } from '@/components/CalendarInput'
 import { saveChart } from '@/lib/collections'
-import { calcTrueSolarHour, calcTrueSolarTime } from '@/lib/solar-time'
+import { calcTrueSolarTime, CHINA_CITIES } from '@/lib/solar-time'
+import { saveToHistory } from '@/lib/history'
 import { enrichBazi, type EnrichResult } from '@/lib/bazi-enrich'
+import LoadingSpinner from '@/components/LoadingSpinner'
+import Breadcrumb from '@/components/Breadcrumb'
+import { exportAsPng } from '@/utils/export-image'
 
 // 非首屏大组件按需加载，减小 initial bundle
 const TrueSolarTime = dynamic(() => import('@/components/TrueSolarTime'), { ssr: false })
@@ -500,6 +504,9 @@ export default function BaziClient() {
   const [result, setResult] = useState<BaziResult | null>(null)
   const [error, setError] = useState('')
   const [saved, setSaved] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [trueSolarChanged, setTrueSolarChanged] = useState(false)
+  const exportRef = useRef<HTMLDivElement>(null)
 
   // 真太阳时状态
   const [useTrueSolar, setUseTrueSolar] = useState(false)
@@ -524,7 +531,7 @@ export default function BaziClient() {
   }
 
   const doCalc = () => {
-    setError(''); setResult(null)
+    setError(''); setResult(null); setLoading(true); setTrueSolarChanged(false)
     if (mode === 'bazi') {
       try {
         const tg = bzTg as string[], dz = bzDz as string[], dg = tg[2]
@@ -591,7 +598,9 @@ export default function BaziClient() {
           dayun: dayunArr, analysis,
           currentAge: curAge2, birthYear,
         })
-      } catch(e){ setError('排盘出错：' + ((e as {message?: string})?.message || '请检查天干地支和出生年份')) }
+        saveToHistory({type:'bazi', dateStr: `八字排盘 · ${birthYear}年`, bazi: tg[0]+dz[0]+'年 '+tg[1]+dz[1]+'月 '+tg[2]+dz[2]+'日 '+tg[3]+dz[3]+'时', preview: `日主${dg} · ${gender}命 · ${str.level}` })
+        setLoading(false)
+      } catch(e){ setError('排盘出错：' + ((e as {message?: string})?.message || '请检查天干地支和出生年份')); setLoading(false) }
       return
     }
     
@@ -602,7 +611,9 @@ export default function BaziClient() {
       let adjustedHour = h
       const dateStr = `${y}-${String(m).padStart(2,'0')}-${String(d).padStart(2,'0')}`
       if (useTrueSolar) {
-        adjustedHour = calcTrueSolarHour(dateStr, h, longitude)
+        const tsResult = calcTrueSolarTime(dateStr, h, 0, longitude)
+        adjustedHour = tsResult.adjustedHour
+        if (tsResult.changedPillar) setTrueSolarChanged(true)
       } else if (timezone !== 8) {
         // 非北京时区
         adjustedHour = h + (timezone - 8)
@@ -680,7 +691,9 @@ export default function BaziClient() {
         useTrueSolar, trueSolarInfo: useTrueSolar ? `真太阳时 · 经度${longitude}°E` : '',
         enrich: enrichBazi({ '年':{gan:pills[0].gan,zhi:pills[0].zhi}, '月':{gan:pills[1].gan,zhi:pills[1].zhi}, '日':{gan:pills[2].gan,zhi:pills[2].zhi}, '时':{gan:pills[3].gan,zhi:pills[3].zhi} }),
       })
-    } catch(e){ setError('计算出错：' + ((e as {message?: string})?.message || '请检查日期是否有效')) }
+      saveToHistory({type:'bazi', dateStr: `${cal==='solar'?'公历':'农历'} ${solar.getYear()}年${solar.getMonth()}月${solar.getDay()}日`, bazi: `${pills[0].gz}年 ${pills[1].gz}月 ${pills[2].gz}日 ${pills[3].gz}时`, preview: `日主${dg} · ${gender}命 · ${str.level}` })
+      setLoading(false)
+    } catch(e){ setError('计算出错：' + ((e as {message?: string})?.message || '请检查日期是否有效')); setLoading(false) }
   }
 
   const ssColor = (s: string) => {
@@ -694,15 +707,16 @@ export default function BaziClient() {
   }
 
   return (<div className="max-w-4xl mx-auto px-4 py-10">
+    <Breadcrumb items={[{label:'首页',href:'/'},{label:'排盘工具'},{label:'生辰八字算命'}]} />
     <h1 className="text-3xl font-bold text-gold-400 font-serif mb-3">生辰八字算命</h1>
     <p className="text-gray-400 mb-8">真太阳时排盘 · 神煞详解 · 古籍论断 · 性格/感情/事业/财运全面分析</p>
 
     <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-6 mb-8">
       
       <div className="flex gap-2 mb-4 flex-wrap">
-        <button onClick={()=>setMode('date')} aria-label="按日期排盘" className={`px-3 py-1.5 rounded-lg text-xs transition-colors ${mode==='date'?'bg-gold-600 text-dark-900 font-semibold':'bg-dark-700 text-gray-400 border border-dark-600'}`}>✨ 公历/农历</button>
-        <button onClick={()=>setMode('bazi')} aria-label="直接输入八字排盘" className={`px-3 py-1.5 rounded-lg text-xs transition-colors ${mode==='bazi'?'bg-gold-600 text-dark-900 font-semibold':'bg-dark-700 text-gray-400 border border-dark-600'}`}>🔮 直接排盘</button>
-        <select value={gender} onChange={e=>setGender(e.target.value)} className="px-3 py-1.5 bg-dark-700 border border-dark-600 rounded-lg text-gray-200 text-xs">
+        <button onClick={()=>setMode('date')} aria-label="按日期排盘" className={`px-3 min-h-[44px] rounded-lg text-xs transition-colors ${mode==='date'?'bg-gold-600 text-dark-900 font-semibold':'bg-dark-700 text-gray-400 border border-dark-600'}`}>✨ 公历/农历</button>
+        <button onClick={()=>setMode('bazi')} aria-label="直接输入八字排盘" className={`px-3 min-h-[44px] rounded-lg text-xs transition-colors ${mode==='bazi'?'bg-gold-600 text-dark-900 font-semibold':'bg-dark-700 text-gray-400 border border-dark-600'}`}>🔮 直接排盘</button>
+        <select value={gender} onChange={e=>setGender(e.target.value)} className="px-3 min-h-[44px] bg-dark-700 border border-dark-600 rounded-lg text-gray-200 text-xs">
           <option value="男">男</option><option value="女">女</option>
         </select>
       </div>
@@ -731,9 +745,9 @@ export default function BaziClient() {
             <span className="text-xs text-gray-400">性别：</span>
             <div className="flex bg-dark-700 rounded-lg p-1 gap-1">
               <button onClick={() => setGender('男')} aria-label="选择男性"
-                className={`px-4 py-1.5 rounded-md text-xs font-medium transition-all ${gender === '男' ? 'bg-blue-500 text-white' : 'text-gray-400'}`}>♂ 男</button>
+                className={`px-4 min-h-[44px] rounded-md text-xs font-medium transition-all ${gender === '男' ? 'bg-blue-500 text-white' : 'text-gray-400'}`}>♂ 男</button>
               <button onClick={() => setGender('女')} aria-label="选择女性"
-                className={`px-4 py-1.5 rounded-md text-xs font-medium transition-all ${gender === '女' ? 'bg-pink-500 text-white' : 'text-gray-400'}`}>♀ 女</button>
+                className={`px-4 min-h-[44px] rounded-md text-xs font-medium transition-all ${gender === '女' ? 'bg-pink-500 text-white' : 'text-gray-400'}`}>♀ 女</button>
             </div>
           </div>
           <TrueSolarTime
@@ -753,10 +767,10 @@ export default function BaziClient() {
         {['年','月','日','时'].map((l,i)=>(
           <div key={i} className="flex items-center gap-2 mb-2">
             <span className="text-xs text-gray-500 w-6 shrink-0">{l}</span>
-            <select value={bzTg[i]} onChange={e=>{const a=[...bzTg];a[i]=e.target.value;setBzTg(a)}} className="w-20 px-2 py-1.5 bg-dark-700 border border-dark-600 rounded-lg text-gray-200 text-xs">
+            <select value={bzTg[i]} onChange={e=>{const a=[...bzTg];a[i]=e.target.value;setBzTg(a)}} className="w-20 px-2 min-h-[44px] bg-dark-700 border border-dark-600 rounded-lg text-gray-200 text-xs">
               {['甲','乙','丙','丁','戊','己','庚','辛','壬','癸'].map(g=><option key={g}>{g}</option>)}
             </select>
-            <select value={bzDz[i]} onChange={e=>{const a=[...bzDz];a[i]=e.target.value;setBzDz(a)}} className="w-20 px-2 py-1.5 bg-dark-700 border border-dark-600 rounded-lg text-gray-200 text-xs">
+            <select value={bzDz[i]} onChange={e=>{const a=[...bzDz];a[i]=e.target.value;setBzDz(a)}} className="w-20 px-2 min-h-[44px] bg-dark-700 border border-dark-600 rounded-lg text-gray-200 text-xs">
               {['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥'].map(d=><option key={d}>{d}</option>)}
             </select>
             <span className="text-[10px] text-gray-600">{bzTg[i]}{bzDz[i]}</span>
@@ -768,17 +782,26 @@ export default function BaziClient() {
         <div className="mt-3 pt-3 border-t border-dark-600">
           <label className="block text-xs text-gray-500 mb-1">出生年份 <span className="text-gray-600">（确定大运流年起算）</span></label>
           <div className="flex flex-wrap gap-2">
-            {(()=>{const t=['甲','乙','丙','丁','戊','己','庚','辛','壬','癸'].indexOf(bzTg[0]);const d=['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥'].indexOf(bzDz[0]);if(t<0||d<0)return null;const ys=[];for(let y=1900;y<=2100;y++){if(((y-4)%10+10)%10===t&&((y-4)%12+12)%12===d)ys.push(y)};return ys.map(y=><button key={y} onClick={()=>setBzYear(String(y))} className={`px-3 py-1.5 rounded text-xs border transition-colors ${bzYear===String(y)?'bg-gold-600 text-dark-900 font-semibold border-gold-500':'bg-dark-700 text-gray-400 border-dark-600 hover:border-gold-500/50'}`}>{y}</button>)})()}
+            {(()=>{const t=['甲','乙','丙','丁','戊','己','庚','辛','壬','癸'].indexOf(bzTg[0]);const d=['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥'].indexOf(bzDz[0]);if(t<0||d<0)return null;const ys=[];for(let y=1900;y<=2100;y++){if(((y-4)%10+10)%10===t&&((y-4)%12+12)%12===d)ys.push(y)};return ys.map(y=><button key={y} onClick={()=>setBzYear(String(y))} className={`px-3 min-h-[44px] rounded text-xs border transition-colors ${bzYear===String(y)?'bg-gold-600 text-dark-900 font-semibold border-gold-500':'bg-dark-700 text-gray-400 border-dark-600 hover:border-gold-500/50'}`}>{y}</button>)})()}
           </div>
           <p className="text-xs text-gray-600 mt-1.5">同一个八字每60年出现一次，请选择对应的出生年份</p>
         </div>
       </div>)}
 
       {error && <p className="text-xs text-red-400 mb-2">{error}</p>}
-      <button onClick={doCalc} aria-label="开始排盘测算" className="bg-gold-600 hover:bg-gold-500 text-dark-900 font-semibold px-6 py-2 rounded-lg text-sm transition-colors active:scale-95">开始算命</button>
+      <button onClick={doCalc} aria-label="开始排盘测算" className="bg-gold-600 hover:bg-gold-500 text-dark-900 font-semibold px-6 min-h-[44px] rounded-lg text-sm transition-colors active:scale-95">开始算命</button>
+
+      {loading && <LoadingSpinner size="md" text="命盘计算中..." />}
+
+      {trueSolarChanged && (
+        <div className="mb-4 p-3 bg-orange-900/30 border border-orange-600/50 rounded-lg">
+          <p className="text-xs text-orange-300 font-medium">⚠️ 真太阳时修正导致时柱变化</p>
+          <p className="text-[11px] text-orange-300/70 mt-1">由于经度偏差，真太阳时修正后您出生时辰的地支（时柱）发生了变化，排盘结果已据此重新计算。</p>
+        </div>
+      )}
     </div>
 
-    {result && (<div className="space-y-4">
+    {result && (<div ref={exportRef} className="space-y-4">
       <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-4 text-center">
         <p className="text-xs text-gray-500 mb-1">{result.dateStr}</p>
         <p className="text-base font-bold text-gold-400 font-serif">{result.bazi}</p>
@@ -983,13 +1006,19 @@ Object.entries(result.wx).map(([w,c]): React.ReactNode =>(
             setSaved(true)
             setTimeout(() => setSaved(false), 2000)
           }}
-          className={`text-sm px-4 py-2 rounded-lg border transition-all ${
+          className={`text-sm px-4 min-h-[44px] rounded-lg border transition-all ${
             saved
               ? 'border-green-500 bg-green-500/20 text-green-400'
               : 'border-gold-500/50 text-gold-400 hover:bg-gold-500/10'
           }`}
         >
           {saved ? '✅ 已收藏' : '⭐ 收藏命盘'}
+        </button>
+        <button
+          onClick={() => { if (exportRef.current) exportAsPng(exportRef.current, '八字命盘.png') }}
+          className="text-sm px-4 min-h-[44px] rounded-lg border border-dark-600 text-gray-400 hover:border-gold-500/50 hover:text-gold-400 transition-all"
+        >
+          📷 导出图片
         </button>
       </div>
 

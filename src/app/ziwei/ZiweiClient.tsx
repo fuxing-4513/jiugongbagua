@@ -1,9 +1,13 @@
 'use client'
 
-import { useState, useMemo, useCallback } from 'react'
+import { useState, useMemo, useCallback, useRef } from 'react'
 import { astro } from 'iztro'
 import { getMaxDay, lunarToSolarDate, getYearLeapMonth } from '@/components/CalendarInput'
 import { analyzeSiHua, getWuXingJuMeaning, getExtraPatterns } from '@/lib/ziwei-enrich'
+import LoadingSpinner from '@/components/LoadingSpinner'
+import Breadcrumb from '@/components/Breadcrumb'
+import { exportAsPng } from '@/utils/export-image'
+import { saveToHistory } from '@/lib/history'
 
 // ── Types ──
 type CalendarType = 'solar' | 'lunar'
@@ -315,6 +319,8 @@ export default function ZiweiClient() {
   const [isLeap, setIsLeap] = useState(false)
   const [result, setResult] = useState<Record<string, unknown> | null>(null)
   const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
+  const exportRef = useRef<HTMLDivElement>(null)
 
   const y = parseInt(year) || 2000
   const m = parseInt(month) || 1
@@ -335,7 +341,8 @@ export default function ZiweiClient() {
 
   const analyze = useCallback(() => {
     setError('')
-    if (validationMsg) { setError(validationMsg); return }
+    setLoading(true)
+    if (validationMsg) { setError(validationMsg); setLoading(false); return }
     try {
       const h = parseInt(hour)
       const sd = calendarType === 'solar'
@@ -343,7 +350,9 @@ export default function ZiweiClient() {
         : lunarToSolarDate(y, m, d, isLeap)
       const r = astro.bySolar(sd, h, gender === 'M' ? 'male' : 'female')
       setResult(r as unknown as Record<string, unknown>)
-    } catch (e: unknown) { setError((e as Error)?.message || '日期格式有誤') }
+      saveToHistory({type:'ziwei', dateStr: `${calendarType === 'solar' ? '公历' : '农历'} ${y}年${m}月${d}日`, bazi: `${gender === 'M' ? '男' : '女'}命 · 时${HOUR_OPTIONS.find(o => o.value === hour)?.label || ''}`, preview: `五行局: ${(r as { fiveElementsClass?: string })?.fiveElementsClass || ''}` })
+      setLoading(false)
+    } catch (e: unknown) { setError((e as Error)?.message || '日期格式有誤'); setLoading(false) }
   }, [y, m, d, hour, calendarType, isLeap, gender, validationMsg])
 
   // ── Derived data ──
@@ -486,6 +495,7 @@ export default function ZiweiClient() {
   // ═══ RENDER ═══
   return (
     <div className="max-w-5xl mx-auto px-4 py-10">
+      <Breadcrumb items={[{label:'首页',href:'/'},{label:'排盘工具'},{label:'紫微斗數'}]} />
       <h1 className="text-3xl font-bold text-gold-400 font-serif mb-2">紫微斗數</h1>
       <p className="text-gray-400 mb-6 text-sm">四化 · 廟旺 · 大限 · 格局全解析 — 承《紫微斗數全書》古籍原文</p>
 
@@ -509,17 +519,17 @@ export default function ZiweiClient() {
             <td className="text-gray-400 pr-3 py-1.5 align-middle">日期</td>
             <td className="py-1.5 flex items-center gap-1.5 flex-wrap">
               <select value={calendarType} onChange={e => { setCalendarType(e.target.value as CalendarType); setIsLeap(false) }}
-                className="px-2 py-1.5 bg-dark-700 border border-dark-500 rounded text-gray-200 text-sm">
+                className="px-2 min-h-[44px] bg-dark-700 border border-dark-500 rounded text-gray-200 text-sm">
                 <option value="solar">國曆</option>
                 <option value="lunar">農曆</option>
               </select>
               <select value={year} onChange={e => setYear(e.target.value)}
-                className="px-1.5 py-1.5 bg-dark-700 border border-dark-500 rounded text-gray-200 text-sm text-center">
+                className="px-1.5 min-h-[44px] bg-dark-700 border border-dark-500 rounded text-gray-200 text-sm text-center">
                 {Array.from({ length: 200 }, (_, i) => 1900 + i).map(v => <option key={v} value={v}>{v}</option>)}
               </select>
               <span className="text-gray-500 text-sm">年</span>
               <select value={month} onChange={e => { setMonth(e.target.value); setIsLeap(false) }}
-                className="px-1.5 py-1.5 bg-dark-700 border border-dark-500 rounded text-gray-200 text-sm">
+                className="px-1.5 min-h-[44px] bg-dark-700 border border-dark-500 rounded text-gray-200 text-sm">
                 {Array.from({ length: 12 }, (_, i) => <option key={i + 1} value={i + 1}>{i + 1}</option>)}
               </select>
               <span className="text-gray-500 text-sm">月</span>
@@ -529,12 +539,12 @@ export default function ZiweiClient() {
                 </label>
               )}
               <select value={clampedDay} onChange={e => setDay(e.target.value)}
-                className="px-1.5 py-1.5 bg-dark-700 border border-dark-500 rounded text-gray-200 text-sm">
+                className="px-1.5 min-h-[44px] bg-dark-700 border border-dark-500 rounded text-gray-200 text-sm">
                 {Array.from({ length: maxDay }, (_, i) => <option key={i + 1} value={i + 1}>{i + 1}</option>)}
               </select>
               <span className="text-gray-500 text-sm">日</span>
               <select value={hour} onChange={e => setHour(e.target.value)}
-                className="px-1 py-1.5 bg-dark-700 border border-dark-500 rounded text-gray-200 text-[11px]">
+                className="px-1 min-h-[44px] bg-dark-700 border border-dark-500 rounded text-gray-200 text-[11px]">
                 {HOUR_OPTIONS.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
               </select>
             </td>
@@ -544,19 +554,21 @@ export default function ZiweiClient() {
         {validationMsg && <p className="text-xs text-amber-400 mt-2">⚠ {validationMsg}</p>}
         <div className="mt-4 flex gap-2">
           <button onClick={analyze} disabled={!!validationMsg}
-            className="bg-gold-600 hover:bg-gold-500 text-dark-900 font-semibold px-6 py-1.5 rounded-lg text-sm transition-colors disabled:opacity-50">
+            className="bg-gold-600 hover:bg-gold-500 text-dark-900 font-semibold px-6 min-h-[44px] rounded-lg text-sm transition-colors disabled:opacity-50">
             送出
           </button>
           <button onClick={() => { setResult(null); setError('') }}
-            className="border border-dark-500 text-gray-400 hover:text-gray-200 px-4 py-1.5 rounded-lg text-sm transition-colors">
+            className="border border-dark-500 text-gray-400 hover:text-gray-200 px-4 min-h-[44px] rounded-lg text-sm transition-colors">
             清除
           </button>
         </div>
       </div>
 
+      {loading && <LoadingSpinner size="md" text="命盘计算中..." />}
+
       {/* ═══ Results ═══ */}
       {result && (
-        <div className="space-y-6">
+        <div ref={exportRef} className="space-y-6">
           {/* ── Control Bar ── */}
           <div className="bg-dark-800/60 rounded-lg border border-dark-600 p-3 text-sm flex items-center gap-4 flex-wrap">
             <span className="text-gray-400 text-xs">流月起始宮位</span>
@@ -570,10 +582,10 @@ export default function ZiweiClient() {
             <select className="px-1.5 py-1 bg-dark-700 border border-dark-500 rounded text-gray-200 text-xs" value={year} onChange={e => setYear(e.target.value)}>
               {Array.from({ length: 200 }, (_, i) => 1900 + i).map(v => <option key={v} value={v}>{v}</option>)}
             </select>
-            <button className="px-2 py-1 text-xs bg-gold-600/20 border border-gold-500/30 rounded text-gold-400 hover:bg-gold-600/40">流年</button>
-            <button className="px-2 py-1 text-xs border border-dark-500 rounded text-gray-500 hover:text-gray-300">流月</button>
-            <button className="px-2 py-1 text-xs border border-dark-500 rounded text-gray-500 hover:text-gray-300">流日</button>
-            <button className="px-2 py-1 text-xs border border-dark-500 rounded text-gray-500 hover:text-gray-300">流時</button>
+            <button className="px-2 min-h-[44px] text-xs bg-gold-600/20 border border-gold-500/30 rounded text-gold-400 hover:bg-gold-600/40">流年</button>
+            <button className="px-2 min-h-[44px] text-xs border border-dark-500 rounded text-gray-500 hover:text-gray-300">流月</button>
+            <button className="px-2 min-h-[44px] text-xs border border-dark-500 rounded text-gray-500 hover:text-gray-300">流日</button>
+            <button className="px-2 min-h-[44px] text-xs border border-dark-500 rounded text-gray-500 hover:text-gray-300">流時</button>
           </div>
 
           {/* ── 12-Palace Table ── */}
@@ -725,6 +737,16 @@ export default function ZiweiClient() {
                 {soulPalace && <p className="text-gray-600">命宮數據：{(soulPalace.majorStars as FullStarInfo[])?.map((s: FullStarInfo) => s.name).join(', ') || '(無主星)'}</p>}
               </div>
             )}
+          </div>
+
+          {/* ── Export Button ── */}
+          <div className="flex justify-center">
+            <button
+              onClick={() => { if (exportRef.current) exportAsPng(exportRef.current, '紫微斗数命盘.png') }}
+              className="text-sm px-4 min-h-[44px] rounded-lg border border-dark-600 text-gray-400 hover:border-gold-500/50 hover:text-gold-400 transition-all"
+            >
+              📷 导出图片
+            </button>
           </div>
 
           {/* ── Introduction ── */}

@@ -162,8 +162,8 @@ export default function CalendarInput({
   const hourLabel = HOUR_OPTIONS.find(o => o.value === hour)?.label || ''
 
   const inputClass = compact
-    ? 'w-full bg-dark-700 border border-dark-600 rounded px-2 py-1.5 text-gray-200 text-xs'
-    : 'w-full bg-dark-700 border border-dark-600 rounded px-3 py-2 text-gray-200 text-sm'
+    ? 'w-full bg-dark-700 border border-dark-600 rounded px-2 py-3 text-gray-200 text-xs min-h-[44px]'
+    : 'w-full bg-dark-700 border border-dark-600 rounded px-3 py-3 text-gray-200 text-sm min-h-[44px]'
 
   const labelClass = compact ? 'text-[10px] text-gray-500 block mb-0.5' : 'text-xs text-gray-600 block mb-1'
 
@@ -179,7 +179,7 @@ export default function CalendarInput({
         <div className="flex bg-dark-700 rounded-lg p-1 gap-1">
           <button
             onClick={() => { onCalendarTypeChange('solar'); onLeapMonthChange(false) }}
-            className={`px-3 py-1.5 rounded-md ${compact ? 'text-[11px]' : 'text-sm'} font-medium transition-all ${
+            className={`px-3 min-h-[44px] rounded-md ${compact ? 'text-[11px]' : 'text-sm'} font-medium transition-all ${
               calendarType === 'solar'
                 ? 'bg-gold-500 text-dark-900'
                 : 'text-gray-400 hover:text-gray-200'
@@ -187,7 +187,7 @@ export default function CalendarInput({
           >{solarLabel}</button>
           <button
             onClick={() => onCalendarTypeChange('lunar')}
-            className={`px-3 py-1.5 rounded-md ${compact ? 'text-[11px]' : 'text-sm'} font-medium transition-all ${
+            className={`px-3 min-h-[44px] rounded-md ${compact ? 'text-[11px]' : 'text-sm'} font-medium transition-all ${
               calendarType === 'lunar'
                 ? 'bg-gold-500 text-dark-900'
                 : 'text-gray-400 hover:text-gray-200'
