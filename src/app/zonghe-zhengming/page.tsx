@@ -64,7 +64,7 @@ export default function ZongheZhengmingPage() {
       const enrich = enrichBazi(siZhu)
 
       // 紫微信息（模拟简单数据，完整紫微需要 iztro）
-      const fiveElem = eightChar.getWuXingJu() || ''
+      const fiveElem = ''
 
       setResult({
         dateStr: `${y}年${m}月${d}日`,
@@ -73,7 +73,7 @@ export default function ZongheZhengmingPage() {
         siZhu,
         enrich,
         fiveElem,
-        zodiac: eightChar.getShengXiao(),
+        zodiac: lunar.getYearShengXiao(),
         solarNote,
         // 模拟一些紫微数据用于印证演示
         ziweiMock: {
@@ -96,12 +96,18 @@ export default function ZongheZhengmingPage() {
         <div className="flex gap-4 mb-4 flex-wrap items-end">
           <div className="flex-1 min-w-[200px]">
             <CalendarInput
-              cal={cal} setCal={setCal}
-              year={year} setYear={setYear}
-              month={month} setMonth={setMonth}
-              day={day} setDay={setDay}
-              isLeap={isLeap} setIsLeap={setIsLeap}
-              getMaxDay={() => 30}
+              calendarType={cal}
+              year={year}
+              month={month}
+              day={day}
+              hour={String(parseInt(hour) * 2)}
+              isLeapMonth={isLeap}
+              onCalendarTypeChange={(v) => setCal(v)}
+              onYearChange={setYear}
+              onMonthChange={setMonth}
+              onDayChange={setDay}
+              onHourChange={(v) => setHour(String(Math.floor(parseInt(v) / 2)))}
+              onLeapMonthChange={setIsLeap}
             />
           </div>
           <div>

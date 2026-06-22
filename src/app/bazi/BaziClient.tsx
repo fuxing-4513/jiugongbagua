@@ -844,7 +844,7 @@ export default function BaziClient() {
           </div>
           <div className="bg-dark-700/60 rounded-lg p-2.5 text-center">
             <p className="text-xs text-gray-500 mb-0.5">旺衰</p>
-            <p className="font-bold text-sm" style={{color:result.enrich.旺衰.verdict.includes(&quot;身强&quot;) ? &quot;#ef4444&quot; : result.enrich.旺衰.verdict.includes(&quot;弱&quot;) ? &quot;#3b82f6&quot; : &quot;#fbbf24&quot;}}>{result.enrich.旺衰.verdict}</p>
+            <p className="font-bold text-sm" style={{color:result.enrich.旺衰.verdict.includes("身强") ? "#ef4444" : result.enrich.旺衰.verdict.includes("弱") ? "#3b82f6" : "#fbbf24"}}>{result.enrich.旺衰.verdict}</p>
           </div>
           <div className="bg-dark-700/60 rounded-lg p-2.5 text-center">
             <p className="text-xs text-gray-500 mb-0.5">调候用神</p>

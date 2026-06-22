@@ -115,16 +115,16 @@ export function countWuXing(pillars: Record<string, { gan: string; zhi: string }
   }
 
   // Build shiShenGroups
-  const ssCounts: Record<string, number> = {}
+  const ssCounts: Record<string, any> = {}
   for (const wx of ['木','火','土','金','水']) {
     const count = withCangGan[wx]
     if (count > 0) {
       // Map 五行 to 十神类 based on dayMaster
       const dmWx = WX_MAP[dayMaster]
-      const keWo = { '木':'土','火':'金','土':'水','金':'木','水':'火' } // 我克
-      const woKe = { '木':'金','火':'水','土':'火','金':'土','水':'木' } // 克我
-      const shengWo = { '木':'水','火':'木','土':'火','金':'土','水':'金' } // 生我
-      const woSheng = { '木':'火','火':'土','土':'金','金':'水','水':'木' } // 我生
+      const keWo: Record<string,string> = { '木':'土','火':'金','土':'水','金':'木','水':'火' } // 我克
+      const woKe: Record<string,string> = { '木':'金','火':'水','土':'火','金':'土','水':'木' } // 克我
+      const shengWo: Record<string,string> = { '木':'水','火':'木','土':'火','金':'土','水':'金' } // 生我
+      const woSheng: Record<string,string> = { '木':'火','火':'土','土':'金','金':'水','水':'木' } // 我生
 
       let group = '比劫'
       if (wx === keWo[dmWx]) group = '财'
@@ -187,7 +187,7 @@ export function detectZhiRelations(pillars: Record<string, string>): ZhiRelation
   }
 
   // 三合 (简化为检测是否存在半合)
-  const SAN_HE_MAP: Record<string, string[]> = { '申':'子辰','子':'申辰','辰':'申子','寅':'午戌','午':'寅戌','戌':'寅午','巳':'酉丑','酉':'巳丑','丑':'巳酉','亥':'卯未','卯':'亥未','未':'亥卯' }
+  const SAN_HE_MAP: Record<string, string> = { '申':'子辰','子':'申辰','辰':'申子','寅':'午戌','午':'寅戌','戌':'寅午','巳':'酉丑','酉':'巳丑','丑':'巳酉','亥':'卯未','卯':'亥未','未':'亥卯' }
   // 六合
   const LIU_HE: Record<string, string> = { '子':'丑','寅':'亥','卯':'戌','辰':'酉','巳':'申','午':'未' }
   for (let i = 0; i < zhiArr.length; i++) {

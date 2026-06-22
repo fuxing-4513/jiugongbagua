@@ -392,8 +392,6 @@ export default function ZiweiClient() {
     return { ji, sha, jiList: jiList.join(' '), shaList: shaList.join(' ') }
   }, [soulPalace, palaceMap])
 
-  const wuXingJuMeaning = getWuXingJuMeaning(fiveElem)
-
   const { ji: auspCount, sha: inauspCount } = auspiciousStats
   const auspIndex = auspCount + inauspCount > 0 ? Math.round((auspCount / (auspCount + inauspCount)) * 100) : 50
   const fortuneScore = Math.round((brightnessScore + auspIndex) / 2)
@@ -429,6 +427,7 @@ export default function ZiweiClient() {
   const soulDisplayName = soulPalace ? (IZTRO_TO_DISPLAY[soulPalace.name] || soulPalace.name) : '—'
   const zodiac = (result?.zodiac as string) || ''
   const fiveElem = (result?.fiveElementsClass as string) || ''
+  const wuXingJuMeaning = getWuXingJuMeaning(fiveElem)
   const soul = (result?.soul as string) || ''
   const body = (result?.body as string) || ''
   const solarDate = (result?.solarDate as string) || ''
