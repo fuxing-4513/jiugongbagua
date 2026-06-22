@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useMemo, useRef } from 'react'
 import ShareResult from '@/components/ShareResult'
+import { synonymMatch, multiTermMatch } from '@/lib/dream-synonyms'
 
 interface Dream {
   keyword: string; title: string; category: string
@@ -72,11 +73,19 @@ export default function JiemengClient() {
 
     const terms = trimmed.split(/\s+/).filter(Boolean)
     const matched = dreamDB.filter(d => {
+      // 原有精确匹配作为快速通道
       const searchText = [d.keyword, d.title, d.modern, ...d.tags].join(' ')
-      return terms.every(term =>
+      const exactMatch = terms.every(term =>
         d.keyword.includes(term) || term.includes(d.keyword) ||
         d.title.includes(term) || searchText.includes(term)
       )
+      if (exactMatch) return true
+
+      // 同义模糊匹配（关键词层面）
+      if (terms.every(term => synonymMatch(term, d.keyword))) return true
+
+      // 全文本同义匹配（title + modern + tags）
+      return multiTermMatch(trimmed, searchText)
     })
     setResults(matched)
     setSearched(true)
