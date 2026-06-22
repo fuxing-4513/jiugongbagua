@@ -80,7 +80,7 @@ export default function HomeClient() {
             <Link key={s.name} href="/shengxiao"
               className="group flex flex-col items-center p-3 rounded-xl border border-dark-600/50 hover:border-jade-400/50 transition-all duration-200">
               <span className="text-2xl mb-1">{s.emoji}</span>
-              <span className="text-xs font-medium text-gray-400 group-hover:text-jade-400">{s.name}</span>
+              <span className="text-xs font-medium text-gray-600 group-hover:text-jade-500">{s.name}</span>
             </Link>
           ))}
         </div>
@@ -110,7 +110,7 @@ export default function HomeClient() {
               <div className="text-3xl mb-3 group-hover:scale-110 transition-transform duration-200">
                 {mod.emoji}
               </div>
-              <h3 className="text-base font-semibold text-gray-200 group-hover:text-jade-400 transition-colors mb-1">
+              <h3 className="text-base font-semibold text-gray-800 group-hover:text-jade-500 transition-colors mb-1">
                 {getT(mod.nameKey)}
               </h3>
               <p className="text-xs text-gray-500 leading-relaxed mb-2">
