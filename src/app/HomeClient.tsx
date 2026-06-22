@@ -36,7 +36,7 @@ const modules: ModuleInfo[] = [
   { key: 'taluo', nameKey: 'modules.taluo.name', descKey: 'modules.taluo.desc', sourceKey: 'modules.taluo.source', emoji: '🃏', href: '/taluo' },
   { key: 'wenku', nameKey: 'modules.wenku.name', descKey: 'modules.wenku.desc', sourceKey: 'modules.wenku.source', emoji: '📚', href: '/wenku' },
   { key: 'hehun', nameKey: 'modules.hehun.name', descKey: 'modules.hehun.desc', sourceKey: 'modules.hehun.source', emoji: '💑', href: '/hehun' },
-  { key: 'experts', nameKey: 'modules.experts.name', descKey: 'modules.experts.desc', sourceKey: 'modules.experts.source', emoji: '👨‍🏫', href: '/experts' },
+  { key: 'experts', nameKey: 'modules.experts.name', descKey: 'modules.experts.desc', sourceKey: 'modules.experts.source', emoji: '👨🏫', href: '/experts' },
 ]
 
 export default function HomeClient() {
@@ -45,7 +45,7 @@ export default function HomeClient() {
   return (
     <div className="max-w-6xl mx-auto px-4">
       {/* ===== Hero 区域 ===== */}
-      <section className="text-center py-12 md:py-16">
+      <section className="text-center pt-16 pb-12 md:pt-20 md:pb-16">
         <p className="text-sm text-gold-400/70 tracking-widest mb-3">
           {getT('site.tagline')}
         </p>
@@ -55,18 +55,22 @@ export default function HomeClient() {
         <p className="text-base md:text-lg text-gray-400 max-w-2xl mx-auto mb-4 leading-relaxed">
           {getT('home.heroDesc')}
         </p>
-        {/* 古籍引用 */}
         <ClassicQuotes />
-
       </section>
+
+      {/* ── 分隔线 ── */}
+      <div className="w-16 h-px mx-auto bg-dark-500/40 mb-12"></div>
 
       {/* ===== 免费排盘 ===== */}
       <FreeChartWidget />
 
+      {/* ── 分隔线 ── */}
+      <div className="w-16 h-px mx-auto bg-dark-500/40 my-14"></div>
+
       {/* ===== 十二生肖百科 ===== */}
-      <div className="mb-10">
+      <section className="mb-14">
         <h2 className="text-xl font-semibold text-gold-400 font-serif mb-4 text-center">🐉 十二生肖</h2>
-        <p className="text-center text-gray-500 text-sm mb-5">点击生肖了解起源传说、性格特征、文化象征与运势</p>
+        <p className="text-center text-gray-500 text-sm mb-6">点击生肖了解起源传说、性格特征、文化象征与运势</p>
         <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-12 gap-2">
           {[
             {emoji:'🐭',name:'鼠'},{emoji:'🐮',name:'牛'},{emoji:'🐯',name:'虎'},{emoji:'🐰',name:'兔'},
@@ -74,45 +78,53 @@ export default function HomeClient() {
             {emoji:'🐵',name:'猴'},{emoji:'🐔',name:'鸡'},{emoji:'🐶',name:'狗'},{emoji:'🐷',name:'猪'}
           ].map(s => (
             <Link key={s.name} href="/shengxiao"
-              className="group flex flex-col items-center p-3 rounded-xl bg-dark-700/50 border border-dark-600 hover:border-jade-400/50 transition-all duration-200">
+              className="group flex flex-col items-center p-3 rounded-xl border border-dark-600/50 hover:border-jade-400/50 transition-all duration-200">
               <span className="text-2xl mb-1">{s.emoji}</span>
               <span className="text-xs font-medium text-gray-400 group-hover:text-jade-400">{s.name}</span>
             </Link>
           ))}
         </div>
-      </div>
+      </section>
+
+      {/* ── 分隔线 ── */}
+      <div className="w-16 h-px mx-auto bg-dark-500/40 mb-14"></div>
 
       {/* ===== 学派源流 ===== */}
-      <div id="heritage">
+      <section id="heritage" className="mb-14">
         <HeritageSection />
-      </div>
+      </section>
 
-      {/* ===== 全部工具 Grid（含古籍引用）===== */}
-      <h2 className="text-xl font-semibold text-gold-400 font-serif mb-4 text-center">🔮 全部工具</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-12">
-        {modules.map((mod) => (
-          <Link
-            key={mod.key}
-            href={mod.href}
-            className="group bg-dark-700 rounded-xl border border-dark-600 p-5 hover:border-jade-400 hover:shadow-md hover:shadow-jade-500/10 transition-all duration-200"
-          >
-            <div className="text-3xl mb-3 group-hover:scale-110 transition-transform duration-200">
-              {mod.emoji}
-            </div>
-            <h3 className="text-base font-semibold text-gray-200 group-hover:text-jade-400 transition-colors mb-1">
-              {getT(mod.nameKey)}
-            </h3>
-            <p className="text-xs text-gray-400 leading-relaxed mb-2">
-              {getT(mod.descKey)}
-            </p>
-            {getT(mod.sourceKey) && getT(mod.sourceKey) !== mod.sourceKey && (
-              <p className="text-[10px] text-gold-500/60 font-serif italic">
-                {getT(mod.sourceKey)}
+      {/* ── 分隔线 ── */}
+      <div className="w-16 h-px mx-auto bg-dark-500/40 mb-14"></div>
+
+      {/* ===== 全部工具 Grid ===== */}
+      <section className="mb-14">
+        <h2 className="text-xl font-semibold text-gold-400 font-serif mb-4 text-center">🔮 全部工具</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          {modules.map((mod) => (
+            <Link
+              key={mod.key}
+              href={mod.href}
+              className="group rounded-xl border border-dark-600/50 p-5 hover:border-jade-400/60 transition-all duration-200"
+            >
+              <div className="text-3xl mb-3 group-hover:scale-110 transition-transform duration-200">
+                {mod.emoji}
+              </div>
+              <h3 className="text-base font-semibold text-gray-200 group-hover:text-jade-400 transition-colors mb-1">
+                {getT(mod.nameKey)}
+              </h3>
+              <p className="text-xs text-gray-500 leading-relaxed mb-2">
+                {getT(mod.descKey)}
               </p>
-            )}
-          </Link>
-        ))}
-      </div>
+              {getT(mod.sourceKey) && getT(mod.sourceKey) !== mod.sourceKey && (
+                <p className="text-[10px] text-gold-500/50 font-serif italic">
+                  {getT(mod.sourceKey)}
+                </p>
+              )}
+            </Link>
+          ))}
+        </div>
+      </section>
 
       {/* ===== 底部 CTA ===== */}
       <BottomCTA />
@@ -134,7 +146,6 @@ function FreeChartWidget() {
   const m = parseInt(month) || 1
   const d = parseInt(day) || 1
 
-  // Compute chart link
   const chartHref = (() => {
     const h = parseInt(hour)
     const maxDay = getMaxDay(calendarType, y, m)
@@ -151,43 +162,41 @@ function FreeChartWidget() {
   const isValid = !chartHref.startsWith('#')
 
   return (
-    <section className="max-w-xl mx-auto mb-10">
-      <div className="bg-dark-800/80 rounded-xl border border-jade-400/20 p-6">
-        <h2 className="text-xl font-semibold text-gold-400 font-serif mb-1 text-center">🔮 立即排盘</h2>
-        <p className="text-xs text-gray-500 text-center mb-5">输入出生信息，AI 即刻为您深度批命</p>
+    <section className="max-w-xl mx-auto">
+      <h2 className="text-xl font-semibold text-gold-400 font-serif mb-1 text-center">🔮 立即排盘</h2>
+      <p className="text-xs text-gray-500 text-center mb-6">输入出生信息，AI 即刻为您深度批命</p>
 
-        <CalendarInput
-          calendarType={calendarType}
-          year={year}
-          month={month}
-          day={day}
-          hour={hour}
-          isLeapMonth={isLeapMonth}
-          onCalendarTypeChange={setCalendarType}
-          onYearChange={setYear}
-          onMonthChange={setMonth}
-          onDayChange={setDay}
-          onHourChange={setHour}
-          onLeapMonthChange={setIsLeapMonth}
-          label=""
-        />
+      <CalendarInput
+        calendarType={calendarType}
+        year={year}
+        month={month}
+        day={day}
+        hour={hour}
+        isLeapMonth={isLeapMonth}
+        onCalendarTypeChange={setCalendarType}
+        onYearChange={setYear}
+        onMonthChange={setMonth}
+        onDayChange={setDay}
+        onHourChange={setHour}
+        onLeapMonthChange={setIsLeapMonth}
+        label=""
+      />
 
-        <Link
-          href={chartHref}
-          className={`block w-full mt-5 py-3 rounded-lg text-center font-semibold text-lg transition-all ${
-            isValid
-              ? 'bg-jade-400 text-dark-900 hover:bg-jade-300 shadow-lg shadow-jade-400/20 hover:shadow-jade-400/40 active:scale-[0.98]'
-              : 'bg-dark-600 text-gray-500 cursor-not-allowed pointer-events-none'
-          }`}
-          onClick={e => { if (!isValid) e.preventDefault() }}
-        >
-          立即排盘 · 免费 🚀
-        </Link>
+      <Link
+        href={chartHref}
+        className={`block w-full mt-6 py-3 rounded-lg text-center font-semibold text-lg transition-all ${
+          isValid
+            ? 'bg-jade-400 text-dark-900 hover:bg-jade-300 shadow-lg shadow-jade-400/20 hover:shadow-jade-400/40 active:scale-[0.98]'
+            : 'bg-dark-600 text-gray-500 cursor-not-allowed pointer-events-none'
+        }`}
+        onClick={e => { if (!isValid) e.preventDefault() }}
+      >
+        立即排盘 · 免费 🚀
+      </Link>
 
-        <p className="text-center text-[10px] text-gray-600 mt-3">
-          支持阳历/阴历 · 精确到时辰 · 19+ 命理模块 · AI 深度解读
-        </p>
-      </div>
+      <p className="text-center text-[10px] text-gray-600 mt-3">
+        支持阳历/阴历 · 精确到时辰 · 19+ 命理模块 · AI 深度解读
+      </p>
     </section>
   )
 }

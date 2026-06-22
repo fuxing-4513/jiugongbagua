@@ -82,7 +82,7 @@ export default function Nav() {
             {toolsOpen && (
               <>
                 <div className="fixed inset-0 z-10" onClick={() => setToolsOpen(false)} />
-                <div className="absolute top-full right-0 mt-2 w-64 bg-dark-700 rounded-xl shadow-lg border border-dark-600 py-3 z-20 max-h-96 overflow-y-auto">
+                <div className="absolute top-full right-0 mt-2 w-64 bg-dark-900 border border-dark-600 py-3 z-20 max-h-96 overflow-y-auto">
                   {toolCategories.map((cat, ci) => (
                     <div key={ci}>
                       {ci > 0 && <div className="mx-3 my-1 border-t border-dark-600" />}
@@ -121,7 +121,7 @@ export default function Nav() {
             {langOpen && (
               <>
                 <div className="fixed inset-0 z-10" onClick={() => setLangOpen(false)} />
-                <div className="absolute top-full right-0 mt-2 w-36 bg-dark-700 rounded-lg shadow-lg border border-dark-600 py-2 z-20">
+                <div className="absolute top-full right-0 mt-2 w-36 bg-dark-900 border border-dark-600 py-2 z-20">
                   {(Object.entries(localeNames) as [SupportedLocale, string][]).map(([key, name]) => (
                     <button key={key} onClick={() => handleLangChange(key)}
                       aria-label={`切换至${name}`}
@@ -146,7 +146,7 @@ export default function Nav() {
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="lg:hidden border-t border-dark-600 bg-dark-800">
+        <div className="lg:hidden border-t border-dark-600 bg-dark-900">
           <div className="px-4 py-3 space-y-2">
             <Link href="/" className="block py-2 text-sm text-gray-300 hover:text-jade-400" onClick={() => setMobileMenuOpen(false)}>{getT('nav.home')}</Link>
             <Link href="/bazi" className="block py-2 text-sm text-gray-300 hover:text-jade-400" onClick={() => setMobileMenuOpen(false)}>{getT('nav.bazi')}</Link>
