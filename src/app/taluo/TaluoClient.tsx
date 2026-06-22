@@ -49,6 +49,17 @@ const KEYFRAMES = `
 }
 `
 
+
+// ── Spread icon map - single icon per spread for consistent display ──
+const SPREAD_ICONS: Record<string, string> = {
+  daily: '🌅',
+  three: '🌘',
+  celtic: '✝️',
+  relationship: '💞',
+  career: '💼',
+  yesno: '🔮',
+}
+
 // ── Component ──
 export default function TaluoClient() {
   const [phase, setPhase] = useState<Phase>('menu')
@@ -511,7 +522,7 @@ export default function TaluoClient() {
       {/* Header */}
       <div className="text-center mb-8">
         <h1 className="text-3xl font-bold text-gold-400 font-serif mb-2">
-          塔罗牌占卜
+          塔罗牌
         </h1>
         <p className="text-sm text-gray-500 max-w-lg mx-auto">
           基于韦特塔罗78张完整牌库，多牌阵深度解读
@@ -523,7 +534,7 @@ export default function TaluoClient() {
         <div className="space-y-6">
           {/* Description */}
           <p className="text-sm text-gray-400 text-center">
-            选择一个牌阵，开始你的塔罗之旅
+            选择一个牌阵，开始你的解读之旅
           </p>
 
           {/* Spread grid */}
@@ -533,23 +544,25 @@ export default function TaluoClient() {
                 key={spr.id}
                 type="button"
                 onClick={() => startReading(spr.id)}
-                className="group bg-dark-800/60 border border-dark-600/60 rounded-2xl p-6 text-left hover:border-gold-500/40 hover:bg-dark-800/80 transition-all hover:shadow-lg hover:shadow-gold-900/10 active:scale-[0.98]"
+                className="group bg-dark-800/60 border border-dark-600/60 rounded-2xl p-6 text-left hover:border-gold-500/40 hover:bg-dark-800/80 transition-all hover:shadow-lg hover:shadow-gold-900/10 active:scale-[0.98] min-h-[220px] flex flex-col justify-between"
               >
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="w-10 h-10 rounded-full bg-dark-700 flex items-center justify-center text-lg">
-                    {spr.positions.map((p) => p.icon).join(' ')}
+                <div>
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-10 h-10 rounded-full bg-dark-700 flex items-center justify-center text-lg">
+                      {SPREAD_ICONS[spr.id] || '🃏'}
+                    </div>
+                    <div>
+                      <h3 className="text-base font-bold text-gold-400">
+                        {spr.name}
+                      </h3>
+                      <p className="text-[10px] text-gray-600">{spr.descriptionShort}</p>
+                    </div>
                   </div>
-                  <div>
-                    <h3 className="text-base font-bold text-gold-400">
-                      {spr.name}
-                    </h3>
-                    <p className="text-[10px] text-gray-600">{spr.descriptionShort}</p>
-                  </div>
+                  <p className="text-xs text-gray-500 leading-relaxed line-clamp-2">
+                    {spr.description}
+                  </p>
                 </div>
-                <p className="text-xs text-gray-500 leading-relaxed mb-2">
-                  {spr.description}
-                </p>
-                <div className="flex items-center gap-1.5">
+                <div className="flex items-center gap-1.5 mt-auto">
                   {spr.positions.map((p) => (
                     <span
                       key={p.key}
@@ -644,7 +657,7 @@ export default function TaluoClient() {
               onClick={restartSpread}
               className="inline-flex items-center gap-1.5 bg-gold-600 hover:bg-gold-500 text-dark-900 font-semibold text-sm px-5 py-2.5 rounded-lg transition-all active:scale-95"
             >
-              💫 重新占卜
+              💫 重新抽牌
             </button>
             <button
               type="button"

@@ -3,7 +3,7 @@ import LayoutClient from '@/components/LayoutClient'
 import './globals.css'
 
 const baseUrl = 'https://jiugongbagua.com'
-const baseDescription = '九宫八卦是中国传统命理文化平台，提供八字算命、紫微斗数、六爻、小六壬、周公解梦、姓名测试、号码测吉凶、黄历择日、塔罗等在线服务。'
+const baseDescription = '九宫八卦是中国传统命理文化平台，提供八字排盘、紫微斗数、六爻、小六壬、周公解梦、姓名测试、号码测吉凶、黄历择日、塔罗等在线服务。'
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
@@ -12,13 +12,13 @@ export const metadata: Metadata = {
     template: '%s | 九宫八卦',
   },
   description: baseDescription,
-  keywords: ['九宫八卦','八字算命','紫微斗数','六爻','小六壬','周公解梦','姓名测试','号码测吉凶','黄历','塔罗','命理','易经','梅花易数','合婚','传统文化','奇门遁甲'],
+  keywords: ['九宫八卦','八字排盘','紫微斗数','六爻','小六壬','周公解梦','姓名测试','号码测吉凶','黄历','塔罗','命理','易经','梅花易数','合婚','传统文化','奇门遁甲'],
   authors: [{ name: '九宫八卦' }],
   creator: '九宫八卦',
   publisher: '九宫八卦',
   openGraph: {
     title: '九宫八卦 - 传统命理在线测算平台',
-    description: '传承经典 · 智慧启航。八字算命、紫微斗数、六爻、梅花易数、小六壬等二十余种传统命理服务。',
+    description: '传承经典 · 智慧启航。八字排盘、紫微斗数、六爻、梅花易数、小六壬等二十余种传统命理服务。',
     type: 'website',
     locale: 'zh_CN',
     siteName: '九宫八卦',

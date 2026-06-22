@@ -269,7 +269,7 @@ export default function ChengguClient() {
   const r = result
 
   return (<div className="max-w-2xl mx-auto px-4 py-10">
-    <h1 className="text-3xl font-bold text-gold-400 font-serif mb-3">称骨算命</h1>
+    <h1 className="text-3xl font-bold text-gold-400 font-serif mb-3">称骨测算</h1>
     <p className="text-gray-400 mb-6">袁天罡称骨法：支持阳历/阴历输入，自动换算。男命女命分断，精准解读命运骨重。</p>
 
     <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-6 mb-8">
@@ -372,7 +372,7 @@ export default function ChengguClient() {
               <div className="flex justify-end mt-3">
                 <ShareResult
                   text={`${r.liang}两${r.qian}钱 - ${r.level}\n\n称骨诗: ${r.poem}\n解读: ${r.interpret}\n\n性格: ${r.mingShu.personality}\n婚姻: ${r.mingShu.marriage}\n事业: ${r.mingShu.career}\n财运: ${r.mingShu.wealth}\n健康: ${r.mingShu.health}`}
-                  title="【称骨算命结果】"
+                  title="【称骨测算结果】"
                   label="📋 复制结果"
                 />
               </div>

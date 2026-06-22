@@ -707,8 +707,8 @@ export default function BaziClient() {
   }
 
   return (<div className="max-w-4xl mx-auto px-4 py-10">
-    <Breadcrumb items={[{label:'首页',href:'/'},{label:'排盘工具'},{label:'生辰八字算命'}]} />
-    <h1 className="text-3xl font-bold text-gold-400 font-serif mb-3">生辰八字算命</h1>
+    <Breadcrumb items={[{label:'首页',href:'/'},{label:'排盘工具'},{label:'生辰八字排盘'}]} />
+    <h1 className="text-3xl font-bold text-gold-400 font-serif mb-3">生辰八字排盘</h1>
     <p className="text-gray-400 mb-8">真太阳时排盘 · 神煞详解 · 古籍论断 · 性格/感情/事业/财运全面分析</p>
 
     <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-6 mb-8">
@@ -789,7 +789,7 @@ export default function BaziClient() {
       </div>)}
 
       {error && <p className="text-xs text-red-400 mb-2">{error}</p>}
-      <button onClick={doCalc} aria-label="开始排盘测算" className="bg-gold-600 hover:bg-gold-500 text-dark-900 font-semibold px-6 min-h-[44px] rounded-lg text-sm transition-colors active:scale-95">开始算命</button>
+      <button onClick={doCalc} aria-label="开始排盘测算" className="bg-gold-600 hover:bg-gold-500 text-dark-900 font-semibold px-6 min-h-[44px] rounded-lg text-sm transition-colors active:scale-95">开始排盘</button>
 
       {loading && <LoadingSpinner size="md" text="命盘计算中..." />}
 

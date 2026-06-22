@@ -16,7 +16,7 @@ export default function TermsPage() {
         <section>
           <h2 className="text-lg font-semibold text-gold-300 mb-2">服务说明</h2>
           <p className="text-sm text-gray-400 leading-relaxed">
-            九宫八卦（jiugongbagua.com）提供命理测算、排盘分析等信息服务，涵盖八字算命、紫微斗数、六爻、小六壬、风水布局等 19+ 种命理工具。
+            九宫八卦（jiugongbagua.com）提供命理分析、排盘解读等信息服务，涵盖八字排盘、紫微斗数、六爻、小六壬、风水布局等 19+ 种命理工具。
             基础功能免费使用，部分高级功能（AI深度分析、详细命理报告等）需开通 VIP 会员。
           </p>
         </section>
