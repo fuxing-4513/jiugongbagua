@@ -220,7 +220,7 @@ export default function TaluoClient() {
         />
         {flipped && (
           <span
-            className={`text-[9px] font-medium ${orientation === 'upright' ? 'text-emerald-400' : 'text-rose-400'}`}
+            className={`text-[9px] font-medium ${orientation === 'upright' ? 'text-emerald-600' : 'text-rose-600'}`}
           >
             {orientation === 'upright' ? '▲ 正位' : '▼ 逆位'}
           </span>
@@ -267,7 +267,7 @@ export default function TaluoClient() {
           </div>
           {count >= 3 && (
             <div className="w-full text-center mt-2">
-              <div className="inline-flex items-center gap-1 text-[11px] text-gray-600 bg-dark-800/50 px-3 py-1 rounded-full border border-dark-600">
+              <div className="inline-flex items-center gap-1 text-[11px] text-gray-600 bg-amber-50/80 px-3 py-1 rounded-full border border-amber-200">
                 <span>↑ 你</span>
                 <span className="text-gray-600">·</span>
                 <span>对方</span>
@@ -322,7 +322,7 @@ export default function TaluoClient() {
 
             {/* Staff (cards 7-10) */}
             {count >= 7 && (
-              <div className="flex flex-wrap justify-center gap-3 mt-4 pt-4 border-t border-dark-600/50 w-full">
+              <div className="flex flex-wrap justify-center gap-3 mt-4 pt-4 border-t border-amber-100 w-full">
                 {[6, 7, 8, 9].map((i) => renderCardAtPosition(i))}
               </div>
             )}
@@ -355,7 +355,7 @@ export default function TaluoClient() {
         }`}
       >
         {/* Tab bar */}
-        <div className="flex gap-1 mb-4 bg-dark-800/80 rounded-lg p-1 border border-dark-600 max-w-md mx-auto">
+        <div className="flex gap-1 mb-4 bg-amber-50 rounded-lg p-1 border border-amber-200 max-w-md mx-auto">
           {[
             { key: 'core' as ReadingTab, label: '📖 核心含义' },
             { key: 'context' as ReadingTab, label: '💡 情景视角' },
@@ -368,7 +368,7 @@ export default function TaluoClient() {
               className={`flex-1 text-xs py-1.5 px-2 rounded-md transition-all font-medium ${
                 readingTab === tab.key
                   ? 'bg-gold-600 text-dark-950 shadow-sm'
-                  : 'text-gray-500 hover:text-gray-300 hover:bg-dark-700'
+                  : 'text-gray-500 hover:text-gray-700 hover:bg-amber-100'
               }`}
             >
               {tab.label}
@@ -386,7 +386,7 @@ export default function TaluoClient() {
               return (
                 <div
                   key={`core-${i}`}
-                  className="bg-dark-800/60 border border-dark-600/60 rounded-xl p-4"
+                  className="bg-white/80 border border-amber-200/50 rounded-xl p-4"
                   style={{
                     animation: `fadeSlideUp 0.4s ease-out ${i * 0.1}s both`,
                   }}
@@ -394,7 +394,7 @@ export default function TaluoClient() {
                   <div className="flex items-center gap-2 mb-2">
                     <span className="text-sm">{pos.icon}</span>
                     <div>
-                      <p className="text-sm font-medium text-gold-400">
+                      <p className="text-sm font-medium text-gold-700">
                         {interp.title}
                       </p>
                       <p className="text-[10px] text-gray-600">
@@ -403,17 +403,17 @@ export default function TaluoClient() {
                     </div>
                   </div>
                   <div className="space-y-2 text-sm leading-relaxed">
-                    <p className="text-gray-300">
-                      <span className="text-gold-500/80 text-[11px]">核心含义：</span>
+                    <p className="text-gray-700">
+                      <span className="text-gold-600/90 text-[11px]">核心含义：</span>
                       {interp.core}
                     </p>
-                    <p className="text-gray-400">
-                      <span className="text-jade-400/80 text-[11px]">{pos.name}方面：</span>
+                    <p className="text-gray-600">
+                      <span className="text-emerald-600/80 text-[11px]">{pos.name}方面：</span>
                       {interp.aspect}
                     </p>
-                    <div className="pt-2 border-t border-dark-600/50">
+                    <div className="pt-2 border-t border-amber-100">
                       <p className="text-gray-500 text-xs">
-                        <span className="text-gold-500/60">💡 建议：</span>
+                        <span className="text-gold-600/80">💡 建议：</span>
                         {interp.advice}
                       </p>
                     </div>
@@ -430,21 +430,21 @@ export default function TaluoClient() {
               return (
                 <div
                   key={`ctx-${i}`}
-                  className="bg-dark-800/60 border border-dark-600/60 rounded-xl p-4"
+                  className="bg-white/80 border border-amber-200/50 rounded-xl p-4"
                   style={{
                     animation: `fadeSlideUp 0.4s ease-out ${i * 0.1}s both`,
                   }}
                 >
                   <div className="flex items-center gap-2 mb-2">
                     <span className="text-sm">{pos.icon}</span>
-                    <p className="text-sm font-medium text-gold-400">
+                    <p className="text-sm font-medium text-gold-700">
                       {interp.title}
                     </p>
                   </div>
                   <div className="space-y-2 text-sm leading-relaxed">
                     {interp.contextual ? (
-                      <p className="text-gray-300">
-                        <span className="text-rose-400/80 text-[11px]">
+                      <p className="text-gray-700">
+                        <span className="text-rose-600/80 text-[11px]">
                           {pos.context === 'love'
                             ? '❤️ 感情视角：'
                             : pos.context === 'work'
@@ -460,9 +460,9 @@ export default function TaluoClient() {
                         该位置不涉及具体情景视角
                       </p>
                     )}
-                    <div className="pt-2 border-t border-dark-600/50">
+                    <div className="pt-2 border-t border-amber-100">
                       <p className="text-gray-500 text-xs">
-                        <span className="text-gold-500/60">💡 {pos.name}建议：</span>
+                        <span className="text-gold-600/80">💡 {pos.name}建议：</span>
                         {interp.advice}
                       </p>
                     </div>
@@ -472,8 +472,8 @@ export default function TaluoClient() {
             })}
 
           {readingTab === 'overview' && (
-            <div className="bg-dark-800/60 border border-dark-600/60 rounded-xl p-5">
-              <p className="text-[11px] text-gold-500/70 mb-3 tracking-wider uppercase">
+            <div className="bg-white/80 border border-amber-200/50 rounded-xl p-5">
+              <p className="text-[11px] text-gold-600/80 mb-3 tracking-wider uppercase">
                 {spread?.name} · 全部牌面
               </p>
               <div className="space-y-3">
@@ -484,13 +484,13 @@ export default function TaluoClient() {
                   return (
                     <div
                       key={`ov-${i}`}
-                      className="flex items-start gap-3 pb-3 border-b border-dark-600/40 last:border-0"
+                      className="flex items-start gap-3 pb-3 border-b border-amber-200/40 last:border-0"
                     >
                       <span className="text-lg mt-0.5 shrink-0">{pos.icon}</span>
                       <div className="min-w-0 flex-1">
-                        <p className="text-sm font-medium text-gold-400">
+                        <p className="text-sm font-medium text-gold-700">
                           {drawn.card.name.zh}
-                          <span className={`text-[10px] ml-1.5 ${isUp ? 'text-emerald-400' : 'text-rose-400'}`}>
+                          <span className={`text-[10px] ml-1.5 ${isUp ? 'text-emerald-600' : 'text-rose-600'}`}>
                             {isUp ? '▲正位' : '▼逆位'}
                           </span>
                         </p>
@@ -498,7 +498,7 @@ export default function TaluoClient() {
                           {pos.name}
                           {drawn.card.arcana === 'major' ? ' · 大阿卡纳' : ` · ${drawn.card.suit}`}
                         </p>
-                        <p className="text-xs text-gray-400 mt-1 leading-relaxed">
+                        <p className="text-xs text-gray-600 mt-1 leading-relaxed">
                           {drawn.card.meaning[isUp ? 'upright' : 'reversed'].zh}
                         </p>
                       </div>
@@ -521,10 +521,10 @@ export default function TaluoClient() {
     <div ref={containerRef} className="max-w-4xl mx-auto px-4 py-10">
       {/* Header */}
       <div className="text-center mb-8">
-        <h1 className="text-3xl font-bold text-gold-400 font-serif mb-2">
+        <h1 className="text-3xl font-bold text-gold-700 font-serif mb-2">
           塔罗牌
         </h1>
-        <p className="text-sm text-gray-500 max-w-lg mx-auto">
+        <p className="text-sm text-gray-600 max-w-lg mx-auto">
           基于韦特塔罗78张完整牌库，多牌阵深度解读
         </p>
       </div>
@@ -533,7 +533,7 @@ export default function TaluoClient() {
       {phase === 'menu' && (
         <div className="space-y-6">
           {/* Description */}
-          <p className="text-sm text-gray-400 text-center">
+          <p className="text-sm text-gray-500 text-center">
             选择一个牌阵，开始你的解读之旅
           </p>
 
@@ -544,29 +544,29 @@ export default function TaluoClient() {
                 key={spr.id}
                 type="button"
                 onClick={() => startReading(spr.id)}
-                className="group bg-dark-800/60 border border-dark-600/60 rounded-2xl p-6 text-left hover:border-gold-500/40 hover:bg-dark-800/80 transition-all hover:shadow-lg hover:shadow-gold-900/10 active:scale-[0.98] min-h-[220px] flex flex-col justify-between"
+                className="group bg-amber-50/80 border border-amber-200/50 rounded-2xl p-5 text-left hover:border-gold-400/60 hover:bg-amber-50 transition-all hover:shadow-md hover:shadow-gold-200/30 active:scale-[0.98] min-h-[200px] flex flex-col justify-between"
               >
                 <div>
                   <div className="flex items-center gap-3 mb-3">
-                    <div className="w-10 h-10 rounded-full bg-dark-700 flex items-center justify-center text-lg">
+                    <div className="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center text-lg shrink-0">
                       {SPREAD_ICONS[spr.id] || '🃏'}
                     </div>
-                    <div>
-                      <h3 className="text-base font-bold text-gold-400">
+                    <div className="min-w-0">
+                      <h3 className="text-base font-bold text-gold-700 truncate">
                         {spr.name}
                       </h3>
-                      <p className="text-[10px] text-gray-600">{spr.descriptionShort}</p>
+                      <p className="text-[10px] text-gray-500 truncate">{spr.descriptionShort}</p>
                     </div>
                   </div>
-                  <p className="text-xs text-gray-500 leading-relaxed line-clamp-2">
+                  <p className="text-xs text-gray-600 leading-relaxed line-clamp-2">
                     {spr.description}
                   </p>
                 </div>
-                <div className="flex items-center gap-1.5 mt-auto">
+                <div className="flex flex-wrap items-center gap-1.5 mt-3">
                   {spr.positions.map((p) => (
                     <span
                       key={p.key}
-                      className="text-[9px] text-gray-600 bg-dark-700/50 px-1.5 py-0.5 rounded"
+                      className="text-[10px] text-gray-600 bg-amber-100/70 px-2 py-0.5 rounded whitespace-nowrap"
                     >
                       {p.icon}{p.name}
                     </span>
@@ -609,7 +609,7 @@ export default function TaluoClient() {
       {/* ───── PLACING PHASE ───── */}
       {phase === 'placing' && (
         <div className="flex flex-col items-center gap-4 min-h-[300px] pt-8">
-          <p className="text-sm text-gold-500/70 animate-pulse mb-2">
+          <p className="text-sm text-gold-600/80 animate-pulse mb-2">
             ✨ 牌已就位……
           </p>
           {renderSpreadLayout()}
@@ -621,7 +621,7 @@ export default function TaluoClient() {
         <div className="space-y-6">
           {/* Current spread name */}
           <div className="text-center">
-            <p className="text-[10px] uppercase tracking-[0.15em] text-gold-500/60 mb-1">
+            <p className="text-[10px] uppercase tracking-[0.15em] text-gold-600/80 mb-1">
               {spread?.name}
             </p>
             <div className="flex items-center justify-center gap-1.5 text-[11px] text-gray-600">
@@ -634,7 +634,7 @@ export default function TaluoClient() {
           </div>
 
           {/* Card layout */}
-          <div className="bg-dark-900/40 border border-dark-600/40 rounded-2xl p-6 sm:p-8">
+          <div className="bg-white/60 border border-amber-200/40 rounded-2xl p-6 sm:p-8">
             {renderSpreadLayout()}
 
             {/* Flip hint (only show if some cards aren't flipped yet) */}
@@ -662,7 +662,7 @@ export default function TaluoClient() {
             <button
               type="button"
               onClick={resetToMenu}
-              className="text-xs text-gray-500 hover:text-gray-300 underline underline-offset-2 transition-colors"
+              className="text-xs text-gray-500 hover:text-gray-700 underline underline-offset-2 transition-colors"
             >
               返回选择牌阵
             </button>
