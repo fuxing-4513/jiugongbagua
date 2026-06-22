@@ -6,7 +6,8 @@ import dynamic from 'next/dynamic'
 import { Solar, Lunar } from 'lunar-typescript'
 import CalendarInput, { type CalendarType } from '@/components/CalendarInput'
 import { saveChart } from '@/lib/collections'
-import { calcTrueSolarHour } from '@/lib/solar-time'
+import { calcTrueSolarHour, calcTrueSolarTime } from '@/lib/solar-time'
+import { enrichBazi, type EnrichResult } from '@/lib/bazi-enrich'
 
 // 非首屏大组件按需加载，减小 initial bundle
 const TrueSolarTime = dynamic(() => import('@/components/TrueSolarTime'), { ssr: false })
@@ -26,6 +27,7 @@ interface BaziResult {
   dayun: { gz: string; age: number; startYear: number; years: { year: number; gz: string; age: number }[] }[]
   analysis: BaziAnalysis; currentAge: number; birthYear: number
   useTrueSolar?: boolean; trueSolarInfo?: string
+  enrich?: EnrichResult
 }
 
 interface PillarInfo {
@@ -585,6 +587,7 @@ export default function BaziClient() {
           pillarShenSha,
           mingGong: calcMingGong(tg[0], dz[1], dz[3]), shenGong: calcShenGong(tg[0], dz[1], dz[3]), taiYuan: calcTaiYuan(tg[1], dz[1]), xunKong: calcXunKong(tg[2], dz[2]),
           yearDiShi: '', monthDiShi: '', dayDiShi: '', timeDiShi: '',
+          enrich: enrichBazi({ '年':{gan:tg[0],zhi:dz[0]}, '月':{gan:tg[1],zhi:dz[1]}, '日':{gan:tg[2],zhi:dz[2]}, '时':{gan:tg[3],zhi:dz[3]} }),
           dayun: dayunArr, analysis,
           currentAge: curAge2, birthYear,
         })
@@ -675,6 +678,7 @@ export default function BaziClient() {
         dayun, analysis,
         currentAge, birthYear: solar.getYear(),
         useTrueSolar, trueSolarInfo: useTrueSolar ? `真太阳时 · 经度${longitude}°E` : '',
+        enrich: enrichBazi({ '年':{gan:pills[0].gan,zhi:pills[0].zhi}, '月':{gan:pills[1].gan,zhi:pills[1].zhi}, '日':{gan:pills[2].gan,zhi:pills[2].zhi}, '时':{gan:pills[3].gan,zhi:pills[3].zhi} }),
       })
     } catch(e){ setError('计算出错：' + ((e as {message?: string})?.message || '请检查日期是否有效')) }
   }
@@ -828,6 +832,55 @@ export default function BaziClient() {
           </table>
         </div>
       </div>
+
+      {/* 八字补层分析 — 格局/旺衰/调候/刑冲合害 */}
+      {result.enrich && (
+      <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-4 mt-4">
+        <h3 className="text-sm font-semibold text-gold-300 font-serif mb-3 text-center">八字格局补层分析</h3>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-3">
+          <div className="bg-dark-700/60 rounded-lg p-2.5 text-center">
+            <p className="text-xs text-gray-500 mb-0.5">格局</p>
+            <p className="font-bold text-gold-400 text-sm">{result.enrich.格局.primary}</p>
+          </div>
+          <div className="bg-dark-700/60 rounded-lg p-2.5 text-center">
+            <p className="text-xs text-gray-500 mb-0.5">旺衰</p>
+            <p className="font-bold text-sm" style={{color:result.enrich.旺衰.verdict.includes(&quot;身强&quot;) ? &quot;#ef4444&quot; : result.enrich.旺衰.verdict.includes(&quot;弱&quot;) ? &quot;#3b82f6&quot; : &quot;#fbbf24&quot;}}>{result.enrich.旺衰.verdict}</p>
+          </div>
+          <div className="bg-dark-700/60 rounded-lg p-2.5 text-center">
+            <p className="text-xs text-gray-500 mb-0.5">调候用神</p>
+            <p className="font-bold text-cyan-400 text-sm">{result.enrich.调候用神.join("、") || "无"}</p>
+          </div>
+          <div className="bg-dark-700/60 rounded-lg p-2.5 text-center">
+            <p className="text-xs text-gray-500 mb-0.5">五行缺</p>
+            <p className="font-bold text-red-400 text-sm">{result.enrich.五行统计.missing.join("、") || "无"}</p>
+          </div>
+        </div>
+        {result.enrich.地支关系.length > 0 && (
+        <div className="flex flex-wrap gap-2 mb-2">
+          <span className="text-xs text-gray-500">地支: </span>
+          {result.enrich.地支关系.map((r,i) => (
+            <span key={i} className="text-xs px-2 py-0.5 rounded-full bg-dark-600 text-gray-300 border border-dark-500">{r.type}({r.zhi.join("")})</span>
+          ))}
+        </div>
+        )}
+        {result.enrich.天干关系.length > 0 && (
+        <div className="flex flex-wrap gap-2 mb-2">
+          <span className="text-xs text-gray-500">天干: </span>
+          {result.enrich.天干关系.map((r,i) => (
+            <span key={i} className="text-xs px-2 py-0.5 rounded-full bg-dark-600 text-gray-300 border border-dark-500">{r.type}({r.gan.join("")})</span>
+          ))}
+        </div>
+        )}
+        {result.enrich.整柱.filter(p => p.verdict.includes("截脚") || p.verdict.includes("盖头")).length > 0 && (
+        <div className="flex flex-wrap gap-2">
+          <span className="text-xs text-gray-500">整柱: </span>
+          {result.enrich.整柱.filter(p => p.verdict.includes("截脚") || p.verdict.includes("盖头")).map((p,i) => (
+            <span key={i} className="text-xs px-2 py-0.5 rounded-full bg-orange-900/40 text-orange-300 border border-orange-800">{p.pillar}柱{p.verdict}</span>
+          ))}
+        </div>
+        )}
+      </div>
+      )}
 
       {/* 第一行：五行分布 + 命宫身宫胎元旬空 */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">

@@ -8,6 +8,7 @@ const toolCategories: { label: string; items: { key: string; href: string; emoji
   { label: '命理推算', items: [
     { key: 'modules.bazi.name', href: '/bazi', emoji: '📜' },
     { key: 'modules.ziwei.name', href: '/ziwei', emoji: '⭐' },
+    { key: 'modules.zonghe.name', href: '/zonghe-zhengming', emoji: '🔗' },
     { key: 'modules.liuyao.name', href: '/liuyao', emoji: '📊' },
     { key: 'modules.xiaoliuren.name', href: '/xiaoliuren', emoji: '🔢' },
     { key: 'modules.chenggu.name', href: '/chenggu', emoji: '⚖️' },

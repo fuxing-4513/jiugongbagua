@@ -3,6 +3,7 @@
 import { useState, useMemo, useCallback } from 'react'
 import { astro } from 'iztro'
 import { getMaxDay, lunarToSolarDate, getYearLeapMonth } from '@/components/CalendarInput'
+import { analyzeSiHua, getWuXingJuMeaning, getExtraPatterns } from '@/lib/ziwei-enrich'
 
 // ── Types ──
 type CalendarType = 'solar' | 'lunar'
@@ -391,6 +392,8 @@ export default function ZiweiClient() {
     return { ji, sha, jiList: jiList.join(' '), shaList: shaList.join(' ') }
   }, [soulPalace, palaceMap])
 
+  const wuXingJuMeaning = getWuXingJuMeaning(fiveElem)
+
   const { ji: auspCount, sha: inauspCount } = auspiciousStats
   const auspIndex = auspCount + inauspCount > 0 ? Math.round((auspCount / (auspCount + inauspCount)) * 100) : 50
   const fortuneScore = Math.round((brightnessScore + auspIndex) / 2)
@@ -401,6 +404,16 @@ export default function ZiweiClient() {
     return detectPatterns(palaces as PalaceForPattern[], bornSihua as { star: string }[])
   }, [soulPalace, palaces, bornSihua])
   const patternIndex = patterns.length > 0 ? Math.min(100, 50 + patterns.length * 15) : 50
+
+  // SiHua analysis
+  const sihuaAnalysis = (() => {
+    const list = bornSihua.map(s => ({
+      star: s.star,
+      hua: (s.label || '').replace('化', ''),
+      gong: ''
+    }));
+    return list.length > 0 ? analyzeSiHua(list) : null;
+  })()
 
   // ── Star descriptions ──
   const soulStarDescs = useMemo(() => {
@@ -645,6 +658,39 @@ export default function ZiweiClient() {
 
           {/* ── Pattern Analysis ── */}
           <div className="bg-dark-800/80 rounded-xl border border-gold-500/20 p-6">
+            {sihuaAnalysis && sihuaAnalysis.lu.star && (
+            <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-4 mb-4">
+              <h3 className="text-sm font-semibold text-gold-300 font-serif mb-3 text-center">四化深度分析</h3>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                {sihuaAnalysis.lu.star && (
+                <div className="bg-dark-700/60 rounded-lg p-2 text-center">
+                  <p className="text-xs text-gray-500">化禄</p>
+                  <p className="font-semibold text-green-400 text-sm">{sihuaAnalysis.lu.star}</p>
+                  <p className="text-xs text-gray-400 mt-0.5">{sihuaAnalysis.lu.meaning.split('，').slice(1).join('，')}</p>
+                </div>)}
+                {sihuaAnalysis.quan.star && (
+                <div className="bg-dark-700/60 rounded-lg p-2 text-center">
+                  <p className="text-xs text-gray-500">化权</p>
+                  <p className="font-semibold text-purple-400 text-sm">{sihuaAnalysis.quan.star}</p>
+                  <p className="text-xs text-gray-400 mt-0.5">{sihuaAnalysis.quan.meaning.split('，').slice(1).join('，')}</p>
+                </div>)}
+                {sihuaAnalysis.ke.star && (
+                <div className="bg-dark-700/60 rounded-lg p-2 text-center">
+                  <p className="text-xs text-gray-500">化科</p>
+                  <p className="font-semibold text-blue-400 text-sm">{sihuaAnalysis.ke.star}</p>
+                  <p className="text-xs text-gray-400 mt-0.5">{sihuaAnalysis.ke.meaning.split('，').slice(1).join('，')}</p>
+                </div>)}
+                {sihuaAnalysis.ji.star && (
+                <div className="bg-dark-700/60 rounded-lg p-2 text-center">
+                  <p className="text-xs text-gray-500">化忌</p>
+                  <p className="font-semibold text-red-400 text-sm">{sihuaAnalysis.ji.star}</p>
+                  <p className="text-xs text-gray-400 mt-0.5">{sihuaAnalysis.ji.meaning.split('，').slice(1).join('，')}</p>
+                </div>)}
+              </div>
+              <p className="text-xs text-gray-400 text-center mt-2">{sihuaAnalysis.summary}</p>
+            </div>
+            )}
+
             <h3 className="text-base font-semibold text-gold-400 font-serif mb-4">格局分析</h3>
             {patterns.length > 0 ? (
               <div className="space-y-3">

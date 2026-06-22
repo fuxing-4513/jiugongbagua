@@ -47,6 +47,7 @@ export const zhTW = {
   modules: {
     bazi: { name: '四柱八字', desc: '根據出生年月日時推算四柱命盤，解讀命運格局', source: '《滴天髓》《三命通會》', emoji: '📜' },
     ziwei: { name: '紫微斗數', desc: '紫微斗數命盤排盤，十二宮星曜分析', source: '《紫微斗數全書》', emoji: '⭐' },
+    zonghe: { name: '綜合印證', desc: '八字+紫微交叉核對，六維印證' },
     liuyao: { name: '六爻', desc: '六爻起卦預測，卦象解讀吉凶禍福', source: '《周易》《斷易天機》', emoji: '☯' },
     xiaoliuren: { name: '小六壬', desc: '小六壬掌訣快捷預測吉凶', source: '《六壬大全》', emoji: '👋', num1: '第一數（月/時）', num2: '第二數（日）', num3: '第三數（時）', resultTitle: '掌訣結果', lucky: '吉', unlucky: '凶' },
     jiemeng: { name: '周公解夢', desc: '夢境解析，探索潛意識的奧秘', source: '《周公解夢全書》', emoji: '💤' },
