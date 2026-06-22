@@ -26,9 +26,9 @@ export interface TarotCardProps {
 
 // ── Size map ──
 const SIZES = {
-  sm:  { w: 80, h: 130, fs: 10, fsEn: 8, fsEl: 8 },
-  md:  { w: 120, h: 195, fs: 12, fsEn: 9, fsEl: 9 },
-  lg:  { w: 160, h: 260, fs: 14, fsEn: 11, fsEl: 11 },
+  sm:  { w: 120, h: 195, fs: 12, fsEn: 10, fsEl: 10 },
+  md:  { w: 150, h: 243, fs: 14, fsEn: 11, fsEl: 11 },
+  lg:  { w: 190, h: 308, fs: 17, fsEn: 13, fsEl: 13 },
 } as const
 
 // ── Card back pattern SVG ──
