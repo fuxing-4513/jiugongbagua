@@ -1,13 +1,13 @@
 /**
- * bazi-yifan.ts — 易凡老师八字命理推理引擎
+ * bazi-deep.ts — 九宫八字深层推理引擎
  *
  * 基于《甲辰杭州基础班》①② 全套知识体系重构
  * 涵盖：六穿/六冲/三刑/暗合/破/自合/三合深度/六合人性/
  *       出处共根借根/旺相休囚死/干支虚实/旺点/换象/断事
  *
  * 用法：
- *   import { yifanAnalysis } from '@/lib/bazi-yifan'
- *   const result = yifanAnalysis(siZhu, birthYear, gender)
+ *   import { deepAnalysis } from '@/lib/bazi-deep'
+ *   const result = deepAnalysis(siZhu, birthYear, gender)
  */
 
 import type { PillarInfo, BaziChartResult } from './bazi-engine'
@@ -15,7 +15,7 @@ import { wxM, ssM, hA, hG } from './bazi-engine'
 
 // ── 类型定义 ──
 
-export interface YifanAnalysis {
+export interface DeepAnalysis {
   /** 日主心性 (来自日柱+周围关系) */
   riZhuXinXing: string[]
   /** 地支关系详解 */
@@ -604,13 +604,13 @@ export function analyzeSummary(pills: PillarInfo[], riGan: string, wangXiang: st
 
 // ── 主入口 ──
 
-export interface YifanInput {
+export interface DeepInput {
   pills: PillarInfo[]
   birthYear: number
   gender: string
 }
 
-export function yifanAnalysis(input: YifanInput): YifanAnalysis {
+export function deepAnalysis(input: DeepInput): DeepAnalysis {
   const { pills, birthYear, gender } = input
   if (!pills || pills.length < 4) {
     return {
@@ -657,4 +657,4 @@ export function yifanAnalysis(input: YifanInput): YifanAnalysis {
   }
 }
 
-export default yifanAnalysis
+export default deepAnalysis

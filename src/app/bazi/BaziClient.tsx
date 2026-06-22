@@ -13,9 +13,9 @@ import LoadingSpinner from '@/components/LoadingSpinner'
 import Breadcrumb from '@/components/Breadcrumb'
 import { exportAsPng } from '@/utils/export-image'
 
-// 易凡盲派分析引擎
-import { yifanAnalysis, type YifanAnalysis } from '@/lib/bazi-yifan'
-import { yifanEnhancedAnalysis, type YifanEnhancedResult } from '@/lib/bazi-yifan-enhance'
+// 九宫深层分析引擎
+import { deepAnalysis, type DeepAnalysis } from '@/lib/bazi-deep'
+import { deepEnhancedAnalysis, type DeepEnhancedResult } from '@/lib/bazi-deep-enhance'
 import { crossValidate } from '@/lib/zonghe-yinzheng'
 
 // 非首屏大组件按需加载，减小 initial bundle
@@ -497,8 +497,8 @@ export default function BaziClient() {
   const now = new Date()
   const [mode, setMode] = useState<'date'|'bazi'>('date')
   const [activeTab, setActiveTab] = useState<string>('classic')
-  const [yifanResult, setYifanResult] = useState<YifanAnalysis | null>(null)
-  const [yifanEnhance, setYifanEnhance] = useState<YifanEnhancedResult | null>(null)
+  const [deepResult, setDeepResult] = useState<DeepAnalysis | null>(null)
+  const [deepEnhance, setDeepEnhance] = useState<DeepEnhancedResult | null>(null)
   const [baziEnrichResult, setBaziEnrichResult] = useState<any>(null)
   const [cal, setCal] = useState<'solar'|'lunar'>('solar')
   const [year, setYear] = useState(String(now.getFullYear()))
@@ -607,12 +607,12 @@ export default function BaziClient() {
           dayun: dayunArr, analysis,
           currentAge: curAge2, birthYear,
         })
-        // 易凡盲派分析
+        // 九宫深层分析
         try {
-          const yf = yifanAnalysis({ pills, birthYear, gender })
-          setYifanResult(yf)
-          const yfEn = yifanEnhancedAnalysis(pills, dg, birthYear)
-          setYifanEnhance(yfEn)
+          const yf = deepAnalysis({ pills, birthYear, gender })
+          setDeepResult(yf)
+          const yfEn = deepEnhancedAnalysis(pills, dg, birthYear)
+          setDeepEnhance(yfEn)
           const siZhu3: Record<string,{gan:string;zhi:string}> = {}
           for (let i = 0; i < 4; i++) {
             const keys = ['年','月','日','时']
@@ -713,13 +713,13 @@ export default function BaziClient() {
         useTrueSolar, trueSolarInfo: useTrueSolar ? `真太阳时 · 经度${longitude}°E` : '',
         enrich: enrichBazi({ '年':{gan:pills[0].gan,zhi:pills[0].zhi}, '月':{gan:pills[1].gan,zhi:pills[1].zhi}, '日':{gan:pills[2].gan,zhi:pills[2].zhi}, '时':{gan:pills[3].gan,zhi:pills[3].zhi} }),
       })
-      // 易凡盲派分析
+      // 九宫深层分析
       try {
         const by = solar.getYear()
-        const yf = yifanAnalysis({ pills, birthYear: by, gender })
-        setYifanResult(yf)
-        const yfEn = yifanEnhancedAnalysis(pills, dg, by)
-        setYifanEnhance(yfEn)
+        const yf = deepAnalysis({ pills, birthYear: by, gender })
+        setDeepResult(yf)
+        const yfEn = deepEnhancedAnalysis(pills, dg, by)
+        setDeepEnhance(yfEn)
         const siZhu3: Record<string,{gan:string;zhi:string}> = {}
         for (let i = 0; i < 4; i++) {
           const keys = ['年','月','日','时']
@@ -850,9 +850,9 @@ export default function BaziClient() {
           className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${activeTab==='classic'?'bg-gold-600 text-dark-900':'bg-dark-700 text-gray-400 border border-dark-600 hover:border-gold-500/50'}`}>
           📜 经典分析
         </button>
-        <button onClick={()=>setActiveTab('yifan')}
-          className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${activeTab==='yifan'?'bg-gold-600 text-dark-900':'bg-dark-700 text-gray-400 border border-dark-600 hover:border-gold-500/50'}`}>
-          🔮 易凡盲派
+        <button onClick={()=>setActiveTab('deep')}
+          className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${activeTab==='deep'?'bg-gold-600 text-dark-900':'bg-dark-700 text-gray-400 border border-dark-600 hover:border-gold-500/50'}`}>
+          🔮 高人深析
         </button>
         <button onClick={()=>setActiveTab('yinzheng')}
           className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${activeTab==='yinzheng'?'bg-gold-600 text-dark-900':'bg-dark-700 text-gray-400 border border-dark-600 hover:border-gold-500/50'}`}>
@@ -1048,166 +1048,166 @@ Object.entries(result.wx).map(([w,c]): React.ReactNode =>(
 
       </>)}
 
-      {/* 易凡盲派分析内容 */}
-      {activeTab === 'yifan' && yifanResult && (<>
+      {/* 九宫深层分析内容 */}
+      {activeTab === 'deep' && deepResult && (<>
         <div className="bg-dark-800/80 rounded-xl border border-gold-500/30 p-4">
-          <h3 className="text-sm font-semibold text-gold-300 mb-3">🔮 易凡盲派八字分析</h3>
-          <p className="text-xs text-gray-500 mb-3">基于易凡老师全套盲派核心体系，涵盖六穿/六冲/三刑/暗合/破/三合/六合/出处共根/旺相休囚死/干支虚实/旺点/十神/断事</p>
+          <h3 className="text-sm font-semibold text-gold-300 mb-3">🔮 高人深析八字分析</h3>
+          <p className="text-xs text-gray-500 mb-3">涵盖六穿/六冲/三刑/暗合/破/三合/六合/出处共根/旺相休囚死/干支虚实/旺点/十神/断事</p>
           
           {/* 日主心性 */}
-          {yifanResult.riZhuXinXing.length > 0 && (
+          {deepResult.riZhuXinXing.length > 0 && (
             <div className="mb-4">
               <h4 className="text-xs font-semibold text-blue-300 mb-2">🧠 日主心性</h4>
-              {yifanResult.riZhuXinXing.map((s,i)=><p key={i} className="text-xs text-gray-300 mb-1 leading-relaxed">{s}</p>)}
+              {deepResult.riZhuXinXing.map((s,i)=><p key={i} className="text-xs text-gray-300 mb-1 leading-relaxed">{s}</p>)}
             </div>
           )}
 
           {/* 六穿分析 */}
-          {yifanResult.liuChuan.length > 0 && (
+          {deepResult.liuChuan.length > 0 && (
             <div className="mb-4">
               <h4 className="text-xs font-semibold text-red-300 mb-2">🔗 六穿分析</h4>
-              {yifanResult.liuChuan.map((s,i)=><p key={i} className="text-xs text-gray-300 mb-1 leading-relaxed">{s}</p>)}
+              {deepResult.liuChuan.map((s,i)=><p key={i} className="text-xs text-gray-300 mb-1 leading-relaxed">{s}</p>)}
             </div>
           )}
 
           {/* 六冲分析 */}
-          {yifanResult.liuChong.length > 0 && (
+          {deepResult.liuChong.length > 0 && (
             <div className="mb-4">
               <h4 className="text-xs font-semibold text-amber-300 mb-2">⚡ 六冲分析</h4>
-              {yifanResult.liuChong.map((s,i)=><p key={i} className="text-xs text-gray-300 mb-1 leading-relaxed">{s}</p>)}
+              {deepResult.liuChong.map((s,i)=><p key={i} className="text-xs text-gray-300 mb-1 leading-relaxed">{s}</p>)}
             </div>
           )}
 
           {/* 三合六合 */}
-          {yifanResult.sanHeLiuHe.length > 0 && (
+          {deepResult.sanHeLiuHe.length > 0 && (
             <div className="mb-4">
               <h4 className="text-xs font-semibold text-green-300 mb-2">🤝 三合六合</h4>
-              {yifanResult.sanHeLiuHe.map((s,i)=><p key={i} className="text-xs text-gray-300 mb-1 leading-relaxed">{s}</p>)}
+              {deepResult.sanHeLiuHe.map((s,i)=><p key={i} className="text-xs text-gray-300 mb-1 leading-relaxed">{s}</p>)}
             </div>
           )}
 
           {/* 三刑暗合破自合 */}
-          {yifanResult.xingPoAnHe.length > 0 && (
+          {deepResult.xingPoAnHe.length > 0 && (
             <div className="mb-4">
               <h4 className="text-xs font-semibold text-purple-300 mb-2">💢 三刑/暗合/破/自合</h4>
-              {yifanResult.xingPoAnHe.map((s,i)=><p key={i} className="text-xs text-gray-300 mb-1 leading-relaxed">{s}</p>)}
+              {deepResult.xingPoAnHe.map((s,i)=><p key={i} className="text-xs text-gray-300 mb-1 leading-relaxed">{s}</p>)}
             </div>
           )}
 
           {/* 出处共根借根 */}
-          {yifanResult.chuChuGongGen.length > 0 && (
+          {deepResult.chuChuGongGen.length > 0 && (
             <div className="mb-4">
               <h4 className="text-xs font-semibold text-cyan-300 mb-2">🌳 出处共根借根</h4>
-              {yifanResult.chuChuGongGen.map((s,i)=><p key={i} className="text-xs text-gray-300 mb-1 leading-relaxed">{s}</p>)}
+              {deepResult.chuChuGongGen.map((s,i)=><p key={i} className="text-xs text-gray-300 mb-1 leading-relaxed">{s}</p>)}
             </div>
           )}
 
           {/* 旺相休囚死 + 干支虚实 */}
-          {yifanResult.wangXiangXuShi.length > 0 && (
+          {deepResult.wangXiangXuShi.length > 0 && (
             <div className="mb-4">
               <h4 className="text-xs font-semibold text-yellow-300 mb-2">🌤️ 旺相休囚死 + 干支虚实</h4>
-              {yifanResult.wangXiangXuShi.map((s,i)=><p key={i} className="text-xs text-gray-300 mb-1 leading-relaxed">{s}</p>)}
+              {deepResult.wangXiangXuShi.map((s,i)=><p key={i} className="text-xs text-gray-300 mb-1 leading-relaxed">{s}</p>)}
             </div>
           )}
 
           {/* 旺点 */}
-          {yifanResult.wangDian.length > 0 && (
+          {deepResult.wangDian.length > 0 && (
             <div className="mb-4">
               <h4 className="text-xs font-semibold text-pink-300 mb-2">🎯 旺点分析</h4>
-              {yifanResult.wangDian.map((s,i)=><p key={i} className="text-xs text-gray-300 mb-1 leading-relaxed">{s}</p>)}
+              {deepResult.wangDian.map((s,i)=><p key={i} className="text-xs text-gray-300 mb-1 leading-relaxed">{s}</p>)}
             </div>
           )}
 
           {/* 十神 */}
-          {yifanResult.shiShen.length > 0 && (
+          {deepResult.shiShen.length > 0 && (
             <div className="mb-4">
               <h4 className="text-xs font-semibold text-orange-300 mb-2">📊 十神组合</h4>
-              {yifanResult.shiShen.map((s,i)=><p key={i} className="text-xs text-gray-300 mb-1 leading-relaxed">{s}</p>)}
+              {deepResult.shiShen.map((s,i)=><p key={i} className="text-xs text-gray-300 mb-1 leading-relaxed">{s}</p>)}
             </div>
           )}
 
           {/* 综合断事 */}
-          {yifanResult.zongHe.length > 0 && (
+          {deepResult.zongHe.length > 0 && (
             <div className="mb-4">
               <h4 className="text-xs font-semibold text-gold-300 mb-2">📋 综合断事</h4>
-              {yifanResult.zongHe.map((s,i)=><p key={i} className="text-xs text-gray-300 mb-1 leading-relaxed">{s}</p>)}
+              {deepResult.zongHe.map((s,i)=><p key={i} className="text-xs text-gray-300 mb-1 leading-relaxed">{s}</p>)}
             </div>
           )}
 
           {/* 命主总评 */}
           <div className="mt-4 p-3 bg-dark-700/60 rounded border border-dark-600">
             <h4 className="text-xs font-semibold text-amber-300 mb-2">📝 命主总评</h4>
-            <p className="text-xs text-gray-300 leading-relaxed">{yifanResult.summary}</p>
+            <p className="text-xs text-gray-300 leading-relaxed">{deepResult.summary}</p>
           </div>
         </div>
 
         {/* 深层次分析（来自第三份教材） */}
-        {yifanEnhance && (
+        {deepEnhance && (
           <div className="bg-dark-800/80 rounded-xl border border-blue-500/30 p-4">
-            <h3 className="text-sm font-semibold text-blue-300 mb-3">🧬 易凡深层分析</h3>
+            <h3 className="text-sm font-semibold text-blue-300 mb-3">🧬 深层补丁分析</h3>
             <p className="text-xs text-gray-500 mb-3">源自完整《盲派核心基础命理》教材（六合人性拆解/十神宫位心性/五行根基/换象/三会/比劫贵人）</p>
             
             {/* 日主根基 */}
-            {yifanEnhance.riZhuGenJi.length > 0 && (
+            {deepEnhance.riZhuGenJi.length > 0 && (
               <div className="mb-4">
                 <h4 className="text-xs font-semibold text-green-300 mb-2">🌱 日主根基</h4>
-                {yifanEnhance.riZhuGenJi.map((s,i)=><p key={i} className="text-xs text-gray-300 mb-1 leading-relaxed">{s}</p>)}
+                {deepEnhance.riZhuGenJi.map((s,i)=><p key={i} className="text-xs text-gray-300 mb-1 leading-relaxed">{s}</p>)}
               </div>
             )}
 
             {/* 六合人性拆解 */}
-            {yifanEnhance.liuHeRenXing.length > 0 && (
+            {deepEnhance.liuHeRenXing.length > 0 && (
               <div className="mb-4">
                 <h4 className="text-xs font-semibold text-red-300 mb-2">💑 六合人性拆解</h4>
-                {yifanEnhance.liuHeRenXing.map((s,i)=><p key={i} className="text-xs text-gray-300 mb-1 leading-relaxed">{s}</p>)}
+                {deepEnhance.liuHeRenXing.map((s,i)=><p key={i} className="text-xs text-gray-300 mb-1 leading-relaxed">{s}</p>)}
               </div>
             )}
 
             {/* 十神宫位心性 */}
-            {yifanEnhance.shiShenGongWei.length > 0 && (
+            {deepEnhance.shiShenGongWei.length > 0 && (
               <div className="mb-4">
                 <h4 className="text-xs font-semibold text-orange-300 mb-2">🏠 十神宫位心性</h4>
-                {yifanEnhance.shiShenGongWei.map((s,i)=><p key={i} className="text-xs text-gray-300 mb-1 leading-relaxed">{s}</p>)}
+                {deepEnhance.shiShenGongWei.map((s,i)=><p key={i} className="text-xs text-gray-300 mb-1 leading-relaxed">{s}</p>)}
               </div>
             )}
 
             {/* 三会 */}
-            {yifanEnhance.sanHui.length > 0 && (
+            {deepEnhance.sanHui.length > 0 && (
               <div className="mb-4">
                 <h4 className="text-xs font-semibold text-cyan-300 mb-2">🔰 三会分析</h4>
-                {yifanEnhance.sanHui.map((s,i)=><p key={i} className="text-xs text-gray-300 mb-1 leading-relaxed">{s}</p>)}
+                {deepEnhance.sanHui.map((s,i)=><p key={i} className="text-xs text-gray-300 mb-1 leading-relaxed">{s}</p>)}
               </div>
             )}
 
             {/* 比劫分析 */}
-            {yifanEnhance.biJie.length > 0 && (
+            {deepEnhance.biJie.length > 0 && (
               <div className="mb-4">
                 <h4 className="text-xs font-semibold text-blue-300 mb-2">👥 比劫分析</h4>
-                {yifanEnhance.biJie.map((s,i)=><p key={i} className="text-xs text-gray-300 mb-1 leading-relaxed">{s}</p>)}
+                {deepEnhance.biJie.map((s,i)=><p key={i} className="text-xs text-gray-300 mb-1 leading-relaxed">{s}</p>)}
               </div>
             )}
 
             {/* 贵人分析 */}
-            {yifanEnhance.guiRen.length > 0 && (
+            {deepEnhance.guiRen.length > 0 && (
               <div className="mb-4">
                 <h4 className="text-xs font-semibold text-gold-300 mb-2">🌟 贵人分析</h4>
-                {yifanEnhance.guiRen.map((s,i)=><p key={i} className="text-xs text-gray-300 mb-1 leading-relaxed">{s}</p>)}
+                {deepEnhance.guiRen.map((s,i)=><p key={i} className="text-xs text-gray-300 mb-1 leading-relaxed">{s}</p>)}
               </div>
             )}
 
             {/* 大运流年框架 */}
-            {yifanEnhance.daYunLiuNian.length > 0 && (
+            {deepEnhance.daYunLiuNian.length > 0 && (
               <div className="mb-4">
                 <h4 className="text-xs font-semibold text-purple-300 mb-2">📈 大运流年框架</h4>
-                {yifanEnhance.daYunLiuNian.map((s,i)=><p key={i} className="text-xs text-gray-300 mb-1 leading-relaxed">{s}</p>)}
+                {deepEnhance.daYunLiuNian.map((s,i)=><p key={i} className="text-xs text-gray-300 mb-1 leading-relaxed">{s}</p>)}
               </div>
             )}
 
             {/* 干支自合深层 */}
-            {yifanEnhance.ziHeDeep.length > 0 && (
+            {deepEnhance.ziHeDeep.length > 0 && (
               <div className="mb-4">
                 <h4 className="text-xs font-semibold text-teal-300 mb-2">🌀 干支自合深层</h4>
-                {yifanEnhance.ziHeDeep.map((s,i)=><p key={i} className="text-xs text-gray-300 mb-1 leading-relaxed">{s}</p>)}
+                {deepEnhance.ziHeDeep.map((s,i)=><p key={i} className="text-xs text-gray-300 mb-1 leading-relaxed">{s}</p>)}
               </div>
             )}
           </div>

@@ -1,11 +1,11 @@
 /**
- * bazi-yifan-enhance.ts — 易凡老师八字深层分析补丁
+ * bazi-deep-enhance.ts — 九宫八字深层分析补丁
  *
- * 源自《杨清婧弟子易凡盲派核心基础命理》2025最新版
+ * 源自九宫八字深层分析知识库
  * 补充 六合人性拆解、十神宫位心性、五行根基特性、换象、三会
  *      大运流年断事、比劫分析、贵人分析、干支自合精深
  *
- * 与 bazi-yifan.ts 配合使用，作为扩展分析模块
+ * 与 bazi-deep.ts 配合使用，作为扩展分析模块
  */
 
 import type { PillarInfo } from './bazi-engine'
@@ -414,7 +414,7 @@ export function analyzeZiHeDeep(pills: PillarInfo[]): string[] {
 }
 
 // ── 统一增强分析入口 ──
-export interface YifanEnhancedResult {
+export interface DeepEnhancedResult {
   riZhuGenJi: string[]
   liuHeRenXing: string[]
   shiShenGongWei: string[]
@@ -425,11 +425,11 @@ export interface YifanEnhancedResult {
   ziHeDeep: string[]
 }
 
-export function yifanEnhancedAnalysis(
+export function deepEnhancedAnalysis(
   pills: PillarInfo[],
   riGan: string,
   birthYear: number
-): YifanEnhancedResult {
+): DeepEnhancedResult {
   if (!pills || pills.length < 4) {
     return {
       riZhuGenJi: [], liuHeRenXing: [], shiShenGongWei: [],
@@ -449,4 +449,4 @@ export function yifanEnhancedAnalysis(
   }
 }
 
-export default yifanEnhancedAnalysis
+export default deepEnhancedAnalysis
