@@ -165,7 +165,7 @@ export default function CalendarInput({
     ? 'w-full bg-dark-700 border border-dark-600 rounded px-2 py-1.5 text-gray-200 text-xs'
     : 'w-full bg-dark-700 border border-dark-600 rounded px-3 py-2 text-gray-200 text-sm'
 
-  const labelClass = compact ? 'text-[10px] text-gray-500 block mb-0.5' : 'text-xs text-gray-400 block mb-1'
+  const labelClass = compact ? 'text-[10px] text-gray-500 block mb-0.5' : 'text-xs text-gray-600 block mb-1'
 
   return (
     <div>
@@ -250,9 +250,9 @@ export default function CalendarInput({
 
       {/* Date Summary */}
       {!compact && (
-        <div className="mt-3 bg-dark-700/60 rounded-lg px-3 py-2 text-center">
+        <div className="mt-3 bg-amber-50/80 border border-gray-200 rounded-lg px-3 py-2 text-center">
           <p className="text-[10px] text-gray-500">当前设定</p>
-          <p className="text-sm text-gold-600 font-medium">
+          <p className="text-sm text-gold-700 font-medium">
             {dateDisplay} {hourLabel}
           </p>
         </div>
