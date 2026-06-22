@@ -163,8 +163,8 @@ function FreeChartWidget() {
 
   return (
     <section className="max-w-xl mx-auto">
-      <h2 className="text-xl font-semibold text-gold-400 font-serif mb-1 text-center">🔮 立即排盘</h2>
-      <p className="text-xs text-gray-500 text-center mb-6">输入出生信息，AI 即刻为您深度批命</p>
+      <h2 className="text-xl font-semibold text-gold-600 font-serif mb-1 text-center">🔮 立即排盘</h2>
+      <p className="text-xs text-gray-600 text-center mb-6">输入出生信息，AI 即刻为您深度批命</p>
 
       <CalendarInput
         calendarType={calendarType}

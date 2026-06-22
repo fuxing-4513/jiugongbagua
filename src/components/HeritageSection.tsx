@@ -18,7 +18,7 @@ export default function HeritageSection() {
 
   return (
     <div className="max-w-4xl mx-auto">
-      <h2 className="text-2xl font-bold text-gold-400 font-serif mb-3 text-center">
+      <h2 className="text-2xl font-bold text-gold-600 font-serif mb-3 text-center">
         {getT('heritage.sectionTitle')}
       </h2>
       <p className="text-center text-gray-500 text-sm mb-8 max-w-2xl mx-auto">
@@ -31,8 +31,8 @@ export default function HeritageSection() {
             className="border border-dark-600/50 rounded-xl p-4 hover:border-jade-400/40 transition-all duration-200"
           >
             <p className="text-[10px] text-gray-500 mb-1">{s.period} · {s.school}</p>
-            <h3 className="text-base font-bold text-gold-400 font-serif">{s.name}</h3>
-            <p className="text-xs text-gold-500/60 italic mb-2">{s.work}</p>
+            <h3 className="text-base font-bold text-gold-600 font-serif">{s.name}</h3>
+            <p className="text-xs text-gray-500 italic mb-2">{s.work}</p>
             <p className="text-xs text-gray-500 leading-relaxed">{s.desc}</p>
           </div>
         ))}

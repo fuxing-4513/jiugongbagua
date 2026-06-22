@@ -29,7 +29,7 @@ export default function ClassicQuotes() {
   return (
     <div className="py-6 text-center">
       <div className="max-w-2xl mx-auto px-4">
-        <blockquote className="text-lg md:text-xl text-gold-400 font-serif transition-opacity duration-700 leading-relaxed">
+        <blockquote className="text-lg md:text-xl text-gold-600 font-serif transition-opacity duration-700 leading-relaxed">
           「{quote.text}」
         </blockquote>
         <p className="text-xs text-gray-500 mt-2">{quote.source}</p>

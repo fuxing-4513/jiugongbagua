@@ -4,7 +4,7 @@ export default function BottomCTA() {
   return (
     <section className="pb-20 pt-6">
       <div className="max-w-2xl mx-auto text-center px-4">
-        <h2 className="text-2xl md:text-3xl font-bold text-gold-400 font-serif mb-3">
+        <h2 className="text-2xl md:text-3xl font-bold text-gold-600 font-serif mb-3">
           窥见命运脉络 · 由此启程
         </h2>
         <p className="text-gray-500 mb-8">
@@ -24,7 +24,7 @@ export default function BottomCTA() {
             术语百科
           </Link>
         </div>
-        <p className="mt-4 text-xs text-gray-600">免费注册 · 一键排盘 · 无需绑卡</p>
+        <p className="mt-4 text-xs text-gray-500">免费注册 · 一键排盘 · 无需绑卡</p>
       </div>
     </section>
   );
