@@ -252,7 +252,7 @@ export default function CalendarInput({
       {!compact && (
         <div className="mt-3 bg-dark-700/60 rounded-lg px-3 py-2 text-center">
           <p className="text-[10px] text-gray-500">当前设定</p>
-          <p className="text-sm text-gold-400 font-medium">
+          <p className="text-sm text-gold-600 font-medium">
             {dateDisplay} {hourLabel}
           </p>
         </div>

@@ -98,14 +98,14 @@ export default function DayunChart({ dayun, currentAge }: Props) {
                     : `${nyColors[wx] || 'border-dark-600 bg-dark-700/50'} hover:border-gold-500/50`
                 }`}
               >
-                <div className="text-lg font-serif font-bold text-gold-300 mb-1">{dy.gz}</div>
+                <div className="text-lg font-serif font-bold text-gold-500 mb-1">{dy.gz}</div>
                 <div className="text-[10px] text-gray-500">大运</div>
-                <div className={`text-xs font-semibold mt-1 ${isCurrent ? 'text-gold-400' : 'text-gray-400'}`}>
+                <div className={`text-xs font-semibold mt-1 ${isCurrent ? 'text-gold-600' : 'text-gray-400'}`}>
                   {dy.age}~{dy.age + 9}岁
                 </div>
                 {isCurrent && (
                   <div className="mt-1.5">
-                    <span className="text-[9px] bg-gold-500/20 text-gold-400 px-1.5 py-0.5 rounded-full">
+                    <span className="text-[9px] bg-gold-500/20 text-gold-600 px-1.5 py-0.5 rounded-full">
                       ● 当前
                     </span>
                   </div>
@@ -126,7 +126,7 @@ export default function DayunChart({ dayun, currentAge }: Props) {
                           key={yIdx}
                           className={`text-center p-1 rounded border text-[10px] ${
                             isCurYear
-                              ? 'border-gold-500 bg-gold-500/15 text-gold-400 font-semibold'
+                              ? 'border-gold-500 bg-gold-500/15 text-gold-600 font-semibold'
                               : 'border-dark-600 bg-dark-800/50 text-gray-400'
                           }`}
                         >

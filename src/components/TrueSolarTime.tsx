@@ -98,7 +98,7 @@ export default function TrueSolarTime({
           <span className="text-sm text-gray-300 font-medium">真太阳时</span>
         </div>
         {enabled && selectedCity && (
-          <span className="text-xs text-gold-400">
+          <span className="text-xs text-gold-600">
             {selectedCity.name} · {longitude.toFixed(1)}°E
           </span>
         )}
@@ -123,7 +123,7 @@ export default function TrueSolarTime({
             </select>
             <button
               onClick={() => setShowCustom(!showCustom)}
-              className="text-xs text-gray-500 hover:text-gold-400 px-2 py-1.5 border border-dark-600 rounded-lg"
+              className="text-xs text-gray-500 hover:text-gold-600 px-2 py-1.5 border border-dark-600 rounded-lg"
             >
               自定义
             </button>
@@ -169,7 +169,7 @@ export default function TrueSolarTime({
                   onClick={() => { onTimezoneChange(tz.value); setShowTz(false) }}
                   className={`text-xs px-2 py-1 rounded border transition-colors ${
                     timezone === tz.value
-                      ? 'border-gold-500 bg-gold-500/20 text-gold-400'
+                      ? 'border-gold-500 bg-gold-500/20 text-gold-600'
                       : 'border-dark-600 text-gray-400 hover:border-dark-500'
                   }`}
                 >

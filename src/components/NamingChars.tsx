@@ -112,7 +112,7 @@ export default function NamingChars() {
     <div className="space-y-4">
       {/* 标题 */}
       <div className="text-center mb-4">
-        <h3 className="text-lg font-semibold text-gold-400 font-serif">📚 起名用字参考</h3>
+        <h3 className="text-lg font-semibold text-gold-600 font-serif">📚 起名用字参考</h3>
         <p className="text-xs text-gray-500 mt-1">
           数据来源：康熙字典 · 点击查看详细解释
           {detailData && <span className="text-green-500 ml-1">● 详情已加载</span>}
@@ -173,7 +173,7 @@ export default function NamingChars() {
             <button key={s} onClick={() => setActiveStroke(activeStroke === s ? null : s)}
               className={`px-2 py-0.5 text-[10px] rounded border transition-all ${
                 activeStroke === s
-                  ? 'border-gold-500 bg-gold-500/20 text-gold-400'
+                  ? 'border-gold-500 bg-gold-500/20 text-gold-600'
                   : 'border-dark-600 text-gray-500 hover:border-dark-500 hover:text-gray-400'
               }`}
             >
@@ -247,7 +247,7 @@ export default function NamingChars() {
 
             {/* 大字显示 */}
             <div className="text-center mb-4">
-              <span className="text-5xl font-serif text-gold-400">{selectedZi.zi}</span>
+              <span className="text-5xl font-serif text-gold-600">{selectedZi.zi}</span>
               {selectedZi.pinyin && (
                 <p className="text-sm text-gray-400 mt-1">{selectedZi.pinyin}</p>
               )}
@@ -318,13 +318,13 @@ export default function NamingChars() {
                   {selectedZi.tuijiandu && (
                     <div className="flex items-center gap-1.5">
                       <span className="text-[10px] text-gray-500">推荐度</span>
-                      <span className="text-sm font-semibold text-gold-400">{selectedZi.tuijiandu}</span>
+                      <span className="text-sm font-semibold text-gold-600">{selectedZi.tuijiandu}</span>
                     </div>
                   )}
                   {selectedZi.wenhuaYinxiang && (
                     <div className="flex items-center gap-1.5">
                       <span className="text-[10px] text-gray-500">文化印象</span>
-                      <span className="text-sm font-semibold text-gold-400">{selectedZi.wenhuaYinxiang}</span>
+                      <span className="text-sm font-semibold text-gold-600">{selectedZi.wenhuaYinxiang}</span>
                     </div>
                   )}
                   {selectedZi.zixingNum != null && (
@@ -367,7 +367,7 @@ export default function NamingChars() {
               <a
                 href={`https://www.kangxizidian.com.cn/hanzi/${encodeURIComponent(selectedZi.zi)}.html`}
                 target="_blank" rel="noopener noreferrer"
-                className="text-[10px] text-gray-500 hover:text-gold-400 transition-colors"
+                className="text-[10px] text-gray-500 hover:text-gold-600 transition-colors"
               >
                 数据来源：康熙字典
               </a>
