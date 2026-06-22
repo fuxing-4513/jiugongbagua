@@ -1,521 +1,664 @@
 'use client'
 
-import { useState, useCallback, useRef, useEffect } from 'react'
-import { useLocale } from '@/lib/i18n'
+import { useState, useCallback, useEffect, useRef } from 'react'
+import TarotCard from '@/components/TarotCard'
 import {
-  ALL_CARDS, calcLean, interpretLean, LEAN_DESCRIPTIONS,
-  QUESTION_GUIDES, TarotCard
-} from '@/lib/tarot-data'
-import ShareResult from '@/components/ShareResult'
+  SPREADS,
+  SPREAD_LIST,
+  drawForSpread,
+  interpretCard,
+} from '@/lib/tarot-engine'
+import type { DrawnCard } from '@cometpisces/tarot-kit'
 
-function tk(key: string, lang: Record<string, unknown>): string {
-  const keys = key.split('.')
-  let v: unknown = lang
-  for (const k of keys) {
-    if (typeof v !== 'object' || v === null) return key
-    v = (v as Record<string, unknown>)[k]
-  }
-  return typeof v === 'string' ? v : key
-}
+// ── Types ──
+type Phase = 'menu' | 'shuffling' | 'placing' | 'reading'
+type ReadingTab = 'core' | 'context' | 'overview'
 
-type Mode = 'select' | 'three' | 'yesno'
-type ThreePhase = 'shuffle' | 'shuffling' | 'picking' | 'reading'
-type YesNoPhase = 'input' | 'shuffling' | 'showing' | 'reading'
-
-const POSITIONS = [
-  { key: 'past', label: '过去', desc: '是什么塑造了当下', icon: '🌘' },
-  { key: 'now', label: '现在', desc: '你此刻的真实处境', icon: '🌕' },
-  { key: 'future', label: '未来', desc: '趋势与可能走向', icon: '🌖' },
+// ── Shuffle texts ──
+const SHUFFLE_TEXTS = [
+  '集中精神，默念你的问题……',
+  '牌在手中翻飞，能量在流转……',
+  '聆听你内心深处的声音……',
+  '让直觉引导你……',
+  '塔罗的能量正在聚合……',
 ]
 
-interface DrawnCard {
-  card: TarotCard
-  position?: string
-  positionIcon?: string
+// ── Inline keyframes (injected via style jsx) ──
+const KEYFRAMES = `
+@keyframes tarotCardEnter {
+  from { opacity: 0; transform: translateY(30px) scale(0.9); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
 }
-
-const SHUFFLE_TEXTS = ['集中精神，默念你的问题……', '牌在手中翻飞，能量在流转……', '聆听内心的声音……']
-
-// 牌面展示（组件外定义）
-function CardFace({ card, reversed, small }: { card: TarotCard; reversed?: boolean; small?: boolean }) {
-  const w = small ? 64 : 76
-  const h = small ? 107 : 127
-  const reversed_ = reversed ?? false
-  return (
-    <div className={`bg-dark-700 border-2 ${reversed_ ? 'border-rose-500/40' : 'border-gold-500/40'} rounded-lg shadow-lg flex flex-col overflow-hidden`}
-      style={{ width: w, height: h }}>
-      <p className={`text-[${small ? 8 : 9}px] font-semibold text-gold-400 text-center leading-tight px-0.5 pt-0.5`}>{card.name}</p>
-      <p className={`text-[${small ? 7 : 8}px] text-gray-600 text-center truncate px-0.5`}>{card.nameEn}</p>
-      <p className={`text-[${small ? 7 : 8}px] text-center mt-auto ${reversed_ ? 'text-rose-400' : 'text-emerald-400'} font-medium`}>
-        {reversed_ ? '逆位' : '正位'}
-      </p>
-      <p className={`text-[${small ? 6 : 7}px] text-gray-500 text-center pb-0.5`}>{card.element}</p>
-    </div>
-  )
+@keyframes shuffleFloat {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-20px) rotate(-3deg); }
+  50% { transform: translateY(5px) rotate(2deg); }
+  75% { transform: translateY(-10px) rotate(-1deg); }
 }
-
-// 牌背图片（组件外定义）
-function CardBack({ onClick, label, disabled }: {
-  onClick?: () => void; label?: string; disabled?: boolean
-}) {
-  return (
-    <button type="button" onClick={disabled ? undefined : onClick}
-      aria-label={label || '牌'}
-      disabled={disabled}
-      className={`relative w-[76px] h-[127px] rounded-lg bg-gradient-to-br from-gold-700 to-dark-800 border border-gold-600/60 shadow-lg shadow-black/40 flex items-center justify-center transition-all duration-300
-        ${!disabled && onClick ? 'cursor-pointer hover:border-gold-400 hover:scale-105 hover:shadow-gold-900/40' : 'cursor-default'}
-        ${disabled ? 'opacity-40' : ''}
-        active:scale-95`}>
-      <span className="text-3xl opacity-60">🃏</span>
-      {label && <span className="absolute -bottom-5 text-[9px] text-gray-500 whitespace-nowrap">{label}</span>}
-    </button>
-  )
+@keyframes spreadCardEnter {
+  from { opacity: 0; transform: translateY(-40px) scale(0.6); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
 }
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 8px rgba(168, 136, 45, 0.2); }
+  50% { box-shadow: 0 0 20px rgba(168, 136, 45, 0.4); }
+}
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+`
 
+// ── Component ──
 export default function TaluoClient() {
-  const { t } = useLocale()
-  const lang = t as unknown as Record<string, unknown>
-  const [mode, setMode] = useState<Mode>('select')
-
-  // 三牌状态
-  const [threePhase, setThreePhase] = useState<ThreePhase>('shuffle')
+  const [phase, setPhase] = useState<Phase>('menu')
+  const [selectedSpread, setSelectedSpread] = useState<string>('three')
+  const [drawnCards, setDrawnCards] = useState<DrawnCard[]>([])
   const [shuffleText, setShuffleText] = useState('')
-  const [isShuffling, setIsShuffling] = useState(false)
-  const [selectedPos, setSelectedPos] = useState(0)
-  const [fanCards] = useState(() => ALL_CARDS.sort(() => Math.random() - 0.5).slice(0, 24))
-  const [picked, setPicked] = useState<DrawnCard[]>([])
-  const [showReading, setShowReading] = useState(false)
-  const [flippedCard, setFlippedCard] = useState<number | null>(null)
-  const [flyingCard, setFlyingCard] = useState<{ card: TarotCard; from: number; to: number } | null>(null)
-  const [fanOffsets] = useState(() => Array.from({ length: 24 }, () => Math.random() * 10))
+  const [showInterpretation, setShowInterpretation] = useState(false)
+  const [readingTab, setReadingTab] = useState<ReadingTab>('core')
+  const [flippedIndices, setFlippedIndices] = useState<Set<number>>(new Set())
+  const [visibleInterpretation, setVisibleInterpretation] = useState(false)
 
-  // Yes/No 状态
-  const [ynQuestion, setYnQuestion] = useState('')
-  const [ynPhase, setYnPhase] = useState<YesNoPhase>('input')
-  const [ynCard, setYnCard] = useState<DrawnCard | null>(null)
-  const [ynFlipped, setYnFlipped] = useState(false)
-  const [ynReversed, setYnReversed] = useState(false)
+  const shufflerRef = useRef<ReturnType<typeof setInterval> | null>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
 
-  const shuffler = useRef<ReturnType<typeof setInterval>>(undefined)
-
-  useEffect(() => () => { if (shuffler.current) clearInterval(shuffler.current) }, [])
-
-  // ===== 三牌 =====
-
-  const startThreeShuffle = useCallback(() => {
-    if (isShuffling) return
-    setIsShuffling(true)
-    setThreePhase('shuffling')
-    setShowReading(false)
-    setSelectedPos(0)
-    setPicked([])
-    setFlippedCard(null)
-    setFlyingCard(null)
-
-    let idx = 0
-    setShuffleText(SHUFFLE_TEXTS[0])
-    shuffler.current = setInterval(() => {
-      idx = (idx + 1) % SHUFFLE_TEXTS.length
-      setShuffleText(SHUFFLE_TEXTS[idx])
-    }, 800)
-
-    setTimeout(() => {
-      if (shuffler.current) clearInterval(shuffler.current)
-      setIsShuffling(false)
-      setThreePhase('picking')
-    }, 2500)
-  }, [isShuffling])
-
-  const pickCard = useCallback((cardIdx: number) => {
-    if (threePhase !== 'picking' || selectedPos >= 3) return
-    const card = fanCards[cardIdx]
-    if (picked.find(p => p.card.id === card.id)) return
-
-    const pos = POSITIONS[selectedPos]
-    const newPick: DrawnCard = { card, position: pos.label, positionIcon: pos.icon }
-    const newPicked = [...picked, newPick]
-    setPicked(newPicked)
-    setFlyingCard({ card, from: cardIdx, to: selectedPos })
-
-    setTimeout(() => {
-      setFlyingCard(null)
-      setSelectedPos(prev => prev + 1)
-      if (newPicked.length >= 3) {
-        setTimeout(() => { setThreePhase('reading'); setShowReading(true) }, 400)
-      }
-    }, 500)
-  }, [threePhase, selectedPos, fanCards, picked])
-
-  const resetThree = useCallback(() => {
-    setIsShuffling(false)
-    setThreePhase('shuffle')
-    setSelectedPos(0)
-    setPicked([])
-    setFlippedCard(null)
-    setShowReading(false)
-    setFlyingCard(null)
+  // Cleanup interval on unmount
+  useEffect(() => {
+    return () => {
+      if (shufflerRef.current) clearInterval(shufflerRef.current)
+    }
   }, [])
 
-  // ===== Yes/No =====
+  // ── Start shuffle → place → read flow ──
+  const startReading = useCallback(
+    (spreadId: string) => {
+      setSelectedSpread(spreadId)
+      setPhase('shuffling')
+      setShowInterpretation(false)
+      setFlippedIndices(new Set())
+      setVisibleInterpretation(false)
+      setReadingTab('core')
 
-  const startYnDraw = useCallback(() => {
-    if (!ynQuestion.trim()) return
-    setYnPhase('shuffling')
-    setYnFlipped(false)
-    setYnCard(null)
+      // Draw cards now (server-safe; data is loaded at build)
+      const cards = drawForSpread(spreadId)
+      setDrawnCards(cards)
 
-    setTimeout(() => {
-      const pickIdx = Math.floor(Math.random() * ALL_CARDS.length)
-      const card = ALL_CARDS[pickIdx]
-      setYnReversed(Math.random() < 0.4)
-      setYnCard({ card, position: '你的答案', positionIcon: '🔮' })
+      // Start shuffle text rotation
+      let idx = 0
+      setShuffleText(SHUFFLE_TEXTS[0])
+      shufflerRef.current = setInterval(() => {
+        idx = (idx + 1) % SHUFFLE_TEXTS.length
+        setShuffleText(SHUFFLE_TEXTS[idx])
+      }, 700)
 
+      // After 2.5s → placing phase
       setTimeout(() => {
-        setYnFlipped(true)
-        setTimeout(() => setYnPhase('reading'), 500)
-      }, 600)
-    }, 2000)
-  }, [ynQuestion])
+        if (shufflerRef.current) clearInterval(shufflerRef.current)
+        setPhase('placing')
 
-  const resetYn = useCallback(() => {
-    setYnPhase('input')
-    setYnCard(null)
-    setYnFlipped(false)
+        // After 1.2s for cards to animate in → reading phase
+        setTimeout(() => {
+          setPhase('reading')
+          // Auto-flip cards one by one with staggered delay
+          const count = cards.length
+          for (let i = 0; i < count; i++) {
+            const delay = 400 + i * 500
+            setTimeout(() => {
+              setFlippedIndices((prev) => new Set(prev).add(i))
+              // When last card is flipped, show interpretation
+              if (i === count - 1) {
+                setTimeout(() => {
+                  setShowInterpretation(true)
+                  setTimeout(() => setVisibleInterpretation(true), 100)
+                }, 800)
+              }
+            }, delay)
+          }
+        }, 1200)
+      }, 2500)
+    },
+    [],
+  )
+
+  // ── Reset to menu ──
+  const resetToMenu = useCallback(() => {
+    if (shufflerRef.current) clearInterval(shufflerRef.current)
+    setPhase('menu')
+    setDrawnCards([])
+    setShowInterpretation(false)
+    setFlippedIndices(new Set())
+    setVisibleInterpretation(false)
   }, [])
 
-  // ===== 渲染 =====
+  // ── Restart same spread ──
+  const restartSpread = useCallback(() => {
+    if (shufflerRef.current) clearInterval(shufflerRef.current)
+    startReading(selectedSpread)
+  }, [selectedSpread, startReading])
 
-  // 牌扇角度计算
-  const FAN_COUNT = 22
-  const FAN_ANGLE_RANGE = 100
-  const getCardAngle = (i: number) => -FAN_ANGLE_RANGE / 2 + (i / (FAN_COUNT - 1)) * FAN_ANGLE_RANGE
+  // ── Toggle individual card flip ──
+  const toggleCardFlip = useCallback(
+    (index: number) => {
+      setFlippedIndices((prev) => {
+        const next = new Set(prev)
+        if (next.has(index)) {
+          next.delete(index)
+        } else {
+          next.add(index)
+        }
+        return next
+      })
+    },
+    [],
+  )
 
-  return (
-    <div className="max-w-4xl mx-auto px-4 py-10">
-      <h1 className="text-3xl font-bold text-gold-400 font-serif mb-2">{tk('modules.taluo.name', lang)}</h1>
-      <p className="text-gray-400 mb-8">{tk('modules.taluo.desc', lang)}</p>
+  // ── Get spread object ──
+  const spread = SPREADS[selectedSpread]
+  const positions = spread?.positions ?? []
 
-      {/* ====== 模式选择 ====== */}
-      {mode === 'select' && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <button onClick={() => setMode('three')}
-            className="group bg-dark-800/80 border border-dark-600 rounded-2xl p-8 text-left hover:border-gold-500/50 transition-all hover:shadow-lg hover:shadow-gold-900/10">
-            <span className="text-4xl mb-3 block">🌘</span>
-            <h2 className="text-lg font-bold text-gold-400 mb-2">基础三牌塔罗</h2>
-            <p className="text-sm text-gray-400 leading-relaxed">经典的「过去–现在–未来」三牌牌阵。洗牌、抽牌、翻牌——让仪式感不止是文字，而是你亲手完成的过程。</p>
-            <p className="text-xs text-gray-500 mt-3">· 仅正位，解读更干净 · 亲手从牌扇中抽牌</p>
-          </button>
-          <button onClick={() => setMode('yesno')}
-            className="group bg-dark-800/80 border border-dark-600 rounded-2xl p-8 text-left hover:border-gold-500/50 transition-all hover:shadow-lg hover:shadow-gold-900/10">
-            <span className="text-4xl mb-3 block">🔮</span>
-            <h2 className="text-lg font-bold text-gold-400 mb-2">Yes / No 塔罗</h2>
-            <p className="text-sm text-gray-400 leading-relaxed">一张牌自动抽取，快速获得清晰方向。适合需要一个干脆的提示时。</p>
-            <p className="text-xs text-gray-500 mt-3">· 完整78张含逆位 · 倾向分0–100 + 具体建议</p>
-          </button>
-        </div>
-      )}
+  // =============================================
+  // RENDER HELPERS
+  // =============================================
 
-      {/* ====== 三牌占卜 ====== */}
-      {mode === 'three' && (
-        <>
-          <div className="text-center mb-6">
-            <p className="text-xs uppercase tracking-widest text-gold-500/70">三牌牌阵</p>
-            <div className="mt-2 mb-1">
-              <span className="text-xs text-gray-500">
-                {threePhase === 'shuffle' && '轻触牌堆开始洗牌'}
-                {threePhase === 'shuffling' && '洗牌中……'}
-                {threePhase === 'picking' && `请选第 ${selectedPos + 1} 张牌 — ${POSITIONS[selectedPos].icon} ${POSITIONS[selectedPos].label}`}
-                {threePhase === 'reading' && '🌘 翻牌查看解读'}
-              </span>
+  /** Render card with its spread layout position */
+  const renderCardAtPosition = (index: number, extraClassName = '') => {
+    const drawn = drawnCards[index]
+    const pos = positions[index]
+    if (!drawn) return null
+
+    const flipped = flippedIndices.has(index)
+    const card = drawn.card
+    const orientation = drawn.orientation
+
+    return (
+      <div
+        key={`card-${index}`}
+        className={`inline-flex flex-col items-center gap-1.5 ${extraClassName}`}
+        style={{
+          animation:
+            phase === 'placing'
+              ? `spreadCardEnter 0.5s ease-out ${index * 0.15}s both`
+              : undefined,
+        }}
+      >
+        <TarotCard
+          card={{
+            name: card.name.zh,
+            nameEn: card.name.en,
+            element:
+              card.arcana === 'major'
+                ? '大阿卡纳'
+                : (card.suit === 'wands'
+                    ? '权杖'
+                    : card.suit === 'cups'
+                      ? '圣杯'
+                      : card.suit === 'swords'
+                        ? '宝剑'
+                        : '星币'),
+          }}
+          flipped={flipped}
+          size={drawnCards.length > 5 ? 'sm' : drawnCards.length > 3 ? 'sm' : 'md'}
+          onClick={() => toggleCardFlip(index)}
+          positionLabel={
+            <span>
+              {pos.icon} {pos.name}
+            </span>
+          }
+          enterDelay={0}
+        />
+        {flipped && (
+          <span
+            className={`text-[9px] font-medium ${orientation === 'upright' ? 'text-emerald-400' : 'text-rose-400'}`}
+          >
+            {orientation === 'upright' ? '▲ 正位' : '▼ 逆位'}
+          </span>
+        )}
+      </div>
+    )
+  }
+
+  /** Render the spread layout */
+  const renderSpreadLayout = () => {
+    if (phase === 'menu') return null
+    const count = drawnCards.length
+
+    // Common wrapper
+    const Wrapper = ({ children }: { children: React.ReactNode }) => (
+      <div className="relative flex flex-wrap items-center justify-center gap-4 sm:gap-6 my-8 min-h-[260px]">
+        {children}
+      </div>
+    )
+
+    if (selectedSpread === 'daily') {
+      return (
+        <Wrapper>
+          <div className="flex justify-center w-full">
+            {renderCardAtPosition(0)}
+          </div>
+        </Wrapper>
+      )
+    }
+
+    if (selectedSpread === 'three') {
+      return (
+        <Wrapper>
+          {[0, 1, 2].map((i) => renderCardAtPosition(i))}
+        </Wrapper>
+      )
+    }
+
+    if (selectedSpread === 'relationship') {
+      return (
+        <Wrapper>
+          <div className="flex flex-wrap justify-center gap-4 sm:gap-6 w-full max-w-lg">
+            {[0, 1, 2, 3, 4].map((i) => renderCardAtPosition(i))}
+          </div>
+          {count >= 3 && (
+            <div className="w-full text-center mt-2">
+              <div className="inline-flex items-center gap-1 text-[11px] text-gray-600 bg-dark-800/50 px-3 py-1 rounded-full border border-dark-600">
+                <span>↑ 你</span>
+                <span className="text-gray-600">·</span>
+                <span>对方</span>
+                <span className="text-gray-600">·</span>
+                <span>你们之间</span>
+                <span className="text-gray-600">·</span>
+                <span>障碍</span>
+                <span className="text-gray-600">·</span>
+                <span>发展</span>
+              </div>
             </div>
-            {threePhase === 'shuffle' && (
-              <div className="max-w-md mx-auto">
-                <p className="text-sm text-gray-400">明确并专注于心中的问题</p>
-                <p className="text-xs text-gray-600 mt-1">先深呼吸一次，把问题想清楚。准备好后开始洗牌——然后为过去、现在、未来各抽一张牌。</p>
+          )}
+        </Wrapper>
+      )
+    }
+
+    if (selectedSpread === 'career') {
+      return (
+        <Wrapper>
+          {[0, 1, 2, 3, 4].map((i) => renderCardAtPosition(i))}
+        </Wrapper>
+      )
+    }
+
+    if (selectedSpread === 'celtic') {
+      // Celtic cross: cross + staff arrangement
+      return (
+        <Wrapper>
+          <div className="relative flex flex-col items-center gap-2 w-full max-w-md">
+            {/* Cross (top 6 cards in cross formation) */}
+            <div className="flex items-center justify-center gap-2 sm:gap-3 mb-2">
+              {/* Card 4 (past) - left */}
+              <div className="opacity-80 transform -translate-x-2">{renderCardAtPosition(3, 'scale-90')}</div>
+              {/* Card 1 + 2 (center cross) */}
+              <div className="relative">
+                {renderCardAtPosition(0)}
+                {count > 1 && (
+                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
+                    <div className="scale-75 opacity-60">{renderCardAtPosition(1)}</div>
+                  </div>
+                )}
+              </div>
+              {/* Card 6 (future) - right */}
+              <div className="opacity-80 transform translate-x-2">{renderCardAtPosition(5, 'scale-90')}</div>
+            </div>
+            {/* Card 3 (below) + Card 5 (above) */}
+            <div className="flex items-center justify-center gap-6">
+              <div className="opacity-80">{renderCardAtPosition(2, 'scale-90')}</div>
+              <span className="text-[9px] text-gray-600">↑</span>
+              <div className="opacity-80">{renderCardAtPosition(4, 'scale-90')}</div>
+            </div>
+
+            {/* Staff (cards 7-10) */}
+            {count >= 7 && (
+              <div className="flex flex-wrap justify-center gap-3 mt-4 pt-4 border-t border-dark-600/50 w-full">
+                {[6, 7, 8, 9].map((i) => renderCardAtPosition(i))}
               </div>
             )}
           </div>
+          <div className="w-full text-center mt-1">
+            <span className="text-[10px] text-gray-600">①现状 ②辅助 ③根源 ④过去 ⑤最佳 ⑥未来 ⑦态度 ⑧环境 ⑨希望 ⑩结果</span>
+          </div>
+        </Wrapper>
+      )
+    }
 
-          {/* 牌扇区域 */}
-          {threePhase !== 'reading' && (
-            <div className="relative flex justify-center items-end h-[350px] mb-8 overflow-hidden">
-              <div className="relative" style={{ width: 160, height: 300, transformOrigin: 'bottom center' }}>
-                {fanCards.slice(0, FAN_COUNT).map((card, i) => {
-                  const angle = getCardAngle(i)
-                  const isPicked = picked.findIndex(p => p.card.id === card.id) >= 0
-                  const flying = flyingCard?.from === i
+    // Fallback: horizontal row
+    return (
+      <Wrapper>
+        {Array.from({ length: count }, (_, i) => renderCardAtPosition(i))}
+      </Wrapper>
+    )
+  }
 
-                  return (
-                    <button key={card.id} type="button" disabled={isPicked || isShuffling}
-                      onClick={() => {
-                        if (threePhase === 'shuffle') startThreeShuffle()
-                        else if (threePhase === 'picking') pickCard(i)
-                      }}
-                      className={`absolute bottom-0 left-1/2 transition-all duration-500 ${isShuffling ? 'animate-shuffleCard' : ''}`}
-                      style={{
-                        transform: isShuffling
-                          ? `translateX(-50%) rotate(${angle * 0.5}deg) translateY(${(fanOffsets[i] || 0)}px)`
-                          : isPicked
-                            ? `translateX(-50%) rotate(0deg) translateY(-200px) scale(0.5)`
-                            : flying
-                              ? `translateX(-50%) rotate(0deg) translateY(-150px) scale(0.7)`
-                              : `translateX(-50%) rotate(${angle}deg) translateY(0px)`,
-                        zIndex: isPicked || flying ? 0 : FAN_COUNT - i,
-                        transitionDuration: isShuffling ? '200ms' : '500ms',
-                        opacity: isPicked ? 0 : threePhase === 'shuffling' ? 0.7 : 1,
-                        pointerEvents: (isPicked || isShuffling || threePhase === 'shuffle') ? 'none' : 'auto',
-                      }}>
-                      <CardBack
-                        label={threePhase === 'shuffle' ? '' : (isPicked ? '' : `${i + 1}`)}
-                        disabled={isPicked || isShuffling} />
-                    </button>
-                  )
-                })}
-              </div>
+  /** Render the interpretation section */
+  const renderInterpretation = () => {
+    if (!showInterpretation || drawnCards.length === 0) return null
 
-              {/* 洗牌提示覆盖 */}
-              {threePhase === 'shuffle' && (
-                <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-20">
-                  <p className="text-xs text-gold-500 absolute bottom-16">轻触以洗牌</p>
-                </div>
-              )}
-
-              {threePhase === 'shuffling' && (
-                <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
-                  <p className="text-sm text-gold-400 animate-pulse">{shuffleText}</p>
-                </div>
-              )}
-            </div>
-          )}
-
-          {/* 已选位置指示 */}
-          {threePhase === 'picking' && (
-            <div className="flex justify-center gap-4 mb-4">
-              {POSITIONS.map((pos, i) => (
-                <div key={pos.key} className={`text-center p-2 rounded-lg border ${i === selectedPos ? 'border-gold-500/60 bg-dark-800' : i < selectedPos ? 'border-emerald-500/30 bg-dark-800' : 'border-dark-600 bg-dark-800/50'}`}>
-                  <span className="text-lg">{pos.icon}</span>
-                  <p className={`text-xs mt-0.5 ${i === selectedPos ? 'text-gold-400' : i < selectedPos ? 'text-emerald-400' : 'text-gray-600'}`}>{pos.label}</p>
-                </div>
-              ))}
-            </div>
-          )}
-
-          {/* 已选卡片预览 */}
-          {threePhase === 'picking' && picked.length > 0 && (
-            <div className="flex justify-center gap-3 mb-4">
-              {picked.map((p, i) => (
-                <div key={i} className="text-center">
-                  <CardFace card={p.card} small />
-                  <p className="text-[9px] text-gray-500 mt-0.5">{p.position}</p>
-                </div>
-              ))}
-            </div>
-          )}
-
-          {threePhase === 'shuffle' && (
-            <button onClick={startThreeShuffle}
-              className="mx-auto block bg-gold-600 hover:bg-gold-500 text-dark-900 font-semibold px-6 py-2.5 rounded-lg transition-all active:scale-95">
-              🀄 开始洗牌
+    return (
+      <div
+        className={`transition-all duration-500 ease-out ${
+          visibleInterpretation
+            ? 'opacity-100 translate-y-0'
+            : 'opacity-0 translate-y-4'
+        }`}
+      >
+        {/* Tab bar */}
+        <div className="flex gap-1 mb-4 bg-dark-800/80 rounded-lg p-1 border border-dark-600 max-w-md mx-auto">
+          {[
+            { key: 'core' as ReadingTab, label: '📖 核心含义' },
+            { key: 'context' as ReadingTab, label: '💡 情景视角' },
+            { key: 'overview' as ReadingTab, label: '🎴 全部牌面' },
+          ].map((tab) => (
+            <button
+              key={tab.key}
+              type="button"
+              onClick={() => setReadingTab(tab.key)}
+              className={`flex-1 text-xs py-1.5 px-2 rounded-md transition-all font-medium ${
+                readingTab === tab.key
+                  ? 'bg-gold-600 text-dark-950 shadow-sm'
+                  : 'text-gray-500 hover:text-gray-300 hover:bg-dark-700'
+              }`}
+            >
+              {tab.label}
             </button>
-          )}
+          ))}
+        </div>
 
-          {(threePhase === 'picking' || threePhase === 'reading') && (
-            <button onClick={resetThree}
-              className="text-xs text-gray-500 hover:text-gray-300 underline underline-offset-2 block mx-auto mt-2">重新洗牌</button>
-          )}
-
-          {/* ====== 三牌解读 ====== */}
-          {showReading && picked.length === 3 && (
-            <div className="mt-4 space-y-6 animate-fadeIn">
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                {picked.map((item, i) => {
-                  const isFlipped = flippedCard === i
-                  return (
-                    <div key={i} className="text-center">
-                      <p className="text-xs text-gray-500 mb-1">
-                        {POSITIONS[i].icon} {POSITIONS[i].label}
-                        <span className="text-gray-600 ml-1">· {POSITIONS[i].desc}</span>
+        {/* Tab content */}
+        <div className="space-y-3">
+          {readingTab === 'core' &&
+            drawnCards.map((drawn, i) => {
+              const pos = positions[i]
+              if (!pos) return null
+              const interp = interpretCard(drawn.card, drawn.orientation, pos)
+              return (
+                <div
+                  key={`core-${i}`}
+                  className="bg-dark-800/60 border border-dark-600/60 rounded-xl p-4"
+                  style={{
+                    animation: `fadeSlideUp 0.4s ease-out ${i * 0.1}s both`,
+                  }}
+                >
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-sm">{pos.icon}</span>
+                    <div>
+                      <p className="text-sm font-medium text-gold-400">
+                        {interp.title}
                       </p>
-                      <button onClick={() => setFlippedCard(isFlipped ? null : i)}
-                        className="mx-auto block [perspective:600px]">
-                        <div className={`relative transition-transform duration-500 [transform-style:preserve-3d] ${isFlipped ? '[transform:rotateY(180deg)]' : ''}`}
-                          style={{ width: 76, height: 127 }}>
-                          <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-gold-700 to-dark-800 border-2 border-gold-600 flex items-center justify-center [backface-visibility:hidden]">
-                            <span className="text-3xl opacity-50">🃏</span>
-                          </div>
-                          <div className="absolute inset-0 rounded-lg bg-dark-700 border-2 border-gold-500/40 p-1.5 [transform:rotateY(180deg)] [backface-visibility:hidden] flex flex-col">
-                            <p className="text-[9px] font-semibold text-gold-400 text-center leading-tight">{item.card.name}</p>
-                            <p className="text-[7px] text-gray-500 text-center">{item.card.nameEn}</p>
-                            <p className="text-[7px] text-gray-500 text-center">{item.card.element} · 大阿卡纳</p>
-                            <p className="text-[7px] text-gray-400 text-center mt-auto leading-tight">{item.card.keywords}</p>
-                            <p className="text-[7px] text-emerald-400 text-center py-0.5">正位</p>
-                          </div>
-                        </div>
-                      </button>
-                      <p className="text-[9px] text-gray-600 mt-1">{isFlipped ? '点击翻回' : '点击翻牌'}</p>
-                      {isFlipped && (
-                        <div className="mt-2 bg-dark-900/60 rounded-lg p-2.5 border border-dark-600/50 text-left">
-                          <p className="text-[10px] text-gray-300 leading-relaxed">{item.card.meaning}</p>
-                          <p className="text-[9px] text-gray-500 mt-1">💡 {item.card.advice}</p>
-                        </div>
-                      )}
+                      <p className="text-[10px] text-gray-600">
+                        {pos.name} · {drawn.orientation === 'upright' ? '正位' : '逆位'}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="space-y-2 text-sm leading-relaxed">
+                    <p className="text-gray-300">
+                      <span className="text-gold-500/80 text-[11px]">核心含义：</span>
+                      {interp.core}
+                    </p>
+                    <p className="text-gray-400">
+                      <span className="text-jade-400/80 text-[11px]">{pos.name}方面：</span>
+                      {interp.aspect}
+                    </p>
+                    <div className="pt-2 border-t border-dark-600/50">
+                      <p className="text-gray-500 text-xs">
+                        <span className="text-gold-500/60">💡 建议：</span>
+                        {interp.advice}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )
+            })}
+
+          {readingTab === 'context' &&
+            drawnCards.map((drawn, i) => {
+              const pos = positions[i]
+              if (!pos) return null
+              const interp = interpretCard(drawn.card, drawn.orientation, pos)
+              return (
+                <div
+                  key={`ctx-${i}`}
+                  className="bg-dark-800/60 border border-dark-600/60 rounded-xl p-4"
+                  style={{
+                    animation: `fadeSlideUp 0.4s ease-out ${i * 0.1}s both`,
+                  }}
+                >
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-sm">{pos.icon}</span>
+                    <p className="text-sm font-medium text-gold-400">
+                      {interp.title}
+                    </p>
+                  </div>
+                  <div className="space-y-2 text-sm leading-relaxed">
+                    {interp.contextual ? (
+                      <p className="text-gray-300">
+                        <span className="text-rose-400/80 text-[11px]">
+                          {pos.context === 'love'
+                            ? '❤️ 感情视角：'
+                            : pos.context === 'work'
+                              ? '💼 事业视角：'
+                              : pos.context === 'interpersonal'
+                                ? '🤝 人际视角：'
+                                : '📌 综合视角：'}
+                        </span>
+                        {interp.contextual}
+                      </p>
+                    ) : (
+                      <p className="text-gray-600 text-xs italic">
+                        该位置不涉及具体情景视角
+                      </p>
+                    )}
+                    <div className="pt-2 border-t border-dark-600/50">
+                      <p className="text-gray-500 text-xs">
+                        <span className="text-gold-500/60">💡 {pos.name}建议：</span>
+                        {interp.advice}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )
+            })}
+
+          {readingTab === 'overview' && (
+            <div className="bg-dark-800/60 border border-dark-600/60 rounded-xl p-5">
+              <p className="text-[11px] text-gold-500/70 mb-3 tracking-wider uppercase">
+                {spread?.name} · 全部牌面
+              </p>
+              <div className="space-y-3">
+                {drawnCards.map((drawn, i) => {
+                  const pos = positions[i]
+                  if (!pos) return null
+                  const isUp = drawn.orientation === 'upright'
+                  return (
+                    <div
+                      key={`ov-${i}`}
+                      className="flex items-start gap-3 pb-3 border-b border-dark-600/40 last:border-0"
+                    >
+                      <span className="text-lg mt-0.5 shrink-0">{pos.icon}</span>
+                      <div className="min-w-0 flex-1">
+                        <p className="text-sm font-medium text-gold-400">
+                          {drawn.card.name.zh}
+                          <span className={`text-[10px] ml-1.5 ${isUp ? 'text-emerald-400' : 'text-rose-400'}`}>
+                            {isUp ? '▲正位' : '▼逆位'}
+                          </span>
+                        </p>
+                        <p className="text-[11px] text-gray-500 mt-0.5">
+                          {pos.name}
+                          {drawn.card.arcana === 'major' ? ' · 大阿卡纳' : ` · ${drawn.card.suit}`}
+                        </p>
+                        <p className="text-xs text-gray-400 mt-1 leading-relaxed">
+                          {drawn.card.meaning[isUp ? 'upright' : 'reversed'].zh}
+                        </p>
+                      </div>
                     </div>
                   )
                 })}
               </div>
-
-              <div className="flex justify-center">
-                <ShareResult
-                  text={`🌘 三牌塔罗占卜结果\n\n${picked.map((d, i) =>
-                    `${POSITIONS[i].icon} ${POSITIONS[i].label}：${d.card.name}\n${d.card.meaning}`
-                  ).join('\n\n')}`}
-                  label="📋 复制结果" />
-              </div>
             </div>
           )}
+        </div>
+      </div>
+    )
+  }
 
-          {threePhase === 'reading' && !showReading && (
-            <div className="flex items-center justify-center h-32">
-              <p className="text-sm text-gray-500 animate-pulse">牌面已就绪……</p>
-            </div>
-          )}
-        </>
+  // =============================================
+  // MAIN RENDER
+  // =============================================
+
+  return (
+    <div ref={containerRef} className="max-w-4xl mx-auto px-4 py-10">
+      {/* Header */}
+      <div className="text-center mb-8">
+        <h1 className="text-3xl font-bold text-gold-400 font-serif mb-2">
+          塔罗牌占卜
+        </h1>
+        <p className="text-sm text-gray-500 max-w-lg mx-auto">
+          基于韦特塔罗78张完整牌库，多牌阵深度解读
+        </p>
+      </div>
+
+      {/* ───── MENU PHASE: Spread selection ───── */}
+      {phase === 'menu' && (
+        <div className="space-y-6">
+          {/* Description */}
+          <p className="text-sm text-gray-400 text-center">
+            选择一个牌阵，开始你的塔罗之旅
+          </p>
+
+          {/* Spread grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {SPREAD_LIST.map((spr) => (
+              <button
+                key={spr.id}
+                type="button"
+                onClick={() => startReading(spr.id)}
+                className="group bg-dark-800/60 border border-dark-600/60 rounded-2xl p-6 text-left hover:border-gold-500/40 hover:bg-dark-800/80 transition-all hover:shadow-lg hover:shadow-gold-900/10 active:scale-[0.98]"
+              >
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-10 h-10 rounded-full bg-dark-700 flex items-center justify-center text-lg">
+                    {spr.positions.map((p) => p.icon).join(' ')}
+                  </div>
+                  <div>
+                    <h3 className="text-base font-bold text-gold-400">
+                      {spr.name}
+                    </h3>
+                    <p className="text-[10px] text-gray-600">{spr.descriptionShort}</p>
+                  </div>
+                </div>
+                <p className="text-xs text-gray-500 leading-relaxed mb-2">
+                  {spr.description}
+                </p>
+                <div className="flex items-center gap-1.5">
+                  {spr.positions.map((p) => (
+                    <span
+                      key={p.key}
+                      className="text-[9px] text-gray-600 bg-dark-700/50 px-1.5 py-0.5 rounded"
+                    >
+                      {p.icon}{p.name}
+                    </span>
+                  ))}
+                </div>
+              </button>
+            ))}
+          </div>
+        </div>
       )}
 
-      {/* ====== Yes/No 占卜 ====== */}
-      {mode === 'yesno' && (
-        <>
-          <div className="text-center mb-6">
-            <p className="text-xs uppercase tracking-widest text-gold-500/70">Yes / No</p>
+      {/* ───── SHUFFLING PHASE ───── */}
+      {phase === 'shuffling' && (
+        <div className="flex flex-col items-center justify-center min-h-[400px] gap-8">
+          {/* Flying cards */}
+          <div className="relative w-48 h-64">
+            {Array.from({ length: 8 }).map((_, i) => (
+              <div
+                key={i}
+                className="absolute inset-0 rounded-xl border border-gold-500/30 flex items-center justify-center"
+                style={{
+                  background: 'linear-gradient(145deg, #2a1e14, #1a0f08)',
+                  animation: `shuffleFloat 0.6s ease-in-out ${i * 0.08}s infinite`,
+                  transform: `rotate(${(i - 4) * 6}deg)`,
+                  zIndex: 10 - i,
+                }}
+              >
+                <span className="text-3xl opacity-30">☯</span>
+              </div>
+            ))}
           </div>
 
-          {ynPhase === 'input' && (
-            <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-6 mb-6">
-              <p className="text-sm text-gray-300 mb-3">🔮 问一个清晰的「是/否」问题</p>
-              <div className="flex gap-2 mb-3">
-                <input type="text" value={ynQuestion} onChange={e => setYnQuestion(e.target.value)}
-                  onKeyDown={e => e.key === 'Enter' && startYnDraw()}
-                  placeholder="如：这周该不该主动联系ta？" className="flex-1 px-4 py-2.5 bg-dark-700 border border-dark-600 rounded-lg text-gray-200 placeholder-gray-500 focus:outline-none focus:border-gold-500 text-sm" />
-                <button onClick={startYnDraw}
-                  className="bg-gold-600 hover:bg-gold-500 text-dark-900 font-semibold px-5 py-2 rounded-lg transition-colors">开始占卜</button>
-              </div>
-              <div className="flex flex-wrap gap-1.5">
-                {QUESTION_GUIDES.map(g => (
-                  <div key={g.label} className="relative group/guide">
-                    <span className="text-xs bg-dark-700 text-gray-500 px-2 py-0.5 rounded cursor-default">{g.label}</span>
-                    <div className="absolute bottom-full left-0 mb-1 hidden group-hover/guide:block z-10">
-                      <div className="bg-dark-700 border border-dark-600 rounded-lg p-2 w-56 shadow-xl">
-                        {g.examples.map((ex, i) => (
-                          <button key={i} onClick={() => setYnQuestion(ex)}
-                            className="block text-xs text-gray-300 hover:text-gold-400 py-1 px-1 w-full text-left rounded hover:bg-dark-600">{ex}</button>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {ynPhase === 'shuffling' && (
-            <div className="flex flex-col items-center justify-center h-64 gap-4">
-              <div className="relative w-20 h-28">
-                {[0, 1, 2, 3].map(i => (
-                  <div key={i} className="absolute inset-0 rounded-xl bg-gradient-to-br from-gold-700 to-dark-800 border border-gold-600 flex items-center justify-center text-4xl opacity-70"
-                    style={{ animation: `shuffleSlide 1s ease-in-out ${i * 0.15}s infinite`, zIndex: 10 - i }}>
-                    🃏
-                  </div>
-                ))}
-              </div>
-              <p className="text-sm text-gold-400 animate-pulse">抽取牌中……</p>
-            </div>
-          )}
-
-          {ynPhase === 'showing' && ynCard && (
-            <div className="flex flex-col items-center justify-center h-64 gap-3">
-              <div className="[perspective:600px]">
-                <div className={`relative transition-transform duration-700 [transform-style:preserve-3d] ${ynFlipped ? '[transform:rotateY(180deg)]' : ''}`}
-                  style={{ width: 76, height: 127 }}>
-                  <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-gold-700 to-dark-800 border-2 border-gold-600 flex items-center justify-center [backface-visibility:hidden]">
-                    <span className="text-3xl opacity-50">🃏</span>
-                  </div>
-                  <div className="absolute inset-0 rounded-lg bg-dark-700 border-2 border-gold-500/40 p-1.5 [transform:rotateY(180deg)] [backface-visibility:hidden] flex flex-col items-center justify-center">
-                    <p className="text-[9px] font-semibold text-gold-400 text-center">{ynCard.card.name}</p>
-                    <p className="text-[7px] text-gray-500 text-center">{ynCard.card.nameEn}</p>
-                    <p className="text-[7px] text-gray-500 text-center">{ynCard.card.element}</p>
-                  </div>
-                </div>
-              </div>
-              {ynFlipped && <p className="text-xs text-gray-500">已翻开</p>}
-            </div>
-          )}
-
-          {ynPhase === 'reading' && ynCard && (() => {
-            const score = calcLean(ynCard.card, ynReversed)
-            const lean = interpretLean(score)
-            return (
-              <div className="space-y-4 animate-fadeIn">
-                <div className="bg-dark-800/80 rounded-2xl border border-dark-600 p-6 flex flex-col sm:flex-row gap-6 items-center">
-                  <div>
-                    <CardFace card={ynCard.card} reversed={ynReversed} />
-                  </div>
-                  <div className="flex-1 text-center sm:text-left">
-                    <div className="mb-3">
-                      <p className="text-xs text-gray-500 mb-1">倾向分</p>
-                      <div className="flex items-center gap-3 justify-center sm:justify-start">
-                        <div className="relative w-40 h-2.5 bg-dark-700 rounded-full overflow-hidden">
-                          <div className="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-rose-500 via-yellow-500 to-emerald-500 transition-all duration-1000"
-                            style={{ width: `${score}%` }} />
-                        </div>
-                        <span className={`text-lg font-bold ${lean.color}`}>{score}</span>
-                      </div>
-                      <p className={`text-sm font-semibold mt-1 ${lean.color}`}>
-                        {ynReversed ? '逆位 · ' : '正位 · '}{lean.label}
-                      </p>
-                    </div>
-                    <p className="text-sm text-gray-300 leading-relaxed mb-3">{LEAN_DESCRIPTIONS[lean.label] || ''}</p>
-                    <p className="text-xs text-gray-500"><span className="text-gold-400">建议：</span>{ynCard.card.advice}</p>
-                    <div className="flex justify-center sm:justify-end mt-4">
-                      <ShareResult text={`🔮 Yes/No 塔罗\n\n问题：${ynQuestion}\n\n抽到：${ynCard.card.name}（${ynReversed ? '逆位' : '正位'}）\n倾向分：${score}/100（${lean.label}）\n\n${ynCard.card.meaning}\n\n建议：${ynCard.card.advice}`} label="📋 复制结果" />
-                    </div>
-                  </div>
-                </div>
-                <div className="bg-dark-900/60 rounded-xl border border-dark-600/50 p-5">
-                  <p className="text-xs text-gold-500/80 mb-2">📜 {ynCard.card.name} 解读</p>
-                  <p className="text-sm text-gray-300 leading-relaxed">{ynCard.card.meaning}</p>
-                  <div className="mt-3 pt-3 border-t border-dark-600">
-                    <p className="text-xs text-gray-500 mb-1">💡 行动建议</p>
-                    <p className="text-sm text-gray-400">{ynCard.card.advice}</p>
-                  </div>
-                  <div className="mt-3 pt-3 border-t border-dark-600">
-                    <p className="text-xs text-gray-500 mb-1">🤔 自我提问</p>
-                    <p className="text-sm text-gray-400 italic">{ynCard.card.reflection}</p>
-                  </div>
-                </div>
-                <button onClick={resetYn} className="text-xs text-gray-500 hover:text-gray-300 underline underline-offset-2 block mx-auto">重新占卜</button>
-              </div>
-            )
-          })()}
-        </>
+          {/* Shuffle text */}
+          <p className="text-sm text-gold-400 animate-pulse text-center max-w-xs">
+            {shuffleText}
+          </p>
+        </div>
       )}
 
-      {/* 返回选择 */}
-      {mode !== 'select' && (
-        <button onClick={() => { setMode('select'); resetThree(); resetYn() }}
-          className="text-xs text-gray-500 hover:text-gray-300 underline underline-offset-2 block mx-auto mt-8">返回选择占卜方式</button>
+      {/* ───── PLACING PHASE ───── */}
+      {phase === 'placing' && (
+        <div className="flex flex-col items-center gap-4 min-h-[300px] pt-8">
+          <p className="text-sm text-gold-500/70 animate-pulse mb-2">
+            ✨ 牌已就位……
+          </p>
+          {renderSpreadLayout()}
+        </div>
       )}
 
-      <style jsx>{`
-        @keyframes shuffleSlide {
-          0%, 100% { transform: translateY(0) rotate(0deg); }
-          25% { transform: translateY(-8px) rotate(-2deg); }
-          50% { transform: translateY(2px) rotate(1deg); }
-          75% { transform: translateY(-4px) rotate(-1deg); }
-        }
-        .animate-shuffleCard {
-          animation: shuffleSlide 0.2s ease-in-out infinite;
-        }
-      `}</style>
+      {/* ───── READING PHASE ───── */}
+      {phase === 'reading' && (
+        <div className="space-y-6">
+          {/* Current spread name */}
+          <div className="text-center">
+            <p className="text-[10px] uppercase tracking-[0.15em] text-gold-500/60 mb-1">
+              {spread?.name}
+            </p>
+            <div className="flex items-center justify-center gap-1.5 text-[11px] text-gray-600">
+              {spread?.positions.map((p) => (
+                <span key={p.key}>
+                  {p.icon}{p.name}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* Card layout */}
+          <div className="bg-dark-900/40 border border-dark-600/40 rounded-2xl p-6 sm:p-8">
+            {renderSpreadLayout()}
+
+            {/* Flip hint (only show if some cards aren't flipped yet) */}
+            {flippedIndices.size < drawnCards.length && (
+              <p className="text-center text-[10px] text-gray-600 mt-4 animate-pulse">
+                {flippedIndices.size === 0
+                  ? '牌正在依次翻开……'
+                  : '点击未翻开的牌可单独查看'}
+              </p>
+            )}
+          </div>
+
+          {/* Interpretation */}
+          {renderInterpretation()}
+
+          {/* Action buttons */}
+          <div className="flex items-center justify-center gap-4 pt-4">
+            <button
+              type="button"
+              onClick={restartSpread}
+              className="inline-flex items-center gap-1.5 bg-gold-600 hover:bg-gold-500 text-dark-900 font-semibold text-sm px-5 py-2.5 rounded-lg transition-all active:scale-95"
+            >
+              💫 重新占卜
+            </button>
+            <button
+              type="button"
+              onClick={resetToMenu}
+              className="text-xs text-gray-500 hover:text-gray-300 underline underline-offset-2 transition-colors"
+            >
+              返回选择牌阵
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Global keyframes */}
+      <style jsx>{KEYFRAMES}</style>
     </div>
   )
 }
