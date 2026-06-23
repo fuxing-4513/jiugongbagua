@@ -17,6 +17,7 @@ import { exportAsPng } from '@/utils/export-image'
 import { deepAnalysis, type DeepAnalysis } from '@/lib/bazi-deep'
 import { deepEnhancedAnalysis, type DeepEnhancedResult } from '@/lib/bazi-deep-enhance'
 import { crossValidate } from '@/lib/zonghe-yinzheng'
+import { analyzeJudgment, type JudgmentResult } from '@/lib/bazi-judgment'
 
 // 非首屏大组件按需加载，减小 initial bundle
 const TrueSolarTime = dynamic(() => import('@/components/TrueSolarTime'), { ssr: false })
@@ -499,6 +500,7 @@ export default function BaziClient() {
   const [activeTab, setActiveTab] = useState<string>('classic')
   const [deepResult, setDeepResult] = useState<DeepAnalysis | null>(null)
   const [deepEnhance, setDeepEnhance] = useState<DeepEnhancedResult | null>(null)
+  const [judgmentResult, setJudgmentResult] = useState<JudgmentResult | null>(null)
   const [baziEnrichResult, setBaziEnrichResult] = useState<any>(null)
   const [cal, setCal] = useState<'solar'|'lunar'>('solar')
   const [year, setYear] = useState(String(now.getFullYear()))
@@ -613,6 +615,8 @@ export default function BaziClient() {
           setDeepResult(yf)
           const yfEn = deepEnhancedAnalysis(pills, dg, birthYear)
           setDeepEnhance(yfEn)
+          const jr = analyzeJudgment(pills, dg, gender || '男', birthYear, new Date().getFullYear())
+          setJudgmentResult(jr)
           const siZhu3: Record<string,{gan:string;zhi:string}> = {}
           for (let i = 0; i < 4; i++) {
             const keys = ['年','月','日','时']
@@ -1052,9 +1056,131 @@ Object.entries(result.wx).map(([w,c]): React.ReactNode =>(
       {activeTab === 'deep' && deepResult && (<>
         <div className="bg-dark-800/80 rounded-xl border border-gold-500/30 p-4">
           <h3 className="text-sm font-semibold text-gold-300 mb-3">🔮 高人深析八字分析</h3>
-          <p className="text-xs text-gray-500 mb-3">涵盖六穿/六冲/三刑/暗合/破/三合/六合/出处共根/旺相休囚死/干支虚实/旺点/十神/断事</p>
-          
-          {/* 日主心性 */}
+          <p className="text-xs text-gray-500 mb-3">涵盖六穿/六冲/三刑/暗合/破/三合/六合/出处共根/旺点/十神/断事/命主叙事</p>
+
+          {/* 🏠 命主人生叙事 — 前置实战解读 */}
+          {judgmentResult && (
+            <div className="mb-6 bg-gradient-to-r from-dark-800 to-dark-800/60 rounded-lg border border-gold-500/30 p-4">
+              <h4 className="text-sm font-semibold text-gold-300 mb-3">🏠 命主人生叙事</h4>
+
+              {judgmentResult.labels && judgmentResult.labels.length > 0 && (
+                <div className="mb-3 bg-dark-900/60 rounded p-2 border border-gold-500/20">
+                  {judgmentResult.labels.map((s,i)=><p key={i} className="text-xs text-gold-300 mb-1 leading-relaxed font-medium">{s}</p>)}
+                </div>
+              )}
+
+              {judgmentResult.charNarr.length > 0 && (
+                <div className="mb-3">
+                  <h5 className="text-xs font-semibold text-blue-300 mb-1">🧠 性格</h5>
+                  {judgmentResult.charNarr.map((s,i)=><p key={i} className="text-xs text-gray-200 mb-1 leading-relaxed">{s}</p>)}
+                </div>
+              )}
+
+              {judgmentResult.careerNarr.length > 0 && (
+                <div className="mb-3">
+                  <h5 className="text-xs font-semibold text-cyan-300 mb-1">💼 事业</h5>
+                  {judgmentResult.careerNarr.map((s,i)=><p key={i} className="text-xs text-gray-200 mb-1 leading-relaxed">{s}</p>)}
+                </div>
+              )}
+
+              {judgmentResult.wealthNarr.length > 0 && (
+                <div className="mb-3">
+                  <h5 className="text-xs font-semibold text-amber-300 mb-1">💰 财富</h5>
+                  {judgmentResult.wealthNarr.map((s,i)=><p key={i} className="text-xs text-gray-200 mb-1 leading-relaxed">{s}</p>)}
+                </div>
+              )}
+
+              {judgmentResult.marriageNarr.length > 0 && (
+                <div className="mb-3">
+                  <h5 className="text-xs font-semibold text-pink-300 mb-1">❤️ 婚姻</h5>
+                  {judgmentResult.marriageNarr.map((s,i)=><p key={i} className="text-xs text-gray-200 mb-1 leading-relaxed">{s}</p>)}
+                </div>
+              )}
+
+              {judgmentResult.childrenNarr.length > 0 && (
+                <div className="mb-3">
+                  <h5 className="text-xs font-semibold text-green-300 mb-1">👶 子女</h5>
+                  {judgmentResult.childrenNarr.map((s,i)=><p key={i} className="text-xs text-gray-200 mb-1 leading-relaxed">{s}</p>)}
+                </div>
+              )}
+
+              {judgmentResult.healthNarr.length > 0 && (
+                <div className="mb-3">
+                  <h5 className="text-xs font-semibold text-red-300 mb-1">🏥 健康</h5>
+                  {judgmentResult.healthNarr.map((s,i)=><p key={i} className="text-xs text-gray-200 mb-1 leading-relaxed">{s}</p>)}
+                </div>
+              )}
+
+              {judgmentResult.prefNarr.length > 0 && (
+                <div className="mb-3">
+                  <h5 className="text-xs font-semibold text-purple-300 mb-1">⭐ 喜忌</h5>
+                  {judgmentResult.prefNarr.map((s,i)=><p key={i} className="text-xs text-gray-200 mb-1 leading-relaxed">{s}</p>)}
+                </div>
+              )}
+
+              {judgmentResult.daYunNarr.length > 0 && (
+                <div className="mb-3">
+                  <h5 className="text-xs font-semibold text-yellow-300 mb-1">📈 大运</h5>
+                  {judgmentResult.daYunNarr.map((s,i)=><p key={i} className="text-xs text-gray-200 mb-1 leading-relaxed">{s}</p>)}
+                </div>
+              )}
+
+              {judgmentResult.flowYearNarr.length > 0 && (
+                <div className="mb-3">
+                  <h5 className="text-xs font-semibold text-teal-300 mb-1">📅 流年</h5>
+                  {judgmentResult.flowYearNarr.map((s,i)=><p key={i} className="text-xs text-gray-200 mb-1 leading-relaxed">{s}</p>)}
+                </div>
+              )}
+
+              {judgmentResult.parentNarr.length > 0 && (
+                <div className="mb-3">
+                  <h5 className="text-xs font-semibold text-orange-300 mb-1">👪 父母</h5>
+                  {judgmentResult.parentNarr.map((s,i)=><p key={i} className="text-xs text-gray-200 mb-1 leading-relaxed">{s}</p>)}
+                </div>
+              )}
+
+              {judgmentResult.twoSignsNarr && judgmentResult.twoSignsNarr.length > 0 && (
+                <div className="mb-3">
+                  <h5 className="text-xs font-semibold text-cyan-300 mb-1">🔍 两象定一象</h5>
+                  {judgmentResult.twoSignsNarr.map((s,i)=><p key={i} className="text-xs text-gray-200 mb-1 leading-relaxed">{s}</p>)}
+                </div>
+              )}
+
+              {judgmentResult.rootHouseNarr && judgmentResult.rootHouseNarr.length > 0 && (
+                <div className="mb-3">
+                  <h5 className="text-xs font-semibold text-amber-300 mb-1">🏡 根与住房</h5>
+                  {judgmentResult.rootHouseNarr.map((s,i)=><p key={i} className="text-xs text-gray-200 mb-1 leading-relaxed">{s}</p>)}
+                </div>
+              )}
+
+              {judgmentResult.wanHunNarr.length > 0 && (
+                <div className="mb-3">
+                  <h5 className="text-xs font-semibold text-indigo-300 mb-1">⏰ 晚婚提示</h5>
+                  {judgmentResult.wanHunNarr.map((s,i)=><p key={i} className="text-xs text-gray-200 mb-1 leading-relaxed">{s}</p>)}
+                </div>
+              )}
+
+              {judgmentResult.jieHunNarr.length > 0 && (
+                <div className="mb-3">
+                  <h5 className="text-xs font-semibold text-rose-300 mb-1">💒 结婚应期</h5>
+                  {judgmentResult.jieHunNarr.map((s,i)=><p key={i} className="text-xs text-gray-200 mb-1 leading-relaxed">{s}</p>)}
+                </div>
+              )}
+
+              {judgmentResult.liHunNarr.length > 0 && (
+                <div className="mb-3">
+                  <h5 className="text-xs font-semibold text-red-400 mb-1">⚠️ 离婚标志</h5>
+                  {judgmentResult.liHunNarr.map((s,i)=><p key={i} className="text-xs text-gray-200 mb-1 leading-relaxed">{s}</p>)}
+                </div>
+              )}
+
+              <div className="mt-2 pt-2 border-t border-dark-600">
+                <p className="text-[10px] text-gray-500 italic">以上为九宫命理体系实战解读</p>
+              </div>
+            </div>
+          )}
+
+          {/* 日主心性 — 技术分析 */}
           {deepResult.riZhuXinXing.length > 0 && (
             <div className="mb-4">
               <h4 className="text-xs font-semibold text-blue-300 mb-2">🧠 日主心性</h4>
@@ -1099,14 +1225,6 @@ Object.entries(result.wx).map(([w,c]): React.ReactNode =>(
             <div className="mb-4">
               <h4 className="text-xs font-semibold text-cyan-300 mb-2">🌳 出处共根借根</h4>
               {deepResult.chuChuGongGen.map((s,i)=><p key={i} className="text-xs text-gray-300 mb-1 leading-relaxed">{s}</p>)}
-            </div>
-          )}
-
-          {/* 旺相休囚死 + 干支虚实 */}
-          {deepResult.wangXiangXuShi.length > 0 && (
-            <div className="mb-4">
-              <h4 className="text-xs font-semibold text-yellow-300 mb-2">🌤️ 旺相休囚死 + 干支虚实</h4>
-              {deepResult.wangXiangXuShi.map((s,i)=><p key={i} className="text-xs text-gray-300 mb-1 leading-relaxed">{s}</p>)}
             </div>
           )}
 

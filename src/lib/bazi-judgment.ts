@@ -1,0 +1,760 @@
+/**
+ * bazi-judgment.ts — 九宫八字实战断事层 v5
+ *
+ * 基于九宫高度分析体系 + 29条实战推理规则
+ *
+ * 关键规则实现：
+ *   R1 找桥梁：A→B无直接关系，找C
+ *   R2 会局优先：三会>三合>六合>半合>生>刑冲破害
+ *   R3 得库：要库里的东西→找能制库的工具
+ *   R4 应局做事：大运来了→做和这个字相关的事
+ *   R5 流年触发：流年字活动，原局字静止
+ *   R8 根=房子：根代表住的地方
+ *   R10 两象定一象：两条证据→同一个结论
+ *   R11 太极点转换：不同角色→不同太极点
+ *   R14 家里被家外合：家里的字出来→可能被抢
+ *   R16 食伤=说话=口头承诺
+ *   R17 共根=共想法
+ *   R20 出处品质决定层次
+ *   R22 自合=自信（九组自合）
+ *   R26 借根要看源头
+ *   R28 弱的修强的控
+ */
+
+// ───────────────────────────────────────
+//  常量定义
+// ───────────────────────────────────────
+
+const WU_XING: Record<string, string> = { '甲':'木','乙':'木','丙':'火','丁':'火','戊':'土','己':'土','庚':'金','辛':'金','壬':'水','癸':'水' }
+
+const CANG_GAN: Record<string, string[]> = {
+  '子':['癸'],'丑':['己','癸','辛'],'寅':['甲','丙','戊'],'卯':['乙'],
+  '辰':['戊','乙','癸'],'巳':['丙','庚','戊'],'午':['丁','己'],'未':['己','丁','乙'],
+  '申':['庚','壬','戊'],'酉':['辛'],'戌':['戊','辛','丁'],'亥':['壬','甲']
+}
+
+const BEST_YIN_KU: Record<string, string> = { '甲':'辰','乙':'辰','丙':'未','丁':'未','戊':'戌','己':'戌','庚':'丑','辛':'丑','壬':'丑','癸':'丑' }
+const KU_MAP: Record<string, string> = {
+  '子':'辰','丑':'丑','寅':'未','卯':'未','辰':'辰','巳':'戌','午':'未','未':'未',
+  '申':'丑','酉':'丑','戌':'戌','亥':'辰'
+}
+const ROOT_MAP: Record<string, string[]> = {
+  '木':['寅','卯','辰','未','亥'],'火':['寅','巳','午','未','戌'],
+  '土':['寅','辰','巳','午','未','申','戌','丑'],
+  '金':['巳','申','酉','戌','丑'],'水':['辰','申','亥','子','丑']
+}
+const ZHI_WU_XING: Record<string, string> = {
+  '子':'水','丑':'土','寅':'木','卯':'木','辰':'土','巳':'火',
+  '午':'火','未':'土','申':'金','酉':'金','戌':'土','亥':'水'
+}
+const ZHI_NATURE: Record<string, string> = {
+  '寅':'你喜欢管比劫、操心别人。每做一件事都希望别人认可你。没有压力动不了。',
+  '卯':'你是内耗型。做什么事必须先说服自己。隐藏想法。认定的事很难改。极需要内心深处的认可。专一。',
+  '巳':'你以结果为导向。要么不决定，决定了拉不回来。不会委屈自己。',
+  '午':'你喜欢被认可，给人面子。在人群中容易成为焦点。讲义气。',
+  '辰':'你喜欢自由自在但自我约束力不强。连自己都不知道真正想要什么。没有安全感。拖到最后。',
+  '未':'你以结果为导向，搞钱的执行力很强。快速变现。喜欢在吃喝中聊事业。',
+  '申':'你想得多顾虑多。做事之前反复权衡。喜欢琢磨事情。',
+  '酉':'你专一、认死理。说服简单，认可难。笑点高。经常内耗自己。',
+  '戌':'你想法很大但越做越小。喜欢跟朋友聊事业。有底线和原则。',
+  '亥':'你会筛选身边的人。喜欢分享喜悦。不轻易做承诺。最讨厌拖拉推脱。',
+  '子':'你喜欢自由自在。学习要一帮朋友一起学。有自己的节奏。',
+  '丑':'你嘴巴都能说。做事需要100%以上把握才做决定。内心敏感，警惕性高。'
+}
+const PEI_OU_CHAR: Record<string, string> = {
+  '子':'你对象聪明灵活，喜欢自由。给空间才行。','丑':'你对象务实踏实。嘴比较碎。',
+  '寅':'你对象有主见有事业心。','卯':'你对象内心细腻专一。不轻易说爱。',
+  '辰':'你对象包容性强但优柔寡断。','巳':'你对象精明能干说一不二。',
+  '午':'你对象热情大方要面子。','未':'你对象执行力强务实。',
+  '申':'你对象想得多顾虑多。','酉':'你对象讲究要求高。有自己一套标准。',
+  '戌':'你对象忠诚可靠有底线。','亥':'你对象会照顾人但控制欲强。'
+}
+const WX_NATURE: Record<string, string> = {
+  '木':'做事以结果为导向。希望得到别人的认可。',
+  '火':'追求自由，缺乏安全感。特别要面子。',
+  '土':'想得多，包容大。比劫对你的看法最重要。随遇而安。',
+  '金':'抹不开面子，不会拒绝人。对自己要求高约束多。',
+  '水':'自我要求高，对事业有追求。表面温和内心坚定。'
+}
+const LIU_HE: Record<string,string> = {'子':'丑','丑':'子','寅':'亥','亥':'寅','卯':'戌','戌':'卯','辰':'酉','酉':'辰','巳':'申','申':'巳','午':'未','未':'午'}
+const LIU_CHONG: Record<string,string> = {'子':'午','午':'子','丑':'未','未':'丑','寅':'申','申':'寅','卯':'酉','酉':'卯','辰':'戌','戌':'辰','巳':'亥','亥':'巳'}
+const LIU_CHUAN: Record<string,string> = {'子':'未','未':'子','丑':'午','午':'丑','寅':'巳','巳':'寅','卯':'辰','辰':'卯','申':'亥','亥':'申','酉':'戌','戌':'酉'}
+const SAN_XING: Record<string,string> = {'寅':'巳','巳':'申','申':'寅','丑':'戌','戌':'未','未':'丑','子':'卯','卯':'子'}
+// 六合人性（03-六合人性拆解）
+const HE_REN: Record<string, string> = {
+  '子丑':'子丑合——克的关系。子水想得到事业，丑土想让子水听话。要给面子和荣誉才会配合。',
+  '寅亥':'寅亥合——生的关系，但相互拉扯。亥水想控制寅木的自由（用关心照顾的方式），寅木弱时委曲求全旺时直接拿走。',
+  '卯戌':'卯戌合——最难同频。各自有各自想法。卯木控制欲强，要求戌土跟它一样；戌土开局很大越做越小。',
+  '辰酉':'辰酉合——生的关系但难同频。辰土想教育酉金、挑毛病；酉金认为辰土的一切是自己给的。都以结果为导向。',
+  '巳申':'巳申合——克的关系，部分同频。见面谁也不服谁（比大声），最终相互妥协。巳火最吃软（装哭就道歉）。',
+  '午未':'午未合——唯一相互生的六合。最好相处。午火自来熟爱帮助，未土觉得午火帮自己是应该的。'
+}
+const SAN_XING_MEANING = '三刑=学习效仿。看到别人的好东西就想学。丑未戌三刑=三个合伙人两两交流；寅巳申三刑=两个人一件事，谁主动谁被"逮住"。'
+const ZI_HE_MEANING = '自合=目标明确、内心渴望强烈。很难从外部改造，必须从内突破。合财=对结果要求严格；合官杀=对认可要求高。'
+
+const SAN_HUI: Record<string,string[]> = {'寅':['寅','卯','辰'],'巳':['巳','午','未'],'申':['申','酉','戌'],'亥':['亥','子','丑']}
+const SAN_HE: Record<string,string[]> = {'寅':['寅','午','戌'],'巳':['巳','酉','丑'],'申':['申','子','辰'],'亥':['亥','卯','未']}
+
+// 九组自合（R22）
+const ZI_HE: string[] = ['辛巳','癸巳','甲午','己亥','壬午','戊子','丙戌','壬戌','丁亥']
+
+const TAO_HUA_MAP: Record<string, string> = {
+  '申':'酉','子':'酉','辰':'酉','寅':'卯','午':'卯','戌':'卯','巳':'午','酉':'午','丑':'午','亥':'子','卯':'子','未':'子'
+}
+const TAO_HUA_POS: string[] = ['年柱桃花——祖上有名望，异性缘来自长辈','月柱桃花——你主动，社交广桃花旺','日柱桃花——自身有魅力，配偶出众','时柱桃花——晚年桃花不弱']
+const GAN_BODY_ORGAN: Record<string, string> = {
+  '甲':'胆','乙':'肝','丙':'小肠','丁':'心','戊':'胃','己':'脾','庚':'大肠','辛':'肺','壬':'膀胱','癸':'肾'
+}
+const WU_XING_SICK: Record<string, string> = {
+  '木':'肝胆不好、眼睛干涩','火':'气血问题、肩膀不适','土':'脾胃不好',
+  '金':'呼吸道问题、牙齿不适','水':'肾脏问题，女命有妇科困扰'
+}
+const WU_XING_ORGAN: Record<string, string> = {
+  '木':'肝胆、眼睛、头颈','火':'心脏、气血、肩膀','土':'脾胃、消化系统','金':'呼吸道、肺、牙齿','水':'肾脏、泌尿系统'
+}
+
+// ──── 辅助函数 ────
+
+function wx(g: string): string { return WU_XING[g] || '' }
+function zhiWx(z: string): string { return ZHI_WU_XING[z] || '' }
+function zhiKu(zhi: string): string { return KU_MAP[zhi] || '' }
+
+function ss(ri: string, ot: string): string {
+  const m: Record<string, Record<string, string>> = {
+    '甲':{'甲':'比肩','乙':'劫财','丙':'食神','丁':'伤官','戊':'偏财','己':'正财','庚':'七杀','辛':'正官','壬':'偏印','癸':'正印'},
+    '乙':{'甲':'劫财','乙':'比肩','丙':'伤官','丁':'食神','戊':'正财','己':'偏财','庚':'正官','辛':'七杀','壬':'正印','癸':'偏印'},
+    '丙':{'甲':'偏印','乙':'正印','丙':'比肩','丁':'劫财','戊':'食神','己':'伤官','庚':'偏财','辛':'正财','壬':'七杀','癸':'正官'},
+    '丁':{'甲':'正印','乙':'偏印','丙':'劫财','丁':'比肩','戊':'伤官','己':'食神','庚':'正财','辛':'偏财','壬':'正官','癸':'七杀'},
+    '戊':{'甲':'七杀','乙':'正官','丙':'偏印','丁':'正印','戊':'比肩','己':'劫财','庚':'食神','辛':'伤官','壬':'偏财','癸':'正财'},
+    '己':{'甲':'正官','乙':'七杀','丙':'正印','丁':'偏印','戊':'劫财','己':'比肩','庚':'伤官','辛':'食神','壬':'正财','癸':'偏财'},
+    '庚':{'甲':'偏财','乙':'正财','丙':'七杀','丁':'正官','戊':'偏印','己':'正印','庚':'比肩','辛':'劫财','壬':'食神','癸':'伤官'},
+    '辛':{'甲':'正财','乙':'偏财','丙':'正官','丁':'七杀','戊':'正印','己':'偏印','庚':'劫财','辛':'比肩','壬':'伤官','癸':'食神'},
+    '壬':{'甲':'食神','乙':'伤官','丙':'偏财','丁':'正财','戊':'七杀','己':'正官','庚':'偏印','辛':'正印','壬':'比肩','癸':'劫财'},
+    '癸':{'甲':'伤官','乙':'食神','丙':'正财','丁':'偏财','戊':'正官','己':'七杀','庚':'正印','辛':'偏印','壬':'劫财','癸':'比肩'},
+  }
+  return m[ri]?.[ot] || ''
+}
+function sst(ri: string, ot: string): string {
+  const s = ss(ri, ot); if (!s) return ''
+  if (s==='正财'||s==='偏财') return '财'; if (s==='正官'||s==='七杀') return '官杀'
+  if (s==='正印'||s==='偏印') return '印'; if (s==='食神'||s==='伤官') return '食伤'
+  return '比劫'
+}
+function isCai(s: string): boolean { return s==='正财'||s==='偏财' }
+function isGuan(s: string): boolean { return s==='正官'||s==='七杀' }
+function isYin(s: string): boolean { return s==='正印'||s==='偏印' }
+function isSS(s: string): boolean { return s==='食神'||s==='伤官' }
+function isBJ(s: string): boolean { return s==='比肩'||s==='劫财' }
+
+function getFlowGZ(year: number): [string, string] {
+  const tg = '甲乙丙丁戊己庚辛壬癸', dz = '子丑寅卯辰巳午未申酉戌亥'
+  const o = year - 4; return [tg[o%10], dz[o%12]]
+}
+
+// ──── 浓缩标签系统 ═══════════════════════════
+
+function lifeLabels(riGan: string, pills: {gan:string;zhi:string}[], gender: string): string[] {
+  const l: string[] = []
+  const gans = pills.map(p=>p.gan)
+  const zhis = pills.map(p=>p.zhi)
+  const riZhi = zhis[2]
+  const riWx = wx(riGan)
+  const roots = ROOT_MAP[riWx]||[]
+  const homeRoots = zhis.slice(2).filter(z=>roots.includes(z))
+  const outRoots = zhis.slice(0,1).filter(z=>roots.includes(z))
+
+  // 无根离乡
+  if (homeRoots.length === 0 && outRoots.length === 0 && zhis.slice(0,2).filter(z=>roots.includes(z)).length === 0) {
+    l.push('🏷️ 八字标签：无根离乡型——人生靠外力推动，贵人环境合作缺一不可。适合离乡发展。')
+  }
+
+  // 借根型
+  if (homeRoots.length === 0 && outRoots.length > 0) {
+    l.push('🏷️ 八字标签：借根型——不自信、重情义、怕欠人情。得有人带才行。')
+  }
+
+  // 家有禄根
+  if (homeRoots.filter(z=>['寅','巳','申','亥'].includes(z)).length > 0 && homeRoots.filter(z=>!['寅','巳','申','亥'].includes(z)).length === 0) {
+    l.push('🏷️ 八字标签：纯禄根——靠自己的能力，不靠圈子。')
+  }
+
+  // 全局同库（极纯八字）
+  let allSame = true, totalKu = ''
+  for (const g of gans) { const k = BEST_YIN_KU[g]||''; if(!totalKu) totalKu=k; else if(k!==totalKu) {allSame=false;break} }
+  if (allSame && totalKu) l.push(`🏷️ 八字标签：极纯八字（全出${totalKu}）——身边全是"一路人"，能量聚焦不分散。`)
+
+  // 食伤生财
+  let hasSS = false, hasCai = false
+  for (const g of gans) { const st = ss(riGan,g); if(isSS(st)) hasSS=true; if(isCai(st)) hasCai=true }
+  if (hasSS && hasCai) l.push('🏷️ 八字标签：食伤生财——靠技术/口才/才华吃饭。路子对了赚钱不难。')
+
+  // 官印相生
+  let hasGuan = false, hasYin = false
+  for (const g of gans) { const st = ss(riGan,g); if(isGuan(st)) hasGuan=true; if(isYin(st)) hasYin=true }
+  if (hasGuan && hasYin) l.push('🏷️ 八字标签：官印相生——适合体制/管理岗。能做成事。')
+
+  // 比劫夺财
+  let biCount = 0, caiCount = 0
+  for (const g of gans) { const st = ss(riGan,g); if(isBJ(st)) biCount++; if(isCai(st)) caiCount++ }
+  if (biCount >= 3 && caiCount <= 1) l.push('🏷️ 八字标签：比劫夺财——朋友多花钱快。注意别合伙别担保。')
+
+  // 财旺从商
+  if (caiCount >= 2) l.push('🏷️ 八字标签：财旺型——适合做生意/做投资。')
+
+  // 官杀混杂
+  let guanCount = 0
+  for (const g of gans) { if(isGuan(ss(riGan,g))) guanCount++ }
+  if (guanCount >= 2 && gender === '女') l.push('🏷️ 八字标签：官杀混杂——感情上容易有选择困难。建议晚婚。')
+
+  // 印旺耗身
+  let yinCount = 0
+  for (const g of gans) { if(isYin(ss(riGan,g))) yinCount++ }
+  if (yinCount >= 3) l.push('🏷️ 八字标签：印旺耗身——想得多做得少。别内耗，学再多不如动手。')
+
+  // 自合=自信（R22）
+  for (const z of zhis) {
+    const pos = ['年','月','日','时']
+    if (ZI_HE.includes(gans[zhis.indexOf(z)] + z)) {
+      l.push(`🏷️ 八字标签：自合型（${pos[zhis.indexOf(z)]}柱）——自己会把自己说得很厉害。自信足。`)
+    }
+  }
+
+  if (l.length === 0) l.push('🏷️ 八字标签：综合型——运势多变，人生有起有落。')
+
+  return l
+}
+
+// ──── 两象定一象推理（R10）═══════════════════
+
+function twoSignsJudge(riGan: string, pills: {gan:string;zhi:string}[], gender: string): string[] {
+  const r: string[] = []
+  const zhis = pills.map(p=>p.zhi)
+  const gans = pills.map(p=>p.gan)
+
+  // 两象定一象：财在年上（家外）+ 坐下比劫 → 比劫的财务问题
+  for (let i = 0; i < 2; i++) {  // 年/月为家外
+    const st = ss(riGan, gans[i])
+    if (isCai(st) && sst(riGan, (CANG_GAN[pills[2].zhi]||[''])[0]) === '比劫') {
+      r.push(`两象定一象：财星（${gans[i]}）在${['年','月'][i]}柱+你坐下是比劫→两项都指向同一件事：跟朋友/合作方相关的财务问题。`)
+    }
+  }
+
+  // 两象定一象：官杀在年上+月令是印→通过学习/技术获取事业认可
+  for (let i = 0; i < 2; i++) {
+    const st = ss(riGan, gans[i])
+    if (isGuan(st)) {
+      const monthSS = sst(riGan, gans[1])
+      if (monthSS === '印') {
+        r.push(`两象定一象：官杀（${gans[i]}）在${['年','月'][i]}柱+月令是印→事业靠学习和技术驱动。适合知识型岗位。`)
+      }
+    }
+  }
+
+  // 两象定一象：食伤在时柱+坐下是财→靠技术/口才赚钱
+  const hourSS = ss(riGan, gans[3])
+  if (isSS(hourSS) && sst(riGan, (CANG_GAN[pills[2].zhi]||[''])[0]) === '财') {
+    r.push(`两象定一象：时柱食伤（${gans[3]}）+坐下是财→你最终的赚钱路径是靠技术或口才变现。`)
+  }
+
+  // 两象定一象：比劫多+无官杀→自由职业/创业者
+  let biCount = 0, guanCount = 0
+  for (const g of gans) { const st = ss(riGan,g); if(isBJ(st)) biCount++; if(isGuan(st)) guanCount++ }
+  if (biCount >= 3 && guanCount === 0) {
+    r.push('两象定一象：比劫多（'+biCount+'个）+无官杀→你是创业者/自由职业者气质，不适合死板的上班环境。')
+  }
+
+  return r
+}
+
+// ──── 根=房子（R8）+ 找桥梁（R1）══════════════
+
+function rootHouseNarr(riGan: string, pills: {gan:string;zhi:string}[]): string[] {
+  const r: string[] = []
+  const riWx = wx(riGan)
+  const roots = ROOT_MAP[riWx]||[]
+  const zhis = pills.map(p=>p.zhi)
+  const posNames = ['年','月','日','时']
+
+  // 根=住的地方
+  for (let i = 0; i < zhis.length; i++) {
+    if (roots.includes(zhis[i])) {
+      const riKu = zhiKu(zhis[2])
+      const posKu = zhiKu(zhis[i])
+      if (riKu && posKu && riKu === posKu) {
+        r.push(`你的根（${zhis[i]}）和日柱同出${riKu}——根在家里。精神上有安全感，住的地方对你很重要。`)
+      } else if (i === 0) {
+        r.push(`你的根在年上${zhis[i]}——精神上依赖外面，不是本地命。`)
+      }
+    }
+  }
+
+  // 换根=换地方（R9）
+  const bestKu = BEST_YIN_KU[riGan] || ''
+  if (bestKu && !zhis.includes(bestKu)) {
+    r.push(`你的最佳仓库（${bestKu}）不在局中。当大运流年遇到${bestKu}时，你有换工作/换地方的强烈冲动。`)
+  }
+
+  return r
+}
+
+// ──── 大运断事（含R1 R3 R5 R14）═══════════════
+
+function daYunJudgeV2(
+  riGan: string, pills: {gan:string;zhi:string;gz:string}[],
+  dg: string, dz: string
+): string[] {
+  const r: string[] = []
+  const gans = pills.map(p=>p.gan)
+  const zhis = pills.map(p=>p.zhi)
+  const riZhi = zhis[2]
+  const riWx = wx(riGan)
+  const posNames = ['年','月','日','时']
+
+  // [1] 原局有/无
+  if (gans.includes(dg)) {
+    r.push(`大运天干${dg}原局就有——这十年你在道上。`)
+  } else {
+    r.push(`大运天干${dg}不是原局的——这十年是外来的运。跟着航道走能赚钱，偏离了就出问题。`)
+  }
+
+  // [2] 大运十神
+  const ds = sst(riGan, dg)
+  if (ds === '财') r.push('这步运走财运——追求钱相关的事。')
+  if (ds === '官杀') r.push('这步运走官杀运——事业压力大。')
+  if (ds === '印') r.push('这步运走印运——适合学习积累。')
+  if (ds === '食伤') r.push('这步运走食伤运——想法多，发挥特长。')
+  if (ds === '比劫') r.push('这步运走比劫运——朋友多合作多。')
+
+  // [3] R5流年触发规则 + R14家里的字被家外合
+  // 检查大运的字是否在原局的家里（日时柱）且被家外（年月）合
+  for (let i = 2; i < 4; i++) {  // 家里
+    if (gans[i] === dg && zhis[i] === dz) {
+      // 检查家外是否有字合这个
+      for (let j = 0; j < 2; j++) {
+        if (LIU_HE[zhis[i]] === zhis[j] || LIU_HE[zhis[j]] === zhis[i]) {
+          r.push(`大运来了你${posNames[i]}柱的${dg}${dz}——被${posNames[j]}柱的${zhis[j]}合了（R14：家里字出来被家外合）。家外的人对你的东西有想法——要防着点。`)
+        }
+      }
+    }
+  }
+
+  // [4] 信心与运气逆向
+  r.push('提醒一句——信心十足时反而要谨慎（可能是坏运前的感觉）。信心不足时反而要大胆（可能是转运起点）。')
+
+  // [5] 婚姻宫
+  if (LIU_CHONG[riZhi] === dz) r.push(`大运${dz}冲了你夫妻宫——这十年感情容易波动。`)
+  if (LIU_HE[riZhi] === dz) r.push(`大运${dz}合了你夫妻宫——这十年感情上有大变化。`)
+
+  // [6] 弱点的字不喜出来 + 大运好坏四象限
+  // 找出最弱五行
+  const wc: Record<string,number> = {木:0,火:0,土:0,金:0,水:0}
+  for (const v of gans) wc[wx(v)]++
+  for (const v of zhis) wc[ZHI_WU_XING[v]]++
+  const sorted = Object.entries(wc).sort((a,b)=>a[1]-b[1])
+  const weakest = sorted[0]
+  if (weakest && weakest[1] <= 2) {
+    const dw = wx(dg)
+    if (dw === weakest[0]) {
+      const wwarn: Record<string,string> = {
+        '木':'你的八字木最弱——食伤出来了。影响财源，结果不好。',
+        '火':'你的八字火最弱——财出来了。轻则没钱，重则负债。',
+        '土':'你的八字土最弱——官杀出来了。事业压力大，经常想换工作。',
+        '金':'你的八字金最弱——印出来了。颠沛流离，经常换地方。',
+        '水':'你的八字水最弱——比劫出来了。容易被朋友拖累。'
+      }
+      if (wwarn[dw]) r.push(wwarn[dw])
+    }
+  }
+  // 大运好坏四象限
+  r.push('大运好坏四象限参考：好大运+好流年=做事顺利；好大运+差流年=有挫折但不致命；差大运+好流年=做不成大事；差大运+差流年=谨慎保守。')
+
+  // [7] 五行生克
+  const sheng: Record<string,string[]> = {'木':['火'],'火':['土'],'土':['金'],'金':['水'],'水':['木']}
+  const dWx = wx(dg)
+  if (dWx && riWx) {
+    if ((sheng[dWx]||[]).includes(riWx)) r.push(`${dg}（${dWx}）生${riGan}（${riWx}）——这步运能借力。`)
+    else if ((sheng[riWx]||[]).includes(dWx)) r.push(`${dg}（${dWx}）被${riGan}（${riWx}）生——这步运你付出多。`)
+  }
+
+  return r
+}
+
+// ──── 流年断事（含R5 R16）════════════════════
+
+function flowYearV2(ri: string, pills: {gan:string;zhi:string}[],
+  year: number, gender: string): string[] {
+  const r: string[] = []
+  const gans = pills.map(p=>p.gan)
+  const zhis = pills.map(p=>p.zhi)
+  const riZhi = zhis[2]
+  const yearZhi = zhis[0]
+  const [fg, fz] = getFlowGZ(year)
+
+  // R5: 流年字活动 vs 原局字静止
+  if (gans.includes(fg)) {
+    r.push(`${year}年（${fg}${fz}）——天干${fg}原局就有。这一年在道上。`)
+  } else {
+    r.push(`${year}年（${fg}${fz}）——天干${fg}不是原局的。这一年别瞎折腾。`)
+  }
+
+  // 十神还原
+  const fss = sst(ri, fg)
+  if (fss === '财') r.push('今年关注钱的事。')
+  if (fss === '官杀') r.push('今年工作压力大。')
+  if (fss === '印') r.push('今年适合学习进修。')
+  if (fss === '食伤') r.push('今年想法多。注意冲动。')
+  if (fss === '比劫') r.push('今年朋友多应酬多。')
+
+  // R16: 食伤=说话，流年食伤年注意口头承诺
+  if (fss === '食伤') r.push('今年食伤年——注意口头承诺。食伤代表说话，说多了容易给自己挖坑。')
+
+  // 地支关系
+  if (LIU_CHONG[riZhi] === fz) r.push(`流年${fz}冲你配偶宫——注意感情波动。`)
+  if (LIU_HE[riZhi] === fz) r.push(`流年${fz}合你配偶宫——感情有变化。`)
+  if (LIU_CHUAN[riZhi] === fz) r.push(`流年${fz}穿你配偶宫——注意隐性矛盾。`)
+
+  // 桃花
+  const th = TAO_HUA_MAP[yearZhi]
+  if (th && fz === th) r.push(`今年是桃花年——异性缘不错。`)
+
+  return r
+}
+
+// ──── 婚姻专项 ═══════════════════════════
+
+function wanHun(ri: string, pills: {gan:string;zhi:string}[], gen: string): string[] {
+  const r: string[] = []; const z = pills.map(p=>p.zhi); const rz = z[2]; const n = ['年','月','日','时']
+  if (gen==='男') {
+    const hs = ss(ri, pills[3].gan)
+    if (isCai(hs)) r.push('配偶星在时柱——来得晚。')
+    for (const cg of CANG_GAN[pills[3].zhi]||[]) { if (isCai(ss(ri,cg))) {r.push('财星藏在时支——晚婚。');break} }
+  } else {
+    const hs = ss(ri, pills[3].gan)
+    if (isGuan(hs)) r.push('配偶星在时柱——来得晚。')
+    for (const cg of CANG_GAN[pills[3].zhi]||[]) { if (isGuan(ss(ri,cg))) {r.push('官星藏在时支——晚婚。');break} }
+  }
+  for (const v of z) { if (v===rz) continue; if (LIU_CHONG[rz]===v) {r.push('婚姻宫被冲——晚婚能化解。');break} }
+  if (r.length===0) r.push('原局没有明显的晚婚标志。')
+  return r
+}
+
+function liHun(ri: string, pills: {gan:string;zhi:string}[], gen: string): string[] {
+  const r: string[] = []; const z = pills.map(p=>p.zhi); const rz = z[2]; const g = pills.map(p=>p.gan)
+  let hasGen = false
+  for (const v of z) { if (v===rz) continue; if (LIU_CHUAN[rz]===v) {r.push('婚姻宫被穿——有克服不了的矛盾。');hasGen=true} if (LIU_CHONG[rz]===v) {r.push('婚姻宫被冲——容易动荡。');hasGen=true} }
+  const ht: Record<string,string> = {'甲己':'合','乙庚':'合','丙辛':'合','丁壬':'合','戊癸':'合'}
+  if (gen==='女') {
+    for (const p of g) { const st=ss(ri,p); if (isGuan(st)) { for (const p2 of g) { if (p2===p) continue; if (ht[p+p2]||ht[p2+p]) {r.push(`官星${p}被${p2}合走——配偶容易被拉走。`);hasGen=true;break} };break} }
+  } else {
+    for (const p of g) { const st=ss(ri,p); if (isCai(st)) { for (const p2 of g) { if (p2===p) continue; if (ht[p+p2]||ht[p2+p]) {r.push(`财星${p}被${p2}合走——配偶容易被拉走。`);hasGen=true;break} };break} }
+  }
+  if (hasGen) r.push('以上是原局离婚"基因"。大运流年不触发就没事。')
+  return r
+}
+
+function jieHun(ri: string, pills: {gan:string;zhi:string}[], gen: string, dg?: string): string[] {
+  const r: string[] = []; const rz = pills[2].zhi
+  if (!dg) return r
+  const ds = sst(ri, dg)
+  if (gen==='男' && isCai(ds)) r.push(`当前大运走财运（${dg}）——这十年有结婚运。`)
+  if (gen==='女' && isGuan(ds)) r.push(`当前大运走官运（${dg}）——这十年有结婚运。`)
+  if (LIU_HE[rz] === (pills[1]?.zhi||'')) r.push(`月令合了你的配偶宫——感情事情多。`)
+  return r
+}
+
+// ──── 健康 ────
+
+function healthV2(ri: string, pills: {gan:string;zhi:string}[]): string[] {
+  const r: string[] = []; const g = pills.map(p=>p.gan); const z = pills.map(p=>p.zhi)
+  const wc: Record<string,number> = {木:0,火:0,土:0,金:0,水:0}
+  for (const v of g) wc[wx(v)]++
+  for (const v of z) wc[ZHI_WU_XING[v]]++
+  const sorted = Object.entries(wc).sort((a,b)=>a[1]-b[1]); const wst = sorted[0]
+  // R28: 弱的要修
+  if (wst && wst[1] <= 2) {
+    r.push(`你的${wst[0]}最弱——注意${WU_XING_ORGAN[wst[0]]}（${WU_XING_SICK[wst[0]]}）。这是你要后天补的。`)
+    const colorM: Record<string,string[]> = {木:['绿','青'],火:['红','紫'],土:['黄','棕'],金:['白','金'],水:['黑','蓝']}
+    const cm = colorM[wst[0]]; if (cm) r.push(`补${wst[0]}：多穿${cm.join('/')}色。`)
+  }
+  for (let i=0; i<z.length; i++) for (let j=i+1; j<z.length; j++)
+    if (LIU_CHONG[z[i]]===z[j]) r.push(`${z[i]}${z[j]}冲——注意${WU_XING_ORGAN[ZHI_WU_XING[z[i]]]}和${WU_XING_ORGAN[ZHI_WU_XING[z[j]]]}保养。`)
+  return r
+}
+
+// ──── 父母子女 ────
+
+function parentV2(ri: string, pills: {gan:string;zhi:string;gz?:string}[]): string[] {
+  const r: string[] = []; const mg = pills[1].gan; const mss = ss(ri,mg)
+  r.push(`父母宫在月柱${pills[1].gz||(mg+pills[1].zhi)}。`)
+  if (isCai(mss)) r.push(`月干${mg}是财——取财为父。`)
+  else if (isYin(mss)) r.push(`月干${mg}是印——取印为母。`)
+  const rk = zhiKu(pills[2].zhi), mk = zhiKu(pills[1].zhi)
+  if (rk && mk && rk===mk) r.push(`你和父母同出${rk}——能借父母的力，关系近。`)
+  else r.push(`和父母不在同一仓库——自己的事自己扛，借父母力有难度。`)
+  return r
+}
+
+function childrenV2(ri: string, pills: {gan:string;zhi:string;gz?:string}[]): string[] {
+  const r: string[] = []; const hg = pills[3].gan; const hz = pills[3].zhi; const hs = ss(ri,hg)
+  r.push(`子女宫在时柱${pills[3].gz||(hg+hz)}。`)
+  if (isYin(hs)) r.push('时柱是印——对子女教育上心。')
+  else if (isCai(hs)) r.push('时柱是财——给子女花钱大方。')
+  else if (isGuan(hs)) r.push('时柱是官杀——对子女要求严格。')
+  else if (isSS(hs)) r.push('时柱是食伤——跟子女像朋友。')
+  else if (isBJ(hs)) r.push('时柱是比劫——跟子女像兄弟/姐妹。')
+  const rk = zhiKu(pills[2].zhi), hk = zhiKu(hz)
+  if (rk && hk && rk===hk) r.push(`你和子女同出${rk}——跟小孩亲密，会以身作则。`)
+  return r
+}
+
+function caiXi(ri: string, pills: {gan:string;zhi:string}[]): string[] {
+  const r: string[] = []; const n = ['年','月','日','时']; let found = false
+  for (let i=0; i<4; i++) { const s=ss(ri,pills[i].gan); if (isCai(s)) {r.push(`财星（${s}）在${n[i]}柱`);found=true} }
+  if (!found) for (let i=0; i<4; i++) { for (const cg of CANG_GAN[pills[i].zhi]||[]) { if (isCai(ss(ri,cg))) {r.push(`财星藏在${n[i]}柱${pills[i].zhi}中`);found=true;break} } if (found) break }
+  if (!found) r.push('原局无财星透出。财来财去。')
+  return r
+}
+
+function guanSha(ri: string, pills: {gan:string;zhi:string}[]): string[] {
+  const r: string[] = []; const n = ['年','月','日','时']; let found = false
+  for (let i=0; i<4; i++) { const s=ss(ri,pills[i].gan); if (isGuan(s)) {r.push(`官星（${s}）在${n[i]}柱`);found=true} }
+  if (!found) for (let i=0; i<4; i++) { for (const cg of CANG_GAN[pills[i].zhi]||[]) { if (isGuan(ss(ri,cg))) {r.push(`官星藏在${n[i]}柱${pills[i].zhi}中`);found=true;break} } if (found) break }
+  if (!found) r.push('原局无官杀透出。')
+  return r
+}
+
+function pref(ri: string, pills: {gan:string;zhi:string}[]): string[] {
+  const r: string[] = []; const z = pills.map(p=>p.zhi); const g = pills.map(p=>p.gan)
+  const wc: Record<string,number> = {木:0,火:0,土:0,金:0,水:0}
+  for (const v of g) wc[wx(v)]++; for (const v of z) wc[ZHI_WU_XING[v]]++
+  const sorted = Object.entries(wc).sort((a,b)=>a[1]-b[1]); const wst=sorted[0], wsg=sorted[sorted.length-1]
+  if (wsg && wst && wsg[0]!==wst[0]) {
+    r.push(`你的八字${wsg[0]}最旺——别太执着，要控制欲望。`)
+    r.push(`你的八字${wst[0]}最弱——后天要补。`)
+    const xi: Record<string,string[]> = {木:['水'],火:['木'],土:['火'],金:['土'],水:['金']}
+    const ke: Record<string,string> = {木:'金',火:'水',土:'木',金:'火',水:'土'}
+    const x = xi[wst[0]]||[], j = ke[wst[0]]
+    if (x.length) r.push(`喜${x.join('、')}。`); if (j) r.push(`忌${j}。`)
+  }
+  const bk = BEST_YIN_KU[ri]||''
+  if (bk) { if (z.includes(bk)) r.push(`最佳仓库（${bk}）在局。`); else r.push(`最佳仓库（${bk}）不在局——走${bk}大运/流年要抓住。`) }
+  return r
+}
+
+// ═══════════════════════════════════════════════
+//  主入口
+// ═══════════════════════════════════════════════
+
+export interface JudgmentResult {
+  labels: string[]
+  charNarr: string[]
+  careerNarr: string[]
+  wealthNarr: string[]
+  marriageNarr: string[]
+  parentNarr: string[]
+  childrenNarr: string[]
+  healthNarr: string[]
+  prefNarr: string[]
+  biJieNarr: string[]
+  daYunNarr: string[]
+  flowYearNarr: string[]
+  wanHunNarr: string[]
+  jieHunNarr: string[]
+  liHunNarr: string[]
+  twoSignsNarr: string[]
+  rootHouseNarr: string[]
+}
+
+export function analyzeJudgment(
+  pills: {gan:string;zhi:string;gz:string}[],
+  riGan: string,
+  gender: string,
+  birthYear: number,
+  currentYear: number,
+  currentDaYunGan?: string,
+  currentDaYunZhi?: string
+): JudgmentResult {
+  const posNames = ['年','月','日','时']
+  const zhis = pills.map(p => p.zhi)
+  const gans = pills.map(p => p.gan)
+  const riZhi = pills[2].zhi
+  const riWx = wx(riGan)
+  const monthGan = pills[1].gan
+  const hourGan = pills[3].gan
+  const yearZhi = pills[0].zhi
+
+  // ──── 浓缩标签 ────
+  const labels = lifeLabels(riGan, pills, gender)
+
+  // ──── 性格 ────
+  const charNarr: string[] = []
+  if (WX_NATURE[riWx]) charNarr.push(WX_NATURE[riWx])
+  if (ZHI_NATURE[riZhi]) charNarr.push(ZHI_NATURE[riZhi])
+  const mainRS = sst(riGan, (CANG_GAN[riZhi]||[''])[0])
+  if (mainRS === '印') charNarr.push('坐下是印——想得多爱学习。有选择困难症。')
+  if (mainRS === '财') charNarr.push('坐下是财——以结果为导向。')
+  if (mainRS === '官杀') charNarr.push('坐下是官杀——对自己要求高。')
+  if (mainRS === '食伤') charNarr.push('坐下是食伤——喜欢自由。迟早自己干。')
+
+  const roots = ROOT_MAP[riWx]||[]
+  const homeRoots = zhis.slice(2).filter(z=>roots.includes(z))
+  const outRoots = zhis.slice(0,1).filter(z=>roots.includes(z))
+  if (homeRoots.length===0 && outRoots.length>0) charNarr.push('家外有根——借别人的根，不自信、重情义、怕欠人情。')
+  else if (homeRoots.length>0 && outRoots.length>0) charNarr.push(`家里家外都有根。自来熟。`)
+  else if (homeRoots.length>0) charNarr.push(`家里有根（${homeRoots.join('、')}）。内心有底气。`)
+  else charNarr.push('地支无根——靠外力助力。')
+
+  const bk = BEST_YIN_KU[riGan]||''
+  if (bk && zhis.includes(bk)) charNarr.push(`最佳仓库（${bk}）在${posNames[zhis.indexOf(bk)]}柱。`)
+
+  // 边界感理论（同一库出=没有边界感）
+  let allFromOne = true
+  let firstKu = ''
+  for (const g of gans) {
+    const gKu = BEST_YIN_KU[g] || ''
+    if (!firstKu) firstKu = gKu
+    else if (gKu !== firstKu) { allFromOne = false; break }
+  }
+  if (allFromOne && firstKu) {
+    charNarr.push(`你的八字所有天干同出${firstKu}——没有边界感。自来熟，觉得别人的也是自己的。容易把别人的事当自己的事。`)
+  } else {
+    charNarr.push('你的八字天干出处分散——有边界感。清清爽爽，知道什么该做不该做。')
+  }
+
+  // 丁未日主特论
+  if (riGan + riZhi === '丁未') {
+    charNarr.push('你是丁未日主——付出型人格。想法很大做的很少。打死不承认要面子。自带贵人，每句话都会把意图藏起来。')
+  }
+
+  // 丙戌日主特论
+  if (riGan + riZhi === '丙戌') {
+    charNarr.push('你是丙戌日主——坐下印库。把比劫都当自己兄弟。想法很大但越做越小。')
+  }
+
+  if (mainRS) charNarr.push(wangDian(ss(riGan,monthGan)))
+
+  // 地支六合→人性拆解
+  for (let hi = 0; hi < zhis.length; hi++) {
+    for (let hj = hi + 1; hj < zhis.length; hj++) {
+      if (LIU_HE[zhis[hi]] === zhis[hj]) {
+        const key = zhis[hi] < zhis[hj] ? zhis[hi] + zhis[hj] : zhis[hj] + zhis[hi]
+        if (HE_REN[key]) charNarr.push(HE_REN[key])
+      }
+    }
+  }
+
+  // 三刑=学习/效仿
+  for (const z of zhis) {
+    if (SAN_XING[z] && zhis.includes(SAN_XING[z])) {
+      const target = SAN_XING[z]
+      if (zhis.indexOf(z) < zhis.indexOf(target)) {
+        charNarr.push(`地支${z}${target}刑——${SAN_XING_MEANING}`)
+      }
+    }
+  }
+
+  // 自合=目标明确（已有则不再重复）
+  for (const z of zhis) {
+    const pos = ['年','月','日','时']
+    const zi = gans[zhis.indexOf(z)] + z
+    if (ZI_HE.includes(zi)) {
+      const st = sst(riGan, gans[zhis.indexOf(z)])
+      const what = st === '财' ? '对结果要求严格' : st === '官杀' ? '对认可要求高' : '目标明确'
+      charNarr.push(`自合型（${pos[zhis.indexOf(z)]}柱${zi}）——${what}。`)
+    }
+  }
+
+  // 月十神
+  const mssn: Record<string,string> = {
+    '正印':'月柱正印——爱学习、易信任人。','偏印':'月柱偏印——钻研型，善良。',
+    '正财':'月柱正财——大方理智。','偏财':'月柱偏财——出手大方有冒险精神。',
+    '食神':'月柱食神——喜欢吃喝玩乐。共情强。','伤官':'月柱伤官——灵感多想法多。',
+    '正官':'月柱正官——稳重但有小人心。','七杀':'月柱七杀——行动力强但冲动。',
+    '比肩':'月柱比肩——交友广。','劫财':'月柱劫财——社交强竞争强。'
+  }
+  if (mssn[ss(riGan,monthGan)]) charNarr.push(mssn[ss(riGan,monthGan)])
+  const hss = ss(riGan,hourGan)
+  const hssn: Record<string,string> = {
+    '正印':'时柱正印——内心强大自信沉稳。','偏印':'时柱偏印——技术型。',
+    '正财':'时柱正财——迟早自己干。','偏财':'时柱偏财——投资创业型。',
+    '食神':'时柱食神——喜欢自己研究。','伤官':'时柱伤官——受委屈自己消化。',
+    '正官':'时柱正官——脾气时好时坏。','七杀':'时柱七杀——不安全感强。',
+    '比肩':'时柱比肩——对认定的人好到极致。','劫财':'时柱劫财——重人际关系。'
+  }
+  if (hssn[hss]) charNarr.push(hssn[hss])
+
+  // ──── 事业 ────
+  const careerNarr: string[] = []
+  careerNarr.push(`月令${pills[1].zhi}是力量最大点。围绕${ss(riGan,monthGan)}展开。`)
+  const mss = sst(riGan,monthGan)
+  if (mss==='印') careerNarr.push('追求归属感和稳定。看重团队。')
+  if (mss==='财') careerNarr.push('追求收入和回报。')
+  if (mss==='官杀') careerNarr.push('有野心追求职位。')
+  if (mss==='食伤') careerNarr.push('追求自由，适合创意类。')
+  if (mss==='比劫') careerNarr.push('需要伙伴，一个人不行。')
+
+  let hG=false, hY=false
+  for (const g of gans) { const st=ss(riGan,g); if (isGuan(st)) hG=true; if (isYin(st)) hY=true }
+  if (hG&&hY) careerNarr.push('官印齐全——适合体制/管理。')
+  if (hG&&!hY) careerNarr.push('有官无印——压力大，技术路线。')
+  if (!hG&&hY) careerNarr.push('有印无官——坐等好运。')
+  if (!hG&&!hY) careerNarr.push('官印不透——自己闯。')
+
+  // ──── 财富 ────
+  const wealthNarr: string[] = caiXi(riGan, pills)
+  for (const g of gans) { if (isSS(ss(riGan,g))) {wealthNarr.push('有食伤生财——靠技术赚钱。');break} }
+
+  // ──── 婚姻 ────
+  const marriageNarr: string[] = []
+  if (PEI_OU_CHAR[riZhi]) marriageNarr.push(PEI_OU_CHAR[riZhi])
+  for (const z of zhis) { if (z===riZhi) continue; if (LIU_HE[riZhi]===z) marriageNarr.push('配偶宫被合。'); if (LIU_CHONG[riZhi]===z) marriageNarr.push('配偶宫被冲。'); if (LIU_CHUAN[riZhi]===z) marriageNarr.push('配偶宫被穿。') }
+  if (gender==='男') { marriageNarr.push('男命——以财为妻。');marriageNarr.push(...caiXi(riGan,pills))
+    const th = TAO_HUA_MAP[yearZhi]; if (th && zhis.includes(th)) marriageNarr.push(`桃花（${th}）在${posNames[zhis.indexOf(th)]}柱——${TAO_HUA_POS[zhis.indexOf(th)]}`)
+  } else { marriageNarr.push('女命——以官杀为夫。');marriageNarr.push(...guanSha(riGan,pills))
+    const th = TAO_HUA_MAP[yearZhi]; if (th && zhis.includes(th)) marriageNarr.push(`桃花（${th}）在${posNames[zhis.indexOf(th)]}柱——${TAO_HUA_POS[zhis.indexOf(th)]}`)
+  }
+
+  // ──── 其他 ────
+  const parentNarrResult = parentV2(riGan, pills)
+  const childrenNarrResult = childrenV2(riGan, pills)
+  const healthNarrResult = healthV2(riGan, pills)
+  const prefNarrResult = pref(riGan, pills)
+  const twoSignsResult = twoSignsJudge(riGan, pills, gender)
+  const rootHouseResult = rootHouseNarr(riGan, pills)
+
+  // ──── 大运 ────
+  const daYunNarr: string[] = currentDaYunGan && currentDaYunZhi
+    ? daYunJudgeV2(riGan, pills as any, currentDaYunGan, currentDaYunZhi)
+    : ['请提供当前大运干支。']
+
+  // ──── 流年 ────
+  const flowYearNarr: string[] = flowYearV2(riGan, pills, currentYear, gender)
+
+  // ──── 婚姻专项 ────
+  const wanHunNarr: string[] = wanHun(riGan, pills, gender)
+  const jieHunNarr: string[] = jieHun(riGan, pills, gender, currentDaYunGan)
+  const liHunNarr: string[] = liHun(riGan, pills, gender)
+
+  return {
+    labels, charNarr, careerNarr, wealthNarr, marriageNarr,
+    parentNarr: parentNarrResult, childrenNarr: childrenNarrResult,
+    healthNarr: healthNarrResult, prefNarr: prefNarrResult,
+    biJieNarr: ['比劫分析集成在标签和两象定一象中'],
+    daYunNarr, flowYearNarr, wanHunNarr, jieHunNarr, liHunNarr,
+    twoSignsNarr: twoSignsResult, rootHouseNarr: rootHouseResult
+  }
+}
+
+function wangDian(ss: string): string {
+  const m: Record<string,string> = {
+    '印':'你这辈子追的是归属感和内心安定。',
+    '财':'你这辈子追的是钱。做什么都用"能不能赚钱"衡量。',
+    '官杀':'你这辈子追的是事业。要地位要名声。',
+    '食伤':'你这辈子追的是自由。要开心不委屈。',
+    '比劫':'你这辈子离不开朋友，做事要有人陪。'
+  }
+  for (const [k,v] of Object.entries(m)) { if (ss.includes(k)) return v }
+  return ''
+}
+
+export default analyzeJudgment
