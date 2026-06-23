@@ -563,6 +563,11 @@ export interface JudgmentResult {
   liHunNarr: string[]
   twoSignsNarr: string[]
   rootHouseNarr: string[]
+  friendModeNarr: string[]
+  spouseDynamicNarr: string[]
+  childrenRelationNarr: string[]
+  techAbilityNarr: string[]
+  moneyMindsetNarr: string[]
 }
 
 export function analyzeJudgment(
@@ -721,6 +726,11 @@ export function analyzeJudgment(
   const prefNarrResult = pref(riGan, pills)
   const twoSignsResult = twoSignsJudge(riGan, pills, gender)
   const rootHouseResult = rootHouseNarr(riGan, pills)
+  const friendModeResult = analyzeFriendMode(riGan, pills)
+  const spouseDynamicResult = analyzeSpouseDynamic(riGan, pills, gender)
+  const childrenRelationResult = analyzeChildrenRelation(riGan, pills)
+  const techAbilityResult = analyzeTechAbility(riGan, pills)
+  const moneyMindsetResult = analyzeMoneyMindset(riGan, pills)
 
   // ──── 大运 ────
   const daYunNarr: string[] = currentDaYunGan && currentDaYunZhi
@@ -741,8 +751,457 @@ export function analyzeJudgment(
     healthNarr: healthNarrResult, prefNarr: prefNarrResult,
     biJieNarr: ['比劫分析集成在标签和两象定一象中'],
     daYunNarr, flowYearNarr, wanHunNarr, jieHunNarr, liHunNarr,
-    twoSignsNarr: twoSignsResult, rootHouseNarr: rootHouseResult
+    twoSignsNarr: twoSignsResult, rootHouseNarr: rootHouseResult,
+    friendModeNarr: friendModeResult,
+    spouseDynamicNarr: spouseDynamicResult,
+    childrenRelationNarr: childrenRelationResult,
+    techAbilityNarr: techAbilityResult,
+    moneyMindsetNarr: moneyMindsetResult
   }
+}
+
+// ──── 深度朋友相处分析（基于西安案例3,5,6）════════════════════
+
+function analyzeFriendMode(riGan: string, pills: {gan:string;zhi:string}[]): string[] {
+  const r: string[] = []
+  const gans = pills.map(p => p.gan)
+  const zhis = pills.map(p => p.zhi)
+  const posNames = ['年','月','日','时']
+
+  const bjIndices: number[] = []
+  for (let i = 0; i < gans.length; i++) {
+    if (isBJ(ss(riGan, gans[i]))) bjIndices.push(i)
+  }
+
+  if (bjIndices.length === 0) {
+    r.push('你八字里比劫不多，朋友这块不是你的核心课题。你心里有自己的一小撮人，清清静静的，不需要为了合群去勉强自己。')
+    return r
+  }
+
+  if (bjIndices.length >= 3) {
+    r.push(`你八字里比劫有${bjIndices.length}个，走到哪都容易聚一群人。但你别糊涂——不是每个叫你"兄弟"的人，都真的靠得住。`)
+  } else {
+    r.push(`你八字里比劫就${bjIndices.length}个，朋友不多但你心里有数。能进你圈子的人，都是你精挑细选过的。`)
+  }
+
+  // 比劫的"帽子"（看支的主气藏干的十神类别）
+  for (const idx of bjIndices) {
+    const bjGan = gans[idx]
+    const bjZhi = zhis[idx]
+    const pos = posNames[idx]
+    const mainCang = (CANG_GAN[bjZhi] || [''])[0]
+    const hat = sst(riGan, mainCang)
+    
+    if (hat === '印') {
+      r.push(`你${pos}柱${bjGan}${bjZhi}这个朋友，戴"印帽子"——他要面子有层次，做事讲体面。你跟他相处千万别驳他面子，吃软不吃硬的主。`)
+    } else if (hat === '财') {
+      r.push(`你${pos}柱${bjGan}${bjZhi}这个朋友，戴"财帽子"——现实得很，凡事看结果看价值。你能给他带来好处他就是兄弟，你拖他后腿他翻脸比翻书快。`)
+    } else if (hat === '官杀') {
+      r.push(`你${pos}柱${bjGan}${bjZhi}这个朋友，戴"官杀帽子"——嘴上啥都敢说，真到有风险的事他往后缩。喝酒聊天找他行，一起扛事别指望。`)
+    } else if (hat === '食伤') {
+      r.push(`你${pos}柱${bjGan}${bjZhi}这个朋友，戴"食伤帽子"——技术型，手上真有活儿。你们聊技术项目很投缘，但别让他碰钱的事。`)
+    } else {
+      r.push(`你${pos}柱${bjGan}${bjZhi}这个朋友——跟你一个德性，又帮你又跟你抢。`)
+    }
+  }
+
+  // 同库 vs 不同库
+  if (bjIndices.length >= 2) {
+    let allSame = true
+    let firstV = ''
+    for (const idx of bjIndices) {
+      const v = zhiKu(zhis[idx])
+      if (!firstV) firstV = v
+      else if (v !== firstV) { allSame = false; break }
+    }
+    if (allSame && firstV) {
+      r.push(`你的朋友们和你同出${firstV}——同库比劫。你心里会觉得"他们跟我想的一样"，完全不设防。这些人你关键时刻可以信，但别太依赖，人心会变。`)
+    } else {
+      r.push('你的朋友们和你不在同一个仓库——不同库比劫。平时称兄道弟没问题，利益面前你得多留个心眼。真到有风险的时候，他们先想的是自己怎么脱身。')
+    }
+  }
+
+  // 边界感
+  let allFromOne = true
+  let firstKu = ''
+  for (const g of gans) {
+    const k = BEST_YIN_KU[g] || ''
+    if (!firstKu) firstKu = k
+    else if (k !== firstKu) { allFromOne = false; break }
+  }
+  if (allFromOne && firstKu) {
+    r.push(`你的八字天干全出${firstKu}，天地一气，你这个人没有边界感。别人的事就是自己的事，自己的东西也随便给人用。讲义气是好事，但分不清"你的我的"早晚会吃亏。`)
+  }
+
+  // 自合=自信(R22)
+  for (const idx of bjIndices) {
+    if (ZI_HE.includes(gans[idx] + zhis[idx])) {
+      r.push(`你${posNames[idx]}柱的${gans[idx]}${zhis[idx]}这个朋友是自合——特别自信甚至自负。跟他聊天你会发现他不停在夸自己证明自己，嘴上从来不输。你要习惯他这样，别跟他较真。`)
+    }
+  }
+
+  // 地支行业标签
+  for (const idx of bjIndices) {
+    const z = zhis[idx]
+    if (z === '巳') r.push(`你${posNames[idx]}柱${gans[idx]}${z}这朋友——身上有网络/技术属性，大概率搞互联网、IT或新媒体。`)
+    if (z === '酉') r.push(`你${posNames[idx]}柱${gans[idx]}${z}这朋友——身上有金融/精密属性。可能在金融会计行业，或者做事特别较真。`)
+    if (z === '申') r.push(`你${posNames[idx]}柱${gans[idx]}${z}这朋友——有平台/法律属性。可能在大平台公司或者做法律相关。`)
+  }
+
+  return r
+}
+
+// ──── 深度夫妻相处分析（基于西安案例3,4,8）══════════════
+
+function analyzeSpouseDynamic(riGan: string, pills: {gan:string;zhi:string}[], gender: string): string[] {
+  const r: string[] = []
+  const zhis = pills.map(p => p.zhi)
+  const gans = pills.map(p => p.gan)
+  const riZhi = zhis[2]
+  const posNames = ['年','月','日','时']
+
+  // 配偶宫坐什么
+  const mainCang = (CANG_GAN[riZhi] || [''])[0]
+  const riZhiSt = sst(riGan, mainCang)
+  
+  if (riZhiSt === '印') {
+    r.push(`你另一半的座驾是${riZhi}，藏在里头的是印。你这位另一半有主见、爱管你、爱教育你。你们吵架最典型的场面就是：你刚开口说一件事，他/她就打断你开始给你上课。你得接受被"说教"的日常。`)
+  } else if (riZhiSt === '财') {
+    r.push(`你另一半的座驾是${riZhi}，藏在里头的是财。你俩过日子很务实，钱的事说得很清楚。他/她管钱你也不操心。但吵架十有八九是因为钱——他/她觉得你花得不对，你觉得他/她抠。`)
+  } else if (riZhiSt === '官杀') {
+    r.push(`你另一半的座驾是${riZhi}，藏在里头的是官杀。这人强势，要求高，对你期望值很大。你做好了是应该的，做不好直接说你。你跟他/她过日子容易有压力，总有被管着的感觉。`)
+  } else if (riZhiSt === '食伤') {
+    r.push(`你另一半的座驾是${riZhi}，藏在里头的是食伤。这人爱自由、浪漫，不喜欢被管。你管得多了他/她会觉得喘不过气。你们相处得像朋友一样反而感情更好。`)
+  } else if (riZhiSt === '比劫') {
+    r.push(`你另一半的座驾是${riZhi}，藏在里头的是比劫。你俩像兄弟一样相处，互相较劲又互相帮忙。但谁也不服谁，容易因为面子问题吵起来。`)
+  }
+
+  // 配偶宫被冲/合/穿
+  for (const z of zhis) {
+    if (z === riZhi) continue
+    if (LIU_CHONG[riZhi] === z) {
+      r.push(`你的配偶宫${riZhi}被${z}冲了——你俩性格一开始就有冲突点。刚在一起的时候吵得厉害，慢慢学会了各退一步。这种关系不能强求对方改变，你得学会包容不同点。`)
+    }
+    if (LIU_HE[riZhi] === z) {
+      r.push(`你的配偶宫${riZhi}被${z}合了——你们的感情不是纯粹的二人世界，总有外力介入。父母、朋友、工作关系，总有人掺合你们的事。你们的问题常常是"外人怎么看"而不是"我们怎么想"。`)
+    }
+    if (LIU_CHUAN[riZhi] === z) {
+      r.push(`你的配偶宫${riZhi}被${z}穿了——有一种说不清的别扭。你觉得不是什么大不了的事，但你另一半心里一直扎着一根刺。这种矛盾最磨人——说出来好像小题大做，不说又一直在那。`)
+    }
+  }
+
+  // 太极点转换
+  r.push('我再从你另一半的角度给你说说——')
+  for (const z of zhis) {
+    if (z === riZhi) continue
+    if (LIU_CHUAN[riZhi] === z) {
+      if ((riZhi === '子' && z === '未') || (riZhi === '未' && z === '子')) {
+        r.push(`就说${riZhi}${z}穿这个细节：按你的角度看，你是为了孩子的事在管（子水为太极=管孩子）。但换成你另一半的视角，他/她觉得你在故意找事、让他/她下不来台。一个"管孩子"的事，你俩看到的是完全不同的画面。这就是夫妻矛盾的根源——同一件事，不同太极点，结论全反。`)
+      }
+    }
+  }
+
+  // 配偶的品质（根与出处）
+  const spCang = CANG_GAN[riZhi] || []
+  for (const cg of spCang) {
+    const cgKu = BEST_YIN_KU[cg] || ''
+    if (cgKu && zhis.includes(cgKu)) {
+      r.push(`你配偶宫里的${cg}从${cgKu}出——根正，层次不低。你另一半人品靠得住，不是那种来去匆匆的路人。`)
+    } else if (cgKu) {
+      r.push(`你配偶宫里的${cg}的最佳仓库${cgKu}不在局中——这人的人品和出处你把握不住。不是说他/她坏，而是得日久见人心，时间长了才能看清楚。`)
+    }
+  }
+
+  // 吵架模式
+  for (const z of zhis) {
+    if (z === riZhi) continue
+    for (const cg of spCang) {
+      const cgWx = wx(cg)
+      const zWx = zhiWx(z)
+      const ke: Record<string, string> = {木:'金',火:'水',土:'木',金:'火',水:'土'}
+      if (ke[cgWx] === zWx) {
+        r.push(`你们吵架的模式是：你另一半（${cg}属性）做了决定或说了什么，然后被${z}（${zWx}）这边给否了。他/她会觉得"你总是跟我对着干"。其实不是针对他/她，是你们看问题的角度本来就不一样。`)
+      }
+    }
+  }
+
+  return r
+}
+
+// ──── 深度子女关系分析（基于西安案例3,6,8）══════════════
+
+function analyzeChildrenRelation(riGan: string, pills: {gan:string;zhi:string}[]): string[] {
+  const r: string[] = []
+  const gans = pills.map(p => p.gan)
+  const zhis = pills.map(p => p.zhi)
+  const riZhi = zhis[2]
+  const hg = gans[3]
+  const hz = zhis[3]
+  const hs = ss(riGan, hg)
+
+  // 时柱十神决定相处基调
+  if (isYin(hs)) {
+    r.push('你的子女宫坐印——你对孩子上学的事情很上心。管得多、问得多，恨不得替他/她规划好每一步。但你得注意，管得太细孩子会烦你。')
+  } else if (isCai(hs)) {
+    r.push('你的子女宫坐财——你舍得给孩子花钱，要啥给啥。但你要小心别变成溺爱。给钱大方是好事，但别让孩子觉得什么都来得太容易。')
+  } else if (isGuan(hs)) {
+    r.push('你的子女宫坐官杀——你对孩子要求严格，规矩多。你心里是为他/她好，但孩子不一定领情。你要学会什么时候该松一松。')
+  } else if (isSS(hs)) {
+    r.push('你的子女宫坐食伤——你跟孩子处得像朋友。你愿意听他/她说话，尊重他/她的想法。这种教育方式好，孩子跟你亲近，但也容易没大没小。')
+  } else if (isBJ(hs)) {
+    r.push('你的子女宫坐比劫——你跟孩子像兄弟/姐妹一样相处。一起玩一起闹，但也有互相较劲的时候。孩子会觉得你是他/她的玩伴而不是家长。')
+  }
+
+  // 子未穿 - 太极点转换
+  if ((riZhi === '子' && hz === '未') || (riZhi === '未' && hz === '子')) {
+    r.push(`你日柱${riZhi}和时柱${hz}是子未穿的关系。从你的太极点看，你是在管孩子管教育。但从你孩子的太极点看，他/她觉得你在干涉他/她的生活——你好心管他，他觉得你烦。`)
+  }
+
+  // 同库 vs 不同库
+  const rk = zhiKu(riZhi)
+  const hk = zhiKu(hz)
+  if (rk && hk && rk === hk) {
+    r.push(`你和子女同出${rk}——跟孩子关系亲密，你会以身作则。你说的道理自己先做到，孩子也服你。`)
+  } else {
+    r.push(`你和子女不在同一仓库——多少有点代沟。你理解不了现在的孩子在想什么，孩子也嫌你老土。沟通上要多花心思。`)
+  }
+
+  // 子女宫的地支特性
+  const hMainCang = (CANG_GAN[hz] || [''])[0]
+  const hSt = sst(riGan, hMainCang)
+  if (hSt === '比劫') {
+    r.push(`孩子宫坐比劫——孩子跟你像兄弟一样。他/她想要的是"跟你站在一起"的感觉，而不是被你管着。`)
+  } else if (hSt === '印') {
+    r.push(`孩子宫坐印——孩子爱学习爱琢磨，你们可以互相讨论问题。他/她喜欢跟你交流想法，这种亲子关系很健康。`)
+  } else if (hSt === '财') {
+    r.push(`孩子宫坐财——孩子从小就对自己拥有的东西很在意。他/她会管自己的零花钱、管自己的东西。你在这方面不用太操心。`)
+  }
+
+  // 时柱藏干被冲
+  for (const cg of (CANG_GAN[hz] || [])) {
+    const cgWx = wx(cg)
+    for (const z of zhis) {
+      if (z === hz) continue
+      const zWx = zhiWx(z)
+      const ke: Record<string, string> = {木:'金',火:'水',土:'木',金:'火',水:'土'}
+      if (ke[cgWx] === zWx) {
+        r.push(`你子女宫里的${cg}被${z}冲到了——孩子在外面闯荡的时候可能不太省心。跟同学同事的关系、在外面的事情，你得留心点。`)
+      }
+    }
+  }
+
+  return r
+}
+
+// ──── 技术能力深度评估（基于西安案例1,2,5,6）════════════
+
+function analyzeTechAbility(riGan: string, pills: {gan:string;zhi:string}[]): string[] {
+  const r: string[] = []
+  const gans = pills.map(p => p.gan)
+  const zhis = pills.map(p => p.zhi)
+  const riWx = wx(riGan)
+
+  // 收集食伤（透干+藏干）
+  const ssInfo: {gan:string; zhi:string; pos:number}[] = []
+  for (let i = 0; i < gans.length; i++) {
+    const st = ss(riGan, gans[i])
+    if (isSS(st)) ssInfo.push({gan: gans[i], zhi: zhis[i], pos: i})
+  }
+  for (let i = 0; i < zhis.length; i++) {
+    for (const cg of (CANG_GAN[zhis[i]] || [])) {
+      if (isSS(ss(riGan, cg))) {
+        ssInfo.push({gan: cg, zhi: zhis[i], pos: i})
+      }
+    }
+  }
+
+  if (ssInfo.length === 0) {
+    r.push('你的八字里没有明显的食伤。技术不是你的核心赛道，你不靠手艺吃饭。你更适合靠资源、关系或者管理来发展。')
+    return r
+  }
+
+  // 食伤的出处决定品质
+  for (const si of ssInfo) {
+    const ssGan = si.gan
+    const cgKu = BEST_YIN_KU[ssGan] || ''
+    if (cgKu) {
+      if (zhis.includes(cgKu)) {
+        let yinCount = 0, bjCount = 0
+        for (const g of gans) {
+          const st = ss(riGan, g)
+          if (isYin(st)) yinCount++
+          if (isBJ(st)) bjCount++
+        }
+        if (yinCount > bjCount) {
+          r.push(`你的${ssGan}从${cgKu}出——这库偏印，你的技术有底蕴，是真正学进去的东西，不是花架子。`)
+        } else {
+          r.push(`你的${ssGan}从${cgKu}出——这库偏比劫，你的技术偏表面功夫，够用但不深入。要成为专家还得再磨一磨。`)
+        }
+      } else {
+        r.push(`你的${ssGan}的最佳仓库${cgKu}不在局中——你的技术悟性不错，但缺少系统沉淀。你学东西很快，但深度不够。`)
+      }
+    }
+  }
+
+  // 食伤旺相程度（看月令是否生食伤）
+  const monthZhi = zhis[1]
+  const monthWx = zhiWx(monthZhi)
+  const riWxVal = riWx
+  const ssWx: Record<string, string> = {木:'火',火:'土',土:'金',金:'水',水:'木'}
+  const ssWxVal = ssWx[riWxVal] || ''
+  const sheng: Record<string, string[]> = {木:['火'],火:['土'],土:['金'],金:['水'],水:['木']}
+  if (ssWxVal && (sheng[monthWx]||[]).includes(ssWxVal)) {
+    r.push(`月令${monthZhi}（${monthWx}）生你的食伤（${ssWxVal}）——你技术处于旺相状态。你对自己的手艺有追求，精益求精，容不得马虎。`)
+  } else if (ssWxVal) {
+    r.push(`月令${monthZhi}（${monthWx}）对你的食伤（${ssWxVal}）不算生助——你的技术平平，够用但不算拔尖。要多花时间在专业上磨练。`)
+  }
+
+  // 食伤是否受制/被合
+  const ht: Record<string, string> = {'甲己':'合','乙庚':'合','丙辛':'合','丁壬':'合','戊癸':'合'}
+  for (const si of ssInfo) {
+    for (const g of gans) {
+      if (g === si.gan) continue
+      if (ht[si.gan + g] || ht[g + si.gan]) {
+        r.push(`你的${si.gan}（食伤）被${g}合走了——你有技术但发挥不出来。不是能力不行，是时机不对或者被其他事情牵制住了。`)
+      }
+    }
+    for (const z of zhis) {
+      if (z === si.zhi) continue
+      if (LIU_CHONG[z] === si.zhi || LIU_CHONG[si.zhi] === z) {
+        r.push(`你的${si.gan}对应的地支${si.zhi}被${z}冲了——技术这条路不太平，你要经历磨练才能出彩。遇到的挫折都是在帮你磨刀。`)
+      }
+    }
+  }
+
+  // 食伤+财 = 靠技术变现；食伤+官杀 = 靠技术拿地位
+  let hasCai = false, hasGuan = false
+  for (const g of gans) {
+    const st = ss(riGan, g)
+    if (isCai(st)) hasCai = true
+    if (isGuan(st)) hasGuan = true
+  }
+  if (hasCai) {
+    r.push('你八字里有食伤也有财——你的技术能变现。你的手艺能换成钱，路子对了收入不低。')
+  }
+  if (hasGuan) {
+    r.push('你八字里有食伤也有官杀——你靠技术拿地位。你在公司或圈子里是靠专业能力说话的。')
+  }
+
+  // 巳火=网络/技术标签
+  if (zhis.includes('巳') || gans.includes('丙') || gans.includes('丁')) {
+    r.push('你的八字里有巳火或者丙丁火——你跟互联网、网络技术有缘分。你的技术方向可能跟数字化、网络相关。')
+  }
+
+  return r
+}
+
+// ──── 赚钱心态深度分析（基于西安案例2,5,7）══════════════
+
+function analyzeMoneyMindset(riGan: string, pills: {gan:string;zhi:string}[]): string[] {
+  const r: string[] = []
+  const gans = pills.map(p => p.gan)
+  const zhis = pills.map(p => p.zhi)
+  const posNames = ['年','月','日','时']
+
+  // 找财星位置
+  let caiFound = false
+  let caiPos = -1
+  let caiGan = ''
+  for (let i = 0; i < gans.length; i++) {
+    const st = ss(riGan, gans[i])
+    if (isCai(st)) {
+      caiFound = true; caiPos = i; caiGan = gans[i]; break
+    }
+  }
+  if (!caiFound) {
+    for (let i = 0; i < zhis.length; i++) {
+      for (const cg of (CANG_GAN[zhis[i]] || [])) {
+        if (isCai(ss(riGan, cg))) {
+          caiFound = true; caiPos = i; caiGan = cg; break
+        }
+      }
+      if (caiFound) break
+    }
+  }
+
+  // 财星位置决定花钱态度
+  if (caiFound && caiPos >= 0) {
+    if (caiPos === 0) {
+      r.push('你的财星在年柱——你这人花钱大气，不抠门。在钱的事上讲排面、讲体面。小时候家里对你也不抠，所以你养成了大方的习惯。')
+    } else if (caiPos === 1) {
+      r.push('你的财星在月柱——你花钱会算性价比。不是小气，是心里有一本账。同样的东西你能找到最划算的买法，别人说你抠，但你知道自己是为了把钱花在刀刃上。')
+    } else if (caiPos === 2) {
+      r.push('你的财星坐下（日柱）——你会攒钱。钱到手里就不想花，存着才有安全感。你对自己的要求是"手里有钱心里不慌"。')
+    } else if (caiPos === 3) {
+      r.push('你的财星在时柱——你的财运在晚年，越往后越有钱。现在的你可能不觉得，但到老了你会发现钱不是问题。你对钱的态度是"该有的都会有"。')
+    }
+  }
+
+  // 财被合 = 想赚轻松钱
+  const ht: Record<string, string> = {'甲己':'合','乙庚':'合','丙辛':'合','丁壬':'合','戊癸':'合'}
+  if (caiFound && caiGan) {
+    for (const g of gans) {
+      if (g === caiGan) continue
+      if (ht[g + caiGan] || ht[caiGan + g]) {
+        r.push(`你的财星${caiGan}被${g}合了——你想赚轻松钱、快钱。别人说有个好项目来钱快，你就容易上头。你这种心态特别容易被忽悠，合伙做生意要格外小心，合财的人必须自己亲自盯着。`)
+      }
+    }
+  }
+
+  // 弱财
+  const wc: Record<string,number> = {木:0,火:0,土:0,金:0,水:0}
+  for (const v of gans) wc[wx(v)]++
+  for (const v of zhis) wc[ZHI_WU_XING[v]]++
+  const sorted = Object.entries(wc).sort((a,b)=>a[1]-b[1])
+  const weakest = sorted[0]
+  if (weakest) {
+    const caiWx: Record<string, string> = {木:'土',火:'金',土:'水',金:'木',水:'火'}
+    const riWxVal = wx(riGan)
+    const caiWxVal = caiWx[riWxVal] || ''
+    if (weakest[0] === caiWxVal && weakest[1] <= 1) {
+      r.push(`你的八字里${caiWxVal}最弱，恰好是你的财星五行——这叫"弱财"。轻则存不住钱、财来财去；重则容易负债。你也别太焦虑，有时候身体出了小毛病帮你挡了财上的灾，反而是好事。`)
+    }
+  }
+
+  // 原局有财 vs 无财
+  if (caiFound) {
+    r.push('你八字里财星是透出来的——你对钱这件事在道上，知道自己该赚什么钱、不该赚什么钱。能掌控自己的财务状况。')
+  } else {
+    r.push('你八字里没有透出财星——财来财去留不住。你赚钱靠运气，花钱靠心情。建议你有钱先买固定资产或存定期，别放手里，放手里就会花掉。')
+  }
+
+  // 比劫夺财
+  let bjCount = 0
+  for (const g of gans) {
+    if (isBJ(ss(riGan, g))) bjCount++
+  }
+  if (bjCount >= 2) {
+    let allSameVault = true
+    let firstVault = ''
+    for (const g of gans) {
+      const k = BEST_YIN_KU[g] || ''
+      if (!firstVault) firstVault = k
+      else if (k !== firstVault) { allSameVault = false; break }
+    }
+    if (allSameVault && firstVault) {
+      r.push(`你比劫多但大家同出${firstVault}——同库比劫夺财问题不大。你跟兄弟一起赚钱，分钱的时候大家心里有数。但你心里会觉得"他跟我想的一样"，太不设防了。`)
+    } else {
+      r.push('你比劫多而且不是同库——这就有风险了。兄弟朋友借钱、合伙、担保这些事你最好别碰。就算关系再好，钱的事一掺合就容易出问题。')
+    }
+  }
+
+  // 合财心态
+  for (const z of zhis) {
+    const idx = zhis.indexOf(z)
+    if (ZI_HE.includes(gans[idx] + z)) {
+      const st = sst(riGan, gans[idx])
+      if (st === '财') {
+        r.push(`你的${posNames[idx]}柱${gans[idx]}${z}是自合财——你对钱的结果要求特别高。赚不到钱你就焦虑、急功近利。这种心态让你很努力，但也让你活得很累。要学会享受过程，别只看结果。`)
+      }
+    }
+  }
+
+  return r
 }
 
 function wangDian(ss: string): string {

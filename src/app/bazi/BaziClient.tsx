@@ -1174,6 +1174,41 @@ Object.entries(result.wx).map(([w,c]): React.ReactNode =>(
                 </div>
               )}
 
+              {judgmentResult.friendModeNarr && judgmentResult.friendModeNarr.length > 0 && (
+                <div className="mb-3">
+                  <h5 className="text-xs font-semibold text-emerald-300 mb-1">🤝 交友模式</h5>
+                  {judgmentResult.friendModeNarr.map((s,i)=><p key={i} className="text-xs text-gray-200 mb-1 leading-relaxed">{s}</p>)}
+                </div>
+              )}
+
+              {judgmentResult.spouseDynamicNarr && judgmentResult.spouseDynamicNarr.length > 0 && (
+                <div className="mb-3">
+                  <h5 className="text-xs font-semibold text-pink-300 mb-1">💑 夫妻相处</h5>
+                  {judgmentResult.spouseDynamicNarr.map((s,i)=><p key={i} className="text-xs text-gray-200 mb-1 leading-relaxed">{s}</p>)}
+                </div>
+              )}
+
+              {judgmentResult.childrenRelationNarr && judgmentResult.childrenRelationNarr.length > 0 && (
+                <div className="mb-3">
+                  <h5 className="text-xs font-semibold text-yellow-300 mb-1">👶 子女教养</h5>
+                  {judgmentResult.childrenRelationNarr.map((s,i)=><p key={i} className="text-xs text-gray-200 mb-1 leading-relaxed">{s}</p>)}
+                </div>
+              )}
+
+              {judgmentResult.techAbilityNarr && judgmentResult.techAbilityNarr.length > 0 && (
+                <div className="mb-3">
+                  <h5 className="text-xs font-semibold text-cyan-300 mb-1">🔧 技术能力</h5>
+                  {judgmentResult.techAbilityNarr.map((s,i)=><p key={i} className="text-xs text-gray-200 mb-1 leading-relaxed">{s}</p>)}
+                </div>
+              )}
+
+              {judgmentResult.moneyMindsetNarr && judgmentResult.moneyMindsetNarr.length > 0 && (
+                <div className="mb-3">
+                  <h5 className="text-xs font-semibold text-lime-300 mb-1">💰 赚钱心态</h5>
+                  {judgmentResult.moneyMindsetNarr.map((s,i)=><p key={i} className="text-xs text-gray-200 mb-1 leading-relaxed">{s}</p>)}
+                </div>
+              )}
+
               <div className="mt-2 pt-2 border-t border-dark-600">
                 <p className="text-[10px] text-gray-500 italic">以上为九宫命理体系实战解读</p>
               </div>
