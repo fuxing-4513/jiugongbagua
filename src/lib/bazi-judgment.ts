@@ -1273,81 +1273,93 @@ function analyzeFriendMode(riGan: string, pills: {gan:string;zhi:string}[]): str
   const r: string[] = []
   const gans = pills.map(p => p.gan)
   const zhis = pills.map(p => p.zhi)
-  const posNames = ['年','月','日','时']
 
-  const bjIndices: number[] = []
-  for (let i = 0; i < gans.length; i++) {
-    if (isBJ(ss(riGan, gans[i]))) bjIndices.push(i)
+  // 六亲定位：年=祖上/长辈 月=父母/兄弟姐妹/朋友圈 日支=配偶 时=子女/下属
+
+  // ── 年柱：祖上/长辈 ──
+  const yearGan = gans[0]
+  const yearZhi = zhis[0]
+  const yearCang = (CANG_GAN[yearZhi] || [''])[0]
+  const yearSS = ss(riGan, yearGan)
+
+  if (isBJ(yearSS)) {
+    r.push(`年柱${yearGan}${yearZhi}比劫透出--祖上或长辈圈里有人跟你是同类人。你身上有他们传下来的那股劲,不管好坏你都带着他们的烙印。`)
+    if (yearCang) {
+      const yearHat = sst(riGan, yearCang)
+      if (yearHat === '印') r.push(`  祖上讲究体面,他们那代人吃过苦,所以特别在意面子。你做事要体面,不能让他们丢人。`)
+      else if (yearHat === '财') r.push(`  祖上现实得很,做事讲结果。家里有老江湖,你看事情容易先算值不值。`)
+      else if (yearHat === '官杀') r.push(`  祖上管得严,规矩大。你怕说错话做错事,这毛病是祖上传下来的。`)
+      else if (yearHat === '食伤') r.push(`  祖上有手艺人或读书人,你骨子里的技术底子从这里来。`)
+    }
   }
 
-  if (bjIndices.length === 0) {
-    r.push('你八字里比劫不多,朋友这块不是你的核心课题。你心里有自己的一小撮人,清清静静的,不需要为了合群去勉强自己。')
-    return r
+  // ── 月柱：父母/兄弟姐妹/朋友圈 ──
+  const monthGan = gans[1]
+  const monthZhi = zhis[1]
+  const monthSS = ss(riGan, monthGan)
+  const monthCang = (CANG_GAN[monthZhi] || [''])[0]
+
+  // 先看月干是否是比劫（兄弟姐妹/朋友的核心标志）
+  if (isBJ(monthSS)) {
+    // 统计全局比劫数量（仅用于整体判断）
+    const bjCountAll = [0,1,2,3].filter(i => isBJ(ss(riGan, gans[i]))).length
+    if (bjCountAll >= 3) {
+      r.push(`你八字比劫有${bjCountAll}个,走到哪都容易聚一群人。但你别糊涂--不是每个叫你"兄弟"的人都真的靠得住。`)
+    } else if (bjCountAll >= 1) {
+      r.push(`你八字比劫就${bjCountAll}个,朋友不多但你心里有数。能进你圈子的人,都是你精挑细选过的。`)
+    }
+
+    // 月柱比劫的帽子（坐下的藏干决定他的特质）
+    if (monthCang) {
+      const monthHat = sst(riGan, monthCang)
+      if (monthHat === '印') {
+        r.push(`你月柱${monthGan}${monthZhi}这个朋友/兄弟姐妹,戴"印帽子"--他要面子有层次,做事讲体面。你跟他相处千万别驳他面子,吃软不吃硬的主。`)
+      } else if (monthHat === '财') {
+        r.push(`你月柱${monthGan}${monthZhi}这个朋友/兄弟姐妹,戴"财帽子"--现实得很,凡事看结果看价值。你能给他带来好处他就是兄弟,你拖他后腿他翻脸比翻书快。`)
+      } else if (monthHat === '官杀') {
+        r.push(`你月柱${monthGan}${monthZhi}这个朋友/兄弟姐妹,戴"官杀帽子"--嘴上啥都敢说,真到有风险的事他往后缩。喝酒聊天找他行,一起扛事别指望。`)
+      } else if (monthHat === '食伤') {
+        r.push(`你月柱${monthGan}${monthZhi}这个朋友/兄弟姐妹,戴"食伤帽子"--技术型,手上真有活儿。你们聊技术项目很投缘,但别让他碰钱的事。`)
+      } else {
+        r.push(`你月柱${monthGan}${monthZhi}--跟你一个德性,又帮你又跟你抢。`)
+      }
+    }
+
+    // 自合检测
+    if (ZI_HE.includes(monthGan + monthZhi)) {
+      r.push(`月柱${monthGan}${monthZhi}自合--特别自信甚至自负。跟他聊天你会发现他不停在夸自己,嘴上从来不输。你要习惯他这样,别跟他较真。`)
+    }
+
+    // 地支五行属性推测职业上
+    if (monthZhi === '巳') r.push(`月柱${monthGan}${monthZhi}--身上有网络/技术属性,大概率搞互联网、IT或新媒体。`)
+    if (monthZhi === '酉') r.push(`月柱${monthGan}${monthZhi}--身上有金融/精密属性。可能在金融会计行业,或者做事特别较真。`)
+    if (monthZhi === '申') r.push(`月柱${monthGan}${monthZhi}--有平台/法律属性。可能在大平台公司或者做法律相关。`)
   }
 
-  if (bjIndices.length >= 3) {
-    r.push(`你八字里比劫有${bjIndices.length}个,走到哪都容易聚一群人。但你别糊涂--不是每个叫你"兄弟"的人,都真的靠得住。`)
-  } else {
-    r.push(`你八字里比劫就${bjIndices.length}个,朋友不多但你心里有数。能进你圈子的人,都是你精挑细选过的。`)
+  // ── 共根：年柱和月柱的关系 ──
+  const yearKu = zhiKu(yearZhi)
+  const monthKu = zhiKu(monthZhi)
+  if (yearKu && monthKu && yearKu === monthKu) {
+    r.push(`你年和月都出自${yearKu},你家世有根基。祖上和父母的能量你一脉相承,外人一看就知道你是哪家出来的。`)
   }
 
-  for (const idx of bjIndices) {
-    const bjGan = gans[idx]
-    const bjZhi = zhis[idx]
-    const pos = posNames[idx]
-    const mainCang = (CANG_GAN[bjZhi] || [''])[0]
-    const hat = sst(riGan, mainCang)
+  // ── 天地一气判断（仅看年月） ──
+  if (yearGan && monthGan) {
+    const yk = BEST_YIN_KU[yearGan] || ''
+    const mk = BEST_YIN_KU[monthGan] || ''
+    if (yk && mk && yk === mk) {
+      r.push(`年干月干同出${yk},天地一气。你这个人没有边界感,别人的事就是自己的事。讲义气是好事,但分不清"你的我的"早晚会吃亏。`)
+    }
+  }
 
-    if (hat === '印') {
-      r.push(`你${pos}柱${bjGan}${bjZhi}这个朋友,戴"印帽子"--他要面子有层次,做事讲体面。你跟他相处千万别驳他面子,吃软不吃硬的主。`)
-    } else if (hat === '财') {
-      r.push(`你${pos}柱${bjGan}${bjZhi}这个朋友,戴"财帽子"--现实得很,凡事看结果看价值。你能给他带来好处他就是兄弟,你拖他后腿他翻脸比翻书快。`)
-    } else if (hat === '官杀') {
-      r.push(`你${pos}柱${bjGan}${bjZhi}这个朋友,戴"官杀帽子"--嘴上啥都敢说,真到有风险的事他往后缩。喝酒聊天找他行,一起扛事别指望。`)
-    } else if (hat === '食伤') {
-      r.push(`你${pos}柱${bjGan}${bjZhi}这个朋友,戴"食伤帽子"--技术型,手上真有活儿。你们聊技术项目很投缘,但别让他碰钱的事。`)
+  // ── 月柱不是比劫时的兜底提示 ──
+  if (!isBJ(monthSS)) {
+    const otherBJ = [0,2,3].filter(i => isBJ(ss(riGan, gans[i]))).length
+    if (otherBJ > 0) {
+      r.push('月柱不是比劫,你的朋友熟人更多在别的宫位。你自己的社交圈不算大,但有几个交心的就够了。')
     } else {
-      r.push(`你${pos}柱${bjGan}${bjZhi}这个朋友--跟你一个德性,又帮你又跟你抢。`)
+      r.push('你八字里比劫不多,朋友这块不是你的核心课题。你心里有自己的一小撮人,清清静静的,不需要为了合群去勉强自己。')
     }
-  }
-
-  if (bjIndices.length >= 2) {
-    let allSame = true
-    let firstV = ''
-    for (const idx of bjIndices) {
-      const v = zhiKu(zhis[idx])
-      if (!firstV) firstV = v
-      else if (v !== firstV) { allSame = false; break }
-    }
-    if (allSame && firstV) {
-      r.push(`你心里会觉得"他们跟我想的一样",完全不设防。你们从同一个库里出--这叫"共根",亲兄弟才有的底子。这些人关键时刻能帮到你,但你也别太依赖,人心会变。`)
-    } else {
-      r.push('平时称兄道弟没问题,利益面前你得多留个心眼。真到有风险的时候,他们先想的是自己怎么脱身。')
-    }
-  }
-
-  let allFromOne = true
-  let firstKu = ''
-  for (const g of gans) {
-    const k = BEST_YIN_KU[g] || ''
-    if (!firstKu) firstKu = k
-    else if (k !== firstKu) { allFromOne = false; break }
-  }
-  if (allFromOne && firstKu) {
-    r.push(`你的八字天干全出${firstKu},天地一气,你这个人没有边界感。别人的事就是自己的事,自己的东西也随便给人用。讲义气是好事,但分不清"你的我的"早晚会吃亏。`)
-  }
-
-  for (const idx of bjIndices) {
-    if (ZI_HE.includes(gans[idx] + zhis[idx])) {
-      r.push(`你${posNames[idx]}柱的${gans[idx]}${zhis[idx]}这个朋友是自合--特别自信甚至自负。跟他聊天你会发现他不停在夸自己证明自己,嘴上从来不输。你要习惯他这样,别跟他较真。`)
-    }
-  }
-
-  for (const idx of bjIndices) {
-    const z = zhis[idx]
-    if (z === '巳') r.push(`你${posNames[idx]}柱${gans[idx]}${z}这朋友--身上有网络/技术属性,大概率搞互联网、IT或新媒体。`)
-    if (z === '酉') r.push(`你${posNames[idx]}柱${gans[idx]}${z}这朋友--身上有金融/精密属性。可能在金融会计行业,或者做事特别较真。`)
-    if (z === '申') r.push(`你${posNames[idx]}柱${gans[idx]}${z}这朋友--有平台/法律属性。可能在大平台公司或者做法律相关。`)
   }
 
   return r
