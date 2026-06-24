@@ -739,25 +739,29 @@ function bodyStrength(riGan: string, gans: string[], zhis: string[]): '身强'|'
   let total = ling[status] || 0  // 得令
   for (let i = 0; i < zhis.length; i++) {
     const z = zhis[i]
-    const p = i === 1 ? 1 : i === 3 ? 0.8 : i === 2 ? 0.6 : 0.3
+    const p = i === 1 ? 1 : i === 3 ? 1 : i === 2 ? 0.3 : 0.3
     if ((STRONG_ROOTS[riGan]||[]).includes(z)) total += 30 * p   // 得地强根
     else if ((MEDIUM_ROOTS[riGan]||[]).includes(z)) total += 15 * p  // 得地中根
   }
-  for (let i = 0; i < gans.length; i++) {  // 得势
-    const p = i === 1 ? 1 : i === 3 ? 0.8 : i === 2 ? 0.6 : 0.4
+  for (let i = 0; i < gans.length; i++) {  // 得势(天干只表象)
+    const p = i === 1 ? 1 : i === 3 ? 1 : i === 2 ? 0.6 : 0.3
     const w = wx(gans[i])
     if (w === riWx) total += 20 * p
     else { const s = ss(riGan, gans[i]); if (isYin(s)) total += 15 * p }
   }
 
-  // 消耗侧检查——克泄耗成局则强制身弱(用户第二条:失令+克泄耗压制)
-  const consumeZhiCount = zhis.filter(z => {
-    const w = zhiWx(z)
-    // 地支五行克泄耗日主
-    return ({木:['火','土','金'],火:['土','金','水'],土:['金','水','木'],金:['水','木','火'],水:['木','火','土']}[riWx]||[]).includes(w)
-  }).length
-  // 如果地支≥3个都是克泄耗,且得令不是旺,则身弱
-  if (consumeZhiCount >= 3 && (ling[status]||0) < 30) return '身弱'
+  // 消耗侧——只看月支时支,真正核心在这里
+  const consumeKeyCheck = (()=>{
+    const mZhi = zhiWx(zhis[1]); const hZhi = zhiWx(zhis[3])
+    const cMap = ({木:['火','土','金'],火:['土','金','水'],土:['金','水','木'],金:['水','木','火'],水:['木','火','土']}[riWx]||[])
+    if (cMap.includes(mZhi) && cMap.includes(hZhi)) return '双杀'
+    if (cMap.includes(mZhi) || cMap.includes(hZhi)) return '单杀'
+    return '不杀'
+  })()
+  // 月时双克泄 + 得令非旺 → 强制身弱
+  if (consumeKeyCheck === '双杀' && (ling[status]||0) < 50) return '身弱'
+  // 月时单克泄 + 得令偏弱 → 身弱
+  if (consumeKeyCheck === '单杀' && (ling[status]||0) <= -10) return '身弱'
 
   if (total >= 50) return '身强'
   else if (total <= 15) return '身弱'
@@ -777,12 +781,29 @@ function bodyAndSeasonAnalysis(riGan: string, gans: string[], zhis: string[]): s
 
   // 得地
   const roots: string[] = []
-  for (const z of zhis) {
-    if ((STRONG_ROOTS[riGan]||[]).includes(z)) roots.push(`${z}(强根)`)
-    else if ((MEDIUM_ROOTS[riGan]||[]).includes(z)) roots.push(`${z}(中根)`)
+  for (let i = 0; i < zhis.length; i++) {
+    const pos = i===1?'月':i===3?'时':i===2?'日':'年'
+    if ((STRONG_ROOTS[riGan]||[]).includes(zhis[i])) roots.push(`${zhis[i]}(${pos}·强根)`)
+    else if ((MEDIUM_ROOTS[riGan]||[]).includes(zhis[i])) roots.push(`${zhis[i]}(${pos}·中根)`)
   }
-  if (roots.length > 0) r.push(`【得地】根气:${roots.join('、')}。`)
-  else r.push('【得地】无根——天干再多印比也是虚浮。')
+  if (roots.length > 0) r.push(`【得地】根气:${roots.join('、')}。天干只是表象,真正看地支。月时根最有力,年上根虚浮。`)
+  else r.push('【得地】无根——天干再多印比也是虚浮。地支无根等于没房子住。')
+
+  // 月时核心分析
+  const mZhi = zhis[1]; const hZhi = zhis[3]
+  const mWx = zhiWx(mZhi); const hWx = zhiWx(hZhi)
+  const mState = season?.[mWx] || ''; const hState = season?.[hWx] || ''
+
+  // 判断月时是否克泄耗日主
+  const consumeMap = ({木:['火','土','金'],火:['土','金','水'],土:['金','水','木'],金:['水','木','火'],水:['木','火','土']}[riWx]||[])
+  const mKill = consumeMap.includes(mWx) ? '克泄耗' : '帮扶'
+  const hKill = consumeMap.includes(hWx) ? '克泄耗' : '帮扶'
+  const yZhi = zhis[0]; const rZhi = zhis[2]
+  const yWx = zhiWx(yZhi); const rWx2 = zhiWx(rZhi)
+  const yKill = consumeMap.includes(yWx) ? '克泄耗' : '帮扶'
+  const rKill = consumeMap.includes(rWx2) ? '克泄耗' : '帮扶'
+  r.push(`【月时核心】月支${mZhi}(${mWx})${mKill}日主,状态${mState}。时支${hZhi}(${hWx})${hKill}日主,状态${hState}。月时是八字力量核心,它们对日主的关系决定了大方向。`)
+  r.push(`年支${yZhi}(${yWx})${yKill}日主,但年支级别最高、影响最大(祖荫/家族/大环境),然而在身强身弱上力量最小。日支${rZhi}(${rWx2})${rKill}日主,力量也小。`)
 
   // 各五行节令走势
   if (season) {
@@ -798,6 +819,7 @@ function bodyAndSeasonAnalysis(riGan: string, gans: string[], zhis: string[]): s
   // 综合
   const bodyCN: Record<string,string> = {身强:'自身力量充足,能担财担官。适合管理、创业、竞争型行业。',身弱:'自身力量不足,需要印(靠山/学历)和比劫(朋友/团队)。适合专业路线,别贪大。',身中和:'自身力量适中,进退有度。路宽但容易迷茫,需深耕一个方向。'}
   r.push(`综合判断:你的八字${body}。${bodyCN[body]||''}`)
+  r.push(`记住:天干只是表象,地支是真正的载体。身强身弱的核心在看月时,年支级别高但力量小在身强身弱上。`)
 
   return r
 }
