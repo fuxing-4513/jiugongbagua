@@ -851,16 +851,16 @@ export default function BaziClient() {
       {/* 分析Tab导航 */}
       <div className="flex gap-3 flex-wrap bg-dark-800/80 rounded-xl border border-dark-600 p-3">
         <button onClick={()=>setActiveTab('classic')}
-          className={`flex-1 min-w-[100px] px-4 py-3 rounded-xl text-sm font-bold tracking-wider transition-all shadow-lg ${activeTab==='classic'?'bg-gradient-to-r from-gold-500 to-gold-600 text-dark-900 shadow-gold-500/20 scale-105':'bg-dark-700 text-gray-300 border-2 border-dark-500 hover:border-gold-500/60 hover:text-gold-300'}`}>
-          📜 经典分析
+          className={`flex-1 min-w-[110px] px-4 py-3.5 rounded-xl text-base font-bold tracking-wider transition-all duration-200 shadow-lg ${activeTab==='classic'?'bg-gradient-to-br from-amber-300 via-gold-400 to-gold-600 text-dark-900 shadow-[0_0_20px_rgba(251,191,36,0.4)] border border-amber-200/50 scale-105':'bg-dark-800 text-gray-200 border-2 border-gold-500/40 hover:border-gold-400/80 hover:bg-dark-700 hover:text-gold-200 hover:shadow-[0_0_15px_rgba(251,191,36,0.15)]'}`}>
+          <span className="text-lg mr-1">📜</span> 经典分析
         </button>
         <button onClick={()=>setActiveTab('deep')}
-          className={`flex-1 min-w-[100px] px-4 py-3 rounded-xl text-sm font-bold tracking-wider transition-all shadow-lg ${activeTab==='deep'?'bg-gradient-to-r from-gold-500 to-gold-600 text-dark-900 shadow-gold-500/20 scale-105':'bg-dark-700 text-gray-300 border-2 border-dark-500 hover:border-gold-500/60 hover:text-gold-300'}`}>
-          🔮 高人深析
+          className={`flex-1 min-w-[110px] px-4 py-3.5 rounded-xl text-base font-bold tracking-wider transition-all duration-200 shadow-lg ${activeTab==='deep'?'bg-gradient-to-br from-amber-300 via-gold-400 to-gold-600 text-dark-900 shadow-[0_0_20px_rgba(251,191,36,0.4)] border border-amber-200/50 scale-105':'bg-dark-800 text-gray-200 border-2 border-gold-500/40 hover:border-gold-400/80 hover:bg-dark-700 hover:text-gold-200 hover:shadow-[0_0_15px_rgba(251,191,36,0.15)]'}`}>
+          <span className="text-lg mr-1">🔮</span> 高人深析
         </button>
         <button onClick={()=>setActiveTab('yinzheng')}
-          className={`flex-1 min-w-[100px] px-4 py-3 rounded-xl text-sm font-bold tracking-wider transition-all shadow-lg ${activeTab==='yinzheng'?'bg-gradient-to-r from-gold-500 to-gold-600 text-dark-900 shadow-gold-500/20 scale-105':'bg-dark-700 text-gray-300 border-2 border-dark-500 hover:border-gold-500/60 hover:text-gold-300'}`}>
-          🔄 综合印证
+          className={`flex-1 min-w-[110px] px-4 py-3.5 rounded-xl text-base font-bold tracking-wider transition-all duration-200 shadow-lg ${activeTab==='yinzheng'?'bg-gradient-to-br from-amber-300 via-gold-400 to-gold-600 text-dark-900 shadow-[0_0_20px_rgba(251,191,36,0.4)] border border-amber-200/50 scale-105':'bg-dark-800 text-gray-200 border-2 border-gold-500/40 hover:border-gold-400/80 hover:bg-dark-700 hover:text-gold-200 hover:shadow-[0_0_15px_rgba(251,191,36,0.15)]'}`}>
+          <span className="text-lg mr-1">🔄</span> 综合印证
         </button>
       </div>
 
@@ -1398,18 +1398,20 @@ Object.entries(result.wx).map(([w,c]): React.ReactNode =>(
                 </div>
               </div>
               {/* 干支关系 */}
-              {(baziEnrichResult?.天干关系 || baziEnrichResult?.地支关系) && (
+              {(baziEnrichResult?.天干关系?.length || baziEnrichResult?.地支关系?.length) ? (
                 <div>
-                  {(() => {
-                    const items: string[] = []
-                    items.push(...(baziEnrichResult?.天干关系 || []))
-                    items.push(...(baziEnrichResult?.地支关系 || []))
-                    return items.filter(Boolean).map((s: string, i: number) => (
-                      <p key={i} className="text-xs text-gray-300 mb-1 leading-relaxed">{s}</p>
-                    ))
-                  })()}
+                  {(baziEnrichResult?.天干关系 || []).map((r: any, i: number) => (
+                    <p key={'g'+i} className="text-xs text-gray-300 mb-1 leading-relaxed">
+                      {r.type}：{r.gan.join('、')}（{r.pillars.join('、')}）{r.detail ? '→'+r.detail : ''}
+                    </p>
+                  ))}
+                  {(baziEnrichResult?.地支关系 || []).map((r: any, i: number) => (
+                    <p key={'z'+i} className="text-xs text-gray-300 mb-1 leading-relaxed">
+                      {r.type}：{r.zhi.join('、')}（{r.pillars.join('、')}）{r.detail ? '→'+r.detail : ''}
+                    </p>
+                  ))}
                 </div>
-              )}
+              ) : null}
             </div>
             <div className="bg-dark-800/80 rounded-xl border border-dashed border-dark-500 p-6 text-center">
               <p className="text-xs text-gray-500">
