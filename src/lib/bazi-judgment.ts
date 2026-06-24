@@ -644,18 +644,111 @@ function jieHun(ri: string, pills: {gan:string;zhi:string}[], gen: string, dg?: 
 // ──── 健康 ────
 
 function healthV2(ri: string, pills: {gan:string;zhi:string}[]): string[] {
-  const r: string[] = []; const g = pills.map(p=>p.gan); const z = pills.map(p=>p.zhi)
+  const r: string[] = []
+  const g = pills.map(p=>p.gan)
+  const z = pills.map(p=>p.zhi)
+
+  // 𓆙 五行计数
   const wc: Record<string,number> = {木:0,火:0,土:0,金:0,水:0}
   for (const v of g) wc[wx(v)]++
   for (const v of z) wc[ZHI_WU_XING[v]]++
-  const sorted = Object.entries(wc).sort((a,b)=>a[1]-b[1]); const wst = sorted[0]
-  if (wst && wst[1] <= 2) {
-    r.push(`注意${WU_XING_ORGAN[wst[0]]}(${WU_XING_SICK[wst[0]]})。这是你要后天补的。`)
-    const colorM: Record<string,string[]> = {木:['绿','青'],火:['红','紫'],土:['黄','棕'],金:['白','金'],水:['黑','蓝']}
-    const cm = colorM[wst[0]]; if (cm) r.push(`平时多穿${cm.join('/')}色的衣服有帮助。`)
+  const sorted = Object.entries(wc).sort((a,b)=>a[1]-b[1])
+  const weakest = sorted[0]
+  const strongest = sorted[sorted.length-1]
+
+  // 𓆙 天干→脏腑（十干歌诀：甲胆乙肝丙小肠，丁心戊胃己脾乡；庚是大肠辛属肺，壬系膀胱癸肾藏）
+  const GAN_ORGAN: Record<string,string> = {
+    '甲':'胆','乙':'肝','丙':'小肠','丁':'心','戊':'胃','己':'脾','庚':'大肠','辛':'肺','壬':'膀胱','癸':'肾'
   }
-  for (let i=0; i<z.length; i++) for (let j=i+1; j<z.length; j++)
-    if (LIU_CHONG[z[i]]===z[j]) r.push(`${z[i]}${z[j]}冲--注意${WU_XING_ORGAN[ZHI_WU_XING[z[i]]]}和${WU_XING_ORGAN[ZHI_WU_XING[z[j]]]}保养。`)
+  // 天干→身体部位（甲头乙项丙肩求，丁心戊肋己属腹；庚是脐轮辛属股，壬胫癸足一身由）
+  const GAN_BODY: Record<string,string> = {
+    '甲':'头/脑','乙':'脖颈','丙':'肩部','丁':'心/胸','戊':'肋部','己':'腹部','庚':'肚脐','辛':'大腿','壬':'小腿','癸':'足'
+  }
+  // 地支→脏腑
+  const ZHI_ORGAN: Record<string,string> = {
+    '子':'肾/膀胱/耳','丑':'脾/胃/肚脐','寅':'胆/手臂/筋骨','卯':'肝/十指/眼',
+    '辰':'脾胃/胸腔/肩','巳':'心/咽喉/小肠','午':'心/眼目/血脉','未':'脾胃/脊梁/腰腹',
+    '申':'大肠/肺/经络','酉':'肺/气管/鼻','戌':'命门/腰腿/关节','亥':'肾/骨髓/生殖/尿道'
+  }
+  // 五行→脏腑体表
+  const WX_ORGAN: Record<string,string[]> = {
+    '木':['肝','胆','目（眼睛）','筋/关节/神经','肝火/近视/偏头痛/中风'],
+    '火':['心','小肠','舌（口舌咽喉）','血脉/血管/面部','心悸/高血压/心梗/焦虑'],
+    '土':['脾','胃','口唇','肌肉/皮肉/腹部','胃胀/脾虚/糖尿病/痰湿'],
+    '金':['肺','大肠','鼻','皮肤/毛孔/牙齿','咳嗽/鼻炎/皮肤病/便秘'],
+    '水':['肾','膀胱','耳','骨骼/腰/生殖器官','肾虚/耳鸣/腰酸/骨质疏松']
+  }
+
+  // 𓆙 第一步：四柱宫位断病（年→头 月→胸 日→腰 时→下肢）
+  const GONG = [
+    [0, '年柱', '头部/脖颈/五官/颈椎——上半身顶端（先天根基）'],
+    [1, '月柱', '胸腔/心肺/肝胆/乳腺——躯干中部（核心气机）'],
+    [2, '日柱', '腰腹/脾胃/肾/生殖——躯干中下（命主本体）'],
+    [3, '时柱', '下肢/腿脚/排泄/末梢——四肢末端（晚年身体）']
+  ]
+
+  r.push('━━━ 四柱对应人体（宫位+五行双断） ━━━')
+  for (const item of GONG) {
+    const idx = item[0] as number
+    const name = item[1] as string
+    const area = item[2] as string
+    const gan = g[idx]
+    const zhi = z[idx]
+    const ganWx = wx(gan)
+    const zhiWx = ZHI_WU_XING[zhi]
+    const ganOrg = GAN_ORGAN[gan] || ''
+    const ganBody = GAN_BODY[gan] || ''
+    const zhiOrg = ZHI_ORGAN[zhi] || ''
+
+    r.push(`【${name}】${gan}${zhi}：${area}`)
+    r.push(`  天干${gan}=${ganWx}→${ganOrg}（${ganBody}）,地支${zhi}=${zhiWx}→${zhiOrg}`)
+
+    // 弱五行提示
+    const go = WX_ORGAN[ganWx]
+    if (go && weakest && wc[ganWx] <= 2) {
+      r.push(`  ⚠ ${ganWx}偏弱（${wc[ganWx]}个）→重点养护${go[0]}/${go[1]}，注意${go[4]}`)
+    }
+    const zo = WX_ORGAN[zhiWx]
+    if (zo && strongest && wc[zhiWx] >= 4 && zhiWx !== ganWx) {
+      r.push(`  ⚠ ${zhiWx}偏旺（${wc[zhiWx]}个）→${zhiWx}过旺易使${zo[0]}郁结`)
+    }
+  }
+
+  // 𓆙 第二步：五行旺衰综合
+  r.push('')
+  r.push('━━━ 五行脏腑强弱 ━━━')
+  if (weakest && weakest[1] <= 2 && weakest[0]) {
+    const wo = WX_ORGAN[weakest[0]]
+    if (wo) {
+      r.push(`最弱【${weakest[0]}】(${weakest[1]}个)：脏=${wo[0]}，腑=${wo[1]}，窍=${wo[2]}，体=${wo[3]}`)
+      r.push(`  易发问题：${wo[4]}。这是你后天要重点养护的。`)
+      const cm: Record<string,string[]> = {木:['绿','青'],火:['红','紫'],土:['黄','棕'],金:['白','金'],水:['黑','蓝']}
+      const cc = cm[weakest[0]]
+      if (cc) r.push(`  宜多穿${cc.join('/')}色，饮食偏重${weakest[0]}属性。`)
+    }
+  }
+  if (strongest && strongest[1] >= 4 && strongest[0]) {
+    const wo = WX_ORGAN[strongest[0]]
+    if (wo) r.push(`最旺【${strongest[0]}】(${strongest[1]}个)：过旺则${wo[0]}易郁结，注意${wo[4]}。`)
+  }
+
+  // 𓆙 第三步：地支刑冲→隐患
+  let hasConflict = false
+  for (let i = 0; i < z.length; i++) {
+    for (let j = i + 1; j < z.length; j++) {
+      if (LIU_CHONG[z[i]] === z[j]) {
+        if (!hasConflict) { r.push(''); r.push('━━━ 地支冲克 → 对应器官隐患 ━━━'); hasConflict = true }
+        const pi = ['年','月','日','时'][i]
+        const pj = ['年','月','日','时'][j]
+        r.push(`${pi}柱${z[i]}冲${pj}柱${z[j]}：${z[i]}（${ZHI_ORGAN[z[i]]}）与${z[j]}（${ZHI_ORGAN[z[j]]}）对冲，需同时养护。`)
+      }
+    }
+  }
+
+  // 𓆙 第四步：养生总结
+  r.push('')
+  r.push('💡 先天体质参考——宫位定位置，五行看脏腑，刑冲找隐患。具体以实际身体为准。')
+
   return r
 }
 
