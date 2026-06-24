@@ -246,32 +246,59 @@ function lifeLabels(riGan: string, pills: {gan:string;zhi:string}[], gender: str
   for (const g of gans) { const k = BEST_YIN_KU[g]||''; if(!totalKu) totalKu=k; else if(k!==totalKu) {allSame=false;break} }
   if (allSame && totalKu) l.push(`🏷️ 八字标签:极纯八字--身边全是"一路人",能量聚焦不分散。`)
 
-  // 食伤生财
+  // 食伤生财（含地支藏干）
   let hasSS = false, hasCai = false
   for (const g of gans) { const st = ss(riGan,g); if(isSS(st)) hasSS=true; if(isCai(st)) hasCai=true }
+  for (const z of zhis) {
+    for (const c of (CANG_GAN[z]||[])) {
+      const cst = sst(riGan, c)
+      if(isSS(cst)) hasSS = true
+      if(isCai(cst)) hasCai = true
+    }
+  }
   if (hasSS && hasCai) l.push('🏷️ 八字标签:食伤生财--靠技术/口才/才华吃饭。路子对了赚钱不难。')
 
-  // 官印相生
+  // 官印相生（含地支藏干）
   let hasGuan = false, hasYin = false
   for (const g of gans) { const st = ss(riGan,g); if(isGuan(st)) hasGuan=true; if(isYin(st)) hasYin=true }
+  for (const z of zhis) {
+    for (const c of (CANG_GAN[z]||[])) {
+      const cst = sst(riGan, c)
+      if(isGuan(cst)) hasGuan = true
+      if(isYin(cst)) hasYin = true
+    }
+  }
   if (hasGuan && hasYin) l.push('🏷️ 八字标签:官印相生--适合体制/管理岗。能做成事。')
 
-  // 比劫夺财
+  // 比劫夺财（含地支藏干）
   let biCount = 0, caiCount = 0
   for (const g of gans) { const st = ss(riGan,g); if(isBJ(st)) biCount++; if(isCai(st)) caiCount++ }
+  for (const z of zhis) {
+    for (const c of (CANG_GAN[z]||[])) {
+      const cst = sst(riGan, c)
+      if(isBJ(cst)) biCount++
+      if(isCai(cst)) caiCount++
+    }
+  }
   if (biCount >= 3 && caiCount <= 1) l.push('🏷️ 八字标签:比劫夺财--朋友多花钱快。注意别合伙别担保。')
 
-  // 财旺从商
+  // 财旺从商（含地支）
   if (caiCount >= 2) l.push('🏷️ 八字标签:财旺型--适合做生意/做投资。')
 
-  // 官杀混杂
+  // 官杀混杂（含地支藏干,女命）
   let guanCount = 0
   for (const g of gans) { if(isGuan(ss(riGan,g))) guanCount++ }
+  for (const z of zhis) {
+    for (const c of (CANG_GAN[z]||[])) { if(isGuan(sst(riGan,c))) guanCount++ }
+  }
   if (guanCount >= 2 && gender === '女') l.push('🏷️ 八字标签:官杀混杂--感情上容易有选择困难。建议晚婚。')
 
-  // 印旺耗身
+  // 印旺耗身（含地支藏干）
   let yinCount = 0
   for (const g of gans) { if(isYin(ss(riGan,g))) yinCount++ }
+  for (const z of zhis) {
+    for (const c of (CANG_GAN[z]||[])) { if(isYin(sst(riGan,c))) yinCount++ }
+  }
   if (yinCount >= 3) l.push('🏷️ 八字标签:印旺耗身--想得多做得少。别内耗,学再多不如动手。')
 
   // 自合=自信(R22)
