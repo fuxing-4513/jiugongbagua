@@ -1,10 +1,25 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-  <!-- Outer circle -->
-  <circle cx="50" cy="50" r="48" fill="white" stroke="black" stroke-width="2"/>
-  <!-- Black half (bottom + top right quarter) -->
-  <path d="M50 2 A48 48 0 0 1 50 98 A24 24 0 0 1 50 50 A24 24 0 0 0 50 2 Z" fill="black"/>
-  <!-- White dot in black area (top) -->
-  <circle cx="50" cy="26" r="8" fill="white"/>
-  <!-- Black dot in white area (bottom) -->
-  <circle cx="50" cy="74" r="8" fill="black"/>
+  <defs>
+    <clipPath id="circle">
+      <circle cx="50" cy="50" r="48"/>
+    </clipPath>
+  </defs>
+  
+  <!-- Base white circle with dark border -->
+  <circle cx="50" cy="50" r="48" fill="white" stroke="#1a1a1a" stroke-width="2.5"/>
+  
+  <!-- Black top half (the "black fish" head) -->
+  <rect x="0" y="0" width="100" height="50" fill="black" clip-path="url(#circle)"/>
+  
+  <!-- Black right bulge at center (black fish tail curling down) -->
+  <circle cx="74" cy="50" r="24" fill="black"/>
+  
+  <!-- White left bulge at center (cuts into black to form S-curve + white fish tail) -->
+  <circle cx="26" cy="50" r="24" fill="white"/>
+  
+  <!-- White eye - in the black fish's head (top-right) -->
+  <circle cx="60" cy="26" r="7" fill="white"/>
+  
+  <!-- Black eye - in the white fish's head (bottom-left) -->
+  <circle cx="40" cy="74" r="7" fill="black"/>
 </svg>
