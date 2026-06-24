@@ -1223,6 +1223,34 @@ Object.entries(result.wx).map(([w,c]): React.ReactNode =>(
                 </div>
               )}
 
+              {judgmentResult.deepHumanNarr && judgmentResult.deepHumanNarr.length > 0 && (
+                <div className="mb-3">
+                  <h5 className="text-xs font-semibold text-violet-300 mb-1">💎 深度人性</h5>
+                  {judgmentResult.deepHumanNarr.map((s,i)=><p key={i} className="text-xs text-gray-200 mb-1 leading-relaxed">{s}</p>)}
+                </div>
+              )}
+
+              {judgmentResult.controlPowerNarr && judgmentResult.controlPowerNarr.length > 0 && (
+                <div className="mb-3">
+                  <h5 className="text-xs font-semibold text-amber-300 mb-1">🎯 控制权排序</h5>
+                  {judgmentResult.controlPowerNarr.map((s,i)=><p key={i} className="text-xs text-gray-200 mb-1 leading-relaxed">{s}</p>)}
+                </div>
+              )}
+
+              {judgmentResult.dayMasterNarr && judgmentResult.dayMasterNarr.length > 0 && (
+                <div className="mb-3">
+                  <h5 className="text-xs font-semibold text-sky-300 mb-1">📅 日主特性</h5>
+                  {judgmentResult.dayMasterNarr.map((s,i)=><p key={i} className="text-xs text-gray-200 mb-1 leading-relaxed">{s}</p>)}
+                </div>
+              )}
+
+              {judgmentResult.enterpriseNarr && judgmentResult.enterpriseNarr.length > 0 && (
+                <div className="mb-3">
+                  <h5 className="text-xs font-semibold text-yellow-300 mb-1">🏢 企业视角</h5>
+                  {judgmentResult.enterpriseNarr.map((s,i)=><p key={i} className="text-xs text-gray-200 mb-1 leading-relaxed">{s}</p>)}
+                </div>
+              )}
+
               <div className="mt-2 pt-2 border-t border-dark-600">
                 <p className="text-[10px] text-gray-500 italic">以上为九宫命理体系实战解读</p>
               </div>
