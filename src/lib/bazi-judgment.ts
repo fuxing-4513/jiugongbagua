@@ -930,6 +930,8 @@ export interface JudgmentResult {
   friendModeNarr: string[]
   spouseDynamicNarr: string[]
   childrenRelationNarr: string[]
+  /** 四柱六亲宫位分析 */
+  liuqinGong: { nianZhu: string[]; yueZhu: string[]; riZhi: string[]; shiZhu: string[]; xingGong: string[]; summary: string[] }
   techAbilityNarr: string[]
   moneyMindsetNarr: string[]
   careerLevelNarr: string[]
@@ -1080,7 +1082,8 @@ export function analyzeJudgment(
   const prefNarrResult = pref(riGan, pills)
   const twoSignsResult = twoSignsJudge(riGan, pills, gender)
   const rootHouseResult = rootHouseNarr(riGan, pills)
-  const friendModeResult = analyzeFriendMode(riGan, pills)
+  const friendModeResult = analyzeFriendMode(riGan, pills, ss)
+  const liuqinResult = analyzeLiuQin(riGan, pills, gender, ss)
   const spouseDynamicResult = analyzeSpouseDynamic(riGan, pills, gender)
   const childrenRelationResult = analyzeChildrenRelation(riGan, pills)
   const techAbilityResult = analyzeTechAbility(riGan, pills)
@@ -1117,6 +1120,7 @@ export function analyzeJudgment(
     friendModeNarr: friendModeResult,
     spouseDynamicNarr: spouseDynamicResult,
     childrenRelationNarr: childrenRelationResult,
+    liuqinGong: liuqinResult,
     techAbilityNarr: techAbilityResult,
     moneyMindsetNarr: moneyMindsetResult,
     careerLevelNarr: careerLevelResult,
@@ -1269,7 +1273,7 @@ function tenGodDetailAnalysis(ri: string, pills: {gan:string;zhi:string}[], gend
 
 // ──── 深度朋友相处分析 ════════════════════
 
-function analyzeFriendMode(riGan: string, pills: {gan:string;zhi:string}[]): string[] {
+function analyzeFriendMode(riGan: string, pills: {gan:string;zhi:string}[], ss: (r:string,g:string)=>string): string[] {
   const r: string[] = []
   const gans = pills.map(p => p.gan)
   const zhis = pills.map(p => p.zhi)
@@ -2550,6 +2554,131 @@ function deepHumanInsight(riGan: string, pills: {gan:string;zhi:string}[], gende
   }
 
   return r
+}
+
+/* ──── 四柱六亲宫位（星宫同参体系） ────────────── */
+
+/**
+ * 男命六亲星对照
+ * 偏财=父 正印=母 比肩=兄弟 劫财=姐妹 正财=妻 七杀=子 正官=女
+ */
+function maleLqXing(ss: string): string {
+  const map: Record<string,string> = {
+    '偏财':'父亲','正印':'母亲','比肩':'兄弟','劫财':'姐妹/情敌',
+    '正财':'原配妻子','七杀':'儿子','正官':'女儿','食神':'儿孙晚辈','伤官':'儿孙晚辈'
+  }
+  return map[ss] || ''
+}
+/**
+ * 女命六亲星对照
+ * 正财=父 偏印=母 比肩=姐妹 劫财=兄弟 正官=夫 七杀=情人/二婚 伤官=子 食神=女
+ */
+function femaleLqXing(ss: string): string {
+  const map: Record<string,string> = {
+    '正财':'父亲','偏印':'母亲','比肩':'姐妹/闺蜜','劫财':'兄弟/公公',
+    '正官':'原配丈夫','七杀':'情人/偏缘/二婚','伤官':'儿子','食神':'女儿'
+  }
+  return map[ss] || ''
+}
+function lqName(shiShen: string, gen: string): string {
+  return gen === '男' ? maleLqXing(shiShen) : femaleLqXing(shiShen)
+}
+
+function analyzeLiuQin(
+  riGan: string,
+  pills: {gan:string;zhi:string}[],
+  gen: string,
+  ss: (r:string,g:string)=>string
+): { nianZhu:string[]; yueZhu:string[]; riZhi:string[]; shiZhu:string[]; xingGong:string[]; summary:string[] } {
+  const gans = pills.map(p => p.gan)
+  const zhis = pills.map(p => p.zhi)
+  const riZhiDz = zhis[2]
+  const nGan = gans[0], nZhi = zhis[0]
+  const yGan = gans[1], yZhi = zhis[1]
+  const sGan = gans[3], sZhi = zhis[3]
+  const nSS = ss(riGan, nGan)
+  const ySS = ss(riGan, yGan)
+  const sSS = ss(riGan, sGan)
+  const Pos = ['年','月','日','时'] as const
+  const ncMap: Record<string,string[]> = {
+    '子':['癸'],'丑':['己','癸','辛'],'寅':['甲','丙','戊'],
+    '卯':['乙'],'辰':['戊','乙','癸'],'巳':['丙','庚','戊'],
+    '午':['丁','己'],'未':['己','丁','乙'],'申':['庚','壬','戊'],
+    '酉':['辛'],'戌':['戊','辛','丁'],'亥':['壬','甲']
+  }
+  const nianZhu: string[] = []
+  const yueZhu: string[] = []
+  const riZhiOut: string[] = []
+  const shiZhu: string[] = []
+  const xingGong: string[] = []
+  const summary: string[] = []
+
+  // 年柱：祖上宫
+  nianZhu.push(`年柱【${nGan}${nZhi}】祖上宫（0-16岁童年根基）`)
+  const nLq = lqName(nSS, gen)
+  if (nLq) nianZhu.push(`年干 ${nGan} = ${nSS}（${nLq}）`)
+  else nianZhu.push(`年干 ${nGan} = ${nSS}`)
+  nianZhu.push(`年支 ${nZhi} = 祖母/外婆/祖上女性环境`)
+
+  // 月柱：父母兄弟宫
+  yueZhu.push(`月柱【${yGan}${yZhi}】父母兄弟宫·门户（16-32岁原生家庭）`)
+  const yLq = lqName(ySS, gen)
+  if (yLq) {
+    yueZhu.push(`月干 ${yGan} = ${ySS}（${yLq}）`)
+    xingGong.push(`★ 月干 ${yGan}（${ySS}=${yLq}）在父母兄弟宫`)
+  } else {
+    yueZhu.push(`月干 ${yGan} = ${ySS}`)
+  }
+  yueZhu.push(`月支 ${yZhi} = 母亲/姐妹/同辈亲友的环境`)
+  for (let i = 0; i < gans.length; i++) {
+    const pSS = ss(riGan, gans[i])
+    if (pSS === '比肩' || pSS === '劫财') {
+      if (Pos[i] === '月') yueZhu.push(`★ 月干 ${gans[i]}是${pSS}——兄弟姐妹/同辈朋友透出在门户宫`)
+    }
+  }
+
+  // 日柱：自身+夫妻宫
+  riZhiOut.push(`日干【${riGan}】= 命主本人（你）`)
+  riZhiOut.push(`日支【${riZhiDz}】夫妻宫 = 配偶（丈夫/妻子）`)
+  const riCang = ncMap[riZhiDz] || []
+  if (riCang.length > 0) {
+    const desc = riCang.map(c => `${c}（${ss(riGan, c)}）`).join('、')
+    riZhiOut.push(`日支 ${riZhiDz} 藏干：${desc}`)
+    for (const c of riCang) {
+      const cSS = ss(riGan, c)
+      const cLq = lqName(cSS, gen)
+      if (cLq) {
+        riZhiOut.push(`  藏干 ${c} = ${cSS}（配偶星=${cLq}）坐在夫妻宫——星入本宫，配偶缘厚。`)
+        xingGong.push(`★ 日支 ${riZhiDz} 藏 ${c}（${cSS}=${cLq}）坐在夫妻宫——婚姻核心`)
+      } else {
+        riZhiOut.push(`  藏干 ${c} = ${cSS}，藏在夫妻宫构成配偶心性。`)
+      }
+    }
+  }
+
+  // 时柱：子女宫
+  shiZhu.push(`时柱【${sGan}${sZhi}】子女宫·晚辈宫（48岁后晚年归宿）`)
+  const sLq = lqName(sSS, gen)
+  if (sLq) {
+    shiZhu.push(`时干 ${sGan} = ${sSS}（${sLq}）`)
+    xingGong.push(`★ 时干 ${sGan}（${sSS}=${sLq}）在子女宫`)
+  } else {
+    shiZhu.push(`时干 ${sGan} = ${sSS}`)
+  }
+  shiZhu.push(`时支 ${sZhi} = 女儿/晚辈女性/下属环境`)
+
+  // 总览
+  summary.push('━━━ 四柱六亲宫位总览 ━━━')
+  summary.push(`年柱 ${nGan}${nZhi} · 祖上宫——0-16岁 童年根基`)
+  summary.push(`月柱 ${yGan}${yZhi} · 父母兄弟宫——16-32岁 原生家庭+同辈社交`)
+  summary.push(`日柱 ${riGan}${riZhiDz} · 自身宫+夫妻宫——32-48岁 一生重心`)
+  summary.push(`时柱 ${sGan}${sZhi} · 子女宫——48岁后 晚年归宿`)
+  if (xingGong.length > 0) {
+    summary.push('')
+    summary.push('━━━ 星宫同参（六亲星位置） ━━━')
+    summary.push(...xingGong)
+  }
+  return { nianZhu, yueZhu, riZhi: riZhiOut, shiZhu, xingGong, summary }
 }
 
 export default analyzeJudgment

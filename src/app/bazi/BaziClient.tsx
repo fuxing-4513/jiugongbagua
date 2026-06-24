@@ -1188,9 +1188,17 @@ Object.entries(result.wx).map(([w,c]): React.ReactNode =>(
                 </div>
               )}
 
+              {/* ⋆⋆⋆ 四柱六亲宫位 ⋆⋆⋆ */}
+              {judgmentResult.liuqinGong && judgmentResult.liuqinGong.summary.length > 0 && (
+                <div className="mb-4 p-3 bg-dark-800/60 rounded-lg border border-gold-500/20">
+                  <h5 className="text-xs font-semibold text-gold-300 mb-2">🏛 四柱六亲宫位</h5>
+                  {judgmentResult.liuqinGong.summary.map((s,i)=><p key={i} className="text-xs text-gray-300 mb-0.5 leading-relaxed">{s}</p>)}
+                </div>
+              )}
+
               {judgmentResult.friendModeNarr && judgmentResult.friendModeNarr.length > 0 && (
                 <div className="mb-3">
-                  <h5 className="text-xs font-semibold text-emerald-300 mb-1">🤝 交友模式</h5>
+                  <h5 className="text-xs font-semibold text-emerald-300 mb-1">🤝 交友社交</h5>
                   {judgmentResult.friendModeNarr.map((s,i)=><p key={i} className="text-xs text-gray-200 mb-1 leading-relaxed">{s}</p>)}
                 </div>
               )}
