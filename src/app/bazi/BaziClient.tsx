@@ -1153,6 +1153,20 @@ Object.entries(result.wx).map(([w,c]): React.ReactNode =>(
                 </div>
               )}
 
+              {judgmentResult.careerLevelNarr && judgmentResult.careerLevelNarr.length > 0 && (
+                <div className="mb-3">
+                  <h5 className="text-xs font-semibold text-rose-300 mb-1">📊 官运层次</h5>
+                  {judgmentResult.careerLevelNarr.map((s,i)=><p key={i} className="text-xs text-gray-200 mb-1 leading-relaxed">{s}</p>)}
+                </div>
+              )}
+
+              {judgmentResult.tombWareNarr && judgmentResult.tombWareNarr.length > 0 && (
+                <div className="mb-3">
+                  <h5 className="text-xs font-semibold text-purple-300 mb-1">🏛 墓库与格局</h5>
+                  {judgmentResult.tombWareNarr.map((s,i)=><p key={i} className="text-xs text-gray-200 mb-1 leading-relaxed">{s}</p>)}
+                </div>
+              )}
+
               {judgmentResult.wanHunNarr.length > 0 && (
                 <div className="mb-3">
                   <h5 className="text-xs font-semibold text-indigo-300 mb-1">⏰ 晚婚提示</h5>
