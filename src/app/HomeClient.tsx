@@ -105,8 +105,11 @@ export default function HomeClient() {
             <Link
               key={mod.key}
               href={mod.href}
-              className="group rounded-xl border border-dark-600/50 p-5 hover:border-jade-400/60 transition-all duration-200"
+              className="group relative rounded-xl border border-dark-600/50 p-5 hover:border-jade-400/60 transition-all duration-200"
             >
+              <span className="absolute top-2 right-2 z-10 text-[9px] font-semibold text-white bg-amber-500/80 rounded-full px-2 py-0.5 shadow-sm backdrop-blur-sm">
+                专家解析
+              </span>
               <div className="text-3xl mb-3 group-hover:scale-110 transition-transform duration-200">
                 {mod.emoji}
               </div>
