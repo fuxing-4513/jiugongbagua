@@ -399,14 +399,34 @@ function daYunJudgeV2(
     }
   }
 
-  // [4] 信心与运气逆向
+  // [4] 大运谁控制——家里控制还是家外控制(原材料附录1)
+  let homeHasControl = false
+  let homeType = ''
+  const ht: Record<string, string> = {'甲己':'合','乙庚':'合','丙辛':'合','丁壬':'合','戊癸':'合'}
+  for (const hg of gans.slice(2)) {
+    if (ht[dg + hg] || ht[hg + dg]) { homeHasControl = true; homeType = '合'; break }
+  }
+  if (!homeHasControl) {
+    for (const hz of zhis.slice(2)) {
+      if (LIU_HE[hz] === dz || LIU_HE[dz] === hz) { homeHasControl = true; homeType = '合'; break }
+      if (LIU_CHONG[hz] === dz || LIU_CHONG[dz] === hz) { homeHasControl = true; homeType = '冲'; break }
+      if (LIU_CHUAN[hz] === dz || LIU_CHUAN[dz] === hz) { homeHasControl = true; homeType = '刑穿'; break }
+    }
+  }
+  if (homeHasControl) {
+    r.push(`这步大运${dg}${dz}跟你家里有关系(${homeType})--你有主导权。这十年你是主动方,事情成败在你手上。`)
+  } else {
+    r.push(`这步大运${dg}${dz}跟你家里没有直接关系--你参与但不主导。这十年你要借别人的力,别单干。`)
+  }
+
+  // [5] 信心与运气逆向
   r.push('提醒一句--信心十足时反而要谨慎(可能是坏运前的感觉)。信心不足时反而要大胆(可能是转运起点)。')
 
-  // [5] 婚姻宫
+  // [6] 婚姻宫
   if (LIU_CHONG[riZhi] === dz) r.push(`大运${dz}冲了你夫妻宫--这十年感情容易波动。`)
   if (LIU_HE[riZhi] === dz) r.push(`大运${dz}合了你夫妻宫--这十年感情上有大变化。`)
 
-  // [6] 弱点的字不喜出来
+  // [7] 弱点的字不喜出来
   const wc: Record<string,number> = {木:0,火:0,土:0,金:0,水:0}
   for (const v of gans) wc[wx(v)]++
   for (const v of zhis) wc[ZHI_WU_XING[v]]++
@@ -426,7 +446,7 @@ function daYunJudgeV2(
     }
   }
 
-  // [7] 五行生克
+  // [8] 五行生克
   const sheng: Record<string,string[]> = {'木':['火'],'火':['土'],'土':['金'],'金':['水'],'水':['木']}
   const dWx = wx(dg)
   if (dWx && riWx) {
@@ -476,7 +496,37 @@ function flowYearV2(ri: string, pills: {gan:string;zhi:string}[],
   // [3] R16: 食伤=说话,注意口头承诺
   if (fss === '食伤') r.push('今年注意口头承诺--说多了容易给自己挖坑。')
 
-  // [4] 流年地支关系——严格按优先级: 先冲合 → 次刑穿破 → 最后生克
+  // [4] 谁能控制这个流年的字——家里控制还是家外控制(原材料附录1第五步)
+  // 控制关系:合不看力量,制要看力量,刑冲破害也要看力量
+  const homeGans = gans.slice(2)
+  const homeZhis = zhis.slice(2)
+  const outGans = gans.slice(0,2)
+  const outZhis = zhis.slice(0,2)
+
+  // 检查流年天干是否被家里控制
+  let homeControlsGan = false
+  for (const hg of homeGans) {
+    const ht: Record<string, string> = {'甲己':'合','乙庚':'合','丙辛':'合','丁壬':'合','戊癸':'合'}
+    if (ht[fg + hg] || ht[hg + fg]) { homeControlsGan = true; break }
+  }
+  // 检查流年天干是否被家外控制
+  let outControlsGan = false
+  for (const og of outGans) {
+    const ht: Record<string, string> = {'甲己':'合','乙庚':'合','丙辛':'合','丁壬':'合','戊癸':'合'}
+    if (ht[fg + og] || ht[og + fg]) { outControlsGan = true; break }
+  }
+
+  if (homeControlsGan && !outControlsGan) {
+    r.push(`今年流年${fg}被你家里控制了--你是主动方,这个运气你能把握。想要什么就直接做,别犹豫。`)
+  } else if (!homeControlsGan && outControlsGan) {
+    r.push(`今年流年${fg}被家外控制了--你不是主动方。事情的发展你控制不了,顺其自然就好,别硬出头。`)
+  } else if (homeControlsGan && outControlsGan) {
+    r.push(`今年流年${fg}家里家外都能控制--你一半主动一半被动。关键看你怎么选,选对了就是你的,选错了就是别人的。`)
+  } else {
+    r.push(`今年流年${fg}没有被明显控制--这个运气跟你若即若离。你要主动去争取,但别太执着。`)
+  }
+
+  // [5] 流年地支关系——严格按优先级: 先冲合 → 次刑穿破 → 最后生克
   let foundDiZhiRelation = false
 
   // 第一优先级: 冲 (冲的力量最大,优先判断)
