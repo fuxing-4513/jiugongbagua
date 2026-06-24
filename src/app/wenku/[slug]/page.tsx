@@ -1,32 +1,21 @@
 import type { Metadata } from 'next'
-import { notFound } from 'next/navigation'
 import { articles } from '../wenkuData'
 
 export async function generateStaticParams() {
   return articles.map(a => ({ slug: a.slug }))
 }
 
-export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
-  const slug = decodeURIComponent(params.slug)
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params
   const article = articles.find(a => a.slug === slug)
-  if (!article) return { title: '文章未找到' }
+  if (!article) return { title: '九宫八卦 - 命理知识文库' }
 
-  // 从前200字提取更具体的描述
   const desc = article.fullContent.slice(0, 120).replace(/["""']/g, '').trim() + '...'
-
   return {
     title: `${article.title} - 九宫八卦命理知识文库`,
     description: desc,
-    keywords: `${article.title},${article.category},八字,命理,紫微斗数,风水,易经,传统文化`,
-    openGraph: {
-      title: `${article.title} - 九宫八卦`,
-      description: article.summary,
-      type: 'article',
-      publishedTime: article.date,
-    },
-    alternates: {
-      canonical: `https://jiugongbagua.com/wenku/${article.slug}`,
-    },
+    openGraph: { title: `${article.title} - 九宫八卦`, description: article.summary, type: 'article', publishedTime: article.date },
+    alternates: { canonical: `https://jiugongbagua.com/wenku/${article.slug}` },
   }
 }
 
@@ -41,16 +30,39 @@ const categoryColors: Record<string, string> = {
   '风水文化': 'bg-amber-900 text-amber-200',
   '传统文化': 'bg-rose-900 text-rose-200',
   '择日文化': 'bg-teal-900 text-teal-200',
+  '八字命理': 'bg-red-800 text-red-200',
+  '风水知识': 'bg-amber-900 text-amber-200',
+  '面相手相': 'bg-orange-900 text-orange-200',
+  '数字能量': 'bg-cyan-800 text-cyan-200',
+  '择日择吉': 'bg-teal-800 text-teal-200',
+  '生肖运势': 'bg-pink-900 text-pink-200',
+  '命理综合': 'bg-slate-700 text-slate-200',
+  '占卜术数': 'bg-violet-900 text-violet-200',
+  '中医养生': 'bg-emerald-900 text-emerald-200',
+  '道家文化': 'bg-stone-800 text-stone-200',
 }
 
-export default function ArticlePage({ params }: { params: { slug: string } }) {
-  const slug = decodeURIComponent(params.slug)
+export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
   const article = articles.find(a => a.slug === slug)
-  if (!article) notFound()
+
+  // 以防万一的fallback：如果文章找不到，渲染一个友好的提示而非notFound()
+  if (!article) {
+    return (
+      <div className="max-w-4xl mx-auto px-4 py-20 text-center">
+        <h1 className="text-2xl font-bold text-gold-300 mb-4">文章准备中</h1>
+        <p className="text-gray-400 mb-6">这篇内容正在整理中，请稍后再来看看。</p>
+        <a href="/wenku" className="text-gold-500 hover:underline">← 返回文库列表</a>
+      </div>
+    )
+  }
+
+  const idx = articles.findIndex(a => a.slug === slug)
+  const prev = idx > 0 ? articles[idx - 1] : null
+  const next = idx < articles.length - 1 ? articles[idx + 1] : null
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-10">
-      {/* 面包屑 */}
       <nav className="text-xs text-gray-400 mb-6">
         <a href="/" className="hover:text-gold-400">首页</a>
         <span className="mx-2">/</span>
@@ -60,7 +72,6 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
       </nav>
 
       <article>
-        {/* 头部 */}
         <header className="mb-8">
           <div className="flex items-center gap-2 mb-3">
             <span className={`text-[10px] px-2 py-0.5 rounded-full ${categoryColors[article.category] || 'bg-dark-700 text-gray-400'}`}>
@@ -72,46 +83,18 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
           <p className="text-sm text-gray-300 leading-relaxed">{article.summary}</p>
         </header>
 
-        {/* 正文 */}
         <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-6">
-          <div className="text-sm text-gray-200 leading-7 whitespace-pre-line">
-            {article.fullContent}
-          </div>
+          <div className="text-sm text-gray-200 leading-7 whitespace-pre-line">{article.fullContent}</div>
         </div>
       </article>
 
-      {/* 上一篇 / 下一篇 */}
       <div className="mt-8 flex justify-between">
-        {(() => {
-          const idx = articles.findIndex(a => a.slug === params.slug)
-          const prev = idx > 0 ? articles[idx - 1] : null
-          const next = idx < articles.length - 1 ? articles[idx + 1] : null
-          return (
-            <>
-              <div>
-                {prev && (
-                  <a href={`/wenku/${prev.slug}`} className="text-xs text-gray-500 hover:text-gold-400">
-                    ← {prev.title}
-                  </a>
-                )}
-              </div>
-              <div>
-                {next && (
-                  <a href={`/wenku/${next.slug}`} className="text-xs text-gray-500 hover:text-gold-400">
-                    {next.title} →
-                  </a>
-                )}
-              </div>
-            </>
-          )
-        })()}
+        <div>{prev && <a href={`/wenku/${prev.slug}`} className="text-xs text-gray-500 hover:text-gold-400">← {prev.title}</a>}</div>
+        <div>{next && <a href={`/wenku/${next.slug}`} className="text-xs text-gray-500 hover:text-gold-400">{next.title} →</a>}</div>
       </div>
 
-      {/* 返回列表 */}
       <div className="mt-6 text-center">
-        <a href="/wenku" className="text-sm text-gold-500 hover:text-gold-400 underline">
-          ← 返回文库列表
-        </a>
+        <a href="/wenku" className="text-sm text-gold-500 hover:text-gold-400 underline">← 返回文库列表</a>
       </div>
     </div>
   )
