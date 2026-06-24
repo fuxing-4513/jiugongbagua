@@ -85,30 +85,33 @@ export default function WenkuClient() {
       <div className="space-y-3">
         {filtered.map(article => (
           <div key={article.id} className="bg-dark-800/80 rounded-xl border border-dark-600 overflow-hidden transition-all duration-200 hover:border-dark-500">
-            <button onClick={() => setExpandedId(expandedId === article.id ? null : article.id)}
-              className="w-full text-left p-4 flex items-start justify-between gap-3">
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-2 mb-1.5">
-                  <span className={`text-[10px] px-1.5 py-0.5 rounded-full border ${categoryColors[article.category] || 'bg-dark-700 text-gray-400 border-dark-600'}`}>
-                    {article.category}
-                  </span>
-                  <span className="text-[10px] text-gray-600">{article.date}</span>
-                </div>
-                <h3 className="text-sm font-semibold text-gray-200 mb-1">{article.title}</h3>
-                <p className="text-xs text-gray-500 leading-relaxed">{article.summary}</p>
+            <div className="p-4">
+              <div className="flex items-center gap-2 mb-1.5">
+                <span className={`text-[10px] px-1.5 py-0.5 rounded-full border ${categoryColors[article.category] || 'bg-dark-700 text-gray-400 border-dark-600'}`}>
+                  {article.category}
+                </span>
+                <span className="text-[10px] text-gray-600">{article.date}</span>
               </div>
-              <svg className={`w-4 h-4 text-gray-600 mt-1 transition-transform duration-200 flex-shrink-0 ${expandedId === article.id ? 'rotate-180' : ''}`}
-                fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
-            {expandedId === article.id && (
-              <div className="px-4 pb-4 border-t border-dark-600">
-                <div className="mt-3 bg-dark-700 rounded-lg p-4">
+              <a href={`/wenku/${article.slug}`} className="block group">
+                <h3 className="text-sm font-semibold text-gray-200 mb-1 group-hover:text-gold-400 transition-colors">{article.title}</h3>
+                <p className="text-xs text-gray-500 leading-relaxed">{article.summary}</p>
+              </a>
+              <div className="flex gap-2 mt-2">
+                <a href={`/wenku/${article.slug}`}
+                  className="text-[10px] px-2 py-0.5 rounded bg-gold-600/20 text-gold-400 hover:bg-gold-600/30 transition-colors">
+                  阅读全文 →
+                </a>
+                <button onClick={() => setExpandedId(expandedId === article.id ? null : article.id)}
+                  className="text-[10px] px-2 py-0.5 rounded bg-dark-700 text-gray-500 hover:text-gray-300 hover:bg-dark-600 transition-colors">
+                  {expandedId === article.id ? '收起预览' : '快速预览'}
+                </button>
+              </div>
+              {expandedId === article.id && (
+                <div className="mt-3 bg-dark-700 rounded-lg p-3">
                   <p className="text-xs text-gray-300 leading-relaxed whitespace-pre-line">{article.fullContent}</p>
                 </div>
-              </div>
-            )}
+              )}
+            </div>
           </div>
         ))}
       </div>
