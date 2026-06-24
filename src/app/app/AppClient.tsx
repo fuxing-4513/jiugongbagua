@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import { computeBaziChart, type BaziChartResult, getPillarShenShaLabel } from '@/lib/bazi-engine';
 import { BRIGHTNESS, STAR_DESC, detectPatterns, type PatternDef } from '@/lib/ziwei-data';
@@ -33,6 +33,29 @@ export default function AppClient() {
   const [isLeapMonth, setIsLeapMonth] = useState(false);
   const [name, setName] = useState('');
   const [gender, setGender] = useState('男');
+  const [paramsRead, setParamsRead] = useState(false);
+
+  // 从URL读取参数(首页快速排盘跳过来时预填)
+  useEffect(() => {
+    if (typeof window === 'undefined' || paramsRead) return;
+    const sp = new URLSearchParams(window.location.search);
+    const d = sp.get('date');
+    const h = sp.get('hour');
+    const ct = sp.get('calendar');
+    const g = sp.get('gender');
+    if (d) {
+      const parts = d.split('-');
+      if (parts.length === 3) {
+        setYear(parts[0]);
+        setMonth(parts[1]);
+        setDay(parts[2]);
+      }
+    }
+    if (h) setHour(h);
+    if (ct === 'lunar') setCalendarType('lunar');
+    if (g === '男' || g === '女') setGender(g);
+    setParamsRead(true);
+  }, [paramsRead])
 
   const [inputMode, setInputMode] = useState<'date'|'bazi'>('date');
   const [bzTg, setBzTg] = useState(['','','','']);

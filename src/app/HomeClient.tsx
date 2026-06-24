@@ -141,6 +141,7 @@ function FreeChartWidget() {
   const [day, setDay] = useState(String(new Date().getDate()))
   const [hour, setHour] = useState('6')
   const [isLeapMonth, setIsLeapMonth] = useState(false)
+  const [gender, setGender] = useState('男')
 
   const y = parseInt(year) || 2000
   const m = parseInt(month) || 1
@@ -156,7 +157,7 @@ function FreeChartWidget() {
     } else {
       solarDate = lunarToSolarDate(y, m, d, isLeapMonth)
     }
-    return `/app?date=${solarDate}&hour=${h}&calendar=${calendarType}`
+    return `/app?date=${solarDate}&hour=${h}&calendar=${calendarType}&gender=${gender}`
   })()
 
   const isValid = !chartHref.startsWith('#')
@@ -165,6 +166,26 @@ function FreeChartWidget() {
     <section className="max-w-xl mx-auto">
       <h2 className="text-xl font-semibold text-gold-600 font-serif mb-1 text-center">🔮 立即排盘</h2>
       <p className="text-xs text-gray-600 text-center mb-6">输入出生信息，AI 即刻为您深度批命</p>
+
+      {/* 性别选择 */}
+      <div className="flex items-center gap-4 mb-4 justify-center">
+        <span className="text-sm text-gray-500">性别</span>
+        <div className="flex gap-2">
+          {['男','女'].map(g => (
+            <button
+              key={g}
+              onClick={() => setGender(g)}
+              className={`px-4 py-1.5 rounded-lg text-sm font-medium transition-all ${
+                gender === g
+                  ? 'bg-gold-500/20 text-gold-400 border border-gold-500/40'
+                  : 'bg-dark-700 text-gray-400 border border-dark-600 hover:border-dark-500'
+              }`}
+            >
+              {g === '男' ? '♂ 男' : '♀ 女'}
+            </button>
+          ))}
+        </div>
+      </div>
 
       <CalendarInput
         calendarType={calendarType}
@@ -191,7 +212,7 @@ function FreeChartWidget() {
         }`}
         onClick={e => { if (!isValid) e.preventDefault() }}
       >
-        立即排盘 · 免费 🚀
+        直接排盘 🚀
       </Link>
 
       <p className="text-center text-[10px] text-gray-600 mt-3">
