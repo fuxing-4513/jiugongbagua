@@ -849,17 +849,17 @@ export default function BaziClient() {
       </div>
 
       {/* 分析Tab导航 */}
-      <div className="flex gap-2 flex-wrap bg-dark-800/80 rounded-xl border border-dark-600 p-2">
+      <div className="flex gap-3 flex-wrap bg-dark-800/80 rounded-xl border border-dark-600 p-3">
         <button onClick={()=>setActiveTab('classic')}
-          className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${activeTab==='classic'?'bg-gold-600 text-dark-900':'bg-dark-700 text-gray-400 border border-dark-600 hover:border-gold-500/50'}`}>
+          className={`flex-1 min-w-[100px] px-4 py-3 rounded-xl text-sm font-bold tracking-wider transition-all shadow-lg ${activeTab==='classic'?'bg-gradient-to-r from-gold-500 to-gold-600 text-dark-900 shadow-gold-500/20 scale-105':'bg-dark-700 text-gray-300 border-2 border-dark-500 hover:border-gold-500/60 hover:text-gold-300'}`}>
           📜 经典分析
         </button>
         <button onClick={()=>setActiveTab('deep')}
-          className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${activeTab==='deep'?'bg-gold-600 text-dark-900':'bg-dark-700 text-gray-400 border border-dark-600 hover:border-gold-500/50'}`}>
+          className={`flex-1 min-w-[100px] px-4 py-3 rounded-xl text-sm font-bold tracking-wider transition-all shadow-lg ${activeTab==='deep'?'bg-gradient-to-r from-gold-500 to-gold-600 text-dark-900 shadow-gold-500/20 scale-105':'bg-dark-700 text-gray-300 border-2 border-dark-500 hover:border-gold-500/60 hover:text-gold-300'}`}>
           🔮 高人深析
         </button>
         <button onClick={()=>setActiveTab('yinzheng')}
-          className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${activeTab==='yinzheng'?'bg-gold-600 text-dark-900':'bg-dark-700 text-gray-400 border border-dark-600 hover:border-gold-500/50'}`}>
+          className={`flex-1 min-w-[100px] px-4 py-3 rounded-xl text-sm font-bold tracking-wider transition-all shadow-lg ${activeTab==='yinzheng'?'bg-gradient-to-r from-gold-500 to-gold-600 text-dark-900 shadow-gold-500/20 scale-105':'bg-dark-700 text-gray-300 border-2 border-dark-500 hover:border-gold-500/60 hover:text-gold-300'}`}>
           🔄 综合印证
         </button>
       </div>
