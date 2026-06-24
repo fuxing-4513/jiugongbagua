@@ -729,20 +729,27 @@ function bodyStrength(riGan: string, gans: string[], zhis: string[]): '身强' |
     const w = zhiWx(zhis[i])
     const w0 = i === 1 ? 2 : i === 3 ? 1.5 : 1
     if (w === riWx) help += w0
+    // 地支生我→帮助(印)
+    else if (({木:['水'],火:['木'],土:['火'],金:['土'],水:['金']}[riWx]||[]).includes(w)) help += w0 * 0.7
+    // 地支克/泄/耗我→消耗
+    else consume += w0
   }
 
+  // 根(禄/刃)
   for (let i = 0; i < zhis.length; i++) {
     if (roots.includes(zhis[i])) {
+      const w = zhiWx(zhis[i])
       const w0 = i === 1 ? 2.5 : i === 3 ? 2 : i === 2 ? 1.5 : 0.5
-      help += w0
+      if (({木:['金','土'],火:['水','金'],土:['木','水'],金:['火','木'],水:['土','火']}[riWx]||[]).includes(w)) help += w0 * 0.5
+      else help += w0
     }
   }
 
-  const total = help + consume
-  const ratio = total > 0 ? (help - consume) / total : -1
+  const total = Math.max(help, consume, 1)
+  const ratio = (help - consume) / total
 
   if (ratio > 0.3) return '身强'
-  else if (ratio < -0.3) return '身弱'
+  else if (ratio < -0.2) return '身弱'
   else return '身中和'
 }
 
