@@ -14,15 +14,17 @@ export async function exportAsPng(element: HTMLElement, filename = 'mingpan.png'
     return
   }
 
+  const safeTitle = filename.replace(/[<>"']/g, '').slice(0, 64)
+  const html = element.outerHTML
+
   printWindow.document.write(`
     <html>
       <head>
-        <title>命盘导出</title>
+        <title>${safeTitle}</title>
         <style>
           body { background: #faf9f6; padding: 20px; font-family: serif; }
           @media print { body { padding: 0; } }
           .flex { display: flex; }
-          .hidden { display: none !important; }
           button { display: none !important; }
           img { max-width: 100%; }
           table { border-collapse: collapse; width: 100%; }
@@ -31,8 +33,8 @@ export async function exportAsPng(element: HTMLElement, filename = 'mingpan.png'
         </style>
       </head>
       <body>
-        ${element.outerHTML}
-        <script>window.onload = function() { window.print(); window.close(); }</script>
+        ${html}
+        <script>window.onload = function() { window.print(); window.close(); }<\/script>
       </body>
     </html>
   `)
