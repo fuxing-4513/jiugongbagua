@@ -1251,6 +1251,13 @@ Object.entries(result.wx).map(([w,c]): React.ReactNode =>(
                 </div>
               )}
 
+              {judgmentResult.zhiYongNarr && judgmentResult.zhiYongNarr.length > 0 && (
+                <div className="mb-3">
+                  <h5 className="text-xs font-semibold text-purple-300 mb-1">🔧 制用结构</h5>
+                  {judgmentResult.zhiYongNarr.map((s,i)=><p key={i} className="text-xs text-gray-200 mb-1 leading-relaxed">{s}</p>)}
+                </div>
+              )}
+
               <div className="mt-2 pt-2 border-t border-dark-600">
                 <p className="text-[10px] text-gray-500 italic">以上为九宫命理体系实战解读</p>
               </div>
