@@ -1230,6 +1230,13 @@ Object.entries(result.wx).map(([w,c]): React.ReactNode =>(
                 </div>
               )}
 
+              {judgmentResult.bodySeasonNarr && judgmentResult.bodySeasonNarr.length > 0 && (
+                <div className="mb-3">
+                  <h5 className="text-xs font-semibold text-fuchsia-300 mb-1">🌿 节气·身强身弱</h5>
+                  {judgmentResult.bodySeasonNarr.map((s,i)=><p key={i} className="text-xs text-gray-200 mb-1 leading-relaxed">{s}</p>)}
+                </div>
+              )}
+
               {judgmentResult.tenGodDetailNarr && judgmentResult.tenGodDetailNarr.length > 0 && (
                 <div className="mb-3">
                   <h5 className="text-xs font-semibold text-pink-300 mb-1">🎭 十神万物类象</h5>
