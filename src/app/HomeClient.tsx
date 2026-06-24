@@ -8,6 +8,7 @@ import HeritageSection from '@/components/HeritageSection'
 import ClassicQuotes from '@/components/ClassicQuotes'
 import BottomCTA from '@/components/BottomCTA'
 import CalendarInput, { type CalendarType, getMaxDay, lunarToSolarDate } from '@/components/CalendarInput'
+import ExpertDialog from '@/components/ExpertDialog'
 
 interface ModuleInfo {
   key: string
@@ -41,6 +42,7 @@ const modules: ModuleInfo[] = [
 
 export default function HomeClient() {
   const getT = useT()
+  const [expertOpen, setExpertOpen] = useState<{name:string;emoji:string}|null>(null)
 
   return (
     <div className="max-w-6xl mx-auto px-4">
@@ -102,30 +104,41 @@ export default function HomeClient() {
         <h2 className="text-xl font-semibold text-gold-600 font-serif mb-4 text-center">🔮 全部工具</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {modules.map((mod) => (
-            <Link
+            <div
               key={mod.key}
-              href={mod.href}
               className="group relative rounded-xl border border-dark-600/50 p-5 hover:border-jade-400/60 transition-all duration-200"
             >
-              <span className="absolute top-2 right-2 z-10 text-[9px] font-semibold text-white bg-amber-500/80 rounded-full px-2 py-0.5 shadow-sm backdrop-blur-sm">
+              <button
+                onClick={() => setExpertOpen({name: getT(mod.nameKey), emoji: mod.emoji})}
+                className="absolute top-2 right-2 z-10 text-[9px] font-semibold text-white bg-amber-500/80 hover:bg-amber-500/70 rounded-full px-2.5 py-1 shadow-sm backdrop-blur-sm transition-all hover:scale-105 cursor-pointer"
+              >
                 专家解析
-              </span>
-              <div className="text-3xl mb-3 group-hover:scale-110 transition-transform duration-200">
-                {mod.emoji}
-              </div>
-              <h3 className="text-base font-semibold text-gray-800 group-hover:text-jade-500 transition-colors mb-1">
-                {getT(mod.nameKey)}
-              </h3>
-              <p className="text-xs text-gray-500 leading-relaxed mb-2">
-                {getT(mod.descKey)}
-              </p>
-              {getT(mod.sourceKey) && getT(mod.sourceKey) !== mod.sourceKey && (
-                <p className="text-[10px] text-gold-900 font-serif italic">
-                  {getT(mod.sourceKey)}
+              </button>
+              <Link href={mod.href} className="block">
+                <div className="text-3xl mb-3 group-hover:scale-110 transition-transform duration-200">
+                  {mod.emoji}
+                </div>
+                <h3 className="text-base font-semibold text-gray-800 group-hover:text-jade-500 transition-colors mb-1">
+                  {getT(mod.nameKey)}
+                </h3>
+                <p className="text-xs text-gray-500 leading-relaxed mb-2">
+                  {getT(mod.descKey)}
                 </p>
-              )}
-            </Link>
+                {getT(mod.sourceKey) && getT(mod.sourceKey) !== mod.sourceKey && (
+                  <p className="text-[10px] text-gold-900 font-serif italic">
+                    {getT(mod.sourceKey)}
+                  </p>
+                )}
+              </Link>
+            </div>
           ))}
+          {expertOpen && (
+            <ExpertDialog
+              toolName={expertOpen.name}
+              toolEmoji={expertOpen.emoji}
+              close={() => setExpertOpen(null)}
+            />
+          )}
         </div>
       </section>
 
