@@ -1147,8 +1147,15 @@ export function analyzeJudgment(
   if (yearSS === '印') careerNarr.push('年上是印--有高级学历或体面工作。对精神和层次有追求。')
   if (yearSS === '比劫') careerNarr.push('年上是比劫--身边有牛逼的贵人,社会最顶层有朋友。')
 
+  // 官印完整检查（含自坐印/自坐比劫）
   let hG=false, hY=false
   for (const g of gans) { const st=ss(riGan,g); if (isGuan(st)) hG=true; if (isYin(st)) hY=true }
+  // 日支主星=印也算有印【自坐印】：戊午、丙戌等，有自尊要面子
+  const riZhiRcm = (CANG_GAN[zhis[2]] || [''])[0]  // 日支主藏干
+  const riZhiMainSS = sst(riGan, riZhiRcm)
+  if (isYin(riZhiMainSS)) { hY = true; careerNarr.push('自坐印--你有框架有自尊,别人的话听不进去,有自己的主意。') }
+  // 自坐比劫=同类=也有自尊要面子：戊戌（坐比劫）、乙卯（坐禄）等
+  if (isBJ(riZhiMainSS)) { hY = true; careerNarr.push('自坐比劫--面子大过天,强者思维,受不了别人不把你当回事。') }
   if (hG&&hY) careerNarr.push('官印齐全--适合体制/管理。')
   if (hG&&!hY) careerNarr.push('有官无印--压力大,技术路线。')
   if (!hG&&hY) careerNarr.push('有印无官--坐等好运。')
