@@ -856,7 +856,7 @@ export default function BaziClient() {
         </button>
         <button onClick={()=>setActiveTab('deep')}
           className={`flex-1 min-w-[110px] px-4 py-3.5 rounded-xl text-base font-bold tracking-wider transition-all duration-200 shadow-lg ${activeTab==='deep'?'bg-gradient-to-br from-amber-300 via-gold-400 to-gold-600 text-dark-900 shadow-[0_0_20px_rgba(251,191,36,0.4)] border border-amber-200/50 scale-105':'bg-dark-800 text-gray-200 border-2 border-gold-500/40 hover:border-gold-400/80 hover:bg-dark-700 hover:text-gold-200 hover:shadow-[0_0_15px_rgba(251,191,36,0.15)]'}`}>
-          <span className="text-lg mr-1">🔮</span> 高人深析
+          <span className="text-lg mr-1">🔮</span> 深度分析
         </button>
         <button onClick={()=>setActiveTab('yinzheng')}
           className={`flex-1 min-w-[110px] px-4 py-3.5 rounded-xl text-base font-bold tracking-wider transition-all duration-200 shadow-lg ${activeTab==='yinzheng'?'bg-gradient-to-br from-amber-300 via-gold-400 to-gold-600 text-dark-900 shadow-[0_0_20px_rgba(251,191,36,0.4)] border border-amber-200/50 scale-105':'bg-dark-800 text-gray-200 border-2 border-gold-500/40 hover:border-gold-400/80 hover:bg-dark-700 hover:text-gold-200 hover:shadow-[0_0_15px_rgba(251,191,36,0.15)]'}`}>
@@ -1055,7 +1055,7 @@ Object.entries(result.wx).map(([w,c]): React.ReactNode =>(
       {/* 九宫深层分析内容 */}
       {activeTab === 'deep' && deepResult && (<>
         <div className="bg-dark-800/80 rounded-xl border border-gold-500/30 p-4">
-          <h3 className="text-sm font-semibold text-gold-300 mb-3">🔮 高人深析八字分析</h3>
+          <h3 className="text-sm font-semibold text-gold-300 mb-3">🔮 深度分析</h3>
           <p className="text-xs text-gray-500 mb-3">涵盖六穿/六冲/三刑/暗合/破/三合/六合/出处共根/旺点/十神/断事/命主叙事</p>
 
           {/* 🏠 命主人生叙事 — 前置实战解读 */}
