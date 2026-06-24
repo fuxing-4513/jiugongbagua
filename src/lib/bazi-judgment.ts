@@ -151,6 +151,17 @@ function getFlowGZ(year: number): [string, string] {
   const o = year - 4; return [tg[o%10], dz[o%12]]
 }
 
+// 判断一个天干是否在原局出现（含藏干）
+function isGanInChart(gan: string, gans: string[], zhis: string[]): boolean {
+  // 先看四柱天干
+  if (gans.includes(gan)) return true
+  // 再看地支藏干
+  for (const z of zhis) {
+    if ((CANG_GAN[z]||[]).includes(gan)) return true
+  }
+  return false
+}
+
 // ──── 浓缩标签系统 ═══════════════════════════
 
 function lifeLabels(riGan: string, pills: {gan:string;zhi:string}[], gender: string): string[] {
@@ -310,9 +321,9 @@ function daYunJudgeV2(
   const riWx = wx(riGan)
   const posNames = ['年','月','日','时']
 
-  // [1] 原局有/无
-  if (gans.includes(dg)) {
-    r.push(`大运天干${dg}原局就有——这十年你在道上。`)
+  // [1] 原局有/无（含藏干）
+  if (isGanInChart(dg, gans, zhis)) {
+    r.push(`大运天干${dg}原局就有（含藏干）——这十年你在道上。`)
   } else {
     r.push(`大运天干${dg}不是原局的——这十年是外来的运。跟着航道走能赚钱，偏离了就出问题。`)
   }
@@ -390,9 +401,9 @@ function flowYearV2(ri: string, pills: {gan:string;zhi:string}[],
   const yearZhi = zhis[0]
   const [fg, fz] = getFlowGZ(year)
 
-  // R5: 流年字活动 vs 原局字静止
-  if (gans.includes(fg)) {
-    r.push(`${year}年（${fg}${fz}）——天干${fg}原局就有。这一年在道上。`)
+  // R5: 流年字活动 vs 原局字静止（含藏干）
+  if (isGanInChart(fg, gans, zhis)) {
+    r.push(`${year}年（${fg}${fz}）——天干${fg}原局就有（藏干算在内）。这一年在道上。`)
   } else {
     r.push(`${year}年（${fg}${fz}）——天干${fg}不是原局的。这一年别瞎折腾。`)
   }
@@ -697,6 +708,14 @@ export function analyzeJudgment(
   if (mss==='官杀') careerNarr.push('有野心追求职位。')
   if (mss==='食伤') careerNarr.push('追求自由，适合创意类。')
   if (mss==='比劫') careerNarr.push('需要伙伴，一个人不行。')
+
+  // 年上十神决定命主追求（用户补充：宫位十神驱动论）
+  const yearSS = sst(riGan, pills[0].gan)
+  if (yearSS === '财') careerNarr.push('年上是财——你这辈子想赚大钱。做什么事都看有没有钱赚。')
+  if (yearSS === '食伤') careerNarr.push('年上是食伤——你这辈子想法大、创意多。适合做产品和技术。')
+  if (yearSS === '官杀') careerNarr.push('年上是官杀——你这辈子想干大事业。要地位要名声。')
+  if (yearSS === '印') careerNarr.push('年上是印——你这辈子追求稳定的认可。做事先看有没有安全感。')
+  if (yearSS === '比劫') careerNarr.push('年上是比劫——你这辈子离不开朋友关系。做事要靠人脉推动。')
 
   let hG=false, hY=false
   for (const g of gans) { const st=ss(riGan,g); if (isGuan(st)) hG=true; if (isYin(st)) hY=true }
