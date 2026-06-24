@@ -697,19 +697,133 @@ function guanSha(ri: string, pills: {gan:string;zhi:string}[]): string[] {
   return r
 }
 
-function pref(ri: string, pills: {gan:string;zhi:string}[]): string[] {
-  const r: string[] = []; const z = pills.map(p=>p.zhi); const g = pills.map(p=>p.gan)
-  const wc: Record<string,number> = {木:0,火:0,土:0,金:0,水:0}
-  for (const v of g) wc[wx(v)]++; for (const v of z) wc[ZHI_WU_XING[v]]++
-  const sorted = Object.entries(wc).sort((a,b)=>a[1]-b[1]); const wst=sorted[0], wsg=sorted[sorted.length-1]
-  if (wsg && wst && wsg[0]!==wst[0]) {
-    r.push(`${wsg[0]}最旺--别太执着,要控制欲望。`)
-    r.push(`${wst[0]}最弱--后天要补。`)
-    const xi: Record<string,string[]> = {木:['水'],火:['木'],土:['火'],金:['土'],水:['金']}
-    const ke: Record<string,string> = {木:'金',火:'水',土:'木',金:'火',水:'土'}
-    const x = xi[wst[0]]||[], j = ke[wst[0]]
-    if (x.length) r.push(`喜${x.join('、')}。`); if (j) r.push(`忌${j}。`)
+/**
+ * 身强身弱判断(核心底层逻辑)
+ *
+ * 月柱时柱力量最大原则:
+ *   月支×2、时支×1.5、其他×1
+ *   天干(月干×1.5、时干×1.2、年时干×1)
+ *
+ * 助力: 比劫(同五行)、印(生日主)、根(禄/刃)
+ * 消耗: 官杀(克日主)、食伤(日主生)、财(日主克)
+ */
+function bodyStrength(riGan: string, gans: string[], zhis: string[]): '身强' | '身弱' | '身中和' {
+  const riWx = wx(riGan)
+  const roots = ROOT_MAP[riWx] || []
+  let help = 0, consume = 0
+
+  for (let i = 0; i < gans.length; i++) {
+    const w = wx(gans[i])
+    const w0 = i === 1 ? 1.5 : i === 3 ? 1.2 : 1
+    if (w === riWx) help += w0
+    else {
+      const s = ss(riGan, gans[i])
+      if (isYin(s)) help += w0 * 0.8
+      else if (s === '官杀') consume += w0 * 1.2
+      else if (s === '财') consume += w0
+      else if (isSS(s)) consume += w0
+    }
   }
+
+  for (let i = 0; i < zhis.length; i++) {
+    const w = zhiWx(zhis[i])
+    const w0 = i === 1 ? 2 : i === 3 ? 1.5 : 1
+    if (w === riWx) help += w0
+  }
+
+  for (let i = 0; i < zhis.length; i++) {
+    if (roots.includes(zhis[i])) {
+      const w0 = i === 1 ? 2.5 : i === 3 ? 2 : i === 2 ? 1.5 : 0.5
+      help += w0
+    }
+  }
+
+  const total = help + consume
+  const ratio = total > 0 ? (help - consume) / total : -1
+
+  if (ratio > 0.3) return '身强'
+  else if (ratio < -0.3) return '身弱'
+  else return '身中和'
+}
+
+/** 十神在身强/身弱下的不同解读 */
+function tenGodMeaning(tenGod: string, body: '身强' | '身弱' | '身中和'): string {
+  const m: Record<string, Record<string, string>> = {
+    '官杀': {
+      '身强': '官杀在你这里是好事--身旺能担官。有事业心、有职位、有地位,别人服你。',
+      '身弱': '官杀在你这里是压力--身弱不担官。事业上不是你想做就做,而是被人推着走。压力大、口舌多、容易跟上级和同事起是非。',
+      '身中和': '官杀对你来说中性偏吉--能担一部分。你是有事业心的人,但也要注意自我调节。'
+    },
+    '财': {
+      '身强': '财在你这里是好事--身旺能担财。赚钱渠道多,有能力守住钱。适合做投资、做生意。',
+      '身弱': '财在你这里是负担--身弱不担财。不是赚不到钱,是赚到了也守不住。钱来钱去。你不适合贪大,稳扎稳打才是你的路。',
+      '身中和': '财对你来说中性--能赚也能花。控制好消费欲望。'
+    },
+    '印': {
+      '身强': '印在你这里偏中性--你已经够强了。适合做学问、搞研究,但小心依赖心。',
+      '身弱': '印是你最重要的人--身弱最需要印。你身边需要有个能帮你、提携你的人。读书、进修、拜师是你改变命运的方式。',
+      '身中和': '印对你是助力--有一定的学习能力和贵人运。'
+    },
+    '食伤': {
+      '身强': '食伤是财富的源头--身旺食伤生财。脑子活、创意多,把想法变成产品就是钱。',
+      '身弱': '食伤在消耗你--身弱食伤多了=想太多做太少。天天有想法但执行力跟不上。先把手上的事做透。',
+      '身中和': '食伤中性--有想法也有执行力,但别贪多。'
+    },
+    '比劫': {
+      '身强': '比劫过旺是竞争的信号--身边跟你水平差不多的人多。别跟比劫较劲,你要走差异化路线。',
+      '身弱': '比劫是你需要的--你一个人撑不起来,需要朋友、团队、合作伙伴。你们得抱团取暖。',
+      '身中和': '比劫中性--有朋友圈但不依赖。'
+    }
+  }
+  return m[tenGod]?.[body] || ''
+}
+
+function pref(ri: string, pills: {gan:string;zhi:string}[]): string[] {
+  const r: string[] = []
+  const z = pills.map(p=>p.zhi)
+  const g = pills.map(p=>p.gan)
+  const riWx = wx(ri)
+  const body = bodyStrength(ri, g, z)
+
+  // [1] 身强身弱总论
+  r.push(`你的八字${body}。${body === '身强' ? '自身力量足。能担财担官,做事有底气。但别太"自我"。' : body === '身弱' ? '自身力量不足。需要印(靠山/学历)和比劫(朋友/团队)来帮。别贪大,做不了老板就先做专业人才。' : '自身力量适中。进退有度,选择多但容易迷茫。'}`)
+
+  // [2] 五行力量加权分析(月×2 时×1.5)
+  const scores: Record<string,number> = {木:0,火:0,土:0,金:0,水:0}
+  for (let i = 0; i < g.length; i++) scores[wx(g[i])] += i === 1 ? 1.5 : i === 3 ? 1.2 : 1
+  for (let i = 0; i < z.length; i++) {
+    scores[zhiWx(z[i])] += i === 1 ? 2 : i === 3 ? 1.5 : 1
+    for (const cg of (CANG_GAN[z[i]] || [])) scores[wx(cg)] += (i === 1 ? 2 : i === 3 ? 1.5 : 1) * 0.3
+  }
+  const sorted = Object.entries(scores).sort((a,b)=>b[1]-a[1])
+  const strong = sorted[0], weak = sorted[sorted.length-1]
+
+  // [3] 主要十神判定
+  const tg: Record<string,number> = {官杀:0,财:0,印:0,食伤:0,比劫:0}
+  for (const v of g) tg[ss(ri, v)]++
+  for (let i = 0; i < z.length; i++)
+    for (const cg of (CANG_GAN[z[i]] || []))
+      tg[ss(ri, cg)] += i === 1 ? 1 : i === 3 ? 0.8 : 0.5
+
+  const topTG = Object.entries(tg).sort((a,b)=>b[1]-a[1])[0]
+  if (topTG && topTG[1] >= 1.5) r.push(tenGodMeaning(topTG[0], body))
+
+  // [4] 月时柱权重说明
+  r.push(`月柱${z[1]}(${zhiWx(z[1])})力量最大--外界对你的影响。时柱${z[3]}(${zhiWx(z[3])})力量第二--内心和结局。`)
+
+  // [5] 五行强弱总结
+  if (strong && weak && strong[0] !== weak[0]) {
+    if (body === '身弱') {
+      const isKe = {'水':'土','火':'水','木':'金','金':'火','土':'木'}[riWx] === strong[0]
+      if (isKe) r.push(`八字${strong[0]}最强(分${strong[1]})--克制你的日主${riWx}。生活压力大,很多事不受你控制。`)
+      else if (['水','火','木','金','土'][['木','火','土','金','水'].indexOf(riWx)] === strong[0]) r.push(`八字${strong[0]}最强(分${strong[1]})--这是生你的力量,有靠山。`)
+      else r.push(`八字${strong[0]}最强(分${strong[1]})。`)
+    } else {
+      r.push(`八字${strong[0]}最强(分${strong[1]})--你的底色。方向选对了就是天赋。`)
+    }
+    r.push(`${weak[0]}最弱(分${weak[1]})--这方面要补。`)
+  }
+
   return r
 }
 
