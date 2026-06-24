@@ -1230,6 +1230,13 @@ Object.entries(result.wx).map(([w,c]): React.ReactNode =>(
                 </div>
               )}
 
+              {judgmentResult.tenGodDetailNarr && judgmentResult.tenGodDetailNarr.length > 0 && (
+                <div className="mb-3">
+                  <h5 className="text-xs font-semibold text-pink-300 mb-1">🎭 十神万物类象</h5>
+                  {judgmentResult.tenGodDetailNarr.map((s,i)=><p key={i} className="text-xs text-gray-200 mb-1 leading-relaxed">{s}</p>)}
+                </div>
+              )}
+
               {judgmentResult.controlPowerNarr && judgmentResult.controlPowerNarr.length > 0 && (
                 <div className="mb-3">
                   <h5 className="text-xs font-semibold text-amber-300 mb-1">🎯 控制权排序</h5>

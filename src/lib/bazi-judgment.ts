@@ -862,6 +862,8 @@ export interface JudgmentResult {
   enterpriseNarr: string[]
   /** v6新增: 制用结构评估(绳子与牛/制得干净/正制反制) */
   zhiYongNarr: string[]
+  /** v7新增: 十神万物类象深度分析 */
+  tenGodDetailNarr: string[]
 }
 
 export function analyzeJudgment(
@@ -1010,6 +1012,7 @@ export function analyzeJudgment(
   const dayMasterResult = dayMasterNature(riGan, pills)
   const enterpriseResult = enterpriseAnalysis(riGan, gans, zhis)
   const zhiYongResult = zhiYongEvaluate(riGan, gans, zhis, gender)
+  const tenGodDetailResult = tenGodDetailAnalysis(riGan, pills, gender, bodyStrength(riGan, gans, zhis))
   // ──── 大运 ────
   const daYunNarr: string[] = currentDaYunGan && currentDaYunZhi
     ? daYunJudgeV2(riGan, pills as any, currentDaYunGan, currentDaYunZhi)
@@ -1041,9 +1044,146 @@ export function analyzeJudgment(
     controlPowerNarr: controlPowerResult,
     dayMasterNarr: dayMasterResult,
     enterpriseNarr: enterpriseResult,
-    zhiYongNarr: zhiYongResult
+    zhiYongNarr: zhiYongResult,
+    tenGodDetailNarr: tenGodDetailResult
   }
 }
+
+// ═══════════════════════════════════════════════
+//  十神万物类象深度分析
+// ═══════════════════════════════════════════════
+
+/** 万物类象——十神的六维映射 */
+const WAN_WU: Record<string, {renwu:string[];wupin:string[];changsuo:string[];hangye:string[];shenti:string[];shijian:string[]}> = {
+  '比肩':{renwu:['同龄人','战友','工友','兄弟姐妹','竞争对手','散户','普通群众'],wupin:['同款衣物','双胞胎','对称器物','分身','镜子','同款商品','平价日用品'],changsuo:['宿舍','集体宿舍','健身房','同学聚会场所','批发市场','平价商铺'],hangye:['合伙生意','同行同业','流水线工人','团队基层','平价零售'],shenti:['四肢','筋骨','肌肉','皮肉','双手双脚'],shijian:['结伴出行','同辈相争','平分财物','合伙共事','攀比内卷']},
+  '劫财':{renwu:['情敌','竞争对手','酒肉朋友','投机者','江湖义气之人','销售人员'],wupin:['二手物品','分割之物','破损器物','抢夺类道具','赌场筹码'],changsuo:['赌场','娱乐会所','酒吧','拍卖场','二手市场','竞争激烈的赛场'],hangye:['博弈','销售','中介','竞争型行业','民间借贷','倒卖生意'],shenti:['血管','血液循环','咽喉','筋骨损伤','磕碰外伤'],shijian:['破财被骗','钱财被分','争夺感情','合伙散伙','冲动投资亏损']},
+  '食神':{renwu:['厨师','美食博主','艺人','演员','教师','营养师','养生师','孩童','温顺晚辈'],wupin:['美食','零食','乐器','画笔','厨具','艺术品','化妆品','甜品'],changsuo:['餐厅','甜品店','画室','剧场','养生馆','游乐园','农家乐'],hangye:['餐饮','美妆','文创','演艺','养生','幼教','手工艺','美食自媒体'],shenti:['嘴巴','肠胃','食道','五官','皮肤','呼吸系统'],shijian:['吃喝玩乐','学艺深造','登台表演','享受休闲','生育生女','口福美食']},
+  '伤官':{renwu:['设计师','发明家','律师','演说家','网红','艺术家','学者','叛逆青年','谋士'],wupin:['创意产品','文书','笔墨','话筒','手术刀','高科技设备','小众艺术品'],changsuo:['工作室','法庭','直播间','设计院','实验室','辩论赛场'],hangye:['设计','法律','新媒体','科研','医美','策划','自媒体','创意策划'],shenti:['大脑','五官','神经','伤口','手术','口舌','精神情绪'],shijian:['打官司','演讲辩论','创业创新','顶撞上级','才艺成名','手术伤病','口舌纠纷']},
+  '正财':{renwu:['上班族','会计','出纳','实体店老板','工薪阶层','原配妻子','本分生意人'],wupin:['存款','工资卡','房产','田地','黄金首饰','日用品','固定资产','粮食'],changsuo:['写字楼','银行','实体店','农田','住宅','超市','稳定单位'],hangye:['会计','地产','农业','商超','行政文员','传统实体','固定薪资岗位'],shenti:['脾胃','腹部','皮肉','消化器官'],shijian:['上班领薪','购置房产','稳定经营','婚姻嫁娶','储蓄存款','长期稳定收入']},
+  '偏财':{renwu:['投资人','商人','经销商','中介','富二代','异地贵人','副业从业者'],wupin:['股票','基金','彩票','珠宝','豪车','流动资产','礼品','海外资产'],changsuo:['交易所','赌场','奢侈品店','古玩市场','外贸市场','投资公司'],hangye:['金融投资','股票期货','外贸','古玩','中介','自媒体副业','大宗商品'],shenti:['肝胆','血液循环','筋骨','肺部'],shijian:['中彩票','投资获利','意外得财','异地求财','副业增收','送礼收礼','破财挥霍']},
+  '正官':{renwu:['公务员','官员','法官','校长','国企领导','正派长辈','丈夫','公职人员'],wupin:['证书','公章','公文','法令','制服','官印','合同','证件'],changsuo:['政府机关','法院','学校','国企','办公楼','政务大厅','考场'],hangye:['公职','教育','法务','行政','事业单位','合规管理','体制内工作'],shenti:['肝胆','头部','神经','关节'],shijian:['考取功名','升职加薪','办理证件','婚姻（女命正缘）','接受正规管束','官司公正判决']},
+  '七杀':{renwu:['军警','武将','法官','黑社会','屠夫','外科医生','创业者','强势对手','打手'],wupin:['刀具','枪械','兵器','警械','手术器械','危险品','尖锐金属','炸药'],changsuo:['军营','警局','法院','医院手术室','沙场','矿山','格斗赛场','监狱'],hangye:['军警','司法','医疗外科','安保','矿业','格斗','刑侦','高危行业','创业竞争行业'],shenti:['骨骼','刀伤','跌打损伤','血液','心脏','外伤','急症'],shijian:['官非牢狱','车祸意外','争斗打架','手术开刀','竞争上位','突发灾祸','手握实权掌权']},
+  '正印':{renwu:['教师','医生','文人','长辈','母亲','宗教人士','公职文职','慈善家'],wupin:['书籍','文凭','房契','被褥','雨伞','庇护之物','经书','房产契约','衣物'],changsuo:['学校','图书馆','医院','寺庙','住宅','书房','养老院','文化馆'],hangye:['教育','文化','医疗','宗教','出版','文职','慈善','不动产'],shenti:['心脏','脾胃','皮肉','大脑','精神','免疫系统'],shijian:['读书升学','买房置业','长辈庇护','得贵人相助','考证拿文凭','安家落户','祈福受庇']},
+  '偏印':{renwu:['命理师','道士','术士','医生（偏方）','科研怪人','隐士','心理咨询师','小众匠人'],wupin:['符咒','古书','偏方药材','冷门法器','古董','小众收藏品','玄学道具'],changsuo:['道观','寺庙偏殿','古玩店','占卜馆','实验室','冷门工作室','深山隐居地'],hangye:['玄学命理','中医偏方','占卜','考古','小众科研','神秘文化','非遗冷门手艺'],shenti:['神经系统','脑部','慢性病','内脏隐疾','精神抑郁','失眠'],shijian:['学习玄学秘术','独处修行','久病缠身','与长辈隔阂','意外孤独','子女健康受损','钻研冷门技艺']}
+}
+
+/** 判断一个十神在此人身上是喜用还是忌神 */
+function xiJiGod(ri: string, gans: string[], zhis: string[], tenGod: string): '喜神'|'忌神'|'中性' {
+  const riWx = wx(ri)
+  let score = 0
+  // 身强身弱基准
+  const body = bodyStrength(ri, gans, zhis)
+  if (body === '身弱') {
+    if (tenGod === '印') score += 2
+    else if (tenGod === '比劫') score += 1
+    else if (tenGod === '官杀') score -= 2
+    else if (tenGod === '财') score -= 1
+    else if (tenGod === '食伤') score -= 1
+  } else if (body === '身强') {
+    if (tenGod === '官杀') score += 2
+    else if (tenGod === '财') score += 1
+    else if (tenGod === '食伤') score += 1
+    else if (tenGod === '印') score -= 1
+    else if (tenGod === '比劫') score -= 2
+  }
+  // 实际出现增强判断
+  for (const g of gans) {
+    const s = ss(ri, g)
+    if (s === tenGod) score += 0.5
+  }
+  for (const z of zhis) {
+    for (const cg of (CANG_GAN[z] || [])) {
+      if (ss(ri, cg) === tenGod) score += 0.3
+    }
+  }
+  if (score >= 2) return '喜神'
+  else if (score <= -1) return '忌神'
+  else return '中性'
+}
+
+/** 十神万物类象深度分析(融合身强身弱+喜忌+类象) */
+function tenGodDetailAnalysis(ri: string, pills: {gan:string;zhi:string}[], gender: string, body: '身强'|'身弱'|'身中和'): string[] {
+  const r: string[] = []; const gans = pills.map(p=>p.gan); const zhis = pills.map(p=>p.zhi)
+  const posNames = ['年','月','日','时']
+
+  // 统计算每个十神的天干+藏干出现次数(加权)
+  const counts: Record<string,{total:number;pos:string[]}> = {比肩:{total:0,pos:[]},劫财:{total:0,pos:[]},食神:{total:0,pos:[]},伤官:{total:0,pos:[]},正财:{total:0,pos:[]},偏财:{total:0,pos:[]},正官:{total:0,pos:[]},七杀:{total:0,pos:[]},正印:{total:0,pos:[]},偏印:{total:0,pos:[]}}
+  for (let i = 0; i < gans.length; i++) {
+    const s = ss(ri, gans[i])
+    if (counts[s]) { counts[s]!.total++; counts[s]!.pos.push(posNames[i]) }
+  }
+  for (let i = 0; i < zhis.length; i++) {
+    for (const cg of (CANG_GAN[zhis[i]] || [])) {
+      const s = ss(ri, cg)
+      if (counts[s]) { counts[s]!.total += 0.5 }
+    }
+  }
+
+  // 按总出现排序
+  const sorted = Object.entries(counts).sort((a,b)=>b[1].total - a[1].total)
+
+  // 输出每个>=1.5的十神
+  for (const [tg, info] of sorted) {
+    if (info.total < 1.5) continue
+    const ww = WAN_WU[tg]
+    const xi = xiJiGod(ri, gans, zhis, tg)
+
+    // 核心心性(从资料提炼吉凶)
+    const xinXing: Record<string,{ji:string;xiong:string}> = {
+      '比肩':{ji:'你独立、有主见、能跟人共甘共苦,不贪非分之财。',xiong:'你固执、自我为中心、好攀比。不是别人跟你比,是你自己在跟自己较劲。'},
+      '劫财':{ji:'你豪爽大方、行动力强、敢闯敢拼、热心帮人。',xiong:'你冲动、脾气急、花钱大手大脚、容易因为朋友破财。'},
+      '食神':{ji:'你温和善良、乐观豁达、有口福、擅长才艺、知足常乐。',xiong:'你懒散、贪图享受、好吃懒做、不思进取。'},
+      '伤官':{ji:'你聪明、脑洞大、创意强、口才犀利、敢突破规则。',xiong:'你恃才傲物、顶撞领导、口舌是非多、叛逆不服管。'},
+      '正财':{ji:'你勤俭稳重、踏实本分、有责任心、精打细算能守财。',xiong:'你吝啬抠门、眼光短浅、胆小保守、过分看重物质。'},
+      '偏财':{ji:'你慷慨大方、人缘好、眼光独到、敢把握机遇、灵活变通。',xiong:'你挥霍无度、风流多情、财来财去留不住、好赌。'},
+      '正官':{ji:'你品行端正、守规矩、有责任心、重视名誉、正直公正。',xiong:'你胆小懦弱、死板教条、优柔寡断、过分畏惧权威。'},
+      '七杀':{ji:'你胆识过人、杀伐果断、领导力强、抗压能力极强、敢闯敢拼。',xiong:'你暴躁、偏激冲动、是非官非多、压力崩溃、好斗。'},
+      '正印':{ji:'你仁慈宽厚、心地善良、有学识修养、有贵人帮扶、淡泊名利。',xiong:'你依赖性强、懒惰被动、死板固执、逃避竞争。'},
+      '偏印':{ji:'你悟性极高、直觉敏锐、精通冷门领域、心思缜密、洞察力强。',xiong:'你孤僻冷漠、多疑猜忌、消极悲观、不合群、内心阴郁。'}
+    }
+    const xing = xinXing[tg]
+
+    // 输出
+    r.push(`【${tg}】出现${info.total >= 2 ? '较多' : '明显'}`)
+
+    if (xi === '喜神') {
+      if (xing) r.push(`对你来说是喜神。${xing.ji}`)
+      r.push(`类象:你生活中容易接触${(ww?.renwu||[]).slice(0,3).join('、')}这类人,常出现在${(ww?.changsuo||[]).slice(0,2).join('或')}。身体上注意${(ww?.shenti||[]).slice(0,2).join('、')}。`)
+    } else if (xi === '忌神') {
+      if (xing) r.push(`对你来说是忌神。${xing.xiong}`)
+      r.push(`提示:注意控制。生活中${(ww?.shijian||[]).slice(0,2).join('、')}这类事容易发生。身体上留心${(ww?.shenti||[]).slice(0,2).join('、')}。`)
+    } else {
+      if (xing) r.push(`对你来说中性。吉时${xing.ji}凶时${xing.xiong}`)
+      r.push(`你生活中偶尔出现${(ww?.renwu||[]).slice(0,2).join('、')}相关的人或事。`)
+    }
+  }
+
+  // 补充:正偏神比例
+  let zhengCount = 0, pianCount = 0
+  for (const g of gans) {
+    const s = ss(ri, g)
+    if (['比肩','食神','正财','正官','正印'].includes(s)) zhengCount++
+    else if (['劫财','伤官','偏财','七杀','偏印'].includes(s)) pianCount++
+  }
+  if (zhengCount > pianCount + 1) r.push('正神偏多--性格偏稳。适合走正统路线:体制内、大公司、规范行业。')
+  else if (pianCount > zhengCount + 1) r.push('偏神偏多--性格偏激动荡。适合不走寻常路:创业、艺术、投资、技术自由职业。')
+  else r.push('正偏均衡--能稳也能闯。你来得了体制也做得了生意,关键看你选什么。')
+
+  // 特殊配置说明——用显式循环访问避免TS可选链问题
+  const getTG = (name: string) => { for (const [k,v] of sorted) { if (k===name) return v.total } return 0 }
+  const hasZhengGuan = getTG('正官') >= 0.5
+  const hasQiSha = getTG('七杀') >= 0.5
+  if (hasZhengGuan && hasQiSha) r.push('正官七杀同现--官杀混杂。你一方面要规矩(正官),一方面又不想被人管(七杀)。这是矛盾的。适合你在体制外干体制内的事,或者用正职的规范来做副业的突破。')
+
+  const hasZhengYin = getTG('正印') >= 0.5; const hasPianYin = getTG('偏印') >= 0.5
+  if (hasZhengYin && hasPianYin) r.push('正印偏印同现--两种学习方式。你不是纯学院派,也不是纯野路子。一半靠正统学习,一半靠自学和钻研。适合做需要交叉学科的事。')
+
+  const hasShiShen = getTG('食神') >= 0.5; const hasShangGuan = getTG('伤官') >= 0.5
+  if (hasShiShen && hasShangGuan) r.push('食神伤官同现--才华输出方式多样。你既能温和表达(食神),又能犀利突破(伤官)。这是双刃剑:用好了是通才,用不好是半桶水。')
+
+  return r
+}
+
 
 // ──── 深度朋友相处分析 ════════════════════
 
