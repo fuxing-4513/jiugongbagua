@@ -698,59 +698,98 @@ function guanSha(ri: string, pills: {gan:string;zhi:string}[]): string[] {
 }
 
 /**
- * 身强身弱判断(核心底层逻辑)
- *
- * 月柱时柱力量最大原则:
- *   月支×2、时支×1.5、其他×1
- *   天干(月干×1.5、时干×1.2、年时干×1)
- *
- * 助力: 比劫(同五行)、印(生日主)、根(禄/刃)
- * 消耗: 官杀(克日主)、食伤(日主生)、财(日主克)
+ * 旺相休囚死表: 月支 → 各五行节令状态
  */
-function bodyStrength(riGan: string, gans: string[], zhis: string[]): '身强' | '身弱' | '身中和' {
+const WX_SEASON: Record<string, Record<string, string>> = {
+  '寅':{木:'旺',火:'相',水:'休',金:'囚',土:'死'},
+  '卯':{木:'旺',火:'相',水:'休',金:'囚',土:'死'},
+  '辰':{土:'旺',金:'相',火:'休',木:'囚',水:'死'},
+  '巳':{火:'旺',土:'相',木:'休',水:'囚',金:'死'},
+  '午':{火:'旺',土:'相',木:'休',水:'囚',金:'死'},
+  '未':{土:'旺',金:'相',火:'休',木:'囚',水:'死'},
+  '申':{金:'旺',水:'相',土:'休',火:'囚',木:'死'},
+  '酉':{金:'旺',水:'相',土:'休',火:'囚',木:'死'},
+  '戌':{土:'旺',金:'相',火:'休',木:'囚',水:'死'},
+  '亥':{水:'旺',木:'相',金:'休',土:'囚',火:'死'},
+  '子':{水:'旺',木:'相',金:'休',土:'囚',火:'死'},
+  '丑':{土:'旺',金:'相',火:'休',木:'囚',水:'死'},
+}
+
+/** 根分档:强根(禄/帝旺) vs 中根(余气/库) */
+const STRONG_ROOTS: Record<string, string[]> = {
+  甲:['寅'],乙:['卯'],丙:['巳'],丁:['午'],
+  戊:['巳','午','未','戌'],己:['巳','午','未','戌'],
+  庚:['申'],辛:['酉'],壬:['亥'],癸:['子']
+}
+const MEDIUM_ROOTS: Record<string, string[]> = {
+  乙:['辰'],丁:['未'],辛:['戌'],癸:['丑'],
+  戊:['辰','丑'],己:['辰','丑']
+}
+
+/**
+ * 身强身弱 三权分立: 得令50% > 得地30% > 得势20%
+ * 总分>=50=身强, <=15=身弱, 中间=中和
+ */
+function bodyStrength(riGan: string, gans: string[], zhis: string[]): '身强'|'身弱'|'身中和' {
   const riWx = wx(riGan)
-  const roots = ROOT_MAP[riWx] || []
-  let help = 0, consume = 0
-
-  for (let i = 0; i < gans.length; i++) {
+  const monthZhi = zhis[1]
+  const season = WX_SEASON[monthZhi]
+  const status = season?.[riWx] || ''
+  const ling: Record<string,number> = {旺:50,相:30,休:10,囚:-10,死:-30}
+  let total = ling[status] || 0  // 得令
+  for (let i = 0; i < zhis.length; i++) {
+    const z = zhis[i]
+    const p = i === 1 ? 1 : i === 3 ? 0.8 : i === 2 ? 0.6 : 0.3
+    if ((STRONG_ROOTS[riGan]||[]).includes(z)) total += 30 * p   // 得地强根
+    else if ((MEDIUM_ROOTS[riGan]||[]).includes(z)) total += 15 * p  // 得地中根
+  }
+  for (let i = 0; i < gans.length; i++) {  // 得势
+    const p = i === 1 ? 1 : i === 3 ? 0.8 : i === 2 ? 0.6 : 0.4
     const w = wx(gans[i])
-    const w0 = i === 1 ? 1.5 : i === 3 ? 1.2 : 1
-    if (w === riWx) help += w0
-    else {
-      const s = ss(riGan, gans[i])
-      if (isYin(s)) help += w0 * 0.8
-      else if (s === '官杀') consume += w0 * 1.2
-      else if (s === '财') consume += w0
-      else if (isSS(s)) consume += w0
-    }
+    if (w === riWx) total += 20 * p
+    else { const s = ss(riGan, gans[i]); if (isYin(s)) total += 15 * p }
   }
-
-  for (let i = 0; i < zhis.length; i++) {
-    const w = zhiWx(zhis[i])
-    const w0 = i === 1 ? 2 : i === 3 ? 1.5 : 1
-    if (w === riWx) help += w0
-    // 地支生我→帮助(印)
-    else if (({木:['水'],火:['木'],土:['火'],金:['土'],水:['金']}[riWx]||[]).includes(w)) help += w0 * 0.7
-    // 地支克/泄/耗我→消耗
-    else consume += w0
-  }
-
-  // 根(禄/刃)
-  for (let i = 0; i < zhis.length; i++) {
-    if (roots.includes(zhis[i])) {
-      const w = zhiWx(zhis[i])
-      const w0 = i === 1 ? 2.5 : i === 3 ? 2 : i === 2 ? 1.5 : 0.5
-      if (({木:['金','土'],火:['水','金'],土:['木','水'],金:['火','木'],水:['土','火']}[riWx]||[]).includes(w)) help += w0 * 0.5
-      else help += w0
-    }
-  }
-
-  const total = Math.max(help, consume, 1)
-  const ratio = (help - consume) / total
-
-  if (ratio > 0.3) return '身强'
-  else if (ratio < -0.2) return '身弱'
+  if (total >= 50) return '身强'
+  else if (total <= 15) return '身弱'
   else return '身中和'
+}
+
+/** 旺相休囚死 + 身强身弱综合分析 */
+function bodyAndSeasonAnalysis(riGan: string, gans: string[], zhis: string[]): string[] {
+  const r: string[] = []; const riWx = wx(riGan); const monthZhi = zhis[1]
+  const season = WX_SEASON[monthZhi]; const status = season?.[riWx] || ''
+  const body = bodyStrength(riGan, gans, zhis)
+  const stDesc: Record<string,string> = {旺:'气最足,先天底子厚。',相:'气在升涨,有季令支撑。',休:'能量释放完在休息,先天偏弱需补。',囚:'能量被压制,先天差容易被人压。',死:'气最弱,先天最差一档全靠后天。'}
+  const tgMap: Record<string,string> = {木:'食伤',火:'财',土:'官杀',金:'印',水:'比劫'}
+
+  r.push(`你出生在${monthZhi}月。${riGan}(${riWx})为${status}状态,${stDesc[status]||''}`)
+  r.push(`【得令】在${monthZhi}月,${riWx}的状态为"${status}"`)
+
+  // 得地
+  const roots: string[] = []
+  for (const z of zhis) {
+    if ((STRONG_ROOTS[riGan]||[]).includes(z)) roots.push(`${z}(强根)`)
+    else if ((MEDIUM_ROOTS[riGan]||[]).includes(z)) roots.push(`${z}(中根)`)
+  }
+  if (roots.length > 0) r.push(`【得地】根气:${roots.join('、')}。`)
+  else r.push('【得地】无根——天干再多印比也是虚浮。')
+
+  // 各五行节令走势
+  if (season) {
+    const sorted = Object.entries(season).filter(([k])=>k!==riWx)
+      .sort((a,b)=>({旺:5,相:4,休:3,囚:2,死:1}[a[1]]||0)-({旺:5,相:4,休:3,囚:2,死:1}[b[1]]||0)).reverse()
+    const desc: Record<string,string> = {旺:'这个季节最旺,这方面运势好的时候好,坏的时候更坏。',相:'较旺,有助力但不至于过度。',休:'在休息,能量收敛不显山不露水。',囚:'被压制,就算有也发挥不出来。',死:'最弱,这方面的事先放一放。'}
+    for (const [wxName, st] of sorted.slice(0,3)) {
+      const tg = tgMap[wxName]
+      r.push(`【${wxName}·${tg}】${wxName}在${monthZhi}月为"${st}"。${desc[st]||''}`)
+    }
+  }
+
+  // 综合
+  const bodyCN: Record<string,string> = {身强:'自身力量充足,能担财担官。适合管理、创业、竞争型行业。',身弱:'自身力量不足,需要印(靠山/学历)和比劫(朋友/团队)。适合专业路线,别贪大。',身中和:'自身力量适中,进退有度。路宽但容易迷茫,需深耕一个方向。'}
+  r.push(`综合判断:你的八字${body}。${bodyCN[body]||''}`)
+
+  return r
 }
 
 /** 十神在身强/身弱下的不同解读 */
@@ -871,6 +910,8 @@ export interface JudgmentResult {
   zhiYongNarr: string[]
   /** v7新增: 十神万物类象深度分析 */
   tenGodDetailNarr: string[]
+  /** v7新增: 节气状态+身强身弱分析 */
+  bodySeasonNarr: string[]
 }
 
 export function analyzeJudgment(
@@ -1020,6 +1061,7 @@ export function analyzeJudgment(
   const enterpriseResult = enterpriseAnalysis(riGan, gans, zhis)
   const zhiYongResult = zhiYongEvaluate(riGan, gans, zhis, gender)
   const tenGodDetailResult = tenGodDetailAnalysis(riGan, pills, gender, bodyStrength(riGan, gans, zhis))
+  const bodySeasonResult = bodyAndSeasonAnalysis(riGan, gans, zhis)
   // ──── 大运 ────
   const daYunNarr: string[] = currentDaYunGan && currentDaYunZhi
     ? daYunJudgeV2(riGan, pills as any, currentDaYunGan, currentDaYunZhi)
@@ -1052,7 +1094,8 @@ export function analyzeJudgment(
     dayMasterNarr: dayMasterResult,
     enterpriseNarr: enterpriseResult,
     zhiYongNarr: zhiYongResult,
-    tenGodDetailNarr: tenGodDetailResult
+    tenGodDetailNarr: tenGodDetailResult,
+  bodySeasonNarr: bodySeasonResult
   }
 }
 
