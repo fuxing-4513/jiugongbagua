@@ -2682,7 +2682,8 @@ function analyzeLiuQin(
   pills: {gan:string;zhi:string}[],
   gen: string,
   ss: (r:string,g:string)=>string
-): { nianZhu:string[]; yueZhu:string[]; riZhi:string[]; shiZhu:string[]; xingGong:string[]; summary:string[] } {
+): { nianZhu:string[]; yueZhu:string[]; riZhi:string[]; shiZhu:string[]; xingGong:string[]; summary:string[] }
+{
   const gans = pills.map(p => p.gan)
   const zhis = pills.map(p => p.zhi)
   const riZhiDz = zhis[2]
@@ -2706,33 +2707,34 @@ function analyzeLiuQin(
   const xingGong: string[] = []
   const summary: string[] = []
 
-  // 年柱：祖上宫
-  nianZhu.push(`年柱【${nGan}${nZhi}】祖上宫（0-16岁童年根基）`)
+  // 年柱：祖上宫（年干=祖父/外公/父亲/祖上男性，年支=祖母/外婆/母亲/祖上女性）
+  nianZhu.push(`年柱【${nGan}${nZhi}】祖上宫、祖辈宫、早年原生宫（0-16岁童年根基）`)
   const nLq = lqName(nSS, gen)
-  if (nLq) nianZhu.push(`年干 ${nGan} = ${nSS}（${nLq}）`)
+  if (nLq) nianZhu.push(`年干 ${nGan} = ${nSS}（=${nLq}）——代表祖父/外公/父亲/祖上男性、祖业、早年环境`)
   else nianZhu.push(`年干 ${nGan} = ${nSS}`)
-  nianZhu.push(`年支 ${nZhi} = 祖母/外婆/祖上女性环境`)
+  nianZhu.push(`年支 ${nZhi} = 祖母/外婆/母亲/祖上女性、根基家底`)
 
-  // 月柱：父母兄弟宫
-  yueZhu.push(`月柱【${yGan}${yZhi}】父母兄弟宫·门户（16-32岁原生家庭）`)
+  // 月柱：父母宫、兄弟宫、门户宫
+  yueZhu.push(`月柱【${yGan}${yZhi}】父母宫·兄弟宫·门户宫（16-32岁原生家庭—青年求学、离家前家庭运）`) 
+  yueZhu.push(`月干 ${yGan} = 父亲/兄长/家族男性/事业早期贵人`)
+  yueZhu.push(`月支 ${yZhi} = 母亲/姐妹/同辈亲友/家庭内部关系`)
   const yLq = lqName(ySS, gen)
   if (yLq) {
     yueZhu.push(`月干 ${yGan} = ${ySS}（${yLq}）`)
-    xingGong.push(`★ 月干 ${yGan}（${ySS}=${yLq}）在父母兄弟宫`)
-  } else {
-    yueZhu.push(`月干 ${yGan} = ${ySS}`)
-  }
-  yueZhu.push(`月支 ${yZhi} = 母亲/姐妹/同辈亲友的环境`)
+    xingGong.push(`★ 月干 ${yGan}（${ySS}=${yLq}）在父母兄弟宫（门户）`)
   for (let i = 0; i < gans.length; i++) {
     const pSS = ss(riGan, gans[i])
     if (pSS === '比肩' || pSS === '劫财') {
       if (Pos[i] === '月') yueZhu.push(`★ 月干 ${gans[i]}是${pSS}——兄弟姐妹/同辈朋友透出在门户宫`)
     }
   }
+  }
 
-  // 日柱：自身+夫妻宫
-  riZhiOut.push(`日干【${riGan}】= 命主本人（你）`)
-  riZhiOut.push(`日支【${riZhiDz}】夫妻宫 = 配偶（丈夫/妻子）`)
+  // 日柱：自身宫+夫妻宫（日干=命主本人，日支=原配配偶/婚姻伴侣/内心知己）
+  riZhiOut.push(`日柱【${riGan}${riZhiDz}】自身宫+夫妻宫（32-48岁—中年成家立业，一生运势重心）`)
+  riZhiOut.push(`日干【${riGan}】= 你（命主本人），所有六亲以此为中心`)
+  riZhiOut.push(`日支【${riZhiDz}】夫妻宫 = 原配配偶/伴侣/婚后家庭/内心知己`)
+  riZhiOut.push(`日支逢冲刑合害则婚姻不顺、夫妻争吵、离异分居`)
   const riCang = ncMap[riZhiDz] || []
   if (riCang.length > 0) {
     const desc = riCang.map(c => `${c}（${ss(riGan, c)}）`).join('、')
@@ -2749,8 +2751,10 @@ function analyzeLiuQin(
     }
   }
 
-  // 时柱：子女宫
-  shiZhu.push(`时柱【${sGan}${sZhi}】子女宫·晚辈宫（48岁后晚年归宿）`)
+  // 时柱：子女宫、晚辈宫、晚年归宿宫
+  shiZhu.push(`时柱【${sGan}${sZhi}】子女宫·晚辈宫·晚年归宿宫（48岁后—晚年养老、子女陪伴）`)
+  shiZhu.push(`时干 ${sGan} = 儿子/外孙/徒弟/晚辈男性/晚年事业`)
+  shiZhu.push(`时支 ${sZhi} = 女儿/孙女/下属/晚辈女性/晚年居所/寿运`)
   const sLq = lqName(sSS, gen)
   if (sLq) {
     shiZhu.push(`时干 ${sGan} = ${sSS}（${sLq}）`)
@@ -2758,7 +2762,6 @@ function analyzeLiuQin(
   } else {
     shiZhu.push(`时干 ${sGan} = ${sSS}`)
   }
-  shiZhu.push(`时支 ${sZhi} = 女儿/晚辈女性/下属环境`)
 
   // 总览
   summary.push('━━━ 四柱六亲宫位总览 ━━━')
