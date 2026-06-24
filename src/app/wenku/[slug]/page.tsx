@@ -49,7 +49,7 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
   return (
     <div className="max-w-4xl mx-auto px-4 py-10">
       {/* 面包屑 */}
-      <nav className="text-xs text-gray-500 mb-6">
+      <nav className="text-xs text-gray-400 mb-6">
         <a href="/" className="hover:text-gold-400">首页</a>
         <span className="mx-2">/</span>
         <a href="/wenku" className="hover:text-gold-400">知识文库</a>
@@ -67,12 +67,12 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
             <span className="text-[10px] text-gray-600">{article.date}</span>
           </div>
           <h1 className="text-2xl font-bold text-gold-300 font-serif mb-3">{article.title}</h1>
-          <p className="text-sm text-gray-400 leading-relaxed">{article.summary}</p>
+          <p className="text-sm text-gray-300 leading-relaxed">{article.summary}</p>
         </header>
 
         {/* 正文 */}
         <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-6">
-          <div className="text-sm text-gray-300 leading-7 whitespace-pre-line">
+          <div className="text-sm text-gray-200 leading-7 whitespace-pre-line">
             {article.fullContent}
           </div>
         </div>
