@@ -94,7 +94,7 @@ export default function WenkuClient() {
               </div>
               <a href={`/wenku/${article.slug}`} className="block group">
                 <h3 className="text-sm font-semibold text-gray-200 mb-1 group-hover:text-gold-400 transition-colors">{article.title}</h3>
-                <p className="text-xs text-gray-500 leading-relaxed">{article.summary}</p>
+                <p className="text-xs text-gray-300 leading-relaxed">{article.summary}</p>
               </a>
               <div className="flex gap-2 mt-2">
                 <a href={`/wenku/${article.slug}`}
