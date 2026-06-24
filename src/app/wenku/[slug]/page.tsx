@@ -1,5 +1,9 @@
 import type { Metadata } from 'next'
-import { articles } from '../wenkuData'
+import { articles, type Article } from '../wenkuData'
+
+// 构建时预生成的slug-index映射
+const slugIndex: Record<string, number> = {}
+for (let i = 0; i < articles.length; i++) slugIndex[articles[i].slug] = i
 
 export async function generateStaticParams() {
   return articles.map(a => ({ slug: a.slug }))
@@ -7,13 +11,17 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params
-  const article = articles.find(a => a.slug === slug)
+  const decoded = decodeURIComponent(slug)
+  const idx = slugIndex[decoded]
+  const article = idx !== undefined ? articles[idx] : undefined
   if (!article) return { title: '九宫八卦 - 命理知识文库' }
 
   const desc = article.fullContent.slice(0, 120).replace(/["""']/g, '').trim() + '...'
+
   return {
     title: `${article.title} - 九宫八卦命理知识文库`,
     description: desc,
+    keywords: `${article.title},${article.category},八字,命理,紫微斗数,风水,易经,传统文化`,
     openGraph: { title: `${article.title} - 九宫八卦`, description: article.summary, type: 'article', publishedTime: article.date },
     alternates: { canonical: `https://jiugongbagua.com/wenku/${article.slug}` },
   }
@@ -42,11 +50,18 @@ const categoryColors: Record<string, string> = {
   '道家文化': 'bg-stone-800 text-stone-200',
 }
 
+function getArticle(slug: string): Article | undefined {
+  const idx = slugIndex[slug]
+  return idx !== undefined ? articles[idx] : undefined
+}
+
 export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
-  const article = articles.find(a => a.slug === slug)
+  // Next.js 16 export模式传递的slug是URL编码的（例如%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2）
+  // 而slugIndex的key是原始中文字符串
+  const decoded = decodeURIComponent(slug)
+  const article = getArticle(decoded)
 
-  // 以防万一的fallback：如果文章找不到，渲染一个友好的提示而非notFound()
   if (!article) {
     return (
       <div className="max-w-4xl mx-auto px-4 py-20 text-center">
@@ -56,10 +71,6 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
       </div>
     )
   }
-
-  const idx = articles.findIndex(a => a.slug === slug)
-  const prev = idx > 0 ? articles[idx - 1] : null
-  const next = idx < articles.length - 1 ? articles[idx + 1] : null
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-10">
@@ -88,12 +99,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         </div>
       </article>
 
-      <div className="mt-8 flex justify-between">
-        <div>{prev && <a href={`/wenku/${prev.slug}`} className="text-xs text-gray-500 hover:text-gold-400">← {prev.title}</a>}</div>
-        <div>{next && <a href={`/wenku/${next.slug}`} className="text-xs text-gray-500 hover:text-gold-400">{next.title} →</a>}</div>
-      </div>
-
-      <div className="mt-6 text-center">
+      <div className="mt-8 text-center">
         <a href="/wenku" className="text-sm text-gold-500 hover:text-gold-400 underline">← 返回文库列表</a>
       </div>
     </div>
