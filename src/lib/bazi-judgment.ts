@@ -749,6 +749,16 @@ function bodyStrength(riGan: string, gans: string[], zhis: string[]): '身强'|'
     if (w === riWx) total += 20 * p
     else { const s = ss(riGan, gans[i]); if (isYin(s)) total += 15 * p }
   }
+
+  // 消耗侧检查——克泄耗成局则强制身弱(用户第二条:失令+克泄耗压制)
+  const consumeZhiCount = zhis.filter(z => {
+    const w = zhiWx(z)
+    // 地支五行克泄耗日主
+    return ({木:['火','土','金'],火:['土','金','水'],土:['金','水','木'],金:['水','木','火'],水:['木','火','土']}[riWx]||[]).includes(w)
+  }).length
+  // 如果地支≥3个都是克泄耗,且得令不是旺,则身弱
+  if (consumeZhiCount >= 3 && (ling[status]||0) < 30) return '身弱'
+
   if (total >= 50) return '身强'
   else if (total <= 15) return '身弱'
   else return '身中和'
