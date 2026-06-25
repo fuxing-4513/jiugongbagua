@@ -1066,6 +1066,20 @@ export interface JudgmentResult {
   tenGodDetailNarr: string[]
   /** v7新增: 节气状态+身强身弱分析 */
   bodySeasonNarr: string[]
+  /** v8 P0-1: 关系链引擎(BFS多跳推理) */
+  bfsRelationNarr: string[]
+  /** v8 P0-2: 大运评估四步法 */
+  daYunFourStepNarr: string[]
+  /** v8 P0-3: 两象定一象引擎(双线合论) */
+  twoSignsEngineNarr: string[]
+  /** v8 P0-4: 控制权三级归属(出处>生>控制) */
+  controlLevelNarr: string[]
+  /** v8 P0-5: 制用结构四元化(正制/反制/互制/不制) */
+  zhiYongFourNarr: string[]
+  /** v8 P0-6: 借根7层逻辑 */
+  jieGenNarr: string[]
+  /** v8 P0-7: 原局有无判断+全局标记 */
+  yuanJuCheckNarr: string[]
 }
 
 export function analyzeJudgment(
@@ -1258,7 +1272,16 @@ export function analyzeJudgment(
     enterpriseNarr: enterpriseResult,
     zhiYongNarr: zhiYongResult,
     tenGodDetailNarr: tenGodDetailResult,
-  bodySeasonNarr: bodySeasonResult
+    bodySeasonNarr: bodySeasonResult,
+    bfsRelationNarr: bfsRelationChain(riGan, pills, gender),
+    daYunFourStepNarr: currentDaYunGan && currentDaYunZhi
+      ? daYunFourStep(riGan, pills, currentDaYunGan, currentDaYunZhi, gender)
+      : ['请提供当前大运干支。'],
+    twoSignsEngineNarr: twoSignsEngine(riGan, gans, zhis, gender),
+    controlLevelNarr: controlLevelThree(riGan, pills),
+    zhiYongFourNarr: zhiYongFour(riGan, gans, zhis, gender),
+    jieGenNarr: jieGenAnalysis(riGan, pills),
+    yuanJuCheckNarr: yuanJuCheck(riGan, gans, zhis, gender)
   }
 }
 
@@ -2809,6 +2832,916 @@ function analyzeLiuQin(
     summary.push(...xingGong)
   }
   return { nianZhu, yueZhu, riZhi: riZhiOut, shiZhu, xingGong, summary }
+}
+
+
+// ════════════════════════════════════════════════════════════
+//  v8 P0-1: 关系链引擎(BFS多跳推理) 
+//  R1:找桥梁——A→B无直接关系,找C
+//  BFS搜索从日主到目标十神的最短路径,最大3步
+// ════════════════════════════════════════════════════════════
+
+function bfsRelationChain(riGan: string, pills: {gan:string;zhi:string}[], gender: string): string[] {
+  const r: string[] = []
+  const gans = pills.map(p => p.gan)
+  const zhis = pills.map(p => p.zhi)
+
+  // 构建关系邻接表：每个字能通过什么关系到达另一个字
+  // 关系类型: 生(SHENG),克(KE),合(HE),冲(CHONG),穿(CHUAN),刑(XING),库(KU),同根(TG)
+  interface Edge { target: string; relation: string; desc: string }
+  const adj: Map<string, Edge[]> = new Map()
+
+  function addEdge(from: string, to: string, rel: string, desc: string) {
+    if (from === to) return
+    if (!adj.has(from)) adj.set(from, [])
+    adj.get(from)!.push({ target: to, relation: rel, desc })
+  }
+
+  const allChars = [...gans, ...zhis]
+  const wxMap: Record<string, string> = {甲:'木',乙:'木',丙:'火',丁:'火',戊:'土',己:'土',庚:'金',辛:'金',壬:'水',癸:'水',子:'水',丑:'土',寅:'木',卯:'木',辰:'土',巳:'火',午:'火',未:'土',申:'金',酉:'金',戌:'土',亥:'水'}
+  const sheng: Record<string,string> = {木:'火',火:'土',土:'金',金:'水',水:'木'}
+  const ke: Record<string,string> = {木:'土',土:'水',水:'火',火:'金',金:'木'}
+
+  // 生关系
+  for (const c of allChars) {
+    const wxC = wxMap[c] || ''
+    const shengTo = sheng[wxC]
+    const keTo = ke[wxC]
+    for (const d of allChars) {
+      if (c === d) continue
+      const wxD = wxMap[d] || ''
+      if (wxD === shengTo) addEdge(c, d, '生', `${c}(${wxC})生${d}(${wxD})—你生他`)
+      if (wxD === keTo) addEdge(c, d, '克', `${c}(${wxC})克${d}(${wxD})—你制他`)
+    }
+  }
+
+  // 合冲穿刑
+  for (const c of allChars) {
+    for (const d of allChars) {
+      if (c === d) continue
+      if (!'子丑寅卯辰巳午未申酉戌亥'.includes(c) || !'子丑寅卯辰巳午未申酉戌亥'.includes(d)) continue
+      if (LIU_HE[c] === d) addEdge(c, d, '合', `${c}合${d}—亲密关系`)
+      if (LIU_CHONG[c] === d) addEdge(c, d, '冲', `${c}冲${d}—对抗关系`)
+      if (LIU_CHUAN[c] === d) addEdge(c, d, '穿', `${c}穿${d}—暗斗关系`)
+      if (SAN_XING[c] === d) addEdge(c, d, '刑', `${c}刑${d}—较劲关系`)
+    }
+  }
+
+  // 库关系：某字入某库
+  const ruKu: Record<string,string[]> = {亥:['辰'],巳:['戌'],申:['丑'],寅:['未'],辰:['辰'],戌:['戌'],丑:['丑'],未:['未']}
+  for (const c of allChars) {
+    const kuTargets = ruKu[c] || []
+    for (const d of allChars) {
+      if (kuTargets.includes(d)) addEdge(c, d, '入库', `${c}入${d}墓—被收藏/压制`)
+    }
+  }
+
+  // 目标十神分析：找出与日主关系最密切的"关键桥梁"
+  const riWx = wxMap[riGan] || ''
+  // 要找：财(赚钱路径)、官杀(事业路径)、食伤(技术路径)、印(学习路径)、比劫(社交路径)
+  const paths: {label:string; target: string; steps: {via:string;rel:string;desc:string}[]; score: number}[] = []
+
+  // 尝试所有目标字
+  for (const target of allChars) {
+    if (target === riGan || target === zhis[2]) continue  // 跳过日主自己
+
+    // BFS搜索
+    const visited = new Set<string>()
+    const queue: {node:string; path:{via:string;rel:string;desc:string}[]; depth:number}[] = []
+    queue.push({node: riGan, path: [], depth: 0})
+    visited.add(riGan)
+    let foundPath: {via:string;rel:string;desc:string}[] | null = null
+
+    while (queue.length > 0) {
+      const cur = queue.shift()!
+      if (cur.depth >= 4) continue
+
+      const edges = adj.get(cur.node) || []
+      for (const e of edges) {
+        if (visited.has(e.target)) continue
+        const newPath = [...cur.path, {via: `${cur.node}→${e.target}`, rel: e.relation, desc: e.desc}]
+        if (e.target === target) {
+          foundPath = newPath
+          break
+        }
+        visited.add(e.target)
+        queue.push({node: e.target, path: newPath, depth: cur.depth + 1})
+      }
+      if (foundPath) break
+    }
+
+    if (foundPath) {
+      const st = sst(riGan, target)
+      const label = st || wxMap[target] || ''
+      const isHome = ['日','时'].some((_,i)=> i>=2 && (gans[i]===target || zhis[i]===target))
+      paths.push({
+        label: `${target}(${label})`,
+        target,
+        steps: foundPath,
+        score: (isHome ? 5 : 2) + (foundPath.length <= 2 ? 3 : 0) + (['生','合','根'].includes(foundPath[0].rel) ? 2 : 0)
+      })
+    }
+  }
+
+  // 排序取top3
+  paths.sort((a,b) => b.score - a.score)
+  const topPaths = paths.slice(0, 3)
+
+  if (topPaths.length > 0) {
+    r.push(`━━━ 关系链引擎(BFS多跳推理) ━━━`)
+    r.push(`从日主${riGan}出发搜索整个命局：`)
+    for (const p of topPaths) {
+      const stepsStr = p.steps.map(s => s.desc).join(' → ')
+      r.push(`📍 ${p.label}: ${stepsStr}`)
+    }
+
+    // 综合解读
+    const best = topPaths[0]
+    const bestType = sst(riGan, best.target)
+    r.push('')
+    if (bestType === '财') {
+      r.push(`核心关系链指向${best.target}(${bestType})——你赚钱的路径不是直接的,需要通过中间环节。你的财富模型是"绕弯子"型,不是直来直去的。`)
+    } else if (bestType === '官杀') {
+      r.push(`核心关系链指向${best.target}(${bestType})——你的事业成就需要分步走。你不是一步登天的人,是通过关系、平台、合作一步步爬上去的。`)
+    } else if (bestType === '食伤') {
+      r.push(`核心关系链指向${best.target}(${bestType})——你的技术和才华需要通过中间载体(产品或团队)才能变现。你不是纯粹的专家,你是转化型人才。`)
+    } else if (bestType === '印') {
+      r.push(`核心关系链指向${best.target}(${bestType})——你的底蕴和学识需要通过媒介人(导师或平台)才能发挥作用。你缺的不是能力,是桥梁。`)
+    } else {
+      r.push(`核心关系链指向${best.target}(${bestType})——你的八字中最重要的关系不是直接作用,而是通过中间人/中间事连接。`)
+    }
+
+    if (topPaths.length >= 2) {
+      const second = topPaths[1]
+      r.push('')
+      r.push(`第二关系链:${second.label}。当第一条路径受阻时,这是你的备用方案。你的八字有回旋余地。`)
+    }
+  } else {
+    r.push(`从日主${riGan}出发没有找到有效的关系链——你的命局比较"净",做什么事都比较直接,不需要绕弯子。但也要注意:太直接了也意味着没有退路。`)
+  }
+
+  return r
+}
+
+// ════════════════════════════════════════════════════════════
+//  v8 P0-2: 大运评估四步法
+//  四步: 原局有/无 + 家里家外 + 控制力 + 生好字/坏字
+// ════════════════════════════════════════════════════════════
+
+function daYunFourStep(
+  riGan: string, pills: {gan:string;zhi:string}[],
+  dg: string, dz: string, gender: string
+): string[] {
+  const r: string[] = []
+  const gans = pills.map(p => p.gan)
+  const zhis = pills.map(p => p.zhi)
+  const riWx = wx(riGan)
+  const posNames = ['年','月','日','时']
+
+  r.push(`━━━ 大运评估四步法:${dg}${dz}运 ━━━`)
+
+  // 第一步: 原局有/无
+  const hasGenInChart = isGanInChart(dg, gans, zhis)
+  const hasZhiInChart = zhis.includes(dz)
+  if (hasGenInChart && hasZhiInChart) {
+    r.push(`第一步(原局有/无):${dg}${dz}原局就有——这叫"道上运"。这十年你走在自己的主道上,做什么都顺,左右逢源。来自原局的字会有日支参与。`)
+  } else if (hasGenInChart || hasZhiInChart) {
+    r.push(`第一步(原局有/无):${dg}${dz}半个在原局——半生半熟。有的方面你熟悉(天干/地支),有的方面是新领域。这十年你在熟悉的赛道里做新的事。`)
+  } else {
+    r.push(`第一步(原局有/无):${dg}${dz}原局没有——这是外来运。你进入全新赛道。方向对了赚钱,方向错了翻车。这十年你要借别人的船出海,别自己造。`)
+  }
+
+  // 第二步: 家里家外控制
+  let homeCtrl = false, homeType = ''
+  const ht: Record<string, string> = {'甲己':'合','乙庚':'合','丙辛':'合','丁壬':'合','戊癸':'合'}
+  for (const hg of gans.slice(2)) {
+    if (ht[dg + hg] || ht[hg + dg]) { homeCtrl = true; homeType = '合'; break }
+  }
+  if (!homeCtrl) {
+    for (const hz of zhis.slice(2)) {
+      if (LIU_HE[hz] === dz || LIU_HE[dz] === hz) { homeCtrl = true; homeType = '合'; break }
+      if (LIU_CHONG[hz] === dz || LIU_CHONG[dz] === hz) { homeCtrl = true; homeType = '冲'; break }
+    }
+  }
+  if (homeCtrl) {
+    r.push(`第二步(家里家外):${dg}${dz}跟你家里有${homeType}关系——你有主导权,事情成败在你手上。这十年你说了算。`)
+  } else {
+    r.push(`第二步(家里家外):${dg}${dz}跟你家里没有直接关系——参与但不主导。这十年你要借别人的力,借船出海。`)
+  }
+
+  // 第三步: 控制力——看大运能调动多少原局力量
+  let controlScore = 0
+  // 与日主同五行=5分,生日主=4分,同日主藏干=3分,合日支=3分,冲日支=1分
+  const dWx = wx(dg)
+  if (dWx === riWx) controlScore += 5
+  const shengMap: Record<string,string> = {木:'火',火:'土',土:'金',金:'水',水:'木'}
+  if (shengMap[dWx] === riWx) controlScore += 4
+  for (const cg of (CANG_GAN[dz] || [])) {
+    if (wx(cg) === riWx) { controlScore += 3; break }
+  }
+  if (LIU_HE[dz] === zhis[2] || LIU_HE[zhis[2]] === dz) controlScore += 3
+  if (LIU_CHONG[dz] === zhis[2] || LIU_CHONG[zhis[2]] === dz) controlScore += 1
+
+  if (controlScore >= 7) {
+    r.push(`第三步(控制力):控制力强(${controlScore}分)——这步大运你能牢牢掌控局面。不管是事业还是家庭,你都是主动方。`)
+  } else if (controlScore >= 4) {
+    r.push(`第三步(控制力):控制力中等(${controlScore}分)——这步运你能参与但不能主导。需要好的合作者,你一个人撑不起来。`)
+  } else {
+    r.push(`第三步(控制力):控制力弱(${controlScore}分)——这步运你比较被动。不是你不行,是时机不对。建议求稳,别冒险。`)
+  }
+
+  // 第四步: 生好字/坏字
+  // 好字=能给日主带来帮助的字(印/比劫/食伤);坏字=给日主压力的字(财/官杀)
+  const dSS = ss(riGan, dg)
+  const isGood = dSS === '印' || dSS === '比肩' || dSS === '劫财' || dSS === '食神'
+  if (isGood) {
+    r.push(`第四步(生好字):${dg}是${dSS}(好字)——这步大运的底色是积极的。你在成长、在积累、在获得。哪怕是辛苦也是值得的辛苦。`)
+  } else {
+    r.push(`第四步(生好字):${dg}是${dSS}(压力字)——这步大运的底色是有压力的。你在付出、在被消耗。但是——压力字运才是真正让你成长的十年。别怕辛苦,怕的是躺平。`)
+  }
+
+  // 综合
+  const goodCount = (hasGenInChart ? 1 : 0) + (homeCtrl ? 1 : 0) + (controlScore >= 4 ? 1 : 0) + (isGood ? 1 : 0)
+  if (goodCount >= 3) {
+    r.push('')
+    r.push(`综合评估:${goodCount}/4个好信号——这十年是强势大运。该冲就冲,别犹豫。正确的策略是"扩张"。`)
+  } else if (goodCount >= 2) {
+    r.push('')
+    r.push(`综合评估:${goodCount}/4个好信号——中等偏上的大运。有机会有挑战。建议"稳中求进",别贪心。`)
+  } else {
+    r.push('')
+    r.push(`综合评估:${goodCount}/4个好信号——偏弱的大运。这十年以守为主。少折腾、多积累。机会在下步运。`)
+  }
+
+  return r
+}
+
+// ════════════════════════════════════════════════════════════
+//  v8 P0-3: 两象定一象引擎(双线合论)
+//  两条独立路径→同一个结论→可信
+// ════════════════════════════════════════════════════════════
+
+function twoSignsEngine(riGan: string, gans: string[], zhis: string[], gender: string): string[] {
+  const r: string[] = []
+  const riWx = wx(riGan)
+
+  interface Conclusion { text: string; evidence: string[]; paths: string[]; confidence: number }
+
+  const conclusions: Conclusion[] = []
+
+  // ----- 检查点1: 技术赚钱(食伤+财两条线) -----
+  let evTech1: string[] = [], evTech2: string[] = []
+  // 路径1: 食伤在天干
+  for (const g of gans) {
+    const st = ss(riGan, g)
+    if (st === '食神' || st === '伤官') {
+      evTech1.push(`天干${g}是${st}——有技术才华`)
+      break
+    }
+  }
+  // 路径1B: 食伤藏支
+  for (const z of zhis) {
+    for (const cg of (CANG_GAN[z] || [])) {
+      const st = ss(riGan, cg)
+      if (st === '食神' || st === '伤官') {
+        evTech1.push(`地支${z}藏${cg}(${st})——有暗藏的技术根底`)
+        break
+      }
+    }
+    if (evTech1.length >= 2) break
+  }
+  // 路径2: 食伤生财(食伤制财)
+  const hourG = gans[3], hourZ = zhis[3]
+  const hourSS = ss(riGan, hourG)
+  if (hourSS === '食神' || hourSS === '伤官') {
+    for (const g of gans) {
+      if (ss(riGan, g) === '正财' || ss(riGan, g) === '偏财') {
+        evTech2.push(`时干${hourG}(${hourSS})生财星——技术变现路径`)
+        break
+      }
+    }
+  }
+  if (evTech1.length >= 1 && evTech2.length >= 1) {
+    conclusions.push({
+      text: '你经常靠技术/才华赚钱',
+      evidence: [...evTech1, ...evTech2],
+      paths: ['食伤透出(有技术)', '时柱+财星(能变现)'],
+      confidence: 3
+    })
+  }
+
+  // ----- 检查点2: 社交型人格(比劫+合两条线) -----
+  let evSocial1: string[] = [], evSocial2: string[] = []
+  for (const g of gans) {
+    const st = ss(riGan, g)
+    if (st === '比肩' || st === '劫财') {
+      evSocial1.push(`天干${g}是${st}——社交属性强`)
+      break
+    }
+  }
+  for (const z of zhis) {
+    for (const d of zhis) {
+      if (z === d) continue
+      if (LIU_HE[z] === d) {
+        evSocial2.push(`地支${z}合${d}——有合就有社交`)
+        break
+      }
+    }
+    if (evSocial2.length > 0) break
+  }
+  if (evSocial1.length >= 1 && evSocial2.length >= 1) {
+    conclusions.push({
+      text: '你是社交型人格,靠关系吃饭',
+      evidence: [...evSocial1, ...evSocial2],
+      paths: ['比劫透出(有社交)', '地支有合(有连接)'],
+      confidence: 3
+    })
+  }
+
+  // ----- 检查点3: 适合体制/大平台(官印两条线) -----
+  let evGuanYin1: string[] = [], evGuanYin2: string[] = []
+  let hasGuan = false, hasYin = false
+  for (const g of gans) {
+    const st = ss(riGan, g)
+    if (st === '正官' || st === '七杀') { hasGuan = true; evGuanYin1.push(`天干${g}是${st}——仕途信号`) }
+    if (st === '正印' || st === '偏印') { hasYin = true; evGuanYin2.push(`天干${g}是${st}——学历/背书信号`) }
+  }
+  if (hasGuan && hasYin) {
+    conclusions.push({
+      text: '你适合体制/大平台发展',
+      evidence: [...evGuanYin1, ...evGuanYin2],
+      paths: ['官星透出(有管理意愿)', '印星透出(有学习底蕴)'],
+      confidence: 4
+    })
+  }
+
+  // ----- 检查点4: 容易/不容易赚钱(财星+根两条线) -----
+  let evMoney1: string[] = [], evMoney2: string[] = []
+  let hasCaiGan = false
+  for (const g of gans) {
+    const st = ss(riGan, g)
+    if (st === '正财' || st === '偏财') {
+      hasCaiGan = true
+      evMoney1.push(`天干${g}是${st}——财星透出`)
+      break
+    }
+  }
+  const roots = ROOT_MAP[riWx] || []
+  const rootZhis = zhis.filter(z => roots.includes(z))
+  if (rootZhis.length >= 2) {
+    evMoney2.push(`命局有${rootZhis.length}个根(${rootZhis.join(',')})——根基扎实,赚钱有底气`)
+  } else if (rootZhis.length === 0) {
+    evMoney2.push('命局无根——赚钱辛苦')
+  }
+
+  if (hasCaiGan && rootZhis.length >= 2) {
+    conclusions.push({
+      text: '你有赚钱的能力和底气',
+      evidence: [...evMoney1, ...evMoney2],
+      paths: ['财星透出(有机会)', '根多(有底气)'],
+      confidence: 3
+    })
+  }
+
+  // 排序输出
+  conclusions.sort((a,b) => b.confidence - a.confidence)
+
+  if (conclusions.length > 0) {
+    r.push(`━━━ 两象定一象引擎(双线合论) ━━━`)
+    for (const c of conclusions) {
+      r.push(`📍 ${c.text} (置信度:${c.confidence}/5)`)
+      r.push(`  证据:${c.evidence.join('; ')}`)
+      r.push(`  路径:${c.paths.join(' × ')}`)
+    }
+    r.push('')
+    r.push(`两象定一象的核心逻辑:单条证据可能是巧合,两条独立路径指向同一结论,可信度翻倍。`)
+  } else {
+    r.push(`命局没有明显的"两条线指向同一结论"特征——你的情况比较综合,需要结合多模块综合判断。`)
+  }
+
+  return r
+}
+
+// ════════════════════════════════════════════════════════════
+//  v8 P0-4: 控制权三级归属(出处>生>控制)
+//  出处(原局来源) → 生(谁生谁) → 控制(谁说了算)
+// ════════════════════════════════════════════════════════════
+
+function controlLevelThree(riGan: string, pills: {gan:string;zhi:string}[]): string[] {
+  const r: string[] = []
+  const gans = pills.map(p => p.gan)
+  const zhis = pills.map(p => p.zhi)
+  const riWx = wx(riGan)
+  const riZhi = zhis[2]
+
+  r.push(`━━━ 控制权三级归属 ━━━`)
+  r.push(`从日主${riGan}出发,三级判断谁真正说了算:`)
+
+  // 一级: 出处(原局来源)——能量从哪里来
+  const shengMap: Record<string,string[]> = {木:['水'],火:['木'],土:['火'],金:['土'],水:['金']}
+  const riShengFrom = shengMap[riWx] || []  // 生日主的五行
+  let chuChu = ''
+  let chuChuDesc = ''
+  for (const z of zhis) {
+    if (riShengFrom.includes(zhiWx(z))) {
+      chuChu = z
+      chuChuDesc = `你日主${riGan}(${riWx})的能量来自${z}(${zhiWx(z)})——${z}是你的源头`
+      break
+    }
+  }
+  if (!chuChu) {
+    for (const g of gans) {
+      if (g !== riGan && riShengFrom.includes(wx(g))) {
+        chuChu = g
+        chuChuDesc = `你日主${riGan}(${riWx})的能量来自天干${g}(${wx(g)})——${g}是你的源头`
+        break
+      }
+    }
+  }
+  if (!chuChu) {
+    for (const z of zhis) {
+      const cgs = CANG_GAN[z] || []
+      for (const cg of cgs) {
+        if (riShengFrom.includes(wx(cg))) {
+          chuChu = z
+          chuChuDesc = `你日主${riGan}(${riWx})的能量来自地支${z}藏干${cg}——暗中的靠山`
+          break
+        }
+      }
+      if (chuChu) break
+    }
+  }
+
+  if (chuChu) {
+    r.push('')
+    r.push(`【一级·出处】${chuChuDesc}`)
+    const chuPos = ['年','月','日','时'][zhis.indexOf(chuChu)] || '藏'
+    if (chuPos === '年') {
+      r.push(`  出处在家外(年柱)——你的核心资源来自社会关系、祖业、大环境。`)
+    } else if (chuPos === '月') {
+      r.push(`  出处在家门(月柱)——你的核心资源来自家庭、朋友、社交圈。`)
+    } else if (chuPos === '日' || chuPos === '时') {
+      r.push(`  出处在家里(日/时)——你的核心资源来自自己或家庭内部,你是自主型。`)
+    }
+  } else {
+    r.push(`【一级·出处】没有明确的能量来源——你属自强型,不靠外力。`)
+  }
+
+  // 二级: 生(谁被生)——你的能量用在谁身上
+  const riShengTo = {木:'火',火:'土',土:'金',金:'水',水:'木'}[riWx] || ''
+  let shengTarget = ''
+  let shengTargetDesc = ''
+  for (const z of zhis) {
+    if (zhiWx(z) === riShengTo) {
+      shengTarget = z
+      shengTargetDesc = `你日主${riGan}(${riWx})生${z}(${zhiWx(z)})——你的能量用在${z}上`
+      break
+    }
+  }
+  if (!shengTarget) {
+    for (const g of gans) {
+      if (g !== riGan && wx(g) === riShengTo) {
+        shengTarget = g
+        shengTargetDesc = `你日主${riGan}(${riWx})生天干${g}(${wx(g)})——你的能量用在天干${g}上`
+        break
+      }
+    }
+  }
+
+  if (shengTarget) {
+    r.push('')
+    r.push(`【二级·生】${shengTargetDesc}`)
+    const shengSt = ss(riGan, shengTarget.includes('子丑寅卯辰巳午未申酉戌亥') ? (CANG_GAN[shengTarget]||[''])[0] : shengTarget)
+    if (shengSt === '食神' || shengSt === '伤官') {
+      r.push(`  你生的是食伤——你的能量用在技术、创意、表达上。你是产出型人才。`)
+    } else if (shengSt === '正财' || shengSt === '偏财') {
+      r.push(`  你生的是财——你的能量用在赚钱上。你是务实型人才。`)
+    } else {
+      r.push(`  你的能量用在${shengSt}相关的事上。`)
+    }
+  }
+
+  // 三级: 控制(谁克谁)——谁说了算
+  const keMap: Record<string,string> = {木:'土',火:'金',土:'水',金:'木',水:'火'}
+  const keByMap: Record<string,string> = {木:'金',火:'水',土:'木',金:'火',水:'土'}
+  const riKe = keMap[riWx] || ''      // 日主克的五行
+  const riKeBy = keByMap[riWx] || ''  // 克日主的五行
+
+  let controlTarget = ''
+  let controlBy = ''
+  for (const z of zhis) {
+    if (zhiWx(z) === riKe) { controlTarget = z; break }
+  }
+  for (const z of zhis) {
+    if (zhiWx(z) === riKeBy) { controlBy = z; break }
+  }
+
+  if (controlTarget) {
+    r.push('')
+    r.push(`【三级·控制】你克${controlTarget}(${zhiWx(controlTarget)})——你在控制别人/外部事物`)
+    const controlSt = ss(riGan, (CANG_GAN[controlTarget]||[''])[0])
+    if (controlSt === '财') {
+      r.push(`  你克的是财——你能控制钱、管理财务。你是管钱的人。`)
+    } else if (controlSt === '官杀') {
+      r.push(`  你克的是官杀——你能控制局面、管理团队。你是管事的人。`)
+    }
+  } else if (controlBy) {
+    r.push('')
+    r.push(`【三级·控制】${controlBy}(${zhiWx(controlBy)})克你——你被别人/环境控制`)
+    const controlBySt = ss(riGan, (CANG_GAN[controlBy]||[''])[0])
+    if (controlBySt === '官杀') {
+      r.push(`  被官杀克——你在体制内/规则下做事。规矩是你的框架也是你的枷锁。`)
+    }
+  } else {
+    r.push(`【三级·控制】没有明显的控制关系——你的命局比较自由,谁也管不了你太多。`)
+  }
+
+  // 总评
+  r.push('')
+  r.push(`控制权三级归属的核心逻辑:出处决定能量质量,生流向决定使用方式,控制决定最终话语权。`)
+  if (chuChu) {
+    r.push(`你的能量有明确来源——不会"凭空消失"。你做事有后劲。`)
+  } else {
+    r.push(`你的能量来源不明确——容易"三分钟热度"。你得找到真正能让你持续投入的事。`)
+  }
+
+  return r
+}
+
+// ════════════════════════════════════════════════════════════
+//  v8 P0-5: 制用结构四元化(正制/反制/互制/不制)+事业模式
+//  基于50轮深研的制用结构深度剖析
+// ════════════════════════════════════════════════════════════
+
+function zhiYongFour(riGan: string, gans: string[], zhis: string[], gender: string): string[] {
+  const r: string[] = []
+  const riWx = wx(riGan)
+  const riZhi = zhis[2]
+
+  r.push(`━━━ 制用结构四元化分析 ━━━`)
+  r.push(`基于绳子(工具)和牛(猎物)的理论,判断你的制用模式:`)
+
+  // 构建五行克关系
+  const keMap: Record<string,string> = {木:'土',土:'水',水:'火',火:'金',金:'木'}
+  const keByMap: Record<string,string> = {木:'金',土:'木',水:'土',火:'水',金:'火'}
+  const riKe = keMap[riWx] || ''
+  const riKeBy = keByMap[riWx] || ''
+
+  // 统计各十神的干支力量
+  function countTenGod(ri: string, gList: string[], zList: string[]): Record<string, number> {
+    const counts: Record<string, number> = {印:0,财:0,官杀:0,食伤:0,比劫:0}
+    for (const g of gList) {
+      const st = sst(ri, g)
+      if (st === '印') counts['印'] += 2
+      else if (st === '财') counts['财'] += 2
+      else if (st === '官杀') counts['官杀'] += 2
+      else if (st === '食伤') counts['食伤'] += 2
+      else if (st === '比劫') counts['比劫'] += 2
+    }
+    for (const z of zList) {
+      const zWx = zhiWx(z)
+      if (zWx === keMap[riWx]) counts['财'] += 1       // 日主克 = 财
+      else if (zWx === keByMap[riWx]) counts['官杀'] += 1  // 克日主 = 官杀
+      else if (zWx === riWx) counts['比劫'] += 1        // 同 = 比劫
+      // 生克关系映射到印/食伤
+      else if (sst(ri, (CANG_GAN[z]||[''])[0]) === '印') counts['印'] += 0.5
+      else if (sst(ri, (CANG_GAN[z]||[''])[0]) === '食伤') counts['食伤'] += 0.5
+    }
+    return counts
+  }
+
+  const tg = countTenGod(riGan, gans, zhis)
+
+  // ---- 判断四元化类型 ----
+  // 正制: 我克的东西被我控制(日主制财/日主制官杀)——主动出击
+  // 反制: 克我的东西反被我利用(官杀被食伤制/财被比劫制)——被动转主动
+  // 互制: 双方互相牵制(力量相当)——动态平衡
+  // 不制: 没有明显的制用关系——随遇而安
+
+  let zhiType = ''
+  let zhiDesc = ''
+  let businessModel = ''
+
+  // 比劫≥2 且 财≥1 → 反制(比劫制财)
+  if (tg['比劫'] >= 2 && tg['财'] >= 1 && tg['比劫'] > tg['财']) {
+    zhiType = '反制'
+    zhiDesc = '你的制用模式是"反制"——通过团队/社交去控制财富。你不是单打独斗,是通过合伙人、团队、关系网去获取资源。'
+    businessModel = '你的事业模式:靠人赚钱。你是"平台型"创业者,你的价值在于连接人而不是自己动手。'
+  }
+  // 食伤≥2 且 官杀≥1 → 正制(食伤制官杀)
+  else if (tg['食伤'] >= 2 && tg['官杀'] >= 1 && tg['食伤'] > tg['官杀']) {
+    zhiType = '正制'
+    zhiDesc = '你的制用模式是"正制"——用技术/才华去获取地位。你靠真本事吃饭,用专业能力撬动社会资源。'
+    businessModel = '你的事业模式:靠技术赚钱。你是"专家型"人才,你的价值在于你的专业深度。'
+  }
+  // 财≥2 且 印≥1 → 反制(财制印)
+  else if (tg['财'] >= 2 && tg['印'] >= 1 && tg['财'] > tg['印']) {
+    zhiType = '反制'
+    zhiDesc = '你的制用模式是"反制"(财制印)——用金钱/资源去控制品牌和平台。你是资本驱动型,一切以ROI为准。'
+    businessModel = '你的事业模式:靠资本运作。你是"投资人"思维,你和别人最大的区别是:你做任何事都先算账。'
+  }
+  // 印≥2 且 食伤≥1 → 正制(印制食伤)
+  else if (tg['印'] >= 2 && tg['食伤'] >= 1 && tg['印'] > tg['食伤']) {
+    zhiType = '正制'
+    zhiDesc = '你的制用模式是"正制"(印制食伤)——用知识和阅历去管理创意。你是成熟型人才,不轻易出手,一出手就是成熟方案。'
+    businessModel = '你的事业模式:靠积累和经验吃饭。你是"顾问型",你的价值在于你的判断力。'
+  }
+  // 官杀≥2 且 比劫≥1 → 互制(官杀制比劫,但力量相当)
+  else if (tg['官杀'] >= 2 && tg['比劫'] >= 1) {
+    // 判断是官杀压比劫还是旗鼓相当
+    if (tg['官杀'] > tg['比劫'] * 1.5) {
+      zhiType = '正制'
+      zhiDesc = '你的制用模式是"正制"(官杀制比劫)——用规则和权威管人。你是管理型人才。'
+      businessModel = '你的事业模式:靠权威吃饭。你是"管理者",你的价值在于能镇住场子。'
+    } else {
+      zhiType = '互制'
+      zhiDesc = '你的制用模式是"互制"——你和周围的力量相互牵制。你不是绝对说一不二的人,但也绝不是任人摆布的人。'
+      businessModel = '你的事业模式:需要平衡各方势力。你适合做"协调者"而不是"独裁者"。'
+    }
+  }
+  // 力量均衡或都不明显
+  else {
+    // 检查是否有任何一方明显
+    const maxCount = Math.max(...Object.values(tg))
+    const minCount = Math.min(...Object.values(tg))
+    if (maxCount - minCount <= 1.5) {
+      zhiType = '互制'
+      zhiDesc = '你的制用模式是"互制"——八字中各路力量比较均衡,没有一家独大。你的人生没有明确的"猎物",你会随环境变化不断调整目标。'
+      businessModel = '你的事业模式:适应力强但缺少聚焦。你适合做"多面手",你的价值在于你什么都能接。'
+    } else {
+      zhiType = '不制'
+      zhiDesc = '你的制用模式是"不制"——你的八字没有形成明确的制用结构。你的人生不需要特定的工具和猎物,来什么接什么。'
+      businessModel = '你的事业模式:随遇而安。你不是那种会被一个目标绑架的人,你的弹性是你的优势。'
+    }
+  }
+
+  r.push('')
+  r.push(`类型:${zhiType}`)
+  r.push(zhiDesc)
+  r.push('')
+  r.push(`事业模式:${businessModel}`)
+
+  // 制得干净还是不干净(来自原zhiYongEvaluate的增强)
+  const bestKu = BEST_YIN_KU[riGan] || ''
+  let allSame = true, firstKu = ''
+  for (const g of gans) {
+    const k = BEST_YIN_KU[g] || ''
+    if (!firstKu) firstKu = k
+    else if (k !== firstKu) { allSame = false; break }
+  }
+  if (allSame && firstKu && firstKu === bestKu) {
+    r.push('')
+    r.push(`制得干净:天干全出${firstKu}库——能量聚焦,你做事专注目标明确。适合一条路走到黑。`)
+  } else {
+    r.push('')
+    r.push(`制得分散:天干出库不一——你兴趣广泛但容易分散。要做减法。`)
+  }
+
+  // 制用结构总结
+  r.push('')
+  r.push(`制用四元化的核心:知道了你的"绳子"(工具)和"牛"(猎物),就明白了你这辈子在"制"什么。`)
+  if (zhiType === '正制') {
+    r.push(`你适合主动出击、主导局面。别犹豫,你是猎人。`)
+  } else if (zhiType === '反制') {
+    r.push(`你在被动中寻找机会。别着急,你是"反弹型"人才,越压你越强。`)
+  } else if (zhiType === '互制') {
+    r.push(`你在平衡中前进。别极端,你是需要合作的人。`)
+  } else {
+    r.push(`你随遇而安,来什么接什么。别有执念,你是灵活的人。`)
+  }
+
+  return r
+}
+
+// ════════════════════════════════════════════════════════════
+//  v8 P0-6: 借根7层逻辑
+//  借根≠不自信,有社会属性/十神属性/商业模式/边界感等完整层级
+// ════════════════════════════════════════════════════════════
+
+function jieGenAnalysis(riGan: string, pills: {gan:string;zhi:string}[]): string[] {
+  const r: string[] = []
+  const gans = pills.map(p => p.gan)
+  const zhis = pills.map(p => p.zhi)
+  const riWx = wx(riGan)
+  const riZhi = zhis[2]
+  const posNames = ['年','月','日','时']
+  const rootMapAll = ROOT_MAP[riWx] || []
+
+  // 找日主的根
+  const ownRoots: {zhi:string; pos:number; posName:string}[] = []
+  for (let i = 0; i < zhis.length; i++) {
+    if (rootMapAll.includes(zhis[i])) {
+      ownRoots.push({zhi: zhis[i], pos: i, posName: posNames[i]})
+    }
+  }
+
+  if (ownRoots.length === 0) {
+    r.push(`━━━ 借根分析(7层逻辑) ━━━`)
+    r.push(`你的八字没有日主${riGan}(${riWx})的直接根——你是"无根"型。`)
+    r.push('')
+    r.push(`【第一层·无根本质】你凡事要"借"。自己没有底盘,需要从外面找依靠。这不是坏事,反而是你的动力来源——什么样的人需要借根?有追求的人。`)
+
+    // 第二层: 借什么?  看日主周围最亲近的五行
+    r.push('')
+    r.push(`【第二层·借什么】`)
+    // 看日支(配偶宫)的五行
+    const rzWx = zhiWx(riZhi)
+    if (rzWx !== riWx) {
+      r.push(`  你配偶宫${riZhi}是${rzWx}——你最容易在${rzWx}相关的领域借到"根"(伴侣、合作伙伴)。`)
+    }
+    // 看月令
+    const yueZhi = zhis[1]
+    const yueWx = zhiWx(yueZhi)
+    if (yueWx !== riWx) {
+      r.push(`  你月令${yueZhi}是${yueWx}——你在${yueWx}相关的社交圈/家庭中借到根基。`)
+    }
+
+    // 第三层: 借根的品质(原局R20:出处品质决定层次)
+    r.push('')
+    r.push(`【第三层·借根的品质】`)
+    const bestKu = BEST_YIN_KU[riGan] || ''
+    if (bestKu && zhis.includes(bestKu)) {
+      r.push(`  你的印库${bestKu}在原局——借的根是高质量的。你能借到"有体系、有底蕴"的东西,不是随便什么都借。`)
+    } else {
+      r.push(`  你的印库${bestKu}不在原局——借的根偏"随缘"。你遇到什么人就借什么势,品质取决于你的社交圈。`)
+    }
+
+    // 第四层: 借根的十神属性
+    r.push('')
+    r.push(`【第四层·十神属性】`)
+    const rzMain = (CANG_GAN[riZhi] || [''])[0]
+    const rzSS = sst(riGan, rzMain)
+    if (rzSS === '官杀') {
+      r.push(`  你借的是"势"——你通过跟随有地位的人获得根基。你是追随者但不平庸,因为你挑人。`)
+    } else if (rzSS === '印') {
+      r.push(`  你借的是"认同"——你通过被认可获得根基。你不是在找能力,你是在找归属感。`)
+    } else if (rzSS === '财') {
+      r.push(`  你借的是"资源"——你通过利益分配获得根基。你很清楚:一切都是交易。`)
+    } else if (rzSS === '食伤') {
+      r.push(`  你借的是"舞台"——你通过展示才华获得根基。你需要观众,需要被看到。`)
+    } else {
+      r.push(`  你借的是"人"——你通过社交关系获得根基。你是人在哪里根就在哪里。`)
+    }
+
+    // 第五层: 借根的商业模式
+    r.push('')
+    r.push(`【第五层·商业模式】`)
+    r.push(`  你适合做"轻资产"型生意——不需要大量资本投入,你的核心资产是人和关系。`)
+    r.push(`  你不适合做重资产/独自完成的事情——你没有"原生底盘",借来的根就是你的底盘。`)
+
+    // 第六层: 借根的边界感
+    r.push('')
+    r.push(`【第六层·边界感】`)
+    r.push(`  借根的人最怕的不是没根,是借了别人的根忘了还。你的核心课题:在依赖人和保持独立之间找到平衡。`)
+    r.push(`  借来的根≠你自己的根。借的永远是借的,你得有"离开也能活"的底气。`)
+
+    // 第七层: 大运补根
+    r.push('')
+    r.push(`【第七层·大运补根】`)
+    for (const z of zhis) {
+      if (rootMapAll.includes(z)) {
+        r.push(`  当大运遇到${z}的时候,你终于有了自己的根——这是你"独立"的十年。把握好。`)
+        break
+      }
+    }
+
+  } else {
+    // 有根的情况
+    r.push(`━━━ 借根分析(7层逻辑) ━━━`)
+    r.push(`你有根——${ownRoots.map(rr => `${rr.posName}柱${rr.zhi}`).join('、')}`)
+    r.push('')
+    r.push(`你有自己的根,但你要看的是"借出去的根"——你的根有没有被人家借走。`)
+
+    // 看天干透出的十神是否与本根相合
+    for (const rr of ownRoots) {
+      for (const g of gans) {
+        if (LIU_HE[rr.zhi] === zhis[0] && g === gans[0]) {
+          r.push(`你的根${rr.zhi}被年柱合走——你的根在社会关系上。别人借了你的力。你得管好你的资源。`)
+        }
+      }
+    }
+  }
+
+  return r
+}
+
+// ════════════════════════════════════════════════════════════
+//  v8 P0-7: 原局有无判断+全局标记
+//  标记每个干支的"原局有/原局无"状态,影响大运流年评估
+// ════════════════════════════════════════════════════════════
+
+function yuanJuCheck(riGan: string, gans: string[], zhis: string[], gender: string): string[] {
+  const r: string[] = []
+  const allChars = [...gans, ...zhis]
+  const riWx = wx(riGan)
+
+  r.push(`━━━ 原局有/无全局判断 ━━━`)
+
+  // 四大维度:财官印比食伤的"原局有/无"
+  interface YuanJuItem { name: string; has: boolean; source: string; desc: string }
+  const items: YuanJuItem[] = []
+
+  // 检查财
+  let caiSource: string[] = []
+  for (const g of gans) {
+    const st = ss(riGan, g)
+    if (st === '正财' || st === '偏财') caiSource.push(`天干${g}=${st}`)
+  }
+  for (const z of zhis) {
+    for (const cg of (CANG_GAN[z] || [])) {
+      if (sst(riGan, cg) === '财') caiSource.push(`地支${z}藏${cg}=财`)
+    }
+  }
+  items.push({name: '财', has: caiSource.length > 0, source: caiSource.join('; '), desc: '赚钱能力/财运'})
+
+  // 检查官杀
+  let guanSource: string[] = []
+  for (const g of gans) {
+    const st = ss(riGan, g)
+    if (st === '正官' || st === '七杀') guanSource.push(`天干${g}=${st}`)
+  }
+  for (const z of zhis) {
+    for (const cg of (CANG_GAN[z] || [])) {
+      if (sst(riGan, cg) === '官杀') guanSource.push(`地支${z}藏${cg}=官杀`)
+    }
+  }
+  items.push({name: '官杀', has: guanSource.length > 0, source: guanSource.join('; '), desc: '事业/地位/压力'})
+
+  // 检查印
+  let yinSource: string[] = []
+  for (const g of gans) {
+    const st = ss(riGan, g)
+    if (st === '正印' || st === '偏印') yinSource.push(`天干${g}=${st}`)
+  }
+  for (const z of zhis) {
+    for (const cg of (CANG_GAN[z] || [])) {
+      if (sst(riGan, cg) === '印') yinSource.push(`地支${z}藏${cg}=印`)
+    }
+  }
+  items.push({name: '印', has: yinSource.length > 0, source: yinSource.join('; '), desc: '学习/背书/靠山'})
+
+  // 检查食伤
+  let ssSource: string[] = []
+  for (const g of gans) {
+    const st = ss(riGan, g)
+    if (st === '食神' || st === '伤官') ssSource.push(`天干${g}=${st}`)
+  }
+  for (const z of zhis) {
+    for (const cg of (CANG_GAN[z] || [])) {
+      if (sst(riGan, cg) === '食伤') ssSource.push(`地支${z}藏${cg}=食伤`)
+    }
+  }
+  items.push({name: '食伤', has: ssSource.length > 0, source: ssSource.join('; '), desc: '技术/才华/创意'})
+
+  // 检查比劫
+  let bjSource: string[] = []
+  for (const g of gans) {
+    const st = ss(riGan, g)
+    if (st === '比肩' || st === '劫财') bjSource.push(`天干${g}=${st}`)
+  }
+  for (const z of zhis) {
+    for (const cg of (CANG_GAN[z] || [])) {
+      if (sst(riGan, cg) === '比劫') bjSource.push(`地支${z}藏${cg}=比劫`)
+    }
+  }
+  items.push({name: '比劫', has: bjSource.length > 0, source: bjSource.join('; '), desc: '社交/朋友/竞争'})
+
+  // 输出表格
+  for (const item of items) {
+    if (item.has) {
+      r.push(`✅ ${item.name}→原局有。${item.desc}。来源:${item.source}`)
+    } else {
+      r.push(`❌ ${item.name}→原局无。${item.desc}缺失。大运流年遇到${item.name}的干支时才是你的财运/官运/学习期。`)
+    }
+  }
+
+  // 综合解读:缺什么、补什么
+  const missing = items.filter(i => !i.has).map(i => i.name)
+  const present = items.filter(i => i.has).map(i => i.name)
+
+  r.push('')
+  r.push(`原局有:${present.join('、')}`)
+  r.push(`原局无:${missing.join('、') || '无(十神俱全)'}`)
+
+  if (missing.length === 0) {
+    r.push(`你的命局十神俱全——什么都有但什么都不突出。你的人生没有明显的"短板",但也没有"致命优势"。`)
+  } else if (missing.length === 1) {
+    r.push(`你只缺${missing[0]}——补上这一个,你的命局就完整了。大运走到${missing[0]}相关的干支就是你人生的转折点。`)
+  } else if (missing.length === 2) {
+    r.push(`你缺${missing.join('和')}——这两个关键环节会在你人生中大运流年遇到时才触发。你的八字不是静态的,是"等待被补充"的动态结构。`)
+  } else {
+    r.push(`你缺${missing.join('、')}——这些缺失意味着你的人生需要靠外部力量补全。你不是一个"完整"的人,但正因为缺,你才有动力去追求。`)
+  }
+
+  // 实战应用:原局有无决定大运好坏
+  r.push('')
+  r.push(`实战应用(原局有无的核心价值):`)
+  r.push(`- 大运遇到原局有的字 = 道上运,顺风顺水`)
+  r.push(`- 大运遇到原局无的字 = 外来运,要么爆发要么翻车`)
+  r.push(`- 原局缺的字在大运出现 = 补上了短板,但第一次用不熟,需要适应期`)
+  r.push(`- 原局有的字在大运消失(被冲合) = 你的根基被动摇,要小心`)
+
+  return r
 }
 
 export default analyzeJudgment
