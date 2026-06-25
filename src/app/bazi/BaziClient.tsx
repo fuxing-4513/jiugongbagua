@@ -1280,6 +1280,55 @@ Object.entries(result.wx).map(([w,c]): React.ReactNode =>(
                 </div>
               )}
 
+              {judgmentResult.bfsRelationNarr && judgmentResult.bfsRelationNarr.length > 0 && (
+                <div className="mb-3 p-2 rounded bg-dark-700/40 border border-gray-700/50">
+                  <h5 className="text-xs font-semibold text-cyan-300 mb-1">🔗 关系链引擎(BFS多跳)</h5>
+                  {judgmentResult.bfsRelationNarr.map((s,i)=><p key={i} className="text-xs text-gray-200 mb-1 leading-relaxed">{s}</p>)}
+                </div>
+              )}
+
+              {judgmentResult.daYunFourStepNarr && judgmentResult.daYunFourStepNarr.length > 0 && (
+                <div className="mb-3 p-2 rounded bg-dark-700/40 border border-gray-700/50">
+                  <h5 className="text-xs font-semibold text-orange-300 mb-1">📊 大运评估四步法</h5>
+                  {judgmentResult.daYunFourStepNarr.map((s,i)=><p key={i} className="text-xs text-gray-200 mb-1 leading-relaxed">{s}</p>)}
+                </div>
+              )}
+
+              {judgmentResult.twoSignsEngineNarr && judgmentResult.twoSignsEngineNarr.length > 0 && (
+                <div className="mb-3 p-2 rounded bg-dark-700/40 border border-gray-700/50">
+                  <h5 className="text-xs font-semibold text-pink-300 mb-1">🎯 两象定一象引擎</h5>
+                  {judgmentResult.twoSignsEngineNarr.map((s,i)=><p key={i} className="text-xs text-gray-200 mb-1 leading-relaxed">{s}</p>)}
+                </div>
+              )}
+
+              {judgmentResult.controlLevelNarr && judgmentResult.controlLevelNarr.length > 0 && (
+                <div className="mb-3 p-2 rounded bg-dark-700/40 border border-gray-700/50">
+                  <h5 className="text-xs font-semibold text-yellow-300 mb-1">🏛️ 控制权三级归属</h5>
+                  {judgmentResult.controlLevelNarr.map((s,i)=><p key={i} className="text-xs text-gray-200 mb-1 leading-relaxed">{s}</p>)}
+                </div>
+              )}
+
+              {judgmentResult.zhiYongFourNarr && judgmentResult.zhiYongFourNarr.length > 0 && (
+                <div className="mb-3 p-2 rounded bg-dark-700/40 border border-gray-700/50">
+                  <h5 className="text-xs font-semibold text-emerald-300 mb-1">🔄 制用结构四元化</h5>
+                  {judgmentResult.zhiYongFourNarr.map((s,i)=><p key={i} className="text-xs text-gray-200 mb-1 leading-relaxed">{s}</p>)}
+                </div>
+              )}
+
+              {judgmentResult.jieGenNarr && judgmentResult.jieGenNarr.length > 0 && (
+                <div className="mb-3 p-2 rounded bg-dark-700/40 border border-gray-700/50">
+                  <h5 className="text-xs font-semibold text-indigo-300 mb-1">🌱 借根7层分析</h5>
+                  {judgmentResult.jieGenNarr.map((s,i)=><p key={i} className="text-xs text-gray-200 mb-1 leading-relaxed">{s}</p>)}
+                </div>
+              )}
+
+              {judgmentResult.yuanJuCheckNarr && judgmentResult.yuanJuCheckNarr.length > 0 && (
+                <div className="mb-3 p-2 rounded bg-dark-700/40 border border-gray-700/50">
+                  <h5 className="text-xs font-semibold text-rose-300 mb-1">📋 原局有无全局判断</h5>
+                  {judgmentResult.yuanJuCheckNarr.map((s,i)=><p key={i} className="text-xs text-gray-200 mb-1 leading-relaxed">{s}</p>)}
+                </div>
+              )}
+
               <div className="mt-2 pt-2 border-t border-dark-600">
                 <p className="text-[10px] text-gray-500 italic">以上为九宫命理体系实战解读</p>
               </div>
