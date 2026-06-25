@@ -1238,7 +1238,13 @@ export function analyzeJudgment(
   // ──── 婚姻 ────
   const marriageNarr: string[] = []
   if (PEI_OU_CHAR[riZhi]) marriageNarr.push(PEI_OU_CHAR[riZhi])
-  for (const z of zhis) { if (z===riZhi) continue; if (LIU_HE[riZhi]===z) marriageNarr.push('配偶宫被合。'); if (LIU_CHONG[riZhi]===z) marriageNarr.push('配偶宫被冲。'); if (LIU_CHUAN[riZhi]===z) marriageNarr.push('配偶宫被穿。') }
+  const spouseMarrySeen = new Set<string>()
+  for (const z of zhis) {
+    if (z===riZhi) continue
+    if (LIU_HE[riZhi]===z && !spouseMarrySeen.has('he'+z)) { spouseMarrySeen.add('he'+z); marriageNarr.push('配偶宫被合。'); }
+    if (LIU_CHONG[riZhi]===z && !spouseMarrySeen.has('chong'+z)) { spouseMarrySeen.add('chong'+z); marriageNarr.push('配偶宫被冲。'); }
+    if (LIU_CHUAN[riZhi]===z && !spouseMarrySeen.has('chuan'+z)) { spouseMarrySeen.add('chuan'+z); marriageNarr.push('配偶宫被穿。'); }
+  }
   if (gender==='男') { marriageNarr.push('男命--以财为妻。');marriageNarr.push(...caiXi(riGan,pills))
     const th = TAO_HUA_MAP[yearZhi]; if (th && zhis.includes(th)) marriageNarr.push(`桃花(${th})在${posNames[zhis.indexOf(th)]}柱--${TAO_HUA_POS[zhis.indexOf(th)]}`)
   } else { marriageNarr.push('女命--以官杀为夫。');marriageNarr.push(...guanSha(riGan,pills))
@@ -2235,13 +2241,13 @@ function analyzeTombWarehouse(
 
   // 查看日主地支是否入墓
   const riZhi = zhis[2]
+  const ruMuSeen = new Set<string>()
   for (const [zhi, info] of Object.entries(ruMu)) {
     if (riZhi === zhi) {
       for (const mu of zhis) {
-        if (mu === info.mu) {
-          // v6: 分好坏——日主入墓要看入的是什么库
-          // 好的入墓=被自己收藏(好事);坏的=被压制
-          // 简单判断:辰未为印库(偏吉),丑戌为官杀/比劫库(偏凶)
+        const muKey = info.mu
+        if (mu === info.mu && !ruMuSeen.has(muKey)) {
+          ruMuSeen.add(muKey)
           if (info.mu === '辰' || info.mu === '未') {
             r.push(`你日支${riZhi}入${info.mu}墓--你的身体/精神有被"收藏"的特质。好事,因为你懂收敛、懂保存实力。但太过于"收"了也会压抑自己。大运走入库的时候要警惕过度保守。`)
           } else {
@@ -3665,11 +3671,13 @@ function jieGenAnalysis(riGan: string, pills: {gan:string;zhi:string}[]): string
     r.push(`你有自己的根,但你要看的是"借出去的根"——你的根有没有被人家借走。`)
 
     // 看天干透出的十神是否与本根相合
+    const jieRootSeen = new Set<string>()
     for (const rr of ownRoots) {
-      for (const g of gans) {
-        if (LIU_HE[rr.zhi] === zhis[0] && g === gans[0]) {
-          r.push(`你的根${rr.zhi}被年柱合走——你的根在社会关系上。别人借了你的力。你得管好你的资源。`)
-        }
+      const rootKey = rr.zhi
+      if (jieRootSeen.has(rootKey)) continue
+      jieRootSeen.add(rootKey)
+      if (LIU_HE[rr.zhi] === zhis[0]) {
+        r.push(`你的根${rr.zhi}被年柱合走——你的根在社会关系上。别人借了你的力。你得管好你的资源。`)
       }
     }
   }
