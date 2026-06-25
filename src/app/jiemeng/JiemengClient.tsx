@@ -20,10 +20,28 @@ function loadDreamDB() {
   if (dreamDB) return
   if (dreamLoading) return
   dreamLoading = true
+  // 先检查sessionStorage缓存
+  try {
+    const cached = sessionStorage.getItem('jiugong_dreams')
+    if (cached) {
+      const parsed = JSON.parse(cached)
+      if (parsed && parsed.length > 0) {
+        dreamDB = parsed
+        dreamLoading = false
+        dreamCallbacks.forEach(cb => cb(true))
+        dreamCallbacks.length = 0
+        return
+      }
+    }
+  } catch {}
   fetch('/data/dreams.json')
     .then(r => r.json())
     .then(data => {
       dreamDB = data.dreams || []
+      // 缓存到sessionStorage
+      if (dreamDB && dreamDB.length > 0) {
+        try { sessionStorage.setItem('jiugong_dreams', JSON.stringify(dreamDB)) } catch {}
+      }
       dreamLoading = false
       dreamCallbacks.forEach(cb => cb(true))
       dreamCallbacks.length = 0
