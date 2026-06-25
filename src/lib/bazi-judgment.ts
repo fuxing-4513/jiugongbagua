@@ -214,6 +214,68 @@ function wxStrength(wxType: string, gans: string[], zhis: string[]): number {
   return count
 }
 
+// ──── 冲的力量评估(2026/06/25 全面修正) ────
+
+const SHENG_CYCLE: Record<string, string> = {木:'火',火:'土',土:'金',金:'水',水:'木'}
+const KE_CYCLE: Record<string, string> = {木:'土',火:'金',土:'水',金:'木',水:'火'}
+const CHONG_SAME_PAIRS: string[] = ['辰戌','戌辰','丑未','未丑']
+
+function evalZhiPower(zhi: string, monthZhi: string, allZhis: string[]): number {
+  const wz = ZHI_WU_XING[zhi] || ''
+  const mwz = ZHI_WU_XING[monthZhi] || ''
+  let p = 5
+  if (wz === mwz) p += 8
+  else if (SHENG_CYCLE[mwz] === wz) p += 10
+  else if (KE_CYCLE[mwz] === wz) p += 0
+  else if (KE_CYCLE[wz] === mwz) p -= 4
+  else if (SHENG_CYCLE[wz] === mwz) p -= 2
+  for (const z of allZhis) {
+    if (z === zhi || z === monthZhi) continue
+    const zw = ZHI_WU_XING[z] || ''
+    if (SHENG_CYCLE[zw] === wz) p += 3
+    if (SHENG_CYCLE[wz] === zw) p -= 2
+  }
+  return Math.max(1, p)
+}
+
+function isSameTypeChong(a: string, b: string): boolean {
+  return CHONG_SAME_PAIRS.includes(a+b) || CHONG_SAME_PAIRS.includes(b+a)
+}
+
+function evalChongOrder(a: string, b: string, monthZhi: string, allZhis: string[]): string {
+  // 同类冲：辰戌丑未，比力量定方向
+  if (isSameTypeChong(a, b)) {
+    const ap = evalZhiPower(a, monthZhi, allZhis)
+    const bp = evalZhiPower(b, monthZhi, allZhis)
+    return ap >= bp ? a+'冲'+b : b+'冲'+a
+  }
+  // 五行相克冲：只有克的一方才能冲
+  const aw = ZHI_WU_XING[a] || ''
+  const bw = ZHI_WU_XING[b] || ''
+  let attacker = '', defender = ''
+  if (KE_CYCLE[aw] === bw) { attacker = a; defender = b }
+  else if (KE_CYCLE[bw] === aw) { attacker = b; defender = a }
+  if (!attacker) return ''
+  const atkPower = evalZhiPower(attacker, monthZhi, allZhis)
+  const aIdx = allZhis.indexOf(attacker)
+  const dIdx = allZhis.indexOf(defender)
+  let midDrain = 0
+  const atkWx = ZHI_WU_XING[attacker] || ''
+  for (let k = Math.min(aIdx,dIdx)+1; k < Math.max(aIdx,dIdx); k++) {
+    const mid = allZhis[k]
+    const mw = ZHI_WU_XING[mid] || ''
+    if (SHENG_CYCLE[atkWx] === mw) midDrain += evalZhiPower(mid, monthZhi, allZhis) * 0.3
+  }
+  const effectivePower = atkPower - midDrain
+  const threshold = Math.abs(aIdx-dIdx)===1 ? 6 : 8
+  if (effectivePower < threshold) return ''
+  return attacker + '冲' + defender
+}
+
+function evalChongCan(a: string, b: string, monthZhi: string, allZhis: string[]): boolean {
+  return evalChongOrder(a, b, monthZhi, allZhis) !== ''
+}
+
 // ──── 浓缩标签系统 ═══════════════════════════
 
 function lifeLabels(riGan: string, pills: {gan:string;zhi:string}[], gender: string): string[] {
@@ -558,8 +620,9 @@ function flowYearV2(ri: string, pills: {gan:string;zhi:string}[],
 
   // 第一优先级: 冲 (冲的力量最大,优先判断)
   for (const z of zhis) {
-    if (LIU_CHONG[z] === fz) {
-      r.push(`流年${fz}冲你${['年','月','日','时'][zhis.indexOf(z)]}柱的${z}--冲是交换,今年跟这个宫位相关的事会有快速变化。`)
+    const co = evalChongOrder(z, fz, zhis[1], zhis)
+    if (co) {
+      r.push(`流年${co}--冲是交换,今年跟这个宫位相关的事会有快速变化。`)
       foundDiZhiRelation = true
       break
     }
@@ -639,7 +702,7 @@ function wanHun(ri: string, pills: {gan:string;zhi:string}[], gen: string): stri
     if (isGuan(hs)) r.push('感情来得比较晚。')
     for (const cg of CANG_GAN[pills[3].zhi]||[]) { if (isGuan(ss(ri,cg))) {r.push('官星藏在时支--晚婚。');break} }
   }
-  for (const v of z) { if (v===rz) continue; if (LIU_CHONG[rz]===v) {r.push('婚姻宫被冲--晚婚能化解。');break} }
+  for (const v of z) { if (v===rz) continue; const co=evalChongOrder(rz,v,z[1],z); if (co) {r.push(`婚姻宫被${co}--晚婚能化解。`);break} }
   if (r.length===0) r.push('没有明显的晚婚倾向。')
   return r
 }
@@ -647,7 +710,7 @@ function wanHun(ri: string, pills: {gan:string;zhi:string}[], gen: string): stri
 function liHun(ri: string, pills: {gan:string;zhi:string}[], gen: string): string[] {
   const r: string[] = []; const z = pills.map(p=>p.zhi); const rz = z[2]; const g = pills.map(p=>p.gan)
   let hasGen = false
-  for (const v of z) { if (v===rz) continue; if (LIU_CHUAN[rz]===v) {r.push('婚姻宫被穿--有克服不了的矛盾。');hasGen=true} if (LIU_CHONG[rz]===v) {r.push('婚姻宫被冲--容易动荡。');hasGen=true} }
+  for (const v of z) { if (v===rz) continue; if (LIU_CHUAN[rz]===v) {r.push('婚姻宫被穿--有克服不了的矛盾。');hasGen=true} const co=evalChongOrder(rz,v,z[1],z); if (co) {r.push(`婚姻宫被${co}--容易动荡。`);hasGen=true} }
   const ht: Record<string,string> = {'甲己':'合','乙庚':'合','丙辛':'合','丁壬':'合','戊癸':'合'}
   if (gen==='女') {
     for (const p of g) { const st=ss(ri,p); if (isGuan(st)) { for (const p2 of g) { if (p2===p) continue; if (ht[p+p2]||ht[p2+p]) {r.push(`官星${p}被${p2}合走--配偶容易被拉走。`);hasGen=true;break} };break} }
@@ -807,11 +870,12 @@ function healthV3(ri: string, pills: {gan:string;zhi:string}[]): string[] {
   let hasConflict = false
   for (let i = 0; i < z.length; i++) {
     for (let j = i + 1; j < z.length; j++) {
-      if (LIU_CHONG[z[i]] === z[j]) {
+      const co = evalChongOrder(z[i], z[j], z[1], z)
+      if (co) {
         if (!hasConflict) { r.push(''); r.push('━━━ 地支冲克 → 对应器官隐患 ━━━'); hasConflict = true }
         const pi = ['年','月','日','时'][i]
         const pj = ['年','月','日','时'][j]
-        r.push(`${pi}柱${z[i]}冲${pj}柱${z[j]}：${z[i]}（${ZHI_ORGAN[z[i]]}）与${z[j]}（${ZHI_ORGAN[z[j]]}）对冲，需同时养护。`)
+        r.push(`${pi}柱${z[i]}${z[j]}相冲（${co}）：${z[i]}（${ZHI_ORGAN[z[i]]}）与${z[j]}（${ZHI_ORGAN[z[j]]}）对冲，需同时养护。`)
       }
     }
   }
@@ -1242,7 +1306,7 @@ export function analyzeJudgment(
   for (const z of zhis) {
     if (z===riZhi) continue
     if (LIU_HE[riZhi]===z && !spouseMarrySeen.has('he'+z)) { spouseMarrySeen.add('he'+z); marriageNarr.push('配偶宫被合。'); }
-    if (LIU_CHONG[riZhi]===z && !spouseMarrySeen.has('chong'+z)) { spouseMarrySeen.add('chong'+z); marriageNarr.push('配偶宫被冲。'); }
+    const co=evalChongOrder(riZhi,z,zhis[1],zhis); if (co && !spouseMarrySeen.has('chong'+z)) { spouseMarrySeen.add('chong'+z); marriageNarr.push(`配偶宫被${co}。`); }
     if (LIU_CHUAN[riZhi]===z && !spouseMarrySeen.has('chuan'+z)) { spouseMarrySeen.add('chuan'+z); marriageNarr.push('配偶宫被穿。'); }
   }
   if (gender==='男') { marriageNarr.push('男命--以财为妻。');marriageNarr.push(...caiXi(riGan,pills))
@@ -1581,11 +1645,12 @@ function analyzeSpouseDynamic(riGan: string, pills: {gan:string;zhi:string}[], g
   const spouseSeen = new Set<string>()
   for (const z of zhis) {
     if (z === riZhi) continue
-    const key = (LIU_CHONG[riZhi] === z ? 'chong' : '') + (LIU_HE[riZhi] === z ? 'he' : '') + (LIU_CHUAN[riZhi] === z ? 'chuan' : '')
+    const co=evalChongOrder(riZhi,z,zhis[1],zhis)
+    const key = (co ? 'chong' : '') + (LIU_HE[riZhi] === z ? 'he' : '') + (LIU_CHUAN[riZhi] === z ? 'chuan' : '')
     if (!key || spouseSeen.has(key + z)) continue
     spouseSeen.add(key + z)
-    if (LIU_CHONG[riZhi] === z) {
-      r.push(`你的配偶宫${riZhi}被${z}冲了--你俩性格一开始就有冲突点。刚在一起的时候吵得厉害,慢慢学会了各退一步。这种关系不能强求对方改变,你得学会包容不同点。`)
+    if (co) {
+      r.push(`你的配偶宫被${co}了--你俩性格一开始就有冲突点。刚在一起的时候吵得厉害,慢慢学会了各退一步。这种关系不能强求对方改变,你得学会包容不同点。`)
     }
     if (LIU_HE[riZhi] === z) {
       r.push(`你的配偶宫${riZhi}被${z}合了--你们的感情不是纯粹的二人世界,总有外力介入。父母、朋友、工作关系,总有人掺合你们的事。你们的问题常常是"外人怎么看"而不是"我们怎么想"。`)
@@ -1829,7 +1894,7 @@ function analyzeTechAbility(riGan: string, pills: {gan:string;zhi:string}[]): st
     }
     for (const z of zhis) {
       if (z === si.zhi) continue
-      if (LIU_CHONG[z] === si.zhi || LIU_CHONG[si.zhi] === z) {
+      if (evalChongCan(z, si.zhi, zhis[1], zhis)) {
         r.push(`技术这条路不太平,你要经历磨练才能出彩。遇到的挫折都是在帮你磨刀。`)
         ssFoundChong = true
         break
@@ -2501,8 +2566,9 @@ function controlPowerAnalysis(riGan: string, pills: {gan:string;zhi:string}[]): 
   if (maxPower < 2) {
     for (const z of zhis) {
       if (z === riZhi) continue
-      if (LIU_CHONG[riZhi] === z) {
-        r.push(`你的配偶宫被${z}冲—你的控制权靠冲突和较劲获得。你不争没人给你,你争了也不一定稳。这辈子要学会在斗争中求生存。`)
+      const co=evalChongOrder(riZhi,z,zhis[1],zhis)
+      if (co) {
+        r.push(`你的配偶宫被${co}—你的控制权靠冲突和较劲获得。你不争没人给你,你争了也不一定稳。这辈子要学会在斗争中求生存。`)
         maxPower = 1
         powerLabel = '冲'
         break
@@ -2669,8 +2735,9 @@ function enterpriseAnalysis(riGan: string, gans: string[], zhis: string[]): stri
 
   for (let i = 0; i < zhis.length; i++) {
     for (let j = i + 1; j < zhis.length; j++) {
-      if (LIU_CHONG[zhis[i]] === zhis[j]) {
-        r.push(`${posNames[i]}柱${zhis[i]}冲${posNames[j]}柱${zhis[j]}—企业内部的这两个部门/层级之间存在天然冲突。这不是管理能解决的,你需要从组织架构上分开他们。`)
+      const co=evalChongOrder(zhis[i],zhis[j],zhis[1],zhis)
+      if (co) {
+        r.push(`${posNames[i]}柱${posNames[j]}柱之间存在${co}关系—企业内部的这两个部门/层级之间存在天然冲突。这不是管理能解决的,你需要从组织架构上分开他们。`)
       }
       if (LIU_CHUAN[zhis[i]] === zhis[j]) {
         r.push(`${posNames[i]}柱${zhis[i]}穿${posNames[j]}柱${zhis[j]}—企业里有些矛盾是"说不清道不明"的。两个人表面没事,私下里互相较劲。你作为老板要心里有数。`)
