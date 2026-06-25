@@ -65,7 +65,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta httpEquiv="Pragma" content="no-cache" />
         <meta httpEquiv="Expires" content="0" />
         {/* 浅色主题 —— 白色背景，减眼疲劳 */}
-        <style dangerouslySetInnerHTML={{ __html: `body{font-family:var(--font-sans);background:#faf9f6!important;color:#2d2d3f!important}.cosmic-overlay{display:none!important}` }} />
+        <style dangerouslySetInnerHTML={{ __html: `.cosmic-overlay{display:none!important}` }} />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <link rel="icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" href="/favicon.svg" />
