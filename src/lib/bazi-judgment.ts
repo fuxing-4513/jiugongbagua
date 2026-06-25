@@ -819,10 +819,6 @@ function healthV3(ri: string, pills: {gan:string;zhi:string}[]): string[] {
   // 𓆙 第四步：养生总结——给出系统性建议
   r.push('')
   r.push('💡 先天体质参考——宫位定位置，五行看脏腑，刑冲找隐患。具体以实际身体为准。')
-  r.push('')
-  r.push('【九宫健康提醒】五行强弱看月令:月支的五行力量最大,其次时柱。')
-  r.push('年柱的五行如果没有根(地支无同类藏干),视为虚浮无力。')
-  r.push('同时要看生克链:火能生土→土有人养不弱;火能克金→金有人管力量打折。')
 
   return r
 }
@@ -1614,13 +1610,15 @@ function analyzeSpouseDynamic(riGan: string, pills: {gan:string;zhi:string}[], g
     }
   }
 
+  // 配偶宫借根判断：只取配偶宫主气藏干做一次分析，避免重复
   const spCang = CANG_GAN[riZhi] || []
-  for (const cg of spCang) {
-    const cgKu = BEST_YIN_KU[cg] || ''
+  const mainCg = spCang[0]  // 只取主气
+  if (mainCg) {
+    const cgKu = BEST_YIN_KU[mainCg] || ''
     if (cgKu && zhis.includes(cgKu)) {
-      r.push(`你配偶宫里的${cg}从${cgKu}出——根正。你另一半是跟你"共根"的关系，同一个源头的。人品靠得住，不是那种来去匆匆的路人。你们相处起来轻松，因为他/她骨子里跟你是一路人。`)
+      r.push(`你配偶宫里的根正——你另一半跟你"共根"，同一个源头的。人品靠得住，不是那种来去匆匆的路人。你们相处起来轻松，骨子里是一路人。`)
     } else if (cgKu) {
-      r.push(`你配偶宫里${cg}的根在外头——你另一半是"借根"的命。他/她骨子里需要别人的认可、需要别人帮衬。你跟他/她过日子，要多给面子多鼓励。他/她不是故意不靠谱，是先天缺乏安全感。`)
+      r.push(`你另一半是"借根"的命。他/她骨子里需要别人的认可、需要别人帮衬。你跟他/她多给面子多鼓励。他/她不是故意不靠谱，是先天缺乏安全感。`)
     }
   }
 
