@@ -1556,48 +1556,78 @@ function analyzeFriendMode(riGan: string, pills: {gan:string;zhi:string}[], ss: 
 
   // 先看月干是否是比劫（兄弟姐妹/朋友的核心标志）
   if (isBJ(monthSS)) {
-    // 统计全局比劫数量（天干+地支藏干主气）
-    const bjCountAll = (() => {
-      let cnt = [0,1,2,3].filter(i => isBJ(ss(riGan, gans[i]))).length
-      // 地支藏干主气算比劫
-      for (const z of zhis) {
-        const mainCg = (CANG_GAN[z] || [''])[0]
-        if (mainCg && isBJ(ss(riGan, mainCg))) cnt++
+    // 按柱位分析比劫：不同位置的朋友类型不同 + 区分比肩与劫财
+    const bjSeen = new Set<string>()
+    for (let i = 0; i < zhis.length; i++) {
+      const z = zhis[i]
+      const mainCg = (CANG_GAN[z] || [''])[0]
+      if (!mainCg) continue
+      const cgSS = ss(riGan, mainCg)
+      if (!isBJ(cgSS)) continue
+      const pos = ['年','月','日','时'][i]
+      const bjKey = pos + mainCg + z
+      if (bjSeen.has(bjKey)) continue
+      bjSeen.add(bjKey)
+      
+      const isBiJian = mainCg === riGan
+      const bjLabel = isBiJian ? '比肩' : '劫财'
+      
+      if (pos === '年') {
+        if (isBiJian) {
+          r.push('年上有比肩根--你早年的朋友圈层次不低,有贵人相助。或是从小认识的靠谱朋友,档次在那摆着。')
+        } else {
+          r.push('年上有劫财--祖上或长辈圈子偏社会性质,有混得开的人但不走正路。你小时候见过他们的做派,学了也好没学也好,那套东西在你心里有烙印。')
+        }
+      } else if (pos === '月') {
+        if (isBiJian) {
+          r.push('月柱有比肩根--你中年圈子里有真兄弟、真合伙人。能跟你一起扛事,不是酒肉朋友。')
+        } else {
+          r.push('月柱有劫财根--你中年认识的朋友层次参差不齐。有些是讲义气的,有些是沾了就甩不掉的。这类人里真交心的不多,你得学会辨别。')
+        }
+      } else if (pos === '时') {
+        if (isBiJian) {
+          r.push('时柱有比肩根--你的根在家里,最终留得下的是真自己人。你骨子里忠义,不会跟那些混社会的人走到一起去。')
+        } else {
+          r.push('时柱有劫财根--晚年身边还有利益关系在,但你已经看淡了。')
+        }
       }
-      return cnt
-    })()
-    if (bjCountAll >= 3) {
-      r.push(`你八字比劫有${bjCountAll}个,走到哪都容易聚一群人。但你别糊涂--不是每个叫你"兄弟"的人都真的靠得住。`)
-    } else if (bjCountAll >= 1) {
-      r.push(`你八字比劫就${bjCountAll}个,朋友不多但你心里有数。能进你圈子的人,都是你精挑细选过的。`)
+    }
+    
+    // 年月刑冲：两类朋友本质不同
+    const yz = zhis[0]
+    const mz = zhis[1]
+    if ((SAN_XING[yz] === mz || SAN_XING[mz] === yz) ||
+        (LIU_CHONG[yz] === mz || LIU_CHONG[mz] === yz)) {
+      r.push('年柱和月柱有刑冲关系--你早年的朋友圈和中年认识的人不是一路人。年上的朋友端着的、体面的,月上的朋友是混社会的、不讲规矩的。你自己心里清楚这两拨人坐不到一张桌上。')
     }
 
-    // 月柱比劫的帽子（坐下的藏干决定他的特质）
+    // 月柱藏干主气的帽子
     if (monthCang) {
       const monthHat = sst(riGan, monthCang)
       if (monthHat === '印') {
-        r.push(`你月柱${monthGan}${monthZhi}这个朋友/兄弟姐妹,戴"印帽子"--他要面子有层次,做事讲体面。你跟他相处千万别驳他面子,吃软不吃硬的主。`)
+        r.push('你月柱这个圈子里--有人要面子,有人讲义气,没人真正帮你兜底。')
       } else if (monthHat === '财') {
-        r.push(`你月柱${monthGan}${monthZhi}这个朋友/兄弟姐妹,戴"财帽子"--现实得很,凡事看结果看价值。你能给他带来好处他就是兄弟,你拖他后腿他翻脸比翻书快。`)
+        r.push('你月柱这个圈子里--现实得很,看你有用凑上来,你没用了就散。')
       } else if (monthHat === '官杀') {
-        r.push(`你月柱${monthGan}${monthZhi}这个朋友/兄弟姐妹,戴"官杀帽子"--嘴上啥都敢说,真到有风险的事他往后缩。喝酒聊天找他行,一起扛事别指望。`)
+        r.push('你月柱这个圈子里--嘴上厉害,真到风险时候靠不住。')
       } else if (monthHat === '食伤') {
-        r.push(`你月柱${monthGan}${monthZhi}这个朋友/兄弟姐妹,戴"食伤帽子"--技术型,手上真有活儿。你们聊技术项目很投缘,但别让他碰钱的事。`)
+        r.push('你月柱这个圈子里--手上有技术,愿意教你东西。但别跟他们谈钱的事。')
       } else {
-        r.push(`你月柱${monthGan}${monthZhi}--跟你一个德性,又帮你又跟你抢。`)
+        r.push('你月柱这个圈子--跟你一个德性,又帮你又跟你抢。')
       }
     }
 
     // 自合检测
     if (ZI_HE.includes(monthGan + monthZhi)) {
-      r.push(`月柱${monthGan}${monthZhi}自合--特别自信甚至自负。跟他聊天你会发现他不停在夸自己,嘴上从来不输。你要习惯他这样,别跟他较真。`)
+      r.push('月柱自合--特别自信甚至自负。这个圈子里有人不停夸自己,嘴上从来不输。')
     }
 
-    // 地支五行属性推测职业上
-    if (monthZhi === '巳') r.push(`月柱${monthGan}${monthZhi}--身上有网络/技术属性,大概率搞互联网、IT或新媒体。`)
-    if (monthZhi === '酉') r.push(`月柱${monthGan}${monthZhi}--身上有金融/精密属性。可能在金融会计行业,或者做事特别较真。`)
-    if (monthZhi === '申') r.push(`月柱${monthGan}${monthZhi}--有平台/法律属性。可能在大平台公司或者做法律相关。`)
+    // 地支五行属性推测职业
+    if (monthZhi === '巳') r.push('月柱有网络/技术属性,这个圈子里大概率搞互联网、IT或新媒体。')
+    if (monthZhi === '酉') r.push('月柱有金融/精密属性。这个圈子里可能在金融会计行业,或者做事特别较真。')
+    if (monthZhi === '申') r.push('月柱有平台/法律属性。这个圈子里可能在大平台公司或者做法律相关。')
   }
+
 
   // ── 共根：年柱和月柱的关系 ──
   const yearKu = zhiKu(yearZhi)
