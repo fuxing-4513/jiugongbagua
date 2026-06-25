@@ -1,25 +1,25 @@
 @import "tailwindcss";
 
 @theme {
-  /* ── 墨青灰底色系（B方案） ── */
-  --color-dark-950: #111214;
-  --color-dark-900: #14161a;
-  --color-dark-850: #181a1e;
-  --color-dark-800: #1c1e23;
-  --color-dark-750: #212328;
-  --color-dark-700: #252830;
-  --color-dark-600: #2c3038;
-  --color-dark-500: #383d45;
+  /* ── 浅色底色系（白色主题） ── */
+  --color-dark-950: #f5f2ed;
+  --color-dark-900: #f0ece6;
+  --color-dark-850: #eae5de;
+  --color-dark-800: #e3ded6;
+  --color-dark-750: #d8d3ca;
+  --color-dark-700: #c9c4ba;
+  --color-dark-600: #b0aba2;
+  --color-dark-500: #9a958c;
 
-  /* ── 古金色系（节制使用，仅标题） ── */
-  --color-gold-300: #d4b84a;
-  --color-gold-400: #c4a23a;
-  --color-gold-500: #a8882d;
-  --color-gold-600: #8b7020;
-  --color-gold-700: #6d5516;
-  --color-gold-900: #4a3810;
+  /* ── 古金色系（浅色背景上调亮） ── */
+  --color-gold-300: #e0c85a;
+  --color-gold-400: #d0b04a;
+  --color-gold-500: #b89838;
+  --color-gold-600: #a08028;
+  --color-gold-700: #886818;
+  --color-gold-900: #604810;
 
-  /* ── 青玉色（B方案辅色） ── */
+  /* ── 青玉色 ── */
   --color-jade-300: #7ab8a0;
   --color-jade-400: #5b8c7a;
   --color-jade-500: #4a7a68;
@@ -70,12 +70,14 @@
 html { scroll-behavior: smooth; }
 body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
 
-/* ── 全局背景 — 墨青灰 ── */
+/* ── 全局背景 — 白色 ── */
 body {
   font-family: var(--font-sans);
-  background: #14161a;
-  color: #c8c6c0;
+  background: #faf9f6;
+  color: #2d2d3f;
 }
+
+/* ── 浅色背景下文字颜色修正 ── */
 
 .font-serif {
   font-family: var(--font-serif);
