@@ -6,7 +6,7 @@ export default function WenkuPage() {
         九宫文库正在重新规划中。
       </p>
       <p className="text-gray-500 text-sm leading-relaxed">
-        我们决定不再堆砌快餐式内容。每一篇都将基于完整的命理推理逻辑，
+        接下来的每一篇文章都将基于完整的命理推理逻辑，
         <br />保证有深度、有观点、有可读性。
       </p>
       <div className="mt-8 flex justify-center gap-4">
