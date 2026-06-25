@@ -430,15 +430,15 @@ function rootHouseNarr(riGan: string, pills: {gan:string;zhi:string}[]): string[
   const posNames = ['年','月','日','时']
   const rtSeen = new Set<string>()
 
+  // 根与住房：每个根最多输出一次结论
   for (let i = 0; i < zhis.length; i++) {
     if (roots.includes(zhis[i])) {
       const riKu = zhiKu(zhis[2])
       const posKu = zhiKu(zhis[i])
       if (riKu && posKu && riKu === posKu) {
-        const key = 'anquangan' + zhis[i]
-        if (!rtSeen.has(key)) { rtSeen.add(key); r.push(`精神上有安全感,住的地方对你很重要。`) }
+        if (!rtSeen.has('anquangan')) { rtSeen.add('anquangan'); r.push('精神上有安全感,住的地方对你很重要。') }
       } else if (i === 0) {
-        if (!rtSeen.has('outside')) { rtSeen.add('outside'); r.push(`精神上依赖外面,不是本地命。`) }
+        if (!rtSeen.has('outside')) { rtSeen.add('outside'); r.push('精神上依赖外面,不是本地命。') }
       }
     }
   }
