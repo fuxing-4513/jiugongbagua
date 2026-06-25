@@ -19,6 +19,11 @@ interface CharDetail {
   qimingJieshi?: string; tuijiandu?: string; wenhuaYinxiang?: string
   zixingNum?: number; zixingGender?: string; jibenJieshi?: string
   error?: string
+  // 深度古籍解析（文库产出）
+  gujiYuanyuan?: string      // 古籍渊源：说文/康熙原文
+  zixingYanbian?: string     // 字形演变简述
+  wuxingYiju?: string        // 五行属性依据
+  mingjuShiyi?: string       // 命局适配建议
 }
 interface DetailData { el: string; name: string; total: number; chars: CharDetail[] }
 
@@ -345,6 +350,35 @@ export default function NamingChars() {
               <div className="mb-3 p-3 bg-dark-700/50 rounded-lg border border-dark-600">
                 <p className="text-[10px] text-gray-500 mb-1">基本解释</p>
                 <p className="text-xs text-gray-300 leading-relaxed">{selectedZi.jibenJieshi}</p>
+              </div>
+            )}
+
+            {/* 古籍渊源（深度解析） */}
+            {selectedZi.gujiYuanyuan && (
+              <div className="mb-3 p-3 bg-amber-900/20 rounded-lg border border-amber-700/30">
+                <p className="text-[10px] text-amber-400 mb-1">📜 古籍渊源</p>
+                <p className="text-xs text-gray-200 leading-relaxed whitespace-pre-wrap">{selectedZi.gujiYuanyuan}</p>
+              </div>
+            )}
+
+            {/* 字形演变 */}
+            {selectedZi.zixingYanbian && (
+              <div className="mb-3 p-3 bg-indigo-900/20 rounded-lg border border-indigo-700/30">
+                <p className="text-[10px] text-indigo-400 mb-1">🖋 字形演变</p>
+                <p className="text-xs text-gray-200 leading-relaxed">{selectedZi.zixingYanbian}</p>
+              </div>
+            )}
+
+            {/* 五行依据 + 命局适配 */}
+            {selectedZi.wuxingYiju && (
+              <div className="mb-3 p-3 bg-teal-900/20 rounded-lg border border-teal-700/30">
+                <p className="text-[10px] text-teal-400 mb-1">☯ 五行与命局</p>
+                <p className="text-xs text-gray-200 leading-relaxed">{selectedZi.wuxingYiju}</p>
+                {selectedZi.mingjuShiyi && (
+                  <div className="mt-2 pt-2 border-t border-teal-800/30">
+                    <p className="text-xs text-gray-200 leading-relaxed">{selectedZi.mingjuShiyi}</p>
+                  </div>
+                )}
               </div>
             )}
 
