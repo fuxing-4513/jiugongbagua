@@ -332,17 +332,56 @@ function lifeLabels(riGan: string, pills: {gan:string;zhi:string}[], gender: str
   }
   if (hasGuan && hasYin) l.push('🏷️ 八字标签:官印相生--适合体制/管理岗。能做成事。')
 
-  // 比劫夺财（含地支藏干）
+  // 比劫夺财（含藏干+宫位判定）
+  // 教材:比劫合了家里的字才会破财。年上月上的比劫一般不直接破财。比劫在年上=国家/贵人层面,不跟日主竞争
   let biCount = 0, caiCount = 0
+  // 家里(日时柱)的财星
+  let homeCaiG = '', homeCaiZ = ''
   for (const g of gans) { const st = ss(riGan,g); if(isBJ(st)) biCount++; if(isCai(st)) caiCount++ }
   for (const z of zhis) {
     for (const c of (CANG_GAN[z]||[])) {
       const cst = sst(riGan, c)
       if(isBJ(cst)) biCount++
-      if(isCai(cst)) caiCount++
+      if(isCai(cst)) {
+        caiCount++
+        // 家里的财星标记
+        if (z === zhis[2] || z === zhis[3]) homeCaiZ = z
+      }
     }
   }
-  if (biCount >= 3 && caiCount <= 1) l.push('🏷️ 八字标签:比劫夺财--朋友多花钱快。注意别合伙别担保。')
+  // 检查日时柱是否透财星
+  for (let hi = 2; hi < 4; hi++) {
+    if (isCai(ss(riGan, gans[hi]))) homeCaiG = gans[hi]
+  }
+  
+  // 检查:家外(年月)的比劫是否合家里的财星
+  let biJieDuoCai = false
+  const ht: Record<string, string> = {'甲己':'合','乙庚':'合','丙辛':'合','丁壬':'合','戊癸':'合'}
+  for (let hi = 0; hi < 2; hi++) {
+    if (isBJ(ss(riGan, gans[hi]))) {
+      // 年/月天干是比劫,看它是否合家里天干的财
+      if (homeCaiG && (ht[gans[hi] + homeCaiG] || ht[homeCaiG + gans[hi]])) {
+        biJieDuoCai = true; break
+      }
+    }
+  }
+  if (!biJieDuoCai) {
+    // 检查家外地支是否合家里地支的财
+    for (let hi = 0; hi < 2; hi++) {
+      if (homeCaiZ && LIU_HE[zhis[hi]] === homeCaiZ) {
+        // 家外地支合家里财星地支
+        const hiMain = (CANG_GAN[zhis[hi]]||[''])[0]
+        if (isBJ(sst(riGan, zhis[hi]))) biJieDuoCai = true
+        break
+      }
+    }
+  }
+
+  if (biJieDuoCai) {
+    l.push('🏷️ 八字标签:比劫夺财--家外的比劫合了你家里的财星。不是你所有朋友都坑你,但跟你走得最近、合得最来的那几个,你得留个心眼:关系越好利益越要算清。')
+  } else if (biCount >= 3 && caiCount <= 1) {
+    l.push('🏷️ 八字标签:比劫多--朋友多花钱快。跟朋友相处注意尺度,别合伙别担保。')
+  }
 
   // 财旺从商（含地支）
   if (caiCount >= 2) l.push('🏷️ 八字标签:财旺型--适合做生意/做投资。')
