@@ -684,22 +684,20 @@ function healthV3(ri: string, pills: {gan:string;zhi:string}[]): string[] {
   const g = pills.map(p=>p.gan)
   const z = pills.map(p=>p.zhi)
 
-  // ========== 位置权重体系 ==========
-  // 月支力量最大(×4),时柱×3,日支×2,年支×1
-  // 天干权重减半(天干为表,地支为里)
-  const POS_WEIGHT: Record<string,number> = {月:4,时:3,日:2,年:1}
+  // ========== 位置权重体系(你指定) ==========
+  // 年=1%, 月=50%, 日=1%, 时=48%
+  // 天干权重 = 同柱地支的30%(天干为表,地支为里)
+  const POS_PCT: Record<string,number> = {年:1, 月:50, 日:1, 时:48}
   const posNames = ['年','月','日','时']
   
   // 加权五行力量统计
   const wc: Record<string,number> = {木:0,火:0,土:0,金:0,水:0}
   for (let i = 0; i < g.length; i++) {
-    const posW = POS_WEIGHT[posNames[i]] || 1
-    const gWx = wx(g[i])
-    // 天干权重 = 位置权重的0.6(天干为表)
-    wc[gWx] = (wc[gWx] || 0) + posW * 0.6
-    const zWx = ZHI_WU_XING[z[i]]
-    // 地支权重 = 位置权重(地支为里)
-    wc[zWx] = (wc[zWx] || 0) + posW
+    const posPct = POS_PCT[posNames[i]] || 1
+    // 天干权重 = 柱权重的30% (天干为表)
+    wc[wx(g[i])] = (wc[wx(g[i])] || 0) + posPct * 0.3
+    // 地支权重 = 柱权重的70% (地支为里,比天干重要)
+    wc[ZHI_WU_XING[z[i]]] = (wc[ZHI_WU_XING[z[i]]] || 0) + posPct * 0.7
   }
   
   // 生克关系修正: 生我者加权重,我克者减权重
@@ -714,11 +712,11 @@ function healthV3(ri: string, pills: {gan:string;zhi:string}[]): string[] {
     const shengBy = Object.entries(shengMap).find(([_,v]) => v === wxName)?.[0]  // 生我的
     const keBy = Object.entries(keMap).find(([_,v]) => v === wxName)?.[0]  // 克我的
     
-    if (shengBy && wc[shengBy] >= 3) {
+    if (shengBy && wc[shengBy] >= 25) {
       // 生我的五行在月时有力→我不弱
       wc[wxName] = wc[wxName] * 1.3
     }
-    if (keBy && wc[keBy] >= 4) {
+    if (keBy && wc[keBy] >= 50) {
       // 克我的五行极旺(在月令)→我被压制
       wc[wxName] = wc[wxName] * 0.7
     }
@@ -775,13 +773,14 @@ function healthV3(ri: string, pills: {gan:string;zhi:string}[]): string[] {
     r.push(`【${name}】${gan}${zhi}：${area}`)
     r.push(`  天干${gan}=${ganWx}→${ganOrg}（${ganBody}）,地支${zhi}=${zhiWx}→${zhiOrg}`)
 
-    // 弱五行提示
+    // 宫位提示：只看年柱(年柱力量仅1%,最需关注)
+    // 月日时的五行强弱由全局五行综合判断决定
     const go = WX_ORGAN[ganWx]
-    if (go && weakest && wc[ganWx] <= 1.5) {
+    if (go && weakest && idx === 0 && wc[ganWx] <= 20) {
       r.push(`  ⚠ ${ganWx}偏弱（${wc[ganWx].toFixed(1)}）→重点养护${go[0]}/${go[1]}，注意${go[4]}`)
     }
     const zo = WX_ORGAN[zhiWx]
-    if (zo && strongest && wc[zhiWx] >= 6 && zhiWx !== ganWx) {
+    if (zo && strongest && idx === 0 && wc[zhiWx] >= 85 && zhiWx !== ganWx) {
       r.push(`  ⚠ ${zhiWx}偏旺（${wc[zhiWx].toFixed(1)}）→${zhiWx}过旺易使${zo[0]}郁结`)
     }
   }
@@ -789,19 +788,19 @@ function healthV3(ri: string, pills: {gan:string;zhi:string}[]): string[] {
   // 𓆙 第二步：五行旺衰综合
   r.push('')
   r.push('━━━ 五行脏腑强弱 ━━━')
-  if (weakest && weakest[1] <= 2 && weakest[0]) {
+  if (weakest && weakest[1] <= 25 && weakest[0]) {
     const wo = WX_ORGAN[weakest[0]]
     if (wo) {
-      r.push(`最弱【${weakest[0]}】(${weakest[1]}个)：脏=${wo[0]}，腑=${wo[1]}，窍=${wo[2]}，体=${wo[3]}`)
+      r.push(`最弱【${weakest[0]}】(${weakest[1].toFixed(1)})：脏=${wo[0]}，腑=${wo[1]}，窍=${wo[2]}，体=${wo[3]}`)
       r.push(`  易发问题：${wo[4]}。这是你后天要重点养护的。`)
       const cm: Record<string,string[]> = {木:['绿','青'],火:['红','紫'],土:['黄','棕'],金:['白','金'],水:['黑','蓝']}
       const cc = cm[weakest[0]]
       if (cc) r.push(`  宜多穿${cc.join('/')}色，饮食偏重${weakest[0]}属性。`)
     }
   }
-  if (strongest && strongest[1] >= 4 && strongest[0]) {
+  if (strongest && strongest[1] >= 80 && strongest[0]) {
     const wo = WX_ORGAN[strongest[0]]
-    if (wo) r.push(`最旺【${strongest[0]}】(${strongest[1]}个)：过旺则${wo[0]}易郁结，注意${wo[4]}。`)
+    if (wo) r.push(`最旺【${strongest[0]}】(${strongest[1].toFixed(1)})：过旺则${wo[0]}易郁结，注意${wo[4]}。`)
   }
 
   // 𓆙 第三步：地支刑冲→隐患
