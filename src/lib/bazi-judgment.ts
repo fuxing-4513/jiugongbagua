@@ -1572,8 +1572,12 @@ function analyzeSpouseDynamic(riGan: string, pills: {gan:string;zhi:string}[], g
     r.push(`你另一半的座驾是${riZhi},藏在里头的是比劫。你俩像兄弟一样相处,互相较劲又互相帮忙。但谁也不服谁,容易因为面子问题吵起来。`)
   }
 
+  const spouseSeen = new Set<string>()
   for (const z of zhis) {
     if (z === riZhi) continue
+    const key = (LIU_CHONG[riZhi] === z ? 'chong' : '') + (LIU_HE[riZhi] === z ? 'he' : '') + (LIU_CHUAN[riZhi] === z ? 'chuan' : '')
+    if (!key || spouseSeen.has(key + z)) continue
+    spouseSeen.add(key + z)
     if (LIU_CHONG[riZhi] === z) {
       r.push(`你的配偶宫${riZhi}被${z}冲了--你俩性格一开始就有冲突点。刚在一起的时候吵得厉害,慢慢学会了各退一步。这种关系不能强求对方改变,你得学会包容不同点。`)
     }
@@ -1659,13 +1663,16 @@ function analyzeSpouseDynamic(riGan: string, pills: {gan:string;zhi:string}[], g
     }
   }
 
+  const spouseFightSeen = new Set<string>()
   for (const z of zhis) {
     if (z === riZhi) continue
     for (const cg of spCang) {
       const cgWx = wx(cg)
       const zWx = zhiWx(z)
       const ke: Record<string, string> = {木:'金',火:'水',土:'木',金:'火',水:'土'}
-      if (ke[cgWx] === zWx) {
+      const fightKey = z + cg
+      if (ke[cgWx] === zWx && !spouseFightSeen.has(fightKey)) {
+        spouseFightSeen.add(fightKey)
         r.push(`你们吵架的模式是:你另一半(${cg}属性)做了决定或说了什么,然后被${z}(${zWx})这边给否了。他/她会觉得"你总是跟我对着干"。其实不是针对他/她,是你们看问题的角度本来就不一样。`)
       }
     }
@@ -1719,13 +1726,16 @@ function analyzeChildrenRelation(riGan: string, pills: {gan:string;zhi:string}[]
     r.push(`孩子宫坐财--孩子从小就对自己拥有的东西很在意。他/她会管自己的零花钱、管自己的东西。你在这方面不用太操心。`)
   }
 
+  const childSeen = new Set<string>()
   for (const cg of (CANG_GAN[hz] || [])) {
     const cgWx = wx(cg)
     for (const z of zhis) {
       if (z === hz) continue
       const zWx = zhiWx(z)
       const ke: Record<string, string> = {木:'金',火:'水',土:'木',金:'火',水:'土'}
-      if (ke[cgWx] === zWx) {
+      const childKey = cg + z
+      if (ke[cgWx] === zWx && !childSeen.has(childKey)) {
+        childSeen.add(childKey)
         r.push(`你子女宫里的${cg}被${z}冲到了--孩子在外面闯荡的时候可能不太省心。跟同学同事的关系、在外面的事情,你得留心点。`)
       }
     }
@@ -1760,8 +1770,9 @@ function analyzeTechAbility(riGan: string, pills: {gan:string;zhi:string}[]): st
     return r
   }
 
-  for (const si of ssInfo) {
-    const ssGan = si.gan
+  // 食伤库判断：只对主气食伤做一次
+  if (ssInfo.length > 0) {
+    const ssGan = ssInfo[0].gan
     const cgKu = BEST_YIN_KU[ssGan] || ''
     if (cgKu) {
       if (zhis.includes(cgKu)) {
@@ -1772,9 +1783,9 @@ function analyzeTechAbility(riGan: string, pills: {gan:string;zhi:string}[]): st
           if (isBJ(st)) bjCount++
         }
         if (yinCount > bjCount) {
-          r.push(`你的${ssGan}从${cgKu}出--这库偏印,你的技术有底蕴,是真正学进去的东西,不是花架子。`)
+          r.push(`你的食伤有库支撑,你的技术有底蕴,是真正学进去的东西,不是花架子。`)
         } else {
-          r.push(`你的${ssGan}从${cgKu}出--这库偏比劫,你的技术偏表面功夫,够用但不深入。要成为专家还得再磨一磨。`)
+          r.push(`你的食伤偏比劫库,你的技术偏表面功夫,够用但不深入。要成为专家还得再磨一磨。`)
         }
       } else {
         r.push(`你的技术悟性不错,但缺少系统沉淀。你学东西很快,但深度不够。`)
@@ -1794,18 +1805,28 @@ function analyzeTechAbility(riGan: string, pills: {gan:string;zhi:string}[]): st
     r.push(`你的技术平平,够用但不算拔尖。要多花时间在专业上磨练。`)
   }
 
+  // 食伤被合/被冲判断：只在主气食伤上做一次，避免重复
   const ht: Record<string, string> = {'甲己':'合','乙庚':'合','丙辛':'合','丁壬':'合','戊癸':'合'}
+  const mainSSZhi = new Set<string>()
+  let ssFoundHe = false, ssFoundChong = false
   for (const si of ssInfo) {
+    if (ssFoundHe && ssFoundChong) break
+    if (mainSSZhi.has(si.zhi)) continue
+    mainSSZhi.add(si.zhi)
     for (const g of gans) {
       if (g === si.gan) continue
       if (ht[si.gan + g] || ht[g + si.gan]) {
-        r.push(`你的${si.gan}(食伤)被${g}合走了--你有技术但发挥不出来。不是能力不行,是时机不对或者被其他事情牵制住了。`)
+        r.push(`你的食伤被${g}合走了--你有技术但发挥不出来。不是能力不行,是时机不对或者被其他事情牵制住了。`)
+        ssFoundHe = true
+        break
       }
     }
     for (const z of zhis) {
       if (z === si.zhi) continue
       if (LIU_CHONG[z] === si.zhi || LIU_CHONG[si.zhi] === z) {
-        r.push(`你的${si.gan}对应的地支${si.zhi}被${z}冲了--技术这条路不太平,你要经历磨练才能出彩。遇到的挫折都是在帮你磨刀。`)
+        r.push(`技术这条路不太平,你要经历磨练才能出彩。遇到的挫折都是在帮你磨刀。`)
+        ssFoundChong = true
+        break
       }
     }
   }
