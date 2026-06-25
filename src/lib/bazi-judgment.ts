@@ -882,7 +882,23 @@ function healthV3(ri: string, pills: {gan:string;zhi:string}[]): string[] {
     }
   }
 
-  // 𓆙 第四步：养生总结——给出系统性建议
+  // 𓆙 第四步：十神维度看健康（印=体质/比劫=体力/食伤=心情）
+  const yinCount = g.filter(gg => ss(ri, gg) === '正印' || ss(ri, gg) === '偏印').length
+  const biJieCount = g.filter(gg => ss(ri, gg) === '比肩' || ss(ri, gg) === '劫财').length
+  r.push('')
+  r.push('━━━ 十神维度看体质 ━━━')
+  if (yinCount >= 2) {
+    r.push('【印旺】你先天底子好、抵抗力强。但你心力消耗大——想得多的人身体反而消耗快。越是觉得自己身体好,越要留意心火。')
+  } else if (yinCount === 0) {
+    r.push('【印弱】你先天底子偏弱。别人熬三天没事,你熬一天就倒了。养生对你来说不是可有可无,是刚需。')
+  }
+  if (biJieCount >= 2) {
+    r.push('【比劫旺】你体力好、恢复快。有小病小痛扛一扛就过去了。但小心仗着身体好透支——年轻时没事,四十以后找上门。')
+  } else if (biJieCount === 0 && !z.some(zz => ['寅','巳','申','亥'].includes(zz))) {
+    r.push('【比劫偏弱】你体力偏弱,容易累。不要跟别人比体力,你的策略是细水长流,不是短跑冲刺。')
+  }
+
+  // 𓆙 第五步：养生总结
   r.push('')
   r.push('💡 先天体质参考——宫位定位置，五行看脏腑，刑冲找隐患。具体以实际身体为准。')
 
@@ -3194,66 +3210,225 @@ function daYunFourStep(
     r.push(`第一步(原局有/无):${dg}${dz}原局没有——这是外来运。你进入全新赛道。方向对了赚钱,方向错了翻车。这十年你要借别人的船出海,别自己造。`)
   }
 
-  // 第二步: 家里家外控制
+  // 第二步: 家里家外控制（生>合>穿>冲>刑 多层级）
   let homeCtrl = false, homeType = ''
   const ht: Record<string, string> = {'甲己':'合','乙庚':'合','丙辛':'合','丁壬':'合','戊癸':'合'}
+  const shengMap2: Record<string,string> = {木:'火',火:'土',土:'金',金:'水',水:'木'}
+  const dWx2 = wx(dg)
+  const riZhi2 = zhis[2]
   for (const hg of gans.slice(2)) {
-    if (ht[dg + hg] || ht[hg + dg]) { homeCtrl = true; homeType = '合'; break }
+    if (shengMap2[dWx2] === wx(hg)) { homeCtrl = true; homeType = '生'; break }
+  }
+  if (!homeCtrl) {
+    for (const hz of zhis.slice(2)) {
+      if (shengMap2[dWx2] === ZHI_WU_XING[hz]) { homeCtrl = true; homeType = '生'; break }
+    }
+  }
+  if (!homeCtrl) {
+    for (const hg of gans.slice(2)) {
+      if (ht[dg + hg] || ht[hg + dg]) { homeCtrl = true; homeType = '合'; break }
+    }
   }
   if (!homeCtrl) {
     for (const hz of zhis.slice(2)) {
       if (LIU_HE[hz] === dz || LIU_HE[dz] === hz) { homeCtrl = true; homeType = '合'; break }
+    }
+  }
+  if (!homeCtrl) {
+    for (const hz of zhis.slice(2)) {
+      if (LIU_CHUAN[hz] === dz || LIU_CHUAN[dz] === hz) { homeCtrl = true; homeType = '穿'; break }
+    }
+  }
+  if (!homeCtrl) {
+    for (const hz of zhis.slice(2)) {
       if (LIU_CHONG[hz] === dz || LIU_CHONG[dz] === hz) { homeCtrl = true; homeType = '冲'; break }
     }
   }
+  if (!homeCtrl) {
+    for (const hz of zhis.slice(2)) {
+      if (SAN_XING[hz] === dz || SAN_XING[dz] === hz) { homeCtrl = true; homeType = '刑'; break }
+    }
+  }
+  if (!homeCtrl && dz === zhiKu(riZhi2)) {
+    homeCtrl = true; homeType = '根印'
+  }
+  const strengthMap: Record<string,string> = {
+    '生':'这十年大运的五行直接生你家里的字——这叫"送上门"的好运。不光你有主导权,而且是好事主动来找你。你什么都不用做,好运自然来。',
+    '根印':'这十年大运的地支是你日支的"根"——你感觉找到了自己的底盘。做什么都有底气,不再是飘着的状态。适合做长期规划、沉淀下来。',
+    '合':'这十年大运跟你家合上了——你有商量权。你们是合伙关系,谁也绕不开谁。想成就大事必须跟你商量。',
+    '穿':'这十年大运跟你家穿上了——对方以"为你好"的名义跟你打交道。表面客气,私下较劲。你要擦亮眼睛,别人说为你好不一定真为你好。',
+    '冲':'这十年大运冲了你家里——动静大、变化多。冲也不全是坏事,冲了房子就是换房,冲了工作就是换岗。关键看你能不能接住这个变。',
+    '刑':'这十年大运跟你家刑上了——互相较劲互相学。你跟外面的关系微妙,既想合作又在暗自较劲。合作要谨慎,钱要算清楚。'
+  }
   if (homeCtrl) {
-    r.push(`第二步(家里家外):${dg}${dz}跟你家里有${homeType}关系——你有主导权,事情成败在你手上。这十年你说了算。`)
+    r.push(`第二步(家里家外):${dg}${dz}跟你家里是'${homeType}'的关系。${strengthMap[homeType]||'你有主导权。'}`)
   } else {
-    r.push(`第二步(家里家外):${dg}${dz}跟你家里没有直接关系——参与但不主导。这十年你要借别人的力,借船出海。`)
+    r.push(`第二步(家里家外):${dg}${dz}跟你家里没有直系关系——参与但不主导。这十年你要借别人的船出海。记住:这个运的字从哪来的,你就往哪个方向找。`)
   }
 
-  // 第三步: 控制力——看大运能调动多少原局力量
-  let controlScore = 0
-  // 与日主同五行=5分,生日主=4分,同日主藏干=3分,合日支=3分,冲日支=1分
+  // 第三步: 归属权层级——大运的字跟日主是什么关系?
+  // 教材R3: 想得到库里的东西→找能制这个字的工具
+  // 教材S2: 控制权层级=我生的>合>制>刑冲破害
   const dWx = wx(dg)
-  if (dWx === riWx) controlScore += 5
   const shengMap: Record<string,string> = {木:'火',火:'土',土:'金',金:'水',水:'木'}
-  if (shengMap[dWx] === riWx) controlScore += 4
-  for (const cg of (CANG_GAN[dz] || [])) {
-    if (wx(cg) === riWx) { controlScore += 3; break }
+  const keMap: Record<string,string> = {木:'土',土:'水',水:'火',火:'金',金:'木'}
+  let ownership = '无', ownDetail = ''
+  // 第一层: 日主生大运（日主控制大运）
+  if (shengMap[riWx] === dWx) {
+    ownership = '我生'
+    ownDetail = '日主生大运的字——你掌控这部运。你想做什么就能做成什么,因为主动权在你手上。这十年你是指挥官。'
   }
-  if (LIU_HE[dz] === zhis[2] || LIU_HE[zhis[2]] === dz) controlScore += 3
-  if (LIU_CHONG[dz] === zhis[2] || LIU_CHONG[zhis[2]] === dz) controlScore += 1
-
-  if (controlScore >= 7) {
-    r.push(`第三步(控制力):控制力强(${controlScore}分)——这步大运你能牢牢掌控局面。不管是事业还是家庭,你都是主动方。`)
-  } else if (controlScore >= 4) {
-    r.push(`第三步(控制力):控制力中等(${controlScore}分)——这步运你能参与但不能主导。需要好的合作者,你一个人撑不起来。`)
-  } else {
-    r.push(`第三步(控制力):控制力弱(${controlScore}分)——这步运你比较被动。不是你不行,是时机不对。建议求稳,别冒险。`)
+  // 第二层: 大运生日主（大运主动给你）
+  if (!ownership || ownership === '无') {
+    if (shengMap[dWx] === riWx) {
+      ownership = '生我'
+      ownDetail = '大运的生来生日主——你是被滋养的。这十年不用费力,好事自动找上门。你做好接的准备就行。'
+    }
   }
+  // 第三层: 天干五合（合=商量得来,不看力量）
+  if (ownership === '无') {
+    for (const hg of gans.slice(2)) {
+      if (ht[dg + hg] || ht[hg + dg]) { ownership = '合'; ownDetail = '大运的天干跟你家里的天干有合——你们是合作关系。不是谁控制谁,是互相需要。好好商量,都能得到。'; break }
+    }
+  }
+  // 第四层: 日主持有大运的库（大运字从日主库出）
+  if (ownership === '无') {
+    const riKu = zhiKu(zhis[2])
+    if (riKu && zhis.includes(riKu)) {
+      ownership = '库控'
+      ownDetail = '大运的字出自你日支的库——你家里有它的根。这十年虽然外面的人来找你办事,但你说了算,因为它的根在你手上。'
+    }
+  }
+  // 第五层: 大运克日主（需要看力量）
+  if (ownership === '无') {
+    if (keMap[dWx] === riWx) {
+      const monthZhi = zhis[1]
+      const monthWx = ZHI_WU_XING[monthZhi]
+      // 看大运是否得月令
+      const dayunInPower = (shengMap[monthWx] === dWx) || (dWx === monthWx)
+      if (dayunInPower) {
+        ownership = '克我强'
+        ownDetail = '大运克你,且大运五行得月令——它比你强。这十年你比较被动,外面的大环境压着你。不是你不行,是时机没到。先守,等机会。'
+      } else {
+        ownership = '克我弱'
+        ownDetail = '大运虽然克你,但它不得月令——能克你但克不深。有压力但有分寸。这十年你辛苦一点,但能扛住。'
+      }
+    }
+  }
+  // 第六层: 日主克大运（日主可以控制）
+  if (ownership === '无') {
+    if (keMap[riWx] === dWx) {
+      const monthZhi = zhis[1]
+      const monthWx = ZHI_WU_XING[monthZhi]
+      const riInPower = (shengMap[monthWx] === riWx) || (riWx === monthWx)
+      if (riInPower) {
+        ownership = '我克强'
+        ownDetail = '你克大运,且你得月令——你能扛住这十年的压力。虽然辛苦,但你能从中赚到钱、得到成长。辛苦是值得的。'
+      } else {
+        ownership = '我克弱'
+        ownDetail = '你克大运,但不得月令——你硬扛。能扛但会累,建议少折腾。' 
+      }
+    }
+  }
+  if (ownership === '无') {
+    ownDetail = '大运的字跟日主没有直接生克制化关系——你只能借。这十年你不是主导方,是跟随者。建议找比你强的合作,借力打力。'
+  }
+  r.push(`第三步(归属权):${dg}${dz}跟你的关系是'${ownership}'。${ownDetail}`)
 
-  // 第四步: 生好字/坏字
-  // 好字=能给日主带来帮助的字(印/比劫/食伤);坏字=给日主压力的字(财/官杀)
+  // 第四步: 大运生到了谁？——教材方法论:看大运生了我家的什么字
+  // 生家里好字=得到,生坏字=消耗,生不到=空
   const dSS = ss(riGan, dg)
-  const isGood = dSS === '印' || dSS === '比肩' || dSS === '劫财' || dSS === '食神'
-  if (isGood) {
-    r.push(`第四步(生好字):${dg}是${dSS}(好字)——这步大运的底色是积极的。你在成长、在积累、在获得。哪怕是辛苦也是值得的辛苦。`)
+  const riZhi3 = zhis[2]
+  const riGan2 = gans[2]
+  // 找出家里被大运生的字
+  let homeFed = '', homeFedDesc = ''
+  const homeGoodWords: Record<string,string> = {
+    '正印':'稳定和认同','偏印':'钻研和灵感','比肩':'真朋友','劫财':'合作伙伴',
+    '食神':'创意','伤官':'作品','正财':'收入','偏财':'投资回报',
+    '正官':'地位','七杀':'突破'
+  }
+  const shengMap3: Record<string,string> = {木:'火',火:'土',土:'金',金:'水',水:'木'}
+  const dWx3 = wx(dg)
+  if (shengMap3[dWx3] === ZHI_WU_XING[riZhi3]) {
+    const zhiSS = sst(riGan, riZhi3)
+    homeFed = zhiSS
+    homeFedDesc = homeGoodWords[zhiSS] || ''
+  }
+  if (!homeFed && shengMap3[dWx3] === wx(riGan2)) {
+    homeFed = dSS
+    homeFedDesc = homeGoodWords[dSS] || ''
+  }
+  if (!homeFed) {
+    // 查有没有其它日时柱的字被大运生
+    for (let hi = 2; hi < 4; hi++) {
+      if (shengMap3[dWx3] === ZHI_WU_XING[zhis[hi]]) {
+        const zhiSS = sst(riGan, zhis[hi])
+        homeFed = zhiSS
+        homeFedDesc = homeGoodWords[zhiSS] || ''
+        break
+      }
+      if (shengMap3[dWx3] === wx(gans[hi])) {
+        const ganSS = ss(riGan, gans[hi])
+        homeFed = ganSS
+        homeFedDesc = homeGoodWords[ganSS] || ''
+        break
+      }
+    }
+  }
+  if (homeFed && homeFedDesc) {
+    r.push(`第四步(生哪里):${dg}${dz}的五行生了你家里的${homeFed}(${homeFedDesc})——送你东西了。这十年你在${homeFedDesc}方面会有收获,不用太费力。`)
   } else {
-    r.push(`第四步(生好字):${dg}是${dSS}(压力字)——这步大运的底色是有压力的。你在付出、在被消耗。但是——压力字运才是真正让你成长的十年。别怕辛苦,怕的是躺平。`)
+    r.push(`第四步(生哪里):${dg}${dz}的五行没生到你家的字——大运没带礼物来。不代表坏事,只是说这十年你要主动去争取,等不来好事。`)
+  }
+
+  // 第五步: 出处追踪——大运的字从原局的哪里来?
+  // 教材方法论:R20出处品质决定层次
+  const kuZhi: Record<string,string> = {辰:'木水库',戌:'火金库',丑:'金水库',未:'木火库'}
+  let originNote = ''
+  // 追大运天干出处:看在原局哪个地支能找到同五行藏干
+  for (let hi = 0; hi < 4; hi++) {
+    const cgs = CANG_GAN[zhis[hi]] || []
+    if (cgs.includes(dg)) {
+      originNote = `${dg}从${zhis[hi]}(${posNames[hi]}柱)出来——${kuZhi[zhis[hi]]||''}`
+      break
+    }
+  }
+  if (!originNote) {
+    // 追大运地支出处:看生大运的地支或同库
+    for (let hi = 0; hi < 4; hi++) {
+      if (shengMap3[ZHI_WU_XING[zhis[hi]]] === ZHI_WU_XING[dz]) {
+        originNote = `${dz}受${zhis[hi]}(${posNames[hi]}柱)所生`
+        break
+      }
+    }
+  }
+  if (!originNote) {
+    for (let hi = 0; hi < 4; hi++) {
+      if (zhiKu(zhis[hi]) === dz) {
+        originNote = `${dz}是${zhis[hi]}(${posNames[hi]}柱)的库`
+        break
+      }
+    }
+  }
+  if (originNote) {
+    r.push(`第五步(出处):追源头→${originNote}。这个运的根在这里。你往这个字对应的方向找机会,事半功倍。`)
+  } else {
+    r.push(`第五步(出处):追源头→大运的字不在原局任何地方有根——这是外来的能量。你要完全凭本事吃饭。`)
   }
 
   // 综合
-  const goodCount = (hasGenInChart ? 1 : 0) + (homeCtrl ? 1 : 0) + (controlScore >= 4 ? 1 : 0) + (isGood ? 1 : 0)
-  if (goodCount >= 3) {
+  const goodSignals = (hasGenInChart ? 1 : 0) + (homeCtrl ? 1 : 0) + 
+    ((ownership === '我生' || ownership === '生我' || ownership === '合' || ownership === '库控' || ownership === '我克强') ? 1 : 0) +
+    (homeFed ? 1 : 0)
+  if (goodSignals >= 3) {
     r.push('')
-    r.push(`综合评估:${goodCount}/4个好信号——这十年是强势大运。该冲就冲,别犹豫。正确的策略是"扩张"。`)
-  } else if (goodCount >= 2) {
+    r.push(`综合评估:${goodSignals}/5个好信号——这十年是强势大运。该冲就冲,别犹豫。正确的策略是"扩张"。`)
+  } else if (goodSignals >= 2) {
     r.push('')
-    r.push(`综合评估:${goodCount}/4个好信号——中等偏上的大运。有机会有挑战。建议"稳中求进",别贪心。`)
+    r.push(`综合评估:${goodSignals}/5个好信号——中等偏上的大运。有机会有挑战。建议"稳中求进",别贪心。`)
   } else {
     r.push('')
-    r.push(`综合评估:${goodCount}/4个好信号——偏弱的大运。这十年以守为主。少折腾、多积累。机会在下步运。`)
+    r.push(`综合评估:${goodSignals}/5个好信号——偏弱的大运。这十年以守为主。少折腾、多积累。机会在下步运。`)
   }
 
   return r
