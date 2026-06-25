@@ -428,15 +428,17 @@ function rootHouseNarr(riGan: string, pills: {gan:string;zhi:string}[]): string[
   const roots = ROOT_MAP[riWx]||[]
   const zhis = pills.map(p=>p.zhi)
   const posNames = ['年','月','日','时']
+  const rtSeen = new Set<string>()
 
   for (let i = 0; i < zhis.length; i++) {
     if (roots.includes(zhis[i])) {
       const riKu = zhiKu(zhis[2])
       const posKu = zhiKu(zhis[i])
       if (riKu && posKu && riKu === posKu) {
-        r.push(`精神上有安全感,住的地方对你很重要。`)
+        const key = 'anquangan' + zhis[i]
+        if (!rtSeen.has(key)) { rtSeen.add(key); r.push(`精神上有安全感,住的地方对你很重要。`) }
       } else if (i === 0) {
-        r.push(`精神上依赖外面,不是本地命。`)
+        if (!rtSeen.has('outside')) { rtSeen.add('outside'); r.push(`精神上依赖外面,不是本地命。`) }
       }
     }
   }
@@ -1554,8 +1556,16 @@ function analyzeFriendMode(riGan: string, pills: {gan:string;zhi:string}[], ss: 
 
   // 先看月干是否是比劫（兄弟姐妹/朋友的核心标志）
   if (isBJ(monthSS)) {
-    // 统计全局比劫数量（仅用于整体判断）
-    const bjCountAll = [0,1,2,3].filter(i => isBJ(ss(riGan, gans[i]))).length
+    // 统计全局比劫数量（天干+地支藏干主气）
+    const bjCountAll = (() => {
+      let cnt = [0,1,2,3].filter(i => isBJ(ss(riGan, gans[i]))).length
+      // 地支藏干主气算比劫
+      for (const z of zhis) {
+        const mainCg = (CANG_GAN[z] || [''])[0]
+        if (mainCg && isBJ(ss(riGan, mainCg))) cnt++
+      }
+      return cnt
+    })()
     if (bjCountAll >= 3) {
       r.push(`你八字比劫有${bjCountAll}个,走到哪都容易聚一群人。但你别糊涂--不是每个叫你"兄弟"的人都真的靠得住。`)
     } else if (bjCountAll >= 1) {
