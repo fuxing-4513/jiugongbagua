@@ -18,6 +18,20 @@ function loadKangxi() {
   if (kangxiStrokes) { return }  // 已加载
   if (kangxiLoading) { return }  // 加载中
   kangxiLoading = true
+  // 先检查sessionStorage缓存
+  try {
+    const cached = sessionStorage.getItem('jiugong_kangxi')
+    if (cached) {
+      const parsed = JSON.parse(cached)
+      if (parsed && typeof parsed === 'object') {
+        kangxiStrokes = parsed
+        kangxiLoading = false
+        kangxiCallbacks.forEach(cb => cb(true))
+        kangxiCallbacks.length = 0
+        return
+      }
+    }
+  } catch {}
   fetch('/data/kangxi.json')
     .then(r => r.json())
     .then(data => {
@@ -26,6 +40,10 @@ function loadKangxi() {
         for (const [ch, st] of data.c) {
           kangxiStrokes[ch] = st
         }
+      }
+      // 缓存到sessionStorage
+      if (Object.keys(kangxiStrokes).length > 0) {
+        try { sessionStorage.setItem('jiugong_kangxi', JSON.stringify(kangxiStrokes)) } catch {}
       }
       kangxiLoading = false
       kangxiCallbacks.forEach(cb => cb(true))
@@ -513,8 +531,12 @@ export default function XingmingClient() {
     wuge: { key: string; val: number; label: string; score: string; title: string; sign: string; meaning: string; type: string; wuxing: string }[];
   } | null>(null)
 
+  const [kangxiLoaded, setKangxiLoaded] = useState(false)
   // 加载康熙字典笔画库（仅首次触发）
-  useEffect(() => { loadKangxi() }, [])
+  useEffect(() => {
+    kangxiCallbacks.push(setKangxiLoaded)
+    loadKangxi()
+  }, [])
 
   const analyze = () => {
     const ln = lastName.trim()
@@ -575,7 +597,11 @@ export default function XingmingClient() {
 
   return (<div className="max-w-3xl mx-auto px-4 py-10">
     <h1 className="text-3xl font-bold text-gold-400 font-serif mb-3">姓名</h1>
-    <p className="text-gray-400 mb-6">姓名打分 & 起名服务</p>
+    <p className="text-gray-400 mb-6">
+      姓名打分 & 起名服务
+      {!kangxiLoaded && <span className="text-amber-600 text-xs ml-2">⏳ 正在加载笔画库...</span>}
+      {kangxiLoaded && kangxiStrokes && <span className="text-xs text-gray-500 ml-2">✓ 已加载</span>}
+    </p>
     
     {/* Tab 切换 */}
     <div className="flex gap-1 bg-dark-700 rounded-lg p-1 mb-6 max-w-md mx-auto">
