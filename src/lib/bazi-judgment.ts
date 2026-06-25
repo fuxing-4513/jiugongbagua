@@ -670,16 +670,61 @@ function jieHun(ri: string, pills: {gan:string;zhi:string}[], gen: string, dg?: 
 
 // ──── 健康 ────
 
-function healthV2(ri: string, pills: {gan:string;zhi:string}[]): string[] {
+/**
+ * v8重写:健康分析 v3
+ * 核心原则:
+ *   1. 月支力量最大(月令),时柱力量第二
+ *   2. 某五行在月时同时出现,力量翻倍
+ *   3. 某五行出现在年柱但无根,视为虚浮/弱
+ *   4. 生克关系链:火生土→土不弱,火克金→金被牵制,火金牵制需看向谁
+ *   5. 甲子水无根+子水被巳午火制 → 木水最弱
+ */
+function healthV3(ri: string, pills: {gan:string;zhi:string}[]): string[] {
   const r: string[] = []
   const g = pills.map(p=>p.gan)
   const z = pills.map(p=>p.zhi)
 
-  // 𓆙 五行计数
+  // ========== 位置权重体系 ==========
+  // 月支力量最大(×4),时柱×3,日支×2,年支×1
+  // 天干权重减半(天干为表,地支为里)
+  const POS_WEIGHT: Record<string,number> = {月:4,时:3,日:2,年:1}
+  const posNames = ['年','月','日','时']
+  
+  // 加权五行力量统计
   const wc: Record<string,number> = {木:0,火:0,土:0,金:0,水:0}
-  for (const v of g) wc[wx(v)]++
-  for (const v of z) wc[ZHI_WU_XING[v]]++
-  const sorted = Object.entries(wc).sort((a,b)=>a[1]-b[1])
+  for (let i = 0; i < g.length; i++) {
+    const posW = POS_WEIGHT[posNames[i]] || 1
+    const gWx = wx(g[i])
+    // 天干权重 = 位置权重的0.6(天干为表)
+    wc[gWx] = (wc[gWx] || 0) + posW * 0.6
+    const zWx = ZHI_WU_XING[z[i]]
+    // 地支权重 = 位置权重(地支为里)
+    wc[zWx] = (wc[zWx] || 0) + posW
+  }
+  
+  // 生克关系修正: 生我者加权重,我克者减权重
+  // 火生土:土受到火生→土不弱
+  // 火克金:金受制→金的力量打折扣
+  const shengMap: Record<string,string> = {木:'火',火:'土',土:'金',金:'水',水:'木'}
+  const keMap: Record<string,string> = {木:'土',火:'金',土:'水',金:'木',水:'火'}
+  
+  // 生护关系: 某五行有生它的五行在月时→该五行不减弱
+  // 克制关系: 某五行有克它的五行在月时→该五行打8折
+  for (const wxName of Object.keys(wc)) {
+    const shengBy = Object.entries(shengMap).find(([_,v]) => v === wxName)?.[0]  // 生我的
+    const keBy = Object.entries(keMap).find(([_,v]) => v === wxName)?.[0]  // 克我的
+    
+    if (shengBy && wc[shengBy] >= 3) {
+      // 生我的五行在月时有力→我不弱
+      wc[wxName] = wc[wxName] * 1.3
+    }
+    if (keBy && wc[keBy] >= 4) {
+      // 克我的五行极旺(在月令)→我被压制
+      wc[wxName] = wc[wxName] * 0.7
+    }
+  }
+
+  const sorted = Object.entries(wc).sort((a,b) => a[1] - b[1])
   const weakest = sorted[0]
   const strongest = sorted[sorted.length-1]
 
@@ -732,12 +777,12 @@ function healthV2(ri: string, pills: {gan:string;zhi:string}[]): string[] {
 
     // 弱五行提示
     const go = WX_ORGAN[ganWx]
-    if (go && weakest && wc[ganWx] <= 2) {
-      r.push(`  ⚠ ${ganWx}偏弱（${wc[ganWx]}个）→重点养护${go[0]}/${go[1]}，注意${go[4]}`)
+    if (go && weakest && wc[ganWx] <= 1.5) {
+      r.push(`  ⚠ ${ganWx}偏弱（${wc[ganWx].toFixed(1)}）→重点养护${go[0]}/${go[1]}，注意${go[4]}`)
     }
     const zo = WX_ORGAN[zhiWx]
-    if (zo && strongest && wc[zhiWx] >= 4 && zhiWx !== ganWx) {
-      r.push(`  ⚠ ${zhiWx}偏旺（${wc[zhiWx]}个）→${zhiWx}过旺易使${zo[0]}郁结`)
+    if (zo && strongest && wc[zhiWx] >= 6 && zhiWx !== ganWx) {
+      r.push(`  ⚠ ${zhiWx}偏旺（${wc[zhiWx].toFixed(1)}）→${zhiWx}过旺易使${zo[0]}郁结`)
     }
   }
 
@@ -772,9 +817,13 @@ function healthV2(ri: string, pills: {gan:string;zhi:string}[]): string[] {
     }
   }
 
-  // 𓆙 第四步：养生总结
+  // 𓆙 第四步：养生总结——给出系统性建议
   r.push('')
   r.push('💡 先天体质参考——宫位定位置，五行看脏腑，刑冲找隐患。具体以实际身体为准。')
+  r.push('')
+  r.push('【九宫健康提醒】五行强弱看月令:月支的五行力量最大,其次时柱。')
+  r.push('年柱的五行如果没有根(地支无同类藏干),视为虚浮无力。')
+  r.push('同时要看生克链:火能生土→土有人养不弱;火能克金→金有人管力量打折。')
 
   return r
 }
@@ -1219,7 +1268,7 @@ export function analyzeJudgment(
   // ──── 其他 ────
   const parentNarrResult = parentV2(riGan, pills)
   const childrenNarrResult = childrenV2(riGan, pills)
-  const healthNarrResult = healthV2(riGan, pills)
+  const healthNarrResult = healthV3(riGan, pills)
   const prefNarrResult = pref(riGan, pills)
   const twoSignsResult = twoSignsJudge(riGan, pills, gender)
   const rootHouseResult = rootHouseNarr(riGan, pills)
