@@ -3197,17 +3197,17 @@ function daYunFourStep(
   const riWx = wx(riGan)
   const posNames = ['年','月','日','时']
 
-  r.push(`━━━ 大运评估四步法:${dg}${dz}运 ━━━`)
+  r.push(`━━━ ${dg}${dz}运 ━━━`)
 
   // 第一步: 原局有/无
   const hasGenInChart = isGanInChart(dg, gans, zhis)
   const hasZhiInChart = zhis.includes(dz)
   if (hasGenInChart && hasZhiInChart) {
-    r.push(`第一步(原局有/无):${dg}${dz}原局就有——这叫"道上运"。这十年你走在自己的主道上,做什么都顺,左右逢源。来自原局的字会有日支参与。`)
+    r.push(`${dg}${dz}这组干支,你原局就带着。这叫"道上运"——你走在自己熟悉的路上。这十年你左右逢源,做什么都顺。能借到家里日支的力量。`)
   } else if (hasGenInChart || hasZhiInChart) {
-    r.push(`第一步(原局有/无):${dg}${dz}半个在原局——半生半熟。有的方面你熟悉(天干/地支),有的方面是新领域。这十年你在熟悉的赛道里做新的事。`)
+    r.push(`${dg}${dz}这组干支,你原局只有一半——要么天干熟要么地支熟。这叫"半生半熟"。这十年你在熟悉的领域做新的事,别完全换赛道。`)
   } else {
-    r.push(`第一步(原局有/无):${dg}${dz}原局没有——这是外来运。你进入全新赛道。方向对了赚钱,方向错了翻车。这十年你要借别人的船出海,别自己造。`)
+    r.push(`${dg}${dz}这组干支,你原局没有——这是外来运。方向对了赚钱,方向错了翻车。这十年你得借别人的船出海,别自己造船从头来。`)
   }
 
   // 第二步: 家里家外控制（生>合>穿>冲>刑 多层级）
@@ -3261,9 +3261,9 @@ function daYunFourStep(
     '刑':'这十年大运跟你家刑上了——互相较劲互相学。你跟外面的关系微妙,既想合作又在暗自较劲。合作要谨慎,钱要算清楚。'
   }
   if (homeCtrl) {
-    r.push(`第二步(家里家外):${dg}${dz}跟你家里是'${homeType}'的关系。${strengthMap[homeType]||'你有主导权。'}`)
+    r.push(`${dg}${dz}跟你家里是'${homeType}'的关系。${strengthMap[homeType]||'你有主导权。'}`)
   } else {
-    r.push(`第二步(家里家外):${dg}${dz}跟你家里没有直系关系——参与但不主导。这十年你要借别人的船出海。记住:这个运的字从哪来的,你就往哪个方向找。`)
+    r.push(`${dg}${dz}跟你家里没有直系关系——参与但不主导。这十年你要借别人的船出海。这个运的字从哪来的,你就往那个方向找。`)
   }
 
   // 第三步: 归属权层级——大运的字跟日主是什么关系?
@@ -3333,14 +3333,11 @@ function daYunFourStep(
   if (ownership === '无') {
     ownDetail = '大运的字跟日主没有直接生克制化关系——你只能借。这十年你不是主导方,是跟随者。建议找比你强的合作,借力打力。'
   }
-  r.push(`第三步(归属权):${dg}${dz}跟你的关系是'${ownership}'。${ownDetail}`)
+  r.push(`${dg}${dz}跟你是'${ownership}'的关系。${ownDetail}`)
 
-  // 第四步: 大运生到了谁？——教材方法论:看大运生了我家的什么字
-  // 生家里好字=得到,生坏字=消耗,生不到=空
-  const dSS = ss(riGan, dg)
+  // 第四步: 大运生到了谁？——看大运干支生家里的字
   const riZhi3 = zhis[2]
   const riGan2 = gans[2]
-  // 找出家里被大运生的字
   let homeFed = '', homeFedDesc = ''
   const homeGoodWords: Record<string,string> = {
     '正印':'稳定和认同','偏印':'钻研和灵感','比肩':'真朋友','劫财':'合作伙伴',
@@ -3349,41 +3346,49 @@ function daYunFourStep(
   }
   const shengMap3: Record<string,string> = {木:'火',火:'土',土:'金',金:'水',水:'木'}
   const dWx3 = wx(dg)
-  if (shengMap3[dWx3] === ZHI_WU_XING[riZhi3]) {
-    const zhiSS = sst(riGan, riZhi3)
-    homeFed = zhiSS
-    homeFedDesc = homeGoodWords[zhiSS] || ''
-  }
-  if (!homeFed && shengMap3[dWx3] === wx(riGan2)) {
-    homeFed = dSS
-    homeFedDesc = homeGoodWords[dSS] || ''
-  }
-  if (!homeFed) {
-    // 查有没有其它日时柱的字被大运生
-    for (let hi = 2; hi < 4; hi++) {
-      if (shengMap3[dWx3] === ZHI_WU_XING[zhis[hi]]) {
-        const zhiSS = sst(riGan, zhis[hi])
-        homeFed = zhiSS
-        homeFedDesc = homeGoodWords[zhiSS] || ''
-        break
+  const dZhiWx3 = ZHI_WU_XING[dz]
+
+  // 收集所有被生的字及其十神
+  const fedResults: {tenShen:string; desc:string; weight:number}[] = []
+  for (let hi = 2; hi < 4; hi++) {
+    const hGan = gans[hi], hZhi = zhis[hi]
+    // 检查天干
+    if (shengMap3[dWx3] === wx(hGan) || shengMap3[dZhiWx3] === wx(hGan)) {
+      const ts = ss(riGan, hGan)
+      if (!fedResults.some(r => r.tenShen === ts)) {
+        const w = (shengMap3[dWx3] === wx(hGan) && shengMap3[dZhiWx3] === wx(hGan)) ? 5 : 3
+        fedResults.push({tenShen: ts, desc: homeGoodWords[ts]||'', weight: w})
       }
-      if (shengMap3[dWx3] === wx(gans[hi])) {
-        const ganSS = ss(riGan, gans[hi])
-        homeFed = ganSS
-        homeFedDesc = homeGoodWords[ganSS] || ''
-        break
+    }
+    // 检查地支
+    if (shengMap3[dWx3] === ZHI_WU_XING[hZhi] || shengMap3[dZhiWx3] === ZHI_WU_XING[hZhi]) {
+      const ts2 = sst(riGan, hZhi)
+      if (!fedResults.some(r => r.tenShen === ts2)) {
+        const w2 = (shengMap3[dWx3] === ZHI_WU_XING[hZhi] && shengMap3[dZhiWx3] === ZHI_WU_XING[hZhi]) ? 5 : 2
+        fedResults.push({tenShen: ts2, desc: homeGoodWords[ts2]||'', weight: w2})
       }
     }
   }
+  // 按权重和十神优先级: 印>财>食伤>官杀>比劫
+  const tsPriority: Record<string,number> = {
+    '正印':10,'偏印':9,'正财':8,'偏财':7,
+    '食神':6,'伤官':5,'正官':4,'七杀':3,
+    '比肩':2,'劫财':1
+  }
+  fedResults.sort((a,b) => (b.weight + (tsPriority[b.tenShen]||0)) - (a.weight + (tsPriority[a.tenShen]||0)))
+  if (fedResults.length > 0) {
+    homeFed = fedResults[0].tenShen
+    homeFedDesc = fedResults[0].desc
+  }
   if (homeFed && homeFedDesc) {
-    r.push(`第四步(生哪里):${dg}${dz}的五行生了你家里的${homeFed}(${homeFedDesc})——送你东西了。这十年你在${homeFedDesc}方面会有收获,不用太费力。`)
+    r.push(`${dg}${dz}的五行生了你家的${homeFed}——送你东西了。这十年你在${homeFedDesc}方面会有收获,不用太费力。`)
   } else {
-    r.push(`第四步(生哪里):${dg}${dz}的五行没生到你家的字——大运没带礼物来。不代表坏事,只是说这十年你要主动去争取,等不来好事。`)
+    r.push(`${dg}${dz}的五行没生到你家里的字——大运没带礼物来。不代表坏事,只是说这十年你等不来现成的好事,每一样都得主动去争取。`)
   }
 
   // 第五步: 出处追踪——大运的字从原局的哪里来?
   // 教材方法论:R20出处品质决定层次
-  const kuZhi: Record<string,string> = {辰:'木水库',戌:'火金库',丑:'金水库',未:'木火库'}
+  const kuZhi: Record<string,string> = {'辰':'木水库','戌':'火金库','丑':'金水库','未':'木火库','寅':'木禄位','申':'金禄位','巳':'火禄位','亥':'水禄位'}
   let originNote = ''
   // 追大运天干出处:看在原局哪个地支能找到同五行藏干
   for (let hi = 0; hi < 4; hi++) {
@@ -3411,25 +3416,25 @@ function daYunFourStep(
     }
   }
   if (originNote) {
-    r.push(`第五步(出处):追源头→${originNote}。这个运的根在这里。你往这个字对应的方向找机会,事半功倍。`)
+    r.push(`出处在你原局:${originNote}。这个运的能量不是凭空来的——你八字里原本就有这个根。往这个方向找机会,事半功倍。`)
   } else {
-    r.push(`第五步(出处):追源头→大运的字不在原局任何地方有根——这是外来的能量。你要完全凭本事吃饭。`)
+    r.push(`出处不在你原局:这个运的字你原局里没有根——能量是外来的。你要完全凭本事吃饭,借别人的船出海。这十年自己造轮子,别等现成的。`)
   }
 
   // 综合
+  let finalVerdict = ''
   const goodSignals = (hasGenInChart ? 1 : 0) + (homeCtrl ? 1 : 0) + 
     ((ownership === '我生' || ownership === '生我' || ownership === '合' || ownership === '库控' || ownership === '我克强') ? 1 : 0) +
     (homeFed ? 1 : 0)
   if (goodSignals >= 3) {
-    r.push('')
-    r.push(`综合评估:${goodSignals}/5个好信号——这十年是强势大运。该冲就冲,别犹豫。正确的策略是"扩张"。`)
+    finalVerdict = '这十年是你的强势大运。该冲就冲,别犹豫。你想做什么就去做,老天爷站你这边。'
   } else if (goodSignals >= 2) {
-    r.push('')
-    r.push(`综合评估:${goodSignals}/5个好信号——中等偏上的大运。有机会有挑战。建议"稳中求进",别贪心。`)
+    finalVerdict = '这十年是中等偏上的大运。有机会有挑战。建议稳中求进,别贪大。一步一个脚印,走稳了比走快了重要。'
   } else {
-    r.push('')
-    r.push(`综合评估:${goodSignals}/5个好信号——偏弱的大运。这十年以守为主。少折腾、多积累。机会在下步运。`)
+    finalVerdict = '这十年偏弱。以守为主,少折腾多积累。不是你不能干,是时机没到。蛰伏是为了下一跳得更高。'
   }
+  r.push('')
+  r.push(finalVerdict)
 
   return r
 }
