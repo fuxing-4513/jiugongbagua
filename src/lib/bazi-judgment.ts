@@ -935,13 +935,9 @@ function bodyStrength(riGan: string, gans: string[], zhis: string[]): '身强'|'
 /** 旺相休囚死 + 身强身弱综合分析 */
 function bodyAndSeasonAnalysis(riGan: string, gans: string[], zhis: string[]): string[] {
   const r: string[] = []; const riWx = wx(riGan); const monthZhi = zhis[1]
-  const season = WX_SEASON[monthZhi]; const status = season?.[riWx] || ''
+  const season = WX_SEASON[monthZhi]
   const body = bodyStrength(riGan, gans, zhis)
-  const stDesc: Record<string,string> = {旺:'气最足,先天底子厚。',相:'气在升涨,有季令支撑。',休:'能量释放完在休息,先天偏弱需补。',囚:'能量被压制,先天差容易被人压。',死:'气最弱,先天最差一档全靠后天。'}
-  const tgMap: Record<string,string> = {木:'食伤',火:'财',土:'官杀',金:'印',水:'比劫'}
-
-  r.push(`你出生在${monthZhi}月。${riGan}(${riWx})为${status}状态,${stDesc[status]||''}`)
-  r.push(`【得令】在${monthZhi}月,${riWx}的状态为"${status}"`)
+  r.push(`你出生在${monthZhi}月。`)
 
   // 得地
   const roots: string[] = []
@@ -950,14 +946,12 @@ function bodyAndSeasonAnalysis(riGan: string, gans: string[], zhis: string[]): s
     if ((STRONG_ROOTS[riGan]||[]).includes(zhis[i])) roots.push(`${zhis[i]}(${pos}·强根)`)
     else if ((MEDIUM_ROOTS[riGan]||[]).includes(zhis[i])) roots.push(`${zhis[i]}(${pos}·中根)`)
   }
-  if (roots.length > 0) r.push(`【得地】根气:${roots.join('、')}。天干只是表象,真正看地支。月时根最有力,年上根虚浮。`)
-  else r.push('【得地】无根——天干再多印比也是虚浮。地支无根等于没房子住。')
+  if (roots.length > 0) r.push(`你的${riGan}在地支有根,底气相对充足。`)
+  else r.push(`你的${riGan}在地支无根——需要借力发展。`)
 
   // 月时核心分析
   const mZhi = zhis[1]; const hZhi = zhis[3]
   const mWx = zhiWx(mZhi); const hWx = zhiWx(hZhi)
-  const mState = season?.[mWx] || ''; const hState = season?.[hWx] || ''
-
   // 判断月时是否克泄耗日主
   const consumeMap = ({木:['火','土','金'],火:['土','金','水'],土:['金','水','木'],金:['水','木','火'],水:['木','火','土']}[riWx]||[])
   const mKill = consumeMap.includes(mWx) ? '克泄耗' : '帮扶'
@@ -966,24 +960,15 @@ function bodyAndSeasonAnalysis(riGan: string, gans: string[], zhis: string[]): s
   const yWx = zhiWx(yZhi); const rWx2 = zhiWx(rZhi)
   const yKill = consumeMap.includes(yWx) ? '克泄耗' : '帮扶'
   const rKill = consumeMap.includes(rWx2) ? '克泄耗' : '帮扶'
-  r.push(`【月时核心】月支${mZhi}(${mWx})${mKill}日主,状态${mState}。时支${hZhi}(${hWx})${hKill}日主,状态${hState}。月时是八字力量核心,它们对日主的关系决定了大方向。`)
-  r.push(`年支${yZhi}(${yWx})${yKill}日主,但年支级别最高、影响最大(祖荫/家族/大环境),然而在身强身弱上力量最小。日支${rZhi}(${rWx2})${rKill}日主,力量也小。`)
+  r.push(`你先天状态:月柱${mZhi}对日主总体${mKill === '克泄耗' ? '牵制较多' : '有助力'},时柱${hZhi}也${hKill === '克泄耗' ? '需要留意' : '能帮到你'}。`)
+  r.push(`年支${yZhi}是你祖辈环境的基调,大环境对你${yKill === '克泄耗' ? '不算友好' : '还算友善'}。`)
 
-  // 各五行节令走势
-  if (season) {
-    const sorted = Object.entries(season).filter(([k])=>k!==riWx)
-      .sort((a,b)=>({旺:5,相:4,休:3,囚:2,死:1}[a[1]]||0)-({旺:5,相:4,休:3,囚:2,死:1}[b[1]]||0)).reverse()
-    const desc: Record<string,string> = {旺:'这个季节最旺,这方面运势好的时候好,坏的时候更坏。',相:'较旺,有助力但不至于过度。',休:'在休息,能量收敛不显山不露水。',囚:'被压制,就算有也发挥不出来。',死:'最弱,这方面的事先放一放。'}
-    for (const [wxName, st] of sorted.slice(0,3)) {
-      const tg = tgMap[wxName]
-      r.push(`【${wxName}·${tg}】${wxName}在${monthZhi}月为"${st}"。${desc[st]||''}`)
-    }
-  }
+
 
   // 综合
   const bodyCN: Record<string,string> = {身强:'自身力量充足,能担财担官。适合管理、创业、竞争型行业。',身弱:'自身力量不足,需要印(靠山/学历)和比劫(朋友/团队)。适合专业路线,别贪大。',身中和:'自身力量适中,进退有度。路宽但容易迷茫,需深耕一个方向。'}
   r.push(`综合判断:你的八字${body}。${bodyCN[body]||''}`)
-  r.push(`记住:天干只是表象,地支是真正的载体。身强身弱的核心在看月时,年支级别高但力量小在身强身弱上。`)
+
 
   return r
 }
@@ -1051,19 +1036,19 @@ function pref(ri: string, pills: {gan:string;zhi:string}[]): string[] {
   if (topTG && topTG[1] >= 1.5) r.push(tenGodMeaning(topTG[0], body))
 
   // [4] 月时柱权重说明
-  r.push(`月柱${z[1]}(${zhiWx(z[1])})力量最大--外界对你的影响。时柱${z[3]}(${zhiWx(z[3])})力量第二--内心和结局。`)
+  r.push(`你受外界环境的影响较大,月柱${z[1]}给你打下了人生基调。`)
 
   // [5] 五行强弱总结
   if (strong && weak && strong[0] !== weak[0]) {
     if (body === '身弱') {
       const isKe = {'水':'土','火':'水','木':'金','金':'火','土':'木'}[riWx] === strong[0]
-      if (isKe) r.push(`八字${strong[0]}最强(分${strong[1]})--克制你的日主${riWx}。生活压力大,很多事不受你控制。`)
-      else if (['水','火','木','金','土'][['木','火','土','金','水'].indexOf(riWx)] === strong[0]) r.push(`八字${strong[0]}最强(分${strong[1]})--这是生你的力量,有靠山。`)
-      else r.push(`八字${strong[0]}最强(分${strong[1]})。`)
+      if (isKe) r.push(`八字${strong[0]}最强--克制你的日主${riWx}。生活压力大,很多事不受你控制。`)
+      else if (['水','火','木','金','土'][['木','火','土','金','水'].indexOf(riWx)] === strong[0]) r.push(`八字${strong[0]}最强--这是生你的力量,有靠山。`)
+      else r.push(`八字${strong[0]}最强。`)
     } else {
-      r.push(`八字${strong[0]}最强(分${strong[1]})--你的底色。方向选对了就是天赋。`)
+      r.push(`八字${strong[0]}最强--你的底色。方向选对了就是天赋。`)
     }
-    r.push(`${weak[0]}最弱(分${weak[1]})--这方面要补。`)
+    r.push(`${weak[0]}最弱--这方面要补。`)
   }
 
   return r
@@ -1804,9 +1789,9 @@ function analyzeTechAbility(riGan: string, pills: {gan:string;zhi:string}[]): st
   const ssWxVal = ssWx[riWxVal] || ''
   const sheng: Record<string, string[]> = {木:['火'],火:['土'],土:['金'],金:['水'],水:['木']}
   if (ssWxVal && (sheng[monthWx]||[]).includes(ssWxVal)) {
-    r.push(`月令${monthZhi}(${monthWx})生你的食伤(${ssWxVal})--你技术处于旺相状态。你对自己的手艺有追求,精益求精,容不得马虎。`)
+    r.push(`你对技术有追求,精益求精,容不得马虎。这个月对你有利,手艺上会有提升。`)
   } else if (ssWxVal) {
-    r.push(`月令${monthZhi}(${monthWx})对你的食伤(${ssWxVal})不算生助--你的技术平平,够用但不算拔尖。要多花时间在专业上磨练。`)
+    r.push(`你的技术平平,够用但不算拔尖。要多花时间在专业上磨练。`)
   }
 
   const ht: Record<string, string> = {'甲己':'合','乙庚':'合','丙辛':'合','丁壬':'合','戊癸':'合'}
@@ -2605,15 +2590,15 @@ function enterpriseAnalysis(riGan: string, gans: string[], zhis: string[]): stri
   const monthSS = sst(riGan, gans[1])
   const monthZhi = zhis[1]
   if (monthSS === '财') {
-    r.push(`月令${monthZhi}是财—你所在的市场是"钱驱动"的。在这个行业,谁有钱谁说了算。你的企业要围绕"赚钱"来设计产品。`)
+    r.push(`你所在的市场是"钱驱动"的。在这个行业,谁有钱谁说了算。你的企业要围绕"赚钱"来设计产品。`)
   } else if (monthSS === '官杀') {
-    r.push(`月令${monthZhi}是官杀—你所在的市场是"规则驱动"的。这个行业吃的是牌照、资质、关系。没有门槛你反而做不起来。`)
+    r.push(`你所在的市场是"规则驱动"的。这个行业吃的是牌照、资质、关系。没有门槛你反而做不起来。`)
   } else if (monthSS === '印') {
-    r.push(`月令${monthZhi}是印—你所在的市场是"品牌驱动"的。在这个行业,口碑和信任比钱重要。你的企业要舍得在品牌上投入。`)
+    r.push(`你所在的市场是"品牌驱动"的。在这个行业,口碑和信任比钱重要。你的企业要舍得在品牌上投入。`)
   } else if (monthSS === '食伤') {
-    r.push(`月令${monthZhi}是食伤—你所在的市场是"技术驱动"的。产品更新快,你得不断学习才能跟得上。`)
+    r.push(`你所在的市场是"技术驱动"的。产品更新快,你得不断学习才能跟得上。`)
   } else if (monthSS === '比劫') {
-    r.push(`月令${monthZhi}是比劫—你所在的市场竞争激烈。大家都在抢同一块蛋糕,你能不能活下来看你的差异化。`)
+    r.push(`你所在的市场竞争激烈。大家都在抢同一块蛋糕,你能不能活下来看你的差异化。`)
   }
 
   const riZhi = zhis[2]
@@ -2635,15 +2620,15 @@ function enterpriseAnalysis(riGan: string, gans: string[], zhis: string[]): stri
   const hourZhi = zhis[3]
   const hourSS = sst(riGan, hourGan)
   if (hourSS === '印') {
-    r.push(`时柱${hourGan}${hourZhi}是印—你的员工偏文职,稳定但效率不高。适合做内勤和后台支持,不适合冲在一线。`)
+    r.push(`你的员工偏文职,稳定但效率不高。适合做内勤和后台支持,不适合冲在一线。`)
   } else if (hourSS === '财') {
-    r.push(`时柱${hourGan}${hourZhi}是财—你的员工业绩导向,执行力强。但他们对钱敏感,钱不到位就走人。你的企业要建立好激励机制。`)
+    r.push(`你的员工业绩导向,执行力强。但他们对钱敏感,钱不到位就走人。你的企业要建立好激励机制。`)
   } else if (hourSS === '官杀') {
-    r.push(`时柱${hourGan}${hourZhi}是官杀—你的员工有纪律性,但流动性也大。对管理层的要求高,管不好容易出问题。`)
+    r.push(`你的员工有纪律性,但流动性也大。对管理层的要求高,管不好容易出问题。`)
   } else if (hourSS === '食伤') {
-    r.push(`时柱${hourGan}${hourZhi}是食伤—你的员工有创意有想法,但不好管。他们需要自由发挥的空间,管太死就跑了。适合创意型公司。`)
+    r.push(`你的员工有创意有想法,但不好管。他们需要自由发挥的空间,管太死就跑了。适合创意型公司。`)
   } else if (hourSS === '比劫') {
-    r.push(`时柱${hourGan}${hourZhi}是比劫—你的员工跟你是"兄弟"关系。好的一面是忠诚敢拼,坏的一面是没有规矩,容易抱团。`)
+    r.push(`你的员工跟你是"兄弟"关系。好的一面是忠诚敢拼,坏的一面是没有规矩,容易抱团。`)
   }
 
   const hourGanWx = wx(hourGan)
