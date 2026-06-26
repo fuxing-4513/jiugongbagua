@@ -2,13 +2,16 @@
 
 import { useState, useMemo, useEffect } from 'react'
 
-// ── 类型 ──
-interface CharBrief { z: string; p: string; j: boolean }
-interface StrokeGroup { stroke: number; chars: CharBrief[]; jiCount: number }
-interface ElementData {
-  el: string; name: string; total: number; ji: number
-  byStroke: Record<number, CharBrief[]>
+// ── 类型（匹配实际 JSON 结构）──
+/** wuxing-{el}.json 中单字字段 */
+interface ListChar {
+  zi: string
+  pinyin: string
+  bihua: number
+  wuxing: string
+  isJi: boolean
 }
+/** wuxing-detail-{el}.json 中详情字段 */
 interface CharDetail {
   zi: string
   pinyin?: string; zhuyin?: string; wubi?: string; cangjie?: string
@@ -20,10 +23,10 @@ interface CharDetail {
   zixingNum?: number; zixingGender?: string; jibenJieshi?: string
   error?: string
   // 深度古籍解析（文库产出）
-  gujiYuanyuan?: string      // 古籍渊源：说文/康熙原文
-  zixingYanbian?: string     // 字形演变简述
-  wuxingYiju?: string        // 五行属性依据
-  mingjuShiyi?: string       // 命局适配建议
+  gujiYuanyuan?: string
+  zixingYanbian?: string
+  wuxingYiju?: string
+  mingjuShiyi?: string
 }
 interface DetailData { el: string; name: string; total: number; chars: CharDetail[] }
 
@@ -44,7 +47,7 @@ const EL_TEXT: Record<string, string> = {
 
 export default function NamingChars() {
   const [activeEl, setActiveEl] = useState<string>('jin')
-  const [listData, setListData] = useState<ElementData | null>(null)
+  const [listData, setListData] = useState<{ element: string; elementName: string; total: number; chars: ListChar[] } | null>(null)
   const [detailData, setDetailData] = useState<DetailData | null>(null)
   const [loading, setLoading] = useState(true)
   const [search, setSearch] = useState('')
@@ -55,11 +58,9 @@ export default function NamingChars() {
   // 加载列表 & 详情数据
   useEffect(() => {
     const controller = new AbortController()
-    // 清空旧数据（同步调用以保证 UI 立即响应）
-    setListData(null) // eslint-disable-line react-hooks/set-state-in-effect
+    setListData(null)
     setDetailData(null)
-    
-    // 并行加载列表和详情
+
     Promise.all([
       fetch(`/data/wuxing-${activeEl}.json`, { signal: controller.signal }).then(r => r.json()),
       fetch(`/data/wuxing-detail-${activeEl}.json`, { signal: controller.signal }).then(r => r.json()).catch(() => null),
@@ -73,25 +74,58 @@ export default function NamingChars() {
     return () => controller.abort()
   }, [activeEl])
 
-  // 构建笔画分组
-  const strokeGroups: StrokeGroup[] = useMemo(() => {
-    if (!listData) return []
-    const groups: StrokeGroup[] = []
-    const strokes = Object.keys(listData.byStroke).map(Number).sort((a, b) => a - b)
+  // 从 listData.chars 动态构建笔画分组（不再依赖不存在的 byStroke 字段）
+  const strokeGroups = useMemo(() => {
+    if (!listData?.chars) return []
+    const map = new Map<number, ListChar[]>()
+    for (const c of listData.chars) {
+      const s = c.bihua
+      if (!map.has(s)) map.set(s, [])
+      map.get(s)!.push(c)
+    }
+    const strokes = Array.from(map.keys()).sort((a, b) => a - b)
+    const groups: { stroke: number; chars: ListChar[]; jiCount: number }[] = []
+
     for (const s of strokes) {
-      let chars = listData.byStroke[s] || []
-      if (jiOnly) chars = chars.filter(c => c.j)
+      if (activeStroke !== null && s !== activeStroke) continue
+      let chars = map.get(s)!
+      if (jiOnly) chars = chars.filter(c => c.isJi)
       if (search) {
         const q = search.toLowerCase()
-        chars = chars.filter(c => c.z.includes(q) || c.p.toLowerCase().includes(q))
+        chars = chars.filter(c =>
+          c.zi.includes(q) || (c.pinyin && c.pinyin.toLowerCase().includes(q))
+        )
       }
-      if (activeStroke !== null && s !== activeStroke) continue
       if (chars.length > 0) {
-        groups.push({ stroke: s, chars, jiCount: chars.filter(c => c.j).length })
+        groups.push({ stroke: s, chars, jiCount: chars.filter(c => c.isJi).length })
       }
     }
     return groups
   }, [listData, search, jiOnly, activeStroke])
+
+  // 计算总吉字数
+  const jiTotal = useMemo(() => {
+    if (!listData?.chars) return 0
+    return listData.chars.filter(c => c.isJi).length
+  }, [listData])
+
+  // 可用笔画列表（用于导航栏）
+  const strokeKeys = useMemo(() => {
+    if (!listData?.chars) return []
+    const set = new Set<number>()
+    for (const c of listData.chars) set.add(c.bihua)
+    return Array.from(set).sort((a, b) => a - b)
+  }, [listData])
+
+  // 笔画字数（用于导航栏）
+  const strokeCounts = useMemo(() => {
+    if (!listData?.chars) return {} as Record<number, number>
+    const m: Record<number, number> = {}
+    for (const c of listData.chars) {
+      m[c.bihua] = (m[c.bihua] || 0) + 1
+    }
+    return m
+  }, [listData])
 
   // 点击字 → 查找详情
   const handleCharClick = (z: string) => {
@@ -102,14 +136,10 @@ export default function NamingChars() {
         return
       }
     }
-    // 没有详情数据，显示基本信息
-    let found: CharBrief | undefined
-    for (const stroke of Object.keys(listData?.byStroke || {})) {
-      found = listData?.byStroke[Number(stroke)]?.find(c => c.z === z)
-      if (found) break
-    }
+    // 没有详情数据时从列表查拼音
+    const found = listData?.chars.find(c => c.zi === z)
     if (found) {
-      setSelectedZi({ zi: z, pinyin: found.p })
+      setSelectedZi({ zi: z, pinyin: found.pinyin })
     }
   }
 
@@ -146,8 +176,8 @@ export default function NamingChars() {
         <div className="flex items-center gap-3 text-xs text-gray-400">
           {listData && (
             <>
-              <span>属{listData.name}字：<b className="text-gray-200">{listData.total.toLocaleString()}</b></span>
-              <span>吉字：<b className="text-green-400">{listData.ji.toLocaleString()}</b></span>
+              <span>属{listData.elementName}字：<b className="text-gray-200">{listData.total.toLocaleString()}</b></span>
+              <span>吉字：<b className="text-green-400">{jiTotal.toLocaleString()}</b></span>
             </>
           )}
         </div>
@@ -172,9 +202,9 @@ export default function NamingChars() {
       )}
 
       {/* 笔画导航 */}
-      {listData && !loading && (
+      {strokeKeys.length > 0 && !loading && (
         <div className="flex flex-wrap gap-1">
-          {Object.keys(listData.byStroke).map(Number).sort((a, b) => a - b).map(s => (
+          {strokeKeys.map(s => (
             <button key={s} onClick={() => setActiveStroke(activeStroke === s ? null : s)}
               className={`px-2 py-0.5 text-[10px] rounded border transition-all ${
                 activeStroke === s
@@ -182,7 +212,7 @@ export default function NamingChars() {
                   : 'border-dark-600 text-gray-500 hover:border-dark-500 hover:text-gray-400'
               }`}
             >
-              {s}画 <span className="opacity-60">({(listData.byStroke[s] || []).length})</span>
+              {s}画 <span className="opacity-60">({(strokeCounts[s] || 0)})</span>
             </button>
           ))}
         </div>
@@ -208,20 +238,20 @@ export default function NamingChars() {
               <div className="p-2 grid grid-cols-6 sm:grid-cols-8 md:grid-cols-10 lg:grid-cols-12 gap-1">
                 {group.chars.map(c => (
                   <button
-                    key={c.z}
-                    onClick={() => handleCharClick(c.z)}
+                    key={c.zi}
+                    onClick={() => handleCharClick(c.zi)}
                     className={`relative flex flex-col items-center justify-center p-1.5 rounded-lg border transition-all text-center min-h-[44px] ${
-                      selectedZi?.zi === c.z
+                      selectedZi?.zi === c.zi
                         ? 'border-gold-500 bg-gold-500/15 shadow-sm shadow-gold-500/10 ring-1 ring-gold-500/30'
-                        : c.j
+                        : c.isJi
                           ? 'border-dark-500 hover:border-gold-500/50 hover:bg-dark-600'
                           : 'border-dark-600 hover:border-dark-500 hover:bg-dark-700'
                     }`}
-                    title={`${c.p} · ${c.z}${c.j ? ' (吉)' : ''} — 点击查看详情`}
+                    title={`${c.pinyin} · ${c.zi}${c.isJi ? ' (吉)' : ''} — 点击查看详情`}
                   >
-                    <span className="text-sm font-serif text-gray-200 leading-tight">{c.z}</span>
-                    <span className="text-[9px] text-gray-500 leading-tight truncate max-w-full">{c.p}</span>
-                    {c.j && (
+                    <span className="text-sm font-serif text-gray-200 leading-tight">{c.zi}</span>
+                    <span className="text-[9px] text-gray-500 leading-tight truncate max-w-full">{c.pinyin}</span>
+                    {c.isJi && (
                       <span className="absolute -top-0.5 -right-0.5 text-[8px] bg-green-600 text-white px-0.5 rounded-full leading-tight font-semibold">
                         吉
                       </span>
@@ -242,7 +272,6 @@ export default function NamingChars() {
             className="relative bg-dark-800 border border-gold-500/30 rounded-2xl shadow-2xl max-w-lg w-full max-h-[85vh] overflow-y-auto p-6"
             onClick={e => e.stopPropagation()}
           >
-            {/* 关闭按钮 */}
             <button
               onClick={() => setSelectedZi(null)}
               className="absolute top-3 right-3 text-gray-500 hover:text-gray-300 text-lg leading-none"
@@ -250,7 +279,6 @@ export default function NamingChars() {
               ✕
             </button>
 
-            {/* 大字显示 */}
             <div className="text-center mb-4">
               <span className="text-5xl font-serif text-gold-600">{selectedZi.zi}</span>
               {selectedZi.pinyin && (
@@ -258,7 +286,6 @@ export default function NamingChars() {
               )}
             </div>
 
-            {/* 基础信息 */}
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 mb-4">
               {selectedZi.bihua ? <InfoBadge label="笔画" value={`${selectedZi.bihua}画`} /> : null}
               {selectedZi.kangxiBihua ? <InfoBadge label="康熙笔画" value={`${selectedZi.kangxiBihua}画`} /> : null}
@@ -271,7 +298,6 @@ export default function NamingChars() {
               {selectedZi.tongyi ? <InfoBadge label="统一码" value={selectedZi.tongyi} /> : null}
             </div>
 
-            {/* 五行 + 吉凶 */}
             <div className="flex flex-wrap gap-2 mb-4">
               {selectedZi.wuxingShuxing && (
                 <span className={`text-xs px-2 py-0.5 rounded-full border ${EL_COLORS[activeEl] || 'border-gray-500'} ${EL_BG[activeEl] || 'bg-gray-500/20'} ${EL_TEXT[activeEl] || 'text-gray-300'}`}>
@@ -288,34 +314,25 @@ export default function NamingChars() {
                 </span>
               )}
               {selectedZi.changyong && (
-                <span className="text-xs px-2 py-0.5 rounded-full border border-blue-500/50 bg-blue-500/10 text-blue-400">
-                  常用字
-                </span>
+                <span className="text-xs px-2 py-0.5 rounded-full border border-blue-500/50 bg-blue-500/10 text-blue-400">常用字</span>
               )}
               {selectedZi.biaozhun && (
-                <span className="text-xs px-2 py-0.5 rounded-full border border-purple-500/50 bg-purple-500/10 text-purple-400">
-                  标准字体
-                </span>
+                <span className="text-xs px-2 py-0.5 rounded-full border border-purple-500/50 bg-purple-500/10 text-purple-400">标准字体</span>
               )}
             </div>
 
-            {/* 寓意解释 */}
             {selectedZi.yuyi && (
               <div className="mb-3 p-3 bg-dark-700/50 rounded-lg border border-dark-600">
                 <p className="text-[10px] text-gray-500 mb-1">寓意解释</p>
                 <p className="text-sm text-gray-200">{selectedZi.yuyi}</p>
               </div>
             )}
-
-            {/* 起名解释 */}
             {selectedZi.qimingJieshi && (
               <div className="mb-3 p-3 bg-dark-700/50 rounded-lg border border-dark-600">
                 <p className="text-[10px] text-gray-500 mb-1">起名解释</p>
                 <p className="text-sm text-gray-200">{selectedZi.qimingJieshi}</p>
               </div>
             )}
-
-            {/* 起名参考 */}
             {(selectedZi.tuijiandu || selectedZi.wenhuaYinxiang || selectedZi.zixingNum != null) && (
               <div className="mb-3 p-3 bg-dark-700/50 rounded-lg border border-dark-600">
                 <p className="text-[10px] text-gray-500 mb-2">起名参考</p>
@@ -336,16 +353,12 @@ export default function NamingChars() {
                     <div className="flex items-center gap-1.5">
                       <span className="text-[10px] text-gray-500">字性</span>
                       <span className="text-sm text-gray-300">{selectedZi.zixingNum}</span>
-                      {selectedZi.zixingGender && (
-                        <span className="text-[10px] text-gray-500">{selectedZi.zixingGender}</span>
-                      )}
+                      {selectedZi.zixingGender && <span className="text-[10px] text-gray-500">{selectedZi.zixingGender}</span>}
                     </div>
                   )}
                 </div>
               </div>
             )}
-
-            {/* 基本解释 */}
             {selectedZi.jibenJieshi && (
               <div className="mb-3 p-3 bg-dark-700/50 rounded-lg border border-dark-600">
                 <p className="text-[10px] text-gray-500 mb-1">基本解释</p>
@@ -353,14 +366,13 @@ export default function NamingChars() {
               </div>
             )}
 
-            {/* 古籍渊源（深度解析） */}
+            {/* 古籍渊源 */}
             {selectedZi.gujiYuanyuan && (
               <div className="mb-3 p-3 bg-amber-900/20 rounded-lg border border-amber-700/30">
                 <p className="text-[10px] text-amber-400 mb-1">📜 古籍渊源</p>
                 <p className="text-xs text-gray-200 leading-relaxed whitespace-pre-wrap">{selectedZi.gujiYuanyuan}</p>
               </div>
             )}
-
             {/* 字形演变 */}
             {selectedZi.zixingYanbian && (
               <div className="mb-3 p-3 bg-indigo-900/20 rounded-lg border border-indigo-700/30">
@@ -368,8 +380,7 @@ export default function NamingChars() {
                 <p className="text-xs text-gray-200 leading-relaxed">{selectedZi.zixingYanbian}</p>
               </div>
             )}
-
-            {/* 五行依据 + 命局适配 */}
+            {/* 五行与命局 */}
             {selectedZi.wuxingYiju && (
               <div className="mb-3 p-3 bg-teal-900/20 rounded-lg border border-teal-700/30">
                 <p className="text-[10px] text-teal-400 mb-1">☯ 五行与命局</p>
@@ -382,29 +393,21 @@ export default function NamingChars() {
               </div>
             )}
 
-            {/* 无详情提示 */}
             {!selectedZi.pinyin && !selectedZi.wuxingShuxing && !selectedZi.yuyi && (
               <p className="text-center text-gray-500 text-sm py-4">
                 详情数据抓取中，请稍后再试<br />
-                <a
-                  href={`https://www.kangxizidian.com.cn/hanzi/${encodeURIComponent(selectedZi.zi)}.html`}
+                <a href={`https://www.kangxizidian.com.cn/hanzi/${encodeURIComponent(selectedZi.zi)}.html`}
                   target="_blank" rel="noopener noreferrer"
                   className="text-gold-500 hover:underline text-xs mt-1 inline-block"
-                >
-                  前往康熙字典查看 →
-                </a>
+                >前往康熙字典查看 →</a>
               </p>
             )}
 
-            {/* 底部外链 */}
             <div className="mt-4 pt-3 border-t border-dark-600 text-center">
-              <a
-                href={`https://www.kangxizidian.com.cn/hanzi/${encodeURIComponent(selectedZi.zi)}.html`}
+              <a href={`https://www.kangxizidian.com.cn/hanzi/${encodeURIComponent(selectedZi.zi)}.html`}
                 target="_blank" rel="noopener noreferrer"
                 className="text-[10px] text-gray-500 hover:text-gold-600 transition-colors"
-              >
-                数据来源：康熙字典
-              </a>
+              >数据来源：康熙字典</a>
             </div>
           </div>
         </div>
@@ -413,7 +416,6 @@ export default function NamingChars() {
   )
 }
 
-// ── 小标签 ──
 function InfoBadge({ label, value }: { label: string; value: string }) {
   return (
     <div className="bg-dark-700/50 rounded-lg p-2 text-center border border-dark-600">
