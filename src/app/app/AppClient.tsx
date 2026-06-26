@@ -292,19 +292,16 @@ export default function AppClient() {
       {analyzed && baziResult && <BaziResultView result={baziResult} name={name} />}
       {analyzed && ziweiResult && <ZiweiResultView data={ziweiResult} name={name} />}
 
-      {/* VIP Banner */}
+      {/* VIP 功能 — 目前为 UI 占位，待接入真实支付系统后启用 */}
       {analyzed && (
         <div className="mt-12 bg-gradient-to-r from-amber-50 to-yellow-50 border border-amber-200 rounded-xl p-6 text-center">
-          <div className="text-3xl mb-2">👑</div>
-          <h3 className="text-lg font-bold text-amber-700 mb-1">解锁 VIP 完整命理分析</h3>
-          <p className="text-sm text-amber-600 mb-4">财富格局 · 十年大运 · 流年指引 — 三大深度维度，解锁您的完整命运图谱</p>
-          <div className="flex flex-wrap gap-3 justify-center">
-            <button className="px-5 py-2 bg-dark-800 border border-amber-500/30 text-amber-600 rounded-full text-sm font-medium hover:bg-amber-50 transition-all">🎫 单次解锁 ¥9.9</button>
-            <button className="px-6 py-2.5 bg-gradient-to-r from-amber-500 to-yellow-500 text-white rounded-full text-sm font-bold shadow-lg shadow-amber-200 hover:shadow-xl transition-all">💎 月卡 ¥29.9/月</button>
-            <button className="px-6 py-2.5 bg-gradient-to-r from-gold-500 to-amber-500 text-dark-900 rounded-full text-sm font-bold shadow-lg shadow-amber-200 hover:shadow-xl transition-all">⭐ 年卡 ¥199/年（省 45%）</button>
-            <button className="px-6 py-2.5 bg-gradient-to-r from-amber-600 to-yellow-600 text-white rounded-full text-sm font-bold shadow-lg shadow-amber-200 hover:shadow-xl transition-all">🏆 永久卡 ¥499</button>
+          <div className="text-3xl mb-2">🚧</div>
+          <h3 className="text-lg font-bold text-amber-700 mb-1">VIP 深度分析即将上线</h3>
+          <p className="text-sm text-amber-600 mb-4">财富格局 · 十年大运 · 流年指引 — 三大深度维度，即将开放</p>
+          <div className="inline-block px-6 py-2.5 bg-amber-100 text-amber-500 rounded-full text-sm font-medium border border-amber-200">
+            ⏳ 敬请期待
           </div>
-          <p className="text-xs text-amber-400 mt-3">开通后立即解锁所有 VIP 维度完整内容 · 支持微信/支付宝</p>
+          <p className="text-xs text-amber-400 mt-3">深度分析功能正在开发中，上线后将第一时间通知您</p>
         </div>
       )}
     </div>

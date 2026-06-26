@@ -16,6 +16,7 @@
   "dependencies": {
     "@cometpisces/tarot-kit": "^0.2.0",
     "bazi": "^0.0.9",
+    "dompurify": "^3.4.11",
     "iconv-lite": "^0.7.2",
     "iztro": "^2.5.8",
     "lunar-typescript": "^1.8.6",
@@ -25,6 +26,7 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
+    "@types/dompurify": "^3.0.5",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

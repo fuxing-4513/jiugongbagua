@@ -33,6 +33,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
           <h1 className="text-3xl font-bold text-gold-400 mt-4 mb-2">{art.title}</h1>
           <p className="text-gray-400 text-sm">{art.summary}</p>
         </div>
+        {/* 安全说明：art.fullContent 来自编译期静态 wenkuData.ts，不含用户输入，无 XSS 风险 */}
         <div className="text-gray-200 leading-relaxed space-y-3" dangerouslySetInnerHTML={{ __html: art.fullContent.replace(/\n/g, '<br/>') }} />
       </article>
     </div>

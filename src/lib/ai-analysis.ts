@@ -6,7 +6,7 @@ export interface AnalysisDimension {
   key: string;
   label: string;
   icon: string;
-  free: boolean;
+  // 预留：后续接入付费系统后可启用 free 字段控制内容可见性
   generate: (data?: unknown) => string;
 }
 
@@ -113,7 +113,7 @@ function fiveElementSummary(data: AnalysisData): string {
 export const analysisDimensions: AnalysisDimension[] = [
   // ═══ FREE (5) ═══
   {
-    key:'overallReading', label:'整体解读', icon:'🔮', free:true,
+    key:'overallReading', label:'整体解读', icon:'🔮',
     generate:(data?: unknown) => {
       const d = extractData(data);
       const yz = yearGanZhi(d.year);
@@ -133,7 +133,7 @@ ${fiveElementSummary(d)}。日主${dz.gan}属${dayWx}，${(GAN_YINYANG as Record
     },
   },
   {
-    key:'personality', label:'性格分析', icon:'🧠', free:true,
+    key:'personality', label:'性格分析', icon:'🧠',
     generate:(data?: unknown) => {
       const d = extractData(data);
       const dz = dayGanZhiDoomsday(d.year, d.month, d.day);
@@ -156,7 +156,7 @@ ${dw === '木' ? '避免固执己见，多听他人建议。注意肝胆健康�
     },
   },
   {
-    key:'career', label:'事业运势', icon:'💼', free:true,
+    key:'career', label:'事业运势', icon:'💼',
     generate:(data?: unknown) => {
       const d = extractData(data);
       const dz = dayGanZhiDoomsday(d.year, d.month, d.day);
@@ -177,7 +177,7 @@ ${dw === '木' ? '• 适合行业：教育、出版、文化创意、林业、�
     },
   },
   {
-    key:'relationship', label:'情感关系', icon:'💕', free:true,
+    key:'relationship', label:'情感关系', icon:'💕',
     generate:(data?: unknown) => {
       const d = extractData(data);
       const dz = dayGanZhiDoomsday(d.year, d.month, d.day);
@@ -202,7 +202,7 @@ ${yy === '阳' && dw === '金' ? '宜晚婚（30岁后），等待心智成熟' 
     },
   },
   {
-    key:'health', label:'健康分析', icon:'💪', free:true,
+    key:'health', label:'健康分析', icon:'💪',
     generate:(data?: unknown) => {
       const d = extractData(data);
       const dz = dayGanZhiDoomsday(d.year, d.month, d.day);
@@ -222,9 +222,9 @@ ${dw === '木' || dw === '火' ? '宜早起（6-7点），阳气生发时活动�
     },
   },
 
-  // ═══ VIP ONLY (3) ═══
+  // 全量开放（待接入支付系统后设为 free:false）
   {
-    key:'wealthFortune', label:'财富格局', icon:'💰', free:false,
+    key:'wealthFortune', label:'财富格局', icon:'💰',
     generate:(data?: unknown) => {
       const d = extractData(data);
       const dz = dayGanZhiDoomsday(d.year, d.month, d.day);
@@ -246,11 +246,11 @@ ${dw === '木' ? '正财属土，偏财亦属土。命中财星状况需结合�
 ⚠️ **风险警示**
 ${dw === '火' || dw === '木' ? '不宜高杠杆投资，宜稳健理财为主。' : '宜分散投资，避免单一项目投入过多。'}
 
-🔐 **VIP 深度内容**：完整八字财库开合时机 · 流年财星飞布图 · 最佳投资年份与领域 · 偏财运详解`;
+📌 **深度解析**：完整八字财库开合时机 · 流年财星飞布图 · 最佳投资年份与领域 · 偏财运详解`;
     },
   },
   {
-    key:'tenYearLuck', label:'十年大运', icon:'📈', free:false,
+    key:'tenYearLuck', label:'十年大运', icon:'📈',
     generate:(data?: unknown) => {
       const d = extractData(data);
       const dz = dayGanZhiDoomsday(d.year, d.month, d.day);
@@ -272,11 +272,11 @@ ${dw === '火' || dw === '木' ? '不宜高杠杆投资，宜稳健理财为主�
 • 30-40岁 壮年运：${dw === '金' || dw === '水' ? '财官两旺的重要十年，事业财运双丰收' : '家庭与事业平衡发展的关键期'}
 • 40-50岁 中年运：${dw === '火' || dw === '金' ? '事业巅峰期，宜巩固成果' : '转型期，宜开拓新领域'}
 
-🔐 **VIP 深度内容**：完整十年大运排盘 · 每一年十二宫星曜流转 · 换运吉凶节点 · 各运贵人/小人方位`;
+📌 **深度解析**：完整十年大运排盘 · 每一年十二宫星曜流转 · 换运吉凶节点 · 各运贵人/小人方位`;
     },
   },
   {
-    key:'yearlyGuide', label:'流年指引', icon:'🗓️', free:false,
+    key:'yearlyGuide', label:'流年指引', icon:'🗓️',
     generate:(data?: unknown) => {
       const d = extractData(data);
       const dz = dayGanZhiDoomsday(d.year, d.month, d.day);
@@ -299,7 +299,7 @@ ${cyz.wzGan === dw ? '今年流年五行与日主五行相同，自我意识增�
 • 感情：★★★☆☆ 注意沟通，多陪伴家人
 • 健康：${dw === '木' ? '注意肝胆' : dw === '火' ? '注意心脏' : dw === '土' ? '注意脾胃' : dw === '金' ? '注意呼吸' : '注意肾'}保养
 
-🔐 **VIP 深度内容**：逐月流年详解 · 每月吉凶事项清单 · 太岁/岁破/三煞方位 · 趋吉避凶具体行动指南`;
+📌 **深度解析**：逐月流年详解 · 每月吉凶事项清单 · 太岁/岁破/三煞方位 · 趋吉避凶具体行动指南`;
     },
   },
 ];
@@ -309,9 +309,9 @@ export function getAnalysisDimension(key: string): AnalysisDimension | undefined
 }
 
 export function getFreeDimensions(): AnalysisDimension[] {
-  return analysisDimensions.filter(d => d.free);
+  return analysisDimensions;
 }
 
 export function getVipDimensions(): AnalysisDimension[] {
-  return analysisDimensions.filter(d => !d.free);
+  return [];
 }
