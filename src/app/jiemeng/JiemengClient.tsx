@@ -34,7 +34,7 @@ function loadDreamDB() {
       }
     }
   } catch {}
-  fetch('/data/dreams.json')
+  fetch('/data/dreams-c3526e2d.json')
     .then(r => r.json())
     .then(data => {
       dreamDB = data.dreams || []

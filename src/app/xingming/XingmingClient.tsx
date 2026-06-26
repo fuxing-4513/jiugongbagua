@@ -32,7 +32,7 @@ function loadKangxi() {
       }
     }
   } catch {}
-  fetch('/data/kangxi.json')
+  fetch('/data/kangxi-c3526e2d.json')
     .then(r => r.json())
     .then(data => {
       kangxiStrokes = {}

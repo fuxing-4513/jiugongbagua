@@ -63,8 +63,8 @@ export default function NamingChars() {
     setDetailData(null)
 
     Promise.all([
-      fetch(`/data/wuxing-${activeEl}.json`, { signal: controller.signal }).then(r => r.json()),
-      fetch(`/data/wuxing-detail-${activeEl}.json`, { signal: controller.signal }).then(r => r.json()).catch(() => null),
+      fetch(`/data/wuxing-${activeEl}-c3526e2d.json`, { signal: controller.signal }).then(r => r.json()),
+      fetch(`/data/wuxing-detail-${activeEl}-c3526e2d.json`, { signal: controller.signal }).then(r => r.json()).catch(() => null),
     ]).then(([list, detail]) => {
       setListData(list)
       if (detail) setDetailData(detail)

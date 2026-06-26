@@ -1,0 +1,13 @@
+# 九宫八卦 - robots.txt
+# 允许搜索引擎索引内容页面
+User-agent: *
+Allow: /
+Disallow: /data/
+Disallow: /*.json$
+Disallow: /data/*
+
+# 保护敏感数据
+Disallow: /api/
+Disallow: /admin/
+
+Sitemap: https://jiugongbagua.com/sitemap.xml
