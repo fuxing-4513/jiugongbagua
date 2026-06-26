@@ -54,6 +54,7 @@ export default function NamingChars() {
   const [jiOnly, setJiOnly] = useState(false)
   const [activeStroke, setActiveStroke] = useState<number | null>(null)
   const [selectedZi, setSelectedZi] = useState<CharDetail | null>(null)
+  const [initialLoading, setInitialLoading] = useState(true)
 
   // 加载列表 & 详情数据
   useEffect(() => {
@@ -68,8 +69,10 @@ export default function NamingChars() {
       setListData(list)
       if (detail) setDetailData(detail)
       setLoading(false)
+      setInitialLoading(false)
     }).catch((e) => {
       if (e?.name !== 'AbortError') setLoading(false)
+      setInitialLoading(false)
     })
     return () => controller.abort()
   }, [activeEl])
@@ -172,7 +175,7 @@ export default function NamingChars() {
       </div>
 
       {/* 工具栏 */}
-      <div className="flex flex-wrap items-center gap-2 justify-between bg-dark-800/50 rounded-lg p-3">
+      <div className="flex flex-wrap items-center gap-2 justify-between bg-dark-800/50 rounded-lg p-3" style={{ display: (loading || initialLoading) ? 'none' : undefined }}>
         <div className="flex items-center gap-3 text-xs text-gray-400">
           {listData && (
             <>
@@ -194,7 +197,7 @@ export default function NamingChars() {
       </div>
 
       {/* 加载中 */}
-      {loading && (
+      {(loading || initialLoading) && (
         <div className="text-center py-8 text-gray-500">
           <div className="animate-spin w-6 h-6 border-2 border-gold-500 border-t-transparent rounded-full mx-auto mb-2" />
           <p className="text-xs">加载字库数据...</p>
@@ -202,7 +205,7 @@ export default function NamingChars() {
       )}
 
       {/* 笔画导航 */}
-      {strokeKeys.length > 0 && !loading && (
+      {strokeKeys.length > 0 && !loading && !initialLoading && (
         <div className="flex flex-wrap gap-1">
           {strokeKeys.map(s => (
             <button key={s} onClick={() => setActiveStroke(activeStroke === s ? null : s)}
@@ -219,10 +222,12 @@ export default function NamingChars() {
       )}
 
       {/* 字网格 */}
-      {!loading && (
+      {!loading && !initialLoading && (
         <div className="space-y-3">
           {strokeGroups.length === 0 && (
-            <p className="text-center text-gray-500 text-sm py-8">{search ? `无匹配"${search}"` : '无数据'}</p>
+            <p className="text-center text-gray-500 text-sm py-8">
+              {loading ? '' : search ? `无匹配"${search}"` : listData ? '该笔画下无字' : '无数据'}
+            </p>
           )}
           {strokeGroups.map(group => (
             <div key={group.stroke} className="bg-dark-800/50 rounded-xl border border-dark-600 overflow-hidden">
