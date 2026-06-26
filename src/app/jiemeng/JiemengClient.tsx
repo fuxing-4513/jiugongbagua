@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useMemo, useRef } from 'react'
 import ShareResult from '@/components/ShareResult'
+import { dataPath } from '@/lib/anti-scrape'
 import { synonymMatch, multiTermMatch } from '@/lib/dream-synonyms'
 import { generatePsychology } from '@/lib/dream-psychology'
 
@@ -34,7 +35,7 @@ function loadDreamDB() {
       }
     }
   } catch {}
-  fetch('/data/dreams-c3526e2d.json')
+  fetch(dataPath('dreams'))
     .then(r => r.json())
     .then(data => {
       dreamDB = data.dreams || []

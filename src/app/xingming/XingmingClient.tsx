@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { dataPath } from '@/lib/anti-scrape'
 
 import ShareResult from '../../components/ShareResult'
 import NamingClient from './NamingClient'
@@ -32,7 +33,7 @@ function loadKangxi() {
       }
     }
   } catch {}
-  fetch('/data/kangxi-c3526e2d.json')
+  fetch(dataPath('kangxi'))
     .then(r => r.json())
     .then(data => {
       kangxiStrokes = {}
