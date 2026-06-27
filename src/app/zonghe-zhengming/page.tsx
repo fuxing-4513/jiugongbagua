@@ -116,7 +116,12 @@ export default function ZongheZhengmingPage() {
             />
           </div>
           <div>
-            <label className="block text-xs text-gray-500 mb-1">时辰 <span className="text-orange-300">(选后点
+            <label className="block text-xs text-gray-500 mb-1">时辰</label>
+            <select value={hour} onChange={e => setHour(e.target.value)}
+              className="bg-dark-700 border border-dark-600 rounded-lg px-3 py-2 text-sm text-gray-200">
+              {HOUR_OPTIONS.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
+            </select>
+          </div>
           <div>
             <label className="block text-xs text-gray-500 mb-1">性别</label>
             <select value={gender} onChange={e => setGender(e.target.value as any)}
