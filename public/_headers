@@ -6,6 +6,9 @@
   Cross-Origin-Embedder-Policy: require-corp
   Cross-Origin-Opener-Policy: same-origin
   X-Powered-By: 
+  Access-Control-Allow-Origin: https://www.jiugongbagua.com
+  Access-Control-Allow-Methods: GET, HEAD, OPTIONS
+  Access-Control-Allow-Credentials: true
 
 /data/*
   Access-Control-Allow-Origin: https://www.jiugongbagua.com

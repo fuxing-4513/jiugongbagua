@@ -51,4 +51,9 @@ const nextConfig: NextConfig = {
   },
 };
 
+// 在 export 模式下，Cloudflare Pages 原生支持 _headers 文件
+// 但 Cloudflare 代理模式会覆盖部分头部。
+// 替代方案：通过头部注入的方式在构建时写入 HTML meta
+// 注：CORS 对本静态站点无实际功能影响，_headers 已覆盖同域场景
+
 export default nextConfig;
