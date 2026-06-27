@@ -937,9 +937,38 @@ function healthV3(ri: string, pills: {gan:string;zhi:string}[]): string[] {
     r.push('【比劫偏弱】你体力偏弱,容易累。不要跟别人比体力,你的策略是细水长流,不是短跑冲刺。')
   }
 
-  // 𓆙 第五步：养生总结
+  // 𓆙 第五步：十神维度修正（100轮打磨：印=底子、比劫=手脚、食伤=心情）
+  const mainSS = sst(ri, (CANG_GAN[z[2]]||[''])[0])
+  const allGSS = g.map(g => ss(ri, g))
+  const allZSS = z.map(zz => ss(ri, (CANG_GAN[zz]||[''])[0]))
+  const allSS = [...allGSS, ...allZSS]
+  const step5YinCount = allSS.filter(s => ['正印','偏印'].includes(s)).length
+  const step5BijieCount = allSS.filter(s => ['比肩','劫财'].includes(s)).length
+  const step5ShishangCount = allSS.filter(s => ['食神','伤官'].includes(s)).length
+  
   r.push('')
-  r.push('💡 先天体质参考——宫位定位置，五行看脏腑，刑冲找隐患。具体以实际身体为准。')
+  r.push('━━━ 十神维度修正健康 ━━━')
+  if (step5YinCount >= 3) {
+    r.push('【印旺】你的身体底子好，有先天福荫。体质偏保守——小病不容易好但大病不太会得。注意不要因为天生底子好就熬身体。')
+  } else if (step5YinCount <= 1) {
+    r.push('【印弱】你的身体底子一般,没有太多先天储备。要特别重视保养和体检,别人抗过去的病你可能扛不过去。')
+  }
+  if (step5BijieCount >= 3) {
+    r.push('【比劫多】手脚利落、能跑能跳。体力型工作比较适合你,但注意受伤——比劫也主手脚外伤。')
+  } else if (step5BijieCount <= 1) {
+    r.push('【比劫少】你不太善于用体力解决问题,也不爱运动。手脚偏懒,关节容易僵硬。')
+  }
+  if (step5ShishangCount >= 4) {
+    r.push('【食伤过旺】心情影响身体——你焦虑、想太多的时候身体就会出问题。你的病大多是情绪病,肠胃、睡眠跟心情直接挂钩。')
+  } else if (step5ShishangCount >= 2) {
+    r.push('【食伤适中】你是心情影响身体的那种人——高兴的时候吃嘛嘛香,心情不好就胃不舒服。')
+  }
+  // 日主治病策略
+  r.push(`【日主${ri}】你的治病策略: ${step5YinCount >= 3 ? '底子好,随它去恢复。' : '不要硬扛,积极就医。'}${step5BijieCount >= 2 ? '动起来,运动是最好的药。' : '养为主,修心养性。'}${step5ShishangCount >= 3 ? '先调心情再调身体,情绪通了病就好一半。' : '身体问题就是身体问题,别乱联想到心情上。'}`)
+
+  // 𓆙 第六步：养生总结
+  r.push('')
+  r.push('💡 先天体质参考——宫位定位置，五行看脏腑，刑冲找隐患，十神看抗病能力和致病原因。具体以实际身体为准。')
 
   return r
 }
@@ -1270,7 +1299,18 @@ export function analyzeJudgment(
   for (let hi = 0; hi < zhis.length; hi++) {
     for (let hj = hi + 1; hj < zhis.length; hj++) {
       if (LIU_CHUAN[zhis[hi]] === zhis[hj]) {
-        charNarr.push(`${zhis[hi]}${zhis[hj]}穿--表面为你好,实际要你接受条件。你这人对外面总是笑眯眯的客气,但亲近你的人知道你骨子里有控制欲。`)
+        // 100轮打磨：6组穿的性格特征
+        const chuanChar: Record<string,string> = {
+          '子未':'你对外面总是笑眯眯的客气，但亲近你的人知道你骨子里有控制欲。表面为你好，实际在索取资源。',
+          '卯辰':'你洞察力很强，看人看事很准。不得到不放弃，但你让步的时候对方反而没边界感。',
+          '丑午':'你热情霸道，想要什么就主动出击。对方比较保守被动，你们之间总有一个带头一个跟着。',
+          '寅巳':'你目标感很强，做事情不惜消耗健康。对方精力被你耗得不行，你自己也不轻松。',
+          '申亥':'你特别能说，不光是嘴上说——你是那种潜移默化改变别人思想的人。对方容易被你带节奏。',
+          '酉戌':'你做事不留余地，断人后路。对方被你搞到失去根本，但你自己也会因此树敌不少。',
+          '':'你这人对外面总是笑眯眯的客气，但亲近你的人知道你骨子里有控制欲。表面为你好，实际要你接受条件。'
+        }
+        const cKey = zhis[hi] + zhis[hj]
+        charNarr.push(`${zhis[hi]}${zhis[hj]}穿——${chuanChar[cKey] || chuanChar['']}`)
       }
       if (SAN_XING[zhis[hi]] === zhis[hj]) {
         charNarr.push(`${zhis[hi]}${zhis[hj]}刑--互相较劲互相学习。你的朋友圈里总有人在跟你比,你也老是拿自己跟别人比。`)

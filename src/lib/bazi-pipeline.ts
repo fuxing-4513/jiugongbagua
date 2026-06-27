@@ -578,31 +578,94 @@ export function runPipeline(
 }
 
 /**
- * 只取合成后的对人说的文本
+ * synthesizeNLP — 把人话合成引擎
+ * 
+ * 100轮打磨产出：把技术报告变成对用户说的话
+ * 去掉五行加权评分、去掉冗余的数字，用大白话讲清楚关键点
  */
 export function synthesizeNLP(pipeline: PipelineResult): string {
   const s = pipeline.synthesisLayer
+  const b = pipeline.baseLayer
+  const r = pipeline.relationLayer
+  const t = pipeline.topicLayer
+  const raw = pipeline.rawResult
   const out: string[] = []
 
-  // 标签
+  // === 人生标签 ===
   if (s.labels.length > 0) {
-    out.push(`📋 人生标签：${s.labels.slice(0, 4).join(' · ')}`)
+    const tagLine = s.labels.slice(0, 4).join(' · ')
+    out.push(`📋 人生标签：${tagLine}`)
     out.push('')
   }
 
-  // 核心断语
-  out.push(s.core)
+  // === 核心断语（对人说的话，不是技术报告） ===
+  out.push('━━━ 你的八字核心 ━━━')
+  out.push(s.core || '你有自己的节奏和方向。')
+  out.push('')
 
-  // 两象定一象
+  // === 事业方向 ===
+  if (t.career && t.career.length < 80) {
+    out.push(`💼 关于工作：${t.career}`)
+  } else if (t.career) {
+    out.push(`💼 关于工作：${t.career.slice(0, 80)}`)
+  }
+
+  // === 财富 ===
+  if (t.wealth && t.wealth.length < 80) {
+    out.push(`💰 关于财运：${t.wealth}`)
+  }
+
+  // === 感情 ===
+  if (t.marriage && t.marriage.length < 80) {
+    out.push(`❤️ 关于感情：${t.marriage}`)
+  }
+
+  // === 健康（取健康叙述的最后一句有用的） ===
+  const healthLines = raw.healthNarr || []
+  const shortHealth = healthLines.filter(h => h.length < 80 && !h.startsWith('━━'))
+  if (shortHealth.length > 0) {
+    out.push(`🏥 关于健康：${shortHealth.slice(-2).join(' ').slice(0, 120)}`)
+  }
+
+  // === 大运/流年 ===
+  if (raw.daYunFourStepNarr && raw.daYunFourStepNarr.length > 0) {
+    const firstDaYun = raw.daYunFourStepNarr[0]
+    if (firstDaYun && firstDaYun.length < 100) {
+      out.push(`📅 当前运势：${firstDaYun}`)
+    }
+  }
+
+  out.push('')
+
+  // === BFS 关系链（选最长的那个讲） ===
+  if (r.bfsPaths.length > 0) {
+    const interesting = r.bfsPaths.filter(p => p.nodes.length >= 3).slice(0, 2)
+    if (interesting.length > 0) {
+      out.push('━━━ 你八字里的隐藏关系 ━━━')
+      for (const p of interesting) {
+        out.push(`  ${p.desc}`)
+      }
+    }
+  }
+
+  // === 冲的预警 ===
+  if (r.chongs.length > 0) {
+    for (const ch of r.chongs) {
+      const warnGan = ZHI_TO_GAN[ch.a] + ZHI_TO_GAN[ch.b]
+      out.push(`⚠️ ${ch.a}${ch.b}冲——你做事快、目标明确，但走${warnGan.split('').join('/')}运时注意冲动，重大决定不要急着做。`)
+    }
+  }
+
+  // === 两象定一象 ===
   if (s.doubleEvidence.length > 0) {
     out.push('')
-    out.push(`📌 两象定一象：${s.doubleEvidence[0]}`)
+    out.push(`📌 两象定一象：${s.doubleEvidence[0].slice(0, 120)}`)
   }
 
-  // 建议
+  // === 建议 ===
   if (s.advice) {
     out.push('')
-    out.push(`💡 总结建议：${s.advice.replace(/\n/g, ' ')}`)
+    out.push(`💡 给你：${s.advice.replace(/\n/g, '。').slice(0, 200)}`)
   }
 
   return out.join('\n')
