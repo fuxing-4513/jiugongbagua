@@ -55,7 +55,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             "connect-src 'self' https://www.google-analytics.com; " +
             "frame-ancestors 'none'; " +
             "base-uri 'self'; " +
-            "form-action 'self'"
+            "form-action 'self'; " +
+            "block-all-mixed-content; " +
+            "upgrade-insecure-requests"
           }
         />
         <meta httpEquiv="X-Content-Type-Options" content="nosniff" />

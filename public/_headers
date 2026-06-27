@@ -1,0 +1,14 @@
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+
+/data/*
+  Access-Control-Allow-Origin: https://www.jiugongbagua.com
+  Cache-Control: public, max-age=300
+
+/data/*.json
+  Access-Control-Allow-Origin: https://www.jiugongbagua.com
+
+/*.json
+  Access-Control-Allow-Origin: https://www.jiugongbagua.com
