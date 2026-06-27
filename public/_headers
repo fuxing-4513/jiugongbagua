@@ -2,6 +2,10 @@
   X-Content-Type-Options: nosniff
   X-Frame-Options: DENY
   Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), interest-cohort=()
+  Cross-Origin-Embedder-Policy: require-corp
+  Cross-Origin-Opener-Policy: same-origin
+  X-Powered-By: 
 
 /data/*
   Access-Control-Allow-Origin: https://www.jiugongbagua.com
@@ -12,3 +16,13 @@
 
 /*.json
   Access-Control-Allow-Origin: https://www.jiugongbagua.com
+
+# 蜜罐端点不予缓存
+/data/api_metrics_collect.json
+  Cache-Control: no-cache, no-store, must-revalidate
+
+/data/system_config.json
+  Cache-Control: no-cache, no-store, must-revalidate
+
+/data/v2/*
+  Cache-Control: no-cache, no-store, must-revalidate

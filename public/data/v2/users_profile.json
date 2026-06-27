@@ -1,0 +1,5 @@
+{
+  "method": "POST",
+  "x_icbm": "22.5431,114.0579",
+  "fields": ["username", "email", "phone"]
+}

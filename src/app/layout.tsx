@@ -66,6 +66,30 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta httpEquiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
         <meta httpEquiv="Pragma" content="no-cache" />
         <meta httpEquiv="Expires" content="0" />
+        {/* 反爬虫: 阻止控制台打开和右键菜单 */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+            (function(){
+              // 阻止右键菜单
+              document.addEventListener('contextmenu',function(e){e.preventDefault()});
+              // 阻止开发者工具快捷键
+              document.addEventListener('keydown',function(e){
+                if(
+                  e.keyCode===123||
+                  (e.ctrlKey&&e.shiftKey&&e.keyCode===73)||
+                  (e.ctrlKey&&e.shiftKey&&e.keyCode===74)||
+                  (e.ctrlKey&&e.keyCode===85)
+                ){e.preventDefault();return false}
+              });
+              // 爬虫检测-标记
+              try{
+                Object.defineProperty(navigator,'webdriver',{get:function(){return undefined}});
+              }catch(_){}
+            })();
+            `
+          }}
+        />
         {/* 浅色主题 —— 白色背景，减眼疲劳 */}
         <style dangerouslySetInnerHTML={{ __html: `.cosmic-overlay{display:none!important}` }} />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
