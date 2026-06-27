@@ -47,11 +47,16 @@ export default function ZongheZhengmingPage() {
         solarNote = st.note
       }
 
-      // 排八字
-      const solar = Solar.fromYmd(y, m, d)
+      // 排八字（使用小时信息）
+      const solar = Solar.fromYmdHms(y, m, d, Math.round(finalHour), 0, 0)
       const lunar = solar.getLunar()
       const eightChar = lunar.getEightChar()
-      const bazi = lunar.getBaZi()
+      const bazi = [
+        eightChar.getYearGan()+eightChar.getYearZhi(),
+        eightChar.getMonthGan()+eightChar.getMonthZhi(),
+        eightChar.getDayGan()+eightChar.getDayZhi(),
+        eightChar.getTimeGan()+eightChar.getTimeZhi(),
+      ]
 
       const siZhu = {
         '年': { gan: bazi[0][0], zhi: bazi[0][1] },
@@ -111,12 +116,7 @@ export default function ZongheZhengmingPage() {
             />
           </div>
           <div>
-            <label className="block text-xs text-gray-500 mb-1">时辰</label>
-            <select value={hour} onChange={e => setHour(e.target.value)}
-              className="bg-dark-700 border border-dark-600 rounded-lg px-3 py-2 text-sm text-gray-200">
-              {HOUR_OPTIONS.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
-            </select>
-          </div>
+            <label className="block text-xs text-gray-500 mb-1">时辰 <span className="text-orange-300">(选后点
           <div>
             <label className="block text-xs text-gray-500 mb-1">性别</label>
             <select value={gender} onChange={e => setGender(e.target.value as any)}
