@@ -351,12 +351,12 @@ export function analyzeChuChu(pills: PillarInfo[], riGan: string): string[] {
   const riWx = getGanWx(riGan)
   const bestGen = BEST_GONG_GEN[riGan]
   
-  result.push(`${riGan}日主的最佳共根（印库）是${bestGen}`)
+  if (bestGen) result.push(`${riGan}日主，你的底气在${bestGen}这个字上，这个位置撑着你`)
 
   // 各五行的出处
   const chu = CHU_CHU[riWx]
   if (chu) {
-    result.push(`${riWx}的出处: ${chu.join('、')}`)
+    result.push(`你的${riWx}有根，来源是${chu.join('、')}，这些是你的底牌`)
   }
 
   // 检查是否有库在地支
@@ -365,7 +365,7 @@ export function analyzeChuChu(pills: PillarInfo[], riGan: string): string[] {
   for (const z of zhis) {
     if (kuMap[z]) {
       if (chu && chu.includes(z + '土')) {
-        result.push(`地支有${z}${kuMap[z]}，是${riWx}的出处。`)
+        result.push(`地支${z}是${kuMap[z]}，你的${riWx}从这里来，这个位置靠得住`)
       }
     }
   }
@@ -375,12 +375,12 @@ export function analyzeChuChu(pills: PillarInfo[], riGan: string): string[] {
     if (bestGen && pills[i].zhi.includes(bestGen.replace('土',''))) {
       const pos = ['年','月','日','时'][i]
       const meanings: Record<string, string> = {
-        '年':'共根在年上最好，能量强层次高',
-        '月':'共根在月令能享受比劫帮助',
-        '日':'共根在坐下一般',
-        '时':'共根在时支晚年可享受儿女福',
+        '年':'共根在年上，说明你祖上有底子，起跑线比别人高',
+        '月':'共根在月令，说明你在朋友圈里能说得上话，兄弟朋友愿意听你的',
+        '日':'共根在坐下，你自己就是自己最大的靠山',
+        '时':'共根在时支，说明你晚年儿女运不错，老来有依靠',
       }
-      if (meanings[pos]) result.push(`${pos}柱有${bestGen}: ${meanings[pos]}`)
+      if (meanings[pos]) result.push(`${pos}柱有${bestGen}，${meanings[pos]}`)
     }
   }
 
@@ -394,10 +394,10 @@ export function analyzeWangXiang(pills: PillarInfo[], monthZhi: string): string[
   const wxState = WANG_XIANG[season]
   if (!wxState) return result
 
-  result.push(`生于${season}季，月令${monthZhi}当令。`)
+  result.push(`你生在${season}季，月令${monthZhi}当令，这季节的气场对你影响最大。`)
   
   for (const [wx, state] of Object.entries(wxState)) {
-    result.push(`${wx}的状态为「${state}」`)
+    result.push(`${wx}在你这命里属于「${state}」的状态`)
   }
 
   // 日主状态
@@ -405,11 +405,11 @@ export function analyzeWangXiang(pills: PillarInfo[], monthZhi: string): string[
   const riWxState = wxState[riGanWx]
   if (riWxState) {
     if (riWxState === '旺' || riWxState === '相') {
-      result.push(`日主${riGanWx}处于「${riWxState}」状态，得时得令。`)
+      result.push(`你日主${riGanWx}正当令，你这人做事有底气，顺的时候多。`)
     } else if (riWxState === '死' || riWxState === '囚') {
-      result.push(`日主${riGanWx}处于「${riWxState}」状态，需要大运流年来补足。`)
+      result.push(`你日主${riGanWx}偏弱，根基不够，得等大运流年给你补充。`)
     } else {
-      result.push(`日主${riGanWx}处于「${riWxState}」状态。`)
+      result.push(`日主${riGanWx}当前状态一般，不好不坏。`)
     }
   }
 
@@ -417,7 +417,7 @@ export function analyzeWangXiang(pills: PillarInfo[], monthZhi: string): string[
   let weakest = ['死','囚','休']
   for (const [wx, state] of Object.entries(wxState)) {
     if (state === '死') {
-      result.push(`${wx}为「死」的状态，是最薄弱环节——不宜在此领域激进。`)
+      result.push(`${wx}在你命里是最弱的，这个领域你得悠着点，别硬来。`)
     }
   }
 
@@ -438,18 +438,23 @@ export function analyzeWangDian(pills: PillarInfo[], riGan: string): string[] {
   const monthSS = ssM[riGan]?.[monthGan] || ''
   const hourSS = ssM[riGan]?.[hourGan] || ''
   
-  result.push(`月令${monthZhi}（${monthGan}→${monthSS}）和时支${hourZhi}（${hourGan}→${hourSS}）是全局力量最大的两个旺点。`)
+  result.push(`你命里力量最强的两个位置是月令${monthZhi}和时支${hourZhi}，这俩地方决定了你这人的主要走向。`)
 
   // 月令十神的意义
   const ssMeanings: Record<string, string> = {
-    '正印':'对家有一个完美要求','偏印':'战略眼光',
-    '食神':'追求自在开心','伤官':'创新与突破',
-    '正财':'追求稳定的财','偏财':'追求投资机会',
-    '正官':'追求事业稳定','七杀':'追求突破和成就',
-    '比肩':'朋友多在意友情','劫财':'朋友多社交广',
+    '正印':'骨子里追求完美，对身边人要求高',
+    '偏印':'眼光长远，做事有策略',
+    '食神':'图个自在，不喜歡被人管着',
+    '伤官':'脑子活，喜欢搞点新花样',
+    '正财':'求稳，挣钱踏踏实实就行',
+    '偏财':'胆子大，喜欢搏一搏',
+    '正官':'做事规矩，想要个稳定的饭碗',
+    '七杀':'想干大事，不满足现状',
+    '比肩':'重朋友义气，对人真心实意',
+    '劫财':'朋友多、社交广，但也容易因朋友破费',
   }
-  if (ssMeanings[monthSS]) result.push(`月令为${monthSS}，代表${ssMeanings[monthSS]}。`)
-  if (ssMeanings[hourSS]) result.push(`时上为${hourSS}，代表${ssMeanings[hourSS]}。`)
+  if (ssMeanings[monthSS]) result.push(`月令是${monthSS}，说明你${ssMeanings[monthSS]}。`)
+  if (ssMeanings[hourSS]) result.push(`时上${hourSS}坐镇，说明你${ssMeanings[hourSS]}。`)
 
   // 月令时支与日柱的亲密度
   const riZhi = pills[2].zhi
@@ -471,7 +476,7 @@ export function analyzeWangDian(pills: PillarInfo[], riGan: string): string[] {
     }
   }
   
-  result.push(`日支${riZhi}受月令${monthZhi}和时支${hourZhi}的影响: ${relationships.join('；')}`)
+  result.push(`你的婚姻宫（日支${riZhi}）受月令${monthZhi}和时支${hourZhi}的影响: ${relationships.join('；')}`)
 
   return result
 }
@@ -500,9 +505,9 @@ export function analyzeXuShi(pills: PillarInfo[]): string[] {
       const isShi = ruler.shi.includes(zhi)
       const isXu = ruler.xu.includes(zhi)
       if (isShi) {
-        result.push(`${p.gz} — ${gan}坐${zhi}为坐实，根基坚实。`)
+        result.push(`${p.gz} — ${gan}坐${zhi}是坐实的，说明你在这个位置说一不二，底气足。`)
       } else if (isXu) {
-        result.push(`${p.gz} — ${gan}坐${zhi}为虚透，代表想法和追求，需要大运补足。`)
+        result.push(`${p.gz} — ${gan}坐${zhi}有点虚，想法多但落地难，得等时机成熟。`)
       }
     }
   }
@@ -523,7 +528,7 @@ export function analyzeShiShen(pills: PillarInfo[], riGan: string): string[] {
 
   const topSS = Object.entries(ssCount).sort((a, b) => b[1] - a[1])
   for (const [ss, count] of topSS.slice(0, 3)) {
-    result.push(`${ss}出现${count}次`)
+    result.push(`${ss}在你命里出现${count}次，这个特质比较明显`)
   }
 
   // 十神组合判断
@@ -533,11 +538,11 @@ export function analyzeShiShen(pills: PillarInfo[], riGan: string): string[] {
   const hasYin = (ssCount['正印'] || 0) + (ssCount['偏印'] || 0) > 0
   const hasShiShang = (ssCount['食神'] || 0) + (ssCount['伤官'] || 0) > 0
 
-  if (hasKill && hasGuan) result.push('官杀混杂 — 事业上选择多，需要专注。')
-  if (hasCai && hasYin) result.push('财印双全 — 既有追求财富的动力，又有学习和思考的习惯。')
-  if (hasShiShang && hasGuan) result.push('食伤制官杀 — 想做事业，有突破的意愿。')
-  if (hasShiShang && hasCai) result.push('食伤生财 — 有投资倾向，用技术或创意换钱。')
-  if (ssCount['比肩'] && ssCount['比肩'] > 1) result.push('比肩多现 — 朋友多在意友情，做事亲力亲为。')
+  if (hasKill && hasGuan) result.push('官杀混杂，说明你事业上有好几条路可以走，但别贪多，专注一条才对。')
+  if (hasCai && hasYin) result.push('财印双全，你这人既能赚钱又爱学习，两手都硬。')
+  if (hasShiShang && hasGuan) result.push('食伤制官杀，说明你不安分，总想搞点名堂出来。')
+  if (hasShiShang && hasCai) result.push('食伤生财，你这人脑子活，能用技术或创意来变现。')
+  if (ssCount['比肩'] && ssCount['比肩'] > 1) result.push('比肩多现，说明你这人重情义，朋友的事就是自己的事。')
 
   return result
 }
@@ -551,7 +556,7 @@ export function analyzeZongHe(pills: PillarInfo[], birthYear: number, gender: st
   const riZhi = pills[2].zhi
 
   // 婚姻宫
-  result.push(`婚姻宫（日支）为${riZhi}，喜静不喜动。`)
+  result.push(`你的婚姻宫在${riZhi}，这个位置偏静，婚姻这事你不太爱折腾。`)
   // 检查日支关系
   const zhis = pills.map(p => p.zhi)
   const chongPairs = Object.keys(LIU_CHONG)
@@ -561,27 +566,27 @@ export function analyzeZongHe(pills: PillarInfo[], birthYear: number, gender: st
     const k1 = riZhi + zhis[i]
     const k2 = zhis[i] + riZhi
     if (chongPairs.includes(k1) || chongPairs.includes(k2)) {
-      result.push(`日支${riZhi}与${zhis[i]}相冲，婚姻宫被冲动，感情易波动。`)
+      result.push(`日支${riZhi}和${zhis[i]}相冲，婚姻宫被冲了，感情上容易起波澜。`)
     }
     if (chuanPairs.includes(k1) || chuanPairs.includes(k2)) {
-      result.push(`日支${riZhi}与${zhis[i]}相穿，婚姻中有需要磨合的矛盾。`)
+      result.push(`日支${riZhi}和${zhis[i]}相穿，说明你跟另一半在某些事上得相互忍让。`)
     }
   }
 
   // 年上字
   const yearGanSS = ssM[riGan]?.[yearPillar.gan] || ''
   const monthGanSS = ssM[riGan]?.[monthPillar.gan] || ''
-  result.push(`年上${yearPillar.gan}为${yearGanSS}，能量大力量小，想法大落地难。`)
-  result.push(`月令${monthPillar.zhi}力量最大，月干${monthPillar.gan}为${monthGanSS}，对命主直接影响强。`)
+  result.push(`年上${yearPillar.gan}是${yearGanSS}，看起来是棵大树，实际离你远，想法大但真正使上劲不容易。`)
+  result.push(`月令${monthPillar.zhi}是你命里最有力气的位，月干${monthPillar.gan}是${monthGanSS}，这个对你影响最直接。`)
 
   // 时柱
   const hourGanSS = ssM[riGan]?.[hourPillar.gan] || ''
-  result.push(`时上${hourPillar.gan}为${hourGanSS}，代表内心世界和晚年状态。`)
+  result.push(`时上${hourPillar.gan}是${hourGanSS}，这代表你晚年怎么过、内心真正想要什么。`)
 
   // 共根在月令的判断
   const bestGen = BEST_GONG_GEN[riGan]
   if (bestGen && monthPillar.zhi.includes(bestGen.replace('土',''))) {
-    result.push(`共根${bestGen}在月令，可以借父母的力，朋友多。`)
+    result.push(`${bestGen}在月令，说明你在家里和朋友圈里吃得开，父母能帮你一把，兄弟朋友也多。`)
   }
 
   return result
@@ -599,7 +604,7 @@ export function analyzeSummary(pills: PillarInfo[], riGan: string, wangXiang: st
     '水':'自我要求高，对事业有追求。',
   }
 
-  return `${riGan}日主属${riWx}。${wxDescs[riWx]||''}坐下${riZhi}，月令${monthZhi}。${wangXiang.length > 0 ? '五行状态：' + wangXiang.slice(0,3).join('；') : ''}整体来看，命主是一个需要结合大运流年综合判断的独特个体。易理是为人服务的——八字不是宿命，而是认识自己的工具。`
+  return `${riGan}日主属${riWx}。${wxDescs[riWx]||''}坐下${riZhi}，月令${monthZhi}。${wangXiang.length > 0 ? '五行状态：' + wangXiang.slice(0,3).join('；') : ''}整体来看，你这人有自己的脾气和路子，上面说的这些是你天生的底牌——八字不是定命，是帮你认清楚自己是个什么样的人。`
 }
 
 // ── 主入口 ──

@@ -344,7 +344,8 @@ export default function ZiweiClient() {
     setLoading(true)
     if (validationMsg) { setError(validationMsg); setLoading(false); return }
     try {
-      const h = parseInt(hour)
+      // CalendarInput 的 hour 值用的是地支索引 (0=子,6=午,11=亥), 需转成实际小时数
+      const h = ((parseInt(hour) || 6) * 2 + 23) % 24
       const sd = calendarType === 'solar'
         ? `${y}-${String(m).padStart(2, '0')}-${String(d).padStart(2, '0')}`
         : lunarToSolarDate(y, m, d, isLeap)

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head><title>Test Worker</title></head>
+<body>
+<pre id="result">测试中...</pre>
+<script>
+  const workerUrl = 'https://aisage-api.4513.workers.dev/aisage/status';
+  fetch(workerUrl, { method: 'GET' })
+    .then(r => r.json())
+    .then(d => document.getElementById('result').textContent = JSON.stringify(d, null, 2))
+    .catch(e => document.getElementById('result').textContent = '❌ 错误: ' + e.message);
+</script>
+</body>
+</html>

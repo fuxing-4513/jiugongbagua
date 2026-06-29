@@ -33,6 +33,14 @@ export const CANG_GAN: Record<string,string> = {
   子:'癸',丑:'己癸辛',寅:'甲丙戊',卯:'乙',辰:'戊乙癸',巳:'丙庚戊',
   午:'丁己',未:'己丁乙',申:'庚壬戊',酉:'辛',戌:'戊辛丁',亥:'壬甲'
 }
+
+// 藏干（数组格式，方便逐个元素访问）
+export const CANG_GAN_ARRAY: Record<string, string[]> = {
+  子:['癸'],丑:['己','癸','辛'],寅:['甲','丙','戊'],卯:['乙'],
+  辰:['戊','乙','癸'],巳:['丙','庚','戊'],午:['丁','己'],
+  未:['己','丁','乙'],申:['庚','壬','戊'],酉:['辛'],
+  戌:['戊','辛','丁'],亥:['壬','甲']
+}
 export const CANG_GAN_MAIN: Record<string,string> = {
   子:'癸',丑:'己',寅:'甲',卯:'乙',辰:'戊',巳:'丙',
   午:'丁',未:'己',申:'庚',酉:'辛',戌:'戊',亥:'壬'
@@ -127,10 +135,16 @@ export const YUEDE: Record<string,string> = {寅:'丙',卯:'甲',辰:'壬',巳:'
 
 // ─── 地支六合 ───
 export const DZ_LIUHE: Record<string,string> = {子:'丑',丑:'子',寅:'亥',卯:'戌',辰:'酉',巳:'申',午:'未',未:'午',申:'巳',酉:'辰',戌:'卯',亥:'寅'}
+export const LIU_HE = DZ_LIUHE
 export const DZ_SANHE: Record<string,string[]> = {申:['子','辰'],子:['申','辰'],辰:['申','子'],寅:['午','戌'],午:['寅','戌'],戌:['寅','午'],巳:['酉','丑'],酉:['巳','丑'],丑:['巳','酉'],亥:['卯','未'],卯:['亥','未'],未:['亥','卯']}
+export const SAN_HE = DZ_SANHE
 export const DZ_CHONG: Record<string,string> = {子:'午',丑:'未',寅:'申',卯:'酉',辰:'戌',巳:'亥',午:'子',未:'丑',申:'寅',酉:'卯',戌:'辰',亥:'巳'}
+export const LIU_CHONG = DZ_CHONG
 export const DZ_XING: Record<string,string> = {子:'卯',丑:'戌',寅:'巳',卯:'子',辰:'辰',巳:'寅',午:'午',未:'丑',申:'寅',酉:'酉',戌:'丑',亥:'亥'}
 export const DZ_HAI: Record<string,string> = {子:'未',丑:'午',寅:'巳',卯:'辰',辰:'卯',巳:'寅',午:'丑',未:'子',申:'亥',酉:'戌',戌:'酉',亥:'申'}
+// 害（LIU_CHUAN / LIU_HAI 是六害的别名）
+export const LIU_CHUAN = DZ_HAI
+export const LIU_HAI = DZ_HAI
 export const DZ_PO: Record<string,string> = {子:'酉',丑:'辰',寅:'亥',卯:'午',辰:'丑',巳:'申',午:'卯',未:'戌',申:'巳',酉:'子',戌:'未',亥:'寅'}
 
 // ─── 生肖六合三合冲害破 ───

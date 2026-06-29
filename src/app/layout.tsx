@@ -34,7 +34,6 @@ export const metadata: Metadata = {
     follow: true,
     googleBot: { index: true, follow: true },
   },
-  verification: { google: '' },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -43,55 +42,28 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        {/* CSP 安全策略 */}
+        {/* 安全策略 */}
         <meta
           httpEquiv="Content-Security-Policy"
           content={
             "default-src 'self'; " +
-            "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; " +
+            "script-src 'self' 'unsafe-inline' https://hm.baidu.com https://*.baidu.com https://www.googletagmanager.com; " +
             "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; " +
             "font-src 'self' https://fonts.gstatic.com; " +
             "img-src 'self' data: blob: https:; " +
-            "connect-src 'self' https://www.google-analytics.com; " +
+            "connect-src 'self' https://aisage-api.4513.workers.dev http://172.23.127.193:3000 http://localhost:3000 https://hm.baidu.com https://*.baidu.com https://www.google-analytics.com; " +
+            "frame-src 'self'; " +
             "frame-ancestors 'none'; " +
             "base-uri 'self'; " +
             "form-action 'self'; " +
+            "object-src 'none'; " +
+            "media-src 'self'; " +
             "block-all-mixed-content; " +
             "upgrade-insecure-requests"
           }
         />
         <meta httpEquiv="X-Content-Type-Options" content="nosniff" />
         <meta httpEquiv="X-Frame-Options" content="DENY" />
-        {/* 强制禁用缓存 */}
-        <meta httpEquiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-        <meta httpEquiv="Pragma" content="no-cache" />
-        <meta httpEquiv="Expires" content="0" />
-        {/* 反爬虫: 阻止控制台打开和右键菜单 */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-            (function(){
-              // 阻止右键菜单
-              document.addEventListener('contextmenu',function(e){e.preventDefault()});
-              // 阻止开发者工具快捷键
-              document.addEventListener('keydown',function(e){
-                if(
-                  e.keyCode===123||
-                  (e.ctrlKey&&e.shiftKey&&e.keyCode===73)||
-                  (e.ctrlKey&&e.shiftKey&&e.keyCode===74)||
-                  (e.ctrlKey&&e.keyCode===85)
-                ){e.preventDefault();return false}
-              });
-              // 爬虫检测-标记
-              try{
-                Object.defineProperty(navigator,'webdriver',{get:function(){return undefined}});
-              }catch(_){}
-            })();
-            `
-          }}
-        />
-        {/* 浅色主题 —— 白色背景，减眼疲劳 */}
-        <style dangerouslySetInnerHTML={{ __html: `.cosmic-overlay{display:none!important}` }} />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <link rel="icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" href="/favicon.svg" />

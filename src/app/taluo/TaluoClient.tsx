@@ -72,6 +72,7 @@ export default function TaluoClient() {
   const [visibleInterpretation, setVisibleInterpretation] = useState(false)
 
   const shufflerRef = useRef<ReturnType<typeof setInterval> | null>(null)
+  const timersRef = useRef<ReturnType<typeof setTimeout>[]>([])
   const containerRef = useRef<HTMLDivElement>(null)
 
   // Cleanup interval on unmount
@@ -85,17 +86,19 @@ export default function TaluoClient() {
   const startReading = useCallback(
     (spreadId: string) => {
       setSelectedSpread(spreadId)
-      setPhase('shuffling')
+      setPhase("shuffling")
       setShowInterpretation(false)
       setFlippedIndices(new Set())
       setVisibleInterpretation(false)
-      setReadingTab('core')
+      setReadingTab("core")
 
-      // Draw cards now (server-safe; data is loaded at build)
+      // 清理之前的定时器
+      timersRef.current.forEach(t => clearTimeout(t))
+      timersRef.current = []
+
       const cards = drawForSpread(spreadId)
       setDrawnCards(cards)
 
-      // Start shuffle text rotation
       let idx = 0
       setShuffleText(SHUFFLE_TEXTS[0])
       shufflerRef.current = setInterval(() => {
@@ -103,34 +106,36 @@ export default function TaluoClient() {
         setShuffleText(SHUFFLE_TEXTS[idx])
       }, 700)
 
-      // After 2.5s → placing phase
-      setTimeout(() => {
+      const t1 = setTimeout(() => {
         if (shufflerRef.current) clearInterval(shufflerRef.current)
-        setPhase('placing')
+        setPhase("placing")
 
-        // After 1.2s for cards to animate in → reading phase
-        setTimeout(() => {
-          setPhase('reading')
-          // Auto-flip cards one by one with staggered delay
+        const t2 = setTimeout(() => {
+          setPhase("reading")
           const count = cards.length
           for (let i = 0; i < count; i++) {
             const delay = 400 + i * 500
-            setTimeout(() => {
+            const tFlip = setTimeout(() => {
               setFlippedIndices((prev) => new Set(prev).add(i))
-              // When last card is flipped, show interpretation
               if (i === count - 1) {
-                setTimeout(() => {
+                const tShow = setTimeout(() => {
                   setShowInterpretation(true)
-                  setTimeout(() => setVisibleInterpretation(true), 100)
+                  const tVis = setTimeout(() => setVisibleInterpretation(true), 100)
+                  timersRef.current.push(tVis)
                 }, 800)
+                timersRef.current.push(tShow)
               }
             }, delay)
+            timersRef.current.push(tFlip)
           }
         }, 1200)
+        timersRef.current.push(t2)
       }, 2500)
+      timersRef.current.push(t1)
     },
     [],
   )
+
 
   // ── Reset to menu ──
   const resetToMenu = useCallback(() => {

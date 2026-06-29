@@ -75,7 +75,9 @@ export default function AppClient() {
   const y = parseInt(year) || 1990;
   const m = parseInt(month) || 1;
   const d = parseInt(day) || 1;
-  const h = parseInt(hour) || 6;
+  const hzIndex = parseInt(hour) || 6;
+  // CalendarInput 的 hour 值用的是地支索引 (0=子,6=午,11=亥), 需转成实际小时数
+  const h = (hzIndex * 2 + 23) % 24;
 
   const resolvedHour = trueSolarOn
     ? calcTrueSolarHour(`${y}-${String(m).padStart(2,'0')}-${String(d).padStart(2,'0')}`, h, trueSolarLng)

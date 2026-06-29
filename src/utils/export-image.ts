@@ -4,7 +4,7 @@
  * 导出命盘结果为图片（打印兜底方案）
  *
  * 使用 window.print() 实现（html2canvas 未安装时的方案）
- * 改用 DOM API 构建打印文档，规避 document.write 风险
+ * 改用 DOM API + cloneNode 构建打印文档，规避 innerHTML XSS 风险
  */
 
 export async function exportAsPng(element: HTMLElement, filename = 'mingpan.png'): Promise<void> {
@@ -15,9 +15,8 @@ export async function exportAsPng(element: HTMLElement, filename = 'mingpan.png'
   }
 
   const safeTitle = filename.replace(/[<>"']/g, '').slice(0, 64)
-  const html = element.outerHTML
 
-  // 用 DOM API 安全构建，避免 document.write 的 HTML 注入风险
+  // 用 DOM cloneNode + 安全过滤构建打印文档
   const doc = printWindow.document
   const rootHtml = doc.createElement('html')
   
@@ -40,17 +39,19 @@ export async function exportAsPng(element: HTMLElement, filename = 'mingpan.png'
   head.appendChild(style)
 
   const body = doc.createElement('body')
-  // 将 outerHTML 解析为真实 DOM 节点再挂载，避免 HTML 字符串直接注入
-  const wrapper = doc.createElement('div')
-  wrapper.innerHTML = html
-  while (wrapper.firstChild) {
-    body.appendChild(wrapper.firstChild)
-  }
+  // 安全克隆，去除脚本和危险元素
+  const safeClone = element.cloneNode(true) as HTMLElement
+  safeClone.querySelectorAll('script, button, iframe, object, embed').forEach(el => el.remove())
+  body.appendChild(safeClone)
 
-  // 页面加载完成后自动打印并关闭
-  const script = doc.createElement('script')
-  script.textContent = 'window.onload = function() { window.print(); window.close(); }'
-  body.appendChild(script)
+  // 去除所有 on* 属性（HTML 事件处理器）
+  const walker = doc.createTreeWalker(body, NodeFilter.SHOW_ELEMENT, null)
+  while (walker.nextNode()) {
+    const el = walker.currentNode as HTMLElement
+    Array.from(el.attributes).forEach(attr => {
+      if (/^on/i.test(attr.name)) el.removeAttribute(attr.name)
+    })
+  }
 
   rootHtml.appendChild(head)
   rootHtml.appendChild(body)

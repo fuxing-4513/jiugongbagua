@@ -492,12 +492,7 @@ const ELEMENT_STRONG_ROOTS: Record<string, string[]> = {
   '土': ['辰', '戌', '丑', '未'],  // 土的特殊：库土本身
 }
 
-/** 地支藏干（本气-中气-余气） */
-const HIDDEN_GAN: Record<string, string> = {
-  '子': '癸', '丑': '己癸辛', '寅': '甲丙戊', '卯': '乙',
-  '辰': '戊乙癸', '巳': '丙庚戊', '午': '丁己', '未': '己丁乙',
-  '申': '庚壬戊', '酉': '辛', '戌': '戊辛丁', '亥': '壬甲',
-}
+import { CANG_GAN as HIDDEN_GAN } from './bazi-constants'
 
 /**
  * 获取某个天干在某个地支的根信息
