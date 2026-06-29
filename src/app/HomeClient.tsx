@@ -140,26 +140,32 @@ export default function HomeClient() {
       {/* 浮动 AI 按钮 */}
       <div
         onClick={() => window.open('/aisage.html', '_blank')}
-        className="fixed right-4 top-1/2 -translate-y-1/2 z-50 flex flex-col items-center gap-2 cursor-pointer group"
+        className="fixed right-3 top-1/2 -translate-y-1/2 z-50 flex flex-col items-center gap-3 cursor-pointer group"
         style={{ animation: 'aiFloat 3s ease-in-out infinite' }}
       >
         <div
-          className="w-16 h-16 rounded-full flex items-center justify-center"
+          className="w-20 h-20 rounded-full flex items-center justify-center"
           style={{
-            background: 'linear-gradient(135deg, rgba(10,10,15,0.95), rgba(232,200,74,0.15))',
-            border: '2.5px solid rgba(232,200,74,0.6)',
-            boxShadow: '0 0 20px rgba(232,200,74,0.2), 0 0 40px rgba(232,200,74,0.08)',
-            animation: 'aiGlow 2s ease-in-out infinite',
+            background: 'linear-gradient(135deg, #0a0a0f 0%, rgba(232,200,74,0.12) 100%)',
+            border: '3px solid rgba(232,200,74,0.6)',
+            boxShadow: '0 0 30px rgba(232,200,74,0.3), 0 0 60px rgba(232,200,74,0.12), 0 0 100px rgba(232,200,74,0.05)',
+            animation: 'aiGlow 1.8s ease-in-out infinite',
           }}
         >
-          <span className="text-3xl" style={{ animation: 'aiSpin 4s linear infinite' }}>☯</span>
+          <span className="text-4xl" style={{ animation: 'aiSpin 4s linear infinite', filter: 'drop-shadow(0 0 6px rgba(232,200,74,0.6))' }}>☯</span>
         </div>
-        <span
-          className="text-[11px] text-[#f0d860] font-bold"
-          style={{ writingMode: 'vertical-rl', textOrientation: 'mixed', letterSpacing: '3px', textShadow: '0 0 8px rgba(232,200,74,0.3)' }}
+        <div
+          className="flex flex-col items-center"
+          style={{ textShadow: '0 0 10px rgba(232,200,74,0.4)' }}
         >
-          AI命理问答
-        </span>
+          <span className="text-base text-[#f0d860] font-extrabold tracking-[4px]">AI</span>
+          <span
+            className="text-[10px] text-[#e8c84a] font-medium"
+            style={{ writingMode: 'vertical-rl', textOrientation: 'mixed', letterSpacing: '3px' }}
+          >
+            命理问答
+          </span>
+        </div>
       </div>
     </>
   )
