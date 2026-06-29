@@ -51,7 +51,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; " +
             "font-src 'self' https://fonts.gstatic.com; " +
             "img-src 'self' data: blob: https:; " +
-            "connect-src 'self' https://aisage-api.4513.workers.dev http://172.23.127.193:3000 http://localhost:3000 https://hm.baidu.com https://*.baidu.com https://www.google-analytics.com; " +
+            "connect-src 'self' https://aisage-api.4513.workers.dev https://api.deepseek.com http://172.23.127.193:3000 http://localhost:3000 https://hm.baidu.com https://*.baidu.com https://www.google-analytics.com; " +
             "frame-src 'self'; " +
             "frame-ancestors 'none'; " +
             "base-uri 'self'; " +
