@@ -154,14 +154,28 @@ export default function HomeClient() {
         >
           <span className="text-4xl" style={{ animation: 'aiSpin 4s linear infinite', filter: 'drop-shadow(0 0 6px rgba(232,200,74,0.6))' }}>☯</span>
         </div>
-        <div
-          className="flex flex-col items-center"
-          style={{ textShadow: '0 0 10px rgba(232,200,74,0.4)' }}
-        >
-          <span className="text-base text-[#f0d860] font-extrabold tracking-[4px]">AI</span>
+        <div className="flex flex-col items-center">
           <span
-            className="text-[10px] text-[#e8c84a] font-medium"
-            style={{ writingMode: 'vertical-rl', textOrientation: 'mixed', letterSpacing: '3px' }}
+            className="text-lg font-extrabold tracking-[5px]"
+            style={{
+              color: '#f0d860',
+              textShadow: '0 0 8px rgba(232,200,74,0.6), 0 0 20px rgba(232,200,74,0.3)',
+              animation: 'goldShine 2s ease-in-out infinite',
+            }}
+          >
+            AI
+          </span>
+          <span
+            className="font-semibold"
+            style={{
+              color: '#e8c84a',
+              fontSize: '13px',
+              writingMode: 'vertical-rl',
+              textOrientation: 'mixed',
+              letterSpacing: '4px',
+              textShadow: '0 0 6px rgba(232,200,74,0.5), 0 0 15px rgba(232,200,74,0.2)',
+              animation: 'goldShine 2s ease-in-out infinite 0.5s',
+            }}
           >
             命理问答
           </span>
