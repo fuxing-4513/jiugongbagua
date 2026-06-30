@@ -63,13 +63,13 @@ export default function HomeClient() {
       {/* ── 分隔线 ── */}
       <div className="w-16 h-px mx-auto bg-dark-500/40 mb-12"></div>
 
-      {/* ===== 免费排盘 ===== */}
-      <FreeChartWidget />
-
       {/* ===== 玄学 AI 对话（放立即排盘上方） ===== */}
       <section className="max-w-xl mx-auto mt-4 mb-8">
         <AisageChat />
       </section>
+
+      {/* ===== 免费排盘 ===== */}
+      <FreeChartWidget />
 
       {/* ── 分隔线 ── */}
       <div className="w-16 h-px mx-auto bg-dark-500/40 my-14"></div>
