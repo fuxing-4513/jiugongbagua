@@ -72,12 +72,12 @@ export default function AisageChat() {
         div.innerHTML = `
           <div class="max-w-[85%] rounded-xl px-3.5 py-2.5 ${
             msg.role === 'user'
-              ? 'bg-jade-600/20 border border-jade-600/30 text-jade-200'
-              : 'bg-dark-700/70 border border-dark-600/50 text-gray-200'
+              ? 'bg-gold-500/15 border border-dark-600/30 text-dark-900'
+              : ' border border-dark-600/50 text-gray-200'
           }">
             <div class="flex items-center gap-1.5 mb-1">
               <span class="text-xs">${msg.role === 'user' ? '👤 你' : '🧿 九宫先生'}</span>
-              ${msg.role === 'assistant' && i === 0 ? '<span class="text-[9px] px-1.5 py-0.5 rounded bg-jade-600/20 text-jade-400 border border-jade-600/30">全科</span>' : ''}
+              ${msg.role === 'assistant' && i === 0 ? '<span class="text-[9px] px-1.5 py-0.5 rounded bg-gold-500/15 text-dark-700 border border-dark-600/30">全科</span>' : ''}
             </div>
             <div class="space-y-1">{{CONTENT}}</div>
           </div>
@@ -103,11 +103,11 @@ export default function AisageChat() {
         loadingDiv.className = 'flex justify-start'
         loadingDiv.id = 'aisage-loading'
         loadingDiv.innerHTML = `
-          <div class="bg-dark-700/70 border border-dark-600/50 rounded-xl px-3.5 py-2.5">
+          <div class=" border border-dark-600/50 rounded-xl px-3.5 py-2.5">
             <div class="flex items-center gap-2 text-gray-400 text-xs">
-              <span class="inline-block w-2 h-2 rounded-full bg-jade-400 animate-pulse"></span>
-              <span class="inline-block w-2 h-2 rounded-full bg-jade-500 animate-pulse" style="animation-delay:0.2s"></span>
-              <span class="inline-block w-2 h-2 rounded-full bg-jade-600 animate-pulse" style="animation-delay:0.4s"></span>
+              <span class="inline-block w-2 h-2 rounded-full bg-gold-500 animate-pulse"></span>
+              <span class="inline-block w-2 h-2 rounded-full bg-gold-500 animate-pulse" style="animation-delay:0.2s"></span>
+              <span class="inline-block w-2 h-2 rounded-full bg-gold-600 animate-pulse" style="animation-delay:0.4s"></span>
               <span class="ml-1">正在思考...</span>
             </div>
           </div>
@@ -212,7 +212,7 @@ export default function AisageChat() {
     // 快捷话题
     QUICK_TOPICS.forEach(topic => {
       const btn = document.createElement('button')
-      btn.className = 'flex items-center gap-1 px-2.5 py-1.5 rounded-full bg-dark-700/70 border border-dark-600/50 hover:border-jade-500/40 hover:bg-jade-900/10 transition-all text-xs text-gray-400 hover:text-jade-300 whitespace-nowrap'
+      btn.className = 'flex items-center gap-1 px-2.5 py-1.5 rounded-full  border border-dark-600/50 hover:border-dark-500/60 hover:bg-gold-500/10 transition-all text-xs text-gray-400 hover:text-dark-800 whitespace-nowrap'
       btn.innerHTML = `<span>${topic.emoji}</span><span>${topic.label}</span>`
       btn.addEventListener('click', () => {
         // 展开 details
@@ -231,40 +231,44 @@ export default function AisageChat() {
     <div className="w-full" ref={containerRef}>
       <details
         ref={detailsRef}
-        className="group rounded-xl bg-gradient-to-r from-jade-600/15 to-jade-500/10 border border-jade-500/30 [&[open]]:border-jade-400/50 transition-all duration-200 overflow-hidden"
+        className="group rounded-xl border border-dark-600/50 transition-all duration-200 overflow-hidden"
       >
-        <summary className="flex items-center justify-between px-5 py-3.5 cursor-pointer list-none hover:from-jade-600/20 hover:to-jade-500/15 transition-all select-none">
-          <div className="flex items-center gap-3">
-            <span className="text-xl">🧿</span>
+        <summary className="flex items-center justify-between px-6 py-5 cursor-pointer list-none transition-all select-none"
+          style={{
+            borderRadius: '12px',
+            border: '1px solid rgba(180,180,180,0.3)',
+          }}
+        >
+          <div className="flex items-center gap-4">
+            <span className="text-4xl" style={{ animation: 'aiSpin 4s linear infinite' }}>☯</span>
             <div className="text-left">
-              <p className="text-sm font-semibold text-jade-300 group-hover:text-jade-200 transition-colors">
-                玄学 AI 问一问
+              <p className="text-base font-semibold" style={{ color: '#111111' }}>
+                点击这里在线 · 玄学 AI 问一问
               </p>
-              <p className="text-[11px] text-gray-500">
+              <p className="text-xs" style={{ color: '#a08030' }}>
                 八字 · 紫微 · 奇门 · 六爻 · 姓名 · 风水 · 解梦 · 择日
               </p>
             </div>
           </div>
-          <span className="text-jade-400 transition-transform duration-200 group-open:rotate-180">▼</span>
         </summary>
 
-        <div className="border-t border-jade-500/20">
-          <div className="aisage-messages h-80 overflow-y-auto px-4 py-3 space-y-3 scrollbar-thin scrollbar-thumb-dark-600 scrollbar-track-dark-800 bg-dark-800/90"></div>
+        <div className="border-t border-dark-500/20">
+          <div className="aisage-messages h-80 overflow-y-auto px-4 py-3 space-y-3"></div>
 
-          <div className="bg-dark-800/90 px-3 py-2.5 border-t border-dark-600/60">
+          <div className="px-3 py-2.5 border-t border-dark-500/30">
             <div className="aisage-topics mb-2.5 overflow-x-auto scrollbar-none flex gap-1.5 min-w-max"></div>
 
             <div className="flex gap-2">
               <input
                 type="text"
-                className="aisage-input flex-1 bg-dark-700 border border-dark-600 rounded-lg px-3 py-2 text-sm text-gray-200 placeholder-gray-600 focus:outline-none focus:border-jade-500/50 focus:ring-1 focus:ring-jade-500/20 transition-all"
+                className="aisage-input flex-1  border border-dark-600 rounded-lg px-3 py-2 text-sm text-gray-200 placeholder-gray-600 focus:outline-none focus:border-gold-500/40 focus:ring-1 focus:ring-gold-500/20 transition-all"
                 placeholder="问一个玄学问题..."
                 autoComplete="off"
               />
               <button
-                className="aisage-send-btn px-4 py-2 rounded-lg bg-jade-600/20 text-jade-400 text-sm font-medium border border-jade-600/30 hover:bg-jade-600/30 transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+                className="aisage-send-btn px-3 py-2 rounded-lg bg-gold-500/25 text-black text-sm font-medium border border-dark-600/40 hover:bg-gold-500/35 transition-all disabled:opacity-40 disabled:cursor-not-allowed"
               >
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 12h14M12 5l7 7-7 7" />
                 </svg>
               </button>
