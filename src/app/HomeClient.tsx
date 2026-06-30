@@ -208,7 +208,7 @@ export default function HomeClient() {
                 <animateTransform attributeName="transform" type="rotate" values="-8 84 86;18 84 86;-8 84 86" dur="1.2s" repeatCount="indefinite"/>
               </circle>
             </g>
-            <text x="60" y="106" text-anchor="middle" fill="#f0d860" font-size="12" font-weight="bold">玄学AI</text>
+            <text x="60" y="106" text-anchor="middle" fill="#000000" font-size="12" font-weight="bold">玄学AI</text>
           </svg>
         </div>
       </div>
