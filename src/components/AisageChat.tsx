@@ -3,8 +3,8 @@
 import { useEffect, useRef } from 'react'
 
 /** AI 对话服务地址 */
-// AI 服务地址：本地开发用 WSL 地址，生产部署时改成 Worker URL
-const DEEPSEEK_KEY = 'Bearer sk-f268f57acdbb41f79e2590aca6d6f566'
+// AI 服务地址：生产部署时替换下面的 Worker URL
+const WORKER_URL = 'https://aisage-api.4513.workers.dev/chat'
 
 /** 快捷话题 */
 const QUICK_TOPICS = [
@@ -146,11 +146,10 @@ export default function AisageChat() {
 
       try {
         const SYSTEM_PROMPT = '你是一位精通中国传统玄学全科的资深大师，名为"九宫先生"。你的知识涵盖四柱八字、紫微斗数、奇门遁甲、六爻、梅花易数、姓名学、风水学等领域。回复原则：专业准确、领域自判、通俗易懂、实用建议。关键术语用【】标注并解释。'
-        const res = await fetch('https://api.deepseek.com/v1/chat/completions', {
+        const res = await fetch(WORKER_URL, {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json',
-            'Authorization': DEEPSEEK_KEY
+            'Content-Type': 'application/json'
           },
           body: JSON.stringify({
             model: 'deepseek-chat',

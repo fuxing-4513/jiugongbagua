@@ -492,11 +492,10 @@
       var SYSTEM_PROMPT = '你是一位精通中国传统玄学全科的资深大师，名为"九宫先生"。你的知识涵盖四柱八字、紫微斗数、奇门遁甲、六爻、梅花易数、姓名学、风水学等领域。回复原则：专业准确、领域自判、通俗易懂、实用建议。关键术语用【】标注并解释。';
 
       try {
-        var res = await fetch('https://api.deepseek.com/v1/chat/completions', {
+        var res = await fetch('https://aisage-api.4513.workers.dev/chat', {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer sk-f268f57acdbb41f79e2590aca6d6f566'
+            'Content-Type': 'application/json'
           },
           body: JSON.stringify({
             model: 'deepseek-chat',
