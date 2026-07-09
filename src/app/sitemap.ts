@@ -18,7 +18,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: '/taluo', priority: 0.7, changeFreq: 'weekly' as const },
     { path: '/taluo/cards', priority: 0.6, changeFreq: 'weekly' as const },
     { path: '/wenku', priority: 0.8, changeFreq: 'weekly' as const },
-    { path: '/experts', priority: 0.7, changeFreq: 'weekly' as const },
     { path: '/hehun', priority: 0.7, changeFreq: 'weekly' as const },
     { path: '/chenggu', priority: 0.7, changeFreq: 'weekly' as const },
     { path: '/fengshui', priority: 0.7, changeFreq: 'weekly' as const },

@@ -52,7 +52,6 @@ export default function Footer() {
               <Link href="/glossary" className="block text-xs text-gray-500 hover:text-gold-600 transition-colors">{getT('nav.glossary')}</Link>
               <Link href="/faq" className="block text-xs text-gray-500 hover:text-gold-600 transition-colors">{getT('nav.faq')}</Link>
               <Link href="/help" className="block text-xs text-gray-500 hover:text-gold-600 transition-colors">{getT('footer.help')}</Link>
-              <Link href="/experts" className="block text-xs text-gray-500 hover:text-gold-600 transition-colors">{getT('modules.experts.name')}</Link>
             </div>
           </div>
 

@@ -21,14 +21,6 @@ export default function ContactPage() {
         </div>
 
         <div className="bg-dark-800/60 border border-dark-600 rounded-xl p-6">
-          <h2 className="text-lg font-semibold text-gold-300 mb-2">👨‍🏫 专家咨询</h2>
-          <p className="text-sm text-gray-400 mb-3">如需命理深度解读，可预约资深专家为您一对一服务</p>
-          <Link href="/experts" className="inline-block px-5 py-2 bg-gold-400/15 border border-gold-400/30 rounded-lg text-gold-400 text-sm hover:bg-gold-400/25 transition-colors">
-            预约专家 →
-          </Link>
-        </div>
-
-        <div className="bg-dark-800/60 border border-dark-600 rounded-xl p-6">
           <h2 className="text-lg font-semibold text-gold-300 mb-2">❓ 常见问题</h2>
           <p className="text-sm text-gray-400 mb-3">使用过程中遇到问题？先看看常见问题中是否有答案</p>
           <Link href="/faq" className="inline-block px-5 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-300 text-sm hover:text-gold-400 transition-colors">

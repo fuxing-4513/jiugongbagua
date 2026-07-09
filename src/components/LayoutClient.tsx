@@ -6,7 +6,6 @@ import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import ErrorBoundary from '@/components/ErrorBoundary'
 import TopLoadingBar from '@/components/TopLoadingBar'
-import FloatingExpertButton from '@/components/FloatingExpertButton'
 
 function LayoutInner({ children }: { children: React.ReactNode }) {
   const { locale } = useLocale()
@@ -23,7 +22,6 @@ function LayoutInner({ children }: { children: React.ReactNode }) {
       <TopLoadingBar />
       <ErrorBoundary>
         <Nav />
-        <FloatingExpertButton />
         <main className="flex-1 pt-16">
           {children}
         </main>

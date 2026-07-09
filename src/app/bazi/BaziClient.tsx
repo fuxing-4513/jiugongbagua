@@ -1585,18 +1585,6 @@ Object.entries(result.wx).map(([w,c]): React.ReactNode =>(
         </button>
       </div>
 
-      {/* 专家预约引导 */}
-      <div className="bg-gradient-to-r from-amber-900/30 via-gold-500/10 to-amber-900/30 rounded-xl border border-gold-500/30 p-5 text-center">
-        <p className="text-sm text-gold-300 font-medium mb-2">🔮 想了解更多？</p>
-        <p className="text-xs text-gray-400 mb-4">AI 分析广度已覆盖 20+ 维度，如需一对一深度解读，可预约命理专家</p>
-        <a
-          href="/experts"
-          className="inline-block text-sm px-6 py-2 bg-gold-500/20 border border-gold-500/50 text-gold-300 rounded-lg hover:bg-gold-500/30 transition-all"
-        >
-          📞 预约专家深度解读
-        </a>
-      </div>
-
       {/* 大运可视化 */}
       <DayunChart dayun={result.dayun as unknown as { gz: string; age: number; startYear: number; years: { year: number; gz: string; age: number }[] }[]} currentAge={result.currentAge} birthYear={result.birthYear} />
 
