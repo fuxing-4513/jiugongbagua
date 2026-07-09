@@ -8,7 +8,6 @@ import HeritageSection from '@/components/HeritageSection'
 import ClassicQuotes from '@/components/ClassicQuotes'
 import BottomCTA from '@/components/BottomCTA'
 import CalendarInput, { type CalendarType, getMaxDay, lunarToSolarDate } from '@/components/CalendarInput'
-import AisageChat from '@/components/AisageChat'
 
 interface ModuleInfo {
   key: string
@@ -62,11 +61,6 @@ export default function HomeClient() {
 
       {/* ── 分隔线 ── */}
       <div className="w-16 h-px mx-auto bg-dark-500/40 mb-12"></div>
-
-      {/* ===== 玄学 AI 对话（放立即排盘上方） ===== */}
-      <section className="max-w-xl mx-auto mt-4 mb-8">
-        <AisageChat />
-      </section>
 
       {/* ===== 免费排盘 ===== */}
       <FreeChartWidget />
