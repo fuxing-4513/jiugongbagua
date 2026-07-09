@@ -349,9 +349,6 @@ export function analyzeJudgment(
     jieGenNarr: dedup(jieGenAnalysis(riGan, pills)),
     yuanJuCheckNarr: dedup(yuanJuCheck(riGan, gans, zhis, gender))
   }
-<<<<<<< Updated upstream
-=======
-
   for (const z of zhis) {
     if (z === riZhi) continue
     for (const cg of spCang) {
