@@ -1555,7 +1555,6 @@ function analyzeLiuQin(
     summary.push(...xingGong)
   }
   return { nianZhu, yueZhu, riZhi: riZhiOut, shiZhu, xingGong, summary }
->>>>>>> Stashed changes
 }
 
 export default analyzeJudgment
