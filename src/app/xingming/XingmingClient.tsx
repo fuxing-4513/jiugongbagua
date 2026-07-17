@@ -12,6 +12,7 @@ const NamingChars = dynamic(() => import('@/components/NamingChars'), { ssr: fal
 
 // ── 异步加载康熙字典笔画库 ──
 let kangxiStrokes: Record<string, number> | null = null
+let kangxiWuxing: Record<string, string> = {}
 let kangxiLoading = false
 const kangxiCallbacks: Array<(ok: boolean) => void> = []
 
@@ -38,8 +39,10 @@ function loadKangxi() {
     .then(data => {
       kangxiStrokes = {}
       if (data && data.c) {
-        for (const [ch, st] of data.c) {
+        for (const entry of data.c) {
+          const ch = entry[0], st = entry[1], wx = entry[2] || ''
           kangxiStrokes[ch] = st
+          if (wx) kangxiWuxing[ch] = wx
         }
       }
       // 缓存到sessionStorage
@@ -247,7 +250,7 @@ const STROKES: Record<string, number> = {
   '云':12,
   '雪':11,
   '梅':11,
-  '兰':25,
+  '兰':23,
   '竹':6,
   '菊':14,
   '松':8,
@@ -440,10 +443,18 @@ function getStroke(char: string): number {
   return STROKES[char] || ((char.charCodeAt(0) - 0x4e00) % 20 + 1)
 }
 
-function charWx(c: string): string {
+function getCharWx(c: string): string {
+  // 优先查康熙八字五行
+  if (kangxiWuxing[c]) return kangxiWuxing[c]
+  // 再查CHARS_WX字典
+  if (CHARS_WX[c]) return CHARS_WX[c]
+  // 最后笔画五行
   const s = getStroke(c)
   if (s <= 2) return '木'; if (s <= 4) return '火'; if (s <= 6) return '土'; if (s <= 8) return '金'; return '水'
 }
+
+// 常用取名字五行字典（从康熙数据补充）
+const CHARS_WX: Record<string, string> = {}
 
 // ── 81数理详解 ──
 const NUM_DETAIL: Record<number, { score: string; title: string; sign: string; meaning: string; type: string }> = {
@@ -550,7 +561,7 @@ export default function XingmingClient() {
     const chars = allChars.map(c => ({
       char: c,
       stroke: getStroke(c),
-      wuxing: charWx(c),
+      wuxing: getCharWx(c),
       lucky: getStroke(c) % 2 === 1 ? '吉' : '凶',
     }))
 
