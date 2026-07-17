@@ -1,11 +1,27 @@
 {
-  "total": 19584,
-  "byElement": {
-    "jin": 4508,
-    "mu": 3998,
-    "shui": 3449,
-    "huo": 5970,
-    "tu": 1659
+ "total": 6563,
+ "byElement": {
+  "jin": {
+   "name": "金",
+   "count": 1363
   },
-  "generated": "2026-06-05T12:32:10.751Z"
+  "mu": {
+   "name": "木",
+   "count": 1727
+  },
+  "shui": {
+   "name": "水",
+   "count": 1485
+  },
+  "huo": {
+   "name": "火",
+   "count": 1261
+  },
+  "tu": {
+   "name": "土",
+   "count": 727
+  }
+ },
+ "generated": "2026-07-17",
+ "source": "www.kangxizidian.net"
 }

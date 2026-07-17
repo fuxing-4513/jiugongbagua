@@ -22,6 +22,10 @@ interface CharDetail {
   xiantong?: boolean; biaozhun?: boolean; yuyi?: string
   qimingJieshi?: string; tuijiandu?: string; wenhuaYinxiang?: string
   zixingNum?: number; zixingGender?: string; jibenJieshi?: string
+  mingcheng?: string; yitiZi?: string; hanying?: string; zaozifa?: string
+  english?: string; xiangxiJieshi?: string; jibenCiyi?: string
+  cixingBianhua?: string; xiangguanZici?: string
+  kangxiZidian?: string; shuowen?: string; shuowenZhu?: string
   error?: string
   // 深度古籍解析（文库产出）
   gujiYuanyuan?: string
@@ -365,10 +369,82 @@ export default function NamingChars() {
                 </div>
               </div>
             )}
+            {selectedZi.mingcheng && (
+              <div className="mb-3 p-3 bg-dark-700/50 rounded-lg border border-dark-600">
+                <p className="text-[10px] text-gray-500 mb-1">名称</p>
+                <p className="text-xs text-gray-300 leading-relaxed">{selectedZi.mingcheng}</p>
+              </div>
+            )}
             {selectedZi.jibenJieshi && (
               <div className="mb-3 p-3 bg-dark-700/50 rounded-lg border border-dark-600">
                 <p className="text-[10px] text-gray-500 mb-1">基本解释</p>
                 <p className="text-xs text-gray-300 leading-relaxed">{selectedZi.jibenJieshi}</p>
+              </div>
+            )}
+            {selectedZi.yitiZi && (
+              <div className="mb-3 p-3 bg-dark-700/50 rounded-lg border border-dark-600">
+                <p className="text-[10px] text-gray-500 mb-1">异体字</p>
+                <p className="text-xs text-gray-300">{selectedZi.yitiZi}</p>
+              </div>
+            )}
+            {selectedZi.hanying && (
+              <div className="mb-3 p-3 bg-dark-700/50 rounded-lg border border-dark-600">
+                <p className="text-[10px] text-gray-500 mb-1">汉英互译</p>
+                <p className="text-xs text-gray-300">{selectedZi.hanying}</p>
+              </div>
+            )}
+            {selectedZi.zaozifa && (
+              <div className="mb-3 p-3 bg-dark-700/50 rounded-lg border border-dark-600">
+                <p className="text-[10px] text-gray-500 mb-1">造字法</p>
+                <p className="text-xs text-gray-300">{selectedZi.zaozifa}</p>
+              </div>
+            )}
+            {selectedZi.english && (
+              <div className="mb-3 p-3 bg-dark-700/50 rounded-lg border border-dark-600">
+                <p className="text-[10px] text-gray-500 mb-1">English</p>
+                <p className="text-xs text-gray-300">{selectedZi.english}</p>
+              </div>
+            )}
+            {selectedZi.xiangxiJieshi && (
+              <div className="mb-3 p-3 bg-dark-700/50 rounded-lg border border-dark-600">
+                <p className="text-[10px] text-gray-500 mb-1">详细解释</p>
+                <p className="text-xs text-gray-300 leading-relaxed whitespace-pre-wrap">{selectedZi.xiangxiJieshi}</p>
+              </div>
+            )}
+            {selectedZi.jibenCiyi && (
+              <div className="mb-3 p-3 bg-dark-700/50 rounded-lg border border-dark-600">
+                <p className="text-[10px] text-gray-500 mb-1">基本词义</p>
+                <p className="text-xs text-gray-300 leading-relaxed">{selectedZi.jibenCiyi}</p>
+              </div>
+            )}
+            {selectedZi.cixingBianhua && (
+              <div className="mb-3 p-3 bg-dark-700/50 rounded-lg border border-dark-600">
+                <p className="text-[10px] text-gray-500 mb-1">词形变化</p>
+                <p className="text-xs text-gray-300">{selectedZi.cixingBianhua}</p>
+              </div>
+            )}
+            {selectedZi.xiangguanZici && (
+              <div className="mb-3 p-3 bg-dark-700/50 rounded-lg border border-dark-600">
+                <p className="text-[10px] text-gray-500 mb-1">相关字词</p>
+                <p className="text-xs text-gray-300">{selectedZi.xiangguanZici}</p>
+              </div>
+            )}
+            {selectedZi.kangxiZidian && (
+              <div className="mb-3 p-3 bg-amber-900/20 rounded-lg border border-amber-700/30">
+                <p className="text-[10px] text-amber-400 mb-1">📜 康熙字典</p>
+                <p className="text-xs text-gray-200 leading-relaxed whitespace-pre-wrap">{selectedZi.kangxiZidian}</p>
+              </div>
+            )}
+            {selectedZi.shuowen && (
+              <div className="mb-3 p-3 bg-indigo-900/20 rounded-lg border border-indigo-700/30">
+                <p className="text-[10px] text-indigo-400 mb-1">📖 说文解字</p>
+                <p className="text-xs text-gray-200 leading-relaxed whitespace-pre-wrap">{selectedZi.shuowen}</p>
+              </div>
+            )}
+            {selectedZi.shuowenZhu && (
+              <div className="mb-3 p-3 bg-purple-900/20 rounded-lg border border-purple-700/30">
+                <p className="text-[10px] text-purple-400 mb-1">📖 说文解字注</p>
+                <p className="text-xs text-gray-200 leading-relaxed whitespace-pre-wrap">{selectedZi.shuowenZhu}</p>
               </div>
             )}
 
