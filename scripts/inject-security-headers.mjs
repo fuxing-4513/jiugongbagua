@@ -2,8 +2,7 @@
  * inject-security-headers.mjs
  * 构建后脚本：在 out/ 目录中给所有 HTML 注入安全 meta 标签
  *
- * 适用于静态站点无 HTTP 头的场景。
- * 注意：CSP 已在 layout.tsx 中硬编码，此脚本只补充非 CSP 的安全标签。
+ * v2.5 - 新增 CSP 策略和 XSS 防护
  */
 
 import { readFileSync, writeFileSync, readdirSync, existsSync, statSync } from 'fs';
@@ -11,14 +10,21 @@ import { join, extname } from 'path';
 
 const OUT_DIR = join(process.cwd(), 'out');
 
+// ── CSP meta 标签 ──
+// 由于 GitHub Pages 无法设置 HTTP 头，通过 meta 标签实现 CSP
+const CSP_META = `<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://hm.baidu.com https://*.baidu.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https://hm.baidu.com; font-src 'self' data:; frame-src 'none'; object-src 'none'; base-uri 'self'">`;
+
+// ── X-Content-Type-Options meta 标签 ──
+const XCONTENT_META = `<meta http-equiv="X-Content-Type-Options" content="nosniff">`;
+
 // ── Referrer-Policy meta 标签 ──
 const REFERRER_META = `<meta name="referrer" content="strict-origin-when-cross-origin">`;
 
 // ── Permissions-Policy meta 标签 ──
 const PERMISSIONS_META = `<meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()">`;
 
-// ── 需要注入的 meta 集合 ──
-const META_TAGS = [REFERRER_META, PERMISSIONS_META].join('\n');
+// ── 所有 meta 集合 ──
+const META_TAGS = [CSP_META, XCONTENT_META, REFERRER_META, PERMISSIONS_META].join('\n');
 
 function walkDir(dir) {
   const files = [];
@@ -31,24 +37,21 @@ function walkDir(dir) {
         files.push(full);
       }
     }
-  } catch (e) {
-    // dir might not exist
-  }
+  } catch (e) {}
   return files;
 }
 
 function injectIntoHtml(filePath) {
   let html = readFileSync(filePath, 'utf-8');
 
-  // 在 </head> 前注入 meta 标签（仅在不存在时）
-  if (!html.includes('name="referrer"') && !html.includes('Permissions-Policy')) {
-    if (html.includes('</head>')) {
-      html = html.replace('</head>', `${META_TAGS}\n</head>`);
-      writeFileSync(filePath, html, 'utf-8');
-      return true;
-    }
+  // 不在已经包含 CSP 的页面重复注入
+  if (html.includes('http-equiv="Content-Security-Policy"')) return false;
+
+  if (html.includes('</head>')) {
+    html = html.replace('</head>', `${META_TAGS}\n</head>`);
+    writeFileSync(filePath, html, 'utf-8');
+    return true;
   }
-  
   return false;
 }
 

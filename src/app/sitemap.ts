@@ -29,6 +29,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: '/heluo', priority: 0.6, changeFreq: 'monthly' as const },
     { path: '/wiki', priority: 0.6, changeFreq: 'monthly' as const },
     { path: '/app', priority: 0.7, changeFreq: 'monthly' as const },
+    { path: '/zonghe-zhengming', priority: 0.6, changeFreq: 'monthly' as const },
   ]
 
   const infoPages = [

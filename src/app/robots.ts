@@ -51,6 +51,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ['/'],
       })),
     ],
-    sitemap: 'https://www.jiugongbagua.com/sitemap.xml',
+    sitemap: 'https://jiugongbagua.com/sitemap.xml',
   }
 }

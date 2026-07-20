@@ -1,3 +1,10 @@
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: '九宫文库 - 命理知识库',
+  description: '九宫文库汇集八字命理、紫微斗数、风水堪舆、六爻占卜等中国传统命理文化的深度文章，每一篇都基于完整的命理推理逻辑。',
+}
+
 export default function WenkuPage() {
   return (
     <div className="max-w-4xl mx-auto px-4 py-20 text-center">

@@ -3,24 +3,23 @@
   X-Frame-Options: DENY
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=(), interest-cohort=()
-  Cross-Origin-Embedder-Policy: require-corp
-  Cross-Origin-Opener-Policy: same-origin
+  # COEP/COOP 已移除：纯静态站点不需要，且会阻塞百度统计等第三方资源
   X-Powered-By: 
-  Access-Control-Allow-Origin: https://www.jiugongbagua.com
+  Access-Control-Allow-Origin: https://jiugongbagua.com
   Access-Control-Allow-Methods: GET, HEAD, OPTIONS
   Access-Control-Allow-Credentials: true
 
 /data/*
-  Access-Control-Allow-Origin: https://www.jiugongbagua.com
-  Cache-Control: public, max-age=300
+  Access-Control-Allow-Origin: https://jiugongbagua.com
+  Cache-Control: public, max-age=86400, s-maxage=3600
 
 /data/*.json
-  Access-Control-Allow-Origin: https://www.jiugongbagua.com
+  Access-Control-Allow-Origin: https://jiugongbagua.com
 
 /*.json
-  Access-Control-Allow-Origin: https://www.jiugongbagua.com
+  Access-Control-Allow-Origin: https://jiugongbagua.com
 
-# 蜜罐端点不予缓存
+# 蜜罐端点（仅爬虫触发，不予缓存）
 /data/api_metrics_collect.json
   Cache-Control: no-cache, no-store, must-revalidate
 

@@ -40,7 +40,9 @@ function loadKangxi() {
       kangxiStrokes = {}
       if (data && data.c) {
         for (const entry of data.c) {
-          const ch = entry[0], st = entry[1], wx = entry[2] || ''
+          const ch = entry[0], st = entry[1]
+          // entry[2]=pinyin, entry[3]=wuxing (from kangxi cache)
+          const wx = (entry.length > 3 ? entry[3] : '') || ''
           kangxiStrokes[ch] = st
           if (wx) kangxiWuxing[ch] = wx
         }
