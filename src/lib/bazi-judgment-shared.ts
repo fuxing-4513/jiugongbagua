@@ -135,7 +135,7 @@ export const SAN_HE: Record<string,string[]> = {'寅':['寅','午','戌'],'巳':
 // 九组自合(R22)
 export const ZI_HE: string[] = ['辛巳','癸巳','甲午','己亥','壬午','戊子','丙戌','壬戌','丁亥']
 
-// 通根连体18个干支（盲派：身体本身就是工具，必须作为制，不能作为牛）
+// 通根连体18个干支（古籍：身体本身就是工具，必须作为制，不能作为牛）
 export const TONG_GEN_LIAN_TI: string[] = [
   '甲寅','甲辰','乙卯','乙亥','乙未','丙午','丙戌','丁巳','丁未',
   '戊寅','戊戌','庚申','辛酉','辛丑','壬子','壬辰','癸亥','癸丑'
@@ -256,6 +256,8 @@ export function evalChongOrder(a: string, b: string, monthZhi: string, allZhis: 
   if (KE_CYCLE[aw] === bw) { attacker = a; defender = b }
   else if (KE_CYCLE[bw] === aw) { attacker = b; defender = a }
   if (!attacker) return ''
+  // 必须是标准六冲关系（子午/丑未/寅申/卯酉/辰戌/巳亥），防止木克土等误判为冲
+  if (LIU_CHONG[attacker] !== defender) return ''
   const atkPower = evalZhiPower(attacker, monthZhi, allZhis)
   const aIdx = allZhis.indexOf(attacker)
   const dIdx = allZhis.indexOf(defender)

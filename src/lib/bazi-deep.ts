@@ -199,13 +199,19 @@ function hasZhi(pills: PillarInfo[], zhi: string): boolean {
 
 function findZhiPairs(pills: PillarInfo[], pairMap: Record<string, string>): string[] {
   const result: string[] = []
+  const seen = new Set<string>()
   const zhis = pills.map(p => p.zhi)
   for (let i = 0; i < zhis.length; i++) {
     for (let j = i + 1; j < zhis.length; j++) {
       const key = zhis[i] + zhis[j]
       const rev = zhis[j] + zhis[i]
-      if (pairMap[key]) result.push(key + '=' + pairMap[key])
-      else if (pairMap[rev]) result.push(rev + '=' + pairMap[rev])
+      let text = ''
+      if (pairMap[key]) text = key + '=' + pairMap[key]
+      else if (pairMap[rev]) text = rev + '=' + pairMap[rev]
+      if (text && !seen.has(text)) {
+        seen.add(text)
+        result.push(text)
+      }
     }
   }
   return result
@@ -225,33 +231,35 @@ function hasHe(pills: PillarInfo[]): string[] {
 }
 
 // ── 六穿分析 ──
-export function analyzeLiuChuan(pills: PillarInfo[]): string[] {
-  const zhis = pills.map(p => p.zhi)
+function dedupPairs(zhis: string[], lookup: Record<string, any>, prefix: string): string[] {
   const result: string[] = []
+  const seen = new Set<string>()
   for (let i = 0; i < zhis.length; i++) {
     for (let j = i + 1; j < zhis.length; j++) {
       const key = zhis[i] + zhis[j]
       const rev = zhis[j] + zhis[i]
-      if (LIU_CHUAN[key]) result.push(`${zhis[i]}${zhis[j]}穿: ${LIU_CHUAN[key].desc}`)
-      else if (LIU_CHUAN[rev]) result.push(`${zhis[j]}${zhis[i]}穿: ${LIU_CHUAN[rev].desc}`)
+      let text = ''
+      if (lookup[key]) text = `${zhis[i]}${zhis[j]}${prefix}: ${lookup[key].desc || lookup[key]}`
+      else if (lookup[rev]) text = `${zhis[j]}${zhis[i]}${prefix}: ${lookup[rev].desc || lookup[rev]}`
+      if (text && !seen.has(text)) {
+        seen.add(text)
+        result.push(text)
+      }
     }
   }
   return result
 }
 
+// ── 六穿分析 ──
+export function analyzeLiuChuan(pills: PillarInfo[]): string[] {
+  const zhis = pills.map(p => p.zhi)
+  return dedupPairs(zhis, LIU_CHUAN, '穿')
+}
+
 // ── 六冲分析 ──
 export function analyzeLiuChong(pills: PillarInfo[]): string[] {
   const zhis = pills.map(p => p.zhi)
-  const result: string[] = []
-  for (let i = 0; i < zhis.length; i++) {
-    for (let j = i + 1; j < zhis.length; j++) {
-      const key = zhis[i] + zhis[j]
-      const rev = zhis[j] + zhis[i]
-      if (LIU_CHONG[key]) result.push(`${zhis[i]}${zhis[j]}冲: ${LIU_CHONG[key].desc}`)
-      else if (LIU_CHONG[rev]) result.push(`${zhis[j]}${zhis[i]}冲: ${LIU_CHONG[rev].desc}`)
-    }
-  }
-  return result
+  return dedupPairs(zhis, LIU_CHONG, '冲')
 }
 
 // ── 三合分析 ──

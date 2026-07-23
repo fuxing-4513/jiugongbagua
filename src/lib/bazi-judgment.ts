@@ -317,37 +317,164 @@ export function analyzeJudgment(
     return out
   }
 
+  // 全局去重：跨板块相似句子只保留第一条
+  const allSeen = new Set<string>()
+  function filtered<T extends string | string[]>(arr: T): T {
+    if (typeof arr === 'string') return arr
+    const out: string[] = []
+    for (const s of arr) {
+      // 提取核心内容（去掉标点空格、地支变化相同的句子视为重复）
+      const core = s.replace(/[子丑寅卯辰巳午未申酉戌亥]/g, 'X').replace(/[。，、！？；：]/g, '').trim()
+      if (!core || core.length < 4) { out.push(s); continue }
+      // 如果已有非常相似（核心内容去除地支变化后相同）的句子，跳过
+      let dup = false
+      for (const seen of allSeen) {
+        const seenCore = seen.replace(/[子丑寅卯辰巳午未申酉戌亥]/g, 'X').replace(/[。，、！？；：]/g, '').trim()
+        if (core === seenCore || seenCore.includes(core) || core.includes(seenCore)) {
+          dup = true
+          break
+        }
+        // 超过7个字的前缀相同也视为重复
+        if (core.length > 7 && seenCore.length > 7) {
+          const prefixLen = 8
+          if (core.substring(0, prefixLen) === seenCore.substring(0, prefixLen)) {
+            dup = true
+            break
+          }
+        }
+      }
+      if (!dup) {
+        allSeen.add(s)
+        out.push(s)
+      }
+    }
+    return out as unknown as T
+  }
+
+  // 白话过滤器
+  function vernacularLine(s: string): string {
+    if (!s) return ''
+    let t = s
+    // 替换表：关键词 → 白话
+    const replaces: [RegExp, string][] = [
+      // 标签类
+      [/纯禄根/g, '硬本事'],
+      [/食伤生财/g, '靠技术/才华吃饭'],
+      [/通根连体日主/g, '你是实干型的人'],
+      [/通根连体/g, '实干'],
+      [/无根离乡型/g, '独立闯荡型'],
+      [/自合型/g, '目标明确型'],
+      [/自合/g, '目标明确'],
+      // 事业/财富术语
+      [/年上是食伤/g, '你想法大、创意多'],
+      [/年上是印/g, '你有学历或体面工作，对精神层面有追求'],
+      [/年上是财/g, '你这辈子想赚大钱'],
+      [/年上是官杀/g, '你这辈子想干大事业'],
+      [/年上是比劫/g, '身边有贵人朋友'],
+      [/官印不透/g, '得靠自己拼'],
+      [/有食伤生财/g, '有技术赚钱的本事'],
+      [/官印相生/g, '有贵人相助'],
+      [/有官无印/g, '压力大，走技术路线'],
+      [/有印无官/g, '等待时机，好运就在路上'],
+      // 健康板块头（整行移除）
+      [/━━━ 四柱对应人体（宫位[^━]*） ━━━/g, ''],
+      [/━━━ 五行脏腑强弱 ━━━/g, ''],
+      [/━━━ 地支冲克 → 对应器官隐患 ━━━/g, ''],
+      [/━━━ 十神维度看体质 ━━━/g, ''],
+      [/━━━ 十神维度修正健康 ━━━/g, ''],
+      [/【年柱】[^：]+：/g, '【上半身】'],
+      [/【月柱】[^：]+：/g, '【胸腔】'],
+      [/【日柱】[^：]+：/g, '【腰腹】'],
+      [/【时柱】[^：]+：/g, '【下肢】'],
+      [/天干[甲乙丙丁戊己庚辛壬癸]=[^→]+→/g, ''],
+      [/地支[子丑寅卯辰巳午未申酉戌亥]=[^→]*→/g, ''],
+      [/，——+/g, '，'],
+      // 十神术语
+      [/十神维度看体质[：]/g, '综合来看：'],
+      [/十神维度修正健康/g, ''],
+      [/【印弱】/g, '【体质偏弱】'],
+      [/【印旺】/g, '【体质不错】'],
+      [/【比劫旺】/g, '【体力好】'],
+      [/【比劫多】/g, '【精力充沛】'],
+      [/【比劫偏弱】/g, '【体力不够】'],
+      [/【比劫少】/g, '【不太爱动】'],
+      [/【食伤适中】/g, '【心情影响】'],
+      [/【食伤偏旺】/g, '【感性主导】'],
+      [/【食伤偏弱】/g, '【理性主导】'],
+      [/——十神维度看——/g, '——综合来看——'],
+      [/先天体质参考——宫位定位置，五行看脏腑，刑冲找隐患，十神看抗病能力和致病原因。/g, '先天体质参考：'],
+      // 比劫/食伤/财星/官杀 术语
+      [/比劫/g, '朋友/兄弟'],
+      [/食伤/g, '才华/创意'],
+      [/财星/g, '财运'],
+      [/官杀/g, '事业压力'],
+      [/官星/g, '事业'],
+      [/印星/g, '后盾/学习'],
+      [/原局有/g, '命里本身有'],
+      [/原局无/g, '命里缺'],
+      [/原局/g, '先天'],
+      [/月柱不是比劫/g, '你不靠社交圈'],
+      [/藏在里头的是比劫/g, '这个位置跟朋友/兄弟有关'],
+      [/子女宫坐比劫/g, '孩子方面'],
+      [/孩子宫坐比劫/g, '孩子方面'],
+      [/食伤偏比劫库/g, '技术偏向实操'],
+      [/财星是透出来的/g, '对钱的事心知肚明'],
+      [/比劫多而且不是同库/g, '朋友不少但不都齐心'],
+      [/借根/g, '需要别人帮衬'],
+      [/通根/g, '有根基'],
+      // 大运/流年
+      [/这个字原局有/g, '这股力量命里本身就有'],
+      // 穿/刑 术语移除但保留解释
+      [/[子丑寅卯辰巳午未申酉戌亥]{2}(穿|刑)——/g, ''],
+      // 标签/标题去重：破折号前已是白话，保留前半句
+      [/--.+/g, ''],
+      [/——.+/g, ''],
+      // 其他
+      [/🏷️ 八字标签:/g, ''],
+      [/（盲派/g, '（古籍'],
+      [/\(盲派/g, '（古籍'],
+    ]
+    for (const [pattern, replacement] of replaces) {
+      t = t.replace(pattern, replacement)
+    }
+    // 清理多余的空格和空行
+    t = t.replace(/\n{3,}/g, '\n\n').trim()
+    return t
+  }
+
+  const v = (arr: string[]) => filtered(arr.map(vernacularLine).filter(Boolean))
+
   return {
-    labels: dedup(labels), charNarr: dedup(charNarr), careerNarr: dedup(careerNarr), wealthNarr: dedup(wealthNarr), marriageNarr: dedup(marriageNarr),
-    parentNarr: dedup(parentNarrResult), childrenNarr: dedup(childrenNarrResult),
-    healthNarr: dedup(healthNarrResult), prefNarr: dedup(prefNarrResult),
-    biJieNarr: ['比劫分析集成在标签和两象定一象中'],
-    daYunNarr: dedup(daYunNarr), flowYearNarr: dedup(flowYearNarr), wanHunNarr: dedup(wanHunNarr), jieHunNarr: dedup(jieHunNarr), liHunNarr: dedup(liHunNarr),
-    twoSignsNarr: dedup(twoSignsResult), rootHouseNarr: dedup(rootHouseResult),
-    friendModeNarr: dedup(friendModeResult),
-    spouseDynamicNarr: dedup(spouseDynamicResult),
-    childrenRelationNarr: dedup(childrenRelationResult),
+    labels: v(dedup(labels)), charNarr: v(dedup(charNarr)), careerNarr: v(dedup(careerNarr)), wealthNarr: v(dedup(wealthNarr)), marriageNarr: v(dedup(marriageNarr)),
+    parentNarr: v(dedup(parentNarrResult)), childrenNarr: v(dedup(childrenNarrResult)),
+    healthNarr: v(dedup(healthNarrResult)), prefNarr: v(dedup(prefNarrResult)),
+    biJieNarr: [],
+    daYunNarr: v(dedup(daYunNarr)), flowYearNarr: v(dedup(flowYearNarr)), wanHunNarr: v(dedup(wanHunNarr)), jieHunNarr: v(dedup(jieHunNarr)), liHunNarr: v(dedup(liHunNarr)),
+    twoSignsNarr: v(dedup(twoSignsResult)), rootHouseNarr: v(dedup(rootHouseResult)),
+    friendModeNarr: v(dedup(friendModeResult)),
+    spouseDynamicNarr: v(dedup(spouseDynamicResult)),
+    childrenRelationNarr: v(dedup(childrenRelationResult)),
     liuqinGong: liuqinResult,
-    techAbilityNarr: dedup(techAbilityResult),
-    moneyMindsetNarr: dedup(moneyMindsetResult),
-    careerLevelNarr: dedup(careerLevelResult),
-    tombWareNarr: dedup(tombWareResult),
-    deepHumanNarr: dedup(deepHumanResult),
-    controlPowerNarr: dedup(controlPowerResult),
-    dayMasterNarr: dedup(dayMasterResult),
-    enterpriseNarr: dedup(enterpriseResult),
-    zhiYongNarr: dedup(zhiYongResult),
-    tenGodDetailNarr: dedup(tenGodDetailResult),
-    bodySeasonNarr: dedup(bodySeasonResult),
-    bfsRelationNarr: dedup(bfsRelationChain(riGan, pills, gender)),
+    techAbilityNarr: v(dedup(techAbilityResult)),
+    moneyMindsetNarr: v(dedup(moneyMindsetResult)),
+    careerLevelNarr: v(dedup(careerLevelResult)),
+    tombWareNarr: v(dedup(tombWareResult)),
+    deepHumanNarr: v(dedup(deepHumanResult)),
+    controlPowerNarr: v(dedup(controlPowerResult)),
+    dayMasterNarr: v(dedup(dayMasterResult)),
+    enterpriseNarr: v(dedup(enterpriseResult)),
+    zhiYongNarr: v(dedup(zhiYongResult)),
+    tenGodDetailNarr: v(dedup(tenGodDetailResult)),
+    bodySeasonNarr: v(dedup(bodySeasonResult)),
+    bfsRelationNarr: v(dedup(bfsRelationChain(riGan, pills, gender))),
     daYunFourStepNarr: currentDaYunGan && currentDaYunZhi
-      ? dedup(daYunFourStep(riGan, pills, currentDaYunGan, currentDaYunZhi, gender))
-      : ['请提供当前大运干支。'],
-    twoSignsEngineNarr: dedup(twoSignsEngine(riGan, gans, zhis, gender)),
-    controlLevelNarr: dedup(controlLevelThree(riGan, pills)),
-    zhiYongFourNarr: dedup(zhiYongFour(riGan, gans, zhis, gender)),
-    jieGenNarr: dedup(jieGenAnalysis(riGan, pills)),
-    yuanJuCheckNarr: dedup(yuanJuCheck(riGan, gans, zhis, gender))
+      ? v(dedup(daYunFourStep(riGan, pills, currentDaYunGan, currentDaYunZhi, gender)))
+      : [],
+    twoSignsEngineNarr: v(dedup(twoSignsEngine(riGan, gans, zhis, gender))),
+    controlLevelNarr: v(dedup(controlLevelThree(riGan, pills))),
+    zhiYongFourNarr: v(dedup(zhiYongFour(riGan, gans, zhis, gender))),
+    jieGenNarr: v(dedup(jieGenAnalysis(riGan, pills))),
+    yuanJuCheckNarr: v(dedup(yuanJuCheck(riGan, gans, zhis, gender)))
   }
 }
 
