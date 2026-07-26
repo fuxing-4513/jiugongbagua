@@ -13,7 +13,7 @@ function LayoutInner({ children }: { children: React.ReactNode }) {
 
   // 动态同步 html lang 属性
   useEffect(() => {
-    const lang = locale === 'en' ? 'en' : locale === 'zh-TW' ? 'zh-Hant' : 'zh-Hans'
+    const lang = locale === 'en' ? 'en' : locale === 'ja' ? 'ja' : locale === 'ko' ? 'ko' : locale === 'zh-TW' ? 'zh-Hant' : 'zh-Hans'
     document.documentElement.lang = lang
   }, [locale])
 

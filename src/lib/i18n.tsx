@@ -42,7 +42,7 @@ function getStoredLocale(): SupportedLocale {
   if (typeof window === 'undefined') return 'zh-CN'
   try {
     const v = localStorage.getItem(LOCALE_KEY)
-    if (v === 'zh-CN' || v === 'zh-TW' || v === 'en') return v
+    if (v === 'zh-CN' || v === 'zh-TW' || v === 'en' || v === 'ja' || v === 'ko') return v
   } catch {}
   return 'zh-CN'
 }

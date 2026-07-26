@@ -98,7 +98,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 name: '九宫八卦',
                 url: baseUrl,
                 description: '中国传统命理文化平台',
-                inLanguage: ['zh-CN', 'zh-TW', 'en'],
+                inLanguage: ['zh-CN', 'zh-TW', 'en', 'ja', 'ko'],
                 publisher: { '@id': `${baseUrl}/#organization` },
                 potentialAction: {
                   '@type': 'SearchAction',
