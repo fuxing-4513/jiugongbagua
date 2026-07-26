@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     template: '%s | 九宫八卦',
   },
   description: baseDescription,
-  keywords: ['九宫八卦','八字排盘','紫微斗数','六爻','小六壬','周公解梦','姓名测试','号码测吉凶','黄历','塔罗','命理','易经','梅花易数','合婚','传统文化','奇门遁甲'],
+  keywords: ['九宫八卦','八字排盘','紫微斗数','六爻','小六壬','周公解梦','姓名测试','号码测吉凶','黄历','塔罗','命理','易经','梅花易数','合婚','传统文化','奇门遁甲','八字合婚免费','紫微斗数排盘详解','六爻在线占卜','周易64卦详解','免费在线算命','解梦大全'],
   authors: [{ name: '九宫八卦' }],
   creator: '九宫八卦',
   publisher: '九宫八卦',
@@ -75,11 +75,31 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             __html: JSON.stringify([
               {
                 '@context': 'https://schema.org',
+                '@type': 'Organization',
+                '@id': `${baseUrl}/#organization`,
+                name: '九宫八卦',
+                url: baseUrl,
+                logo: `${baseUrl}/favicon.svg`,
+                description: '中国传统命理文化平台',
+                foundingDate: '2024',
+                contactPoint: {
+                  '@type': 'ContactPoint',
+                  contactType: 'customer service',
+                  email: 'contact@jiugongbagua.com',
+                },
+                sameAs: [
+                  'https://jiugongbagua.com',
+                ],
+              },
+              {
+                '@context': 'https://schema.org',
                 '@type': 'WebSite',
+                '@id': `${baseUrl}/#website`,
                 name: '九宫八卦',
                 url: baseUrl,
                 description: '中国传统命理文化平台',
                 inLanguage: ['zh-CN', 'zh-TW', 'en'],
+                publisher: { '@id': `${baseUrl}/#organization` },
                 potentialAction: {
                   '@type': 'SearchAction',
                   target: { '@type': 'EntryPoint', urlTemplate: `${baseUrl}/wenku?q={search_term_string}` },
@@ -89,15 +109,23 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               {
                 '@context': 'https://schema.org',
                 '@type': 'WebApplication',
+                '@id': `${baseUrl}/#webapplication`,
                 name: '九宫八卦命理测算平台',
                 url: baseUrl,
                 description: baseDescription,
                 applicationCategory: 'LifestyleApplication',
                 operatingSystem: 'All',
+                offers: {
+                  '@type': 'Offer',
+                  price: '0',
+                  priceCurrency: 'CNY',
+                },
+                author: { '@id': `${baseUrl}/#organization` },
               },
               {
                 '@context': 'https://schema.org',
                 '@type': 'BreadcrumbList',
+                '@id': `${baseUrl}/#breadcrumb`,
                 itemListElement: [
                   { '@type': 'ListItem', position: 1, name: '首页', item: baseUrl },
                 ],

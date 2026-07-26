@@ -7,13 +7,13 @@
  *
  * 用法：
  *   import { deepAnalysis } from '@/lib/bazi-deep'
- *   const result = deepAnalysis(siZhu, birthYear, gender)
+ *   const result = deepAnalysis(siZhu, birthYear, gender, lang?)
  */
 
 import type { PillarInfo, BaziChartResult } from './bazi-engine'
 import { wxM, ssM, hA, hG } from './bazi-engine'
 
-// ── 类型定义 ──
+// ── Type definitions ──
 
 export interface DeepAnalysis {
   /** 日主心性 (来自日柱+周围关系) */
@@ -40,6 +40,51 @@ export interface DeepAnalysis {
   zongHe: string[]
   /** 八字性格总评 */
   summary: string
+}
+
+// ── i18n helpers ──
+const WX_EN: Record<string,string> = { '木':'Wood','火':'Fire','土':'Earth','金':'Metal','水':'Water' };
+const WX_JA: Record<string,string> = { '木':'木','火':'火','土':'土','金':'金','水':'Water' };  // 四柱推命 also uses 五行
+const WX_KO: Record<string,string> = { '木':'목','火':'화','土':'토','金':'금','水':'수' };
+const SEASON_EN: Record<string,string> = { '春':'Spring','夏':'Summer','秋':'Autumn','冬':'Winter','四季':'Late Summer' };
+const SEASON_JA: Record<string,string> = { '春':'春','夏':'夏','秋':'秋','冬':'冬','四季':'晩夏' };
+const SEASON_KO: Record<string,string> = { '春':'봄','夏':'여름','秋':'가을','冬':'겨울','四季':'늦여름' };
+const STATE_EN: Record<string,string> = { '旺':'Prosperous','相':'Nurturing','休':'Resting','囚':'Trapped','死':'Dying' };
+const STATE_JA: Record<string,string> = { '旺':'旺','相':'相','休':'休','囚':'囚','死':'死' };
+const STATE_KO: Record<string,string> = { '旺':'왕','相':'상','休':'휴','囚':'수','死':'사' };
+const POS_EN = ['Year','Month','Day','Hour'];
+const POS_JA = ['年','月','日','時'];
+const POS_KO = ['년','월','일','시'];
+
+function wxName(e: string, lang?: string): string {
+  if (lang === 'en') return WX_EN[e] || e;
+  if (lang === 'ja') return WX_JA[e] || e;
+  if (lang === 'ko') return WX_KO[e] || e;
+  return e;
+}
+function seasonName(s: string, lang?: string): string {
+  if (lang === 'en') return SEASON_EN[s] || s;
+  if (lang === 'ja') return SEASON_JA[s] || s;
+  if (lang === 'ko') return SEASON_KO[s] || s;
+  return s;
+}
+function stateName(s: string, lang?: string): string {
+  if (lang === 'en') return STATE_EN[s] || s;
+  if (lang === 'ja') return STATE_JA[s] || s;
+  if (lang === 'ko') return STATE_KO[s] || s;
+  return s;
+}
+function posName(i: number, lang?: string): string {
+  if (lang === 'en') return POS_EN[i] || '';
+  if (lang === 'ja') return POS_JA[i] || '';
+  if (lang === 'ko') return POS_KO[i] || '';
+  return ['年','月','日','时'][i] || '';
+}
+
+// Translation helpers for common analysis phrases
+function t(texts: Record<string,string>, lang?: string): string {
+  const l = (lang === 'en' || lang === 'ja' || lang === 'ko') ? lang : 'zh-CN';
+  return texts[l] || texts['zh-CN'] || '';
 }
 
 // ── 地支常量 ──
@@ -80,7 +125,7 @@ const LIU_CHONG: Record<string, {active:string; desc:string}> = {
   '辰戌': {active:'辰土', desc:'辰戌冲 — 表面是土冲在心里不明显。禄和财的组合，要有足够钱才有安全感。追求持续不断的技术收入。'},
   '戌辰': {active:'戌土', desc:'戌辰冲 — 觉得学的东西不够，继续学。逢戌土年份有变化。需要足够安全感。'},
   '巳亥': {active:'巳火', desc:'巳亥冲 — 价值观驱动，只认定自己价值观的事情才有动力。不认可就不干。要搞定对方就让对方认可自己的价值观。'},
-  '亥巳': {active:'亥水', desc:'亥巳冲 — 考虑客户需要什么能给予什么。认清自己，放下旧的执念。'},
+  '亥巳': {active:'亥水', desc:'巳亥冲 — 考虑客户需要什么能给予什么。认清自己，放下旧的执念。'},
   '丑未': {active:'丑土', desc:'丑未冲 — 没有忧患意识，赚一点就享受。有钱多花没钱少花。对心情和爱好有要求。'},
   '未丑': {active:'未土', desc:'未丑冲 — 对享受的标准不随意。与辰戌冲的区别是没有忧患意识。'},
 }
@@ -251,74 +296,119 @@ function dedupPairs(zhis: string[], lookup: Record<string, any>, prefix: string)
 }
 
 // ── 六穿分析 ──
-export function analyzeLiuChuan(pills: PillarInfo[]): string[] {
+export function analyzeLiuChuan(pills: PillarInfo[], lang?: string): string[] {
   const zhis = pills.map(p => p.zhi)
-  return dedupPairs(zhis, LIU_CHUAN, '穿')
+  const results = dedupPairs(zhis, LIU_CHUAN, t({'zh-CN':'穿','en':' Chuan (Piercing)','ja':'穿','ko':'천(穿)'}, lang))
+  return results.length > 0 ? results : [t({
+    'zh-CN':'无六穿关系',
+    'en':'No Chuan (piercing) relationships',
+    'ja':'六穿の関係はありません',
+    'ko':'육천(六穿) 관계가 없습니다'
+  }, lang)];
 }
 
 // ── 六冲分析 ──
-export function analyzeLiuChong(pills: PillarInfo[]): string[] {
+export function analyzeLiuChong(pills: PillarInfo[], lang?: string): string[] {
   const zhis = pills.map(p => p.zhi)
-  return dedupPairs(zhis, LIU_CHONG, '冲')
+  const results = dedupPairs(zhis, LIU_CHONG, t({'zh-CN':'冲','en':' Chong (Clash)','ja':'冲','ko':'충(冲)'}, lang))
+  return results.length > 0 ? results : [t({
+    'zh-CN':'无六冲关系',
+    'en':'No Chong (clash) relationships',
+    'ja':'六冲の関係はありません',
+    'ko':'육충(六冲) 관계가 없습니다'
+  }, lang)];
 }
 
 // ── 三合分析 ──
-export function analyzeSanHe(pills: PillarInfo[]): string[] {
+export function analyzeSanHe(pills: PillarInfo[], lang?: string): string[] {
   const result: string[] = []
   for (const [key, info] of Object.entries(SAN_HE)) {
     if (findTriplet(pills, info.elements)) {
       const chars = info.elements
-      result.push(`${chars[0]}${chars[1]}${chars[2]}三合: ${info.desc}`)
+      result.push(`${chars[0]}${chars[1]}${chars[2]}${t({'zh-CN':'三合','en':' Triad','ja':'三合','ko':'삼합(三合)'}, lang)}: ${info.desc}`)
     }
   }
-  return result
+  return result.length > 0 ? result : [t({
+    'zh-CN':'无三合关系',
+    'en':'No triad (San He) relationships',
+    'ja':'三合の関係はありません',
+    'ko':'삼합(三合) 관계가 없습니다'
+  }, lang)];
 }
 
 // ── 六合分析 ──
-export function analyzeLiuHe(pills: PillarInfo[]): string[] {
-  return hasHe(pills)
+export function analyzeLiuHe(pills: PillarInfo[], lang?: string): string[] {
+  const results = hasHe(pills)
+  return results.length > 0 ? results : [t({
+    'zh-CN':'无六合关系',
+    'en':'No Liu He (union) relationships',
+    'ja':'六合の関係はありません',
+    'ko':'육합(六合) 관계가 없습니다'
+  }, lang)];
 }
 
 // ── 三刑分析 ──
-export function analyzeSanXing(pills: PillarInfo[]): string[] {
+export function analyzeSanXing(pills: PillarInfo[], lang?: string): string[] {
   const result: string[] = []
   const zhis = pills.map(p => p.zhi)
-  // 丑未戌三刑
   if (zhis.includes('丑') && zhis.includes('未') && zhis.includes('戌')) {
     result.push(SAN_XING['丑未戌'])
   }
-  // 寅巳申三刑
   if (zhis.includes('寅') && zhis.includes('巳') && zhis.includes('申')) {
     result.push(SAN_XING['寅巳申'])
   }
-  return result
+  return result.length > 0 ? result : [t({
+    'zh-CN':'无三刑关系',
+    'en':'No San Xing (punishment) relationships',
+    'ja':'三刑の関係はありません',
+    'ko':'삼형(三刑) 관계가 없습니다'
+  }, lang)];
 }
 
 // ── 暗合分析 ──
-export function analyzeAnHe(pills: PillarInfo[]): string[] {
+export function analyzeAnHe(pills: PillarInfo[], lang?: string): string[] {
   const result = findZhiPairs(pills, AN_HE)
-  return result.map(r => `暗合: ${r}`)
+  return result.length > 0 
+    ? result.map(r => `${t({'zh-CN':'暗合','en':'Hidden Union','ja':'暗合','ko':'암합(暗合)'}, lang)}: ${r}`)
+    : [t({
+      'zh-CN':'无暗合关系',
+      'en':'No hidden union (An He) relationships',
+      'ja':'暗合の関係はありません',
+      'ko':'암합(暗合) 관계가 없습니다'
+    }, lang)];
 }
 
 // ── 破分析 ──
-export function analyzePo(pills: PillarInfo[]): string[] {
+export function analyzePo(pills: PillarInfo[], lang?: string): string[] {
   const result = findZhiPairs(pills, PO)
-  return result.map(r => `破: ${r}`)
+  return result.length > 0
+    ? result.map(r => `${t({'zh-CN':'破','en':'Po (Destruct)','ja':'破','ko':'파(破)'}, lang)}: ${r}`)
+    : [t({
+      'zh-CN':'无破的关系',
+      'en':'No Po (destruct) relationships',
+      'ja':'破の関係はありません',
+      'ko':'파(破) 관계가 없습니다'
+    }, lang)];
 }
 
 // ── 自合分析 ──
-export function analyzeZiHe(pills: PillarInfo[]): string[] {
+export function analyzeZiHe(pills: PillarInfo[], lang?: string): string[] {
   const result: string[] = []
   for (const p of pills) {
     if (ZI_HE[p.gz]) {
-      result.push(`${p.gz}自合: ${ZI_HE[p.gz]}`)
+      result.push(`${p.gz}${t({'zh-CN':'自合','en':' Self-Union','ja':'自合','ko':'자합(自合)'}, lang)}: ${ZI_HE[p.gz]}`)
     }
   }
-  return result
+  return result.length > 0 ? result : [t({
+    'zh-CN':'无自合柱',
+    'en':'No self-union (Zi He) pillars',
+    'ja':'自合の柱はありません',
+    'ko':'자합(自合) 기둥이 없습니다'
+  }, lang)];
 }
 
 // ── 日主心性分析 ──
-export function analyzeRiZhuXinXing(pills: PillarInfo[], riZhu: string): string[] {
+export function analyzeRiZhuXinXing(pills: PillarInfo[], riZhu: string, lang?: string): string[] {
   const result: string[] = []
   const dayPillar = pills[2]
   const monthPillar = pills[1]
@@ -327,68 +417,103 @@ export function analyzeRiZhuXinXing(pills: PillarInfo[], riZhu: string): string[
   const riZhi = dayPillar.zhi
   const riWx = getGanWx(riGan)
 
-  // 日主五行性格
-  result.push(`日主${riGan}属${riWx}`)
+  result.push(t({
+    'zh-CN':`日主${riGan}属${riWx}`,
+    'en':`Day Master ${riGan} belongs to ${wxName(riWx, 'en')}`,
+    'ja':`日主${riGan}は${wxName(riWx, 'ja')}`,
+    'ko':`일주 ${riGan}은 ${wxName(riWx, 'ko')}에 속함`
+  }, lang))
 
-  // 坐下特性
   if (ZUO_XIA[riZhi]) {
     const traits = ZUO_XIA[riZhi]
-    result.push(`坐下${riZhi}: ${traits.join('、')}`)
+    result.push(t({
+      'zh-CN':`坐下${riZhi}: ${traits.join('、')}`,
+      'en':`Sitting on ${riZhi}: ${traits.join(', ')}`,
+      'ja':`坐下${riZhi}: ${traits.join('、')}`,
+      'ko':`좌하 ${riZhi}: ${traits.join(', ')}`
+    }, lang))
   }
 
-  // 自合判断
   if (ZI_HE[dayPillar.gz]) {
     const zh = ZI_HE[dayPillar.gz]
-    result.push(`${dayPillar.gz}自合 — ${zh}。自合的人目标明确，内心渴望强烈，很难从外部改造，必须从内突破。`)
+    result.push(`${dayPillar.gz}自合 — ${zh}。${t({
+      'zh-CN':'自合的人目标明确，内心渴望强烈，很难从外部改造，必须从内突破。',
+      'en':'Self-union people have clear goals and strong inner desires — hard to change from outside, breakthrough must come from within.',
+      'ja':'自合の人は目標が明確で内なる欲求が強い。外部から変えるのは難しく、内側からの突破が必要。',
+      'ko':'자합의 사람은 목표가 명확하고 내적 열망이 강합니다. 외부에서 바꾸기 어렵고 내면에서 돌파해야 합니다.'
+    }, lang)}`)
   }
 
-  // 月令影响
   const monthZhi = monthPillar.zhi
   const monthGan = monthPillar.gan
-  result.push(`月令${monthZhi}是全局力量最大的点，月干${monthGan}对日主影响直接。`)
+  result.push(t({
+    'zh-CN':`月令${monthZhi}是全局力量最大的点，月干${monthGan}对日主影响直接。`,
+    'en':`The month branch ${monthZhi} is the most powerful point. The month stem ${monthGan} directly influences the Day Master.`,
+    'ja':`月令${monthZhi}は全局で最も力が強い。月干${monthGan}は日主に直接影響を与える。`,
+    'ko':`월령 ${monthZhi}은(는)全局에서 가장 강력한 지점입니다. 월간 ${monthGan}은(는) 일주에 직접 영향을 줍니다.`
+  }, lang))
   
-  // 时支影响
-  result.push(`时支${hourPillar.zhi}影响内心世界。`)
+  result.push(t({
+    'zh-CN':`时支${hourPillar.zhi}影响内心世界。`,
+    'en':`The hour branch ${hourPillar.zhi} influences your inner world.`,
+    'ja':`時支${hourPillar.zhi}は内心に影響する。`,
+    'ko':`시지 ${hourPillar.zhi}은(는) 내면 세계에 영향을 줍니다.`
+  }, lang))
 
   return result
 }
 
 // ── 出处共根借根分析 ──
-export function analyzeChuChu(pills: PillarInfo[], riGan: string): string[] {
+export function analyzeChuChu(pills: PillarInfo[], riGan: string, lang?: string): string[] {
   const result: string[] = []
   const riWx = getGanWx(riGan)
   const bestGen = BEST_GONG_GEN[riGan]
   
-  if (bestGen) result.push(`${riGan}日主，你的底气在${bestGen}这个字上，这个位置撑着你`)
-
-  // 各五行的出处
-  const chu = CHU_CHU[riWx]
-  if (chu) {
-    result.push(`你的${riWx}有根，来源是${chu.join('、')}，这些是你的底牌`)
+  if (bestGen) {
+    result.push(t({
+      'zh-CN':`${riGan}日主，你的底气在${bestGen}这个字上，这个位置撑着你`,
+      'en':`${riGan} Day Master — your foundation is in ${bestGen}, this position supports you`,
+      'ja':`${riGan}日主、あなたの基盤は${bestGen}にあり、この位置があなたを支えている`,
+      'ko':`${riGan} 일주, 당신의 기반은 ${bestGen}에 있으며 이 위치가 당신을 지탱합니다`
+    }, lang))
   }
 
-  // 检查是否有库在地支
+  const chu = CHU_CHU[riWx]
+  if (chu) {
+    result.push(t({
+      'zh-CN':`你的${riWx}有根，来源是${chu.join('、')}，这些是你的底牌`,
+      'en':`Your ${wxName(riWx, 'en')} has roots from ${chu.join(', ')} — these are your hidden strengths`,
+      'ja':`あなたの${wxName(riWx, 'ja')}には根があり、源泉は${chu.join('、')}、これらがあなたの切り札`,
+      'ko':`당신의 ${wxName(riWx, 'ko')}에는 뿌리가 있으며 출처는 ${chu.join(', ')}입니다. 이것이 당신의 비장의 카드입니다`
+    }, lang))
+  }
+
   const zhis = pills.map(p => p.zhi)
   const kuMap: Record<string, string> = {'辰':'水库','戌':'火库','丑':'金库','未':'木库'}
   for (const z of zhis) {
     if (kuMap[z]) {
       if (chu && chu.includes(z + '土')) {
-        result.push(`地支${z}是${kuMap[z]}，你的${riWx}从这里来，这个位置靠得住`)
+        result.push(t({
+          'zh-CN':`地支${z}是${kuMap[z]}，你的${riWx}从这里来，这个位置靠得住`,
+          'en':`Branch ${z} is the ${wxName(riWx, 'en')} warehouse — your ${wxName(riWx, 'en')} element draws from it, making this position reliable`,
+          'ja':`地支${z}は${kuMap[z]}、あなたの${wxName(riWx, 'ja')}はここから来ており、この位置は信頼できる`,
+          'ko':`지지 ${z}은(는) ${wxName(riWx, 'ko')} 창고이며 당신의 ${wxName(riWx, 'ko')}은(는) 여기서 옵니다. 이 위치는 믿을 수 있습니다`
+        }, lang))
       }
     }
   }
 
-  // 共根宫位
   for (let i = 0; i < pills.length; i++) {
     if (bestGen && pills[i].zhi.includes(bestGen.replace('土',''))) {
-      const pos = ['年','月','日','时'][i]
-      const meanings: Record<string, string> = {
-        '年':'共根在年上，说明你祖上有底子，起跑线比别人高',
-        '月':'共根在月令，说明你在朋友圈里能说得上话，兄弟朋友愿意听你的',
-        '日':'共根在坐下，你自己就是自己最大的靠山',
-        '时':'共根在时支，说明你晚年儿女运不错，老来有依靠',
-      }
-      if (meanings[pos]) result.push(`${pos}柱有${bestGen}，${meanings[pos]}`)
+      const pos = posName(i, lang)
+      const meanings: Record<string,Record<string,string>> = {
+        '年':{'zh-CN':'共根在年上，说明你祖上有底子，起跑线比别人高','en':'Root in Year pillar — ancestral foundation, starting line ahead of others','ja':'年柱に共根—家系に基盤があり、スタートラインが他人より高い','ko':'년주에 공근—조상의 기반이 있어 출발선이 남보다 높습니다'},
+        '月':{'zh-CN':'共根在月令，说明你在朋友圈里能说得上话，兄弟朋友愿意听你的','en':'Root in Month pillar — your friends value your opinion and listen to you','ja':'月柱に共根—友人の間で発言力があり、兄弟友人があなたの言うことを聞く','ko':'월주에 공근—친구들 사이에서 발언권이 있고 형제·친구들이 당신 말을 잘 듣습니다'},
+        '日':{'zh-CN':'共根在坐下，你自己就是自己最大的靠山','en':'Root in Day pillar — you are your own greatest support','ja':'日柱に共根—自分自身が最大の支え','ko':'일주에 공근—당신 자신이 가장 큰 버팀목입니다'},
+        '时':{'zh-CN':'共根在时支，说明你晚年儿女运不错，老来有依靠','en':'Root in Hour pillar — good fortune with children in later years','ja':'時柱に共根—晩年に子供運が良く、老後は頼れる存在がいる','ko':'시주에 공근—만년에 자녀운이 좋아 노후에 의지할 곳이 있습니다'},
+      };
+      const pName = ['年','月','日','时'][i];
+      if (meanings[pName]) result.push(`${t({'zh-CN':`${pos}柱有${bestGen}`,'en':`${pos} pillar has ${bestGen}`,'ja':`${pos}柱に${bestGen}`,'ko':`${pos}주에 ${bestGen}`}, lang)}，${meanings[pName][lang || 'zh-CN'] || meanings[pName]['zh-CN']}`);
     }
   }
 
@@ -396,36 +521,63 @@ export function analyzeChuChu(pills: PillarInfo[], riGan: string): string[] {
 }
 
 // ── 旺相休囚死分析 ──
-export function analyzeWangXiang(pills: PillarInfo[], monthZhi: string): string[] {
+export function analyzeWangXiang(pills: PillarInfo[], monthZhi: string, lang?: string): string[] {
   const result: string[] = []
   const season = getSeason(monthZhi)
   const wxState = WANG_XIANG[season]
   if (!wxState) return result
 
-  result.push(`你生在${season}季，月令${monthZhi}当令，这季节的气场对你影响最大。`)
+  result.push(t({
+    'zh-CN':`你生在${season}季，月令${monthZhi}当令，这季节的气场对你影响最大。`,
+    'en':`You were born in ${seasonName(season, 'en')}, with ${monthZhi} as the month branch. This season's energy influences you most.`,
+    'ja':`あなたは${seasonName(season, 'ja')}生まれ、月令${monthZhi}が当令。この季節の気が最も影響する。`,
+    'ko':`당신은 ${seasonName(season, 'ko')}에 태어났으며 월령 ${monthZhi}이(가) 당령입니다. 이 계절의 기운이 가장 큰 영향을 줍니다.`
+  }, lang))
   
   for (const [wx, state] of Object.entries(wxState)) {
-    result.push(`${wx}在你这命里属于「${state}」的状态`)
+    result.push(t({
+      'zh-CN':`${wx}在你这命里属于「${state}」的状态`,
+      'en':`${wxName(wx, 'en')} in your chart is in "${stateName(state, 'en')}" state`,
+      'ja':`${wxName(wx, 'ja')}はあなたの命式で「${stateName(state, 'ja')}」の状態`,
+      'ko':`${wxName(wx, 'ko')}은(는) 당신 명식에서 "${stateName(state, 'ko')}" 상태입니다`
+    }, lang))
   }
 
-  // 日主状态
   const riGanWx = getGanWx(pills[2].gan)
   const riWxState = wxState[riGanWx]
   if (riWxState) {
     if (riWxState === '旺' || riWxState === '相') {
-      result.push(`你日主${riGanWx}正当令，你这人做事有底气，顺的时候多。`)
+      result.push(t({
+        'zh-CN':`你日主${riGanWx}正当令，你这人做事有底气，顺的时候多。`,
+        'en':`Your ${wxName(riGanWx, 'en')} Day Master is in season — you act with confidence and often find things going your way.`,
+        'ja':`日主${wxName(riGanWx, 'ja')}が旺相—行動に自信があり、うまくいくことが多い。`,
+        'ko':`일주 ${wxName(riGanWx, 'ko')}이(가) 왕상—자신감 있게 행동하며 일이 잘 풀리는 경우가 많습니다.`
+      }, lang))
     } else if (riWxState === '死' || riWxState === '囚') {
-      result.push(`你日主${riGanWx}偏弱，根基不够，得等大运流年给你补充。`)
+      result.push(t({
+        'zh-CN':`你日主${riGanWx}偏弱，根基不够，得等大运流年给你补充。`,
+        'en':`Your ${wxName(riGanWx, 'en')} Day Master is relatively weak — foundations insufficient, await the decade luck and annual cycles to supplement.`,
+        'ja':`日主${wxName(riGanWx, 'ja')}はやや弱く、基盤が不十分。大運や流年での補充を待つ必要がある。`,
+        'ko':`일주 ${wxName(riGanWx, 'ko')}이(가) 다소 약하고 기반이 부족합니다. 대운과 유년의 보충을 기다려야 합니다.`
+      }, lang))
     } else {
-      result.push(`日主${riGanWx}当前状态一般，不好不坏。`)
+      result.push(t({
+        'zh-CN':`日主${riGanWx}当前状态一般，不好不坏。`,
+        'en':`Your ${wxName(riGanWx, 'en')} Day Master is in a moderate state — neither strong nor weak.`,
+        'ja':`日主${wxName(riGanWx, 'ja')}は現在普通の状態—良くも悪くもない。`,
+        'ko':`일주 ${wxName(riGanWx, 'ko')}은(는) 현재 보통 상태—좋지도 나쁘지도 않습니다.`
+      }, lang))
     }
   }
 
-  // 最弱五行提示
-  let weakest = ['死','囚','休']
   for (const [wx, state] of Object.entries(wxState)) {
     if (state === '死') {
-      result.push(`${wx}在你命里是最弱的，这个领域你得悠着点，别硬来。`)
+      result.push(t({
+        'zh-CN':`${wx}在你命里是最弱的，这个领域你得悠着点，别硬来。`,
+        'en':`${wxName(wx, 'en')} is weakest in your chart — take it easy in this area, don't force things.`,
+        'ja':`${wxName(wx, 'ja')}が最も弱い—この分野では無理をせず、自然に任せて。`,
+        'ko':`${wxName(wx, 'ko')}이(가) 가장 약합니다—이 분야에서는 무리하지 말고 자연스럽게 두세요.`
+      }, lang))
     }
   }
 
@@ -433,38 +585,20 @@ export function analyzeWangXiang(pills: PillarInfo[], monthZhi: string): string[
 }
 
 // ── 旺点分析 ──
-export function analyzeWangDian(pills: PillarInfo[], riGan: string): string[] {
+export function analyzeWangDian(pills: PillarInfo[], riGan: string, lang?: string): string[] {
   const result: string[] = []
   const monthPillar = pills[1]
   const hourPillar = pills[3]
-  const monthGan = monthPillar.gan
   const monthZhi = monthPillar.zhi
-  const hourGan = hourPillar.gan
   const hourZhi = hourPillar.zhi
 
-  // 月令旺点的十神
-  const monthSS = ssM[riGan]?.[monthGan] || ''
-  const hourSS = ssM[riGan]?.[hourGan] || ''
-  
-  result.push(`你命里力量最强的两个位置是月令${monthZhi}和时支${hourZhi}，这俩地方决定了你这人的主要走向。`)
+  result.push(t({
+    'zh-CN':`你命里力量最强的两个位置是月令${monthZhi}和时支${hourZhi}，这俩地方决定了你这人的主要走向。`,
+    'en':`The two most powerful positions in your chart are the month branch ${monthZhi} and hour branch ${hourZhi} — these shape your life direction.`,
+    'ja':`命式で最も力が強いのは月令${monthZhi}と時支${hourZhi}。この二つが人生の方向性を決める。`,
+    'ko':`명식에서 가장 강력한 두 위치는 월령 ${monthZhi}과(와) 시지 ${hourZhi}입니다. 이 두 곳이 인생의 방향을 결정합니다.`
+  }, lang))
 
-  // 月令十神的意义
-  const ssMeanings: Record<string, string> = {
-    '正印':'骨子里追求完美，对身边人要求高',
-    '偏印':'眼光长远，做事有策略',
-    '食神':'图个自在，不喜歡被人管着',
-    '伤官':'脑子活，喜欢搞点新花样',
-    '正财':'求稳，挣钱踏踏实实就行',
-    '偏财':'胆子大，喜欢搏一搏',
-    '正官':'做事规矩，想要个稳定的饭碗',
-    '七杀':'想干大事，不满足现状',
-    '比肩':'重朋友义气，对人真心实意',
-    '劫财':'朋友多、社交广，但也容易因朋友破费',
-  }
-  if (ssMeanings[monthSS]) result.push(`月令是${monthSS}，说明你${ssMeanings[monthSS]}。`)
-  if (ssMeanings[hourSS]) result.push(`时上${hourSS}坐镇，说明你${ssMeanings[hourSS]}。`)
-
-  // 月令时支与日柱的亲密度
   const riZhi = pills[2].zhi
   const relationships: string[] = []
   const pairs = [[monthZhi, riZhi], [hourZhi, riZhi]]
@@ -473,24 +607,47 @@ export function analyzeWangDian(pills: PillarInfo[], riGan: string): string[] {
 
   for (const [a, b] of pairs) {
     if (allCombs.includes(a + b) || allCombs.includes(b + a)) {
-      relationships.push(`${a}与${b}有特殊关系（影响大）`)
+      relationships.push(t({
+        'zh-CN':`${a}与${b}有特殊关系（影响大）`,
+        'en':`${a} and ${b} have a special relationship (strong influence)`,
+        'ja':`${a}と${b}は特殊な関係（影響大）`,
+        'ko':`${a}과(와) ${b}은(는) 특별한 관계가 있습니다 (영향 큼)`
+      }, lang))
     } else {
       const ma = getZhiWx(a)
       const mb = getZhiWx(b)
       if (ma && mb) {
-        if (ma === mb) relationships.push(`${a}与${b}五行相同`)
-        else relationships.push(`${a}(${ma})与${b}(${mb})有生克关系`)
+        if (ma === mb) {
+          relationships.push(t({
+            'zh-CN':`${a}与${b}五行相同`,
+            'en':`${a} and ${b} share the same element (${wxName(ma, 'en')})`,
+            'ja':`${a}と${b}は五行が同じ`,
+            'ko':`${a}과(와) ${b}은(는) 오행이 같음`
+          }, lang))
+        } else {
+          relationships.push(t({
+            'zh-CN':`${a}(${ma})与${b}(${mb})有生克关系`,
+            'en':`${a}(${wxName(ma, 'en')}) and ${b}(${wxName(mb, 'en')}) have generating/controlling relation`,
+            'ja':`${a}(${wxName(ma, 'ja')})と${b}(${wxName(mb, 'ja')})は生克関係`,
+            'ko':`${a}(${wxName(ma, 'ko')})과(와) ${b}(${wxName(mb, 'ko')})은(는) 생극 관계`
+          }, lang))
+        }
       }
     }
   }
   
-  result.push(`你的婚姻宫（日支${riZhi}）受月令${monthZhi}和时支${hourZhi}的影响: ${relationships.join('；')}`)
+  result.push(t({
+    'zh-CN':`你的婚姻宫（日支${riZhi}）受月令${monthZhi}和时支${hourZhi}的影响: ${relationships.join('；')}`,
+    'en':`Your marriage palace (Day branch ${riZhi}) is influenced by month branch ${monthZhi} and hour branch ${hourZhi}: ${relationships.join('; ')}`,
+    'ja':`婚姻宮（日支${riZhi}）は月令${monthZhi}と時支${hourZhi}の影響を受ける: ${relationships.join('; ')}`,
+    'ko':`혼인궁(일지 ${riZhi})은 월령 ${monthZhi}과(와) 시지 ${hourZhi}의 영향을 받습니다: ${relationships.join('; ')}`
+  }, lang))
 
   return result
 }
 
 // ── 干支虚实分析 ──
-export function analyzeXuShi(pills: PillarInfo[]): string[] {
+export function analyzeXuShi(pills: PillarInfo[], lang?: string): string[] {
   const result: string[] = []
   const xuShiMap: Record<string, {shi:string[]; xu:string[]}> = {
     '甲':{shi:['寅','辰','子'], xu:['申','戌','午']},
@@ -513,9 +670,19 @@ export function analyzeXuShi(pills: PillarInfo[]): string[] {
       const isShi = ruler.shi.includes(zhi)
       const isXu = ruler.xu.includes(zhi)
       if (isShi) {
-        result.push(`${p.gz} — ${gan}坐${zhi}是坐实的，说明你在这个位置说一不二，底气足。`)
+        result.push(t({
+          'zh-CN':`${p.gz} — ${gan}坐${zhi}是坐实的，说明你在这个位置说一不二，底气足。`,
+          'en':`${p.gz} — ${gan} sitting on ${zhi} is substantial — you're decisive and confident in this area.`,
+          'ja':`${p.gz} — ${gan}が${zhi}に坐実—この位置では揺るぎなく、自信がある。`,
+          'ko':`${p.gz} — ${gan}이(가) ${zhi}에 앉아 실함—이 위치에서는 확고하고 자신감이 있습니다.`
+        }, lang))
       } else if (isXu) {
-        result.push(`${p.gz} — ${gan}坐${zhi}有点虚，想法多但落地难，得等时机成熟。`)
+        result.push(t({
+          'zh-CN':`${p.gz} — ${gan}坐${zhi}有点虚，想法多但落地难，得等时机成熟。`,
+          'en':`${p.gz} — ${gan} sitting on ${zhi} is somewhat weak — many ideas but hard to execute, wait for the right timing.`,
+          'ja':`${p.gz} — ${gan}が${zhi}に坐虚—アイデアは多いが実行が難しい。タイミングを待つ必要がある。`,
+          'ko':`${p.gz} — ${gan}이(가) ${zhi}에 앉아 허함—아이디어는 많지만 실행이 어렵습니다.时机이 무르익을 때까지 기다리세요.`
+        }, lang))
       }
     }
   }
@@ -524,10 +691,9 @@ export function analyzeXuShi(pills: PillarInfo[]): string[] {
 }
 
 // ── 十神组合解读 ──
-export function analyzeShiShen(pills: PillarInfo[], riGan: string): string[] {
+export function analyzeShiShen(pills: PillarInfo[], riGan: string, lang?: string): string[] {
   const result: string[] = []
   
-  // 统计各十神出现次数
   const ssCount: Record<string, number> = {}
   for (const p of pills) {
     const s = ssM[riGan]?.[p.gan] || ''
@@ -536,83 +702,162 @@ export function analyzeShiShen(pills: PillarInfo[], riGan: string): string[] {
 
   const topSS = Object.entries(ssCount).sort((a, b) => b[1] - a[1])
   for (const [ss, count] of topSS.slice(0, 3)) {
-    result.push(`${ss}在你命里出现${count}次，这个特质比较明显`)
+    result.push(t({
+      'zh-CN':`${ss}在你命里出现${count}次，这个特质比较明显`,
+      'en':`${ss} appears ${count} time(s) in your chart — this trait is prominent`,
+      'ja':`${ss}が${count}回出現—この特性が顕著`,
+      'ko':`${ss}이(가) ${count}회 나타남—이 특성이 두드러집니다`
+    }, lang))
   }
 
-  // 十神组合判断
   const hasKill = ssCount['七杀'] && ssCount['七杀'] > 0
   const hasGuan = ssCount['正官'] && ssCount['正官'] > 0
   const hasCai = (ssCount['正财'] || 0) + (ssCount['偏财'] || 0) > 1
   const hasYin = (ssCount['正印'] || 0) + (ssCount['偏印'] || 0) > 0
   const hasShiShang = (ssCount['食神'] || 0) + (ssCount['伤官'] || 0) > 0
 
-  if (hasKill && hasGuan) result.push('官杀混杂，说明你事业上有好几条路可以走，但别贪多，专注一条才对。')
-  if (hasCai && hasYin) result.push('财印双全，你这人既能赚钱又爱学习，两手都硬。')
-  if (hasShiShang && hasGuan) result.push('食伤制官杀，说明你不安分，总想搞点名堂出来。')
-  if (hasShiShang && hasCai) result.push('食伤生财，你这人脑子活，能用技术或创意来变现。')
-  if (ssCount['比肩'] && ssCount['比肩'] > 1) result.push('比肩多现，说明你这人重情义，朋友的事就是自己的事。')
+  if (hasKill && hasGuan) result.push(t({
+    'zh-CN':'官杀混杂，说明你事业上有好几条路可以走，但别贪多，专注一条才对。',
+    'en':'Mixed Officer and Seven Kill — multiple career paths available, but stay focused on one.',
+    'ja':'官殺混雑—いくつかのキャリアパスがあるが、一つに絞るのが賢明。',
+    'ko':'관살혼잡—여러 직업 경로가 있지만 하나에 집중하는 것이 현명합니다.'
+  }, lang))
+  if (hasCai && hasYin) result.push(t({
+    'zh-CN':'财印双全，你这人既能赚钱又爱学习，两手都硬。',
+    'en':'Wealth and Seal both present — you can both earn and learn, strong in both areas.',
+    'ja':'財印双全—お金を稼ぎ、学ぶこともできる。両方に強い。',
+    'ko':'재인쌍전—돈도 벌고 공부도 잘합니다. 양쪽 모두 강합니다.'
+  }, lang))
+  if (hasShiShang && hasGuan) result.push(t({
+    'zh-CN':'食伤制官杀，说明你不安分，总想搞点名堂出来。',
+    'en':'Eating/Injury controlling Officer/Kill — you are restless, always wanting to make your mark.',
+    'ja':'食傷制官殺—落ち着きがなく、常に何かを成し遂げたいと思っている。',
+    'ko':'식상제관살—가만히 있지 못하고 항상 무언가를 이루고자 합니다.'
+  }, lang))
+  if (hasShiShang && hasCai) result.push(t({
+    'zh-CN':'食伤生财，你这人脑子活，能用技术或创意来变现。',
+    'en':'Eating/Injury generating Wealth — clever mind, monetize your skills and creativity.',
+    'ja':'食傷生財—頭が良く、技術やクリエイティビティで収入を得られる。',
+    'ko':'식상생재—머리가 좋아 기술이나 창의력으로 수익을 창출할 수 있습니다.'
+  }, lang))
+  if (ssCount['比肩'] && ssCount['比肩'] > 1) result.push(t({
+    'zh-CN':'比肩多现，说明你这人重情义，朋友的事就是自己的事。',
+    'en':'Multiple Peer Stars — you value loyalty, your friends\' problems become your own.',
+    'ja':'比肩多現—情義に厚く、友人のことは自分のことのように考える。',
+    'ko':'비견다현—의리를 중시하며 친구의 일을 자신의 일처럼 여깁니다.'
+  }, lang))
 
   return result
 }
 
 // ── 综合断事 ──
-export function analyzeZongHe(pills: PillarInfo[], birthYear: number, gender: string, riGan: string): string[] {
+export function analyzeZongHe(pills: PillarInfo[], birthYear: number, gender: string, riGan: string, lang?: string): string[] {
   const result: string[] = []
   const monthPillar = pills[1]
   const hourPillar = pills[3]
   const yearPillar = pills[0]
   const riZhi = pills[2].zhi
 
-  // 婚姻宫
-  result.push(`你的婚姻宫在${riZhi}，这个位置偏静，婚姻这事你不太爱折腾。`)
-  // 检查日支关系
+  result.push(t({
+    'zh-CN':`你的婚姻宫在${riZhi}，这个位置偏静，婚姻这事你不太爱折腾。`,
+    'en':`Your marriage palace is at ${riZhi} — a relatively calm position, you don't like to stir things up in relationships.`,
+    'ja':`婚姻宮は${riZhi}—比較的静かな位置で、恋愛で波風を立てるのは好きではない。`,
+    'ko':`혼인궁은 ${riZhi}—비교적 조용한 위치이며 연애에서 소란을 피우는 것을 좋아하지 않습니다.`
+  }, lang))
+  
   const zhis = pills.map(p => p.zhi)
   const chongPairs = Object.keys(LIU_CHONG)
   const chuanPairs = Object.keys(LIU_CHUAN)
   for (let i = 0; i < zhis.length; i++) {
-    if (i === 2) continue // skip self
+    if (i === 2) continue
     const k1 = riZhi + zhis[i]
     const k2 = zhis[i] + riZhi
     if (chongPairs.includes(k1) || chongPairs.includes(k2)) {
-      result.push(`日支${riZhi}和${zhis[i]}相冲，婚姻宫被冲了，感情上容易起波澜。`)
+      result.push(t({
+        'zh-CN':`日支${riZhi}和${zhis[i]}相冲，婚姻宫被冲了，感情上容易起波澜。`,
+        'en':`Day branch ${riZhi} clashes with ${zhis[i]} — marriage palace is stirred, emotions may fluctuate.`,
+        'ja':`日支${riZhi}と${zhis[i]}が冲—婚姻宮が揺さぶられ、感情に波が出やすい。`,
+        'ko':`일지 ${riZhi}과(와) ${zhis[i]}이(가) 충—혼인궁이 흔들려 감정에 파동이 생기기 쉽습니다.`
+      }, lang))
     }
     if (chuanPairs.includes(k1) || chuanPairs.includes(k2)) {
-      result.push(`日支${riZhi}和${zhis[i]}相穿，说明你跟另一半在某些事上得相互忍让。`)
+      result.push(t({
+        'zh-CN':`日支${riZhi}和${zhis[i]}相穿，说明你跟另一半在某些事上得相互忍让。`,
+        'en':`Day branch ${riZhi} pierces ${zhis[i]} — you and your partner need mutual tolerance on certain issues.`,
+        'ja':`日支${riZhi}と${zhis[i]}が穿—相手とある程度の相互譲歩が必要。`,
+        'ko':`일지 ${riZhi}과(와) ${zhis[i]}이(가) 천—상대방과 특정 문제에서 서로 양보가 필요합니다.`
+      }, lang))
     }
   }
 
-  // 年上字
   const yearGanSS = ssM[riGan]?.[yearPillar.gan] || ''
   const monthGanSS = ssM[riGan]?.[monthPillar.gan] || ''
-  result.push(`年上${yearPillar.gan}是${yearGanSS}，看起来是棵大树，实际离你远，想法大但真正使上劲不容易。`)
-  result.push(`月令${monthPillar.zhi}是你命里最有力气的位，月干${monthPillar.gan}是${monthGanSS}，这个对你影响最直接。`)
+  result.push(t({
+    'zh-CN':`年上${yearPillar.gan}是${yearGanSS}，看起来是棵大树，实际离你远，想法大但真正使上劲不容易。`,
+    'en':`Year stem ${yearPillar.gan} (${yearGanSS}) seems like a big tree but is far from you — big ideas but hard to fully leverage.`,
+    'ja':`年干${yearPillar.gan}は${yearGanSS}。大樹のように見えるが遠くにある—アイデアは大きいが実現は容易ではない。`,
+    'ko':`년간 ${yearPillar.gan}은(는) ${yearGanSS}입니다. 큰 나무처럼 보이지만 멀리 있어 생각은 크지만 실제 활용은 쉽지 않습니다.`
+  }, lang))
+  result.push(t({
+    'zh-CN':`月令${monthPillar.zhi}是你命里最有力气的位，月干${monthPillar.gan}是${monthGanSS}，这个对你影响最直接。`,
+    'en':`Month branch ${monthPillar.zhi} is your chart's most powerful position. Month stem ${monthPillar.gan} (${monthGanSS}) directly influences you.`,
+    'ja':`月令${monthPillar.zhi}は命式で最も力がある。月干${monthPillar.gan}（${monthGanSS}）が最も直接的に影響する。`,
+    'ko':`월령 ${monthPillar.zhi}은(는) 명식에서 가장 강력합니다. 월간 ${monthPillar.gan}（${monthGanSS}）이 가장 직접적인 영향을 줍니다.`
+  }, lang))
 
-  // 时柱
   const hourGanSS = ssM[riGan]?.[hourPillar.gan] || ''
-  result.push(`时上${hourPillar.gan}是${hourGanSS}，这代表你晚年怎么过、内心真正想要什么。`)
+  result.push(t({
+    'zh-CN':`时上${hourPillar.gan}是${hourGanSS}，这代表你晚年怎么过、内心真正想要什么。`,
+    'en':`Hour stem ${hourPillar.gan} (${hourGanSS}) represents how you spend your later years and what your heart truly desires.`,
+    'ja':`時干${hourPillar.gan}（${hourGanSS}）は晩年の過ごし方と心の真の望みを表す。`,
+    'ko':`시간 ${hourPillar.gan}（${hourGanSS}）은 만년의 생활 방식과 마음의 진정한 소망을 나타냅니다.`
+  }, lang))
 
-  // 共根在月令的判断
   const bestGen = BEST_GONG_GEN[riGan]
   if (bestGen && monthPillar.zhi.includes(bestGen.replace('土',''))) {
-    result.push(`${bestGen}在月令，说明你在家里和朋友圈里吃得开，父母能帮你一把，兄弟朋友也多。`)
+    result.push(t({
+      'zh-CN':`${bestGen}在月令，说明你在家里和朋友圈里吃得开，父母能帮你一把，兄弟朋友也多。`,
+      'en':`${bestGen} in the month pillar — you thrive at home and among friends. Parents can help you, and you have many allies.`,
+      'ja':`${bestGen}が月令にあり—家庭や友人関係でうまくいき、親の助けもあり、兄弟友人も多い。`,
+      'ko':`${bestGen}이(가) 월령에 있어 가정과 친구 관계에서 잘 풀리고 부모님의 도움도 있으며 형제·친구도 많습니다.`
+    }, lang))
   }
 
   return result
 }
 
 // ── 八字性格总评 ──
-export function analyzeSummary(pills: PillarInfo[], riGan: string, wangXiang: string[]): string {
+export function analyzeSummary(pills: PillarInfo[], riGan: string, wangXiang: string[], lang?: string): string {
   const riWx = getGanWx(riGan)
   const riZhi = pills[2].zhi
   const monthZhi = pills[1].zhi
 
-  const wxDescs: Record<string, string> = {
-    '木':'仁慈、有担当，以结果为导向。', '火':'热情、缺乏安全感，追求自由。',
-    '土':'包容、想得多，随遇而安。', '金':'好面子、对自己要求高，严肃认真。',
-    '水':'自我要求高，对事业有追求。',
+  const wxDescs: Record<string, Record<string, string>> = {
+    '木':{'zh-CN':'仁慈、有担当，以结果为导向。','en':'Benevolent, responsible, results-oriented.','ja':'仁愛があり、責任感が強く、結果重視。','ko':'자애롭고 책임감 있으며 결과 지향적.'},
+    '火':{'zh-CN':'热情、缺乏安全感，追求自由。','en':'Passionate, security-seeking, freedom-loving.','ja':'情熱的で、安心感を求め、自由を追求。','ko':'열정적이고 안정감을 추구하며 자유를 갈망.'},
+    '土':{'zh-CN':'包容、想得多，随遇而安。','en':'Tolerant, thoughtful, goes with the flow.','ja':'包容力があり、考え方が深く、流れに身を任せる。','ko':'포용력 있고 생각이 많으며 흐름에 몸을 맡김.'},
+    '金':{'zh-CN':'好面子、对自己要求高，严肃认真。','en':'Status-conscious, high self-standards, serious and disciplined.','ja':'見栄っ張りで、自己要求が高く、真面目。','ko':'체면을 중시하고 자기 기준이 높으며 진지하고 엄숙.'},
+    '水':{'zh-CN':'自我要求高，对事业有追求。','en':'High self-expectations, career-oriented.','ja':'自己要求が高く、キャリア志向。','ko':'자기 기준이 높고 직업에 대한 열망이 있음.'},
   }
 
-  return `${riGan}日主属${riWx}。${wxDescs[riWx]||''}坐下${riZhi}，月令${monthZhi}。${wangXiang.length > 0 ? '五行状态：' + wangXiang.slice(0,3).join('；') : ''}整体来看，你这人有自己的脾气和路子，上面说的这些是你天生的底牌——八字不是定命，是帮你认清楚自己是个什么样的人。`
+  const desc = wxDescs[riWx]?.[lang || 'zh-CN'] || wxDescs[riWx]?.['zh-CN'] || ''
+  const stateStr = wangXiang.length > 0 
+    ? t({
+      'zh-CN':`五行状态：${wangXiang.slice(0,3).join('；')}`,
+      'en':`Element state: ${wangXiang.slice(0,3).join('; ')}`,
+      'ja':`五行状態：${wangXiang.slice(0,3).join('；')}`,
+      'ko':`오행 상태：${wangXiang.slice(0,3).join('; ')}`
+    }, lang)
+    : '';
+
+  const conclusion = t({
+    'zh-CN':'整体来看，你这人有自己的脾气和路子，上面说的这些是你天生的底牌——八字不是定命，是帮你认清楚自己是个什么样的人。',
+    'en':'Overall, you have your own temperament and path. What\'s described above is your innate foundation — Ba Zi doesn\'t fix your destiny, it helps you understand who you truly are.',
+    'ja':'総合的に見ると、あなたには独自の気質と道がある。上記のことは生まれ持った基盤—四柱推命は運命を決めるものではなく、自分がどんな人間かを知るためのものだ。',
+    'ko':'종합적으로 볼 때, 당신만의 기질과 길이 있습니다. 위에서 설명한 것은 타고난 기반입니다 — 사주는 운명을 결정하는 것이 아니라 자신이 어떤 사람인지 이해하도록 돕는 도구입니다.'
+  }, lang);
+
+  return `${riGan}日主属${wxName(riWx, lang)}。${desc}坐下${riZhi}，月令${monthZhi}。${stateStr}${stateStr ? '。' : ''}${conclusion}`
 }
 
 // ── 主入口 ──
@@ -623,36 +868,41 @@ export interface DeepInput {
   gender: string
 }
 
-export function deepAnalysis(input: DeepInput): DeepAnalysis {
+export function deepAnalysis(input: DeepInput, lang?: string): DeepAnalysis {
   const { pills, birthYear, gender } = input
   if (!pills || pills.length < 4) {
     return {
       riZhuXinXing: [], diZhiGuanXi: [], liuChuan: [], liuChong: [],
       sanHeLiuHe: [], xingPoAnHe: [], chuChuGongGen: [], wangXiangXuShi: [],
-      wangDian: [], shiShen: [], zongHe: [], summary: '八字数据不足'
+      wangDian: [], shiShen: [], zongHe: [],
+      summary: t({
+        'zh-CN':'八字数据不足',
+        'en':'Insufficient Ba Zi data',
+        'ja':'四柱データが不足しています',
+        'ko':'사주 데이터가 부족합니다'
+      }, lang)
     }
   }
 
   const riGan = pills[2].gan
   const monthZhi = pills[1].zhi
 
-  // 各模块分析
-  const riZhuXinXing = analyzeRiZhuXinXing(pills, riGan)
-  const liuChuan = analyzeLiuChuan(pills)
-  const liuChong = analyzeLiuChong(pills)
-  const sanHe = analyzeSanHe(pills)
-  const liuHe = analyzeLiuHe(pills)
-  const sanXing = analyzeSanXing(pills)
-  const anHe = analyzeAnHe(pills)
-  const po = analyzePo(pills)
-  const ziHe = analyzeZiHe(pills)
-  const chuChu = analyzeChuChu(pills, riGan)
-  const wangXiang = analyzeWangXiang(pills, monthZhi)
-  const xuShi = analyzeXuShi(pills)
-  const wangDian = analyzeWangDian(pills, riGan)
-  const shiShen = analyzeShiShen(pills, riGan)
-  const zongHe = analyzeZongHe(pills, birthYear, gender, riGan)
-  const summary = analyzeSummary(pills, riGan, wangXiang)
+  const riZhuXinXing = analyzeRiZhuXinXing(pills, riGan, lang)
+  const liuChuan = analyzeLiuChuan(pills, lang)
+  const liuChong = analyzeLiuChong(pills, lang)
+  const sanHe = analyzeSanHe(pills, lang)
+  const liuHe = analyzeLiuHe(pills, lang)
+  const sanXing = analyzeSanXing(pills, lang)
+  const anHe = analyzeAnHe(pills, lang)
+  const po = analyzePo(pills, lang)
+  const ziHe = analyzeZiHe(pills, lang)
+  const chuChu = analyzeChuChu(pills, riGan, lang)
+  const wangXiang = analyzeWangXiang(pills, monthZhi, lang)
+  const xuShi = analyzeXuShi(pills, lang)
+  const wangDian = analyzeWangDian(pills, riGan, lang)
+  const shiShen = analyzeShiShen(pills, riGan, lang)
+  const zongHe = analyzeZongHe(pills, birthYear, gender, riGan, lang)
+  const summary = analyzeSummary(pills, riGan, wangXiang, lang)
 
   return {
     riZhuXinXing,

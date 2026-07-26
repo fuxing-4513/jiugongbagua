@@ -1,0 +1,467 @@
+[
+  {
+    "id": "gan-shi-xingjing",
+    "title": "甘石星经",
+    "author": "甘德·石申",
+    "dynasty": "战国",
+    "category": "bushi-yijing",
+    "summary": "最早的天文占星著作",
+    "description": "《甘石星经》战国时期甘德、石申二人合著，是中国最早的天文占星著作。记载了121颗恒星的位置，建立了最早的星官体系。其中石申发现了行星逆行现象，比西方早两百年。是研究古代天文占星的必读经典。",
+    "keywords": [
+      "甘德",
+      "石申",
+      "星经",
+      "恒星",
+      "天文占星"
+    ],
+    "volumes": "两卷（已散佚，辑录本）",
+    "isComplete": false,
+    "estimatedChars": 20000,
+    "order": 11,
+    "related": [
+      "kaiyuan-zhanjing",
+      "yisi-zhan"
+    ]
+  },
+  {
+    "id": "xieji-bianfang",
+    "title": "协纪辨方书",
+    "author": "允禄等奉敕编",
+    "dynasty": "清",
+    "category": "zashu-huangli",
+    "summary": "清代官方择日大典",
+    "description": "《协纪辨方书》清代乾隆年间奉敕编纂的官方择日书，36卷。系统整理了择日学的神煞体系、干支历法、趋避宜忌等内容。是清代《四库全书》中收录的最权威的通书择日学著作。",
+    "keywords": [
+      "择日",
+      "乾隆",
+      "四库全书",
+      "神煞",
+      "宜忌"
+    ],
+    "volumes": "三十六卷",
+    "isComplete": false,
+    "estimatedChars": 200000,
+    "order": 2,
+    "related": [
+      "huangli-tongshu"
+    ]
+  },
+  {
+    "id": "yuxia-ji",
+    "title": "玉匣记",
+    "author": "托名许逊",
+    "dynasty": "明",
+    "category": "zashu-huangli",
+    "summary": "民间最流行的择日通书",
+    "description": "《玉匣记》相传为东晋许逊（许真君）所传，实为明代民间编撰。汇集了各类民俗择日吉凶宜忌，包括嫁娶、出行、动土、开市、入学、祭祀等日常事务的选择方法。在民间流传极广，影响力远超官方通书。",
+    "keywords": [
+      "择日",
+      "通书",
+      "民俗",
+      "许逊"
+    ],
+    "volumes": "一卷",
+    "isComplete": false,
+    "estimatedChars": 50000,
+    "order": 3,
+    "related": [
+      "xieji-bianfang",
+      "huangli-tongshu"
+    ]
+  },
+  {
+    "id": "shuilin-shenxiang",
+    "title": "神相全编",
+    "author": "袁忠彻",
+    "dynasty": "明",
+    "category": "xiangshu-mian",
+    "summary": "明代面相学集大成",
+    "description": "《神相全编》明代袁珙、袁忠彻父子合著，是中国面相学体系最完备的著作。汇集了麻衣、柳庄等各家相法，对十三部位、骨相、气色、神韵均有详尽论述。是研习面相学不可不读的百科全书式著作。",
+    "keywords": [
+      "袁忠彻",
+      "面相",
+      "全编",
+      "十三部位"
+    ],
+    "volumes": "十二卷",
+    "isComplete": false,
+    "estimatedChars": 80000,
+    "order": 9,
+    "related": [
+      "mayi-shenxiang",
+      "liuzhuang-xiangfa"
+    ]
+  },
+  {
+    "id": "shennong-benxao",
+    "title": "神农本草经（运气篇）",
+    "author": "托名神农",
+    "dynasty": "汉",
+    "category": "yiyi-jingdian",
+    "summary": "本草学与五运六气结合之源",
+    "description": "《神农本草经》作为最古老的本草学著作，其药物分类体系（上中下三品）、四气五味理论与五运六气学说互为表里。药物之升降浮沉、归经补泻，皆与五行六气相应。是医易同源理论在药物学中的具体体现。",
+    "keywords": [
+      "本草",
+      "四气五味",
+      "药物",
+      "运气",
+      "医易"
+    ],
+    "volumes": "三卷",
+    "isComplete": false,
+    "estimatedChars": 30000,
+    "order": 4,
+    "related": [
+      "huangdi-neijing-yunqi",
+      "yuhan-jing"
+    ]
+  },
+  {
+    "id": "yunqi-jingwei",
+    "title": "运气精微",
+    "author": "张仲景（传）",
+    "dynasty": "汉",
+    "category": "yiyi-wuyun",
+    "summary": "伤寒论运气学说之源",
+    "description": "运气学说是《伤寒论》六经辨证的重要理论基础。张仲景在《伤寒论》原序中明确提到「夫天布五行，以运万类；人禀五常，以有五藏」。运气精微汇集了伤寒论中运气运用的精要，揭示疾病传变与时令气运的对应规律。",
+    "keywords": [
+      "张仲景",
+      "伤寒",
+      "六经",
+      "运气"
+    ],
+    "volumes": "一卷",
+    "isComplete": false,
+    "estimatedChars": 15000,
+    "order": 4,
+    "related": [
+      "huangdi-neijing-yunqi",
+      "sanyin-sitian"
+    ]
+  },
+  {
+    "id": "shenxian-zhuan",
+    "title": "神仙传",
+    "author": "葛洪",
+    "dynasty": "晋",
+    "category": "daojia-jingdian",
+    "summary": "葛洪述历代神仙事迹",
+    "description": "《神仙传》东晋葛洪著，收录了传说中的九十二位神仙的传记。从老子、彭祖到刘安、李少君，每位神仙的得道历程、修炼方法和神奇事迹皆有记载。是研究道教神仙谱系和修炼文化的重要文献。",
+    "keywords": [
+      "葛洪",
+      "神仙",
+      "传记",
+      "道教",
+      "修炼"
+    ],
+    "volumes": "十卷",
+    "isComplete": false,
+    "estimatedChars": 50000,
+    "order": 10,
+    "related": [
+      "baopu-zi",
+      "daode-jing"
+    ]
+  },
+  {
+    "id": "yunji-qiqian",
+    "title": "云笈七签",
+    "author": "张君房",
+    "dynasty": "宋",
+    "category": "daojia-jingdian",
+    "summary": "宋代道教文献汇编",
+    "description": "《云笈七签》宋代张君房编撰，是《道藏》编纂过程中的精华摘录，共122卷。按道教三洞四辅分类，收录了道教最重要的经典、科仪、符箓、丹法、神仙传记等文献。被誉为「小道藏」。",
+    "keywords": [
+      "张君房",
+      "道藏",
+      "道教文献",
+      "三洞四辅"
+    ],
+    "volumes": "一百二十二卷",
+    "isComplete": false,
+    "estimatedChars": 500000,
+    "order": 11,
+    "related": [
+      "daode-jing",
+      "baopu-zi",
+      "zhuangzi"
+    ]
+  },
+  {
+    "id": "zhouyi-cantongqi-fenzhu",
+    "title": "周易参同契分章注",
+    "author": "陈致虚",
+    "dynasty": "元",
+    "category": "daojia-danding",
+    "summary": "元代道士陈致虚注解参同契",
+    "description": "《周易参同契分章注》元代道士陈致虚（上阳子）著，是《周易参同契》最重要的注解之一。将原书分为三十六章，逐章注解。以金丹大道为纲，以周易卦象为用，融合了宋元内丹理论的新发展。",
+    "keywords": [
+      "陈致虚",
+      "参同契",
+      "分章注",
+      "金丹"
+    ],
+    "volumes": "三卷",
+    "isComplete": false,
+    "estimatedChars": 40000,
+    "order": 11,
+    "related": [
+      "zhouyi-cantongqi",
+      "wuzhen-pian"
+    ]
+  },
+  {
+    "id": "zang-zhai-shu",
+    "title": "藏宅书（八宅周书）",
+    "author": "佚名",
+    "dynasty": "明",
+    "category": "fengshui-zonghe",
+    "summary": "明代阳宅秘传",
+    "description": "《八宅周书》是阳宅八宅派的另一重要经典，详论东西四宅、命卦配合、门路灶井的吉凶布局方法。与《八宅明镜》相互补充。",
+    "keywords": [
+      "八宅",
+      "阳宅",
+      "命卦",
+      "东西四宅"
+    ],
+    "volumes": "两卷",
+    "isComplete": false,
+    "estimatedChars": 30000,
+    "order": 16,
+    "related": [
+      "bazhai-mingjing",
+      "yangzhai-sanyao"
+    ]
+  },
+  {
+    "id": "mengxi-bitan",
+    "title": "梦溪笔谈（象数篇）",
+    "author": "沈括",
+    "dynasty": "宋",
+    "category": "zashu-shuma",
+    "summary": "沈括象数易学与术数论述",
+    "description": "《梦溪笔谈》宋代沈括著，其中象数、易理、术数相关篇章对古代天文历算、河洛数理、五行生克、音律相生等有精要论述。沈括是宋代最博学的科学家，其术数见解独到。",
+    "keywords": [
+      "沈括",
+      "梦溪笔谈",
+      "象数",
+      "天文",
+      "数理"
+    ],
+    "volumes": "一卷（象数篇）",
+    "isComplete": false,
+    "estimatedChars": 20000,
+    "order": 4,
+    "related": [
+      "wuxing-dayi",
+      "hetu-luoshu"
+    ]
+  },
+  {
+    "id": "shiliu-zhangjing",
+    "title": "十六字令（奇门心法）",
+    "author": "佚名",
+    "dynasty": "清",
+    "category": "bushi-qimen",
+    "summary": "奇门遁甲心法要诀",
+    "description": "奇门遁甲口诀心法汇编，以十六字精要概括奇门排盘用局的核心法则。包括阴阳遁选择、九星八门旺衰、三奇吉格判断等要诀。",
+    "keywords": [
+      "奇门",
+      "心法",
+      "口诀",
+      "遁甲"
+    ],
+    "volumes": "一卷",
+    "isComplete": false,
+    "estimatedChars": 5000,
+    "order": 4,
+    "related": [
+      "qimen-dunjia-miji"
+    ]
+  },
+  {
+    "id": "liuren-jinkoujue",
+    "title": "大六壬金口诀",
+    "author": "孙膑（传）",
+    "dynasty": "明",
+    "category": "bushi-liuren",
+    "summary": "六壬金口诀预测法",
+    "description": "《大六壬金口诀》托名战国孙膑所传，实为明代六壬学者编纂。以地支方位、神将遁干为核心，以口诀形式传授六壬预测要诀。在民间六壬学者中流传甚广。",
+    "keywords": [
+      "六壬",
+      "金口诀",
+      "孙膑",
+      "地支"
+    ],
+    "volumes": "两卷",
+    "isComplete": false,
+    "estimatedChars": 30000,
+    "order": 4,
+    "related": [
+      "liuren-daquan",
+      "liuren-shenke"
+    ]
+  },
+  {
+    "id": "qizheng-tuibu",
+    "title": "七政推步",
+    "author": "贝琳",
+    "dynasty": "明",
+    "category": "zashu-shuma",
+    "summary": "明代回回历法与伊斯兰占星传入",
+    "description": "《七政推步》明代天文学家贝琳编译，是将伊斯兰天文历算（回回历法）引入中国的代表作。书中介绍了七政（日月五星）的运行推算方法以及黄道十二宫的占星体系，是中西方天文学和占星学交流的重要文献。",
+    "keywords": [
+      "回回历法",
+      "伊斯兰占星",
+      "七政",
+      "黄道十二宫"
+    ],
+    "volumes": "七卷",
+    "isComplete": false,
+    "estimatedChars": 50000,
+    "order": 5,
+    "related": [
+      "xingxue-dacheng",
+      "tetrabiblos"
+    ]
+  },
+  {
+    "id": "wanbao-quanshu",
+    "title": "万宝全书",
+    "author": "佚名",
+    "dynasty": "明·清",
+    "category": "zashu-xingming",
+    "summary": "明清民间日用百科全书",
+    "description": "《万宝全书》明代至清代在民间广泛流传的日用百科全书。涵盖择日、占卜、相术、风水、符咒、梦占、姓名等各类民间方术，是研究明清民间玄学文化的活化石。",
+    "keywords": [
+      "民间百科",
+      "日用",
+      "方术",
+      "民俗"
+    ],
+    "volumes": "多卷",
+    "isComplete": false,
+    "estimatedChars": 100000,
+    "order": 2,
+    "related": [
+      "yuxia-ji",
+      "xieji-bianfang"
+    ]
+  },
+  {
+    "id": "yuzhen-dingzhen-dan",
+    "title": "玉真经（丹鼎篇）",
+    "author": "佚名",
+    "dynasty": "唐",
+    "category": "daojia-danding",
+    "summary": "唐代炼丹秘典",
+    "description": "外丹术（炼丹术）的重要经典。详细记载了金丹的炼制方法、药物配方、炉鼎火候等核心技术，是世界化学史的重要文献。",
+    "keywords": [
+      "炼丹",
+      "外丹",
+      "金丹",
+      "丹鼎"
+    ],
+    "volumes": "一卷",
+    "isComplete": false,
+    "estimatedChars": 10000,
+    "order": 12,
+    "related": [
+      "baopu-zi",
+      "zhouyi-cantongqi"
+    ]
+  },
+  {
+    "id": "picatrix",
+    "title": "Picatrix（贤者的目标）",
+    "author": "Maslamah ibn Ahmad al-Majriti",
+    "dynasty": "11世纪",
+    "category": "western-occult",
+    "summary": "中世纪最著名的魔法书之一",
+    "description": "Picatrix 是11世纪阿拉伯神秘学者编纂的魔法书巨著，原名《贤者的目标》。融合了赫尔墨斯主义、新柏拉图主义、阿拉伯占星学、仪式魔法和自然魔法。对欧洲文艺复兴时期的占星魔法影响深远。",
+    "keywords": [
+      "Picatrix",
+      "阿拉伯魔法",
+      "占星魔法",
+      "神秘学"
+    ],
+    "volumes": "四卷",
+    "isComplete": false,
+    "estimatedChars": 120000,
+    "order": 6,
+    "related": [
+      "corpus-hermeticum",
+      "three-books-occult"
+    ]
+  },
+  {
+    "id": "zohar",
+    "title": "Sefer ha-Zohar（光辉之书）",
+    "author": "Moses de León",
+    "dynasty": "13世纪",
+    "category": "western-occult",
+    "summary": "卡巴拉神秘主义核心经典",
+    "description": "《光辉之书》（Zohar）是犹太神秘主义卡巴拉的巅峰之作。以《摩西五经》的隐义解读为核心，系统阐述了十辉（Sephiroth）、四世界、灵魂轮回等卡巴拉核心理论。对西方神秘学、塔罗象征体系影响极为深远。",
+    "keywords": [
+      "卡巴拉",
+      "Zohar",
+      "光辉之书",
+      "十辉",
+      "神秘主义"
+    ],
+    "volumes": "多卷本",
+    "isComplete": false,
+    "estimatedChars": 300000,
+    "order": 7,
+    "related": [
+      "corpus-hermeticum",
+      "three-books-occult",
+      "golden-dawn"
+    ]
+  },
+  {
+    "id": "astrology-medieval",
+    "title": "中世纪占星术经典集",
+    "author": "Guido Bonatti 等",
+    "dynasty": "13世纪",
+    "category": "western-astrology",
+    "summary": "中世纪欧洲占星术经典",
+    "description": "Guido Bonatti 的 Liber Astronomiae 是13世纪欧洲最重要的占星学著作，被誉为中世纪占星学的巅峰。涵盖本命占星、卜卦占星、时事占星等所有领域。与 Abu Ma'shar、Al-Biruni 等阿拉伯占星师的著作共同构成了古典西占的完整传承。",
+    "keywords": [
+      "Bonatti",
+      "中世纪占星",
+      "卜卦占星",
+      "本命占星"
+    ],
+    "volumes": "多卷",
+    "isComplete": false,
+    "estimatedChars": 200000,
+    "order": 2,
+    "related": [
+      "tetrabiblos",
+      "picatrix"
+    ]
+  },
+  {
+    "id": "santai-bishi",
+    "title": "三台通书（择日）",
+    "author": "佚名",
+    "dynasty": "清",
+    "category": "zashu-huangli",
+    "summary": "清代三台派择日通书",
+    "description": "三台派择日通书，以三台星（上台、中台、下台）为核心神煞的择日体系。与协纪辨方书互为补充。",
+    "keywords": [
+      "三台",
+      "通书",
+      "择日"
+    ],
+    "volumes": "四卷",
+    "isComplete": false,
+    "estimatedChars": 40000,
+    "order": 4,
+    "related": [
+      "xieji-bianfang",
+      "yuxia-ji"
+    ]
+  }
+]

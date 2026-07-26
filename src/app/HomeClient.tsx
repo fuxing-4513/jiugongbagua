@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useLocale, useT } from '@/lib/i18n'
 
@@ -41,13 +41,36 @@ const modules: ModuleInfo[] = [
 
 export default function HomeClient() {
   const getT = useT()
+  const [showGuide, setShowGuide] = useState(true)
+  const [heritageOpen, setHeritageOpen] = useState(false)
+
+  // ── 新手引导：首次访问时展示 ──
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const visited = localStorage.getItem('jiugong_visited')
+      if (visited) setShowGuide(false)
+    }
+  }, [])
+
+  const dismissGuide = () => {
+    setShowGuide(false)
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('jiugong_visited', '1')
+    }
+  }
 
   return (
     <>
       <div className="max-w-6xl mx-auto px-4">
+
+      {/* ===== 新手引导（仅首次访问展示） ===== */}
+      {showGuide && (
+        <FirstVisitGuide onDismiss={dismissGuide} />
+      )}
+
       {/* ===== Hero 区域 ===== */}
-      <section className="text-center pt-16 pb-12 md:pt-20 md:pb-16">
-        <p className="text-sm text-gold-600/80 tracking-widest mb-3">
+      <section className="text-center pt-12 pb-8 md:pt-16 md:pb-12">
+        <p className="text-sm sm:text-base text-gold-600/80 tracking-widest mb-3">
           {getT('site.tagline')}
         </p>
         <h1 className="text-3xl md:text-5xl font-bold text-gold-600 font-serif mb-4 leading-tight">
@@ -60,72 +83,111 @@ export default function HomeClient() {
       </section>
 
       {/* ── 分隔线 ── */}
-      <div className="w-16 h-px mx-auto bg-dark-500/40 mb-12"></div>
+      <div className="w-16 h-px mx-auto bg-dark-500/40 mb-10"></div>
 
-      {/* ===== 免费排盘 ===== */}
+      {/* ===== 核心功能：免费排盘 ⭐ ===== */}
       <FreeChartWidget />
 
-      {/* ── 分隔线 ── */}
-      <div className="w-16 h-px mx-auto bg-dark-500/40 my-14"></div>
+      {/* ── 次级信息区（默认折叠） ── */}
+      <div className="mt-10">
 
-      {/* ===== 十二生肖百科 ===== */}
-      <section className="mb-14">
-        <h2 className="text-xl font-semibold text-gold-600 font-serif mb-4 text-center">🐉 十二生肖</h2>
-        <p className="text-center text-gray-500 text-sm mb-6">点击生肖了解起源传说、性格特征、文化象征与运势</p>
-        <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-12 gap-2">
-          {[
-            {emoji:'🐭',name:'鼠'},{emoji:'🐮',name:'牛'},{emoji:'🐯',name:'虎'},{emoji:'🐰',name:'兔'},
-            {emoji:'🐲',name:'龙'},{emoji:'🐍',name:'蛇'},{emoji:'🐴',name:'马'},{emoji:'🐏',name:'羊'},
-            {emoji:'🐵',name:'猴'},{emoji:'🐔',name:'鸡'},{emoji:'🐶',name:'狗'},{emoji:'🐷',name:'猪'}
-          ].map(s => (
-            <Link key={s.name} href="/shengxiao"
-              className="group flex flex-col items-center p-3 rounded-xl border border-dark-600/50 hover:border-jade-400/50 transition-all duration-200">
-              <span className="text-2xl mb-1">{s.emoji}</span>
-              <span className="text-xs font-medium text-gray-600 group-hover:text-jade-500">{s.name}</span>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      {/* ── 分隔线 ── */}
-      <div className="w-16 h-px mx-auto bg-dark-500/40 mb-14"></div>
-
-      {/* ===== 学派源流 ===== */}
-      <section id="heritage" className="mb-14">
-        <HeritageSection />
-      </section>
-
-      {/* ── 分隔线 ── */}
-      <div className="w-16 h-px mx-auto bg-dark-500/40 mb-14"></div>
-
-      {/* ===== 全部工具 Grid ===== */}
-      <section className="mb-14">
-        <h2 className="text-xl font-semibold text-gold-600 font-serif mb-4 text-center">🔮 全部工具</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-          {modules.map((mod) => (
+        {/* 快速工具入口 */}
+        <section className="mb-8">
+          <h2 className="text-lg font-semibold text-gold-600 font-serif mb-4 text-center">🔮 其他命理工具</h2>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+            {modules.slice(0, 6).map((mod) => (
+              <Link
+                key={mod.key}
+                href={mod.href}
+                className="group rounded-xl border border-dark-600/50 p-4 text-center hover:border-jade-400/60 transition-all duration-200"
+              >
+                <div className="text-2xl mb-2 group-hover:scale-110 transition-transform duration-200">
+                  {mod.emoji}
+                </div>
+                <h3 className="text-sm font-semibold text-gray-700 group-hover:text-jade-500 transition-colors mb-1">
+                  {getT(mod.nameKey)}
+                </h3>
+              </Link>
+            ))}
             <Link
-              key={mod.key}
-              href={mod.href}
-              className="group rounded-xl border border-dark-600/50 p-5 hover:border-jade-400/60 transition-all duration-200"
+              href="/xueguan"
+              className="group rounded-xl border border-dark-600/50 p-4 text-center hover:border-jade-400/60 transition-all duration-200"
             >
-              <div className="text-3xl mb-3 group-hover:scale-110 transition-transform duration-200">
-                {mod.emoji}
-              </div>
-              <h3 className="text-base font-semibold text-gray-800 group-hover:text-jade-500 transition-colors mb-1">
-                {getT(mod.nameKey)}
-              </h3>
-              <p className="text-xs text-gray-500 leading-relaxed mb-2">
-                {getT(mod.descKey)}
-              </p>
-              {getT(mod.sourceKey) && getT(mod.sourceKey) !== mod.sourceKey && (
-                <p className="text-[10px] text-gold-900 font-serif italic">
-                  {getT(mod.sourceKey)}
-                </p>
-              )}
+              <div className="text-2xl mb-2 group-hover:scale-110 transition-transform duration-200">📚</div>
+              <h3 className="text-sm font-semibold text-gray-700 group-hover:text-jade-500 transition-colors mb-1">易学书馆</h3>
             </Link>
-          ))}
-        </div>
-      </section>
+          </div>
+        </section>
+
+        {/* ===== 十二生肖百科 ===== */}
+        <section className="mb-8">
+          <h2 className="text-lg font-semibold text-gold-600 font-serif mb-4 text-center">🐉 十二生肖</h2>
+          <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-12 gap-2">
+            {[
+              {emoji:'🐭',name:'鼠'},{emoji:'🐮',name:'牛'},{emoji:'🐯',name:'虎'},{emoji:'🐰',name:'兔'},
+              {emoji:'🐲',name:'龙'},{emoji:'🐍',name:'蛇'},{emoji:'🐴',name:'马'},{emoji:'🐏',name:'羊'},
+              {emoji:'🐵',name:'猴'},{emoji:'🐔',name:'鸡'},{emoji:'🐶',name:'狗'},{emoji:'🐷',name:'猪'}
+            ].map(s => (
+              <Link key={s.name} href="/shengxiao"
+                className="group flex flex-col items-center p-3 rounded-xl border border-dark-600/50 hover:border-jade-400/50 transition-all duration-200">
+                <span className="text-2xl mb-1">{s.emoji}</span>
+                <span className="text-xs font-medium text-gray-600 group-hover:text-jade-500">{s.name}</span>
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        {/* ===== 学派源流（默认折叠） ===== */}
+        <section className="mb-8">
+          <button
+            onClick={() => setHeritageOpen(!heritageOpen)}
+            className="w-full text-left flex items-center justify-between p-3 rounded-xl border border-dark-600/50 bg-dark-800/40 hover:bg-dark-800/60 transition-colors"
+            aria-expanded={heritageOpen}
+          >
+            <span className="text-base font-semibold text-gold-600 font-serif">🏛️ 学派源流</span>
+            <span className={`text-gray-500 transition-transform ${heritageOpen ? 'rotate-180' : ''}`}>▼</span>
+          </button>
+          {heritageOpen && (
+            <div className="mt-4 animate-fadeIn">
+              <HeritageSection />
+            </div>
+          )}
+        </section>
+
+        {/* ===== 全部工具 Grid（完整列表） ===== */}
+        <section className="mb-8">
+          <details className="group">
+            <summary className="cursor-pointer text-base font-semibold text-gold-600 font-serif text-center p-3 rounded-xl border border-dark-600/50 bg-dark-800/40 hover:bg-dark-800/60 transition-colors list-none">
+              <span className="group-open:hidden">📂 展开全部工具列表</span>
+              <span className="hidden group-open:inline">📂 收起全部工具列表</span>
+            </summary>
+            <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 animate-fadeIn">
+              {modules.map((mod) => (
+                <Link
+                  key={mod.key}
+                  href={mod.href}
+                  className="group rounded-xl border border-dark-600/50 p-5 hover:border-jade-400/60 transition-all duration-200"
+                >
+                  <div className="text-3xl mb-3 group-hover:scale-110 transition-transform duration-200">
+                    {mod.emoji}
+                  </div>
+                  <h3 className="text-base font-semibold text-gray-800 group-hover:text-jade-500 transition-colors mb-1">
+                    {getT(mod.nameKey)}
+                  </h3>
+                  <p className="text-xs text-gray-500 leading-relaxed mb-2">
+                    {getT(mod.descKey)}
+                  </p>
+                  {getT(mod.sourceKey) && getT(mod.sourceKey) !== mod.sourceKey && (
+                    <p className="text-[10px] text-gold-900 font-serif italic">
+                      {getT(mod.sourceKey)}
+                    </p>
+                  )}
+                </Link>
+              ))}
+            </div>
+          </details>
+        </section>
+      </div>
 
       {/* ===== 底部 CTA ===== */}
       <BottomCTA />
@@ -133,6 +195,37 @@ export default function HomeClient() {
 
 
     </>
+  )
+}
+
+// ── 新手引导组件 ──
+function FirstVisitGuide({ onDismiss }: { onDismiss: () => void }) {
+  return (
+    <div className="relative mb-6 rounded-2xl border border-gold-400/40 bg-gradient-to-br from-amber-50/90 to-gold-50/90 p-6 shadow-lg animate-fadeIn">
+      <button onClick={onDismiss} className="absolute top-3 right-3 text-gold-500/60 hover:text-gold-600 text-sm w-7 h-7 flex items-center justify-center rounded-full hover:bg-gold-100" aria-label="关闭向导">✕</button>
+      <div className="flex items-start gap-4">
+        <span className="text-3xl shrink-0 mt-1">🧭</span>
+        <div className="flex-1 min-w-0">
+          <h3 className="text-lg font-bold text-gold-700 font-serif mb-2">欢迎来到九宫八卦</h3>
+          <div className="space-y-2 text-sm text-amber-800/90 leading-relaxed">
+            <p><span className="font-semibold text-gold-700">第一步</span> 在下方输入您的出生信息（公历/农历均可）</p>
+            <p><span className="font-semibold text-gold-700">第二步</span> 点击「直接排盘」按钮，AI 即刻为您批算</p>
+            <p><span className="font-semibold text-gold-700">第三步</span> 浏览四柱命盘、五行分布、神煞详解与命理分析</p>
+          </div>
+          <div className="mt-3 flex flex-wrap gap-2">
+            <Link href="/bazi" className="inline-flex items-center gap-1 px-4 py-2 rounded-lg bg-gold-500 text-dark-900 text-sm font-semibold hover:bg-gold-400 transition-colors guide-pulse">
+              📜 排八字
+            </Link>
+            <Link href="/app" className="inline-flex items-center gap-1 px-4 py-2 rounded-lg bg-dark-800 text-gray-200 text-sm font-medium border border-gold-400/30 hover:border-gold-400/60 transition-all">
+              ⭐ AI 智能排盘
+            </Link>
+            <button onClick={onDismiss} className="px-4 py-2 rounded-lg text-sm text-gold-600/70 hover:text-gold-600 transition-colors">
+              知道了，开始使用 →
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   )
 }
 

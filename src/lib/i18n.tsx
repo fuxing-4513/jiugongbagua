@@ -4,16 +4,20 @@ import React, { createContext, useContext, useState, useCallback } from 'react'
 import { zhCN, type Locale as LocaleCN } from './locales/zh-CN'
 import { zhTW, type Locale as LocaleTW } from './locales/zh-TW'
 import { en, type Locale as LocaleEN } from './locales/en'
+import { ja, type Locale as LocaleJA } from './locales/ja'
+import { ko, type Locale as LocaleKO } from './locales/ko'
 
-export type SupportedLocale = 'zh-CN' | 'zh-TW' | 'en'
+export type SupportedLocale = 'zh-CN' | 'zh-TW' | 'en' | 'ja' | 'ko'
 
-const locales: Record<SupportedLocale, LocaleCN | LocaleTW | LocaleEN> = {
+const locales: Record<SupportedLocale, LocaleCN | LocaleTW | LocaleEN | LocaleJA | LocaleKO> = {
   'zh-CN': zhCN,
   'zh-TW': zhTW,
   'en': en,
+  'ja': ja,
+  'ko': ko,
 }
 
-type LocaleType = LocaleCN | LocaleTW | LocaleEN
+type LocaleType = LocaleCN | LocaleTW | LocaleEN | LocaleJA | LocaleKO
 
 interface LocaleContextType {
   locale: SupportedLocale
@@ -28,6 +32,8 @@ const localeNames: Record<SupportedLocale, string> = {
   'zh-CN': '简体中文',
   'zh-TW': '繁體中文',
   'en': 'English',
+  'ja': '日本語',
+  'ko': '한국어',
 }
 
 const LOCALE_KEY = 'jiugong-locale'

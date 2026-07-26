@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 420">
+  <circle cx="200" cy="200" r="180" fill="#fafafa" stroke="#333" stroke-width="2"/>
+  <!-- 28 Mansions divided into 4 quadrants -->
+  <!-- 东方青龙 -->
+  <text x="200" y="18" text-anchor="middle" font-size="14" fill="#060" font-weight="bold">东方青龙七宿</text>
+  <text x="298" y="51" text-anchor="middle" font-size="12" transform="rotate(22,298,51)" fill="#333">角12°</text>
+  <text x="330" y="78" text-anchor="middle" font-size="12" transform="rotate(38,330,78)" fill="#333">亢9°</text>
+  <text x="355" y="115" text-anchor="middle" font-size="12" transform="rotate(55,355,115)" fill="#333">氐15°</text>
+  <text x="365" y="155" text-anchor="middle" font-size="12" transform="rotate(70,365,155)" fill="#333">房5°</text>
+  <text x="370" y="195" text-anchor="middle" font-size="12" transform="rotate(85,370,195)" fill="#333">心5°</text>
+  <text x="365" y="235" text-anchor="middle" font-size="12" transform="rotate(100,365,235)" fill="#333">尾18°</text>
+  <text x="340" y="270" text-anchor="middle" font-size="12" transform="rotate(115,340,270)" fill="#333">箕11°</text>
+  <!-- 北方玄武 -->
+  <text x="200" y="395" text-anchor="middle" font-size="14" fill="#00c" font-weight="bold">北方玄武七宿</text>
+  <text x="300" y="300" text-anchor="middle" font-size="12" transform="rotate(132,300,300)" fill="#333">斗26°</text>
+  <text x="265" y="335" text-anchor="middle" font-size="12" transform="rotate(145,265,335)" fill="#333">牛8°</text>
+  <text x="225" y="360" text-anchor="middle" font-size="12" transform="rotate(160,225,360)" fill="#333">女12°</text>
+  <!-- 西方白虎 -->
+  <text x="200" y="18" text-anchor="middle" font-size="14" fill="#fa0" font-weight="bold">西方白虎七宿</text>
+  <text x="100" y="50" text-anchor="middle" font-size="12" transform="rotate(-25,100,50)" fill="#333">奎16°</text>
+  <text x="65" y="80" text-anchor="middle" font-size="12" transform="rotate(-42,65,80)" fill="#333">娄12°</text>
+  <text x="40" y="115" text-anchor="middle" font-size="12" transform="rotate(-58,40,115)" fill="#333">胃14°</text>
+  <text x="25" y="155" text-anchor="middle" font-size="12" transform="rotate(-72,25,155)" fill="#333">昴11°</text>
+  <text x="22" y="195" text-anchor="middle" font-size="12" transform="rotate(-86,22,195)" fill="#333">毕16°</text>
+  <text x="30" y="235" text-anchor="middle" font-size="12" transform="rotate(-100,30,235)" fill="#333">觜2°</text>
+  <text x="55" y="270" text-anchor="middle" font-size="12" transform="rotate(-118,55,270)" fill="#333">参9°</text>
+  <!-- 南方朱雀 -->
+  <text x="200" y="395" text-anchor="middle" font-size="14" fill="#c00" font-weight="bold">南方朱雀七宿</text>
+  <text x="100" y="300" text-anchor="middle" font-size="12" transform="rotate(-135,100,300)" fill="#333">井33°</text>
+  <text x="135" y="335" text-anchor="middle" font-size="12" transform="rotate(-150,135,335)" fill="#333">鬼4°</text>
+  <text x="172" y="360" text-anchor="middle" font-size="12" transform="rotate(-165,172,360)" fill="#333">柳15°</text>
+  <!-- Center -->
+  <text x="200" y="200" text-anchor="middle" font-size="18" fill="#999">罗经</text>
+  <text x="200" y="220" text-anchor="middle" font-size="14" fill="#999">二十八宿</text>
+  <!-- Title -->
+  <text x="200" y="415" text-anchor="middle" font-size="13" fill="#666">二十八宿分度方位</text>
+</svg>

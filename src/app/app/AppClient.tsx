@@ -159,15 +159,15 @@ export default function AppClient() {
   return (
     <div className="max-w-4xl mx-auto px-4 py-10">
       <div className="text-center mb-8">
-        <h1 className="text-3xl font-bold text-gold-600 font-serif mb-2">AI 智能排盘</h1>
-        <p className="text-gray-400">多模块命理排盘 · AI辅助智能解读</p>
+        <h1 className="text-3xl sm:text-4xl font-bold text-gold-600 font-serif mb-2">AI 智能排盘</h1>
+        <p className="text-base sm:text-lg text-gray-400">多模块命理排盘 · AI辅助智能解读</p>
       </div>
 
       {/* Module Tabs */}
       <div className="flex flex-wrap gap-3 justify-center mb-8">
         {modules.map(mod => (
           <button key={mod.id} onClick={() => { setActiveModule(mod.id); setAnalyzed(false); }}
-            className={`px-5 py-3 rounded-xl text-sm font-medium transition-all ${
+            className={`px-5 min-h-[44px] py-3 rounded-xl text-sm font-medium transition-all ${
               activeModule === mod.id ? 'bg-gold-500 text-dark-900 shadow-lg shadow-gold-400/30 scale-105'
                 : 'bg-dark-800 text-gray-400 hover:text-gold-500 border border-dark-600'}`}>
             <span className="text-xl mr-1.5">{mod.emoji}</span>{mod.name}
@@ -180,7 +180,7 @@ export default function AppClient() {
         <div className="mb-4">
           <label className="block text-sm text-gray-400 mb-1">姓名（选填）</label>
           <input type="text" value={name} onChange={e => setName(e.target.value)} placeholder="输入姓名"
-            className="w-full bg-dark-700 border border-dark-600 rounded-lg px-3 py-2 text-gray-200 text-sm" />
+            className="w-full bg-dark-700 border border-dark-600 rounded-lg px-4 min-h-[44px] text-gray-200 text-sm" />
         </div>
 
         {/* Gender */}
@@ -189,20 +189,20 @@ export default function AppClient() {
           <div className="flex gap-2">
             {['男','女'].map(g => (
               <button key={g} onClick={() => setGender(g)}
-                className={`flex-1 py-1.5 rounded-lg text-xs font-medium transition-colors ${gender === g ? 'bg-gold-600 text-dark-900' : 'bg-dark-700 text-gray-400 border border-dark-600'}`}>{g}</button>
+                className={`flex-1 min-h-[44px] py-2 rounded-lg text-sm font-medium transition-colors ${gender === g ? 'bg-gold-600 text-dark-900' : 'bg-dark-700 text-gray-400 border border-dark-600'}`}>{g}</button>
             ))}
           </div>
         </div>
 
         {/* Input Mode Toggle (Bazi only) */}
         {activeModule === 'bazi' && (
-          <div className="flex gap-2 mb-4">
+          <div className="btn-group mb-4">
             <button onClick={() => setInputMode('date')}
-              className={`flex-1 py-1.5 rounded-lg text-xs font-medium transition-colors ${inputMode === 'date' ? 'bg-gold-600 text-dark-900' : 'bg-dark-700 text-gray-400 border border-dark-600'}`}>
+              className={`flex-1 min-h-[44px] py-2 rounded-lg text-sm font-medium transition-colors ${inputMode === 'date' ? 'bg-gold-600 text-dark-900' : 'bg-dark-700 text-gray-400 border border-dark-600'}`}>
               📅 公历/农历排盘
             </button>
             <button onClick={() => setInputMode('bazi')}
-              className={`flex-1 py-1.5 rounded-lg text-xs font-medium transition-colors ${inputMode === 'bazi' ? 'bg-gold-600 text-dark-900' : 'bg-dark-700 text-gray-400 border border-dark-600'}`}>
+              className={`flex-1 min-h-[44px] py-2 rounded-lg text-sm font-medium transition-colors ${inputMode === 'bazi' ? 'bg-gold-600 text-dark-900' : 'bg-dark-700 text-gray-400 border border-dark-600'}`}>
               🀄 直接排盘
             </button>
           </div>
@@ -219,7 +219,7 @@ export default function AppClient() {
               <div className="pt-2 border-t border-dark-600">
                 <TrueSolarTime enabled={trueSolarOn} onToggle={setTrueSolarOn} longitude={trueSolarLng}
                   onLongitudeChange={setTrueSolarLng} compact />
-                {trueSolarOn && <p className="text-[10px] text-amber-600/70 mt-1">⏱ 校正后时辰：{resolvedHour.toFixed(1)}时</p>}
+                {trueSolarOn && <p className="text-xs text-amber-600/70 mt-1">⏱ 校正后时辰：{resolvedHour.toFixed(1)}时</p>}
               </div>
             )}
           </div>
@@ -228,43 +228,43 @@ export default function AppClient() {
         {/* Direct Bazi input */}
         {inputMode === 'bazi' && activeModule === 'bazi' && (
           <div className="space-y-3">
-            <p className="text-xs text-gray-500">请直接输入四柱天干地支（阳干配阳支，阴干配阴支）：</p>
+            <p className="text-sm text-gray-500">请直接输入四柱天干地支（阳干配阳支，阴干配阴支）：</p>
             {PILLAR_LABELS.map((label, i) => {
               const selTg = bzTg[i];
               const filteredDz = selTg === '' ? T_ZHI : YANG_GAN.includes(selTg) ? YANG_ZHI : YIN_ZHI;
               return (
               <div key={i} className="flex items-center gap-2">
-                <span className="text-xs text-gray-400 w-10">{label}</span>
+                <span className="text-sm text-gray-400 w-10">{label}</span>
                 <select value={bzTg[i]} onChange={e => {
                   const a = [...bzTg]; a[i] = e.target.value; const b = [...bzDz];
                   const newDz = e.target.value === '' ? T_ZHI : YANG_GAN.includes(e.target.value) ? YANG_ZHI : YIN_ZHI;
                   if (b[i] && !newDz.includes(b[i])) b[i] = '';
                   setBzTg(a); setBzDz(b);
-                }} className="flex-1 bg-dark-700 border border-dark-600 rounded-lg px-2 py-1.5 text-gray-200 text-sm">
+                }} className="flex-1 min-h-[44px] bg-dark-700 border border-dark-600 rounded-lg px-3 py-2 text-gray-200 text-sm">
                   <option value="">天干</option>
                   {T_GAN.map(g => <option key={g} value={g}>{g}</option>)}
                 </select>
                 <select value={bzDz[i]} onChange={e => { const a = [...bzDz]; a[i] = e.target.value; setBzDz(a); }}
-                  className="flex-1 bg-dark-700 border border-dark-600 rounded-lg px-2 py-1.5 text-gray-200 text-sm">
+                  className="flex-1 min-h-[44px] bg-dark-700 border border-dark-600 rounded-lg px-3 py-2 text-gray-200 text-sm">
                   <option value="">地支</option>
                   {filteredDz.map(z => <option key={z} value={z}>{z}</option>)}
                 </select>
-                <span className="text-[10px] text-gray-600 w-6 text-center">{bzTg[i]}{bzDz[i]}</span>
+                <span className="text-xs text-gray-600 w-8 text-center">{bzTg[i]}{bzDz[i]}</span>
               </div>
             )})}
             <div>
-              <label className="block text-xs text-gray-400 mb-1">出生年份 · {bzTg[0]}{bzDz[0]}年</label>
+              <label className="block text-sm text-gray-400 mb-1">出生年份 · {bzTg[0]}{bzDz[0]}年</label>
               {validYears.length > 0 ? (
                 <div className="flex flex-wrap gap-1.5">
                   {validYears.map(y => (
                     <button key={y} type="button" onClick={() => setBzYear(String(y))}
-                      className={`px-2.5 py-1 rounded text-xs border transition-colors ${bzYear === String(y) ? 'bg-gold-600 text-dark-900 font-semibold border-gold-500' : 'bg-dark-700 text-gray-400 border-dark-600 hover:border-gold-500/50'}`}>{y}</button>
+                      className={`px-3 min-h-[44px] py-1.5 rounded-lg text-sm border transition-colors ${bzYear === String(y) ? 'bg-gold-600 text-dark-900 font-semibold border-gold-500' : 'bg-dark-700 text-gray-400 border-dark-600 hover:border-gold-500/50'}`}>{y}</button>
                   ))}
                 </div>
               ) : bzTg[0] && bzDz[0] ? (
-                <p className="text-xs text-red-400">该年柱组合不存在于干支纪年</p>
-              ) : <p className="text-xs text-gray-600">请先选择年柱天干地支</p>}
-              {validYears.length > 0 && <p className="text-xs text-gray-600 mt-1">同八字每60年一轮回</p>}
+                <p className="text-sm text-red-400">该年柱组合不存在于干支纪年</p>
+              ) : <p className="text-sm text-gray-600">请先选择年柱天干地支</p>}
+              {validYears.length > 0 && <p className="text-sm text-gray-600 mt-1">同八字每60年一轮回</p>}
             </div>
           </div>
         )}
@@ -275,24 +275,59 @@ export default function AppClient() {
       {/* Analyze Button */}
       <div className="text-center mb-10">
         <button onClick={handleAnalyze} disabled={!isValid || isAnalyzing}
-          className={`px-10 py-3.5 rounded-full text-base font-bold shadow-lg transition-all ${
+          className={`px-10 min-h-[52px] py-3.5 rounded-full text-base font-bold shadow-lg transition-all ${
             isValid && !isAnalyzing ? 'bg-gradient-to-r from-gold-500 to-amber-500 text-dark-900 hover:shadow-xl hover:scale-105 active:scale-95' : 'bg-dark-700 text-gray-500 cursor-not-allowed'}`}>
           {isAnalyzing ? <span className="flex items-center gap-2"><span className="animate-spin inline-block w-4 h-4 border-2 border-dark-900/30 border-t-dark-900 rounded-full" />分析中...</span> : '🚀 启动排盘分析'}
         </button>
-        {!analyzed && !isAnalyzing && <p className="text-xs text-gray-500 mt-2">选择模块，填写信息，点击按钮查看完整命理分析</p>}
+        {!analyzed && !isAnalyzing && <p className="text-sm text-gray-500 mt-2">选择模块，填写信息，点击按钮查看完整命理分析</p>}
       </div>
 
-      {/* Error Message */}
+      {/* Error Message — 增强样式 */}
       {errorMsg && (
-        <div className="max-w-lg mx-auto mb-8 bg-red-900/20 border border-red-700/40 rounded-xl p-4 text-center">
-          <p className="text-red-400 text-sm">⚠️ {errorMsg}</p>
-          <p className="text-xs text-red-500/70 mt-1">请检查输入信息或尝试其他排盘模式</p>
+        <div className="max-w-lg mx-auto mb-8 bg-red-950/80 border-2 border-red-500/60 rounded-xl p-4 text-center toast-enter">
+          <p className="text-red-300 text-sm font-semibold">⚠️ {errorMsg}</p>
+          <p className="text-xs text-red-400/80 mt-1">请检查输入信息或尝试其他排盘模式</p>
+          <button
+            onClick={() => setErrorMsg('')}
+            className="mt-2 px-3 py-1 text-xs text-red-400/60 hover:text-red-300 underline"
+          >
+            关闭
+          </button>
+        </div>
+      )}
+
+      {/* 分析加载骨架屏 */}
+      {isAnalyzing && (
+        <div className="max-w-3xl mx-auto space-y-4 animate-fadeIn">
+          <div className="bg-dark-800/80 border border-dark-600 rounded-xl p-6">
+            <div className="skeleton skeleton-title mx-auto"></div>
+            <div className="skeleton skeleton-text mx-auto" style={{width:'60%'}}></div>
+          </div>
+          <div className="bg-dark-800/80 border border-dark-600 rounded-xl p-5">
+            <div className="skeleton skeleton-title"></div>
+            <div className="grid grid-cols-5 gap-3 mb-3">
+              {[1,2,3,4,5].map(i => (
+                <div key={i} className="skeleton skeleton-block" style={{height:'60px'}}></div>
+              ))}
+            </div>
+            <div className="skeleton skeleton-text"></div>
+            <div className="skeleton skeleton-text-short"></div>
+          </div>
+          <div className="bg-dark-800/80 border border-dark-600 rounded-xl p-5">
+            <div className="skeleton skeleton-title"></div>
+            <div className="skeleton skeleton-text"></div>
+            <div className="skeleton skeleton-text"></div>
+            <div className="skeleton skeleton-text-short"></div>
+          </div>
+          <div className="text-center">
+            <p className="text-sm text-gold-400/70 animate-pulse">⏳ AI 命理分析生成中…</p>
+          </div>
         </div>
       )}
 
       {/* Results */}
-      {analyzed && baziResult && <BaziResultView result={baziResult} name={name} />}
-      {analyzed && ziweiResult && <ZiweiResultView data={ziweiResult} name={name} />}
+      {analyzed && !isAnalyzing && baziResult && <BaziResultView result={baziResult} name={name} />}
+      {analyzed && !isAnalyzing && ziweiResult && <ZiweiResultView data={ziweiResult} name={name} />}
 
       {/* VIP 功能 — 目前为 UI 占位，待接入真实支付系统后启用 */}
       {analyzed && (

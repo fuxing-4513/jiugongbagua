@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <rect width="400" height="400" fill="#fafafa"/>
+  <!-- 3x3 grid for 九宫 -->
+  <g stroke="#333" stroke-width="2" fill="none">
+    <rect x="40" y="40" width="100" height="100"/>
+    <rect x="150" y="40" width="100" height="100"/>
+    <rect x="260" y="40" width="100" height="100"/>
+    <rect x="40" y="150" width="100" height="100"/>
+    <rect x="150" y="150" width="100" height="100"/>
+    <rect x="260" y="150" width="100" height="100"/>
+    <rect x="40" y="260" width="100" height="100"/>
+    <rect x="150" y="260" width="100" height="100"/>
+    <rect x="260" y="260" width="100" height="100"/>
+  </g>
+  <!-- 九星 placement -->
+  <g text-anchor="middle" dominant-baseline="central">
+    <!-- 四巽 -->
+    <text x="90" y="90" font-size="28" fill="#060" font-weight="bold">四绿</text>
+    <text x="90" y="115" font-size="12" fill="#666">巽·文曲</text>
+    <!-- 九离 -->
+    <text x="200" y="90" font-size="28" fill="#c00" font-weight="bold">九紫</text>
+    <text x="200" y="115" font-size="12" fill="#666">离·右弼</text>
+    <!-- 二坤 -->
+    <text x="310" y="90" font-size="28" fill="#f60" font-weight="bold">二黑</text>
+    <text x="310" y="115" font-size="12" fill="#666">坤·巨门</text>
+    <!-- 三震 -->
+    <text x="90" y="200" font-size="28" fill="#060" font-weight="bold">三碧</text>
+    <text x="90" y="225" font-size="12" fill="#666">震·禄存</text>
+    <!-- 五黄中 -->
+    <text x="200" y="195" font-size="28" fill="#c00" font-weight="bold">五黄</text>
+    <text x="200" y="220" font-size="12" fill="#666">中·廉贞</text>
+    <!-- 七兑 -->
+    <text x="310" y="200" font-size="28" fill="#999" font-weight="bold">七赤</text>
+    <text x="310" y="225" font-size="12" fill="#666">兑·破军</text>
+    <!-- 八艮 -->
+    <text x="90" y="310" font-size="28" fill="#f60" font-weight="bold">八白</text>
+    <text x="90" y="335" font-size="12" fill="#666">艮·左辅</text>
+    <!-- 一坎 -->
+    <text x="200" y="310" font-size="28" fill="#00c" font-weight="bold">一白</text>
+    <text x="200" y="335" font-size="12" fill="#666">坎·贪狼</text>
+    <!-- 六乾 -->
+    <text x="310" y="310" font-size="28" fill="#f60" font-weight="bold">六白</text>
+    <text x="310" y="335" font-size="12" fill="#666">乾·武曲</text>
+  </g>
+  <text x="200" y="385" text-anchor="middle" font-size="13" fill="#666">九星挨星·玄空九宫图</text>
+</svg>

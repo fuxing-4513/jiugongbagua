@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <circle cx="200" cy="200" r="180" fill="#fafafa" stroke="#333" stroke-width="2"/>
+  <circle cx="200" cy="200" r="120" fill="none" stroke="#999" stroke-width="1" stroke-dasharray="5,5"/>
+  <circle cx="200" cy="200" r="50" fill="none" stroke="#ccc" stroke-width="1"/>
+  <!-- 24 Mountains -->
+  <g font-size="12" text-anchor="middle">
+    <text x="200" y="28" fill="#c00" font-weight="bold">子</text>
+    <text x="200" y="375" fill="#c00" font-weight="bold">午</text>
+    <text x="372" y="205" fill="#333">卯</text>
+    <text x="28" y="205" fill="#333">酉</text>
+    <!-- Jiangdong (江东) - marked in green -->
+    <text x="220" y="28" transform="rotate(15,220,28)" fill="#060">癸</text>
+    <text x="255" y="50" transform="rotate(30,255,50)" fill="#060">丑</text>
+    <text x="280" y="90" transform="rotate(45,280,90)" fill="#060">艮</text>
+    <text x="298" y="130" transform="rotate(60,298,130)" fill="#060">寅</text>
+    <text x="310" y="175" transform="rotate(75,310,175)" fill="#060">甲</text>
+    <!-- Jiangxi (江西) - marked in blue -->
+    <text x="345" y="240" transform="rotate(105,345,240)" fill="#00c">乙</text>
+    <text x="320" y="275" transform="rotate(120,320,275)" fill="#00c">辰</text>
+    <text x="288" y="305" transform="rotate(135,288,305)" fill="#00c">巽</text>
+    <text x="248" y="328" transform="rotate(150,248,328)" fill="#00c">巳</text>
+    <text x="210" y="340" transform="rotate(165,210,340)" fill="#00c">丙</text>
+    <!-- Nanbei (南北) - marked in red -->
+    <text x="190" y="340" transform="rotate(195,190,340)" fill="#c00">丁</text>
+    <text x="150" y="320" transform="rotate(210,150,320)" fill="#c00">未</text>
+    <text x="115" y="290" transform="rotate(225,115,290)" fill="#c00">坤</text>
+    <text x="90" y="255" transform="rotate(240,90,255)" fill="#c00">申</text>
+    <text x="78" y="210" transform="rotate(255,78,210)" fill="#c00">庚</text>
+    <text x="78" y="170" transform="rotate(285,78,170)" fill="#c00">辛</text>
+    <text x="95" y="130" transform="rotate(300,95,130)" fill="#c00">戌</text>
+    <text x="120" y="90" transform="rotate(315,120,90)" fill="#c00">乾</text>
+    <text x="150" y="55" transform="rotate(330,150,55)" fill="#c00">亥</text>
+    <text x="180" y="28" transform="rotate(345,180,28)" fill="#c00">壬</text>
+  </g>
+  <!-- Legend -->
+  <rect x="50" y="15" width="12" height="12" fill="#060"/>
+  <text x="70" y="27" font-size="12" fill="#333">江东一卦（寅至丙）</text>
+  <rect x="210" y="15" width="12" height="12" fill="#00c"/>
+  <text x="230" y="27" font-size="12" fill="#333">江西一卦（申至壬）</text>
+  <rect x="50" y="35" width="12" height="12" fill="#c00"/>
+  <text x="70" y="47" font-size="12" fill="#333">南北八神（午至壬）</text>
+  <text x="200" y="395" text-anchor="middle" font-size="13" font-weight="bold" fill="#333">天玉经·三般卦二十四山分布</text>
+</svg>

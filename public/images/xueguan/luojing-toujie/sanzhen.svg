@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 250">
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6" fill="#666"/>
+    </marker>
+  </defs>
+  <!-- Compass dial representation with 3 rings offset -->
+  <!-- Outer ring: 天盘缝针 -->
+  <circle cx="200" cy="130" r="100" fill="none" stroke="#c00" stroke-width="2"/>
+  <text x="200" y="25" text-anchor="middle" font-size="13" fill="#c00" font-weight="bold">天盘缝针（纳水）</text>
+  <!-- Middle ring: 地盘正针 -->
+  <circle cx="200" cy="130" r="75" fill="none" stroke="#333" stroke-width="2"/>
+  <text x="200" y="52" text-anchor="middle" font-size="13" fill="#333" font-weight="bold">地盘正针（定向）</text>
+  <!-- Inner ring: 人盘中针 -->
+  <circle cx="200" cy="130" r="50" fill="none" stroke="#060" stroke-width="2"/>
+  <text x="200" y="78" text-anchor="middle" font-size="13" fill="#060" font-weight="bold">人盘中针（消砂）</text>
+  <!-- Center label -->
+  <circle cx="200" cy="130" r="15" fill="#f5f5f5" stroke="#999" stroke-width="1"/>
+  <text x="200" y="134" text-anchor="middle" font-size="10" fill="#999">子</text>
+  <!-- Offsets explanation -->
+  <line x1="20" y1="200" x2="380" y2="200" stroke="#ccc" stroke-width="1"/>
+  <text x="200" y="175" text-anchor="middle" font-size="11" fill="#666">地盘正针（子午线）</text>
+  <text x="200" y="195" text-anchor="middle" font-size="11" fill="#666">天盘退半位（缝针）为纳水所用</text>
+  <text x="200" y="215" text-anchor="middle" font-size="11" fill="#666">人盘进半位（中针）为消砂所用</text>
+  <text x="200" y="240" text-anchor="middle" font-size="12" fill="#333" font-weight="bold">三盘三针关系图</text>
+</svg>

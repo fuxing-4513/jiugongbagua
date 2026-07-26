@@ -1,10 +1,13 @@
 export const dynamic = 'force-static'
 
 import type { MetadataRoute } from 'next'
+import { flattenCategories } from '@/data/xueguan/categories'
+import { bookCatalog } from '@/data/xueguan/books'
 
 const baseUrl = 'https://jiugongbagua.com'
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  // ========== 主站页面 ==========
   const mainPages = [
     { path: '', priority: 1.0, changeFreq: 'monthly' as const },
     { path: '/bazi', priority: 0.9, changeFreq: 'weekly' as const },
@@ -42,7 +45,25 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: '/terms', priority: 0.3, changeFreq: 'yearly' as const },
   ]
 
-  const allPages = [...mainPages, ...infoPages]
+  // ========== 易学书馆页面（自动生成） ==========
+  const xueguanPages: { path: string; priority: number; changeFreq: 'weekly' | 'monthly' }[] = []
+
+  // 首页
+  xueguanPages.push({ path: '/xueguan', priority: 0.9, changeFreq: 'weekly' })
+
+  // 所有分类（大类+子类）
+  for (const cat of flattenCategories()) {
+    xueguanPages.push({ path: `/xueguan/${cat.id}`, priority: 0.8, changeFreq: 'weekly' })
+  }
+
+  // 所有书籍页面
+  for (const book of bookCatalog) {
+    if (!book) continue
+    const priority = book.isComplete ? 0.7 : 0.6
+    xueguanPages.push({ path: `/xueguan/${book.category}/${book.id}`, priority, changeFreq: 'monthly' })
+  }
+
+  const allPages = [...mainPages, ...infoPages, ...xueguanPages]
 
   return allPages.map(({ path, priority, changeFreq }) => ({
     url: `${baseUrl}${path}`,

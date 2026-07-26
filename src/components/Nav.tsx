@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { useState } from 'react'
 import { useLocale, useT, type SupportedLocale } from '@/lib/i18n'
+import ThemeToggle from '@/components/ThemeToggle'
 
 const toolCategories: { label: string; items: { key: string; href: string; emoji?: string }[] }[] = [
   { label: '命理推算', items: [
@@ -16,18 +17,12 @@ const toolCategories: { label: string; items: { key: string; href: string; emoji
     { key: 'modules.qimen.name', href: '/qimen', emoji: '🧭' },
   ]},
   { label: '生活测算', items: [
+    { key: 'modules.huangli.name', href: '/huangli', emoji: '📅' },
     { key: 'modules.jiemeng.name', href: '/jiemeng', emoji: '💤' },
     { key: 'modules.xingming.name', href: '/xingming', emoji: '📛' },
     { key: 'modules.shuma.name', href: '/shuma', emoji: '🔢' },
     { key: 'modules.taluo.name', href: '/taluo', emoji: '🃏' },
-    { key: 'modules.taluoCards.name', href: '/taluo/cards' },
     { key: 'modules.lingqian.name', href: '/lingqian', emoji: '🏮' },
-  ]},
-  { label: '知识文化', items: [
-    { key: 'modules.huangli.name', href: '/huangli', emoji: '📅' },
-    { key: 'modules.shengxiao.name', href: '/shengxiao', emoji: '🐯' },
-    { key: 'modules.xingzuo.name', href: '/xingzuo', emoji: '✨' },
-    { key: 'modules.fengshui.name', href: '/fengshui', emoji: '🏠' },
   ]},
 ]
 
@@ -47,89 +42,94 @@ export default function Nav() {
     <nav className="fixed top-0 left-0 right-0 z-50 glass-panel shadow-sm">
       <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 flex-shrink-0">
-          <span className="text-2xl">☯</span>
+        <Link href="/" className="flex items-center gap-2 flex-shrink-0 group">
+          <span className="text-2xl transition-transform group-hover:scale-110 duration-300">☯</span>
           <span className="text-xl font-bold text-gold-500 font-serif">
             {getT('site.name')}
           </span>
         </Link>
 
-        {/* Desktop Nav */}
-        <div className="hidden lg:flex items-center gap-5">
-          <Link href="/" className="text-sm text-gray-600 hover:text-jade-500 transition-colors">
-            {getT('nav.home')}
-          </Link>
+        {/* Desktop Nav — 精简 */}
+        <div className="hidden lg:flex items-center gap-1">
+          <NavLink href="/">{getT('nav.home')}</NavLink>
 
-          <Link href="/bazi" className="text-sm text-gray-600 hover:text-jade-500 transition-colors">{getT('nav.bazi')}</Link>
-          <Link href="/ziwei" className="text-sm text-gray-600 hover:text-jade-500 transition-colors">{getT('nav.ziwei')}</Link>
-          <Link href="/liuyao" className="text-sm text-gray-600 hover:text-jade-500 transition-colors">{getT('nav.liuyao')}</Link>
-          <Link href="/huangli" className="text-sm text-gray-600 hover:text-jade-500 transition-colors">{getT('nav.huangli')}</Link>
-
-          {/* 更多工具 Dropdown */}
+          {/* 测算工具 Dropdown（合并八字/斗数/六爻/黄历等全部） */}
           <div className="relative">
             <button
               onClick={() => setToolsOpen(!toolsOpen)}
-              className="text-sm text-gray-600 hover:text-jade-500 transition-colors flex items-center gap-1"
-              aria-label="更多工具"
+              className="flex items-center gap-1 px-3 py-2 text-sm text-gray-600 hover:text-jade-500 rounded-lg hover:bg-black/[0.03] transition-all"
               aria-expanded={toolsOpen}
             >
-              {getT('nav.tools')}
-              <svg className={`w-3 h-3 transition-transform ${toolsOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <span>测算工具</span>
+              <svg className={`w-3 h-3 transition-transform duration-200 ${toolsOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
               </svg>
             </button>
             {toolsOpen && (
               <>
                 <div className="fixed inset-0 z-10" onClick={() => setToolsOpen(false)} />
-                <div className="absolute top-full right-0 mt-2 w-64 bg-white border border-gray-200 rounded-xl shadow-lg py-3 z-20 max-h-96 overflow-y-auto">
-                  {toolCategories.map((cat, ci) => (
-                    <div key={ci}>
-                      {ci > 0 && <div className="mx-3 my-1 border-t border-gray-100" />}
-                      <p className="px-4 pb-1 text-[10px] text-gray-500 font-medium uppercase tracking-wider">{cat.label}</p>
-                      {cat.items.map((mod) => (
+                <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-[480px] bg-white border border-gray-200 rounded-2xl shadow-xl py-4 px-2 z-20">
+                  <div className="flex gap-2">
+                    <div className="flex-1">
+                      <p className="px-3 pb-1 text-[11px] text-gray-400 font-medium tracking-wider">命理推算</p>
+                      {toolCategories[0].items.map((mod) => (
                         <Link key={mod.href} href={mod.href}
-                          className="flex items-center gap-2 px-4 py-1.5 text-sm text-gray-600 hover:bg-gray-100 hover:text-jade-500 transition-colors"
+                          className="flex items-center gap-2.5 px-3 py-2 text-sm text-gray-600 hover:bg-black/[0.03] hover:text-jade-500 rounded-lg transition-all"
                           onClick={() => setToolsOpen(false)}
                         >
-                          <span className="text-xs">{mod.emoji||''}</span>
+                          <span className="text-base w-5 text-center">{mod.emoji||''}</span>
                           <span>{getT(mod.key)}</span>
                         </Link>
                       ))}
                     </div>
-                  ))}
+                    <div className="w-px bg-gray-100 self-stretch my-1" />
+                    <div className="flex-1">
+                      <p className="px-3 pb-1 text-[11px] text-gray-400 font-medium tracking-wider">生活测算</p>
+                      {toolCategories[1].items.map((mod) => (
+                        <Link key={mod.href} href={mod.href}
+                          className="flex items-center gap-2.5 px-3 py-2 text-sm text-gray-600 hover:bg-black/[0.03] hover:text-jade-500 rounded-lg transition-all"
+                          onClick={() => setToolsOpen(false)}
+                        >
+                          <span className="text-base w-5 text-center">{mod.emoji||''}</span>
+                          <span>{getT(mod.key)}</span>
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
                 </div>
               </>
             )}
           </div>
 
-          <Link href="/wenku" className="text-sm text-gray-600 hover:text-jade-500 transition-colors">{getT('nav.wenku')}</Link>
-          <Link href="/glossary" className="text-sm text-gray-600 hover:text-jade-500 transition-colors">{getT('nav.glossary')}</Link>
-          <Link href="/app" className="text-sm text-gold-600 hover:text-gold-500 transition-colors font-medium">{getT('nav.app')}</Link>
-          <Link href="/profile" className="text-sm text-gray-600 hover:text-jade-500 transition-colors" title="我的收藏">👤 我的</Link>
+          {/* 文库（易学书馆 + 文章库 + 词表） */}
+          <NavLink href="/xueguan">易学书馆</NavLink>
+          <NavLink href="/wenku">文库</NavLink>
 
-          {/* Language */}
-          <div className="relative">
-            <button
-              onClick={() => setLangOpen(!langOpen)}
-              className="text-sm text-gray-600 hover:text-jade-500 transition-colors flex items-center gap-1 border border-gray-300 rounded px-2 py-1"
-              aria-label="切换语言"
-              aria-expanded={langOpen}
-            >
-              🌐 {localeNames[locale]}
-            </button>
-            {langOpen && (
-              <>
-                <div className="fixed inset-0 z-10" onClick={() => setLangOpen(false)} />
-                <div className="absolute top-full right-0 mt-2 w-36 bg-white border border-gray-200 rounded-lg shadow-lg py-2 z-20">
-                  {(Object.entries(localeNames) as [SupportedLocale, string][]).map(([key, name]) => (
-                    <button key={key} onClick={() => handleLangChange(key)}
-                      aria-label={`切换至${name}`}
-                      className={`block w-full text-left px-4 py-2 text-sm transition-colors ${locale === key ? 'bg-jade-50 text-jade-600 font-medium' : 'text-gray-600 hover:bg-gray-100 hover:text-jade-500'}`}
-                    >{name}</button>
-                  ))}
-                </div>
-              </>
-            )}
+          {/* 右侧：主题切换 + 语言 */}
+          <div className="flex items-center gap-2 ml-3 pl-3 border-l border-gray-200">
+            <ThemeToggle />
+            <div className="relative">
+              <button
+                onClick={() => setLangOpen(!langOpen)}
+                className="text-xs text-gray-400 hover:text-gray-600 transition-colors px-2 py-1 rounded hover:bg-black/[0.03]"
+                aria-label="切换语言"
+                aria-expanded={langOpen}
+              >
+                {localeNames[locale]}
+              </button>
+              {langOpen && (
+                <>
+                  <div className="fixed inset-0 z-10" onClick={() => setLangOpen(false)} />
+                  <div className="absolute top-full right-0 mt-2 w-28 bg-white border border-gray-200 rounded-xl shadow-lg py-1.5 z-20">
+                    {(Object.entries(localeNames) as [SupportedLocale, string][]).map(([key, name]) => (
+                      <button key={key} onClick={() => handleLangChange(key)}
+                        className={`block w-full text-left px-4 py-1.5 text-sm transition-colors ${locale === key ? 'bg-jade-50 text-jade-600 font-medium' : 'text-gray-500 hover:bg-gray-50 hover:text-jade-500'}`}
+                      >{name}</button>
+                    ))}
+                  </div>
+                </>
+              )}
+            </div>
           </div>
         </div>
 
@@ -146,40 +146,36 @@ export default function Nav() {
       {/* Mobile Menu */}
       {mobileMenuOpen && (
         <div className="lg:hidden border-t border-gray-200 bg-white">
-          <div className="px-4 py-3 space-y-2">
-            <Link href="/" className="block py-2 text-sm text-gray-600 hover:text-jade-500" onClick={() => setMobileMenuOpen(false)}>{getT('nav.home')}</Link>
-            <Link href="/bazi" className="block py-2 text-sm text-gray-600 hover:text-jade-500" onClick={() => setMobileMenuOpen(false)}>{getT('nav.bazi')}</Link>
-            <Link href="/ziwei" className="block py-2 text-sm text-gray-600 hover:text-jade-500" onClick={() => setMobileMenuOpen(false)}>{getT('nav.ziwei')}</Link>
-            <Link href="/liuyao" className="block py-2 text-sm text-gray-600 hover:text-jade-500" onClick={() => setMobileMenuOpen(false)}>{getT('nav.liuyao')}</Link>
-            <Link href="/huangli" className="block py-2 text-sm text-gray-600 hover:text-jade-500" onClick={() => setMobileMenuOpen(false)}>{getT('nav.huangli')}</Link>
-            <div className="py-2">
-              <p className="text-xs text-gray-500 mb-1">{getT('nav.tools')}</p>
-              {toolCategories.map((cat, ci) => (
-                <div key={ci} className="mb-2">
-                  <p className="text-[10px] text-gray-400 px-1 mb-0.5">{cat.label}</p>
-                  <div className="grid grid-cols-2 gap-0.5">
-                    {cat.items.map((mod) => (
-                      <Link key={mod.href} href={mod.href} className="flex items-center gap-1 py-1 px-1 text-sm text-gray-500 hover:text-jade-500 rounded" onClick={() => setMobileMenuOpen(false)}>
-                        <span className="text-xs">{mod.emoji||''}</span>
-                        <span>{getT(mod.key)}</span>
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              ))}
+          <div className="px-4 py-3 space-y-1">
+            <MobileLink href="/" onClick={() => setMobileMenuOpen(false)}>{getT('nav.home')}</MobileLink>
+            <div className="py-1">
+              <p className="text-xs text-gray-400 mb-1 px-1">命理推算</p>
+              <div className="grid grid-cols-2 gap-0.5">
+                {toolCategories[0].items.map((mod) => (
+                  <MobileLink key={mod.href} href={mod.href} onClick={() => setMobileMenuOpen(false)} emoji={mod.emoji}>
+                    {getT(mod.key)}
+                  </MobileLink>
+                ))}
+              </div>
             </div>
-            <Link href="/wenku" className="block py-2 text-sm text-gray-600 hover:text-jade-500" onClick={() => setMobileMenuOpen(false)}>{getT('nav.wenku')}</Link>
-            <Link href="/glossary" className="block py-2 text-sm text-gray-600 hover:text-jade-500" onClick={() => setMobileMenuOpen(false)}>{getT('nav.glossary')}</Link>
-            <Link href="/app" className="block py-2 text-sm text-gold-600 hover:text-gold-500 font-medium" onClick={() => setMobileMenuOpen(false)}>{getT('nav.app')}</Link>
-            <Link href="/profile" className="block py-2 text-sm text-gray-600 hover:text-jade-500" onClick={() => setMobileMenuOpen(false)}>👤 我的收藏</Link>
-            <Link href="/help" className="block py-2 text-sm text-gray-500 hover:text-jade-500" onClick={() => setMobileMenuOpen(false)}>{getT('nav.help')}</Link>
-            <Link href="/contact" className="block py-2 text-sm text-gray-500 hover:text-jade-500" onClick={() => setMobileMenuOpen(false)}>{getT('nav.contact')}</Link>
-            <div className="pt-2 border-t border-gray-200">
-              <p className="text-xs text-gray-500 mb-1">{getT('nav.language')}</p>
+            <div className="py-1">
+              <p className="text-xs text-gray-400 mb-1 px-1">生活测算</p>
+              <div className="grid grid-cols-2 gap-0.5">
+                {toolCategories[1].items.map((mod) => (
+                  <MobileLink key={mod.href} href={mod.href} onClick={() => setMobileMenuOpen(false)} emoji={mod.emoji}>
+                    {getT(mod.key)}
+                  </MobileLink>
+                ))}
+              </div>
+            </div>
+            <MobileLink href="/xueguan" onClick={() => setMobileMenuOpen(false)}>易学书馆</MobileLink>
+            <MobileLink href="/wenku" onClick={() => setMobileMenuOpen(false)}>文库</MobileLink>
+            <div className="pt-3 mt-2 border-t border-gray-100 flex items-center justify-between">
+              <ThemeToggle />
               <div className="flex gap-2">
                 {(Object.entries(localeNames) as [SupportedLocale, string][]).map(([key, name]) => (
                   <button key={key} onClick={() => { handleLangChange(key); setMobileMenuOpen(false) }}
-                    className={`text-sm px-2 py-1 rounded ${locale === key ? 'bg-jade-50 text-jade-600' : 'text-gray-500 hover:text-jade-500'}`}
+                    className={`text-xs px-2 py-1 rounded ${locale === key ? 'bg-jade-50 text-jade-600' : 'text-gray-400 hover:text-jade-500'}`}
                   >{name}</button>
                 ))}
               </div>
@@ -188,5 +184,24 @@ export default function Nav() {
         </div>
       )}
     </nav>
+  )
+}
+
+/* ——— 子组件 ——— */
+
+function NavLink({ href, children }: { href: string; children: React.ReactNode }) {
+  return (
+    <Link href={href} className="px-3 py-2 text-sm text-gray-600 hover:text-jade-500 rounded-lg hover:bg-black/[0.03] transition-all">
+      {children}
+    </Link>
+  )
+}
+
+function MobileLink({ href, onClick, emoji, children }: { href: string; onClick: () => void; emoji?: string; children: React.ReactNode }) {
+  return (
+    <Link href={href} onClick={onClick} className="flex items-center gap-2 px-2 py-1.5 text-sm text-gray-600 hover:text-jade-500 rounded-lg hover:bg-gray-50 transition-all">
+      {emoji && <span className="text-xs">{emoji}</span>}
+      <span>{children}</span>
+    </Link>
   )
 }

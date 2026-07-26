@@ -112,12 +112,89 @@ export interface JudgmentResult {
   yuanJuCheckNarr: string[]
 }
 
+// ──── i18n helpers ────
+/** Translate a simple label/keyword to different languages */
+function jt(texts: Record<string,string>, lang?: string): string {
+  if (!lang || lang === 'zh-CN' || lang === 'zh-TW') return texts['zh-CN'] || '';
+  return texts[lang] || texts['en'] || texts['zh-CN'] || '';
+}
+
+/** Apply i18n to a string array (for use in the vernacular filter chain) */
+function i18nNarr(arr: string[], lang?: string): string[] {
+  if (!lang || lang === 'zh-CN' || lang === 'zh-TW') return arr;
+  // For non-CN languages, keep Chinese text as-is for now (the analysis is highly specialized)
+  // The translateItem wrapper below handles section header localization
+  return arr;
+}
+
+// ──── i18n labels for commonly used terms in judgment ────
+export const JUDGMENT_SECTION_LABELS: Record<string,Record<string,string>> = {
+  'personality': {
+    'zh-CN':'🧠 性格','en':'🧠 Personality','ja':'🧠 性格','ko':'🧠 성격'
+  },
+  'marriage': {
+    'zh-CN':'❤️ 婚姻感情','en':'❤️ Relationships','ja':'❤️ 婚姻感情','ko':'❤️ 연애·결혼'
+  },
+  'career': {
+    'zh-CN':'💼 事业','en':'💼 Career','ja':'💼 事業','ko':'💼 직업'
+  },
+  'wealth': {
+    'zh-CN':'💰 财富','en':'💰 Wealth','ja':'💰 財運','ko':'💰 재물'
+  },
+  'health': {
+    'zh-CN':'🏥 健康','en':'🏥 Health','ja':'🏥 健康','ko':'🏥 건강'
+  },
+  'parent': {
+    'zh-CN':'👪 父母','en':'👪 Parents','ja':'👪 父母','ko':'👪 부모'
+  },
+  'children': {
+    'zh-CN':'👶 子女','en':'👶 Children','ja':'👶 子女','ko':'👶 자녀'
+  },
+  'friend': {
+    'zh-CN':'🤝 交友社交','en':'🤝 Social','ja':'🤝 交友関係','ko':'🤝 인간관계'
+  },
+  'fortune': {
+    'zh-CN':'⭐ 运势指南','en':'⭐ Fortune Guide','ja':'⭐ 運勢ガイド','ko':'⭐ 운세 가이드'
+  },
+  'lifeInsight': {
+    'zh-CN':'💎 人生洞察','en':'💎 Life Insight','ja':'💎 人生の洞察','ko':'💎 인생 통찰'
+  },
+  'decadeLuck': {
+    'zh-CN':'📈 大运走势','en':'📈 Decade Luck','ja':'📈 大運の動向','ko':'📈 대운 흐름'
+  },
+  'annualLuck': {
+    'zh-CN':'📅 流年提醒','en':'📅 Annual Forecast','ja':'📅 流年の注意','ko':'📅 연운 주의'
+  },
+  'techAbility': {
+    'zh-CN':'🔧 技术能力','en':'🔧 Technical Ability','ja':'🔧 技術能力','ko':'🔧 기술 능력'
+  },
+  'moneyMindset': {
+    'zh-CN':'💰 赚钱心态','en':'💰 Money Mindset','ja':'💰 金銭感覚','ko':'💰 돈에 대한 태도'
+  },
+  'labels': {
+    'zh-CN':'🏷️ 八字标签','en':'🏷️ Ba Zi Labels','ja':'🏷️ 八字ラベル','ko':'🏷️ 사주 라벨'
+  },
+  'spouseDynamic': {
+    'zh-CN':'💑 配偶动态','en':'💑 Spouse Dynamics','ja':'💑 配偶者の動向','ko':'💑 배우자 동향'
+  },
+  'childrenRelation': {
+    'zh-CN':'👨‍👩‍👧‍👦 子女关系','en':'👨‍👩‍👧‍👦 Children Relation','ja':'👨‍👩‍👧‍👦 子女関係','ko':'👨‍👩‍👧‍👦 자녀 관계'
+  },
+  'careerLevel': {
+    'zh-CN':'📊 事业层次','en':'📊 Career Level','ja':'📊 事業の階層','ko':'📊 직업 수준'
+  },
+  'tombWarehouse': {
+    'zh-CN':'🏛️ 墓库分析','en':'🏛️ Warehouse Analysis','ja':'🏛️ 墓庫分析','ko':'🏛️ 묘고 분석'
+  },
+};
+
 export function analyzeJudgment(
   pills: {gan:string;zhi:string;gz:string}[],
   riGan: string,
   gender: string,
   birthYear: number,
   currentYear: number,
+  lang?: string,
   currentDaYunGan?: string,
   currentDaYunZhi?: string
 ): JudgmentResult {

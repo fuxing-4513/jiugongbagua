@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 450 400">
+  <text x="225" y="30" text-anchor="middle" font-size="15" font-weight="bold" fill="#333">玄空九运正神零神方位</text>
+  <!-- Table -->
+  <g transform="translate(20,50)">
+    <rect x="0" y="0" width="80" height="30" fill="#ccc" stroke="#333"/>
+    <rect x="80" y="0" width="100" height="30" fill="#ccc" stroke="#333"/>
+    <rect x="180" y="0" width="80" height="30" fill="#e0e0e0" stroke="#333"/>
+    <rect x="260" y="0" width="80" height="30" fill="#e0e0e0" stroke="#333"/>
+    <rect x="340" y="0" width="70" height="30" fill="#e0e0e0" stroke="#333"/>
+    <text x="40" y="20" text-anchor="middle" font-size="12" font-weight="bold">运</text>
+    <text x="130" y="20" text-anchor="middle" font-size="12" font-weight="bold">当运之星</text>
+    <text x="220" y="20" text-anchor="middle" font-size="12" font-weight="bold">正神</text>
+    <text x="300" y="20" text-anchor="middle" font-size="12" font-weight="bold">零神</text>
+    <text x="375" y="20" text-anchor="middle" font-size="12" font-weight="bold">元</text>
+    <!-- Data rows -->
+    <g font-size="12">
+      <rect x="0" y="30" width="80" height="25" fill="#fff" stroke="#ccc"/>
+      <rect x="80" y="30" width="100" height="25" fill="#fff" stroke="#ccc"/>
+      <rect x="180" y="30" width="80" height="25" fill="#ffe0e0" stroke="#ccc"/>
+      <rect x="260" y="30" width="80" height="25" fill="#e0ffe0" stroke="#ccc"/>
+      <rect x="340" y="30" width="70" height="25" fill="#fff" stroke="#ccc"/>
+      <text x="40" y="47" text-anchor="middle">一运</text>
+      <text x="130" y="47" text-anchor="middle">一白贪狼</text>
+      <text x="220" y="47" text-anchor="middle" fill="#c00">坎子癸</text>
+      <text x="300" y="47" text-anchor="middle" fill="#00c">离午丁</text>
+      <text x="375" y="47" text-anchor="middle" fill="#c00">上</text>
+      <rect x="0" y="55" width="80" height="25" fill="#f5f5f5" stroke="#ccc"/>
+      <rect x="80" y="55" width="100" height="25" fill="#f5f5f5" stroke="#ccc"/>
+      <rect x="180" y="55" width="80" height="25" fill="#ffe0e0" stroke="#ccc"/>
+      <rect x="260" y="55" width="80" height="25" fill="#e0ffe0" stroke="#ccc"/>
+      <rect x="340" y="55" width="70" height="25" fill="#f5f5f5" stroke="#ccc"/>
+      <text x="40" y="72" text-anchor="middle">二运</text>
+      <text x="130" y="72" text-anchor="middle">二黑巨门</text>
+      <text x="220" y="72" text-anchor="middle" fill="#c00">坤申</text>
+      <text x="300" y="72" text-anchor="middle" fill="#00c">艮寅</text>
+      <text x="375" y="72" text-anchor="middle" fill="#c00">元</text>
+      <rect x="0" y="80" width="80" height="25" fill="#fff" stroke="#ccc"/>
+      <rect x="80" y="80" width="100" height="25" fill="#fff" stroke="#ccc"/>
+      <rect x="180" y="80" width="80" height="25" fill="#ffe0e0" stroke="#ccc"/>
+      <rect x="260" y="80" width="80" height="25" fill="#e0ffe0" stroke="#ccc"/>
+      <rect x="340" y="80" width="70" height="25" fill="#fff" stroke="#ccc"/>
+      <text x="40" y="97" text-anchor="middle">三运</text>
+      <text x="130" y="97" text-anchor="middle">三碧禄存</text>
+      <text x="220" y="97" text-anchor="middle" fill="#c00">震卯</text>
+      <text x="300" y="97" text-anchor="middle" fill="#00c">兑酉</text>
+      <text x="375" y="97" text-anchor="middle"></text>
+      <rect x="0" y="105" width="80" height="25" fill="#f5f5f5" stroke="#ccc"/>
+      <rect x="80" y="105" width="100" height="25" fill="#f5f5f5" stroke="#ccc"/>
+      <rect x="180" y="105" width="80" height="25" fill="#ffe0e0" stroke="#ccc"/>
+      <rect x="260" y="105" width="80" height="25" fill="#e0ffe0" stroke="#ccc"/>
+      <rect x="340" y="105" width="70" height="25" fill="#f5f5f5" stroke="#ccc"/>
+      <text x="40" y="122" text-anchor="middle">四运</text>
+      <text x="130" y="122" text-anchor="middle">四绿文曲</text>
+      <text x="220" y="122" text-anchor="middle" fill="#c00">巽巳</text>
+      <text x="300" y="122" text-anchor="middle" fill="#00c">乾亥</text>
+      <text x="375" y="122" text-anchor="middle" fill="#080">中</text>
+      <rect x="0" y="130" width="80" height="25" fill="#fff" stroke="#ccc"/>
+      <rect x="80" y="130" width="100" height="25" fill="#fff" stroke="#ccc"/>
+      <rect x="180" y="130" width="80" height="25" fill="#ffe0e0" stroke="#ccc"/>
+      <rect x="260" y="130" width="80" height="25" fill="#e0ffe0" stroke="#ccc"/>
+      <rect x="340" y="130" width="70" height="25" fill="#fff" stroke="#ccc"/>
+      <text x="40" y="147" text-anchor="middle">五运</text>
+      <text x="130" y="147" text-anchor="middle">五黄廉贞</text>
+      <text x="220" y="147" text-anchor="middle" fill="#c00">前四后六</text>
+      <text x="300" y="147" text-anchor="middle" fill="#00c">对宫</text>
+      <text x="375" y="147" text-anchor="middle" fill="#080">元</text>
+      <rect x="0" y="155" width="80" height="25" fill="#f5f5f5" stroke="#ccc"/>
+      <rect x="80" y="155" width="100" height="25" fill="#f5f5f5" stroke="#ccc"/>
+      <rect x="180" y="155" width="80" height="25" fill="#ffe0e0" stroke="#ccc"/>
+      <rect x="260" y="155" width="80" height="25" fill="#e0ffe0" stroke="#ccc"/>
+      <rect x="340" y="155" width="70" height="25" fill="#f5f5f5" stroke="#ccc"/>
+      <text x="40" y="172" text-anchor="middle">六运</text>
+      <text x="130" y="172" text-anchor="middle">六白武曲</text>
+      <text x="220" y="172" text-anchor="middle" fill="#c00">乾亥</text>
+      <text x="300" y="172" text-anchor="middle" fill="#00c">巽巳</text>
+      <text x="375" y="172" text-anchor="middle" fill="#080">元</text>
+      <rect x="0" y="180" width="80" height="25" fill="#fff" stroke="#ccc"/>
+      <rect x="80" y="180" width="100" height="25" fill="#fff" stroke="#ccc"/>
+      <rect x="180" y="180" width="80" height="25" fill="#ffe0e0" stroke="#ccc"/>
+      <rect x="260" y="180" width="80" height="25" fill="#e0ffe0" stroke="#ccc"/>
+      <rect x="340" y="180" width="70" height="25" fill="#fff" stroke="#ccc"/>
+      <text x="40" y="197" text-anchor="middle">七运</text>
+      <text x="130" y="197" text-anchor="middle">七赤破军</text>
+      <text x="220" y="197" text-anchor="middle" fill="#c00">兑酉</text>
+      <text x="300" y="197" text-anchor="middle" fill="#00c">震卯</text>
+      <text x="375" y="197" text-anchor="middle" fill="#00c">下</text>
+      <rect x="0" y="205" width="80" height="25" fill="#f5f5f5" stroke="#ccc"/>
+      <rect x="80" y="205" width="100" height="25" fill="#f5f5f5" stroke="#ccc"/>
+      <rect x="180" y="205" width="80" height="25" fill="#ffe0e0" stroke="#ccc"/>
+      <rect x="260" y="205" width="80" height="25" fill="#e0ffe0" stroke="#ccc"/>
+      <rect x="340" y="205" width="70" height="25" fill="#f5f5f5" stroke="#ccc"/>
+      <text x="40" y="222" text-anchor="middle">八运</text>
+      <text x="130" y="222" text-anchor="middle">八白左辅</text>
+      <text x="220" y="222" text-anchor="middle" fill="#c00">艮寅</text>
+      <text x="300" y="222" text-anchor="middle" fill="#00c">坤申</text>
+      <text x="375" y="222" text-anchor="middle" fill="#00c">元</text>
+      <rect x="0" y="230" width="80" height="25" fill="#fff" stroke="#ccc"/>
+      <rect x="80" y="230" width="100" height="25" fill="#fff" stroke="#ccc"/>
+      <rect x="180" y="230" width="80" height="25" fill="#ffe0e0" stroke="#ccc"/>
+      <rect x="260" y="230" width="80" height="25" fill="#e0ffe0" stroke="#ccc"/>
+      <rect x="340" y="230" width="70" height="25" fill="#fff" stroke="#ccc"/>
+      <text x="40" y="247" text-anchor="middle">九运</text>
+      <text x="130" y="247" text-anchor="middle">九紫右弼</text>
+      <text x="220" y="247" text-anchor="middle" fill="#c00">离午丁</text>
+      <text x="300" y="247" text-anchor="middle" fill="#00c">坎子癸</text>
+      <text x="375" y="247" text-anchor="middle" fill="#00c">元</text>
+    </g>
+  </g>
+  <text x="225" y="330" text-anchor="middle" font-size="11" fill="#666">正神宜在山，零神宜在水</text>
+  <text x="225" y="350" text-anchor="middle" font-size="11" fill="#666">正神见水则破财，零神见山则损丁</text>
+  <text x="225" y="375" text-anchor="middle" font-size="13" font-weight="bold" fill="#333">玄空九运正神零神方位一览</text>
+</svg>

@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300">
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6" fill="#666"/>
+    </marker>
+  </defs>
+  <circle cx="150" cy="150" r="140" fill="none" stroke="#333" stroke-width="2"/>
+  <circle cx="150" cy="150" r="80" fill="none" stroke="#999" stroke-width="1" stroke-dasharray="5,5"/>
+  <!-- Eight Trigrams -->
+  <!-- 乾 ☰ N -->
+  <text x="150" y="25" text-anchor="middle" font-size="36" fill="#c00">☰</text>
+  <text x="150" y="12" text-anchor="middle" font-size="11" fill="#666">乾</text>
+  <!-- 坤 ☷ S -->
+  <text x="150" y="285" text-anchor="middle" font-size="36" fill="#000">☷</text>
+  <text x="150" y="298" text-anchor="middle" font-size="11" fill="#666">坤</text>
+  <!-- 离 ☲ E -->
+  <text x="275" y="158" text-anchor="middle" font-size="36" fill="#c00">☲</text>
+  <text x="288" y="155" text-anchor="middle" font-size="11" fill="#666">离</text>
+  <!-- 坎 ☵ W -->
+  <text x="25" y="158" text-anchor="middle" font-size="36" fill="#000">☵</text>
+  <text x="12" y="155" text-anchor="middle" font-size="11" fill="#666">坎</text>
+  <!-- 震 ☳ NE -->
+  <text x="218" y="55" text-anchor="middle" font-size="36" fill="#000">☳</text>
+  <text x="230" y="48" text-anchor="middle" font-size="11" fill="#666">震</text>
+  <!-- 兑 ☱ SE -->
+  <text x="218" y="252" text-anchor="middle" font-size="36" fill="#000">☱</text>
+  <text x="230" y="260" text-anchor="middle" font-size="11" fill="#666">兑</text>
+  <!-- 艮 ☶ NW -->
+  <text x="82" y="55" text-anchor="middle" font-size="36" fill="#000">☶</text>
+  <text x="70" y="48" text-anchor="middle" font-size="11" fill="#666">艮</text>
+  <!-- 巽 ☴ SW -->
+  <text x="82" y="252" text-anchor="middle" font-size="36" fill="#000">☴</text>
+  <text x="70" y="260" text-anchor="middle" font-size="11" fill="#666">巽</text>
+  <!-- Center -->
+  <circle cx="150" cy="150" r="20" fill="#f5f5f5" stroke="#999" stroke-width="1"/>
+  <text x="150" y="154" text-anchor="middle" font-size="11" fill="#999">太极</text>
+  <!-- Title -->
+  <text x="150" y="315" text-anchor="middle" font-size="12" fill="#666">罗经八卦层（后天八卦）</text>
+</svg>

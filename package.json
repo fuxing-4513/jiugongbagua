@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build --webpack",
-    "postbuild": "node scripts/inject-security-headers.mjs && node -e \"var f=require('fs');f.writeFileSync('out/CNAME','jiugongbagua.com');f.writeFileSync('out/.nojekyll','')\"",
+    "postbuild": "node scripts/generate-hexagram-svgs.mjs && node scripts/build-search-index.mjs && node scripts/inject-security-headers.mjs && node -e \"var f=require('fs');f.writeFileSync('out/CNAME','jiugongbagua.com');f.writeFileSync('out/.nojekyll','')\"",
     "start": "next start",
     "lint": "eslint",
     "deploy": "npm run build && npm run postbuild && npx gh-pages -d out --no-history",
@@ -17,6 +17,7 @@
     "@cometpisces/tarot-kit": "^0.2.0",
     "bazi": "^0.0.9",
     "dompurify": "^3.4.11",
+    "fuse.js": "^7.5.0",
     "iconv-lite": "^0.7.2",
     "iztro": "^2.5.8",
     "lunar-typescript": "^1.8.6",

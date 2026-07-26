@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react'
 import { LocaleProvider, useLocale } from '@/lib/i18n'
+import { ThemeProvider } from '@/lib/ThemeContext'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import ErrorBoundary from '@/components/ErrorBoundary'
@@ -19,6 +20,7 @@ function LayoutInner({ children }: { children: React.ReactNode }) {
   return (
     <>
       <div className="cosmic-overlay" aria-hidden="true" />
+      <div className="starry-bg" aria-hidden="true" />
       <TopLoadingBar />
       <ErrorBoundary>
         <Nav />
@@ -34,7 +36,9 @@ function LayoutInner({ children }: { children: React.ReactNode }) {
 export default function LayoutClient({ children }: { children: React.ReactNode }) {
   return (
     <LocaleProvider>
-      <LayoutInner>{children}</LayoutInner>
+      <ThemeProvider>
+        <LayoutInner>{children}</LayoutInner>
+      </ThemeProvider>
     </LocaleProvider>
   )
 }

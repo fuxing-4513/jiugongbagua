@@ -5,11 +5,11 @@ import dynamic from 'next/dynamic'
 
 import { Solar, Lunar } from 'lunar-typescript'
 import CalendarInput, { type CalendarType } from '@/components/CalendarInput'
+import { useLocale } from '@/lib/i18n'
 import { saveChart } from '@/lib/collections'
 import { calcTrueSolarTime, CHINA_CITIES } from '@/lib/solar-time'
 import { saveToHistory } from '@/lib/history'
 import { enrichBazi, type EnrichResult } from '@/lib/bazi-enrich'
-import LoadingSpinner from '@/components/LoadingSpinner'
 import Breadcrumb from '@/components/Breadcrumb'
 import { exportAsPng } from '@/utils/export-image'
 
@@ -524,6 +524,9 @@ export default function BaziClient() {
   const [trueSolarChanged, setTrueSolarChanged] = useState(false)
   const exportRef = useRef<HTMLDivElement>(null)
 
+  // 当前语言
+  const { locale } = useLocale()
+
   // 真太阳时状态
   const [useTrueSolar, setUseTrueSolar] = useState(false)
   const [longitude, setLongitude] = useState(116.4)
@@ -616,11 +619,11 @@ export default function BaziClient() {
         })
         // 九宫深层分析
         try {
-          const yf = deepAnalysis({ pills, birthYear, gender })
+          const yf = deepAnalysis({ pills, birthYear, gender }, locale)
           setDeepResult(yf)
           const yfEn = deepEnhancedAnalysis(pills, dg, birthYear)
           setDeepEnhance(yfEn)
-          const jr = analyzeJudgment(pills, dg, gender || '男', birthYear, new Date().getFullYear())
+          const jr = analyzeJudgment(pills, dg, gender || '男', birthYear, new Date().getFullYear(), locale)
           setJudgmentResult(jr)
           const siZhu3: Record<string,{gan:string;zhi:string}> = {}
           for (let i = 0; i < 4; i++) {
@@ -727,7 +730,7 @@ export default function BaziClient() {
       // 九宫深层分析
       try {
         const by = solar.getYear()
-        const yf = deepAnalysis({ pills, birthYear: by, gender })
+        const yf = deepAnalysis({ pills, birthYear: by, gender }, locale)
         setDeepResult(yf)
         const yfEn = deepEnhancedAnalysis(pills, dg, by)
         setDeepEnhance(yfEn)
@@ -737,7 +740,7 @@ export default function BaziClient() {
           siZhu3[keys[i]] = { gan: pills[i].gan, zhi: pills[i].zhi }
         }
         setBaziEnrichResult(enrichBazi(siZhu3))
-        const jr = analyzeJudgment(pills, dg, gender || '男', by, new Date().getFullYear())
+        const jr = analyzeJudgment(pills, dg, gender || '男', by, new Date().getFullYear(), locale)
         setJudgmentResult(jr)
       } catch {}
       saveToHistory({type:'bazi', dateStr: `${cal==='solar'?'公历':'农历'} ${solar.getYear()}年${solar.getMonth()}月${solar.getDay()}日`, bazi: `${pills[0].gz}年 ${pills[1].gz}月 ${pills[2].gz}日 ${pills[3].gz}时`, preview: `日主${dg} · ${gender}命 · ${str.level}` })
@@ -757,8 +760,8 @@ export default function BaziClient() {
 
   return (<div className="max-w-4xl mx-auto px-4 py-10">
     <Breadcrumb items={[{label:'首页',href:'/'},{label:'排盘工具'},{label:'生辰八字排盘'}]} />
-    <h1 className="text-3xl font-bold text-gold-400 font-serif mb-3">生辰八字排盘</h1>
-    <p className="text-gray-400 mb-8">真太阳时排盘 · 神煞详解 · 古籍论断 · 性格/感情/事业/财运全面分析</p>
+    <h1 className="text-3xl sm:text-4xl font-bold text-gold-400 font-serif mb-3">生辰八字排盘</h1>
+    <p className="text-base sm:text-lg text-gray-400 mb-8 leading-relaxed">真太阳时排盘 · 神煞详解 · 古籍论断 · 性格/感情/事业/财运全面分析</p>
 
     <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-6 mb-8">
       
@@ -837,10 +840,51 @@ export default function BaziClient() {
         </div>
       </div>)}
 
-      {error && <p className="text-xs text-red-400 mb-2">{error}</p>}
+      {/* 错误 Toast */}
+      {error && (
+        <div className="my-3 p-4 bg-red-950/70 border-2 border-red-500/60 rounded-xl toast-enter">
+          <div className="flex items-start gap-3">
+            <span className="text-lg shrink-0">⚠️</span>
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-semibold text-red-300 mb-0.5">排盘出错</p>
+              <p className="text-sm text-red-200/90 leading-relaxed">{error}</p>
+            </div>
+            <button onClick={() => setError('')} className="text-red-400/60 hover:text-red-300 shrink-0 mt-0.5" aria-label="关闭错误提示">✕</button>
+          </div>
+        </div>
+      )}
       <button onClick={doCalc} aria-label="开始排盘测算" className="bg-gold-600 hover:bg-gold-500 text-dark-900 font-semibold px-6 min-h-[44px] rounded-lg text-sm transition-colors active:scale-95">开始排盘</button>
 
-      {loading && <LoadingSpinner size="md" text="命盘计算中..." />}
+      {/* 骨架屏加载态 */}
+      {loading && (
+        <div className="mt-6 space-y-4 animate-fadeIn">
+          <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-6">
+            <div className="skeleton skeleton-title mx-auto"></div>
+            <div className="skeleton skeleton-text mx-auto" style={{width:'70%'}}></div>
+          </div>
+          <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-5">
+            <div className="skeleton skeleton-title"></div>
+            <div className="skeleton skeleton-block"></div>
+            <div className="skeleton skeleton-text"></div>
+            <div className="skeleton skeleton-text-short"></div>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-5">
+              <div className="skeleton skeleton-title"></div>
+              <div className="skeleton skeleton-text"></div>
+              <div className="skeleton skeleton-text-short"></div>
+            </div>
+            <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-5">
+              <div className="skeleton skeleton-title"></div>
+              <div className="skeleton skeleton-text"></div>
+              <div className="skeleton skeleton-text-short"></div>
+            </div>
+          </div>
+          <div className="text-center">
+            <p className="text-sm text-gold-400/70 animate-pulse">⏳ 命盘计算中…</p>
+          </div>
+        </div>
+      )}
 
       {trueSolarChanged && (
         <div className="mb-4 p-4 bg-amber-950/80 border-2 border-amber-500/70 rounded-xl shadow-[0_0_15px_rgba(251,191,36,0.15)]">
@@ -851,10 +895,10 @@ export default function BaziClient() {
     </div>
 
     {result && (<div ref={exportRef} className="space-y-4">
-      <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-4 text-center">
-        <p className="text-xs text-gray-500 mb-1">{result.dateStr}</p>
-        <p className="text-base font-bold text-gold-400 font-serif">{result.bazi}</p>
-        <p className="text-xs text-gray-500 mt-1">{result.solarStr} · {result.lunarStr}</p>
+      <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-5 text-center">
+        <p className="text-sm text-gray-500 mb-1">{result.dateStr}</p>
+        <p className="text-lg font-bold text-gold-400 font-serif">{result.bazi}</p>
+        <p className="text-sm text-gray-500 mt-1">{result.solarStr} · {result.lunarStr}</p>
       </div>
 
       {/* 分析Tab导航 */}
@@ -1012,7 +1056,7 @@ Object.entries(result.wx).map(([w,c]): React.ReactNode =>(
 
       {/* 第二行：神煞详解（独占） */}
       <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-4">
-        <h3 className="text-sm font-semibold text-gray-200 mb-3">神煞详解 <span className="text-[10px] font-normal text-gray-500">（各柱分布见上表）</span></h3>
+        <h3 className="text-sm font-semibold text-gray-200 mb-3">神煞详解 <span className="text-xs font-normal text-gray-500">（各柱分布见上表）</span></h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
           {result.shenSha.map((s: ShenShaItem,i: number)=>(
             <div key={i} className={`text-xs p-3 rounded border ${shenShaTagColor(s.type)}`}>
@@ -1272,8 +1316,8 @@ Object.entries(result.wx).map(([w,c]): React.ReactNode =>(
 
       {/* 社交引流入口（待补充微信二维码） */}
       <div className="bg-dark-800/80 rounded-xl border border-dashed border-dark-600 p-5 text-center">
-        <p className="text-xs text-gray-500 mb-2">💬 加微信，获取更完整的 AI 命理报告和群聊交流</p>
-        <p className="text-[10px] text-gray-600">微信二维码·明日上线</p>
+        <p className="text-sm text-gray-500 mb-2">💬 加微信，获取更完整的 AI 命理报告和群聊交流</p>
+        <p className="text-xs text-gray-600">微信二维码·明日上线</p>
       </div>
     </div>)}
   </div>)

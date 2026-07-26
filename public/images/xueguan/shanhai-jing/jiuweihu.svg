@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300">
+  <text x="150" y="25" text-anchor="middle" font-size="14" font-weight="bold" fill="#333">九尾狐</text>
+  <text x="150" y="42" text-anchor="middle" font-size="11" fill="#666">青丘之山</text>
+  <!-- Fox body -->
+  <ellipse cx="140" cy="180" rx="55" ry="35" fill="#e8841a" stroke="#a05a0c" stroke-width="1.5"/>
+  <!-- Fox head -->
+  <ellipse cx="100" cy="155" rx="30" ry="22" fill="#f0942a" stroke="#a05a0c" stroke-width="1.5"/>
+  <!-- Fox ears -->
+  <polygon points="78,140 85,118 95,135" fill="#e8841a" stroke="#a05a0c" stroke-width="1"/>
+  <polygon points="105,135 110,118 118,140" fill="#e8841a" stroke="#a05a0c" stroke-width="1"/>
+  <!-- Fox eyes -->
+  <circle cx="90" cy="152" r="4" fill="#fff"/>
+  <circle cx="90" cy="152" r="2" fill="#333"/>
+  <circle cx="107" cy="152" r="4" fill="#fff"/>
+  <circle cx="107" cy="152" r="2" fill="#333"/>
+  <!-- Fox nose -->
+  <ellipse cx="98" cy="160" rx="4" ry="2" fill="#333"/>
+  <!-- Fox mouth -->
+  <path d="M94,163 Q98,168 102,163" fill="none" stroke="#333" stroke-width="0.8"/>
+  <!-- Nine tails -->
+  <path d="M185,165 Q210,140 220,120" fill="none" stroke="#e8841a" stroke-width="5" stroke-linecap="round"/>
+  <path d="M190,170 Q220,150 230,135" fill="none" stroke="#e8841a" stroke-width="5" stroke-linecap="round"/>
+  <path d="M190,175 Q215,165 235,160" fill="none" stroke="#e8841a" stroke-width="5" stroke-linecap="round"/>
+  <path d="M190,180 Q220,175 240,175" fill="none" stroke="#e8841a" stroke-width="5" stroke-linecap="round"/>
+  <path d="M190,185 Q220,190 235,195" fill="none" stroke="#e8841a" stroke-width="5" stroke-linecap="round"/>
+  <path d="M188,190 Q215,200 230,210" fill="none" stroke="#e8841a" stroke-width="5" stroke-linecap="round"/>
+  <path d="M185,195 Q210,210 220,225" fill="none" stroke="#e8841a" stroke-width="5" stroke-linecap="round"/>
+  <path d="M180,195 Q200,215 205,235" fill="none" stroke="#e8841a" stroke-width="5" stroke-linecap="round"/>
+  <path d="M175,192 Q190,210 190,230" fill="none" stroke="#e8841a" stroke-width="5" stroke-linecap="round"/>
+  <!-- Tail tips -->
+  <circle cx="220" cy="120" r="4" fill="#e8841a"/>
+  <circle cx="230" cy="135" r="4" fill="#e8841a"/>
+  <circle cx="235" cy="160" r="4" fill="#e8841a"/>
+  <circle cx="240" cy="175" r="4" fill="#e8841a"/>
+  <circle cx="235" cy="195" r="4" fill="#e8841a"/>
+  <circle cx="230" cy="210" r="4" fill="#e8841a"/>
+  <circle cx="220" cy="225" r="4" fill="#e8841a"/>
+  <circle cx="205" cy="235" r="4" fill="#e8841a"/>
+  <circle cx="190" cy="230" r="4" fill="#e8841a"/>
+  <!-- Fox legs -->
+  <path d="M100,200 L100,230" stroke="#a05a0c" stroke-width="4" stroke-linecap="round"/>
+  <path d="M130,200 L130,230" stroke="#a05a0c" stroke-width="4" stroke-linecap="round"/>
+  <path d="M155,200 L160,230" stroke="#a05a0c" stroke-width="4" stroke-linecap="round"/>
+  <path d="M170,195 L178,225" stroke="#a05a0c" stroke-width="4" stroke-linecap="round"/>
+  <!-- Paws -->
+  <ellipse cx="100" cy="233" rx="6" ry="3" fill="#a05a0c"/>
+  <ellipse cx="130" cy="233" rx="6" ry="3" fill="#a05a0c"/>
+  <ellipse cx="160" cy="233" rx="6" ry="3" fill="#a05a0c"/>
+  <ellipse cx="178" cy="228" rx="6" ry="3" fill="#a05a0c"/>
+  <!-- "青丘之山 有兽焉 其状如狐而九尾" -->
+  <text x="150" y="265" text-anchor="middle" font-size="10" fill="#666">《山海经·南山经》</text>
+  <text x="150" y="280" text-anchor="middle" font-size="10" fill="#666">有兽焉，其状如狐而九尾</text>
+</svg>

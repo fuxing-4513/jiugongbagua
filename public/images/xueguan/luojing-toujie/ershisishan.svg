@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <circle cx="200" cy="200" r="190" fill="none" stroke="#333" stroke-width="2"/>
+  <circle cx="200" cy="200" r="160" fill="none" stroke="#999" stroke-width="1"/>
+  <circle cx="200" cy="200" r="120" fill="none" stroke="#ccc" stroke-width="1" stroke-dasharray="3,3"/>
+  <!-- 24 Mountains - each 15 degrees -->
+  <g font-size="13" text-anchor="middle" dominant-baseline="central">
+    <!-- 正北 -->
+    <text x="200" y="45" fill="#c00">子</text>
+    <text x="200" y="22" fill="#666" font-size="11">正北</text>
+    <!-- 壬 癸 -->
+    <text x="212" y="30" transform="rotate(345,212,30)" fill="#333">癸</text>
+    <text x="188" y="30" transform="rotate(15,188,30)" fill="#333">壬</text>
+    <!-- 丑 艮 寅 -->
+    <text x="257" y="70" transform="rotate(30,257,70)" fill="#333">丑</text>
+    <text x="277" y="100" transform="rotate(45,277,100)" fill="#333">艮</text>
+    <text x="285" y="133" transform="rotate(60,285,133)" fill="#333">寅</text>
+    <!-- 正东 -->
+    <text x="345" y="202" fill="#333">卯</text>
+    <text x="370" y="202" fill="#666" font-size="11">正东</text>
+    <!-- 甲 乙 -->
+    <text x="330" y="215" transform="rotate(75,330,215)" fill="#333">甲</text>
+    <text x="343" y="240" transform="rotate(105,343,240)" fill="#333">乙</text>
+    <!-- 辰 巽 巳 -->
+    <text x="318" y="270" transform="rotate(120,318,270)" fill="#333">辰</text>
+    <text x="290" y="295" transform="rotate(135,290,295)" fill="#333">巽</text>
+    <text x="255" y="310" transform="rotate(150,255,310)" fill="#333">巳</text>
+    <!-- 正南 -->
+    <text x="200" y="355" fill="#c00">午</text>
+    <text x="200" y="378" fill="#666" font-size="11">正南</text>
+    <!-- 丙 丁 -->
+    <text x="185" y="345" transform="rotate(195,185,345)" fill="#333">丁</text>
+    <text x="215" y="345" transform="rotate(165,215,345)" fill="#333">丙</text>
+    <!-- 未 坤 申 -->
+    <text x="140" y="310" transform="rotate(210,140,310)" fill="#333">未</text>
+    <text x="115" y="280" transform="rotate(225,115,280)" fill="#333">坤</text>
+    <text x="100" y="255" transform="rotate(240,100,255)" fill="#333">申</text>
+    <!-- 正西 -->
+    <text x="55" y="202" fill="#333">酉</text>
+    <text x="28" y="202" fill="#666" font-size="11">正西</text>
+    <!-- 庚 辛 -->
+    <text x="65" y="215" transform="rotate(255,65,215)" fill="#333">庚</text>
+    <text x="60" y="185" transform="rotate(285,60,185)" fill="#333">辛</text>
+    <!-- 戌 乾 亥 -->
+    <text x="80" y="140" transform="rotate(300,80,140)" fill="#333">戌</text>
+    <text x="110" y="100" transform="rotate(315,110,100)" fill="#333">乾</text>
+    <text x="145" y="75" transform="rotate(330,145,75)" fill="#333">亥</text>
+  </g>
+  <!-- Directions -->
+  <text x="200" y="15" text-anchor="middle" font-size="14" font-weight="bold" fill="#333">二十四山方位图</text>
+</svg>
