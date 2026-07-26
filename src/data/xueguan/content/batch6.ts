@@ -3,23 +3,23 @@ import type { BookChapter } from '../categories'
 export const qimendunjiContent: BookChapter = {
   bookId: 'qimen-dunjia-miji',
   chapters: [{
-    id:'intro', title:'奇门遁甲秘笈大全·导读', content:'《奇门遁甲秘笈大全》明代汇编，系统阐述三奇六仪、八门九星、排盘用局之法。以九宫八卦为框架，配合天时人事，形成综合时空预测体系。'},
-    {id:'main', title:'奇门要素', content:'奇门三要素：天时（九星）、地利（九宫）、人和（八门）。\n\n三奇：乙（日奇）、丙（月奇）、丁（星奇）。\n六仪：戊己庚辛壬癸。\n\n八门：休门（吉）、生门（吉）、伤门（凶）、杜门（平）、景门（平）、死门（凶）、惊门（凶）、开门（吉）。\n\n九星：天蓬、天芮、天冲、天辅、天禽、天心、天柱、天任、天英。\n\n排盘以年月日时定局。冬至后用阳遁，夏至后用阴遁。阳遁顺排六仪逆布三奇，阴遁逆排六仪顺布三奇。'}]
+    id:'intro', title:'奇门遁甲秘笈大全·导读', content:'《奇门遁甲秘笈大全》明代汇编，系统阐述三奇六仪、八门九星、排盘用局之法。以九宫八卦为框架，配合天时人事，形成综合时空预测体系。', vernacular:'《奇门遁甲秘笈大全》系统阐述三奇六仪八门九星排盘用局之法，以九宫八卦为框架配合天时人事形成综合时空预测体系。'},
+    {id:'main', title:'奇门要素', content:'奇门三要素：天时（九星）、地利（九宫）、人和（八门）。\n\n三奇：乙（日奇）、丙（月奇）、丁（星奇）。\n六仪：戊己庚辛壬癸。\n\n八门：休门（吉）、生门（吉）、伤门（凶）、杜门（平）、景门（平）、死门（凶）、惊门（凶）、开门（吉）。\n\n九星：天蓬、天芮、天冲、天辅、天禽、天心、天柱、天任、天英。\n\n排盘以年月日时定局。冬至后用阳遁，夏至后用阴遁。阳遁顺排六仪逆布三奇，阴遁逆排六仪顺布三奇。', vernacular:'奇门三要素天时地利人和。三奇乙丙丁六仪戊己庚辛壬癸。八门休生开为吉伤死惊为凶杜景为平。冬至阳遁夏至阴遁。'}]
 }
 
 export const liurenjinkoujueContent: BookChapter = {
   bookId: 'liuren-jinkoujue',
-  chapters: [{ id:'intro', title:'大六壬金口诀·导读', content:'《大六壬金口诀》托名战国孙膑所传，以口诀形式传授六壬预测要诀。以地支方位、神将遁干为核心，在民间流传甚广。'}]
+  chapters: [{ id:'intro', title:'大六壬金口诀·导读', content:'《大六壬金口诀》托名战国孙膑所传，以口诀形式传授六壬预测要诀。以地支方位、神将遁干为核心，在民间流传甚广。', vernacular:'《大六壬金口诀》托名战国孙膑所传。以口诀形式传授六壬预测要诀，以地支方位神将遁干为核心在民间流传甚广。'}]
 }
 
 export const yangzhaiSanyaoContent: BookChapter = {
   bookId: 'yangzhai-sanyao',
-  chapters: [{ id:'intro', title:'阳宅三要·导读', content:'《阳宅三要》清代赵廷栋著，以门主灶三要素分析阳宅吉凶。门为进气口，主为居者位，灶为养命源。三要配合得宜则宅吉。'}]
+  chapters: [{ id:'intro', title:'阳宅三要·导读', content:'《阳宅三要》清代赵廷栋著，以门主灶三要素分析阳宅吉凶。门为进气口，主为居者位，灶为养命源。三要配合得宜则宅吉。', vernacular:'《阳宅三要》以门主灶三要素分析阳宅吉凶。门为进气口主为居者位灶为养命源，三要配合得宜则宅吉。'}]
 }
 
 export const huangtingjingContent: BookChapter = {
   bookId: 'huangting-jing',
-  chapters: [{ id:'intro', title:'黄庭经·导读', content:'《黄庭经》道教上清派核心经典，分内景经和外景经。以人体五脏六腑为黄庭，论述存思内视、炼养精气之法。是道教内丹术最重要理论源头之一。王羲之曾为其书写法帖传世。'}]
+  chapters: [{ id:'intro', title:'黄庭经·导读', content:'《黄庭经》道教上清派核心经典，分内景经和外景经。以人体五脏六腑为黄庭，论述存思内视、炼养精气之法。是道教内丹术最重要理论源头之一。王羲之曾为其书写法帖传世。', vernacular:'《黄庭经》分内景经和外景经，以人体五脏六腑为黄庭论述存思内视炼养精气之法，是道教内丹术最重要理论源头。'}]
 }
 
 export const zhouyibenyiContent: BookChapter = {
@@ -78,10 +78,10 @@ export const zhouyibenyiContent: BookChapter = {
 
 export const xingxuedachengContent: BookChapter = {
   bookId: 'xingxue-dacheng',
-  chapters: [{ id:'intro', title:'星学大成·导读', content:'《星学大成》明代万民英著，五星推命术集大成之作。以二十八宿、七政四余为工具，结合子平法进行综合推命。三十卷，保存大量明代以前星命文献。'}]
+  chapters: [{ id:'intro', title:'星学大成·导读', content:'《星学大成》明代万民英著，五星推命术集大成之作。以二十八宿、七政四余为工具，结合子平法进行综合推命。三十卷，保存大量明代以前星命文献。', vernacular:'《星学大成》明代万民英著三十卷，五星推命术集大成之作。以二十八宿七政四余为工具结合子平法综合推命。'}]
 }
 
 export const huodiContent: BookChapter = {
   bookId: 'huangji-jingshi',
-  chapters: [{ id:'intro', title:'皇极经世·导读', content:'《皇极经世》北宋邵雍著，数理易学巅峰。以元会运世推演宇宙历史周期，一元129600年。揭示天地万物兴衰规律，对后世命理风水影响深远。'}]
+  chapters: [{ id:'intro', title:'皇极经世·导读', content:'《皇极经世》北宋邵雍著，数理易学巅峰。以元会运世推演宇宙历史周期，一元129600年。揭示天地万物兴衰规律，对后世命理风水影响深远。', vernacular:'《皇极经世》北宋邵雍著数理易学巅峰。以元会运世推演宇宙历史周期一元十二万九千六百年，揭示天地万物兴衰规律。'}]
 }

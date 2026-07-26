@@ -1,54 +1,54 @@
 import type { BookChapter } from '../categories'
 
 export const cantongqiDeep: BookChapter = {
-  bookId: 'zhouyi-cantongqi', chapters: [{ id:'intro', title:'周易参同契·导读', content:'《周易参同契》东汉魏伯阳著。万古丹经之王。以周易卦象为框架以黄老思想为内核以炉火炼丹为喻。系统阐述内外丹修炼原理。三卷。上卷论乾坤坎离四卦为炉鼎药物。中卷论火候进退子午抽添。下卷论药物成金丹服食长生。历代注疏达四十余家。' }]
+  bookId: 'zhouyi-cantongqi', chapters: [{ id:'intro', title:'周易参同契·导读', content:'《周易参同契》东汉魏伯阳著。万古丹经之王。以周易卦象为框架以黄老思想为内核以炉火炼丹为喻。系统阐述内外丹修炼原理。三卷。上卷论乾坤坎离四卦为炉鼎药物。中卷论火候进退子午抽添。下卷论药物成金丹服食长生。历代注疏达四十余家。', vernacular:'《周易参同契》东汉魏伯阳著万古丹经之王。以周易卦象为框架黄老思想为内核炉火炼丹为喻。三卷系统阐述内外丹修炼原理。'}]
 }
 export const huangtingDeep: BookChapter = {
-  bookId: 'huangting-jing', chapters: [{ id:'intro', title:'黄庭经·导读', content:'《黄庭经》道教上清派核心经典。分黄庭内景经和黄庭外景经。以人体五脏六腑为黄庭论述存思内视炼养精气之法。黄庭者脑中泥丸脾中黄庭也二十四真神各有所居。王羲之为其书写法帖传世。内丹术最重要理论源头之一。' }]
+  bookId: 'huangting-jing', chapters: [{ id:'intro', title:'黄庭经·导读', content:'《黄庭经》道教上清派核心经典。分黄庭内景经和黄庭外景经。以人体五脏六腑为黄庭论述存思内视炼养精气之法。黄庭者脑中泥丸脾中黄庭也二十四真神各有所居。王羲之为其书写法帖传世。内丹术最重要理论源头之一。', vernacular:'《黄庭经》分内景经和外景经，以人体五脏六腑为黄庭论述存思内视炼养精气之法。二十四真神各有所居，为内丹术最重要理论源头。'}]
 }
 export const wenziDeep: BookChapter = {
-  bookId: 'wen-zi', chapters: [{ id:'intro', title:'文子·导读', content:'《文子》相传老子弟子文子著。战国道家著作。十二卷。1973年河北定县汉墓出土文子竹简证实其汉代以前成书。以道为根本探讨治国用兵养生诸方面。' }]
+  bookId: 'wen-zi', chapters: [{ id:'intro', title:'文子·导读', content:'《文子》相传老子弟子文子著。战国道家著作。十二卷。1973年河北定县汉墓出土文子竹简证实其汉代以前成书。以道为根本探讨治国用兵养生诸方面。', vernacular:'《文子》战国道家著作十二卷。1973年汉墓出土竹简证实汉代以前成书。以道为根本探讨治国用兵养生诸方面。'}]
 }
 export const shenxianDeep: BookChapter = {
-  bookId: 'shenxian-zhuan', chapters: [{ id:'intro', title:'神仙传·导读', content:'《神仙传》东晋葛洪著。十卷。收录九十二位神仙传记。从老子彭祖到刘安李少君。每位神仙得道历程修炼方法和神奇事迹皆有记载。为道教仙谱最重要文献之一。' }]
+  bookId: 'shenxian-zhuan', chapters: [{ id:'intro', title:'神仙传·导读', content:'《神仙传》东晋葛洪著。十卷。收录九十二位神仙传记。从老子彭祖到刘安李少君。每位神仙得道历程修炼方法和神奇事迹皆有记载。为道教仙谱最重要文献之一。', vernacular:'《神仙传》东晋葛洪著十卷，收录九十二位神仙传记。从老子彭祖到刘安李少君，每位神仙得道历程修炼方法皆有记载。'}]
 }
 export const yunjiDeep: BookChapter = {
-  bookId: 'yunji-qiqian', chapters: [{ id:'intro', title:'云笈七签·导读', content:'《云笈七签》宋代张君房编。一百二十二卷。按三洞四辅分类收录道教最重要经典科仪符箓丹法神仙传记等。被誉为小道藏。' }]
+  bookId: 'yunji-qiqian', chapters: [{ id:'intro', title:'云笈七签·导读', content:'《云笈七签》宋代张君房编。一百二十二卷。按三洞四辅分类收录道教最重要经典科仪符箓丹法神仙传记等。被誉为小道藏。', vernacular:'《云笈七签》宋代张君房编一百二十二卷。按三洞四辅分类收录道教经典科仪符箓丹法神仙传记，被誉为小道藏。'}]
 }
 export const canfzDeep: BookChapter = {
-  bookId: 'zhouyi-cantongqi-fenzhu', chapters: [{ id:'intro', title:'参同契分章注·导读', content:'《周易参同契分章注》元代陈致虚上阳子著。将参同契分为三十六章逐章注解。三卷。' }]
+  bookId: 'zhouyi-cantongqi-fenzhu', chapters: [{ id:'intro', title:'参同契分章注·导读', content:'《周易参同契分章注》元代陈致虚上阳子著。将参同契分为三十六章逐章注解。三卷。', vernacular:'《周易参同契分章注》元代陈致虚上阳子著。将参同契分为三十六章逐章注解三卷。'}]
 }
 export const zhuangziwaiDeep: BookChapter = {
-  bookId: 'zhuangzi-wai', chapters: [{ id:'intro', title:'庄子外篇·导读', content:'《庄子》外篇十五篇。骈拇马蹄胠箧在宥天地天道天运刻意缮性秋水至乐达生山木田子方知北游。秋水篇河伯与海若对话至乐篇鼓盆而歌皆为千古名篇。' }]
+  bookId: 'zhuangzi-wai', chapters: [{ id:'intro', title:'庄子外篇·导读', content:'《庄子》外篇十五篇。骈拇马蹄胠箧在宥天地天道天运刻意缮性秋水至乐达生山木田子方知北游。秋水篇河伯与海若对话至乐篇鼓盆而歌皆为千古名篇。', vernacular:'《庄子》外篇十五篇包括骈拇马蹄胠箧在宥天地天道天运秋水至乐等。秋水篇河伯与海若对话至乐篇鼓盆而歌皆为名篇。'}]
 }
 export const shiliugDeep: BookChapter = {
-  bookId: 'shiliu-guijing', chapters: [{ id:'intro', title:'十六段锦·导读', content:'十六段锦为传统导引养生功法。以十六式动作配合呼吸吐纳调和气血疏通经络。' }]
+  bookId: 'shiliu-guijing', chapters: [{ id:'intro', title:'十六段锦·导读', content:'十六段锦为传统导引养生功法。以十六式动作配合呼吸吐纳调和气血疏通经络。', vernacular:'十六段锦为传统导引养生功法。以十六式动作配合呼吸吐纳调和气血疏通经络。'}]
 }
 export const yuzhenDeep: BookChapter = {
-  bookId: 'yuzhen-dingzhen-dan', chapters: [{ id:'intro', title:'玉真经丹鼎篇·导读', content:'唐代炼丹秘典。详细记载金丹炼制方法药物配方炉鼎火候等核心技术。是世界化学史重要文献。' }]
+  bookId: 'yuzhen-dingzhen-dan', chapters: [{ id:'intro', title:'玉真经丹鼎篇·导读', content:'唐代炼丹秘典。详细记载金丹炼制方法药物配方炉鼎火候等核心技术。是世界化学史重要文献。', vernacular:'唐代炼丹秘典。详细记载金丹炼制方法药物配方炉鼎火候等核心技术，是世界化学史重要文献。'}]
 }
 
 // 医易运气
 export const neijingDeep: BookChapter = {
-  bookId: 'huangdi-neijing-yunqi', chapters: [{ id:'intro', title:'黄帝内经运气七篇·导读', content:'运气七篇包括天元纪大论五运行大论六微旨大论气交变大论五常政大论六元正纪大论至真要大论。以天干地支五行生克六气司天在泉构建气运推演体系。' }]
+  bookId: 'huangdi-neijing-yunqi', chapters: [{ id:'intro', title:'黄帝内经运气七篇·导读', content:'运气七篇包括天元纪大论五运行大论六微旨大论气交变大论五常政大论六元正纪大论至真要大论。以天干地支五行生克六气司天在泉构建气运推演体系。', vernacular:'运气七篇以天干地支五行生克六气司天在泉构建气运推演体系，是中医五运六气学的经典源头。'}]
 }
 export const sanyinDeep: BookChapter = {
-  bookId: 'sanyin-sitian', chapters: [{ id:'intro', title:'三因司天方·导读', content:'《三因司天方》南宋陈无择著。两卷。将五运六气理论应用于方剂学。每年岁运司天在泉不同则治疗方剂不同。' }]
+  bookId: 'sanyin-sitian', chapters: [{ id:'intro', title:'三因司天方·导读', content:'《三因司天方》南宋陈无择著。两卷。将五运六气理论应用于方剂学。每年岁运司天在泉不同则治疗方剂不同。', vernacular:'《三因司天方》南宋陈无择著两卷。将五运六气理论应用于方剂学，每年岁运司天在泉不同则治疗方剂不同。'}]
 }
 export const yunqiDeep: BookChapter = {
-  bookId: 'yunqi-yilan', chapters: [{ id:'intro', title:'运气易览·导读', content:'《运气易览》明代汪机著。通俗阐释五运六气基本原理。入门必读。' }]
+  bookId: 'yunqi-yilan', chapters: [{ id:'intro', title:'运气易览·导读', content:'《运气易览》明代汪机著。通俗阐释五运六气基本原理。入门必读。', vernacular:'《运气易览》明代汪机著。通俗阐释五运六气基本原理，入门必读。'}]
 }
 export const yuhanDeep: BookChapter = {
-  bookId: 'yuhan-jing', chapters: [{ id:'intro', title:'玉函经·导读', content:'《玉函经》唐五代杜光庭著。将脉学与命理结合的奇书。以寸关尺三部脉象为基础结合五行生克八卦方位推断健康寿命和命运走势。' }]
+  bookId: 'yuhan-jing', chapters: [{ id:'intro', title:'玉函经·导读', content:'《玉函经》唐五代杜光庭著。将脉学与命理结合的奇书。以寸关尺三部脉象为基础结合五行生克八卦方位推断健康寿命和命运走势。', vernacular:'《玉函经》唐五代杜光庭著。将脉学与命理结合，以寸关尺三部脉象为基础结合五行生克八卦方位推断健康寿命和命运走势。'}]
 }
 export const shennongDeep: BookChapter = {
-  bookId: 'shennong-benxao', chapters: [{ id:'intro', title:'神农本草经运气篇·导读', content:'《神农本草经》最古老本草学。三卷。药物四气五味升降浮沉归经补泻与五行六气相应。' }]
+  bookId: 'shennong-benxao', chapters: [{ id:'intro', title:'神农本草经运气篇·导读', content:'《神农本草经》最古老本草学。三卷。药物四气五味升降浮沉归经补泻与五行六气相应。', vernacular:'《神农本草经》最古老本草学三卷。药物四气五味升降浮沉归经补泻与五行六气相应。'}]
 }
 export const zhangzhongDeep: BookChapter = {
-  bookId: 'zhangzhong-jing', chapters: [{ id:'intro', title:'肘后备急方·导读', content:'《肘后备急方》东晋葛洪著。最早急救手册。屠呦呦受此书启发发现青蒿素获诺贝尔奖。' }]
+  bookId: 'zhangzhong-jing', chapters: [{ id:'intro', title:'肘后备急方·导读', content:'《肘后备急方》东晋葛洪著。最早急救手册。屠呦呦受此书启发发现青蒿素获诺贝尔奖。', vernacular:'《肘后备急方》东晋葛洪著最早急救手册。屠呦呦受此书启发发现青蒿素获诺贝尔奖。'}]
 }
 export const jinkuiDeep: BookChapter = {
-  bookId: 'jinkui-yuelue', chapters: [{ id:'intro', title:'金匮要略·导读', content:'《金匮要略》东汉张仲景著。中医临床经典。以脏腑经络辨证为核心论述各类杂病。' }]
+  bookId: 'jinkui-yuelue', chapters: [{ id:'intro', title:'金匮要略·导读', content:'《金匮要略》东汉张仲景著。中医临床经典。以脏腑经络辨证为核心论述各类杂病。', vernacular:'《金匮要略》东汉张仲景著中医临床经典。以脏腑经络辨证为核心论述各类杂病。'}]
 }
 
 // ================================================================
