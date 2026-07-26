@@ -124,6 +124,70 @@ export const STAR_DESC_KO: Record<string, string> = {
 }
 
 /** Get star description in the given language */
+/** Palace names in English */
+export const PALACE_NAMES_EN: Record<string, string> = {
+  '命宫': 'Life Palace',
+  '兄弟': 'Siblings Palace',
+  '夫妻': 'Spouse Palace',
+  '子女': 'Children Palace',
+  '财帛': 'Wealth Palace',
+  '疾厄': 'Health Palace',
+  '迁移': 'Travel Palace',
+  '仆役': 'Friends Palace',
+  '官禄': 'Career Palace',
+  '田宅': 'Property Palace',
+  '福德': 'Fortune Palace',
+  '父母': 'Parents Palace',
+}
+
+/** Palace names in Japanese */
+export const PALACE_NAMES_JA: Record<string, string> = {
+  '命宫': '命宮',
+  '兄弟': '兄弟宮',
+  '夫妻': '夫妻宮',
+  '子女': '子女宮',
+  '财帛': '財帛宮',
+  '疾厄': '疾厄宮',
+  '迁移': '遷移宮',
+  '仆役': '交友宮',
+  '官禄': '事業宮',
+  '田宅': '田宅宮',
+  '福德': '福德宮',
+  '父母': '父母宮',
+}
+
+/** Palace names in Korean */
+export const PALACE_NAMES_KO: Record<string, string> = {
+  '命宫': '명궁',
+  '兄弟': '형제궁',
+  '夫妻': '부처궁',
+  '子女': '자녀궁',
+  '财帛': '재백궁',
+  '疾厄': '질액궁',
+  '迁移': '천이궁',
+  '仆役': '교우궁',
+  '官禄': '사업궁',
+  '田宅': '전택궁',
+  '福德': '복덕궁',
+  '父母': '부모궁',
+}
+
+const IZTRO_TO_DISPLAY: Record<string, string> = {
+  '命宫':'命宮','兄弟':'兄弟宮','夫妻':'夫妻宮','子女':'子女宮',
+  '财帛':'財帛宮','疾厄':'疾厄宮','迁移':'遷移宮','仆役':'交友宮',
+  '官禄':'事業宮','田宅':'田宅宮','福德':'福德宮','父母':'父母宮',
+}
+
+/** Get palace display name in the given language */
+export function getPalaceName(name: string, lang?: string): string {
+  const base = IZTRO_TO_DISPLAY[name] || name
+  if (!lang || lang === 'zh-CN' || lang === 'zh-TW') return base
+  if (lang === 'en') return PALACE_NAMES_EN[name] || base
+  if (lang === 'ja') return PALACE_NAMES_JA[name] || base
+  if (lang === 'ko') return PALACE_NAMES_KO[name] || base
+  return base
+}
+
 export function getStarDesc(name: string, lang?: string): string {
   if (!lang || lang === 'zh-CN' || lang === 'zh-TW') return STAR_DESC[name] || ''
   if (lang === 'en') return STAR_DESC_EN[name] || ''

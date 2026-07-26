@@ -70,7 +70,7 @@ export default function XingzuoClient() {
 
         {data && <div className="space-y-4 animate-fadeIn">
           <div className="border-b border-dark-600 pb-3 mb-4">
-            <h2 className="text-xl font-semibold text-gold-400 font-serif">{selSign} <span className="text-sm text-gray-500 font-sans">{SIGNS[getSign(selSign)]?.emoji} {SIGNS[getSign(selSign)]?.en} | {SIGNS[getSign(selSign)]?.el}象 | {SIGNS[getSign(selSign)]?.ruler}守护</span></h2>
+            <h2 className="text-xl font-semibold text-gold-400 font-serif">{selSign} <span className="text-sm text-gray-500 font-sans">{SIGNS[getSign(selSign)]?.emoji} {SIGNS[getSign(selSign)]?.en} | {SIGNS[getSign(selSign)]?.el} {getT('xingzuoPage.symbol')} | {SIGNS[getSign(selSign)]?.ruler}</span></h2>
           </div>
           {SECTIONS.map(sk => (
             <div key={sk} className="p-4 bg-dark-700/30 rounded-xl border border-dark-600/50">
@@ -103,11 +103,11 @@ export default function XingzuoClient() {
 
         {yf && <div className="space-y-4 animate-fadeIn">
           <div className="border-b border-dark-600 pb-3 mb-4">
-            <h2 className="text-xl font-semibold text-gold-400 font-serif">{selYf} {selYear}年运势</h2>
+            <h2 className="text-xl font-semibold text-gold-400 font-serif">{getT('xingzuoPage.yearFortuneTitle').replace('{name}', selYf).replace('{year}', selYear)}</h2>
           </div>
 
           <div className="p-4 bg-dark-700/30 rounded-xl border border-dark-600/50">
-            <h3 className="text-sm font-medium text-gold-500 mb-2">🌟 整体运势概览</h3>
+            <h3 className="text-sm font-medium text-gold-500 mb-2">{getT('xingzuoPage.generalTitle')}</h3>
             <p className="text-sm text-gray-300 leading-relaxed">{yf.general}</p>
           </div>
 
@@ -121,7 +121,7 @@ export default function XingzuoClient() {
           </div>
 
           <div className="p-4 bg-dark-700/30 rounded-xl border border-dark-600/50">
-            <h3 className="text-sm font-medium text-gold-500 mb-3">📋 每月重点提示</h3>
+            <h3 className="text-sm font-medium text-gold-500 mb-3">{getT('xingzuoPage.monthlyTitle')}</h3>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
               {(mm||[]).map((m:string,i:number) => (
                 <div key={i} className="p-2 bg-dark-800/50 rounded-lg text-xs text-gray-400">

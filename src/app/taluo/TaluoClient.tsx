@@ -284,15 +284,15 @@ export default function TaluoClient() {
           {count >= 3 && (
             <div className="w-full text-center mt-2">
               <div className="inline-flex items-center gap-1 text-[11px] text-gray-600 bg-amber-50/80 px-3 py-1 rounded-full border border-amber-200">
-                <span>↑ 你</span>
+                <span>↑ {locale === 'en' ? 'You' : locale === 'ja' ? 'あなた' : locale === 'ko' ? '당신' : '你'}</span>
                 <span className="text-gray-600">·</span>
-                <span>对方</span>
+                <span>{locale === 'en' ? 'Partner' : locale === 'ja' ? '相手' : locale === 'ko' ? '상대방' : '对方'}</span>
                 <span className="text-gray-600">·</span>
-                <span>你们之间</span>
+                <span>{locale === 'en' ? 'Between' : locale === 'ja' ? '間柄' : locale === 'ko' ? '사이' : '你们之间'}</span>
                 <span className="text-gray-600">·</span>
-                <span>障碍</span>
+                <span>{locale === 'en' ? 'Obstacle' : locale === 'ja' ? '障害' : locale === 'ko' ? '장애' : '障碍'}</span>
                 <span className="text-gray-600">·</span>
-                <span>发展</span>
+                <span>{locale === 'en' ? 'Outcome' : locale === 'ja' ? '発展' : locale === 'ko' ? '발전' : '发展'}</span>
               </div>
             </div>
           )}

@@ -127,7 +127,7 @@ function QianCard({ item, visible }: { item: LingqianItem; visible: boolean }) {
       {/* 签头：签号+吉凶+签题 */}
       <div className={`rounded-xl border-2 p-5 text-center ${lc}`}
         style={{ animation: 'qian-glow 2s ease-in-out infinite' }}>
-        <p className="text-xs opacity-70 mb-1">第 {item.id} 签</p>
+        <p className="text-xs opacity-70 mb-1">{getT('lingqianPage.qianLabel')}{item.id}{getT('lingqianPage.qianSuffix')}</p>
         <p className="text-sm font-bold mb-2">{item.level} · {item.title}</p>
         <div className="w-16 h-0.5 mx-auto rounded-full bg-current opacity-30" />
       </div>
@@ -217,7 +217,7 @@ export default function LingqianClient() {
     setShaking(false)
   }
 
-  if (!category) return <div className="max-w-2xl mx-auto px-4 py-10 text-red-400">加载灵签数据失败</div>
+  if (!category) return <div className="max-w-2xl mx-auto px-4 py-10 text-red-400">{getT('lingqianPage.loadError')}</div>
 
   return (
     <div className="max-w-2xl mx-auto px-4 py-10">
@@ -225,8 +225,8 @@ export default function LingqianClient() {
 
       {/* 标题 */}
       <div className="text-center mb-6">
-        <h1 className="text-3xl font-bold text-gold-400 font-serif mb-1">灵签</h1>
-        <p className="text-sm text-gray-400">心生诚念，默问所求，然后摇签</p>
+        <h1 className="text-3xl font-bold text-gold-400 font-serif mb-1">{getT('lingqianPage.title')}</h1>
+        <p className="text-sm text-gray-400">{getT('lingqianPage.desc')}</p>
       </div>
 
       {/* 签种选择器 — 随时可切换，切换后自动重置可摇 */}
@@ -252,9 +252,9 @@ export default function LingqianClient() {
       <div className="bg-dark-800/60 rounded-2xl border border-dark-600 p-6 mb-6 text-center">
         {/* 问事输入 */}
         <div className="mb-4">
-          <label className="text-xs text-gray-400 block mb-2">心中所问（可选）</label>
+          <label className="text-xs text-gray-400 block mb-2">{getT('lingqianPage.questionLabel')}</label>
           <input type="text" value={userQ} onChange={e=>setUserQ(e.target.value)}
-            placeholder={`如：求姻缘、事业、财运…`}
+            placeholder={getT('lingqianPage.questionPlaceholder')}
             className="w-full px-4 py-2.5 bg-dark-700/70 border border-dark-600 rounded-xl text-gray-200 text-sm text-center placeholder-gray-500 focus:border-gold-500/50 focus:outline-none transition-colors"
             disabled={phase !== 'idle'} />
         </div>
@@ -266,18 +266,18 @@ export default function LingqianClient() {
           {/* 状态文字 */}
           <div className="mt-3 text-sm">
             {phase === 'idle' && (
-              <p className="text-gray-400">🙏 诚心默念后点击下方摇签</p>
+              <p className="text-gray-400">{getT('lingqianPage.idleHint')}</p>
             )}
             {phase === 'praying' && (
-              <p className="text-gold-400 animate-pulse">🙏 诚心祈请中...</p>
+              <p className="text-gold-400 animate-pulse">{getT('lingqianPage.praying')}</p>
             )}
             {phase === 'shaking' && (
               <p className="text-gold-300" style={{ animation: 'qian-glow 0.5s ease-in-out infinite' }}>
-                🎋 正在摇签...
+                {getT('lingqianPage.shaking')}
               </p>
             )}
             {phase === 'done' && (
-              <p className="text-emerald-400">✨ 签已落定</p>
+              <p className="text-emerald-400">{getT('lingqianPage.done')}</p>
             )}
           </div>
         </div>
@@ -294,7 +294,7 @@ export default function LingqianClient() {
 
         {phase === 'done' && (
           <p className="mt-2 text-xs text-gray-500">
-            签筒中共 {drawCount} 支灵签 · 第 {qian?.id} 签
+            {getT('lingqianPage.totalLabel')} {drawCount} {getT('lingqianPage.qianLabel')}{qian?.id}{getT('lingqianPage.qianSuffix')}
           </p>
         )}
 
@@ -316,7 +316,7 @@ export default function LingqianClient() {
         <div className="text-center mt-6">
           <button onClick={reset}
             className="px-6 py-2 rounded-lg text-sm text-gray-300 bg-dark-700 border border-dark-600 hover:border-gold-500/50 transition-colors">
-            🔄 再摇一次
+            {getT('lingqianPage.retry')}
           </button>
         </div>
       )}

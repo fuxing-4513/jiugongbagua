@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { useT, useLocale } from '@/lib/i18n'
 
+// ── Gua data ──
 const BA_GUA = [
   {name:'乾',emoji:'☰',wx:'金',dir:'西北',num:6,attr:'天'},
   {name:'兑',emoji:'☱',wx:'金',dir:'西',num:7,attr:'泽'},

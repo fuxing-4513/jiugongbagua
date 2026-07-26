@@ -383,7 +383,7 @@ export default function HuangliClient() {
           </div>
           <div className="bg-gray-50 rounded-lg p-2.5 text-center">
             <p className="text-xs text-gray-400">{getT('huangliPage.chongSha')}</p>
-            <p className="text-sm font-medium text-gray-700">冲{data.conflictZodiac}</p>
+            <p className="text-sm font-medium text-gray-700">{getT('huangliPage.chongPrefix')}{data.conflictZodiac}</p>
           </div>
           <div className="bg-gray-50 rounded-lg p-2.5 text-center">
             <p className="text-xs text-gray-400">{getT('huangliPage.star')}</p>

@@ -2,6 +2,7 @@
 import { useState, useCallback } from 'react'
 import { Solar, Lunar } from 'lunar-typescript'
 import CalendarInput, { type CalendarType } from '@/components/CalendarInput'
+import { useLocale, useT } from '@/lib/i18n'
 
 // ── 五行基础 ──
 const WX_TG: Record<string, string> = {甲:'木',乙:'木',丙:'火',丁:'火',戊:'土',己:'土',庚:'金',辛:'金',壬:'水',癸:'水'}
@@ -236,7 +237,7 @@ function calcTotalScore(dims: HehunDim[]): number {
 }
 
 function getMaritalLevel(score: number): string {
-  if (score >= 85) return '上等婚'; if (score >= 65) return '中上婚'; if (score >= 45) return '中等婚'; return '下等婚'
+  if (score >= 85) return 'levelExcellent'; if (score >= 65) return 'levelGood'; if (score >= 45) return 'levelAverage'; return 'levelPoor'
 }
 
 function getMarriageAdvice(dims: HehunDim[], mRes: FullResult, wRes: FullResult): string[] {
@@ -251,6 +252,8 @@ function getMarriageAdvice(dims: HehunDim[], mRes: FullResult, wRes: FullResult)
 }
 
 interface PersonForm { name: string; cal: 'solar' | 'lunar'; year: string; month: string; day: string; hour: string; isLeap: boolean }export default function HehunClient() {
+  const { locale } = useLocale()
+  const getT = useT()
   const [m, setM] = useState<PersonForm>({name:'',cal:'solar',year:'1990',month:'1',day:'1',hour:'0',isLeap:false})
   const [w, setW] = useState<PersonForm>({name:'',cal:'solar',year:'1992',month:'1',day:'1',hour:'0',isLeap:false})
   const [res, setRes] = useState<{mRes:FullResult;wRes:FullResult;dims:HehunDim[];total:number;level:string;tips:string[]}|null>(null)
@@ -293,20 +296,20 @@ interface PersonForm { name: string; cal: 'solar' | 'lunar'; year: string; month
     <div className="space-y-6">
       {[res.mRes, res.wRes].map((p,i) => {
         if (!p) return null
-        const b = p.bazi, a = p.analysis, pl = ['年','月','日','时']
+        const b = p.bazi, a = p.analysis, pl = locale === 'en' ? ['Year','Month','Day','Hour'] : locale === 'ja' ? ['年','月','日','時'] : locale === 'ko' ? ['년','월','일','시'] : ['年','月','日','时']
         const total = Object.values(a.wxCount).reduce((a,b)=>a+b,0) || 1
         return (
           <div key={i} className={'bg-dark-800/80 rounded-xl border p-5 '+(i===0?'border-blue-500/20':'border-pink-500/20')}>
-            <h3 className={'text-sm font-semibold mb-4 '+(i===0?'text-blue-400':'text-pink-400')}>{(i===0?'👨 男方':'👩 女方')} {p.name}</h3>
-            <p className="text-[11px] text-gray-500 mb-3">生肖 {p.animal}</p>
+            <h3 className={'text-sm font-semibold mb-4 '+(i===0?'text-blue-400':'text-pink-400')}>{(i===0?getT('hehunPage.maleLabel'):getT('hehunPage.femaleLabel'))} {p.name}</h3>
+            <p className="text-[11px] text-gray-500 mb-3">{locale === 'en' ? 'Zodiac' : locale === 'ja' ? '十二支' : locale === 'ko' ? '띠' : '生肖'} {p.animal}</p>
             <div className="overflow-x-auto mb-3">
               <table className="w-full text-xs">
-                <thead><tr className="border-b border-dark-600"><th className="px-2 py-1.5 text-left text-gray-500 w-10"></th>{pl.map((l,j)=><th key={j} className="px-2 py-1.5 text-center text-gray-400 font-medium">{l}柱</th>)}</tr></thead>
+                <thead><tr className="border-b border-dark-600"><th className="px-2 py-1.5 text-left text-gray-500 w-10"></th>{pl.map((l,j)=><th key={j} className="px-2 py-1.5 text-center text-gray-400 font-medium">{l}</th>)}</tr></thead>
                 <tbody>
-                  <tr><td className="px-2 py-1.5 text-gray-500">天干</td>{b.tg.map((c,j)=><td key={j} className={'px-2 py-1.5 text-center text-sm font-bold '+(WXC[b.wxTg[j]]||'text-gray-300')}>{c}</td>)}</tr>
-                  <tr><td className="px-2 py-1.5 text-gray-500">地支</td>{b.dz.map((c,j)=><td key={j} className={'px-2 py-1.5 text-center text-sm font-bold '+(WXC[b.wxDz[j]]||'text-gray-300')}>{c}</td>)}</tr>
-                  <tr><td className="px-2 py-1.5 text-gray-500">藏干</td>{b.cang.map((c,j)=><td key={j} className="px-2 py-1.5 text-center text-[10px] text-gray-400">{c||'—'}</td>)}</tr>
-                  <tr className="border-t border-dark-600/50"><td className="px-2 py-1.5 text-gray-500">纳音</td>{b.nayin.map((n,j)=><td key={j} className="px-2 py-1.5 text-center text-[10px] text-gold-400">{n||'—'}</td>)}</tr>
+                  <tr><td className="px-2 py-1.5 text-gray-500">{locale === 'en' ? 'Stem' : locale === 'ja' ? '天干' : locale === 'ko' ? '천간' : '天干'}</td>{b.tg.map((c,j)=><td key={j} className={'px-2 py-1.5 text-center text-sm font-bold '+(WXC[b.wxTg[j]]||'text-gray-300')}>{c}</td>)}</tr>
+                  <tr><td className="px-2 py-1.5 text-gray-500">{locale === 'en' ? 'Branch' : locale === 'ja' ? '地支' : locale === 'ko' ? '지지' : '地支'}</td>{b.dz.map((c,j)=><td key={j} className={'px-2 py-1.5 text-center text-sm font-bold '+(WXC[b.wxDz[j]]||'text-gray-300')}>{c}</td>)}</tr>
+                  <tr><td className="px-2 py-1.5 text-gray-500">{locale === 'en' ? 'Hidden' : locale === 'ja' ? '蔵干' : locale === 'ko' ? '장간' : '藏干'}</td>{b.cang.map((c,j)=><td key={j} className="px-2 py-1.5 text-center text-[10px] text-gray-400">{c||'—'}</td>)}</tr>
+                  <tr className="border-t border-dark-600/50"><td className="px-2 py-1.5 text-gray-500">{locale === 'en' ? 'Nayin' : locale === 'ja' ? '納音' : locale === 'ko' ? '납음' : '纳音'}</td>{b.nayin.map((n,j)=><td key={j} className="px-2 py-1.5 text-center text-[10px] text-gold-400">{n||'—'}</td>)}</tr>
                 </tbody>
               </table>
             </div>
@@ -317,9 +320,9 @@ interface PersonForm { name: string; cal: 'solar' | 'lunar'; year: string; month
               })}
             </div>
             <div className="grid grid-cols-3 gap-2 text-xs">
-              <div className="bg-dark-700 rounded-lg p-2"><span className="text-gray-500 block text-[10px]">日主</span><span className={'text-sm font-bold '+(WXC[b.riZhuWx]||'text-gray-200')}>{b.riZhu}({b.riZhuWx})</span></div>
-              <div className="bg-dark-700 rounded-lg p-2"><span className="text-gray-500 block text-[10px]">身强弱</span><span className={'text-sm font-semibold '+(a.bodyStrength==='身强'?'text-red-400':a.bodyStrength==='身弱'?'text-blue-400':'text-yellow-400')}>{a.bodyStrength}</span></div>
-              <div className="bg-dark-700 rounded-lg p-2"><span className="text-gray-500 block text-[10px]">用神</span><span className={'text-sm font-bold '+(WXC[a.yongShen]||'text-gold-400')}>{a.yongShen}</span></div>
+              <div className="bg-dark-700 rounded-lg p-2"><span className="text-gray-500 block text-[10px]">Ri Zhu</span><span className={'text-sm font-bold '+(WXC[b.riZhuWx]||'text-gray-200')}>{b.riZhu}({b.riZhuWx})</span></div>
+              <div className="bg-dark-700 rounded-lg p-2"><span className="text-gray-500 block text-[10px]">{getT('hehunPage.bodyStrong')}/{getT('hehunPage.bodyWeak')}</span><span className={'text-sm font-semibold '+(a.bodyStrength==='身强'?'text-red-400':a.bodyStrength==='身弱'?'text-blue-400':'text-yellow-400')}>{a.bodyStrength}</span></div>
+              <div className="bg-dark-700 rounded-lg p-2"><span className="text-gray-500 block text-[10px]">Yong Shen</span><span className={'text-sm font-bold '+(WXC[a.yongShen]||'text-gold-400')}>{a.yongShen}</span></div>
             </div>
           </div>
         )
@@ -330,9 +333,9 @@ interface PersonForm { name: string; cal: 'solar' | 'lunar'; year: string; month
   const renderDetails = !res ? null : (
     <div className="space-y-4">
       <div className="bg-gradient-to-br from-dark-800 to-dark-900 rounded-2xl border border-gold-500/20 p-8 text-center">
-        <p className="text-xs text-gray-400 mb-1">综合匹配度</p>
+        <p className="text-xs text-gray-400 mb-1">{getT('hehunPage.totalScore')}</p>
         <p className={'text-5xl font-bold font-serif mb-2 '+(res.total>=70?'text-green-400':res.total>=45?'text-yellow-400':'text-red-400')}>{res.total}%</p>
-        <span className={'inline-block px-5 py-1.5 rounded-full text-sm font-semibold border '+(res.total>=70?'border-green-500/40 bg-green-900/20 text-green-400':res.total>=45?'border-yellow-500/40 bg-yellow-900/20 text-yellow-400':'border-red-500/40 bg-red-900/20 text-red-400')}>{res.level} 💍</span>
+        <span className={'inline-block px-5 py-1.5 rounded-full text-sm font-semibold border '+(res.total>=70?'border-green-500/40 bg-green-900/20 text-green-400':res.total>=45?'border-yellow-500/40 bg-yellow-900/20 text-yellow-400':'border-red-500/40 bg-red-900/20 text-red-400')}>{getT('hehunPage.' + res.level)} 💍</span>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         {res.dims.map((d,i)=>(
@@ -349,7 +352,7 @@ interface PersonForm { name: string; cal: 'solar' | 'lunar'; year: string; month
           </div>
         ))}
       </div>      <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-5">
-        <h3 className="text-xs font-semibold text-gray-200 mb-3">🔮 性格分析</h3>
+        <h3 className="text-xs font-semibold text-gray-200 mb-3">{getT('hehunPage.personalityAnalysis')}</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           <div className="bg-dark-700/50 rounded-lg p-3 border border-blue-500/10">
             <p className="text-[10px] text-blue-400 font-semibold mb-1">{res.mRes.name}</p>
@@ -362,11 +365,11 @@ interface PersonForm { name: string; cal: 'solar' | 'lunar'; year: string; month
         </div>
       </div>
       <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-5">
-        <h3 className="text-xs font-semibold text-gray-200 mb-3">💕 感情分析</h3>
+        <h3 className="text-xs font-semibold text-gray-200 mb-3">{getT('hehunPage.emotionAnalysis')}</h3>
         <ul className="space-y-1">{getEmotionDesc(res.mRes.bazi.riZhuWx,res.wRes.bazi.riZhuWx,res.mRes.analysis.yongShen,res.wRes.analysis.yongShen).map((t,i)=><li key={i} className="text-[11px] text-gray-400 leading-relaxed flex gap-1"><span className="text-gold-400 shrink-0 mt-0.5">•</span><span>{t}</span></li>)}</ul>
       </div>
       <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-5">
-        <h3 className="text-xs font-semibold text-gray-200 mb-3">💼 事业分析</h3>
+        <h3 className="text-xs font-semibold text-gray-200 mb-3">{getT('hehunPage.careerAnalysis')}</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           <div className="bg-dark-700/50 rounded-lg p-3 border border-blue-500/10">
             <p className="text-[10px] text-blue-400 font-semibold mb-1">{res.mRes.name}</p>
@@ -379,7 +382,7 @@ interface PersonForm { name: string; cal: 'solar' | 'lunar'; year: string; month
         </div>
       </div>
       <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-5">
-        <h3 className="text-xs font-semibold text-gray-200 mb-3">💰 财运分析</h3>
+        <h3 className="text-xs font-semibold text-gray-200 mb-3">{getT('hehunPage.wealthAnalysis')}</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           <div className="bg-dark-700/50 rounded-lg p-3 border border-blue-500/10">
             <p className="text-[10px] text-blue-400 font-semibold mb-1">{res.mRes.name}</p>
@@ -392,11 +395,11 @@ interface PersonForm { name: string; cal: 'solar' | 'lunar'; year: string; month
         </div>
       </div>
       <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-5">
-        <h3 className="text-xs font-semibold text-gray-200 mb-3">🌟 其他看点</h3>
-        <ul className="space-y-1">{(getOtherInsights(res.mRes.bazi,res.wRes.bazi).length>0?getOtherInsights(res.mRes.bazi,res.wRes.bazi):['无特殊看点']).map((t,i)=><li key={i} className="text-[11px] text-gray-400 leading-relaxed flex gap-1"><span className="text-gold-400 shrink-0 mt-0.5">•</span><span>{t}</span></li>)}</ul>
+        <h3 className="text-xs font-semibold text-gray-200 mb-3">{getT('hehunPage.otherInsights')}</h3>
+        <ul className="space-y-1">{(getOtherInsights(res.mRes.bazi,res.wRes.bazi).length>0?getOtherInsights(res.mRes.bazi,res.wRes.bazi):[getT('hehunPage.noSpecialInsights')]).map((t,i)=><li key={i} className="text-[11px] text-gray-400 leading-relaxed flex gap-1"><span className="text-gold-400 shrink-0 mt-0.5">•</span><span>{t}</span></li>)}</ul>
       </div>
       <div className="bg-gradient-to-br from-dark-800 to-dark-900 rounded-xl border border-gold-500/10 p-5">
-        <h3 className="text-xs font-semibold text-gray-200 mb-3">💡 婚姻建议</h3>
+        <h3 className="text-xs font-semibold text-gray-200 mb-3">{getT('hehunPage.marriageAdvice')}</h3>
         <ul className="space-y-1.5">{res.tips.map((t,i)=><li key={i} className="text-[11px] text-gray-400 leading-relaxed flex gap-1"><span className="text-gold-400 shrink-0 mt-0.5">•</span><span>{t}</span></li>)}</ul>
       </div>
     </div>
@@ -404,14 +407,14 @@ interface PersonForm { name: string; cal: 'solar' | 'lunar'; year: string; month
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-10">
-      <h1 className="text-3xl font-bold text-gold-400 font-serif text-center mb-1">💑 合婚测算</h1>
-      <p className="text-gray-500 text-sm text-center mb-6">八字合婚·生肖五行·年命纳音·十神婚配 全方位分析</p>
+      <h1 className="text-3xl font-bold text-gold-400 font-serif text-center mb-1">{getT('hehunPage.title')}</h1>
+      <p className="text-gray-500 text-sm text-center mb-6">{getT('hehunPage.subtitle')}</p>
       <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-5 mb-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          {[{l:'男方',p:m,sp:setM,g:'m' as const},{l:'女方',p:w,sp:setW,g:'w' as const}].map(s => (
-            <div key={s.l}>
-              <h3 className={'text-sm font-semibold mb-3 '+(s.l==='男方'?'text-blue-400':'text-pink-400')}>{s.l==='男方'?'👨':'👩'} {s.l}</h3>
-              <input value={s.p.name} onChange={e=>s.sp({...s.p,name:e.target.value})} placeholder={s.l+'姓名'} maxLength={10} className="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200 text-sm mb-3 focus:outline-none focus:border-gold-500"/>
+          {[{key:'male',label:getT('hehunPage.maleLabel'),p:m,sp:setM,g:'m' as const},{key:'female',label:getT('hehunPage.femaleLabel'),p:w,sp:setW,g:'w' as const}].map(s => (
+            <div key={s.key}>
+              <h3 className={'text-sm font-semibold mb-3 '+(s.key==='male'?'text-blue-400':'text-pink-400')}>{s.key==='male'?'👨':'👩'} {s.label}</h3>
+              <input value={s.p.name} onChange={e=>s.sp({...s.p,name:e.target.value})} placeholder={getT('hehunPage.namePlaceholder').replace('{name}', s.label)} maxLength={10} className="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200 text-sm mb-3 focus:outline-none focus:border-gold-500"/>
               <CalendarInput
                 calendarType={s.p.cal as CalendarType}
                 year={s.p.year}
@@ -430,7 +433,7 @@ interface PersonForm { name: string; cal: 'solar' | 'lunar'; year: string; month
             </div>
           ))}
         </div>
-        <div className="flex justify-center mt-5"><button onClick={doCalc} className="bg-gold-600 hover:bg-gold-500 text-dark-900 font-semibold px-8 py-2.5 rounded-lg transition-colors active:scale-95 text-sm">开始合婚</button></div>
+        <div className="flex justify-center mt-5"><button onClick={doCalc} className="bg-gold-600 hover:bg-gold-500 text-dark-900 font-semibold px-8 py-2.5 rounded-lg transition-colors active:scale-95 text-sm">{getT('hehunPage.submit')}</button></div>
         {err && <p className="text-xs text-red-400 text-center mt-2">{err}</p>}
       </div>
       {renderResult}
