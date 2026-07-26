@@ -25,6 +25,46 @@ export interface PsychologyInterpretation {
   summary: string
 }
 
+// ── 多语言翻译表 ──
+
+/** 梦境分类多语言 */
+export const DREAM_CATEGORY_LANG: Record<string, Record<string, string>> = {
+  '动物': { 'zh-CN': '动物', 'zh-TW': '動物', 'en': 'Animals', 'ja': '動物', 'ko': '동물' },
+  '自然': { 'zh-CN': '自然', 'zh-TW': '自然', 'en': 'Nature', 'ja': '自然', 'ko': '자연' },
+  '人物': { 'zh-CN': '人物', 'zh-TW': '人物', 'en': 'People', 'ja': '人物', 'ko': '인물' },
+  '物品': { 'zh-CN': '物品', 'zh-TW': '物品', 'en': 'Objects', 'ja': '物', 'ko': '물건' },
+  '场景': { 'zh-CN': '场景', 'zh-TW': '場景', 'en': 'Scenes', 'ja': 'シーン', 'ko': '장면' },
+  '情感': { 'zh-CN': '情感', 'zh-TW': '情感', 'en': 'Emotions', 'ja': '感情', 'ko': '감정' },
+  '颜色': { 'zh-CN': '颜色', 'zh-TW': '顏色', 'en': 'Colors', 'ja': '色', 'ko': '색상' },
+  '食物': { 'zh-CN': '食物', 'zh-TW': '食物', 'en': 'Food', 'ja': '食べ物', 'ko': '음식' },
+  '现代': { 'zh-CN': '现代', 'zh-TW': '現代', 'en': 'Modern', 'ja': '現代', 'ko': '현대' },
+  '建筑': { 'zh-CN': '建筑', 'zh-TW': '建築', 'en': 'Architecture', 'ja': '建築', 'ko': '건축' },
+  '鬼神': { 'zh-CN': '鬼神', 'zh-TW': '鬼神', 'en': 'Spirits', 'ja': '幽霊・神', 'ko': '귀신' },
+  '植物': { 'zh-CN': '植物', 'zh-TW': '植物', 'en': 'Plants', 'ja': '植物', 'ko': '식물' },
+  '生活': { 'zh-CN': '生活', 'zh-TW': '生活', 'en': 'Daily Life', 'ja': '日常', 'ko': '일상' },
+  '活动': { 'zh-CN': '活动', 'zh-TW': '活動', 'en': 'Activities', 'ja': '活動', 'ko': '활동' },
+  '情爱': { 'zh-CN': '情爱', 'zh-TW': '情愛', 'en': 'Romance', 'ja': '恋愛', 'ko': '연애' },
+  '身体': { 'zh-CN': '身体', 'zh-TW': '身體', 'en': 'Body', 'ja': '身体', 'ko': '신체' },
+  '其他': { 'zh-CN': '其他', 'zh-TW': '其他', 'en': 'Other', 'ja': 'その他', 'ko': '기타' },
+}
+
+/** 心理学视角名称多语言 */
+export const PSYCHOLOGY_VIEW_LANG: Record<string, Record<string, string>> = {
+  jung: { 'zh-CN': '荣格分析心理学', 'zh-TW': '榮格分析心理學', 'en': 'Jungian Analysis', 'ja': 'ユング分析心理学', 'ko': '융 분석심리학' },
+  freud: { 'zh-CN': '弗洛伊德精神分析', 'zh-TW': '佛洛伊德精神分析', 'en': 'Freudian Psychoanalysis', 'ja': 'フロイト精神分析', 'ko': '프로이트 정신분석' },
+  gestalt: { 'zh-CN': '格式塔梦境工作', 'zh-TW': '格式塔夢境工作', 'en': 'Gestalt Dreamwork', 'ja': 'ゲシュタルト夢分析', 'ko': '게슈탈트 꿈 작업' },
+  summary: { 'zh-CN': '综合启示', 'zh-TW': '綜合啟示', 'en': 'Summary Insight', 'ja': '総合的示唆', 'ko': '종합적 시사점' },
+}
+
+/** 心理学视角底部说明多语言 */
+export const PSYCHOLOGY_FOOTNOTE: Record<string, string> = {
+  'zh-CN': '基于荣格分析心理学、弗洛伊德释梦理论及格式塔梦境工作法，结合梦境关键词和情绪自动生成',
+  'zh-TW': '基於榮格分析心理學、佛洛伊德釋夢理論及格式塔夢境工作法，結合夢境關鍵詞和情緒自動生成',
+  'en': 'Auto-generated based on Jungian analysis, Freudian dream theory, and Gestalt dreamwork, using dream keywords and emotions',
+  'ja': 'ユング分析心理学、フロイト夢理論、ゲシュタルト夢分析に基づき、夢のキーワードと感情から自動生成',
+  'ko': '융 분석심리학, 프로이트 꿈 이론, 게슈탈트 꿈 작업에 기반하여 꿈 키워드와 감정으로 자동 생성',
+}
+
 // ── 哈希辅助 ──
 function hashStr(s: string): number {
   let h = 0

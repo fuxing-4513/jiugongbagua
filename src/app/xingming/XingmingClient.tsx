@@ -1,11 +1,13 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { dataPath } from '@/lib/anti-scrape'
 
 import ShareResult from '../../components/ShareResult'
 import NamingClient from './NamingClient'
 import dynamic from 'next/dynamic'
+import { useLocale } from '@/lib/i18n'
+import { JI_TYPE_LANG, getWugeLabel, getWugeTypeLabel, WU_XING_LANG } from '@/lib/naming-algorithm'
 
 // 动态加载起名用字组件（数据量大，独立 chunk）
 const NamingChars = dynamic(() => import('@/components/NamingChars'), { ssr: false })
@@ -535,6 +537,96 @@ const WXC: Record<string, string> = {'木':'bg-green-900/40 text-green-300 borde
 const gradeC: Record<string, string> = {'大吉':'text-green-400','吉':'text-green-500','中吉':'text-yellow-400','中':'text-yellow-500','凶':'text-red-400','大凶':'text-red-500'}
 
 export default function XingmingClient() {
+  const { locale } = useLocale()
+
+  // ── UI Text 多语言 ──
+  const L = useMemo(() => {
+    const l = locale as string
+    const en: Record<string, string> = {
+      title: 'Name Analysis', subtitle: 'Name scoring & naming service', loadingKangxi: '⏳ Loading stroke library...', loaded: '✓ Loaded',
+      tabScore: 'Name Score', tabNaming: 'Naming Service', tabChars: 'Naming Characters',
+      desc: 'Score names based on Kangxi strokes, Wuge numerology, and SanCai Five Elements',
+      lastNameLabel: 'Last Name', firstNameLabel: 'First Name', submitBtn: 'Analyze',
+      basicInfo: 'Basic Info', name: 'Name:', lnLabel: 'Last Name:', fnLabel: 'First Name:',
+      stroke: 'Stroke', wxing: 'Element', wugeTitle: 'Wuge Numerology & Elements', sancaiLabel: 'SanCai',
+      totalScore: 'Overall Score', sancaiTitle: 'SanCai Configuration',
+      baseFortune: 'Basic Fortune', successFortune: 'Success Fortune', socialFortune: 'Social Fortune',
+      ratingExcellent: 'Excellent name! It will help you throughout life.',
+      ratingGreat: 'Great name! It will help you throughout life. Good luck!',
+      ratingGood: 'Good name. Minor shortcomings can be overcome with effort.',
+      ratingFair: 'Average name. Consider improving it.',
+      ratingPoor: 'Low score. Consider changing your name.',
+      hintSummary: 'If many Wuge numbers are inauspicious, it indicates financial loss, career setbacks, health and family issues',
+      scoreLevel: '{scoreKey}'
+    }
+    const ja: Record<string, string> = {
+      title: '姓名診断', subtitle: '姓名スコアリング & 命名サービス', loadingKangxi: '⏳ 画数辞書を読み込み中...', loaded: '✓ 読み込み完了',
+      tabScore: '姓名スコア', tabNaming: '命名サービス', tabChars: '命名用字',
+      desc: '康熙字典の画数・五格数理・三才五行配置で姓名を評価',
+      lastNameLabel: '姓', firstNameLabel: '名', submitBtn: '分析開始',
+      basicInfo: '基本情報', name: '姓名：', lnLabel: '姓：', fnLabel: '名：',
+      stroke: '画数', wxing: '五行', wugeTitle: '五格数理と五行', sancaiLabel: '三才',
+      totalScore: '総合評価', sancaiTitle: '三才配置',
+      baseFortune: '基礎運', successFortune: '成功運', socialFortune: '社交運',
+      ratingExcellent: '非常に優れた名前です！一生順調に過ごせるでしょう。',
+      ratingGreat: '素晴らしい名前です！幸運を祈ります。',
+      ratingGood: '良い名前です。努力で補えます。',
+      ratingFair: '普通の名前です。改善を検討してもよいでしょう。',
+      ratingPoor: 'スコアが低いです。改名を検討してください。',
+      hintSummary: '五格数理に凶が多い場合、経済的損失や健康問題を示唆します',
+    }
+    const ko: Record<string, string> = {
+      title: '성명 분석', subtitle: '이름 점수 & 작명 서비스', loadingKangxi: '⏳ 획수 사전 로딩 중...', loaded: '✓ 로딩 완료',
+      tabScore: '이름 점수', tabNaming: '작명 서비스', tabChars: '작명용 글자',
+      desc: '강희자전 획수·오격수리·삼재오행으로 이름 평가',
+      lastNameLabel: '성', firstNameLabel: '이름', submitBtn: '분석 시작',
+      basicInfo: '기본 정보', name: '성명：', lnLabel: '성：', fnLabel: '이름：',
+      stroke: '획수', wxing: '오행', wugeTitle: '오격수리와 오행', sancaiLabel: '삼재',
+      totalScore: '총평가', sancaiTitle: '삼재 배치',
+      baseFortune: '기초운', successFortune: '성공운', socialFortune: '사회운',
+      ratingExcellent: '매우 우수한 이름입니다! 일생이 순조로울 것입니다.',
+      ratingGreat: '훌륭한 이름입니다! 행운을 빕니다.',
+      ratingGood: '좋은 이름입니다. 노력으로 보완할 수 있습니다.',
+      ratingFair: '평범한 이름입니다. 개선을 고려해보세요.',
+      ratingPoor: '점수가 낮습니다. 개명을 고려하세요.',
+      hintSummary: '오격수리에 흉이 많으면 재정적 손실이나 건강 문제를 시사합니다',
+    }
+    const zhTW: Record<string, string> = {
+      title: '姓名', subtitle: '姓名打分 & 起名服務', loadingKangxi: '⏳ 正在載入筆畫庫...', loaded: '✓ 已載入',
+      tabScore: '姓名打分', tabNaming: '起名服務', tabChars: '起名用字',
+      desc: '基於康熙字典筆畫·五格數理·三才五行配置給姓名打分',
+      lastNameLabel: '姓氏', firstNameLabel: '名字', submitBtn: '開始測算',
+      basicInfo: '姓名基本資料', name: '姓名：', lnLabel: '姓氏：', fnLabel: '名字：',
+      stroke: '筆畫', wxing: '五行', wugeTitle: '姓名五格數理及五行', sancaiLabel: '三才',
+      totalScore: '總評及打分', sancaiTitle: '三才配置',
+      baseFortune: '基礎運', successFortune: '成功運', socialFortune: '社交運',
+      ratingExcellent: '你的名字非常優秀，相信它會助你一生順利的！',
+      ratingGreat: '你的名字起得很好，相信它會助你一生順利的，祝你好運。',
+      ratingFair: '名字一般，可以考慮改進。',
+      ratingPoor: '名字評分較低，建議考慮改名。',
+      ratingGood: '名字不錯，略有不足可以通過努力彌補。',
+      hintSummary: '說明：若五格數理暗示的凶數運較多，表示易破財、事業不順、影響健康和家庭',
+    }
+    const zhCN: Record<string, string> = {
+      title: '姓名', subtitle: '姓名打分 & 起名服务', loadingKangxi: '⏳ 正在加载笔画库...', loaded: '✓ 已加载',
+      tabScore: '姓名打分', tabNaming: '起名服务', tabChars: '起名用字',
+      desc: '基于康熙字典笔画·五格数理·三才五行配置给姓名打分',
+      lastNameLabel: '姓氏', firstNameLabel: '名字', submitBtn: '开始测算',
+      basicInfo: '姓名基本资料', name: '姓名：', lnLabel: '姓氏：', fnLabel: '名字：',
+      stroke: '笔画', wxing: '五行', wugeTitle: '姓名五格数理及五行', sancaiLabel: '三才',
+      totalScore: '总评及打分', sancaiTitle: '三才配置',
+      baseFortune: '基础运', successFortune: '成功运', socialFortune: '社交运',
+      ratingExcellent: '你的名字非常优秀，相信它会助你一生顺利的！',
+      ratingGreat: '你的名字起得很好，相信它会助你一生顺利的，祝你好运。',
+      ratingGood: '名字不错，略有不足可以通过努力弥补。',
+      ratingFair: '名字一般，可以考虑改进。',
+      ratingPoor: '名字评分较低，建议考虑改名。',
+      hintSummary: '说明：若五格数理暗示的凶数运较多，表示易破财、事业不顺、影响健康和家庭',
+    }
+    const map: Record<string, Record<string, string>> = { 'zh-CN': zhCN, 'zh-TW': zhTW, 'en': en, 'ja': ja, 'ko': ko }
+    return map[l] || zhCN
+  }, [locale])
+
   const [tab, setTab] = useState<'score'|'naming'|'wuxing'>('score')
 
   const [lastName, setLastName] = useState('')
@@ -610,54 +702,54 @@ export default function XingmingClient() {
   const r = result
 
   return (<div className="max-w-3xl mx-auto px-4 py-10">
-    <h1 className="text-3xl font-bold text-gold-400 font-serif mb-3">姓名</h1>
+    <h1 className="text-3xl font-bold text-gold-400 font-serif mb-3">{L.title}</h1>
     <p className="text-gray-400 mb-6">
-      姓名打分 & 起名服务
-      {!kangxiLoaded && <span className="text-amber-600 text-xs ml-2">⏳ 正在加载笔画库...</span>}
-      {kangxiLoaded && kangxiStrokes && <span className="text-xs text-gray-500 ml-2">✓ 已加载</span>}
+      {L.subtitle}
+      {!kangxiLoaded && <span className="text-amber-600 text-xs ml-2">{L.loadingKangxi}</span>}
+      {kangxiLoaded && kangxiStrokes && <span className="text-xs text-gray-500 ml-2">{L.loaded}</span>}
     </p>
     
     {/* Tab 切换 */}
     <div className="flex gap-1 bg-dark-700 rounded-lg p-1 mb-6 max-w-md mx-auto">
       <button onClick={()=>setTab('score')}
-        className={`flex-1 px-3 py-2 text-xs sm:text-sm rounded-md transition-colors ${tab==='score'?'bg-gold-600 text-dark-900 font-semibold':'text-gray-400 hover:text-gray-200'}`}>姓名打分</button>
+        className={`flex-1 px-3 py-2 text-xs sm:text-sm rounded-md transition-colors ${tab==='score'?'bg-gold-600 text-dark-900 font-semibold':'text-gray-400 hover:text-gray-200'}`}>{L.tabScore}</button>
       <button onClick={()=>setTab('naming')}
-        className={`flex-1 px-3 py-2 text-xs sm:text-sm rounded-md transition-colors ${tab==='naming'?'bg-gold-600 text-dark-900 font-semibold':'text-gray-400 hover:text-gray-200'}`}>起名服务</button>
+        className={`flex-1 px-3 py-2 text-xs sm:text-sm rounded-md transition-colors ${tab==='naming'?'bg-gold-600 text-dark-900 font-semibold':'text-gray-400 hover:text-gray-200'}`}>{L.tabNaming}</button>
       <button onClick={()=>setTab('wuxing')}
-        className={`flex-1 px-3 py-2 text-xs sm:text-sm rounded-md transition-colors ${tab==='wuxing'?'bg-gold-600 text-dark-900 font-semibold':'text-gray-400 hover:text-gray-200'}`}>起名用字</button>
+        className={`flex-1 px-3 py-2 text-xs sm:text-sm rounded-md transition-colors ${tab==='wuxing'?'bg-gold-600 text-dark-900 font-semibold':'text-gray-400 hover:text-gray-200'}`}>{L.tabChars}</button>
     </div>
     
     {tab === 'naming' ? <NamingClient /> : tab === 'wuxing' ? <NamingChars /> : (
     <>
-    <p className="text-gray-400 mb-6">基于康熙字典笔画·五格数理·三才五行配置给姓名打分</p>
+    <p className="text-gray-400 mb-6">{L.desc}</p>
 
     <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-6 mb-8">
       <div className="grid grid-cols-2 gap-4 mb-4">
-        <div><label className="block text-xs text-gray-400 mb-1">姓氏</label>
+        <div><label className="block text-xs text-gray-400 mb-1">{L.lastNameLabel}</label>
           <input type="text" value={lastName} onChange={e => setLastName(e.target.value)}
             className="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200 focus:outline-none focus:border-gold-500" /></div>
-        <div><label className="block text-xs text-gray-400 mb-1">名字</label>
+        <div><label className="block text-xs text-gray-400 mb-1">{L.firstNameLabel}</label>
           <input type="text" value={firstName} onChange={e => setFirstName(e.target.value)}
             className="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200 focus:outline-none focus:border-gold-500" /></div>
       </div>
       <button onClick={analyze}
-        className="bg-gold-600 hover:bg-gold-500 text-dark-900 font-semibold px-6 py-2.5 rounded-lg transition-colors active:scale-95">开始测算</button>
+        className="bg-gold-600 hover:bg-gold-500 text-dark-900 font-semibold px-6 py-2.5 rounded-lg transition-colors active:scale-95">{L.submitBtn}</button>
     </div>
 
     {r && (<div className="space-y-5">
       {/* 基本资料 */}
       <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-5">
-        <h3 className="text-sm font-semibold text-gray-200 mb-3">姓名基本资料</h3>
+        <h3 className="text-sm font-semibold text-gray-200 mb-3">{L.basicInfo}</h3>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs text-gray-300">
-          <div><span className="text-gray-500">姓名：</span>{r.fullName}</div>
-          <div><span className="text-gray-500">姓氏：</span>{r.ln}</div>
-          <div><span className="text-gray-500">名字：</span>{r.fn}</div>
+          <div><span className="text-gray-500">{L.name}</span>{r.fullName}</div>
+          <div><span className="text-gray-500">{L.lnLabel}</span>{r.ln}</div>
+          <div><span className="text-gray-500">{L.fnLabel}</span>{r.fn}</div>
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-2">
           {r.chars.map((c, i: number) => (
             <div key={i} className="bg-dark-700 rounded-lg p-3 text-center border border-dark-600">
               <p className="text-xl font-bold text-gold-400 font-serif">{c.char}</p>
-              <p className="text-[10px] text-gray-500 mt-1">笔画：{c.stroke} · 五行：{c.wuxing} · {c.lucky}</p>
+              <p className="text-[10px] text-gray-500 mt-1">{L.stroke}：{c.stroke} · {L.wxing}：{WU_XING_LANG[c.wuxing]?.[locale] || c.wuxing} · {JI_TYPE_LANG[c.lucky]?.[locale] || c.lucky}</p>
             </div>
           ))}
         </div>
@@ -665,15 +757,15 @@ export default function XingmingClient() {
 
       {/* 五格数理 */}
       <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-5">
-        <h3 className="text-sm font-semibold text-gray-200 mb-3">姓名五格数理及五行</h3>
-        <p className="text-xs text-gray-500 mb-3">其中天、人、地为三才：{r.sancai}</p>
+        <h3 className="text-sm font-semibold text-gray-200 mb-3">{L.wugeTitle}</h3>
+        <p className="text-xs text-gray-500 mb-3">{L.sancaiLabel}：{r.sancai}</p>
         <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
           {r.wuge.map((w, i: number) => (
             <div key={i} className={`rounded-lg p-3 text-center border ${WXC[w.wuxing] || 'bg-dark-700 border-dark-600'}`}>
-              <p className="text-[10px] text-gray-500 mb-0.5">{w.key}</p>
+              <p className="text-[10px] text-gray-500 mb-0.5">{getWugeLabel(w.key, locale)}</p>
               <p className="text-sm font-bold text-gray-100">{w.val}</p>
-              <p className="text-[10px] text-gray-500">五行：{w.wuxing}</p>
-              <p className={`text-[10px] font-semibold ${gradeC[w.score]}`}>{w.score}</p>
+              <p className="text-[10px] text-gray-500">{L.wxing}：{WU_XING_LANG[w.wuxing]?.[locale] || w.wuxing}</p>
+              <p className={`text-[10px] font-semibold ${gradeC[w.score]}`}>{JI_TYPE_LANG[w.score]?.[locale] || w.score}</p>
             </div>
           ))}
         </div>
@@ -683,60 +775,46 @@ export default function XingmingClient() {
       {r.wuge.map((w, i: number) => (
         <div key={i} className="bg-dark-800/80 rounded-xl border border-dark-600 p-5">
           <div className="flex items-center gap-2 mb-2">
-            <h3 className="text-sm font-semibold text-gold-300">{w.key}{w.val}所示之{w.key === '天格' ? '先天运' : w.key === '人格' ? '主运' : w.key === '地格' ? '前运' : w.key === '外格' ? '副运' : '后运'}</h3>
-            <span className={`text-[10px] px-1.5 py-0.5 rounded border ${w.score === '大吉' ? 'border-green-700 text-green-300 bg-green-900/30' : w.score === '凶' || w.score === '大凶' ? 'border-red-700 text-red-300 bg-red-900/30' : 'border-yellow-700 text-yellow-300 bg-yellow-900/30'}`}>{w.score}</span>
+            <h3 className="text-sm font-semibold text-gold-300">{getWugeLabel(w.key, locale)}{w.val}{locale === 'en' ? ' - ' : '所示之'}{getWugeTypeLabel(w.key, locale)}</h3>
+            <span className={`text-[10px] px-1.5 py-0.5 rounded border ${w.score === '大吉' ? 'border-green-700 text-green-300 bg-green-900/30' : w.score === '凶' || w.score === '大凶' ? 'border-red-700 text-red-300 bg-red-900/30' : 'border-yellow-700 text-yellow-300 bg-yellow-900/30'}`}>{JI_TYPE_LANG[w.score]?.[locale] || w.score}</span>
           </div>
           <p className="text-[10px] text-gray-500 mb-2">{w.label}</p>
           <div className="bg-dark-700 rounded-lg p-3">
-            <p className="text-xs text-gold-400 font-semibold mb-1">『数理』：[{w.title}] {w.sign}。[{w.score === '大吉' || w.score === '吉' ? '大吉' : '凶'}]</p>
-            <p className="text-xs text-gold-400 font-semibold mb-1">『签语』：{w.sign}。</p>
-            <p className="text-xs text-gray-300 leading-relaxed mb-1">『含义』：{w.meaning}</p>
-            {w.type && <p className="text-[10px] text-gray-500">{w.key}{w.val}之数理暗示：{w.type}</p>}
+            <p className="text-xs text-gold-400 font-semibold mb-1">[{w.title}] {w.sign}</p>
+            <p className="text-xs text-gray-300 leading-relaxed mb-1">{w.meaning}</p>
+            {w.type && <p className="text-[10px] text-gray-500">{w.key}{w.val}：{w.type}</p>}
           </div>
         </div>
       ))}
 
       {/* 三才配置 */}
       <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-5">
-        <h3 className="text-sm font-semibold text-gray-200 mb-2">三才配置</h3>
-        <p className="text-xs text-gray-500 mb-2">（三才配置吉凶为姓名测试之核心，请重点关注！）</p>
-        <p className="text-xs text-gray-300 mb-3">您姓名的天地人三才配置为：{r.sancai}。{r.scScore === '吉' || r.scScore === '大吉' ? '三才配置良好，运势顺畅，根基稳固，家庭和睦，身体健康。' : r.scScore === '小吉' ? '三才配置尚可，虽有波折但总体平稳。' : '三才配置不佳，基础运薄弱，需多加注意健康和人际关系。'}</p>
+        <h3 className="text-sm font-semibold text-gray-200 mb-2">{L.sancaiTitle}</h3>
+        <p className="text-xs text-gray-300 mb-3">{r.sancai}</p>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
           <div className="bg-dark-700 rounded-lg p-3">
-            <p className="text-[10px] text-gray-500">基础运</p>
-            <p className="text-xs text-gray-300">{r.scScore === '大吉' || r.scScore === '吉' ? '稳固，安泰，能得他人信赖。（吉）' : '不遇苦而自苦，有急变衰落的悲运。（凶）'}</p>
+            <p className="text-[10px] text-gray-500">{L.baseFortune}</p>
+            <p className="text-xs text-gray-300">{r.scScore === '大吉' || r.scScore === '吉' ? '✓' : '⚠'}</p>
           </div>
           <div className="bg-dark-700 rounded-lg p-3">
-            <p className="text-[10px] text-gray-500">成功运</p>
-            <p className="text-xs text-gray-300">{r.scScore === '大吉' || r.scScore === '吉' ? '境遇安定，稳固，身心健康，德性高尚者能有大的成功。（吉）' : '虽有长辈或上司之惠泽栽培，但基础不稳，易遭意外之灾。（凶）'}</p>
+            <p className="text-[10px] text-gray-500">{L.successFortune}</p>
+            <p className="text-xs text-gray-300">{r.scScore === '大吉' || r.scScore === '吉' ? '✓' : '⚠'}</p>
           </div>
           <div className="bg-dark-700 rounded-lg p-3">
-            <p className="text-[10px] text-gray-500">社交运</p>
-            <p className="text-xs text-gray-300">诸事多加细虑，言行谨慎，三思而后行，可化凶为吉。</p>
+            <p className="text-[10px] text-gray-500">{L.socialFortune}</p>
+            <p className="text-xs text-gray-300">{locale === 'en' ? 'Act with caution and prudence' : '诸事多加细虑，言行谨慎，三思而后行，可化凶为吉。'}</p>
           </div>
         </div>
       </div>
 
       {/* 总评 */}
       <div className="bg-dark-800/80 rounded-xl border border-gold-500/30 p-5 text-center">
-        <p className="text-xs text-gray-500 mb-1">总评及打分</p>
+        <p className="text-xs text-gray-500 mb-1">{L.totalScore}</p>
         <p className={`text-4xl font-bold ${r.avgScore >= 80 ? 'text-green-400' : r.avgScore >= 60 ? 'text-yellow-400' : 'text-red-400'}`}>{r.avgScore}</p>
         <p className={`text-sm mt-1 font-semibold ${r.avgScore >= 80 ? 'text-green-400' : r.avgScore >= 60 ? 'text-yellow-400' : 'text-red-400'}`}>
-          {r.avgScore >= 90 ? '你的名字非常优秀，相信它会助你一生顺利的！' : r.avgScore >= 80 ? '你的名字起得很好，相信它会助你一生顺利的，祝你好运。' : r.avgScore >= 70 ? '名字不错，略有不足可以通过努力弥补。' : r.avgScore >= 60 ? '名字一般，可以考虑改进。' : '名字评分较低，建议考虑改名。'}
+          {r.avgScore >= 90 ? L.ratingExcellent : r.avgScore >= 80 ? L.ratingGreat : r.avgScore >= 70 ? L.ratingGood : r.avgScore >= 60 ? L.ratingFair : L.ratingPoor}
         </p>
       </div>
-
-      {/* 数理暗示汇总 */}
-      <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-4">
-        <h3 className="text-xs font-semibold text-gray-200 mb-2">数理暗示汇总</h3>
-        <div className="flex flex-wrap gap-1">
-          {r.wuge.map((w, i: number) => (
-            <span key={i} className={`text-[10px] px-1.5 py-0.5 rounded border ${w.score === '大吉' || w.score === '吉' ? 'border-green-700/40 text-green-300 bg-green-900/20' : 'border-red-700/40 text-red-300 bg-red-900/20'}`}>
-              {w.key}{w.val}：{w.score}
-            </span>
-          ))}
-        </div>
-        <p className="text-[9px] text-gray-500 mt-2">说明：若五格数理暗示的凶数运较多，表示易破财、事业不顺、影响健康和家庭；女命狐独运、首领运及刚性运较多，则代表婚姻不顺。</p>
               <div className="flex justify-end mt-3">
                 <ShareResult
                   text={(() => {
@@ -760,7 +838,6 @@ export default function XingmingClient() {
                   label="📋 复制结果"
                 />
               </div>
-      </div>
     </div>)}
     </>)}
   </div>)

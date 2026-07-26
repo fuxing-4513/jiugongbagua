@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { useT } from '@/lib/i18n'
 import cd from './constellation-data.json'
 import y26 from './y2026.json'
 import y27 from './y2027.json'
@@ -28,13 +29,9 @@ const SIGNS = [
 
 const getSign = (n:string) => SIGNS.findIndex(s => s.name === n)
 const SECTIONS = ['origin','myth','character','love','career','health','symbol','conclusion']
-const SECT_CN: Record<string,string> = {
-  origin:'📜 起源与神话', myth:'🔮 神话传说', character:'💪 性格特征',
-  love:'💕 爱情与人际关系', career:'💼 事业与财富', health:'🏃 健康与生活',
-  symbol:'⭐ 象征意义', conclusion:'📖 结语'
-}
 
 export default function XingzuoClient() {
+  const getT = useT()
   const [tab, setTab] = useState('baike')
   const [selSign, setSelSign] = useState('白羊座')
   const [selYear, setSelYear] = useState('2026')
@@ -52,7 +49,7 @@ export default function XingzuoClient() {
             className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
               tab===t ? 'bg-gold-600 text-dark-900' : 'bg-dark-700 text-gray-400 hover:text-gold-400'
             }`}>
-            {t==='baike' ? '📚 星座百科' : '📅 年度运势'}
+            {t==='baike' ? getT('xingzuoPage.baikeTab') : getT('xingzuoPage.yearlyTab')}
           </button>
         ))}
       </div>
@@ -77,7 +74,7 @@ export default function XingzuoClient() {
           </div>
           {SECTIONS.map(sk => (
             <div key={sk} className="p-4 bg-dark-700/30 rounded-xl border border-dark-600/50">
-              <h3 className="text-sm font-medium text-gold-500 mb-2">{SECT_CN[sk]}</h3>
+              <h3 className="text-sm font-medium text-gold-500 mb-2">{getT('xingzuoPage.' + sk)}</h3>
               <p className="text-sm text-gray-300 leading-relaxed">{data[sk]}</p>
             </div>
           ))}
@@ -115,7 +112,7 @@ export default function XingzuoClient() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            {[{k:'career',icon:'💼',label:'事业运势'},{k:'wealth',icon:'💰',label:'财运走势'},{k:'love',icon:'💕',label:'感情与人际'},{k:'health',icon:'🏃',label:'健康提醒'}].map(s => (
+            {[{k:'career',icon:'💼',label:getT('xingzuoPage.career')},{k:'wealth',icon:'💰',label:getT('xingzuoPage.wealth')},{k:'love',icon:'💕',label:getT('xingzuoPage.love')},{k:'health',icon:'🏃',label:getT('xingzuoPage.health')}].map(s => (
               <div key={s.k} className="p-4 bg-dark-700/30 rounded-xl border border-dark-600/50">
                 <h3 className="text-sm font-medium text-gold-500 mb-2">{s.icon} {s.label}</h3>
                 <p className="text-sm text-gray-300 leading-relaxed">{yf[s.k]}</p>

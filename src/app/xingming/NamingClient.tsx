@@ -2,6 +2,7 @@
 
 import { useState, useCallback } from 'react'
 import { Solar, Lunar } from 'lunar-typescript'
+import { useLocale } from '@/lib/i18n'
 
 const STROKE: Record<string, number> = {
   '㐀':5,
@@ -18476,6 +18477,7 @@ function generateNames(surname: string, wxCount: Record<string,number>, yongShen
   return results.sort((a, b) => b.avgScore - a.avgScore)
 }
 export default function NamingClient() {
+  const { locale } = useLocale()
   const [tab, setTab] = useState<'wuxing'|'gushi'>('wuxing')
   const [surname, setSurname] = useState('')
   const [calType, setCalType] = useState<'solar'|'lunar'>('solar')
@@ -18553,54 +18555,54 @@ export default function NamingClient() {
         <>
           {/* 输入区 */}
           <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-6">
-            <h3 className="text-sm font-semibold text-gray-200 mb-4">输入信息</h3>
+            <h3 className="text-sm font-semibold text-gray-200 mb-4">{locale === 'en' ? 'Input Info' : '输入信息'}</h3>
 
             <div className="mb-4">
-              <label className="block text-xs text-gray-400 mb-1">姓氏</label>
+              <label className="block text-xs text-gray-400 mb-1">{locale === 'en' ? 'Surname' : locale === 'ja' ? '姓' : locale === 'ko' ? '성' : '姓氏'}</label>
               <input type="text" value={surname} onChange={e=>setSurname(e.target.value)} maxLength={2}
                 className="w-32 px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200 focus:outline-none focus:border-gold-500" />
             </div>
 
             <div className="flex items-center gap-3 mb-4">
-              <span className="text-xs text-gray-400">历法：</span>
+              <span className="text-xs text-gray-400">{locale === 'en' ? 'Calendar:' : '历法：'}</span>
               <button onClick={()=>setCalType('solar')}
-                className={`px-3 py-1.5 text-xs rounded-lg transition-colors ${calType==='solar'?'bg-gold-600 text-dark-900':'bg-dark-700 text-gray-400 border border-dark-600'}`}>阳历</button>
+                className={`px-3 py-1.5 text-xs rounded-lg transition-colors ${calType==='solar'?'bg-gold-600 text-dark-900':'bg-dark-700 text-gray-400 border border-dark-600'}`}>{locale === 'en' ? 'Solar' : '阳历'}</button>
               <button onClick={()=>setCalType('lunar')}
-                className={`px-3 py-1.5 text-xs rounded-lg transition-colors ${calType==='lunar'?'bg-gold-600 text-dark-900':'bg-dark-700 text-gray-400 border border-dark-600'}`}>阴历</button>
+                className={`px-3 py-1.5 text-xs rounded-lg transition-colors ${calType==='lunar'?'bg-gold-600 text-dark-900':'bg-dark-700 text-gray-400 border border-dark-600'}`}>{locale === 'en' ? 'Lunar' : '阴历'}</button>
             </div>
 
             <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 mb-4">
-              <div><label className="block text-xs text-gray-400 mb-1">年</label>
+              <div><label className="block text-xs text-gray-400 mb-1">{locale === 'en' ? 'Year' : '年'}</label>
                 <select value={sYear} onChange={e=>setSYear(e.target.value)}
                   className="w-full px-2 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200 text-sm focus:outline-none focus:border-gold-500">
                   {Array.from({length:120},(_,i)=>currentYear-60+i).map(y=><option key={y}>{y}</option>)}
                 </select></div>
-              <div><label className="block text-xs text-gray-400 mb-1">月</label>
+              <div><label className="block text-xs text-gray-400 mb-1">{locale === 'en' ? 'Month' : '月'}</label>
                 <select value={sMonth} onChange={e=>setSMonth(e.target.value)}
                   className="w-full px-2 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200 text-sm focus:outline-none focus:border-gold-500">
                   {Array.from({length:12},(_,i)=><option key={i+1}>{i+1}</option>)}
                 </select></div>
-              <div><label className="block text-xs text-gray-400 mb-1">日</label>
+              <div><label className="block text-xs text-gray-400 mb-1">{locale === 'en' ? 'Day' : '日'}</label>
                 <select value={sDay} onChange={e=>setSDay(e.target.value)}
                   className="w-full px-2 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200 text-sm focus:outline-none focus:border-gold-500">
                   {Array.from({length:31},(_,i)=><option key={i+1}>{i+1}</option>)}
                 </select></div>
-              <div><label className="block text-xs text-gray-400 mb-1">时辰</label>
+              <div><label className="block text-xs text-gray-400 mb-1">{locale === 'en' ? 'Hour' : '时辰'}</label>
                 <select value={sHour} onChange={e=>setSHour(e.target.value)}
                   className="w-full px-2 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200 text-sm focus:outline-none focus:border-gold-500">
                   {Object.entries(HOUR_OPTS.reduce((acc, o) => { const k = o.l.split(' ')[0]; if (!acc[k]) acc[k] = o; return acc }, {} as Record<string,typeof HOUR_OPTS[0]>)).map(([,o]) => <option key={o.v} value={o.v}>{o.l}</option>)}
                 </select></div>
-              <div><label className="block text-xs text-gray-400 mb-1">性别</label>
+              <div><label className="block text-xs text-gray-400 mb-1">{locale === 'en' ? 'Gender' : locale === 'ja' ? '性別' : locale === 'ko' ? '성별' : '性别'}</label>
                 <div className="flex gap-2 mt-1">
                   <button onClick={()=>setGender('male')}
-                    className={`px-3 py-1.5 text-xs rounded-lg ${gender==='male'?'bg-gold-600 text-dark-900':'bg-dark-700 text-gray-400 border border-dark-600'}`}>男</button>
+                    className={`px-3 py-1.5 text-xs rounded-lg ${gender==='male'?'bg-gold-600 text-dark-900':'bg-dark-700 text-gray-400 border border-dark-600'}`}>{locale === 'en' ? 'Male' : locale === 'ja' ? '男' : locale === 'ko' ? '남' : '男'}</button>
                   <button onClick={()=>setGender('female')}
-                    className={`px-3 py-1.5 text-xs rounded-lg ${gender==='female'?'bg-gold-600 text-dark-900':'bg-dark-700 text-gray-400 border border-dark-600'}`}>女</button>
+                    className={`px-3 py-1.5 text-xs rounded-lg ${gender==='female'?'bg-gold-600 text-dark-900':'bg-dark-700 text-gray-400 border border-dark-600'}`}>{locale === 'en' ? 'Female' : locale === 'ja' ? '女' : locale === 'ko' ? '여' : '女'}</button>
                 </div></div>
             </div>
 
             <button onClick={handleWuxingSubmit}
-              className="bg-gold-600 hover:bg-gold-500 text-dark-900 font-semibold px-6 py-2.5 rounded-lg transition-colors active:scale-95">开始起名</button>
+              className="bg-gold-600 hover:bg-gold-500 text-dark-900 font-semibold px-6 py-2.5 rounded-lg transition-colors active:scale-95">{locale === 'en' ? 'Generate Names' : locale === 'ja' ? '命名を開始' : locale === 'ko' ? '작명 시작' : '开始起名'}</button>
             {lunarInfo && <p className="text-xs text-gray-500 mt-2">{lunarInfo}</p>}
             {wxError && <p className="text-xs text-red-400 mt-2">{wxError}</p>}
           </div>

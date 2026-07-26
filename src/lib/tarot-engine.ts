@@ -10,6 +10,8 @@ import {
   getCardMeaning,
   getLocalizedText,
 } from '@cometpisces/tarot-kit'
+
+import { TAROT_ORIENTATION_LANG } from './tarot-data'
 import type {
   TarotCard,
   DrawnCard,
@@ -140,11 +142,23 @@ export interface CardInterpretation {
   advice: string         // advice aspect
 }
 
+/** Get localized text from a multilang object */
+function getLangText(obj: any, lang: string): string {
+  if (!obj) return ''
+  // Use the package's getLocalizedText if available, otherwise fall back
+  try {
+    const text = getLocalizedText(obj, lang as any)
+    if (text) return text
+  } catch {}
+  return obj[lang] || obj['zh-CN'] || ''
+}
+
 /** Build rich interpretation for a drawn card at a spread position */
 export function interpretCard(
   card: TarotCard,
   orientation: CardOrientation,
   position: SpreadPosition,
+  lang: string = 'zh-CN',
 ): CardInterpretation {
   const isUp = orientation === 'upright'
   const meaning = card.meaning[isUp ? 'upright' : 'reversed']
@@ -161,27 +175,35 @@ export function interpretCard(
     contextualText = card.contextualMeanings[position.context]
   }
 
+  const orientationLabel = isUp
+    ? (TAROT_ORIENTATION_LANG.upright[lang] || TAROT_ORIENTATION_LANG.upright['zh-CN'])
+    : (TAROT_ORIENTATION_LANG.reversed[lang] || TAROT_ORIENTATION_LANG.reversed['zh-CN'])
+
   return {
-    title: `${isUp ? '▲' : '▼'} ${card.name.zh}`,
-    orientationLabel: isUp ? '正位' : '逆位',
+    title: `${isUp ? '▲' : '▼'} ${getLangText(card.name, lang)}`,
+    orientationLabel,
     isUpright: isUp,
-    core: meaning.zh,
-    aspect: aspectText.zh,
-    contextual: contextualText ? contextualText[isUp ? 'upright' : 'reversed'].zh : '',
-    advice: adviceText.zh,
+    core: getLangText(meaning, lang),
+    aspect: getLangText(aspectText, lang),
+    contextual: contextualText ? getLangText(contextualText[isUp ? 'upright' : 'reversed'], lang) : '',
+    advice: getLangText(adviceText, lang),
   }
 }
 
 /** Get a compact summary line for a card */
-export function getCardSummary(card: TarotCard, orientation: CardOrientation): string {
+export function getCardSummary(card: TarotCard, orientation: CardOrientation, lang: string = 'zh-CN'): string {
   const isUp = orientation === 'upright'
   const meaning = card.meaning[isUp ? 'upright' : 'reversed']
-  return `${card.name.zh}（${isUp ? '正位' : '逆位'}）：${meaning.zh}`
+  const name = getLangText(card.name, lang)
+  const orient = isUp
+    ? (TAROT_ORIENTATION_LANG.upright[lang] || TAROT_ORIENTATION_LANG.upright['zh-CN'])
+    : (TAROT_ORIENTATION_LANG.reversed[lang] || TAROT_ORIENTATION_LANG.reversed['zh-CN'])
+  return `${name}（${orient}）：${getLangText(meaning, lang)}`
 }
 
 /** Get card display name */
-export function getCardDisplayName(card: TarotCard): string {
-  return card.name.zh
+export function getCardDisplayName(card: TarotCard, lang: string = 'zh-CN'): string {
+  return getLangText(card.name, lang)
 }
 
 /** Element emoji for a card */

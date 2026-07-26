@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
+import { useLocale } from '@/lib/i18n'
 
 // ── 64卦数据 ──
 import { HD, type HexagramData } from './hexagram-data'
@@ -159,6 +160,7 @@ function YaoLineWithChange({ v, idx, shiYao, yingYao, gong, hexNum, changing }: 
 }
 
 export default function LiuyaoClient() {
+  const { locale } = useLocale()
   const [mode, setMode] = useState<'auto' | 'manual'>('manual')
   const [result, setResult] = useState<{lines: number[]; changing: number[]; hexagram: HexagramData; cv: HexagramData | null; gong: string; shiYao: number; yingYao: number} | null>(null)
 
@@ -445,7 +447,7 @@ export default function LiuyaoClient() {
                 {isTossing ? '🪙 铜钱翻转中...' : `🪙 摇第 ${tossCount + 1} 次`}
               </button>
             ) : (
-              <p className="text-gold-400 text-sm">卦已成形 ↓</p>
+              <p className="text-gold-400 text-sm">{locale === 'en' ? 'Hexagram formed ↓' : locale === 'ja' ? '卦已完成 ↓' : locale === 'ko' ? '괘 형성 ↓' : '卦已成形 ↓'}</p>
             )}
             <p className="text-[10px] text-gray-600 mt-2">
               {tossCount < 6 ? `三枚铜钱 · 共摇六次 · 已完成 ${completedCount}/6` : '六爻齐备'}
@@ -482,7 +484,7 @@ export default function LiuyaoClient() {
               <div className="flex items-center gap-3">
                 <span className="text-gold-400 text-lg animate-pulse">☯</span>
                 <span className="text-gold-400 text-base font-serif">
-                  {autoAnimStep >= 6 ? '卦成！' : `第 ${autoAnimStep + 1} 爻`}
+                  {autoAnimStep >= 6 ? (locale === 'en' ? 'Hexagram formed!' : locale === 'ja' ? '卦成！' : locale === 'ko' ? '괘 완성!' : '卦成！') : `${locale === 'en' ? 'Line' : locale === 'ja' ? '第' : locale === 'ko' ? '제 ' : '第 '}${autoAnimStep + 1}${locale === 'en' ? '' : locale === 'ja' ? '爻' : locale === 'ko' ? '효' : '爻'}`}
                 </span>
               </div>
 
@@ -504,7 +506,7 @@ export default function LiuyaoClient() {
               {autoCoinPhase === 'landed' && autoCurrentDesc && (
                 <div className="text-center animate-fadeIn bg-dark-900/60 rounded-lg px-6 py-3 border border-gold-900/30">
                   <p className="text-sm text-gray-300">
-                    {autoCurrentCoins.filter(Boolean).length} 阳 {autoCurrentCoins.filter(b => !b).length} 阴
+                    {autoCurrentCoins.filter(Boolean).length} {locale === 'en' ? 'heads' : locale === 'ja' ? '陽' : locale === 'ko' ? '양' : '阳'} {autoCurrentCoins.filter(b => !b).length} {locale === 'en' ? 'tails' : locale === 'ja' ? '陰' : locale === 'ko' ? '음' : '阴'}
                   </p>
                   <p className="text-base font-bold text-gold-400 mt-1">{autoCurrentDesc}</p>
                 </div>
@@ -562,7 +564,7 @@ export default function LiuyaoClient() {
               </div>
 
               <p className="text-[10px] text-gray-500">
-                {autoCoinPhase === 'tossing' ? '🪙 铜钱正在翻转中...' : autoCoinPhase === 'landed' ? '✓ 本爻已定，即将进入下一爻...' : ''}
+                {autoCoinPhase === 'tossing' ? '🪙 ' + (locale === 'en' ? 'Coins flipping...' : locale === 'ja' ? '銅銭が回転中...' : locale === 'ko' ? '동전이 회전 중...' : '铜钱正在翻转中...') : autoCoinPhase === 'landed' ? (locale === 'en' ? '✓ This line set, moving to next...' : locale === 'ja' ? '✓ 本爻確定、次爻へ...' : locale === 'ko' ? '✓ 이 효 확정, 다음 효로...' : '✓ 本爻已定，即将进入下一爻...') : ''}
               </p>
             </div>
           ) : (
@@ -576,13 +578,13 @@ export default function LiuyaoClient() {
                 ))}
               </div>
 
-              <p className="text-gray-400 text-sm">三枚乾隆通宝，六次投掷成卦</p>
+              <p className="text-gray-400 text-sm">{locale === 'en' ? 'Three coins, six tosses to form a hexagram' : locale === 'ja' ? '三枚の乾隆通宝、六回投擲で卦を成す' : locale === 'ko' ? '세 개의 동전, 여섯 번 던져 괘를 이룸' : '三枚乾隆通宝，六次投掷成卦'}</p>
 
               <button onClick={autoCast} className="bg-gold-600 hover:bg-gold-500 text-dark-900 font-semibold px-10 py-4 rounded-lg text-xl transition-all active:scale-95 shadow-lg shadow-gold-900/20">
-                ☯ 一键起卦
+                ☯ {locale === 'en' ? 'Cast Now' : locale === 'ja' ? '一発起卦' : locale === 'ko' ? '한 번에 점괘' : '一键起卦'}
               </button>
 
-              <p className="text-[10px] text-gray-600">系统自动模拟六次铜钱投掷，逐爻展示</p>
+              <p className="text-[10px] text-gray-600">{locale === 'en' ? 'System simulates six coin tosses with animation' : locale === 'ja' ? 'システムが六回の銅銭投擲を自動模擬、逐爻表示' : locale === 'ko' ? '시스템이 여섯 번 동전 던지기를 자동 시뮬레이션' : '系统自动模拟六次铜钱投掷，逐爻展示'}</p>
             </div>
           )}
         </div>
@@ -699,7 +701,7 @@ export default function LiuyaoClient() {
           {/* 重新起卦 */}
           <div className="text-center">
             <button onClick={reset} className="text-xs text-gray-500 hover:text-gold-400 underline transition-colors">
-              重新起卦
+              {locale === 'en' ? 'Recast' : locale === 'ja' ? '再起卦' : locale === 'ko' ? '다시 점치기' : '重新起卦'}
             </button>
           </div>
         </div>

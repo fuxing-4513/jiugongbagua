@@ -4,6 +4,48 @@
 
 export type JiType = '大吉' | '中吉' | '凶';
 
+// ── 多语言翻译 ──
+
+export const JI_TYPE_LANG: Record<string, Record<string, string>> = {
+  '大吉': { 'zh-CN': '大吉', 'zh-TW': '大吉', 'en': 'Great Auspicious', 'ja': '大吉', 'ko': '대길' },
+  '中吉': { 'zh-CN': '中吉', 'zh-TW': '中吉', 'en': 'Moderate Auspicious', 'ja': '中吉', 'ko': '중길' },
+  '凶': { 'zh-CN': '凶', 'zh-TW': '凶', 'en': 'Inauspicious', 'ja': '凶', 'ko': '흉' },
+}
+
+export const WUGE_KEY_LANG: Record<string, Record<string, string>> = {
+  '天格': { 'zh-CN': '天格', 'zh-TW': '天格', 'en': 'Heaven Grid', 'ja': '天格', 'ko': '천격' },
+  '人格': { 'zh-CN': '人格', 'zh-TW': '人格', 'en': 'Person Grid', 'ja': '人格', 'ko': '인격' },
+  '地格': { 'zh-CN': '地格', 'zh-TW': '地格', 'en': 'Earth Grid', 'ja': '地格', 'ko': '지격' },
+  '外格': { 'zh-CN': '外格', 'zh-TW': '外格', 'en': 'Outer Grid', 'ja': '外格', 'ko': '외격' },
+  '总格': { 'zh-CN': '总格', 'zh-TW': '總格', 'en': 'Total Grid', 'ja': '総格', 'ko': '총격' },
+}
+
+export const WUGE_TYPE_LANG: Record<string, Record<string, string>> = {
+  '天格': { 'zh-CN': '先天运', 'zh-TW': '先天運', 'en': 'Innate Fortune', 'ja': '先天運', 'ko': '선천운' },
+  '人格': { 'zh-CN': '主运', 'zh-TW': '主運', 'en': 'Main Fortune', 'ja': '主運', 'ko': '주운' },
+  '地格': { 'zh-CN': '前运', 'zh-TW': '前運', 'en': 'Early Fortune', 'ja': '前運', 'ko': '전운' },
+  '外格': { 'zh-CN': '副运', 'zh-TW': '副運', 'en': 'Secondary Fortune', 'ja': '副運', 'ko': '부운' },
+  '总格': { 'zh-CN': '后运', 'zh-TW': '後運', 'en': 'Late Fortune', 'ja': '後運', 'ko': '후운' },
+}
+
+export const WU_XING_LANG: Record<string, Record<string, string>> = {
+  '木': { 'zh-CN': '木', 'zh-TW': '木', 'en': 'Wood', 'ja': '木', 'ko': '목' },
+  '火': { 'zh-CN': '火', 'zh-TW': '火', 'en': 'Fire', 'ja': '火', 'ko': '화' },
+  '土': { 'zh-CN': '土', 'zh-TW': '土', 'en': 'Earth', 'ja': '土', 'ko': '토' },
+  '金': { 'zh-CN': '金', 'zh-TW': '金', 'en': 'Metal', 'ja': '金', 'ko': '금' },
+  '水': { 'zh-CN': '水', 'zh-TW': '水', 'en': 'Water', 'ja': '水', 'ko': '수' },
+}
+
+/** Get translated text for a grid key */
+export function getWugeLabel(key: string, lang: string): string {
+  return WUGE_KEY_LANG[key]?.[lang] || key
+}
+
+/** Get translated type text */
+export function getWugeTypeLabel(key: string, lang: string): string {
+  return WUGE_TYPE_LANG[key]?.[lang] || key
+}
+
 export interface WugeGrid {
   num: number;
   wuxing: string;

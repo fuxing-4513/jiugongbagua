@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { useT, useLocale } from '@/lib/i18n'
 import { Solar, Lunar } from 'lunar-typescript'
 import ShareResult from '../../components/ShareResult'
 import CalendarInput, { type CalendarType } from '@/components/CalendarInput'
@@ -217,6 +218,8 @@ function mingShuAnalysis(liang: number, qian: number, level: string, gender: str
 }
 
 export default function ChengguClient() {
+  const getT = useT()
+  useLocale()
   const [calendarType, setCalendarType] = useState<CalendarType>('solar')
   const [gender, setGender] = useState<'male'|'female'>('male')
   const [year, setYear] = useState('1990')
@@ -269,8 +272,8 @@ export default function ChengguClient() {
   const r = result
 
   return (<div className="max-w-2xl mx-auto px-4 py-10">
-    <h1 className="text-3xl font-bold text-gold-400 font-serif mb-3">称骨测算</h1>
-    <p className="text-gray-400 mb-6">袁天罡称骨法：支持阳历/阴历输入，自动换算。男命女命分断，精准解读命运骨重。</p>
+    <h1 className="text-3xl font-bold text-gold-400 font-serif mb-3">{getT('chengguPage.title')}</h1>
+    <p className="text-gray-400 mb-6">{getT('chengguPage.desc')}</p>
 
     <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-6 mb-8">
       {/* 历法 & 性别 */}
@@ -292,24 +295,24 @@ export default function ChengguClient() {
         />
 
         <div className="flex items-center gap-2">
-          <span className="text-xs text-gray-400">性别：</span>
+          <span className="text-xs text-gray-400">{getT('chengguPage.genderLabel')}</span>
           <div className="flex bg-dark-700 rounded-lg p-1 gap-1">
             <button onClick={()=>{setGender('male');setResult(null)}}
-              className={`px-4 py-1.5 rounded-md text-xs font-medium transition-all ${gender==='male'?'bg-blue-500 text-white':'text-gray-400'}`}>♂ 男命</button>
+              className={`px-4 py-1.5 rounded-md text-xs font-medium transition-all ${gender==='male'?'bg-blue-500 text-white':'text-gray-400'}`}>♂ {getT('chengguPage.maleLabel')}</button>
             <button onClick={()=>{setGender('female');setResult(null)}}
-              className={`px-4 py-1.5 rounded-md text-xs font-medium transition-all ${gender==='female'?'bg-pink-500 text-white':'text-gray-400'}`}>♀ 女命</button>
+              className={`px-4 py-1.5 rounded-md text-xs font-medium transition-all ${gender==='female'?'bg-pink-500 text-white':'text-gray-400'}`}>♀ {getT('chengguPage.femaleLabel')}</button>
           </div>
-          <span className="text-[10px] text-gray-500 ml-1">男女断语不同</span>
+          <span className="text-[10px] text-gray-500 ml-1">{getT('chengguPage.genderNote')}</span>
         </div>
       </div>
 
-      <button onClick={calc} className="bg-gold-600 hover:bg-gold-500 text-dark-900 font-semibold px-6 py-2.5 rounded-lg transition-colors active:scale-95 mt-4">称骨测算</button>
+      <button onClick={calc} className="bg-gold-600 hover:bg-gold-500 text-dark-900 font-semibold px-6 py-2.5 rounded-lg transition-colors active:scale-95 mt-4">{getT('chengguPage.submit')}</button>
     </div>
 
     {r && (<div className="space-y-4">
       <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-5 text-center">
         <p className="text-xs text-gray-500 mb-1">
-          {r.gender === 'male' ? '♂ 男命' : '♀ 女命'} · 出生年柱：{r.gzYear}
+          {r.gender === 'male' ? `♂ ${getT('chengguPage.maleLabel')}` : `♀ ${getT('chengguPage.femaleLabel')}`} · {getT('chengguPage.yearCol')}：{r.gzYear}
         </p>
         <p className="text-[10px] text-gray-400">阳历：{r.solarLabel}</p>
         <p className="text-[10px] text-gray-400 mb-2">阴历：{r.lunarLabel}</p>
@@ -319,10 +322,10 @@ export default function ChengguClient() {
 
       <div className="grid grid-cols-4 gap-2 text-xs">
         {[
-          {label:'年柱',v:r.gzYear,w:`${r.yearW}两`},
-          {label:'月(农历)',w:`${r.monthW}两`,v:`${r.lMonth}月`},
-          {label:'日(农历)',w:`${r.dayW}两`,v:`${r.lDay}日`},
-          {label:'时柱',w:`${r.hourW}两`,v:r.dz+'时'},
+          {label:getT('chengguPage.yearCol'),v:r.gzYear,w:`${r.yearW}两`},
+          {label:getT('chengguPage.monthCol'),w:`${r.monthW}两`,v:`${r.lMonth}月`},
+          {label:getT('chengguPage.dayCol'),w:`${r.dayW}两`,v:`${r.lDay}日`},
+          {label:getT('chengguPage.hourCol'),w:`${r.hourW}两`,v:r.dz+'时'},
         ].map((x,i)=>(
           <div key={i} className="bg-dark-700 rounded-lg p-2 text-center border border-dark-600">
             <p className="text-gray-500">{x.label}</p><p className="text-gray-200">{x.v}</p><p className="text-gold-400">{x.w}</p>
@@ -345,35 +348,35 @@ export default function ChengguClient() {
         <p className="text-xs text-amber-300 mb-3 leading-relaxed">{r.mingShu.overview}</p>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
           <div className="bg-dark-700/60 rounded-lg p-3">
-            <h4 className="text-blue-400 font-semibold mb-1">🧠 性格</h4>
+            <h4 className="text-blue-400 font-semibold mb-1">{getT('chengguPage.personality')}</h4>
             <p className="text-gray-300 leading-relaxed">{r.mingShu.personality}</p>
           </div>
           <div className="bg-dark-700/60 rounded-lg p-3">
-            <h4 className="text-pink-400 font-semibold mb-1">💕 婚姻</h4>
+            <h4 className="text-pink-400 font-semibold mb-1">{getT('chengguPage.marriage')}</h4>
             <p className="text-gray-300 leading-relaxed">{r.mingShu.marriage}</p>
           </div>
           <div className="bg-dark-700/60 rounded-lg p-3">
-            <h4 className="text-cyan-400 font-semibold mb-1">💼 事业</h4>
+            <h4 className="text-cyan-400 font-semibold mb-1">{getT('chengguPage.career')}</h4>
             <p className="text-gray-300 leading-relaxed">{r.mingShu.career}</p>
           </div>
           <div className="bg-dark-700/60 rounded-lg p-3">
-            <h4 className="text-green-400 font-semibold mb-1">💰 财运</h4>
+            <h4 className="text-green-400 font-semibold mb-1">{getT('chengguPage.wealth')}</h4>
             <p className="text-gray-300 leading-relaxed">{r.mingShu.wealth}</p>
           </div>
         </div>
         <div className="mt-3 bg-dark-700/60 rounded-lg p-3">
-          <h4 className="text-red-400 font-semibold mb-1 text-xs">❤️ 健康</h4>
+          <h4 className="text-red-400 font-semibold mb-1 text-xs">{getT('chengguPage.health')}</h4>
           <p className="text-gray-300 leading-relaxed text-xs">{r.mingShu.health}</p>
         </div>
         <div className="mt-3 bg-gold-900/20 rounded-lg p-3 border border-gold-700/30">
-          <h4 className="text-gold-400 font-semibold mb-1 text-xs">🌟 一生运势提示</h4>
+          <h4 className="text-gold-400 font-semibold mb-1 text-xs">{getT('chengguPage.lifeTips')}</h4>
           <p className="text-gray-200 leading-relaxed text-xs">{r.mingShu.tips}</p>
         </div>
               <div className="flex justify-end mt-3">
                 <ShareResult
                   text={`${r.liang}两${r.qian}钱 - ${r.level}\n\n称骨诗: ${r.poem}\n解读: ${r.interpret}\n\n性格: ${r.mingShu.personality}\n婚姻: ${r.mingShu.marriage}\n事业: ${r.mingShu.career}\n财运: ${r.mingShu.wealth}\n健康: ${r.mingShu.health}`}
                   title="【称骨测算结果】"
-                  label="📋 复制结果"
+                  label={getT('chengguPage.copyResult')}
                 />
               </div>
       </div>

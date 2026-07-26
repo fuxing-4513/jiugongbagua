@@ -301,7 +301,7 @@ export default function HuangliClient() {
                 className="w-20 px-2 py-1 text-center border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-red-300"
                 min={1900} max={2100}
               />
-              <span className="text-sm text-gray-500">年</span>
+              <span className="text-sm text-gray-500">{getT('huangliPage.yearLabel')}</span>
               <input
                 type="number"
                 value={month}
@@ -309,7 +309,7 @@ export default function HuangliClient() {
                 className="w-16 px-2 py-1 text-center border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-red-300"
                 min={1} max={12}
               />
-              <span className="text-sm text-gray-500">月</span>
+              <span className="text-sm text-gray-500">{getT('huangliPage.monthLabel')}</span>
               <input
                 type="number"
                 value={day}
@@ -317,10 +317,10 @@ export default function HuangliClient() {
                 className="w-16 px-2 py-1 text-center border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-red-300"
                 min={1} max={31}
               />
-              <span className="text-sm text-gray-500">日</span>
+              <span className="text-sm text-gray-500">{getT('huangliPage.dayLabel')}</span>
             </div>
             <button onClick={goToday} className="text-xs bg-red-100 text-red-700 px-2 py-1 rounded hover:bg-red-200 transition-colors">
-              今天
+              {getT('huangliPage.goToday')}
             </button>
           </div>
 
@@ -361,15 +361,15 @@ export default function HuangliClient() {
         <div className="bg-gradient-to-r from-red-50 to-amber-50 rounded-xl p-4 mb-6 border border-red-100">
           <div className="grid grid-cols-3 gap-3 text-center">
             <div>
-              <p className="text-xs text-gray-500 mb-1">年柱</p>
+              <p className="text-xs text-gray-500 mb-1">{getT('huangliPage.yearPillarLabel')}</p>
               <p className="text-lg font-bold text-red-900 font-serif">{data.ganZhiYear}</p>
             </div>
             <div>
-              <p className="text-xs text-gray-500 mb-1">月柱</p>
+              <p className="text-xs text-gray-500 mb-1">{getT('huangliPage.monthPillarLabel')}</p>
               <p className="text-lg font-bold text-red-900 font-serif">{data.ganZhiMonth}</p>
             </div>
             <div>
-              <p className="text-xs text-gray-500 mb-1">日柱</p>
+              <p className="text-xs text-gray-500 mb-1">{getT('huangliPage.dayPillarLabel')}</p>
               <p className="text-lg font-bold text-red-900 font-serif">{data.ganZhiDay}</p>
             </div>
           </div>
@@ -378,19 +378,19 @@ export default function HuangliClient() {
         {/* More Info Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
           <div className="bg-gray-50 rounded-lg p-2.5 text-center">
-            <p className="text-xs text-gray-400">喜神</p>
+            <p className="text-xs text-gray-400">{getT('huangliPage.xiShen')}</p>
             <p className="text-sm font-medium text-gray-700">{data.birthGod}</p>
           </div>
           <div className="bg-gray-50 rounded-lg p-2.5 text-center">
-            <p className="text-xs text-gray-400">冲煞</p>
+            <p className="text-xs text-gray-400">{getT('huangliPage.chongSha')}</p>
             <p className="text-sm font-medium text-gray-700">冲{data.conflictZodiac}</p>
           </div>
           <div className="bg-gray-50 rounded-lg p-2.5 text-center">
-            <p className="text-xs text-gray-400">星宿</p>
+            <p className="text-xs text-gray-400">{getT('huangliPage.star')}</p>
             <p className="text-sm font-medium text-gray-700">{data.star}</p>
           </div>
           <div className="bg-gray-50 rounded-lg p-2.5 text-center">
-            <p className="text-xs text-gray-400">建星</p>
+            <p className="text-xs text-gray-400">{getT('huangliPage.jianStar')}</p>
             <p className="text-sm font-medium text-gray-700">{data.twelveStar}</p>
           </div>
         </div>
@@ -437,8 +437,8 @@ export default function HuangliClient() {
       {/* 老黄历吉时查询 */}
       <div className="max-w-3xl mx-auto px-4">
       <div className="bg-white rounded-xl border border-red-100 p-4 mb-4">
-        <h2 className="text-base font-bold text-red-900 mb-1">老黄历吉时查询</h2>
-        <p className="text-xs text-gray-400 mb-3">今日十二时辰（子时→亥时）星神·冲煞·宜忌·财神</p>
+        <h2 className="text-base font-bold text-red-900 mb-1">{getT('huangliPage.auspiciousHourTitle')}</h2>
+        <p className="text-xs text-gray-400 mb-3">{getT('huangliPage.auspiciousHourDesc')}</p>
         {(()=>{const sc=genShiChen(data.ganZhiDay.charAt(0),data.ganZhiDay.charAt(1),data.dayOfYear);return(
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             {sc.map((s,i)=>(
@@ -449,12 +449,12 @@ export default function HuangliClient() {
                   <span className={`ml-auto text-[10px] px-1.5 py-0.5 rounded-full font-medium ${s.starGod.includes("吉")?"bg-green-100 text-green-700":"bg-red-100 text-red-600"}`}>{s.starGod.substring(0,2)}</span>
                 </div>
                 <div className="flex gap-3 text-[10px] text-gray-500">
-                  <span>冲{s.conflict}</span>
-                  <span>财神·{s.wealthGod}</span>
+                  <span>{getT('huangliPage.chongPrefix')}{s.conflict}</span>
+                  <span>{getT('huangliPage.caiShenPrefix')}{s.wealthGod}</span>
                 </div>
                 <div className="flex gap-2 mt-1 text-[10px]">
-                  <span className="text-green-700">宜 {s.suitable}</span>
-                  <span className="text-red-500">忌 {s.avoid}</span>
+                  <span className="text-green-700">{getT('huangliPage.suitable')} {s.suitable}</span>
+                  <span className="text-red-500">{getT('huangliPage.avoid')} {s.avoid}</span>
                 </div>
               </div>
             ))}
@@ -466,8 +466,8 @@ export default function HuangliClient() {
       {/* 二十四节气时间表 */}
       <div className="max-w-3xl mx-auto px-4">
       <div className="bg-white rounded-xl border border-red-100 p-4 mb-4">
-        <h2 className="text-base font-bold text-red-900 mb-1">二十四节气时间表</h2>
-        <p className="text-xs text-gray-400 mb-3">{year}年 太阳到达黄经各节点 · 共24节气 · 每季6个</p>
+        <h2 className="text-base font-bold text-red-900 mb-1">{getT('huangliPage.solarTermsTitle')}</h2>
+        <p className="text-xs text-gray-400 mb-3">{getT('huangliPage.solarTermsDesc').replace('{year}', String(year))}</p>
         <div className="divide-y divide-gray-100">
           {SOLAR_TERMS.map((st,i)=>{
             const m=parseInt(st.date)
@@ -485,7 +485,7 @@ export default function HuangliClient() {
                     <span className={`text-xs font-semibold ${ti}`}>#{se}</span>
                     <span className="text-[10px] text-gray-300">|</span>
                     <span className="text-[10px] text-gray-400">{st.en}</span>
-                    {se===getSeason(month)&&<span className="text-[10px] font-medium text-red-600 ml-auto">● 当前</span>}
+                    {se===getSeason(month)&&<span className="text-[10px] font-medium text-red-600 ml-auto">● {getT('huangliPage.currentLabel')}</span>}
                   </div>
                   <p className="text-xs text-gray-600 leading-relaxed">{st.desc}</p>
                 </div>

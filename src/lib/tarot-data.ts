@@ -435,6 +435,40 @@ export function interpretLean(score: number): { label: string; color: string } {
   return { label: '强烈否', color: 'text-rose-400' }
 }
 
+/** 多语言翻译表 */
+
+/** 塔罗牌多语言：元素名 */
+export const TAROT_ELEMENT_LANG: Record<string, Record<string, string>> = {
+  风: { 'zh-CN': '风', 'zh-TW': '風', 'en': 'Air', 'ja': '風', 'ko': '바람' },
+  火: { 'zh-CN': '火', 'zh-TW': '火', 'en': 'Fire', 'ja': '火', 'ko': '불' },
+  水: { 'zh-CN': '水', 'zh-TW': '水', 'en': 'Water', 'ja': '水', 'ko': '물' },
+  土: { 'zh-CN': '土', 'zh-TW': '土', 'en': 'Earth', 'ja': '土', 'ko': '흙' },
+}
+
+/** 塔罗牌多语言：牌组名称 */
+export const TAROT_SUIT_LANG: Record<string, Record<string, string>> = {
+  'major': { 'zh-CN': '大阿卡纳', 'zh-TW': '大阿卡納', 'en': 'Major Arcana', 'ja': '大アルカナ', 'ko': '메이저 아르카나' },
+  'wands': { 'zh-CN': '权杖', 'zh-TW': '權杖', 'en': 'Wands', 'ja': 'ワンド', 'ko': '완드' },
+  'cups': { 'zh-CN': '圣杯', 'zh-TW': '聖杯', 'en': 'Cups', 'ja': 'カップ', 'ko': '컵' },
+  'swords': { 'zh-CN': '宝剑', 'zh-TW': '寶劍', 'en': 'Swords', 'ja': 'ソード', 'ko': '소드' },
+  'pentacles': { 'zh-CN': '星币', 'zh-TW': '星幣', 'en': 'Pentacles', 'ja': 'ペンタクル', 'ko': '펜타클' },
+}
+
+/** 塔罗牌多语言：正位/逆位 */
+export const TAROT_ORIENTATION_LANG: Record<string, Record<string, string>> = {
+  upright: { 'zh-CN': '正位', 'zh-TW': '正位', 'en': 'Upright', 'ja': '正位置', 'ko': '정위치' },
+  reversed: { 'zh-CN': '逆位', 'zh-TW': '逆位', 'en': 'Reversed', 'ja': '逆位置', 'ko': '역위치' },
+}
+
+/** 倾向分标签多语言 */
+export const LEAN_LABEL_LANG: Record<string, Record<string, string>> = {
+  '强烈是': { 'zh-CN': '强烈是', 'zh-TW': '強烈是', 'en': 'Strong Yes', 'ja': '強くはい', 'ko': '강력한 예' },
+  '倾向是': { 'zh-CN': '倾向是', 'zh-TW': '傾向是', 'en': 'Likely Yes', 'ja': 'はい傾向', 'ko': '예측 예' },
+  '不明确': { 'zh-CN': '不明确', 'zh-TW': '不明確', 'en': 'Unclear', 'ja': '不明確', 'ko': '불명확' },
+  '倾向否': { 'zh-CN': '倾向否', 'zh-TW': '傾向否', 'en': 'Likely No', 'ja': 'いいえ傾向', 'ko': '아니오 예측' },
+  '强烈否': { 'zh-CN': '强烈否', 'zh-TW': '強烈否', 'en': 'Strong No', 'ja': '強くいいえ', 'ko': '강력한 아니오' },
+}
+
 /** 三牌占卜位置标签 */
 export const THREE_POSITIONS = [
   { key: 'past', label: '过去', desc: '是什么塑造了当下', icon: '🌘' },
@@ -459,6 +493,45 @@ export const LEAN_DESCRIPTIONS: Record<string, string> = {
   '强烈否': '这张牌传递出非常清晰的否定信号。不是惩罚，而是保护。当下的方向或时机严重不对，强行推进只会带来更大的问题。接受这个不，你会省掉很多弯路。',
 }
 
+/** 倾向分文字描述多语言 */
+export const LEAN_DESCRIPTION_LANG: Record<string, Record<string, string>> = {
+  '强烈是': {
+    'zh-CN': '这张牌传递出非常清晰的肯定信号。',
+    'zh-TW': '這張牌傳遞出非常清晰的肯定信號。',
+    'en': 'This card sends a very clear affirmative signal.',
+    'ja': 'このカードは非常に明確な肯定のシグナルを送っています。',
+    'ko': '이 카드는 매우 명확한 긍정 신호를 보내고 있습니다.',
+  },
+  '倾向是': {
+    'zh-CN': '这张牌倾向于肯定，但附带有条件。',
+    'zh-TW': '這張牌傾向於肯定，但附帶有條件。',
+    'en': 'This card leans toward yes, but with conditions.',
+    'ja': 'このカードは「はい」傾向ですが、条件付きです。',
+    'ko': '이 카드는 긍정 쪽으로 기울지만 조건이 있습니다.',
+  },
+  '不明确': {
+    'zh-CN': '不明确通常不代表永远不能，而是现在条件还不够清晰。',
+    'zh-TW': '不明確通常不代表永遠不能，而是現在條件還不夠清晰。',
+    'en': 'Unclear usually doesn\'t mean never—conditions are not clear yet.',
+    'ja': '不明確は永遠にできないという意味ではなく、条件がまだ明確でないということです。',
+    'ko': '불명확은 영원히 할 수 없다는 뜻이 아니라 조건이 아직 명확하지 않다는 뜻입니다.',
+  },
+  '倾向否': {
+    'zh-CN': '这张牌倾向于否定，但未必是永远不要。',
+    'zh-TW': '這張牌傾向於否定，但未必是永遠不要。',
+    'en': 'This card leans toward no, but not necessarily forever.',
+    'ja': 'このカードは「いいえ」傾向ですが、永遠にダメというわけではありません。',
+    'ko': '이 카드는 부정 쪽으로 기울지만 영원히 안 된다는 뜻은 아닙니다.',
+  },
+  '强烈否': {
+    'zh-CN': '这张牌传递出非常清晰的否定信号。不是惩罚，而是保护。',
+    'zh-TW': '這張牌傳遞出非常清晰的否定信號。不是懲罰，而是保護。',
+    'en': 'This card sends a very clear negative signal. It\'s not punishment, but protection.',
+    'ja': 'このカードは非常に明確な否定のシグナルを送っています。罰ではなく、保護です。',
+    'ko': '이 카드는 매우 명확한 부정 신호를 보내고 있습니다. 처벌이 아니라 보호입니다.',
+  },
+}
+
 /** 问题引导 */
 export const QUESTION_GUIDES = [
   { label: '感情', examples: ['我这段关系该继续吗？', '要不要主动联系ta？', '我准备好开始新恋情了吗？'] },
@@ -466,3 +539,25 @@ export const QUESTION_GUIDES = [
   { label: '财务', examples: ['这笔投资值得做吗？', '我该不该换一个理财方式？'] },
   { label: '生活', examples: ['搬家的决定对吗？', '我该不该去学那个新技能？'] },
 ]
+
+/** 获取本地化元素名称 */
+export function getElementLabel(element: string, lang: string): string {
+  return TAROT_ELEMENT_LANG[element]?.[lang] || element
+}
+
+/** 获取本地化牌组名称 */
+export function getSuitLabel(suit: string, lang: string): string {
+  return TAROT_SUIT_LANG[suit]?.[lang] || suit
+}
+
+/** 获取本地化正逆位 */
+export function getOrientationLabel(isUpright: boolean, lang: string): string {
+  return isUpright
+    ? (TAROT_ORIENTATION_LANG.upright[lang] || TAROT_ORIENTATION_LANG.upright['zh-CN'])
+    : (TAROT_ORIENTATION_LANG.reversed[lang] || TAROT_ORIENTATION_LANG.reversed['zh-CN'])
+}
+
+/** 获取本地化倾向分标签 */
+export function getLeanLabel(label: string, lang: string): string {
+  return LEAN_LABEL_LANG[label]?.[lang] || label
+}

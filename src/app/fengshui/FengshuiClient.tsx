@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { useT, useLocale } from '@/lib/i18n'
 
 const BA_GUA = [
   {name:'乾',emoji:'☰',wx:'金',dir:'西北',num:6,attr:'天'},
@@ -41,6 +42,8 @@ const NINE_STARS: Record<string,string> = {
 }
 
 export default function FengshuiClient() {
+  const getT = useT()
+  useLocale()
   const [dir, setDir] = useState('')
   const [gua, setGua] = useState<typeof BA_GUA[number] | null>(null)
   const [door, setDoor] = useState('')
@@ -60,12 +63,12 @@ export default function FengshuiClient() {
   }
 
   return (<div className="max-w-2xl mx-auto px-4 py-10">
-    <h1 className="text-3xl font-bold text-gold-400 font-serif mb-3">风水罗盘</h1>
-    <p className="text-gray-400 mb-6">罗盘八卦方位查询与风水分析</p>
+    <h1 className="text-3xl font-bold text-gold-400 font-serif mb-3">{getT('fengshuiPage.title')}</h1>
+    <p className="text-gray-400 mb-6">{getT('fengshuiPage.desc')}</p>
 
     {/* 八卦罗盘 */}
     <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-6 mb-8">
-      <h3 className="text-sm font-semibold text-gold-400 mb-3 text-center">八卦方位盘</h3>
+      <h3 className="text-sm font-semibold text-gold-400 mb-3 text-center">{getT('fengshuiPage.luopanTitle')}</h3>
       <div className="grid grid-cols-4 gap-2 max-w-sm mx-auto">
         <div></div>
         <div className="text-center bg-dark-700 rounded-lg p-2 border border-dark-600">
@@ -116,29 +119,29 @@ export default function FengshuiClient() {
 
     {/* 方位查询 */}
     <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-6 mb-8">
-      <h3 className="text-sm font-semibold text-gold-400 mb-3">方位查询</h3>
+      <h3 className="text-sm font-semibold text-gold-400 mb-3">{getT('fengshuiPage.queryTitle')}</h3>
       <div className="flex gap-2 mb-4">
-        <input type="text" value={dir} onChange={e=>setDir(e.target.value)} placeholder="输入方位（东/南/西/北/东南/西北/东北/西南）" className="flex-1 px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200 text-sm" />
-        <button onClick={checkDirection} className="bg-gold-600 hover:bg-gold-500 text-dark-900 font-semibold px-4 py-2 rounded-lg text-sm">查询</button>
+        <input type="text" value={dir} onChange={e=>setDir(e.target.value)} placeholder={getT('fengshuiPage.queryPlaceholder')} className="flex-1 px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200 text-sm" />
+        <button onClick={checkDirection} className="bg-gold-600 hover:bg-gold-500 text-dark-900 font-semibold px-4 py-2 rounded-lg text-sm">{getT('fengshuiPage.queryButton')}</button>
       </div>
       {gua && (<div className="space-y-3">
         <div className="bg-dark-700 rounded-lg p-3">
           <p className="text-xs text-gold-400 font-semibold">{gua.dir} · {gua.name}卦（{gua.emoji}）</p>
-          <p className="text-[10px] text-gray-400">五行：{gua.wx} · 属性：{gua.attr} · 洛书数：{gua.num}</p>
+          <p className="text-[10px] text-gray-400">{getT('fengshuiPage.wx')}{gua.wx} · {getT('fengshuiPage.attr')}{gua.attr} · {getT('fengshuiPage.luoshuNum')}{gua.num}</p>
         </div>
         <div className="bg-dark-700 rounded-lg p-3">
           <p className="text-xs text-gray-300 leading-relaxed">{LUOPAN_MEANING[gua.name]}</p>
         </div>
         {door && star && (<div className="grid grid-cols-2 gap-2">
-          <div className="bg-dark-700 rounded-lg p-3"><p className="text-[10px] text-gray-400">八门</p><p className="text-xs text-gold-400">{door}：{EIGHT_DOORS[door]}</p></div>
-          <div className="bg-dark-700 rounded-lg p-3"><p className="text-[10px] text-gray-400">九星</p><p className="text-xs text-gold-400">{star}：{NINE_STARS[star]}</p></div>
+          <div className="bg-dark-700 rounded-lg p-3"><p className="text-[10px] text-gray-400">{getT('fengshuiPage.eightDoors')}</p><p className="text-xs text-gold-400">{door}：{EIGHT_DOORS[door]}</p></div>
+          <div className="bg-dark-700 rounded-lg p-3"><p className="text-[10px] text-gray-400">{getT('fengshuiPage.nineStars')}</p><p className="text-xs text-gold-400">{star}：{NINE_STARS[star]}</p></div>
         </div>)}
       </div>)}
     </div>
 
     {/* 八卦列表 */}
     <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-5">
-      <h3 className="text-xs font-semibold text-gray-200 mb-3">八卦详表</h3>
+      <h3 className="text-xs font-semibold text-gray-200 mb-3">{getT('fengshuiPage.detailTable')}</h3>
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
         {BA_GUA.map(g => (
           <div key={g.name} className="bg-dark-700 rounded-lg p-2 text-center border border-dark-600">

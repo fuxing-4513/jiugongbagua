@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { useT } from '@/lib/i18n'
 import sd from './shengxiao-data.json'
 
 const DATA = sd as Record<string,Record<string,string>>
@@ -11,17 +12,9 @@ const WX: Record<string,string> = {'鼠':'水','牛':'土','虎':'木','兔':'�
 const BRANCH: Record<string,string> = {'鼠':'子','牛':'丑','虎':'寅','兔':'卯','龙':'辰','蛇':'巳','马':'午','羊':'未','猴':'申','鸡':'酉','狗':'戌','猪':'亥'}
 
 const SECTIONS = ['origin','legend','character','symbol','folk','fortune','conclusion']
-const SECT_CN: Record<string,string> = {
-  origin:'📜 起源与传说',
-  legend:'🔮 神话传说',
-  character:'💪 性格特征',
-  symbol:'⭐ 文化象征',
-  folk:'🎭 民俗与艺术',
-  fortune:'📈 运势分析',
-  conclusion:'📖 象征意义结语'
-}
 
 export default function ShengxiaoClient() {
+  const getT = useT()
   const [sel, setSel] = useState('鼠')
 
   const d = DATA[sel]
@@ -51,7 +44,7 @@ export default function ShengxiaoClient() {
 
         {SECTIONS.map(sk => (
           <div key={sk} className="p-4 bg-dark-700/30 rounded-xl border border-dark-600/50">
-            <h3 className="text-sm font-medium text-gold-500 mb-2">{SECT_CN[sk]}</h3>
+            <h3 className="text-sm font-medium text-gold-500 mb-2">{getT('shengxiaoPage.' + sk)}</h3>
             {d[sk].split('\n').map((line:string,i:number) => (
               <p key={i} className={`text-sm text-gray-300 leading-relaxed ${i > 0 ? 'mt-2' : ''}`}>{line}</p>
             ))}

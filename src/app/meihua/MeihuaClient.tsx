@@ -4,7 +4,8 @@ import { useState, useCallback } from 'react'
 import { Solar, Lunar } from 'lunar-typescript'
 import { getMaxDay } from '@/components/CalendarInput'
 import CalendarInput, { type CalendarType } from '@/components/CalendarInput'
-import { MEIHUA_DUANCI, GuaDuanCi, LIFETIME_GUA_EXPLANATION, getNayinWuxing } from '@/lib/meihua-duanci'
+import { MEIHUA_DUANCI, GuaDuanCi, LIFETIME_GUA_EXPLANATION, getNayinWuxing, getGuaRelation, getGuaDuanCi } from '@/lib/meihua-duanci'
+import { useLocale } from '@/lib/i18n'
 
 
 const TRIGRAMS: Record<string,{name:string,wx:string,attr:string}> = {
@@ -196,6 +197,7 @@ function matchAllegory(text: string) {
 type QiguaMethod = 'number' | 'calendarTime' | 'auto' | 'symbolism' | 'lifetime'
 
 export default function MeihuaClient() {
+  const { locale } = useLocale()
   const [method, setMethod] = useState<QiguaMethod>('number')
   const [gender, setGender] = useState('男')
   const [matter, setMatter] = useState('')
@@ -527,38 +529,35 @@ export default function MeihuaClient() {
       )}
 
       <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-5">
-        <h3 className="text-sm font-semibold text-gold-400 mb-2">五行生克</h3>
+        <h3 className="text-sm font-semibold text-gold-400 mb-2">{locale === 'en' ? 'Five Elements' : locale === 'ja' ? '五行生克' : locale === 'ko' ? '오행 생극' : '五行生克'}</h3>
         <p className="text-xs text-gray-300">
-          上卦{r.upper}属{r.upperT?.wx}，下卦{r.lower}属{r.lowerT?.wx}。
-          {r.upperT?.wx === r.lowerT?.wx ? '比和之象，诸事顺利。' :
-           (r.upperT?.wx === '金' && r.lowerT?.wx === '土' || r.upperT?.wx === '木' && r.lowerT?.wx === '水' || r.upperT?.wx === '水' && r.lowerT?.wx === '金' || r.upperT?.wx === '火' && r.lowerT?.wx === '木' || r.upperT?.wx === '土' && r.lowerT?.wx === '火') ? '上卦生下卦，主吉，根基牢固。' :
-           (r.upperT?.wx === '金' && r.lowerT?.wx === '火' || r.upperT?.wx === '火' && r.lowerT?.wx === '水' || r.upperT?.wx === '水' && r.lowerT?.wx === '土' || r.upperT?.wx === '土' && r.lowerT?.wx === '木' || r.upperT?.wx === '木' && r.lowerT?.wx === '金') ? '上卦克下卦，先难后易。' : '相克之象，需谨慎应对。'}
+          {getGuaRelation(r.upperT?.wx || '', r.lowerT?.wx || '', locale)}
         </p>
         {(() => {
           const guaKey = r.upper + r.lower
-          const duan = MEIHUA_DUANCI[guaKey] as GuaDuanCi | undefined
+          const duan = getGuaDuanCi(guaKey, locale)
           if (!duan) return null
           return (
             <div className="mt-4 space-y-3">
               <div>
-                <h4 className="text-xs font-semibold text-gold-500 mb-1">📜 梅花易数断辞</h4>
+                <h4 className="text-xs font-semibold text-gold-500 mb-1">{locale === 'en' ? '📜 Plum Blossom Divination' : locale === 'ja' ? '📜 梅花易数断辞' : locale === 'ko' ? '📜 매화역수 단사' : '📜 梅花易数断辞'}</h4>
                 <p className="text-xs text-gray-300 leading-relaxed">{duan.overall}</p>
               </div>
               <div className="grid grid-cols-2 gap-2">
                 <div className="bg-dark-700/40 rounded-lg p-3">
-                  <p className="text-[10px] text-cyan-400 font-medium mb-1">💼 事业</p>
+                  <p className="text-[10px] text-cyan-400 font-medium mb-1">💼 {locale === 'en' ? 'Career' : locale === 'ja' ? '事業' : locale === 'ko' ? '사업' : '事业'}</p>
                   <p className="text-[11px] text-gray-300 leading-relaxed">{duan.career}</p>
                 </div>
                 <div className="bg-dark-700/40 rounded-lg p-3">
-                  <p className="text-[10px] text-pink-400 font-medium mb-1">❤️ 感情</p>
+                  <p className="text-[10px] text-pink-400 font-medium mb-1">❤️ {locale === 'en' ? 'Love' : locale === 'ja' ? '感情' : locale === 'ko' ? '감정' : '感情'}</p>
                   <p className="text-[11px] text-gray-300 leading-relaxed">{duan.love}</p>
                 </div>
                 <div className="bg-dark-700/40 rounded-lg p-3">
-                  <p className="text-[10px] text-green-400 font-medium mb-1">🌿 健康</p>
+                  <p className="text-[10px] text-green-400 font-medium mb-1">🌿 {locale === 'en' ? 'Health' : locale === 'ja' ? '健康' : locale === 'ko' ? '건강' : '健康'}</p>
                   <p className="text-[11px] text-gray-300 leading-relaxed">{duan.health}</p>
                 </div>
                 <div className="bg-dark-700/40 rounded-lg p-3">
-                  <p className="text-[10px] text-yellow-400 font-medium mb-1">💰 财运</p>
+                  <p className="text-[10px] text-yellow-400 font-medium mb-1">💰 {locale === 'en' ? 'Wealth' : locale === 'ja' ? '財運' : locale === 'ko' ? '재운' : '财运'}</p>
                   <p className="text-[11px] text-gray-300 leading-relaxed">{duan.wealth}</p>
                 </div>
               </div>

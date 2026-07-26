@@ -1,19 +1,20 @@
 'use client'
 
 import { useState } from 'react'
-import { useT } from '@/lib/i18n'
+import { useT, useTArray } from '@/lib/i18n'
 
 const palmMethods = [
-  { name: '大安', fortune: '吉', meaning: '万事平安，谋事顺利' },
-  { name: '留连', fortune: '凶', meaning: '事难成就，去者未还' },
-  { name: '速喜', fortune: '吉', meaning: '喜事来临，行人有信' },
-  { name: '赤口', fortune: '凶', meaning: '口舌是非，官事临身' },
-  { name: '小吉', fortune: '吉', meaning: '凡事皆宜，行人立至' },
-  { name: '空亡', fortune: '凶', meaning: '事不长久，谋事落空' },
+  { name: '大安', fortune: '吉' },
+  { name: '留连', fortune: '凶' },
+  { name: '速喜', fortune: '吉' },
+  { name: '赤口', fortune: '凶' },
+  { name: '小吉', fortune: '吉' },
+  { name: '空亡', fortune: '凶' },
 ]
 
 export default function XiaoliurenClient() {
   const getT = useT()
+  const meanings = useTArray()('xiaoliurenMeanings') as string[]
 
   const [num1, setNum1] = useState('3')
   const [num2, setNum2] = useState('6')
@@ -21,11 +22,13 @@ export default function XiaoliurenClient() {
   const [result, setResult] = useState<typeof palmMethods[0] | null>(null)
   const [showResult, setShowResult] = useState(false)
 
+  const [resIdx, setResIdx] = useState(0)
   const analyze = () => {
     const n1 = parseInt(num1) || 1
     const n2 = parseInt(num2) || 1
     const n3 = parseInt(num3) || 1
     const idx = ((n1 - 1) + (n2 - 1) + (n3 - 1)) % 6
+    setResIdx(idx)
     setResult(palmMethods[idx])
     setShowResult(true)
   }
@@ -66,7 +69,7 @@ export default function XiaoliurenClient() {
             <p className={`text-sm font-semibold mt-1 ${result.fortune === '吉' ? 'text-green-400' : 'text-red-400'}`}>
               {result.fortune === '吉' ? getT('modules.xiaoliuren.lucky') : getT('modules.xiaoliuren.unlucky')}
             </p>
-            <p className="text-sm text-gray-400 mt-2">{result.meaning}</p>
+            <p className="text-sm text-gray-400 mt-2">{meanings[resIdx]}</p>
           </div>
         </div>
       )}

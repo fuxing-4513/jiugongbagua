@@ -4,7 +4,8 @@ import { useState, useEffect, useMemo, useRef } from 'react'
 import ShareResult from '@/components/ShareResult'
 import { dataPath } from '@/lib/anti-scrape'
 import { synonymMatch, multiTermMatch } from '@/lib/dream-synonyms'
-import { generatePsychology } from '@/lib/dream-psychology'
+import { generatePsychology, DREAM_CATEGORY_LANG, PSYCHOLOGY_VIEW_LANG, PSYCHOLOGY_FOOTNOTE } from '@/lib/dream-psychology'
+import { useLocale } from '@/lib/i18n'
 
 interface Dream {
   keyword: string; title: string; category: string
@@ -63,11 +64,108 @@ const CAT_ICON: Record<string, string> = {
   '其他': '📋'
 }
 
-// ── 分类筛选 ──
 const ALL_CATEGORIES = ['动物','自然','人物','物品','场景','情感','颜色','食物','现代','建筑','鬼神','植物','生活','活动','情爱','身体','其他']
 
 export default function JiemengClient() {
-  // 已改用硬编码中文，无需 i18n
+  const { locale } = useLocale()
+
+  // ── UI Text 多语言 ──
+  const uiText = useMemo(() => {
+    const l = locale as string
+    const enBase = {
+      title: 'Dream Interpretation',
+      subtitle: 'Ancient Chinese dream divination & modern psychology',
+      entryCount: '{count} dream entries',
+      loading: 'Loading...',
+      searchPlaceholder: '🔍 Enter dream keyword, e.g.: snake, teeth, water',
+      hotSearch: 'Hot Searches',
+      foundResults: 'Found {count} results',
+      notFound: 'No results found for "{keyword}"',
+      suggestions: 'Try: snake, teeth, water, flying, exam, death',
+      loadMore: 'Load more ({count})',
+      tabClassic: '📜 Classic Dream',
+      tabPsychology: '🧠 Psychology View',
+      ancientText: '📜 Classic Text',
+      modernText: '💡 Modern Reading',
+      detailText: '📖 Detailed Interpretation',
+      searchBtn: 'Search',
+    }
+    const jaBase = {
+      title: '夢占い',
+      subtitle: '周公解夢と現代心理学',
+      entryCount: '{count}件の夢解釈',
+      loading: '読み込み中...',
+      searchPlaceholder: '🔍 夢のキーワードを入力（例：蛇、歯、水）',
+      hotSearch: '人気検索',
+      foundResults: '{count}件見つかりました',
+      notFound: '「{keyword}」の関連夢は見つかりませんでした',
+      suggestions: '例：蛇、歯、水、飛ぶ、試験、死',
+      loadMore: 'もっと見る（{count}）',
+      tabClassic: '📜 古典解釈',
+      tabPsychology: '🧠 心理学視点',
+      ancientText: '📜 古典原文',
+      modernText: '💡 現代語訳',
+      detailText: '📖 詳細解説',
+      searchBtn: '検索',
+    }
+    const koBase = {
+      title: '꿈 해몽',
+      subtitle: '고전 꿈 해석과 현대 심리학',
+      entryCount: '{count}개의 꿈 해석',
+      loading: '로딩 중...',
+      searchPlaceholder: '🔍 꿈 키워드 입력 (예: 뱀, 이, 물)',
+      hotSearch: '인기 검색어',
+      foundResults: '{count}개 결과',
+      notFound: '"{keyword}" 관련 꿈 해석이 없습니다',
+      suggestions: '예: 뱀, 이, 물, 나는, 시험, 죽음',
+      loadMore: '더 보기 ({count})',
+      tabClassic: '📜 고전 해몽',
+      tabPsychology: '🧠 심리학 관점',
+      ancientText: '📜 고전 원문',
+      modernText: '💡 현대 해석',
+      detailText: '📖 상세 해설',
+      searchBtn: '검색',
+    }
+    const zhTW = {
+      title: '周公解夢',
+      subtitle: '含《周公解夢》《夢林玄解》《斷夢秘書》古籍原文 · 支援多詞組合搜索',
+      entryCount: '收錄 {count} 條夢境解析',
+      loading: '載入中...',
+      searchPlaceholder: '🔍 輸入夢境關鍵詞，如：蛇咬、掉牙、夢見水',
+      hotSearch: '熱門搜尋',
+      foundResults: '找到 {count} 條結果',
+      notFound: '未找到 "{keyword}" 的相關解夢',
+      suggestions: '試試：蛇、掉牙、水、飛、考試、死人',
+      loadMore: '載入更多 ({count} 條)',
+      tabClassic: '📜 傳統解夢',
+      tabPsychology: '🧠 心理學視角',
+      ancientText: '📜 古籍原文',
+      modernText: '💡 白話解析',
+      detailText: '📖 詳細解讀',
+      searchBtn: '搜索',
+    }
+    const zhCN = {
+      title: '周公解梦',
+      subtitle: '含《周公解梦》《梦林玄解》《断梦秘书》古籍原文 · 支持多词组合搜索',
+      entryCount: '收录 {count} 条梦境解析',
+      loading: '加载中...',
+      searchPlaceholder: '🔍 输入梦境关键词，如：蛇咬、掉牙、梦见水',
+      hotSearch: '热门搜索',
+      foundResults: '找到 {count} 条结果',
+      notFound: '未找到 "{keyword}" 的相关解梦',
+      suggestions: '试试：蛇、掉牙、水、飞、考试、死人',
+      loadMore: '加载更多 ({count} 条)',
+      tabClassic: '📜 传统解梦',
+      tabPsychology: '🧠 心理学视角',
+      ancientText: '📜 古籍原文',
+      modernText: '💡 白话解析',
+      detailText: '📖 详细解读',
+      searchBtn: '搜索',
+    }
+    const map: Record<string, typeof zhCN> = { 'zh-CN': zhCN, 'zh-TW': zhTW, 'en': enBase, 'ja': jaBase, 'ko': koBase }
+    return map[l] || zhCN
+  }, [locale])
+
   const [loaded, setLoaded] = useState(false)
 
   const [keyword, setKeyword] = useState('')
@@ -154,8 +252,8 @@ export default function JiemengClient() {
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-10">
-      <h1 className="text-3xl font-bold text-gold-700 font-serif mb-3">周公解梦</h1>
-      <p className="text-gray-600 mb-8">{loaded && dreamDB ? `收录 ${dreamDB.length} 条梦境解析` : '加载中...'} · 含《周公解梦》《梦林玄解》《断梦秘书》古籍原文 · 支持多词组合搜索</p>
+      <h1 className="text-3xl font-bold text-gold-700 font-serif mb-3">{uiText.title}</h1>
+      <p className="text-gray-600 mb-8">{loaded && dreamDB ? uiText.entryCount.replace('{count}', String(dreamDB.length)) : uiText.loading} · {uiText.subtitle}</p>
 
       {/* 搜索框 */}
       <div className="bg-white/80 rounded-xl border border-amber-200/60 p-6 mb-4">
@@ -165,16 +263,16 @@ export default function JiemengClient() {
             value={keyword}
             onChange={e => handleInput(e.target.value)}
             onKeyDown={e => e.key === 'Enter' && handleSearch()}
-            placeholder="🔍 输入梦境关键词，如：蛇咬、掉牙、梦见水"
+            placeholder={uiText.searchPlaceholder}
             className="flex-1 px-4 py-2.5 bg-white border border-amber-200 rounded-lg text-gray-800 placeholder-gray-400 focus:outline-none focus:border-gold-500 text-sm sm:text-base"
           />
           <button
             onClick={handleSearch}
             className="bg-gold-600 hover:bg-gold-500 text-dark-900 font-semibold px-5 py-2 rounded-lg transition-colors whitespace-nowrap"
-          >搜索</button>
+          >{uiText.searchBtn}</button>
         </div>
         {loaded && dreamDB && (
-          <p className="text-[10px] text-gray-500 mt-2">📚 收录 {dreamDB.length} 条梦境解析 · 含《周公解梦》《梦林玄解》《断梦秘书》古籍原文 · 支持多词组合搜索</p>
+          <p className="text-[10px] text-gray-500 mt-2">📚 {uiText.entryCount.replace('{count}', String(dreamDB.length))} · {uiText.subtitle}</p>
         )}
       </div>
 
@@ -191,7 +289,7 @@ export default function JiemengClient() {
                   : 'bg-amber-50 border-amber-200 text-gray-600 hover:border-gold-400'
               }`}
             >
-              {CAT_ICON[cat] || '📋'} {cat}
+              {CAT_ICON[cat] || '📋'} {DREAM_CATEGORY_LANG[cat]?.[locale] || cat}
             </button>
           ))}
         </div>
@@ -199,7 +297,7 @@ export default function JiemengClient() {
 
       {/* 热门标签 */}
       <div className="mb-6">
-        <p className="text-xs text-gray-500 mb-2">🔥 热门搜索</p>
+        <p className="text-xs text-gray-500 mb-2">🔥 {uiText.hotSearch}</p>
         <div className="flex flex-wrap gap-1.5">
           {hotKeywords.map((item, i) => (
             <button
@@ -216,14 +314,14 @@ export default function JiemengClient() {
       {/* 搜索结果 */}
       {searched && pagedResults.length > 0 && !selectedDream && (
         <div className="space-y-2">
-          <p className="text-xs text-gray-500 mb-1">找到 {results.length} 条结果</p>
+          <p className="text-xs text-gray-500 mb-1">{uiText.foundResults.replace('{count}', String(results.length))}</p>
           {pagedResults.map((dream, i) => (
             <div key={i}
               onClick={() => setSelectedDream(dream)}
               className="bg-white/80 rounded-xl border border-amber-200/60 p-4 cursor-pointer hover:border-gold-400/60 transition-colors"
             >
               <div className="flex items-center gap-2 mb-1.5">
-                <span className="text-xs bg-amber-100/60 text-gray-600 px-1.5 py-0.5 rounded">{CAT_ICON[dream.category]||''} {dream.category}</span>
+                <span className="text-xs bg-amber-100/60 text-gray-600 px-1.5 py-0.5 rounded">{CAT_ICON[dream.category]||''} {DREAM_CATEGORY_LANG[dream.category]?.[locale] || dream.category}</span>
                 <h3 className="text-base font-medium text-gray-800">{dream.title}</h3>
                 {dream.mood && (
                   <span className="text-[10px] text-gray-500 ml-auto">{dream.mood}</span>
@@ -236,7 +334,7 @@ export default function JiemengClient() {
             <button
               onClick={() => setPage(p => p + 1)}
               className="w-full text-center text-sm text-gold-600 hover:text-gold-700 py-3"
-            >加载更多 ({results.length - page * PAGE_SIZE} 条)</button>
+            >{uiText.loadMore.replace('{count}', String(results.length - page * PAGE_SIZE))}</button>
           )}
         </div>
       )}
@@ -244,8 +342,8 @@ export default function JiemengClient() {
       {/* 无结果 */}
       {searched && results.length === 0 && (
         <div className="bg-white/80 rounded-xl border border-amber-200/60 p-5 text-center">
-          <p className="text-sm text-gray-600 mb-2">未找到 &quot;{keyword}&quot; 的相关解梦</p>
-          <p className="text-xs text-gray-500">试试：蛇、掉牙、水、飞、考试、死人</p>
+          <p className="text-sm text-gray-600 mb-2">{uiText.notFound.replace('{keyword}', keyword)}</p>
+          <p className="text-xs text-gray-500">{uiText.suggestions}</p>
         </div>
       )}
 
@@ -259,8 +357,8 @@ export default function JiemengClient() {
                 className="bg-white/80 border border-amber-200/60 rounded-xl p-4 text-center hover:border-gold-400/60 transition-colors"
               >
                 <div className="text-2xl mb-1">{CAT_ICON[cat] || '📋'}</div>
-                <div className="text-sm text-gray-800">{cat}</div>
-                <div className="text-xs text-gray-500">{count} 条</div>
+                <div className="text-sm text-gray-800">{DREAM_CATEGORY_LANG[cat]?.[locale] || cat}</div>
+                <div className="text-xs text-gray-500">{count} {locale === 'en' ? 'entries' : locale === 'ja' ? '件' : locale === 'ko' ? '개' : '条'}</div>
               </button>
             )
           })}
@@ -276,7 +374,7 @@ export default function JiemengClient() {
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2">
                 <span className="text-xs bg-amber-100/60 text-gray-600 px-2 py-0.5 rounded">
-                  {CAT_ICON[selectedDream.category]} {selectedDream.category}
+                  {CAT_ICON[selectedDream.category]} {DREAM_CATEGORY_LANG[selectedDream.category]?.[locale] || selectedDream.category}
                 </span>
                 <h2 className="text-lg font-bold text-gold-700">{selectedDream.title}</h2>
               </div>
@@ -291,26 +389,26 @@ export default function JiemengClient() {
                 className={`flex-1 text-sm py-1.5 rounded-md transition-colors ${
                   !psychoTab ? 'bg-gold-600 text-dark-900 font-medium' : 'text-gray-600 hover:text-gray-800'
                 }`}
-              >📜 传统解梦</button>
+              >{uiText.tabClassic}</button>
               <button
                 onClick={() => setPsychoTab(true)}
                 className={`flex-1 text-sm py-1.5 rounded-md transition-colors ${
                   psychoTab ? 'bg-gold-600 text-dark-900 font-medium' : 'text-gray-600 hover:text-gray-800'
                 }`}
-              >🧠 心理学视角</button>
+              >{uiText.tabPsychology}</button>
             </div>
 
             {!psychoTab ? (
               <>
                 {/* 古籍原文 */}
                 <div className="bg-amber-50 rounded-lg p-4 mb-4 border border-amber-100/60">
-                  <p className="text-xs text-gold-600/90 mb-1">📜 古籍原文</p>
+                  <p className="text-xs text-gold-600/90 mb-1">{uiText.ancientText}</p>
                   <p className="text-sm text-gray-700 leading-relaxed">{selectedDream.ancient}</p>
                 </div>
 
                 {/* 现代白话 */}
                 <div className="mb-4">
-                  <p className="text-xs text-blue-600/90 mb-1">💡 白话解析</p>
+                  <p className="text-xs text-blue-600/90 mb-1">{uiText.modernText}</p>
                   <p className="text-sm text-gray-700 leading-relaxed">{selectedDream.modern}</p>
                 </div>
               </>
@@ -328,26 +426,26 @@ export default function JiemengClient() {
                     <div className="space-y-4">
                       {/* 荣格分析心理学 */}
                       <div className="bg-violet-50/80 border border-violet-200 rounded-lg p-4">
-                        <p className="text-xs text-violet-600/90 mb-1">🧙 荣格分析心理学</p>
+                        <p className="text-xs text-violet-600/90 mb-1">🧙 {PSYCHOLOGY_VIEW_LANG.jung[locale] || PSYCHOLOGY_VIEW_LANG.jung['zh-CN']}</p>
                         <p className="text-sm text-gray-700 leading-relaxed">{psych.jung}</p>
                       </div>
                       {/* 弗洛伊德精神分析 */}
                       <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
-                        <p className="text-xs text-amber-600/90 mb-1">🛋️ 弗洛伊德精神分析</p>
+                        <p className="text-xs text-amber-600/90 mb-1">🛋️ {PSYCHOLOGY_VIEW_LANG.freud[locale] || PSYCHOLOGY_VIEW_LANG.freud['zh-CN']}</p>
                         <p className="text-sm text-gray-700 leading-relaxed">{psych.freud}</p>
                       </div>
                       {/* 格式塔心理治疗 */}
                       <div className="bg-emerald-50/80 border border-emerald-200 rounded-lg p-4">
-                        <p className="text-xs text-emerald-600/90 mb-1">🎭 格式塔梦境工作</p>
+                        <p className="text-xs text-emerald-600/90 mb-1">🎭 {PSYCHOLOGY_VIEW_LANG.gestalt[locale] || PSYCHOLOGY_VIEW_LANG.gestalt['zh-CN']}</p>
                         <p className="text-sm text-gray-700 leading-relaxed">{psych.gestalt}</p>
                       </div>
                       {/* 综合视角 */}
                       <div className="bg-amber-50 rounded-lg p-4 border border-amber-100/60">
-                        <p className="text-xs text-gray-500 mb-1">💡 综合启示</p>
+                        <p className="text-xs text-gray-500 mb-1">💡 {PSYCHOLOGY_VIEW_LANG.summary[locale] || PSYCHOLOGY_VIEW_LANG.summary['zh-CN']}</p>
                         <p className="text-sm text-gray-700 leading-relaxed">{psych.summary}</p>
                       </div>
                       <div className="text-[10px] text-gray-500 italic mt-1">
-                        基于荣格分析心理学、弗洛伊德释梦理论及格式塔梦境工作法，结合梦境关键词和情绪自动生成
+                        {PSYCHOLOGY_FOOTNOTE[locale] || PSYCHOLOGY_FOOTNOTE['zh-CN']}
                       </div>
                     </div>
                   )
@@ -358,7 +456,7 @@ export default function JiemengClient() {
             {/* 详细解析 */}
             {selectedDream.detail && selectedDream.detail !== selectedDream.modern && (
               <div className="mb-4">
-                <p className="text-xs text-gray-500 mb-1">📖 详细解读</p>
+                <p className="text-xs text-gray-500 mb-1">{uiText.detailText}</p>
                 <p className="text-sm text-gray-600 leading-relaxed">{selectedDream.detail}</p>
               </div>
             )}
@@ -374,7 +472,7 @@ export default function JiemengClient() {
             </div>
               <div className="flex justify-end mt-2">
                 <ShareResult
-                  text={`${selectedDream.title}\n\n古籍原文: ${selectedDream.ancient}\n\n白话解析: ${selectedDream.modern}${selectedDream.detail !== selectedDream.modern ? `\n\n详细解读: ${selectedDream.detail}` : ""}`}
+                  text={`${selectedDream.title}\n\n${uiText.ancientText}: ${selectedDream.ancient}\n\n${uiText.modernText}: ${selectedDream.modern}${selectedDream.detail !== selectedDream.modern ? `\n\n${uiText.detailText}: ${selectedDream.detail}` : ""}`}
                   label="📋 复制解梦"
                 />
               </div>

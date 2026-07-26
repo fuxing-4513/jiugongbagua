@@ -1,6 +1,7 @@
 'use client'
 
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useMemo } from 'react'
+import { useLocale } from '@/lib/i18n'
 
 
 // ── 八星磁场数据（含详解、七星对应、号主分析） ──
@@ -236,6 +237,101 @@ const STAR7 = [
 ]
 
 export default function ShumaClient() {
+  const { locale } = useLocale()
+
+  // ── UI Text 多语言 ──
+  const L = useMemo(() => {
+    const l = locale as string
+    const base: Record<string, string> = {
+      title: '号码测吉凶', subtitle: '基于八星磁场理论，输入手机号快速分析数字能量组合与命主磁场特征。',
+      inputPlaceholder: '输入号码（手机/车牌/QQ/身份证等，字母自动转数字）',
+      analyzeBtn: '开始分析',
+      chartTitle: '八星磁场号码对照表',
+      star7Title: '北斗七星 · 对应天上七星排列',
+      overallScore: '综合评分',
+      pairAnalysis: '组合解析',
+      position: '位置',
+      digit: '数字',
+      field: '磁场',
+      luck: '吉凶',
+      positionFmt: '{pos}-{pos2}位',
+      mainField: '号主 · 磁场最强的星（主要性格特征）',
+      strengths: '✔ 优点',
+      weaknesses: '✘ 缺点',
+      personality: '性格',
+      wealth: '财运',
+      feelings: '感情',
+      marriage: '婚姻',
+      health: '健康',
+      career: '事业',
+      star7Corr: '对应天上七星排列（北斗七星）',
+      fieldStats: '号码八星统计',
+      close: '关闭',
+    }
+    if (l === 'en') {
+      return { ...base,
+        title: 'Number Fortune', subtitle: 'Based on Eight-Star magnetic field theory. Input a number to analyze digital energy and personality traits.',
+        inputPlaceholder: 'Enter phone/license plate/ID number (letters auto-converted)',
+        analyzeBtn: 'Analyze', chartTitle: 'Eight-Star Magnetic Field Chart',
+        star7Title: 'Big Dipper · Seven Star Correspondence',
+        overallScore: 'Overall Score', pairAnalysis: 'Pair Analysis',
+        position: 'Pos', digit: 'Digits', field: 'Field', luck: 'Luck',
+        positionFmt: '{pos}-{pos2}',
+        mainField: 'Dominant Field (Main Personality Traits)',
+        strengths: '✔ Strengths', weaknesses: '✘ Weaknesses',
+        personality: 'Personality', wealth: 'Wealth', feelings: 'Feelings',
+        marriage: 'Marriage', health: 'Health', career: 'Career',
+        star7Corr: 'Big Dipper Correspondence',
+        fieldStats: 'Field Statistics', close: 'Close',
+      }
+    }
+    if (l === 'ja') {
+      return { ...base,
+        title: '番号運勢診断', subtitle: '八星磁場理論に基づき、数字のエネルギーを分析',
+        inputPlaceholder: '番号を入力（携帯/車/QQ/身分証等）',
+        analyzeBtn: '分析開始', chartTitle: '八星磁場番号対照表',
+        star7Title: '北斗七星 · 天空の七星対応',
+        overallScore: '総合評価', pairAnalysis: '組み合わせ解析',
+        position: '位置', digit: '数字', field: '磁場', luck: '吉凶',
+        positionFmt: '{pos}-{pos2}番目',
+        mainField: '主磁場（性格特徴）',
+        strengths: '✔ 長所', weaknesses: '✘ 短所',
+        star7Corr: '北斗七星対応',
+        fieldStats: '八星統計', close: '閉じる',
+      }
+    }
+    if (l === 'ko') {
+      return { ...base,
+        title: '번호 운세', subtitle: '팔성 자기장 이론 기반, 번호 에너지 분석',
+        inputPlaceholder: '번호 입력 (휴대폰/차량/QQ/주민등록번호 등)',
+        analyzeBtn: '분석 시작', chartTitle: '팔성 자기장 번호 대조표',
+        star7Title: '북두칠성 · 하늘의 별자리 대응',
+        overallScore: '종합 평가', pairAnalysis: '조합 분석',
+        position: '위치', digit: '숫자', field: '자기장', luck: '길흉',
+        positionFmt: '{pos}-{pos2}번째',
+        mainField: '주요 자기장 (성격 특징)',
+        strengths: '✔ 장점', weaknesses: '✘ 단점',
+        star7Corr: '북두칠성 대응',
+        fieldStats: '팔성 통계', close: '닫기',
+      }
+    }
+    if (l === 'zh-TW') {
+      return { ...base,
+        title: '號碼測吉凶', subtitle: '基於八星磁場理論，輸入手機號快速分析數字能量組合與命主磁場特徵。',
+        inputPlaceholder: '輸入號碼（手機/車牌/QQ/身份證等，字母自動轉數字）',
+        analyzeBtn: '開始分析', chartTitle: '八星磁場號碼對照表',
+        star7Title: '北斗七星 · 對應天上七星排列',
+        overallScore: '綜合評分', pairAnalysis: '組合解析',
+        position: '位置', digit: '數字', field: '磁場', luck: '吉凶',
+        positionFmt: '{pos}-{pos2}位',
+        mainField: '號主 · 磁場最強的星（主要性格特徵）',
+        strengths: '✔ 優點', weaknesses: '✘ 缺點',
+        star7Corr: '對應天上七星排列（北斗七星）',
+        fieldStats: '號碼八星統計', close: '關閉',
+      }
+    }
+    return base
+  }, [locale])
 
   const [phone, setPhone] = useState('')
   const [result, setResult] = useState<{
@@ -396,7 +492,7 @@ export default function ShumaClient() {
                 <tbody>
                   {result.segments.map((s, i: number) => (
                     <tr key={i} className="border-b border-dark-700/50">
-                      <td className="py-1 pr-2 text-gray-500">{s.position}-{s.position+1}位</td>
+                      <td className="py-1 pr-2 text-gray-500">{L.positionFmt.replace('{pos}', String(s.position)).replace('{pos2}', String(s.position+1))}</td>
                       <td className="py-1 px-2 font-mono text-gray-200">{String(s.pair).padStart(2,'0')}</td>
                       <td className="py-1 px-2" style={s.fieldType ? {color: FIELDS[s.fieldKey]?.color} : {}}>{s.fieldName}</td>
                       <td className="py-1 pl-2">{s.fieldType && <span className={`text-[10px] px-1.5 py-0.5 rounded ${TYPE_STYLE[s.fieldType] || 'bg-dark-700 text-gray-400'}`}>{s.fieldType}</span>}</td>
@@ -456,6 +552,7 @@ export default function ShumaClient() {
           </div>
 
           {/* 号码八星统计 */}
+          <h3 className="text-sm font-semibold text-gray-200 mb-3">{L.fieldStats}</h3>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
             {FIELD_LIST.map(f => {
               const cnt = result.fieldCounts[f.key] || 0
@@ -466,7 +563,7 @@ export default function ShumaClient() {
                     <span className="text-xs font-semibold" style={{color: f.color}}>{f.name}</span>
                     <span className={`text-[9px] px-1 py-0.5 rounded ${TYPE_STYLE[f.type] || ''}`}>{f.type}</span>
                   </div>
-                  <p className="text-lg font-bold text-gray-100">{cnt}<span className="text-xs text-gray-500">次</span></p>
+                  <p className="text-lg font-bold text-gray-100">{cnt}<span className="text-xs text-gray-500">{locale === 'en' ? '' : '次'}</span></p>
                 </button>
               )
             })}

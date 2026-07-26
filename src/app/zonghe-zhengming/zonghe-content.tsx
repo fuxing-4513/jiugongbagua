@@ -6,6 +6,7 @@ import CalendarInput, { type CalendarType } from '@/components/CalendarInput'
 import { enrichBazi } from '@/lib/bazi-enrich'
 import { crossValidate } from '@/lib/zonghe-yinzheng'
 import { calcTrueSolarTime } from '@/lib/solar-time'
+import { useLocale } from '@/lib/i18n'
 
 const HOUR_OPTIONS = [
   { value: '0', label: '子 23:00~00:59' }, { value: '1', label: '丑 01:00~02:59' },
@@ -17,6 +18,7 @@ const HOUR_OPTIONS = [
 ]
 
 export default function ZongheZhengmingPage() {
+  const { locale, t } = useLocale()
   const now = new Date()
   const [cal, setCal] = useState<CalendarType>('solar')
   const [year, setYear] = useState(String(now.getFullYear()))
@@ -30,11 +32,16 @@ export default function ZongheZhengmingPage() {
   const [result, setResult] = useState<any>(null)
   const [error, setError] = useState('')
 
+  const isCN = locale === 'zh-CN' || locale === 'zh-TW'
+
   const doCalc = () => {
     setError('')
     setResult(null)
     const y = parseInt(year), m = parseInt(month), d = parseInt(day), h = parseInt(hour)
-    if (isNaN(y)||isNaN(m)||isNaN(d)||isNaN(h)||m<1||m>12||d<1||d>31) { setError('日期无效'); return }
+    if (isNaN(y)||isNaN(m)||isNaN(d)||isNaN(h)||m<1||m>12||d<1||d>31) {
+      setError(isCN ? '日期无效' : locale === 'ja' ? '日付が無効です' : locale === 'ko' ? '날짜가 유효하지 않습니다' : 'Invalid date')
+      return
+    }
 
     try {
       // 真太阳时修正
@@ -80,7 +87,6 @@ export default function ZongheZhengmingPage() {
         fiveElem,
         zodiac: lunar.getYearShengXiao(),
         solarNote,
-        // 模拟一些紫微数据用于印证演示
         ziweiMock: {
           mingGong: eightChar.getMingGong() || '',
           wuXingJu: { name: fiveElem, number: 0 },
@@ -88,14 +94,34 @@ export default function ZongheZhengmingPage() {
         }
       })
     } catch (e: any) {
-      setError('计算出错：' + (e?.message || '未知错误'))
+      setError(
+        isCN ? '计算出错：' + (e?.message || '未知错误')
+        : locale === 'ja' ? '計算エラー：' + (e?.message || '不明なエラー')
+        : locale === 'ko' ? '계산 오류：' + (e?.message || '알 수 없는 오류')
+        : 'Calculation error: ' + (e?.message || 'unknown error')
+      )
     }
   }
 
+  const title = isCN ? '八字·紫微综合印证'
+    : locale === 'ja' ? '八字·紫微総合検証'
+    : locale === 'ko' ? '사주·자미 종합 검증'
+    : 'Ba Zi & Zi Wei Cross Validation'
+
+  const subtitle = isCN ? '同盘对账 · 六维交叉佐证 · 命格全息解读'
+    : locale === 'ja' ? '同盤照合 · 六次元クロス検証 · 命格全息読解'
+    : locale === 'ko' ? '동반 대조 · 6차원 교차 검증 · 명격 전면 해독'
+    : 'Cross-check · Six-dimension verification · Holographic destiny reading'
+
+  const btnText = isCN ? '开始印证'
+    : locale === 'ja' ? '検証開始'
+    : locale === 'ko' ? '검증 시작'
+    : 'Start Validation'
+
   return (
     <div className="max-w-4xl mx-auto px-4 py-10">
-      <h1 className="text-3xl font-bold text-gold-400 font-serif mb-3">八字·紫微综合印证</h1>
-      <p className="text-gray-400 mb-8">同盘对账 · 六维交叉佐证 · 命格全息解读</p>
+      <h1 className="text-3xl font-bold text-gold-400 font-serif mb-3">{title}</h1>
+      <p className="text-gray-400 mb-8">{subtitle}</p>
 
       <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-6 mb-8">
         <div className="flex gap-4 mb-4 flex-wrap items-end">
@@ -116,51 +142,63 @@ export default function ZongheZhengmingPage() {
             />
           </div>
           <div>
-            <label className="block text-xs text-gray-500 mb-1">时辰</label>
+            <label className="block text-xs text-gray-500 mb-1">{isCN ? '时辰' : locale === 'ja' ? '時刻' : locale === 'ko' ? '시진' : 'Hour'}</label>
             <select value={hour} onChange={e => setHour(e.target.value)}
               className="bg-dark-700 border border-dark-600 rounded-lg px-3 py-2 text-sm text-gray-200">
               {HOUR_OPTIONS.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
             </select>
           </div>
           <div>
-            <label className="block text-xs text-gray-500 mb-1">性别</label>
+            <label className="block text-xs text-gray-500 mb-1">{isCN ? '性别' : locale === 'ja' ? '性別' : locale === 'ko' ? '성별' : 'Gender'}</label>
             <select value={gender} onChange={e => setGender(e.target.value as any)}
               className="bg-dark-700 border border-dark-600 rounded-lg px-3 py-2 text-sm text-gray-200">
-              <option value="male">男</option><option value="female">女</option>
+              <option value="male">{isCN ? '男' : locale === 'ja' ? '男' : locale === 'ko' ? '남' : 'Male'}</option>
+              <option value="female">{isCN ? '女' : locale === 'ja' ? '女' : locale === 'ko' ? '여' : 'Female'}</option>
             </select>
           </div>
           <div>
-            <label className="block text-xs text-gray-500 mb-1">真太阳时</label>
+            <label className="block text-xs text-gray-500 mb-1">{isCN ? '真太阳时' : locale === 'ja' ? '真太陽時' : locale === 'ko' ? '진태양시' : 'True Solar Time'}</label>
             <label className="flex items-center gap-2 text-sm text-gray-300">
               <input type="checkbox" checked={useTrueSolar} onChange={e => setUseTrueSolar(e.target.checked)} />
-              {useTrueSolar ? '经度 ' : '关闭'}<input type="number" value={longitude} onChange={e => setLongitude(parseFloat(e.target.value) || 116.4)}
+              {useTrueSolar ? (isCN ? '经度 ' : locale === 'ja' ? '経度 ' : locale === 'ko' ? '경도 ' : 'Longitude ') : (isCN ? '关闭' : locale === 'ja' ? 'オフ' : locale === 'ko' ? '끄기' : 'Off')}
+              <input type="number" value={longitude} onChange={e => setLongitude(parseFloat(e.target.value) || 116.4)}
                 className="bg-dark-700 border border-dark-600 rounded px-2 py-1 w-20 text-sm text-gray-200" disabled={!useTrueSolar} />°E
             </label>
           </div>
-          <button onClick={doCalc} className="bg-gold-600 hover:bg-gold-500 text-dark-900 font-semibold px-6 py-2 rounded-lg text-sm">开始印证</button>
+          <button onClick={doCalc} className="bg-gold-600 hover:bg-gold-500 text-dark-900 font-semibold px-6 py-2 rounded-lg text-sm">{btnText}</button>
         </div>
         {error && <p className="text-red-400 text-sm">{error}</p>}
       </div>
 
       {result && (
         <div className="space-y-4">
-          {/* 八字+紫微总览 */}
           <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-4">
             <div className="text-center mb-4">
-              <p className="text-xs text-gray-500">{result.dateStr} · {result.zodiac}命</p>
+              <p className="text-xs text-gray-500">
+                {result.dateStr}
+                {isCN ? ' · ' : locale === 'ja' ? ' · ' : ' · '}
+                {result.zodiac}{isCN ? '命' : locale === 'ja' ? '' : locale === 'ko' ? '명' : ''}
+              </p>
               <p className="text-xl font-bold text-gold-400 font-serif">{result.bazi}</p>
-              <p className="text-xs text-gray-500 mt-1">日主 {result.dayMaster} · 五行局 {result.fiveElem}</p>
+              <p className="text-xs text-gray-500 mt-1">
+                {isCN ? '日主 ' : locale === 'ja' ? '日主 ' : locale === 'ko' ? '일주 ' : 'Day Master '}
+                {result.dayMaster}
+                {isCN ? ' · 五行局 ' : locale === 'ja' ? ' · 五行局 ' : locale === 'ko' ? ' · 오행국 ' : ' · WJ '}
+                {result.fiveElem}
+              </p>
               {result.solarNote && <p className="text-xs text-cyan-400 mt-1">{result.solarNote}</p>}
             </div>
 
             {/* 八字推演 */}
             <div className="bg-dark-700/60 rounded-lg p-3 mb-3">
-              <h3 className="text-xs font-semibold text-gray-400 mb-2">八字推演</h3>
+              <h3 className="text-xs font-semibold text-gray-400 mb-2">
+                {isCN ? '八字推演' : locale === 'ja' ? '八字推演' : locale === 'ko' ? '사주 추연' : 'Ba Zi Analysis'}
+              </h3>
               <div className="grid grid-cols-2 gap-2 text-xs">
-                <div>格局: <span className="text-gold-400 font-semibold">{result.enrich.格局.primary}</span></div>
-                <div>旺衰: <span className="font-semibold" style={{color: result.enrich.旺衰.verdict.includes('强') ? '#ef4444' : result.enrich.旺衰.verdict.includes('弱') ? '#3b82f6' : '#fbbf24'}}>{result.enrich.旺衰.verdict}</span></div>
-                <div>五行缺: <span className="text-red-400">{result.enrich.五行统计.missing.join('、') || '无'}</span></div>
-                <div>调候: <span className="text-cyan-400">{result.enrich.调候用神.join('、') || '无'}</span></div>
+                <div>{isCN ? '格局' : locale === 'ja' ? '格局' : locale === 'ko' ? '격국' : 'Pattern'}: <span className="text-gold-400 font-semibold">{result.enrich.格局.primary}</span></div>
+                <div>{isCN ? '旺衰' : locale === 'ja' ? '旺衰' : locale === 'ko' ? '왕쇠' : 'Strength'}: <span className="font-semibold" style={{color: result.enrich.旺衰.verdict.includes('强') ? '#ef4444' : result.enrich.旺衰.verdict.includes('弱') ? '#3b82f6' : '#fbbf24'}}>{result.enrich.旺衰.verdict}</span></div>
+                <div>{isCN ? '五行缺' : locale === 'ja' ? '五行欠乏' : locale === 'ko' ? '오행 부족' : 'Missing'}: <span className="text-red-400">{result.enrich.五行统计.missing.join('、') || (isCN ? '无' : locale === 'ja' ? '無' : locale === 'ko' ? '없음' : 'none')}</span></div>
+                <div>{isCN ? '调候' : locale === 'ja' ? '調候' : locale === 'ko' ? '조후' : 'Adjusting'}: <span className="text-cyan-400">{result.enrich.调候用神.join('、') || (isCN ? '无' : locale === 'ja' ? '無' : locale === 'ko' ? '없음' : 'none')}</span></div>
               </div>
               {result.enrich.地支关系.length > 0 && (
                 <div className="flex flex-wrap gap-1 mt-2">
@@ -173,19 +211,20 @@ export default function ZongheZhengmingPage() {
 
             {/* 综合印证卡片 */}
             {(() => {
-              const cv = crossValidate(result.enrich, result.ziweiMock)
+              const cv = crossValidate(result.enrich, result.ziweiMock, { lang: locale })
               return (
-                <div className={`rounded-lg p-3 border ${cv.consistency === '同向印证' ? 'bg-green-900/20 border-green-700/40' : cv.consistency === '互补印证' ? 'bg-amber-900/20 border-amber-700/40' : 'bg-red-900/20 border-red-700/40'}`}>
+                <div className={`rounded-lg p-3 border ${cv.consistency === '同向印证' || cv.consistency === 'Aligned' ? 'bg-green-900/20 border-green-700/40' : cv.consistency === '互补印证' || cv.consistency === 'Complementary' ? 'bg-amber-900/20 border-amber-700/40' : 'bg-red-900/20 border-red-700/40'}`}>
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-xs text-gray-400">综合印证</span>
+                    <span className="text-xs text-gray-400">
+                      {isCN ? '综合印证' : locale === 'ja' ? '総合検証' : locale === 'ko' ? '종합 검증' : 'Cross Validation'}
+                    </span>
                     <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${
-                      cv.consistency === '同向印证' ? 'bg-green-800 text-green-300' :
-                      cv.consistency === '互补印证' ? 'bg-amber-800 text-amber-300' : 'bg-red-800 text-red-300'
+                      cv.consistency === '同向印证' || cv.consistency === 'Aligned' ? 'bg-green-800 text-green-300' :
+                      cv.consistency === '互补印证' || cv.consistency === 'Complementary' ? 'bg-amber-800 text-amber-300' : 'bg-red-800 text-red-300'
                     }`}>{cv.consistency}</span>
                   </div>
                   <p className="text-xs text-gray-300">{cv.axes.fusedAxis}</p>
 
-                  {/* 六维对账 */}
                   <div className="grid grid-cols-2 sm:grid-cols-3 gap-1.5 mt-2">
                     {cv.dims.map((d, i) => (
                       <div key={i} className="bg-dark-800/60 rounded p-1.5">

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useCallback, useEffect, useRef } from 'react'
+import { useState, useCallback, useEffect, useRef, useMemo } from 'react'
 import TarotCard from '@/components/TarotCard'
 import {
   SPREADS,
@@ -8,6 +8,8 @@ import {
   drawForSpread,
   interpretCard,
 } from '@/lib/tarot-engine'
+import { useLocale } from '@/lib/i18n'
+import { getOrientationLabel, getSuitLabel, TAROT_ORIENTATION_LANG, TAROT_SUIT_LANG } from '@/lib/tarot-data'
 import type { DrawnCard } from '@cometpisces/tarot-kit'
 
 // ── Types ──
@@ -15,13 +17,20 @@ type Phase = 'menu' | 'shuffling' | 'placing' | 'reading'
 type ReadingTab = 'core' | 'context' | 'overview'
 
 // ── Shuffle texts ──
-const SHUFFLE_TEXTS = [
+const SHUFFLE_TEXTS_ZH = [
   '集中精神，默念你的问题……',
   '牌在手中翻飞，能量在流转……',
   '聆听你内心深处的声音……',
   '让直觉引导你……',
   '塔罗的能量正在聚合……',
 ]
+
+function getShuffleTexts(locale: string): string[] {
+  if (locale === 'en') return ['Focus your mind, meditate on your question…', 'Cards are dancing, energy is flowing…', 'Listen to your inner voice…', 'Let intuition guide you…', 'Tarot energy is gathering…']
+  if (locale === 'ja') return ['精神を集中し、質問を念じましょう…', 'カードが舞い、エネルギーが流れています…', '心の声に耳を傾けて…', '直感に導かれて…', 'タロットのエネルギーが集まっています…']
+  if (locale === 'ko') return ['정신을 집중하고 질문을 생각하세요…', '카드가 춤추고 에너지가 흐릅니다…', '내면의 목소리에 귀 기울이세요…', '직감을 따르세요…', '타로 에너지가 모이고 있습니다…']
+  return SHUFFLE_TEXTS_ZH
+}
 
 // ── Inline keyframes (injected via style jsx) ──
 const KEYFRAMES = `
@@ -62,6 +71,7 @@ const SPREAD_ICONS: Record<string, string> = {
 
 // ── Component ──
 export default function TaluoClient() {
+  const { locale } = useLocale()
   const [phase, setPhase] = useState<Phase>('menu')
   const [selectedSpread, setSelectedSpread] = useState<string>('three')
   const [drawnCards, setDrawnCards] = useState<DrawnCard[]>([])
@@ -100,10 +110,11 @@ export default function TaluoClient() {
       setDrawnCards(cards)
 
       let idx = 0
-      setShuffleText(SHUFFLE_TEXTS[0])
+      const shufTexts = getShuffleTexts(locale)
+      setShuffleText(shufTexts[0])
       shufflerRef.current = setInterval(() => {
-        idx = (idx + 1) % SHUFFLE_TEXTS.length
-        setShuffleText(SHUFFLE_TEXTS[idx])
+        idx = (idx + 1) % shufTexts.length
+        setShuffleText(shufTexts[idx])
       }, 700)
 
       const t1 = setTimeout(() => {
@@ -204,14 +215,14 @@ export default function TaluoClient() {
             nameEn: card.name.en,
             element:
               card.arcana === 'major'
-                ? '大阿卡纳'
+                ? TAROT_SUIT_LANG.major[locale] || TAROT_SUIT_LANG.major['zh-CN']
                 : (card.suit === 'wands'
-                    ? '权杖'
+                    ? TAROT_SUIT_LANG.wands[locale] || TAROT_SUIT_LANG.wands['zh-CN']
                     : card.suit === 'cups'
-                      ? '圣杯'
+                      ? TAROT_SUIT_LANG.cups[locale] || TAROT_SUIT_LANG.cups['zh-CN']
                       : card.suit === 'swords'
-                        ? '宝剑'
-                        : '星币'),
+                        ? TAROT_SUIT_LANG.swords[locale] || TAROT_SUIT_LANG.swords['zh-CN']
+                        : TAROT_SUIT_LANG.pentacles[locale] || TAROT_SUIT_LANG.pentacles['zh-CN']),
           }}
           flipped={flipped}
           size={drawnCards.length > 6 ? 'sm' : drawnCards.length > 3 ? 'md' : 'lg'}
@@ -227,7 +238,7 @@ export default function TaluoClient() {
           <span
             className={`text-[9px] font-medium ${orientation === 'upright' ? 'text-emerald-600' : 'text-rose-600'}`}
           >
-            {orientation === 'upright' ? '▲ 正位' : '▼ 逆位'}
+            {orientation === 'upright' ? `▲ ${TAROT_ORIENTATION_LANG.upright[locale] || TAROT_ORIENTATION_LANG.upright['zh-CN']}` : `▼ ${TAROT_ORIENTATION_LANG.reversed[locale] || TAROT_ORIENTATION_LANG.reversed['zh-CN']}`}
           </span>
         )}
       </div>
@@ -362,9 +373,9 @@ export default function TaluoClient() {
         {/* Tab bar */}
         <div className="flex gap-1 mb-4 bg-amber-50 rounded-lg p-1 border border-amber-200 max-w-md mx-auto">
           {[
-            { key: 'core' as ReadingTab, label: '📖 核心含义' },
-            { key: 'context' as ReadingTab, label: '💡 情景视角' },
-            { key: 'overview' as ReadingTab, label: '🎴 全部牌面' },
+            { key: 'core' as ReadingTab, label: locale === 'en' ? '📖 Core Meaning' : locale === 'ja' ? '📖 コア意味' : locale === 'ko' ? '📖 핵심 의미' : '📖 核心含义' },
+            { key: 'context' as ReadingTab, label: locale === 'en' ? '💡 Context' : locale === 'ja' ? '💡 状況視点' : locale === 'ko' ? '💡 상황 관점' : '💡 情景视角' },
+            { key: 'overview' as ReadingTab, label: locale === 'en' ? '🎴 All Cards' : locale === 'ja' ? '🎴 全カード' : locale === 'ko' ? '🎴 전체 카드' : '🎴 全部牌面' },
           ].map((tab) => (
             <button
               key={tab.key}
@@ -403,13 +414,13 @@ export default function TaluoClient() {
                         {interp.title}
                       </p>
                       <p className="text-[10px] text-gray-600">
-                        {pos.name} · {drawn.orientation === 'upright' ? '正位' : '逆位'}
+                        {pos.name} · {getOrientationLabel(drawn.orientation === 'upright', locale)}
                       </p>
                     </div>
                   </div>
                   <div className="space-y-2 text-sm leading-relaxed">
                     <p className="text-gray-700">
-                      <span className="text-gold-600/90 text-[11px]">核心含义：</span>
+                      <span className="text-gold-600/90 text-[11px]">{locale === 'en' ? 'Core:' : locale === 'ja' ? 'コア意味：' : locale === 'ko' ? '핵심 의미：' : '核心含义：'}</span>
                       {interp.core}
                     </p>
                     <p className="text-gray-600">
@@ -418,7 +429,7 @@ export default function TaluoClient() {
                     </p>
                     <div className="pt-2 border-t border-amber-100">
                       <p className="text-gray-500 text-xs">
-                        <span className="text-gold-600/80">💡 建议：</span>
+                        <span className="text-gold-600/80">💡 {locale === 'en' ? 'Advice:' : locale === 'ja' ? 'アドバイス：' : locale === 'ko' ? '조언：' : '建议：'}</span>
                         {interp.advice}
                       </p>
                     </div>
@@ -451,23 +462,23 @@ export default function TaluoClient() {
                       <p className="text-gray-700">
                         <span className="text-rose-600/80 text-[11px]">
                           {pos.context === 'love'
-                            ? '❤️ 感情视角：'
+                            ? (locale === 'en' ? '❤️ Love:' : locale === 'ja' ? '❤️ 恋愛視点：' : locale === 'ko' ? '❤️ 연애 관점：' : '❤️ 感情视角：')
                             : pos.context === 'work'
-                              ? '💼 事业视角：'
+                              ? (locale === 'en' ? '💼 Career:' : locale === 'ja' ? '💼 仕事視点：' : locale === 'ko' ? '💼 직업 관점：' : '💼 事业视角：')
                               : pos.context === 'interpersonal'
-                                ? '🤝 人际视角：'
-                                : '📌 综合视角：'}
+                                ? (locale === 'en' ? '🤝 Interpersonal:' : locale === 'ja' ? '🤝 対人視点：' : locale === 'ko' ? '🤝 대인 관계 관점：' : '🤝 人际视角：')
+                                : (locale === 'en' ? '📌 General:' : locale === 'ja' ? '📌 総合視点：' : locale === 'ko' ? '📌 종합 관점：' : '📌 综合视角：')}
                         </span>
                         {interp.contextual}
                       </p>
                     ) : (
                       <p className="text-gray-600 text-xs italic">
-                        该位置不涉及具体情景视角
+                        {locale === 'en' ? 'This position does not have a specific context' : locale === 'ja' ? 'このポジションには具体的な状況視点はありません' : locale === 'ko' ? '이 위치에는 특정 상황 관점이 없습니다' : '该位置不涉及具体情景视角'}
                       </p>
                     )}
                     <div className="pt-2 border-t border-amber-100">
                       <p className="text-gray-500 text-xs">
-                        <span className="text-gold-600/80">💡 {pos.name}建议：</span>
+                        <span className="text-gold-600/80">💡 {pos.name} {locale === 'en' ? 'Advice:' : locale === 'ja' ? 'アドバイス：' : locale === 'ko' ? '조언：' : '建议：'}</span>
                         {interp.advice}
                       </p>
                     </div>
@@ -479,7 +490,7 @@ export default function TaluoClient() {
           {readingTab === 'overview' && (
             <div className="bg-white/80 border border-amber-200/50 rounded-xl p-5">
               <p className="text-[11px] text-gold-600/80 mb-3 tracking-wider uppercase">
-                {spread?.name} · 全部牌面
+                {spread?.name} · {locale === 'en' ? 'All Cards' : locale === 'ja' ? '全カード' : locale === 'ko' ? '전체 카드' : '全部牌面'}
               </p>
               <div className="space-y-3">
                 {drawnCards.map((drawn, i) => {
@@ -496,12 +507,12 @@ export default function TaluoClient() {
                         <p className="text-sm font-medium text-gold-700">
                           {drawn.card.name.zh}
                           <span className={`text-[10px] ml-1.5 ${isUp ? 'text-emerald-600' : 'text-rose-600'}`}>
-                            {isUp ? '▲正位' : '▼逆位'}
+                            {isUp ? `▲${TAROT_ORIENTATION_LANG.upright[locale] || TAROT_ORIENTATION_LANG.upright['zh-CN']}` : `▼${TAROT_ORIENTATION_LANG.reversed[locale] || TAROT_ORIENTATION_LANG.reversed['zh-CN']}`}
                           </span>
                         </p>
                         <p className="text-[11px] text-gray-500 mt-0.5">
                           {pos.name}
-                          {drawn.card.arcana === 'major' ? ' · 大阿卡纳' : ` · ${drawn.card.suit}`}
+                          {drawn.card.arcana === 'major' ? ` · ${TAROT_SUIT_LANG.major[locale] || TAROT_SUIT_LANG.major['zh-CN']}` : ` · ${(drawn.card.suit && TAROT_SUIT_LANG[drawn.card.suit]?.[locale]) || (drawn.card.suit && TAROT_SUIT_LANG[drawn.card.suit]?.['zh-CN']) || drawn.card.suit || ''}`}
                         </p>
                         <p className="text-xs text-gray-600 mt-1 leading-relaxed">
                           {drawn.card.meaning[isUp ? 'upright' : 'reversed'].zh}
@@ -527,10 +538,10 @@ export default function TaluoClient() {
       {/* Header */}
       <div className="text-center mb-8">
         <h1 className="text-3xl font-bold text-gold-700 font-serif mb-2">
-          塔罗牌
+          {locale === 'en' ? 'Tarot' : locale === 'ja' ? 'タロット' : locale === 'ko' ? '타로' : '塔罗牌'}
         </h1>
         <p className="text-sm text-gray-600 max-w-lg mx-auto">
-          基于韦特塔罗78张完整牌库，多牌阵深度解读
+          {locale === 'en' ? '78-card Rider-Waite Tarot deck with multi-spread deep readings' : locale === 'ja' ? 'ウェイト版タロット78枚完全収録、多様なスプレッドで深く読み解く' : locale === 'ko' ? '78장 라이더-웨이트 타로 덱, 다양한 스프레드로 심층 해석' : '基于韦特塔罗78张完整牌库，多牌阵深度解读'}
         </p>
       </div>
 
@@ -539,7 +550,7 @@ export default function TaluoClient() {
         <div className="space-y-6">
           {/* Description */}
           <p className="text-sm text-gray-500 text-center">
-            选择一个牌阵，开始你的解读之旅
+            {locale === 'en' ? 'Choose a spread to begin your reading journey' : locale === 'ja' ? 'スプレッドを選んで、リーディングを始めましょう' : locale === 'ko' ? '스프레드를 선택하여 리딩을 시작하세요' : '选择一个牌阵，开始你的解读之旅'}
           </p>
 
           {/* Spread grid */}
@@ -615,7 +626,7 @@ export default function TaluoClient() {
       {phase === 'placing' && (
         <div className="flex flex-col items-center gap-4 min-h-[300px] pt-8">
           <p className="text-sm text-gold-600/80 animate-pulse mb-2">
-            ✨ 牌已就位……
+            ✨ {locale === 'en' ? 'Cards are in position…' : locale === 'ja' ? 'カードが配置されました…' : locale === 'ko' ? '카드가 배치되었습니다…' : '牌已就位……'}
           </p>
           {renderSpreadLayout()}
         </div>
@@ -646,8 +657,8 @@ export default function TaluoClient() {
             {flippedIndices.size < drawnCards.length && (
               <p className="text-center text-[10px] text-gray-600 mt-4 animate-pulse">
                 {flippedIndices.size === 0
-                  ? '牌正在依次翻开……'
-                  : '点击未翻开的牌可单独查看'}
+                  ? (locale === 'en' ? 'Cards are being revealed…' : locale === 'ja' ? 'カードを開いています…' : locale === 'ko' ? '카드를 열고 있습니다…' : '牌正在依次翻开……')
+                  : (locale === 'en' ? 'Click unrevealed cards to view' : locale === 'ja' ? '伏せたカードをクリックして表示' : locale === 'ko' ? '뒤집히지 않은 카드를 클릭하여 보기' : '点击未翻开的牌可单独查看')}
               </p>
             )}
           </div>
@@ -662,14 +673,14 @@ export default function TaluoClient() {
               onClick={restartSpread}
               className="inline-flex items-center gap-1.5 bg-gold-600 hover:bg-gold-500 text-dark-900 font-semibold text-sm px-5 py-2.5 rounded-lg transition-all active:scale-95"
             >
-              💫 重新抽牌
+              {locale === 'en' ? '💫 Re-draw' : locale === 'ja' ? '💫 引き直す' : locale === 'ko' ? '💫 다시 뽑기' : '💫 重新抽牌'}
             </button>
             <button
               type="button"
               onClick={resetToMenu}
               className="text-xs text-gray-500 hover:text-gray-700 underline underline-offset-2 transition-colors"
             >
-              返回选择牌阵
+              {locale === 'en' ? 'Back to spreads' : locale === 'ja' ? 'スプレッド選択に戻る' : locale === 'ko' ? '스프레드 선택으로 돌아가기' : '返回选择牌阵'}
             </button>
           </div>
         </div>

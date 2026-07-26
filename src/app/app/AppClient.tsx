@@ -2,6 +2,7 @@
 
 import { useState, useMemo, useEffect } from 'react';
 import dynamic from 'next/dynamic';
+import { useT, useLocale } from '@/lib/i18n';
 import { computeBaziChart, type BaziChartResult, getPillarShenShaLabel } from '@/lib/bazi-engine';
 import { BRIGHTNESS, STAR_DESC, detectPatterns, type PatternDef } from '@/lib/ziwei-data';
 import CalendarInput, { type CalendarType, getMaxDay } from '@/components/CalendarInput';
@@ -24,6 +25,8 @@ const WU_XING_COLORS: Record<string,string> = {'金':'text-yellow-400','木':'te
 const PILLAR_LABELS = ['年柱','月柱','日柱','时柱'];
 
 export default function AppClient() {
+  const getT = useT();
+  useLocale();
   const [activeModule, setActiveModule] = useState('bazi');
   const [calendarType, setCalendarType] = useState<CalendarType>('solar');
   const [year, setYear] = useState('1990');
@@ -159,8 +162,8 @@ export default function AppClient() {
   return (
     <div className="max-w-4xl mx-auto px-4 py-10">
       <div className="text-center mb-8">
-        <h1 className="text-3xl sm:text-4xl font-bold text-gold-600 font-serif mb-2">AI 智能排盘</h1>
-        <p className="text-base sm:text-lg text-gray-400">多模块命理排盘 · AI辅助智能解读</p>
+        <h1 className="text-3xl sm:text-4xl font-bold text-gold-600 font-serif mb-2">{getT('appPage.title')}</h1>
+        <p className="text-base sm:text-lg text-gray-400">{getT('appPage.desc')}</p>
       </div>
 
       {/* Module Tabs */}
@@ -170,7 +173,7 @@ export default function AppClient() {
             className={`px-5 min-h-[44px] py-3 rounded-xl text-sm font-medium transition-all ${
               activeModule === mod.id ? 'bg-gold-500 text-dark-900 shadow-lg shadow-gold-400/30 scale-105'
                 : 'bg-dark-800 text-gray-400 hover:text-gold-500 border border-dark-600'}`}>
-            <span className="text-xl mr-1.5">{mod.emoji}</span>{mod.name}
+            <span className="text-xl mr-1.5">{mod.emoji}</span>{mod.id === 'bazi' ? getT('appPage.moduleBazi') : getT('appPage.moduleZiwei')}
           </button>
         ))}
       </div>
@@ -178,18 +181,18 @@ export default function AppClient() {
       {/* Input Card */}
       <div className="bg-dark-800 border border-dark-600 rounded-xl p-6 mb-8 max-w-lg mx-auto shadow-sm">
         <div className="mb-4">
-          <label className="block text-sm text-gray-400 mb-1">姓名（选填）</label>
-          <input type="text" value={name} onChange={e => setName(e.target.value)} placeholder="输入姓名"
+          <label className="block text-sm text-gray-400 mb-1">{getT('appPage.nameLabel')}</label>
+          <input type="text" value={name} onChange={e => setName(e.target.value)} placeholder={getT('appPage.namePlaceholder')}
             className="w-full bg-dark-700 border border-dark-600 rounded-lg px-4 min-h-[44px] text-gray-200 text-sm" />
         </div>
 
         {/* Gender */}
         <div className="mb-4">
-          <label className="block text-sm text-gray-400 mb-1">性别</label>
+          <label className="block text-sm text-gray-400 mb-1">{getT('appPage.genderLabel')}</label>
           <div className="flex gap-2">
             {['男','女'].map(g => (
               <button key={g} onClick={() => setGender(g)}
-                className={`flex-1 min-h-[44px] py-2 rounded-lg text-sm font-medium transition-colors ${gender === g ? 'bg-gold-600 text-dark-900' : 'bg-dark-700 text-gray-400 border border-dark-600'}`}>{g}</button>
+                className={`flex-1 min-h-[44px] py-2 rounded-lg text-sm font-medium transition-colors ${gender === g ? 'bg-gold-600 text-dark-900' : 'bg-dark-700 text-gray-400 border border-dark-600'}`}>{g === '男' ? getT('appPage.male') : getT('appPage.female')}</button>
             ))}
           </div>
         </div>
@@ -262,7 +265,7 @@ export default function AppClient() {
                   ))}
                 </div>
               ) : bzTg[0] && bzDz[0] ? (
-                <p className="text-sm text-red-400">该年柱组合不存在于干支纪年</p>
+                <p className="text-sm text-red-400">{getT('appPage.yearPillarInvalid')}</p>
               ) : <p className="text-sm text-gray-600">请先选择年柱天干地支</p>}
               {validYears.length > 0 && <p className="text-sm text-gray-600 mt-1">同八字每60年一轮回</p>}
             </div>
@@ -277,21 +280,21 @@ export default function AppClient() {
         <button onClick={handleAnalyze} disabled={!isValid || isAnalyzing}
           className={`px-10 min-h-[52px] py-3.5 rounded-full text-base font-bold shadow-lg transition-all ${
             isValid && !isAnalyzing ? 'bg-gradient-to-r from-gold-500 to-amber-500 text-dark-900 hover:shadow-xl hover:scale-105 active:scale-95' : 'bg-dark-700 text-gray-500 cursor-not-allowed'}`}>
-          {isAnalyzing ? <span className="flex items-center gap-2"><span className="animate-spin inline-block w-4 h-4 border-2 border-dark-900/30 border-t-dark-900 rounded-full" />分析中...</span> : '🚀 启动排盘分析'}
+          {isAnalyzing ? <span className="flex items-center gap-2"><span className="animate-spin inline-block w-4 h-4 border-2 border-dark-900/30 border-t-dark-900 rounded-full" />{getT('appPage.analyzing')}</span> : getT('appPage.analyzeButton')}
         </button>
-        {!analyzed && !isAnalyzing && <p className="text-sm text-gray-500 mt-2">选择模块，填写信息，点击按钮查看完整命理分析</p>}
+        {!analyzed && !isAnalyzing && <p className="text-sm text-gray-500 mt-2">{getT('appPage.analyzeHint')}</p>}
       </div>
 
       {/* Error Message — 增强样式 */}
       {errorMsg && (
         <div className="max-w-lg mx-auto mb-8 bg-red-950/80 border-2 border-red-500/60 rounded-xl p-4 text-center toast-enter">
-          <p className="text-red-300 text-sm font-semibold">⚠️ {errorMsg}</p>
+          <p className="text-red-300 text-sm font-semibold">{getT('appPage.errorMsg')} {errorMsg}</p>
           <p className="text-xs text-red-400/80 mt-1">请检查输入信息或尝试其他排盘模式</p>
           <button
             onClick={() => setErrorMsg('')}
             className="mt-2 px-3 py-1 text-xs text-red-400/60 hover:text-red-300 underline"
           >
-            关闭
+            {getT('appPage.closeLabel')}
           </button>
         </div>
       )}
@@ -320,7 +323,7 @@ export default function AppClient() {
             <div className="skeleton skeleton-text-short"></div>
           </div>
           <div className="text-center">
-            <p className="text-sm text-gold-400/70 animate-pulse">⏳ AI 命理分析生成中…</p>
+            <p className="text-sm text-gold-400/70 animate-pulse">{getT('appPage.aiGenerating')}</p>
           </div>
         </div>
       )}
@@ -333,12 +336,12 @@ export default function AppClient() {
       {analyzed && (
         <div className="mt-12 bg-gradient-to-r from-amber-50 to-yellow-50 border border-amber-200 rounded-xl p-6 text-center">
           <div className="text-3xl mb-2">🚧</div>
-          <h3 className="text-lg font-bold text-amber-700 mb-1">VIP 深度分析即将上线</h3>
-          <p className="text-sm text-amber-600 mb-4">财富格局 · 十年大运 · 流年指引 — 三大深度维度，即将开放</p>
+          <h3 className="text-lg font-bold text-amber-700 mb-1">{getT('appPage.vipTitle')}</h3>
+          <p className="text-sm text-amber-600 mb-4">{getT('appPage.vipDesc')}</p>
           <div className="inline-block px-6 py-2.5 bg-amber-100 text-amber-500 rounded-full text-sm font-medium border border-amber-200">
-            ⏳ 敬请期待
+            {getT('appPage.vipComingSoon')}
           </div>
-          <p className="text-xs text-amber-400 mt-3">深度分析功能正在开发中，上线后将第一时间通知您</p>
+          <p className="text-xs text-amber-400 mt-3">{getT('appPage.vipNote')}</p>
         </div>
       )}
     </div>

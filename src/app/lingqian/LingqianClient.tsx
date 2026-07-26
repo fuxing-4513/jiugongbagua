@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useRef, useCallback } from 'react'
+import { useT } from '@/lib/i18n'
 import { ALL_CATEGORIES, LEVEL_COLORS } from './lingqian-data'
 import type { LingqianItem } from './types'
 
@@ -118,6 +119,7 @@ function QianTong({ shaking, showResult }: { shaking: boolean; showResult: boole
 
 // ======== 签文卡片 ========
 function QianCard({ item, visible }: { item: LingqianItem; visible: boolean }) {
+  const getT = useT()
   if (!visible || !item) return null
   const lc = LEVEL_COLORS[item.level] || 'bg-dark-800/80 border-dark-600'
   return (
@@ -133,7 +135,7 @@ function QianCard({ item, visible }: { item: LingqianItem; visible: boolean }) {
       {/* 签诗 */}
       <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-5">
         <h3 className="text-sm font-semibold text-gold-400 mb-2 flex items-center gap-2">
-          <span>📜</span> 签诗
+          <span>📜</span> {getT('lingqianPage.poem')}
         </h3>
         <p className="text-sm text-gray-200 leading-loose whitespace-pre-line font-serif tracking-wide">
           {item.poem}
@@ -143,7 +145,7 @@ function QianCard({ item, visible }: { item: LingqianItem; visible: boolean }) {
       {/* 断语 */}
       <div className="bg-dark-800/80 rounded-xl border border-gold-600/30 p-5">
         <h3 className="text-sm font-semibold text-gold-400 mb-2 flex items-center gap-2">
-          <span>🏷️</span> 断语
+          <span>🏷️</span> {getT('lingqianPage.verdict')}
         </h3>
         <p className="text-base font-bold text-gold-300 leading-relaxed">{item.verdict}</p>
       </div>
@@ -151,12 +153,12 @@ function QianCard({ item, visible }: { item: LingqianItem; visible: boolean }) {
       {/* 签意 */}
       <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-5">
         <h3 className="text-sm font-semibold text-gold-400 mb-2 flex items-center gap-2">
-          <span>💡</span> 签意解析
+          <span>💡</span> {getT('lingqianPage.meaningLabel')}
         </h3>
         <p className="text-sm text-gray-300 leading-relaxed">{item.meaning}</p>
         {item.advice && (
           <div className="mt-3 pt-3 border-t border-dark-600">
-            <p className="text-xs text-gold-400/70 mb-1">📌 建议</p>
+            <p className="text-xs text-gold-400/70 mb-1">📌 {getT('lingqianPage.advice')}</p>
             <p className="text-sm text-gray-300">{item.advice}</p>
           </div>
         )}
@@ -167,6 +169,7 @@ function QianCard({ item, visible }: { item: LingqianItem; visible: boolean }) {
 
 // ======== 主组件 ========
 export default function LingqianClient() {
+  const getT = useT()
   const [selectedCat, setSelectedCat] = useState<string>(ALL_CATEGORIES[0]?.key || '')
   const [qian, setQian] = useState<LingqianItem | null>(null)
   const [shaking, setShaking] = useState(false)
@@ -286,7 +289,7 @@ export default function LingqianClient() {
               ? 'bg-gradient-to-r from-gold-500 to-amber-500 text-dark-900 shadow-lg shadow-gold-500/20 hover:shadow-xl hover:shadow-gold-500/30'
               : 'bg-dark-600 text-gray-400 cursor-not-allowed'
           }`}>
-          {phase === 'idle' ? '🎋 摇签' : '🎋 请稍候...'}
+          {phase === 'idle' ? getT('lingqianPage.drawButton') : getT('lingqianPage.waitingButton')}
         </button>
 
         {phase === 'done' && (

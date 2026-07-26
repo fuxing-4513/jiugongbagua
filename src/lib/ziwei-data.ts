@@ -1,6 +1,8 @@
 // ziwei-data.ts — Shared Ziwei constants, star descriptions, and pattern detection
 // Shared between standalone ZiweiClient and AI排盘 AppClient
 
+import type { SupportedLocale } from './i18n'
+
 export const BRIGHTNESS: Record<string, { label: string; color: string; level: number }> = {
   '庙': { label: '廟', color: 'text-green-400', level: 5 },
   '旺': { label: '旺', color: 'text-green-300', level: 4 },
@@ -10,6 +12,40 @@ export const BRIGHTNESS: Record<string, { label: string; color: string; level: n
   '不': { label: '不', color: 'text-orange-400', level: -1 },
   '陷': { label: '陷', color: 'text-red-400',   level: -2 },
   '':   { label: '—',  color: 'text-gray-400',  level: 0 },
+}
+
+/** Brightness label translations */
+export const BRIGHTNESS_EN: Record<string, string> = {
+  '庙': 'Temple',
+  '旺': 'Prosperous',
+  '得': 'Adequate',
+  '利': 'Favorable',
+  '平': 'Flat',
+  '不': 'Weak',
+  '陷': 'Fallen',
+  '': '—',
+}
+
+export const BRIGHTNESS_JA: Record<string, string> = {
+  '庙': '廟',
+  '旺': '旺',
+  '得': '得',
+  '利': '利',
+  '平': '平',
+  '不': '不',
+  '陷': '陥',
+  '': '—',
+}
+
+export const BRIGHTNESS_KO: Record<string, string> = {
+  '庙': '묘',
+  '旺': '왕',
+  '得': '득',
+  '利': '리',
+  '平': '평',
+  '不': '불',
+  '陷': '함',
+  '': '—',
 }
 
 export const STAR_DESC: Record<string, string> = {
@@ -32,6 +68,78 @@ export const STAR_DESC: Record<string, string> = {
 export interface PatternDef { name: string; desc: string; rating: string }
 type StarInfo = { name: string; brightness?: string; mutagen?: string }
 type PalaceForPattern = { name: string; majorStars: StarInfo[]; minorStars: StarInfo[]; adjectiveStars: StarInfo[]; earthlyBranch: string }
+
+/** Star descriptions in English */
+export const STAR_DESC_EN: Record<string, string> = {
+  '紫微':'Zi Wei in Life Palace: Imperial star — embodies kingly aura with leadership talent. Dignified, decisive, and respected. Prosperous life with career success. May be aloof — pay attention to relationships. Best with Zuo Fu and You Bi assist ("Monarch-Minister Celebration").',
+  '天府':'Tian Fu in Life Palace: Southern Dipper main star, treasury star. Steady, good at finance. Gentle and sincere, good at management. Suited for finance, real estate. For women, dignified and virtuous, supporting husband and children.',
+  '太阳':'Tai Yang in Life Palace: Bright, warm, outgoing. Day-born people gain full power — fame and glory. Impatient, hates injustice. Suited for public service, diplomacy, charity. Night-born have diminished power.',
+  '太阴':'Tai Yin in Life Palace: Gentle, cultured, introverted, meticulous. Good at finance — suited for arts, beauty industry. Values family. Night-born gain full power — wealth and honor. Elegant appearance, tendency toward cleanliness.',
+  '天同':'Tian Tong in Life Palace: Gentle, easygoing, content. Childlike heart, enjoys life, few upheavals. Friendly with good connections. When Hua Ji, lonely and unhealthy. Suited for service, entertainment.',
+  '天相':'Tian Xiang in Life Palace: Upright, steady, good at assisting others. Seal star — resolves disputes, favorable documents. Gentle with sense of justice, good communication. Suited for administration, HR. With evil stars, easily burdened.',
+  '天梁':'Tian Liang in Life Palace: Mature, steady, attracts elders. Longevity, many benefactors. Enjoys helping but easily burdened. Suited for medicine, law, charity, religion. Hard early years, peaceful old age.',
+  '天机':'Tian Ji in Life Palace: Exceptionally intelligent, sharp thinking, eloquent. Excellent at strategy and adaptation. Changeable, restless — prone to nervousness. Suited for planning, consulting, diplomacy, IT.',
+  '武曲':'Wu Qu in Life Palace: Resolute, decisive, loyal. Wealth star — good at finance. Suited for finance, trade, military, industry. Solitary, poor social skills — late marriage. Hua Lu brings wealth; Hua Ji brings loss.',
+  '廉贞':'Lian Zhen in Life Palace: Strong-willed, stubborn, slightly cunning. Talented in various skills. Secondary peach blossom star — rich emotions. Suited for law, politics, technology. Hua Ji brings lawsuits and blood disasters.',
+  '贪狼':'Tan Lang in Life Palace: Multi-talented, gregarious, strong peach blossom luck. Generous but prone to indulgence. Suited for entertainment, PR, media, advertising. Hua Lu brings wealth; Hua Ji brings desire conflicts.',
+  '巨门':'Ju Men in Life Palace: Sharp tongue, deep thinker, good at analysis. Stubborn, argumentative — invites gossip. Guard against slander. Suited for law, education, media. Hua Lu brings eloquence success; Hua Ji brings constant disputes.',
+  '七杀':'Qi Sha in Life Palace: General-like character, decisive, stern, commands respect. Emotionally unstable, impulsive — high probability of major life changes. Suited for military, police, engineering.',
+  '破军':'Po Jun in Life Palace: Bold, pioneering spirit — loves destruction and rebuilding. Constant changes, many ups and downs. Adventurous — suited for innovative work, military, navigation, exploration.',
+}
+
+/** Star descriptions in Japanese */
+export const STAR_DESC_JA: Record<string, string> = {
+  '紫微':'紫微星が命宮：帝王の気質を持ち、リーダーシップに優れる。尊厳があり、公正。一生衣食に困らず、事業成功。孤高になりがちなので人間関係に注意。',
+  '天府':'天府星が命宮：南斗の主星、蔵の星。穏やかで堅実、財運に優れる。温和で誠実、管理能力が高い。金融・不動産が適職。女性は端麗で良妻賢母。',
+  '太阳':'太陽星が命宮：光明磊落、情熱的で外向的。日生人は名声高く事業成功。正義感が強い。公務・外交・公益が適職。夜生人は力が減衰。',
+  '太阴':'太陰星が命宮：温和で優雅、内向的で繊細。芸術・美容・文職が適職。家庭を重視。夜生人は力を発揮。清潔感があり、一生福運に恵まれる。',
+  '天同':'天同星が命宮：温和でものぐさ、足るを知る。童心があり、波乱が少ない。親しみやすく人縁が良い。化忌の時は孤独や健康不良に注意。',
+  '天相':'天相星が命宮：正直で堅実、補佐役として優秀。官非を化解。温和で正義感があり、調整能力が高い。行政管理・人事が適職。',
+  '天梁':'天梁星が命宮：老成で年長者に好かれる。慈悲深く長寿。喜んで助けるが頼られやすい。医薬・法律・公益・宗教が適職。',
+  '天机':'天機星が命宮：知恵に優れ、思考敏捷、弁才に富む。策略と対応力に長ける。移り気で神経衰弱の傾向あり。企画・コンサル・外交・ITが適職。',
+  '武曲':'武曲星が命宮：剛毅果断、義理堅い。財運に優れ、金融・貿易・軍事・工業が適職。社交性に欠け、晩婚になりやすい。',
+  '廉贞':'廉貞星が命宮：頑固で時に狡猾。多才で各種技能に秀でる。情感豊か。法律・政治・科技が適職。化忌は訴訟や血光に注意。',
+  '贪狼':'貪狼星が命宮：多才多芸で社交的、桃華運旺盛。豪快だが酒色に溺れやすい。芸能・広報・広告が適職。',
+  '巨门':'巨門星が命宮：弁舌鋭く思考深い。頑固で議論好き、口舌の厄に注意。法律・教育・メディアが適職。',
+  '七杀':'七殺星が命宮：将軍の如き性格で決断力があり、威厳がある。感情不安定で衝動的。軍警・工学界が適職。',
+  '破军':'破軍星が命宮：剛烈で開拓精神旺盛。絶え間ない変化と浮き沈みが多い。冒険心があり、開拓的仕事・軍事・探検が適職。',
+}
+
+/** Star descriptions in Korean */
+export const STAR_DESC_KO: Record<string, string> = {
+  '紫微':'자미성이 명궁에：제왕적 기질과 리더십을 지녔으며 존귀하고 공정합니다. 일생 풍족하고 사업 성공합니다. 고고해지기 쉬우니 인간관계에 주의하세요.',
+  '天府':'천부성이 명궁에：남두 주성, 창고의 별입니다. 온화하고 착실하며 재운이 뛰어납니다. 금융·부동산이 적합합니다.',
+  '太阳':'태양성이 명궁에：명랑하고 열정적이며 외향적입니다. 낮 태생은 명성이 높고 사업에 성공합니다. 공직·외교·공익이 적합합니다.',
+  '太阴':'태음성이 명궁에：온화하고 우아하며 내성적이고 섬세합니다. 문직·예술·미용이 적합합니다. 가정을 중시합니다.',
+  '天同':'천동성이 명궁에：온화하고 느긋하며 만족할 줄 압니다. 동심을 간직하고 파란이 적습니다. 친근하고 인연이 좋습니다.',
+  '天相':'천상성이 명궁에：정직하고 안정적이며 타인을 돕는 데 능합니다. 관청 재판을 해소합니다. 행정·인사가 적합합니다.',
+  '天梁':'천량성이 명궁에：노련하고 연장자에게 호감을 얻습니다. 자비롭고 장수합니다. 의약·법률·공익·종교가 적합합니다.',
+  '天机':'천기성이 명궁에：지혜가 뛰어나고 사고가 민첩하며 언변이 출중합니다. 전략과 적응에 능하나 변화무쌍합니다. 기획·컨설팅·IT가 적합합니다.',
+  '武曲':'무곡성이 명궁에：강직하고 결단력 있으며 의리 있습니다. 재운이 좋아 금융·무역·군사·공업이 적합합니다.',
+  '廉贞':'렴정성이 명궁에：완고하고 때로는 교활합니다. 다재다능하고 감정이 풍부합니다. 법률·정치·과학기술이 적합합니다.',
+  '贪狼':'탐랑성이 명궁에：다재다능하고 사교적이며 도화운이 왕성합니다. 호탁하지만 주색에 빠지기 쉽습니다.',
+  '巨门':'거문성이 명궁에：변설이 뛰어나고 생각이 깊습니다. 완고하고 논쟁을 좋아하며 구설에 주의하세요. 법률·교육·미디어가 적합합니다.',
+  '七杀':'칠살성이 명궁에：장군과 같은 성격으로 결단력 있고 위엄이 있습니다. 감정이 불안정하고 충동적입니다. 군경·공학계가 적합합니다.',
+  '破军':'파군성이 명궁에：강렬하고 개척 정신이 왕성합니다. 끊임없는 변화와 부침이 많습니다. 모험심이 강해 개척적 업무에 적합합니다.',
+}
+
+/** Get star description in the given language */
+export function getStarDesc(name: string, lang?: string): string {
+  if (!lang || lang === 'zh-CN' || lang === 'zh-TW') return STAR_DESC[name] || ''
+  if (lang === 'en') return STAR_DESC_EN[name] || ''
+  if (lang === 'ja') return STAR_DESC_JA[name] || ''
+  if (lang === 'ko') return STAR_DESC_KO[name] || ''
+  return STAR_DESC[name] || ''
+}
+
+/** Get brightness label in the given language */
+export function getBrightnessLabel(key: string, lang?: string): string {
+  if (!lang || lang === 'zh-CN' || lang === 'zh-TW') return BRIGHTNESS[key]?.label || '—'
+  if (lang === 'en') return BRIGHTNESS_EN[key] || '—'
+  if (lang === 'ja') return BRIGHTNESS_JA[key] || '—'
+  if (lang === 'ko') return BRIGHTNESS_KO[key] || '—'
+  return BRIGHTNESS[key]?.label || '—'
+}
 
 export function detectPatterns(palaces: PalaceForPattern[]): PatternDef[] {
   const patterns: PatternDef[] = []
