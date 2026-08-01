@@ -213,7 +213,7 @@ export function mergeShenSha(pillarShenSha: PillarShenSha[]): ShenShaItem[] {
 /** 神煞标签颜色 */
 export const shenShaTagColor = (type: string) => {
   if (type === '吉') return 'bg-gold-500/10 text-gold-600 border border-gold-500/25'
-  if (type === '凶') return 'bg-zhuhong/10 text-zhuhong border border-zhuhong/25'
+  if (type === '凶') return 'bg-gold-500/10 text-gold-600 border border-gold-500/25'
   return 'bg-dark-700 text-gray-400 border border-dark-600'
 }
 

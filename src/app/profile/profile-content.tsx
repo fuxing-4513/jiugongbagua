@@ -109,7 +109,7 @@ export default function ProfilePage() {
                 <div className="flex gap-1.5">
                   <button
                     onClick={handleClearHistory}
-                    className="text-xs px-3 min-h-[44px] rounded-lg bg-zhuhong/20 text-zhuhong border border-zhuhong/50 hover:bg-zhuhong/30 transition-colors"
+                    className="text-xs px-3 min-h-[44px] rounded-lg bg-gold-500/20 text-gold-600 border border-gold-500/50 hover:bg-gold-500/30 transition-colors"
                   >
                     确认清空
                   </button>
@@ -123,7 +123,7 @@ export default function ProfilePage() {
               ) : (
                 <button
                   onClick={() => setShowClearConfirm(true)}
-                  className="text-xs px-3 min-h-[44px] rounded-lg bg-dark-700 text-gray-500 border border-dark-600 hover:text-zhuhong hover:border-zhuhong/50 transition-colors"
+                  className="text-xs px-3 min-h-[44px] rounded-lg bg-dark-700 text-gray-500 border border-dark-600 hover:text-gold-600 hover:border-gold-500/50 transition-colors"
                 >
                   清空历史
                 </button>
@@ -260,7 +260,7 @@ export default function ProfilePage() {
                       <div className="flex gap-1">
                         <button
                           onClick={() => handleDelete(c.id)}
-                          className="text-xs text-zhuhong px-2 min-h-[44px] rounded border border-zhuhong/50 hover:bg-zhuhong/10"
+                          className="text-xs text-gold-600 px-2 min-h-[44px] rounded border border-gold-500/50 hover:bg-gold-500/10"
                         >
                           确认
                         </button>
@@ -274,7 +274,7 @@ export default function ProfilePage() {
                     ) : (
                       <button
                         onClick={() => setConfirmDelete(c.id)}
-                        className="text-xs text-gray-500 hover:text-zhuhong px-2 min-h-[44px] rounded border border-dark-600 hover:border-zhuhong/50 transition-colors"
+                        className="text-xs text-gray-500 hover:text-gold-600 px-2 min-h-[44px] rounded border border-dark-600 hover:border-gold-500/50 transition-colors"
                       >
                         🗑
                       </button>

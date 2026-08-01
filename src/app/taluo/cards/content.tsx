@@ -125,11 +125,11 @@ export default function CardsPage() {
 
             <div className="grid grid-cols-2 gap-3 mb-4">
               <div className="bg-dark-900/60 rounded-lg p-3 border border-dark-600/50">
-                <p className="text-[10px] text-jade-500/80 mb-1">▲ 正位</p>
+                <p className="text-[10px] text-gold-600/80 mb-1">▲ 正位</p>
                 <p className="text-xs text-gray-400 leading-relaxed">{selected.upright}</p>
               </div>
               <div className="bg-dark-900/60 rounded-lg p-3 border border-dark-600/50">
-                <p className="text-[10px] text-zhuhong/80 mb-1">▼ 逆位</p>
+                <p className="text-[10px] text-gold-600/80 mb-1">▼ 逆位</p>
                 <p className="text-xs text-gray-400 leading-relaxed">{selected.reversed}</p>
               </div>
             </div>

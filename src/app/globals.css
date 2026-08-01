@@ -1,5 +1,13 @@
 @import "tailwindcss";
 
+/* 限定扫描范围：排除历史备份/遗留脚本中的旧类名串，避免生成无用 CSS */
+@source not "../**/*.bak";
+@source not "../xingming/xe.*";
+@source not "../../scripts/**";
+@source not "../../.gh-pages-tmp/**";
+@source not "../../*.js";
+@source not "../../*.mjs";
+
 @theme {
   /* ── 极浅灰底色系（接近白色，与首页一致） ── */
   --color-dark-950: #fafafa;
@@ -19,25 +27,27 @@
   --color-gold-700: #886810;
   --color-gold-900: #604810;
 
-  /* ── 青玉色 ── */
+  /* ── 全站单色标准（2026-08-01 v2）：仅保留古金一个彩色 ──
+     jade/shui/tu/zhuhong token 已停用（历史保留，勿再使用） ── */
+  /* ── 青玉色（已停用） ── */
   --color-jade-300: #5a9a88;
   --color-jade-400: #4a8a78;
   --color-jade-500: #3a7a68;
   --color-jade-600: #2d6a58;
   --color-jade-700: #1d5a48;
 
-  /* ── 朱红（保留，少用） ── */
+  /* ── 朱红（已停用） ── */
   --color-zhuhong: #c43a31;
   --color-zhuhong-dark: #a82f28;
 
-  /* ── 水蓝（五行：水；信息性蓝色） ── */
+  /* ── 水蓝（已停用） ── */
   --color-shui-300: #6a9ab8;
   --color-shui-400: #4a7a9a;
   --color-shui-500: #3a6a8a;
   --color-shui-600: #2d5a7a;
   --color-shui-700: #20506e;
 
-  /* ── 土黄（五行：土；中性偏暖） ── */
+  /* ── 土黄（已停用） ── */
   --color-tu-300: #b89a68;
   --color-tu-400: #9c7c48;
   --color-tu-500: #8a6d3b;

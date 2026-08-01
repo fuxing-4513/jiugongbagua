@@ -72,7 +72,7 @@ export default async function BookPage({ params }: Props) {
             </span>
           ) : null}
           {book.isComplete ? (
-            <span className="bg-jade-50 text-jade-600 px-2 py-0.5 rounded font-medium">完整收录</span>
+            <span className="bg-gold-500-50 text-gold-600 px-2 py-0.5 rounded font-medium">完整收录</span>
           ) : (
             <span className="text-gray-300 text-xs">部分收录</span>
           )}
@@ -117,7 +117,7 @@ export default async function BookPage({ params }: Props) {
                   <span className="text-gray-300 group-open:text-gold-400 transition-colors">{i + 1}.</span>
                   <span>{ch.title}</span>
                   {/* 白话/注释标记 */}
-                  {ch.vernacular && <span className="text-[10px] bg-shui-500/5 text-shui-500 px-1.5 py-0.5 rounded">白话</span>}
+                  {ch.vernacular && <span className="text-[10px] bg-gold-500/5 text-gold-600 px-1.5 py-0.5 rounded">白话</span>}
                   {ch.notes && <span className="text-[10px] bg-gold-500/5 text-gold-500 px-1.5 py-0.5 rounded">注</span>}
                   <span className="ml-auto text-gray-300 group-open:rotate-180 transition-transform text-xs">▼</span>
                 </summary>
@@ -147,10 +147,10 @@ export default async function BookPage({ params }: Props) {
 
                   {/* 白话译文 */}
                   {ch.vernacular && (
-                    <div className="mt-4 pt-4 border-t border-shui-500/25">
+                    <div className="mt-4 pt-4 border-t border-gold-500/25">
                       <div className="flex items-center gap-1.5 mb-2">
-                        <span className="text-shui-500 text-xs">💬</span>
-                        <span className="text-[10px] font-medium text-shui-500">白话参考</span>
+                        <span className="text-gold-600 text-xs">💬</span>
+                        <span className="text-[10px] font-medium text-gold-600">白话参考</span>
                       </div>
                       <div className="prose prose-sm max-w-none text-gray-500 leading-relaxed whitespace-pre-line">{ch.vernacular}</div>
                     </div>

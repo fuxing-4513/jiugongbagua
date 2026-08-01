@@ -145,7 +145,7 @@ function BookCard({ book }: { book: BookMeta }) {
             {book.isComplete && (
               <>
                 <span>·</span>
-                <span className="text-jade-500 font-medium">完整收录</span>
+                <span className="text-gold-600 font-medium">完整收录</span>
               </>
             )}
           </div>

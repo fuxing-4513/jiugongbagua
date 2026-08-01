@@ -16,7 +16,7 @@ interface FieldFull {
 const FIELDS: Record<string, FieldFull> = {
   tianyi: {
     name:'天医', type:'吉', numbers:[13,31,68,86,94,49,72,27],
-    keywords:['财运','财富','婚姻','桃花','聪明'], color:'#2ecc71',
+    keywords:['财运','财富','婚姻','桃花','聪明'], color:'#a88820',
     description:'天医星·主财运、婚姻、健康，是最吉祥的数字组合。',
     detail:'天医磁场是八大磁场中最吉祥的磁场，代表财富、婚姻和智慧。天医能量强的人思维敏捷，心地善良，容易获得正财运和美满姻缘。',
     star7:'天医巨门星', star7Wx:'土', star7Level:'次吉',
@@ -41,7 +41,7 @@ const FIELDS: Record<string, FieldFull> = {
   },
   shengqi: {
     name:'生气', type:'吉', numbers:[14,41,67,76,93,39,82,28],
-    keywords:['贵人','人脉','开朗','随缘'], color:'#3498db',
+    keywords:['贵人','人脉','开朗','随缘'], color:'#a88820',
     description:'生气星·主贵人运、人脉广、性格开朗乐观。',
     detail:'生气磁场代表贵人运和人际关系。拥有生气磁场的号码使用者，往往性格开朗、人缘好，容易得到他人帮助。生气磁场也被称为贵人星。',
     star7:'生气贪狼星', star7Wx:'木', star7Level:'次吉',
@@ -66,7 +66,7 @@ const FIELDS: Record<string, FieldFull> = {
   },
   yannian: {
     name:'延年', type:'吉', numbers:[19,91,78,87,34,43,26,62],
-    keywords:['事业','领导力','才干','专业'], color:'#9b59b6',
+    keywords:['事业','领导力','才干','专业'], color:'#a88820',
     description:'延年星·主事业运、领导能力、专业才干。',
     detail:'延年磁场代表事业和领导能力。延年磁场强的人事业心强，有领导才能，专业领域表现出色。延年是事业星，代表能力和担当。',
     star7:'延年武曲星', star7Wx:'金', star7Level:'大吉',
@@ -91,7 +91,7 @@ const FIELDS: Record<string, FieldFull> = {
   },
   fuwei: {
     name:'伏位', type:'平', numbers:[11,22,88,99,77,66,44,33],
-    keywords:['稳定','保守','耐心','积蓄'], color:'#1abc9c',
+    keywords:['稳定','保守','耐心','积蓄'], color:'#a88820',
     description:'伏位星·主稳定、保守、积蓄。吉凶取决于前后搭配。',
     detail:'伏位磁场代表稳定和积蓄。伏位磁场的人性格稳重，做事有耐心，适合长期坚持的工作。伏位是中性磁场，吉凶取决于前后搭配。',
     star7:'伏位左辅星', star7Wx:'土', star7Level:'小吉',
@@ -116,7 +116,7 @@ const FIELDS: Record<string, FieldFull> = {
   },
   huohai: {
     name:'祸害', type:'凶', numbers:[17,71,89,98,64,46,32,23],
-    keywords:['口舌','是非','小人','病痛'], color:'#e74c3c',
+    keywords:['口舌','是非','小人','病痛'], color:'#a88820',
     description:'祸害星·主口舌是非、小人、身体病痛。',
     detail:'祸害磁场代表口舌是非和身体问题。祸害磁场容易引发争吵、官非和小人困扰。身体方面容易出现咽喉、肺部等问题。',
     star7:'祸害破军星', star7Wx:'金', star7Level:'次凶',
@@ -141,7 +141,7 @@ const FIELDS: Record<string, FieldFull> = {
   },
   jueming: {
     name:'绝命', type:'凶', numbers:[12,21,69,96,84,48,37,73],
-    keywords:['破财','冲动','投资','大起大落'], color:'#c0392b',
+    keywords:['破财','冲动','投资','大起大落'], color:'#a88820',
     description:'绝命星·主破财、冲动、投资失利。敢拼敢闯但也容易大起大落。',
     detail:'绝命磁场代表破财和大起大落。绝命磁场的人有冲劲、敢冒险，但也容易因冲动而导致财务损失。绝命磁场需要搭配吉星才能化解。',
     star7:'绝命廉贞星', star7Wx:'火', star7Level:'大凶',
@@ -166,7 +166,7 @@ const FIELDS: Record<string, FieldFull> = {
   },
   liusha: {
     name:'六煞', type:'凶', numbers:[16,61,74,47,38,83,92,29],
-    keywords:['烂桃花','情绪','忧郁','服务'], color:'#e67e22',
+    keywords:['烂桃花','情绪','忧郁','服务'], color:'#a88820',
     description:'六煞星·主烂桃花、情绪不稳定、忧郁。',
     detail:'六煞磁场代表烂桃花和情绪问题。六煞磁场的人情感丰富，但也容易陷入感情纠纷和情绪波动。六煞适合服务业。',
     star7:'六煞文曲星', star7Wx:'水', star7Level:'次凶',
@@ -191,7 +191,7 @@ const FIELDS: Record<string, FieldFull> = {
   },
   wugui: {
     name:'五鬼', type:'凶', numbers:[18,81,79,97,36,63,42,24],
-    keywords:['变动','才华','熬夜','血光'], color:'#8e44ad',
+    keywords:['变动','才华','熬夜','血光'], color:'#a88820',
     description:'五鬼星·主变动、才华横溢但易招血光。聪明有创意但人生多波折。',
     detail:'五鬼磁场代表变动和才华。五鬼磁场的人聪明过人、有创造力，但也容易经历人生变故和波折。五鬼是变动星，代表不稳定的能量。',
     star7:'五鬼廉贞星', star7Wx:'火', star7Level:'大凶',
@@ -821,7 +821,7 @@ const FIELD_ORDER = ['fuwei','tianyi','shengqi','yannian','liusha','jueming','hu
 const numToField: Record<number, string> = {}
 for (const [k, f] of Object.entries(FIELDS)) for (const n of f.numbers) numToField[n] = k
 
-const TYPE_STYLE: Record<string, string> = { '吉':'bg-jade-500/15 text-jade-600 border-jade-500/30', '凶':'bg-zhuhong/10 text-zhuhong border-zhuhong/25', '平':'bg-dark-700 text-gray-500 border-dark-600', '次吉':'bg-jade-500/10 text-jade-500 border-jade-500/25', '大吉':'bg-gold-500/15 text-gold-600 border-gold-500/30', '次凶':'bg-zhuhong/5 text-zhuhong/80 border-zhuhong/20', '大凶':'bg-zhuhong/15 text-zhuhong-dark border-zhuhong-dark/30', '小吉':'bg-jade-500/5 text-jade-500 border-jade-500/20' }
+const TYPE_STYLE: Record<string, string> = { '吉':'bg-gold-500/15 text-gold-600 border-gold-500/30', '凶':'bg-gold-500/10 text-gold-600 border-gold-500/25', '平':'bg-dark-700 text-gray-500 border-dark-600', '次吉':'bg-gold-500/10 text-gold-600 border-gold-500/25', '大吉':'bg-gold-500/15 text-gold-600 border-gold-500/30', '次凶':'bg-gold-500/5 text-gold-600/80 border-gold-500/20', '大凶':'bg-gold-500/15 text-gold-700 border-gold-700/30', '小吉':'bg-gold-500/5 text-gold-600 border-gold-500/20' }
 
 // 七星对应
 const STAR7 = [
@@ -965,7 +965,7 @@ export default function ShumaClient() {
           <div className="grid grid-cols-7 gap-1">
             {STAR7.map((s, i) => (
               <div key={i} className="text-center">
-                <div className={`text-[11px] font-serif mb-1 ${i===4||i===6?'text-zhuhong':i===5?'text-gold-500':'text-shui-500'}`}>{s.name.split('·')[0]}</div>
+                <div className={`text-[11px] font-serif mb-1 ${i===4||i===6?'text-gold-600':i===5?'text-gold-500':'text-gold-600'}`}>{s.name.split('·')[0]}</div>
                 <div className={`text-[10px] px-1 py-0.5 rounded ${TYPE_STYLE[s.level] || 'bg-dark-700'}`}>{tName(
                   Object.entries(FIELDS).find(([,v]) => v.name === s.field)?.[0] || '',
                   locale
@@ -998,8 +998,8 @@ export default function ShumaClient() {
           {/* 综合评分 */}
           <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-5 text-center">
             <p className="text-xs text-gray-500 mb-1">{getT('shumaPage.overallScore')}</p>
-            <p className={`text-4xl font-bold ${result.score >= 60 ? 'text-jade-500' : result.score >= 40 ? 'text-gold-500' : 'text-zhuhong'}`}>{result.score}</p>
-            <p className={`text-sm mt-1 font-semibold ${result.score >= 60 ? 'text-jade-500' : result.score >= 40 ? 'text-gold-500' : 'text-zhuhong'}`}>{result.overall}</p>
+            <p className={`text-4xl font-bold ${result.score >= 60 ? 'text-gold-600' : result.score >= 40 ? 'text-gold-500' : 'text-gold-600'}`}>{result.score}</p>
+            <p className={`text-sm mt-1 font-semibold ${result.score >= 60 ? 'text-gold-600' : result.score >= 40 ? 'text-gold-500' : 'text-gold-600'}`}>{result.overall}</p>
           </div>
 
           {/* 号码分段 & 组合解析 */}
@@ -1037,11 +1037,11 @@ export default function ShumaClient() {
               <p className="text-xs text-gray-400 mb-2">{tName(result.dominantField, locale)} · {getStarTextField(result.dominantField, 'description', locale)}</p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 <div className="bg-dark-700 rounded-lg p-3">
-                  <p className="text-[10px] text-jade-500 mb-1">{getT('shumaPage.strengths')}</p>
+                  <p className="text-[10px] text-gold-600 mb-1">{getT('shumaPage.strengths')}</p>
                   <p className="text-[11px] text-gray-300">{getStarTextField(result.dominantField, 'strengths', locale)}</p>
                 </div>
                 <div className="bg-dark-700 rounded-lg p-3">
-                  <p className="text-[10px] text-zhuhong mb-1">{getT('shumaPage.weaknesses')}</p>
+                  <p className="text-[10px] text-gold-600 mb-1">{getT('shumaPage.weaknesses')}</p>
                   <p className="text-[11px] text-gray-300">{getStarTextField(result.dominantField, 'weaknesses', locale)}</p>
                 </div>
               </div>

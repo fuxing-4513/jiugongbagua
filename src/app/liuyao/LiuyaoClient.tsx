@@ -23,8 +23,8 @@ function getLiuQin(yaoWx: string, gongWx: string): string {
 }
 
 const LIUQIN_COLOR: Record<string, string> = {
-  '父母': 'text-gold-600', '兄弟': 'text-shui-600', '子孙': 'text-jade-600',
-  '妻财': 'text-tu-600', '官鬼': 'text-zhuhong',
+  '父母': 'text-gold-600', '兄弟': 'text-gold-600', '子孙': 'text-gold-600',
+  '妻财': 'text-gold-600', '官鬼': 'text-gold-600',
 }
 
 // ── 卦宫归属 ──
@@ -96,10 +96,10 @@ function Coin({ result, settled, delay, tossing, size }: { result: boolean; sett
           {/* 方孔 */}
           <div className={`${hole} border-2 border-gold-500/60 rounded-[2px] bg-dark-950/50`} />
           {/* 四字 */}
-          <span className={`absolute ${textSize} font-bold text-jade-500/80`} style={{ top: isXl ? '4px' : '2px' }}>乾</span>
-          <span className={`absolute ${textSize} font-bold text-jade-500/80`} style={{ bottom: isXl ? '4px' : '2px' }}>隆</span>
-          <span className={`absolute ${textSize} font-bold text-jade-500/80`} style={{ left: isXl ? '4px' : '2px' }}>通</span>
-          <span className={`absolute ${textSize} font-bold text-jade-500/80`} style={{ right: isXl ? '4px' : '2px' }}>寶</span>
+          <span className={`absolute ${textSize} font-bold text-gold-600/80`} style={{ top: isXl ? '4px' : '2px' }}>乾</span>
+          <span className={`absolute ${textSize} font-bold text-gold-600/80`} style={{ bottom: isXl ? '4px' : '2px' }}>隆</span>
+          <span className={`absolute ${textSize} font-bold text-gold-600/80`} style={{ left: isXl ? '4px' : '2px' }}>通</span>
+          <span className={`absolute ${textSize} font-bold text-gold-600/80`} style={{ right: isXl ? '4px' : '2px' }}>寶</span>
           {/* 内圈 */}
           <div className={`absolute inset-2 rounded-full border border-gold-500/15 pointer-events-none`} />
         </div>
@@ -117,8 +117,8 @@ function Coin({ result, settled, delay, tossing, size }: { result: boolean; sett
           <div className={`${hole} border-2 border-gold-500/60 rounded-[2px] bg-dark-950/50`} />
           <div className="absolute inset-2 rounded-full border border-gold-500/25 pointer-events-none" />
           <div className="absolute inset-3 rounded-full border border-gold-500/15 pointer-events-none" />
-          <span className={`absolute ${tinyText} text-jade-500/50 font-bold`} style={{ top: isXl ? '5px' : '3px' }}>滿</span>
-          <span className={`absolute ${tinyText} text-jade-500/50 font-bold`} style={{ bottom: isXl ? '5px' : '3px' }}>文</span>
+          <span className={`absolute ${tinyText} text-gold-600/50 font-bold`} style={{ top: isXl ? '5px' : '3px' }}>滿</span>
+          <span className={`absolute ${tinyText} text-gold-600/50 font-bold`} style={{ bottom: isXl ? '5px' : '3px' }}>文</span>
         </div>
       </div>
     </div>

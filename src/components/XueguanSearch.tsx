@@ -204,7 +204,7 @@ export default function XueguanSearch({ placeholder = '搜索古籍名称、作�
                     {r.book.title}
                   </span>
                   {r.book.isComplete && (
-                    <span className="text-[10px] bg-jade-50 text-jade-500 px-1.5 py-0.5 rounded font-medium">全文</span>
+                    <span className="text-[10px] bg-gold-500-50 text-gold-600 px-1.5 py-0.5 rounded font-medium">全文</span>
                   )}
                   <span className="text-[10px] text-gray-300 bg-gray-50 px-1.5 py-0.5 rounded">
                     {catNames[r.book.category] || r.book.category}
@@ -216,7 +216,7 @@ export default function XueguanSearch({ placeholder = '搜索古籍名称、作�
                   </div>
                 )}
                 {r.matchedField === 'keyword' && (
-                  <div className="text-xs text-shui-500 mt-0.5">
+                  <div className="text-xs text-gold-600 mt-0.5">
                     标签匹配 · {r.matchedText}
                   </div>
                 )}

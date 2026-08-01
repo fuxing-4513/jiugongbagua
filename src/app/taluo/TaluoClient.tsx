@@ -236,7 +236,7 @@ export default function TaluoClient() {
         />
         {flipped && (
           <span
-            className={`text-[9px] font-medium ${orientation === 'upright' ? 'text-jade-600' : 'text-zhuhong-dark'}`}
+            className={`text-[9px] font-medium ${orientation === 'upright' ? 'text-gold-600' : 'text-gold-700'}`}
           >
             {orientation === 'upright' ? `▲ ${TAROT_ORIENTATION_LANG.upright[locale] || TAROT_ORIENTATION_LANG.upright['zh-CN']}` : `▼ ${TAROT_ORIENTATION_LANG.reversed[locale] || TAROT_ORIENTATION_LANG.reversed['zh-CN']}`}
           </span>
@@ -424,7 +424,7 @@ export default function TaluoClient() {
                       {interp.core}
                     </p>
                     <p className="text-gray-600">
-                      <span className="text-jade-600/80 text-[11px]">{pos.name}方面：</span>
+                      <span className="text-gold-600/80 text-[11px]">{pos.name}方面：</span>
                       {interp.aspect}
                     </p>
                     <div className="pt-2 border-t border-gold-500/25">
@@ -460,7 +460,7 @@ export default function TaluoClient() {
                   <div className="space-y-2 text-sm leading-relaxed">
                     {interp.contextual ? (
                       <p className="text-gray-700">
-                        <span className="text-zhuhong-dark/80 text-[11px]">
+                        <span className="text-gold-700/80 text-[11px]">
                           {pos.context === 'love'
                             ? (locale === 'en' ? '❤️ Love:' : locale === 'ja' ? '❤️ 恋愛視点：' : locale === 'ko' ? '❤️ 연애 관점：' : '❤️ 感情视角：')
                             : pos.context === 'work'
@@ -506,7 +506,7 @@ export default function TaluoClient() {
                       <div className="min-w-0 flex-1">
                         <p className="text-sm font-medium text-gold-700">
                           {drawn.card.name.zh}
-                          <span className={`text-[10px] ml-1.5 ${isUp ? 'text-jade-600' : 'text-zhuhong-dark'}`}>
+                          <span className={`text-[10px] ml-1.5 ${isUp ? 'text-gold-600' : 'text-gold-700'}`}>
                             {isUp ? `▲${TAROT_ORIENTATION_LANG.upright[locale] || TAROT_ORIENTATION_LANG.upright['zh-CN']}` : `▼${TAROT_ORIENTATION_LANG.reversed[locale] || TAROT_ORIENTATION_LANG.reversed['zh-CN']}`}
                           </span>
                         </p>

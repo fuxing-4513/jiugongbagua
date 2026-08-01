@@ -83,29 +83,29 @@ function QianTong({ shaking, showResult }: { shaking: boolean; showResult: boole
       <line x1="36" y1="180" x2="164" y2="180" stroke="#78350f" strokeWidth="1.5" opacity="0.4" />
       <line x1="34" y1="220" x2="166" y2="220" stroke="#78350f" strokeWidth="1.5" opacity="0.4" />
       {/* 筒口金边 */}
-      <ellipse cx="100" cy="90" rx="65" ry="15" fill="#f59e0b" />
+      <ellipse cx="100" cy="90" rx="65" ry="15" fill="#a88820" />
       <ellipse cx="100" cy="92" rx="62" ry="13" fill="#d97706" />
       <ellipse cx="100" cy="95" rx="58" ry="11" fill="#78350f" />
       {/* 签筒中的签 */}
       {!showResult && Array.from({length: 12}).map((_, i) => (
         <line key={i} x1={75 + Math.sin(i*0.8)*25} y1={95} x2={70 + Math.sin(i*0.8)*30} y2={35 - i*1.5}
-          stroke="#fcd34d" strokeWidth="3" strokeLinecap="round" opacity={STICK_OPACITIES[i]}
+          stroke="#c8a830" strokeWidth="3" strokeLinecap="round" opacity={STICK_OPACITIES[i]}
           style={{ animation: shaking ? `stick-pop 0.3s ease-out ${i*0.05}s` : 'none' }}
         />
       ))}
       {/* 跳出签 */}
       {showResult && (
         <g style={{ animation: 'qian-fly 0.8s ease-out forwards' }}>
-          <text x="100" y="30" textAnchor="middle" fill="#fcd34d" fontSize="12" fontWeight="bold"
+          <text x="100" y="30" textAnchor="middle" fill="#c8a830" fontSize="12" fontWeight="bold"
             style={{ animation: 'qian-glow 1.5s ease-in-out infinite' }}>
             ──
           </text>
-          <text x="100" y="10" textAnchor="middle" fill="#f59e0b" fontSize="10" fontWeight="bold">灵签</text>
+          <text x="100" y="10" textAnchor="middle" fill="#a88820" fontSize="10" fontWeight="bold">灵签</text>
         </g>
       )}
       {/* 装饰绳结 */}
-      <circle cx="100" cy="253" r="4" fill="#dc2626" />
-      <circle cx="100" cy="253" r="2" fill="#ef4444" />
+      <circle cx="100" cy="253" r="4" fill="#987818" />
+      <circle cx="100" cy="253" r="2" fill="#a88820" />
       {/* 香火烟雾 */}
       {shaking && Array.from({length: 3}).map((_, i) => (
         <g key={`smoke-${i}`}
@@ -217,7 +217,7 @@ export default function LingqianClient() {
     setShaking(false)
   }
 
-  if (!category) return <div className="max-w-2xl mx-auto px-4 py-10 text-zhuhong">{getT('lingqianPage.loadError')}</div>
+  if (!category) return <div className="max-w-2xl mx-auto px-4 py-10 text-gold-600">{getT('lingqianPage.loadError')}</div>
 
   return (
     <div className="max-w-2xl mx-auto px-4 py-10">
@@ -277,7 +277,7 @@ export default function LingqianClient() {
               </p>
             )}
             {phase === 'done' && (
-              <p className="text-jade-500">{getT('lingqianPage.done')}</p>
+              <p className="text-gold-600">{getT('lingqianPage.done')}</p>
             )}
           </div>
         </div>

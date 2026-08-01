@@ -17,20 +17,20 @@ type CalendarType = 'solar' | 'lunar'
 // ── Brightness (iztro returns Chinese chars) ──
 const BRIGHTNESS: Record<string, { label: string; color: string; level: number; score: number }> = {
   '庙': { label: '廟', color: 'text-gold-600', level: 5, score: 100 },
-  '旺': { label: '旺', color: 'text-jade-500', level: 4, score: 80 },
-  '得': { label: '得', color: 'text-shui-500',  level: 3, score: 60 },
-  '利': { label: '利', color: 'text-tu-500',  level: 2, score: 40 },
+  '旺': { label: '旺', color: 'text-gold-600', level: 4, score: 80 },
+  '得': { label: '得', color: 'text-gold-500',  level: 3, score: 60 },
+  '利': { label: '利', color: 'text-gold-500',  level: 2, score: 40 },
   '平': { label: '平', color: 'text-gray-500', level: 1, score: 20 },
-  '不': { label: '不', color: 'text-zhuhong/80', level: -1, score: 10 },
-  '陷': { label: '陷', color: 'text-zhuhong',   level: -2, score: 0 },
+  '不': { label: '不', color: 'text-gold-500/80', level: -1, score: 10 },
+  '陷': { label: '陷', color: 'text-gold-600',   level: -2, score: 0 },
   '':   { label: '—',  color: 'text-gray-400',  level: 0,  score: 0 },
 }
 
 const MUTAGEN: Record<string, { label: string; color: string }> = {
-  '禄': { label: '化祿', color: 'text-jade-500' },
+  '禄': { label: '化祿', color: 'text-gold-500' },
   '权': { label: '化權', color: 'text-gold-600' },
-  '科': { label: '化科', color: 'text-shui-500' },
-  '忌': { label: '化忌', color: 'text-zhuhong' },
+  '科': { label: '化科', color: 'text-gold-500' },
+  '忌': { label: '化忌', color: 'text-gold-600' },
 }
 
 const JI_XING = new Set(['左辅','右弼','文昌','文曲','天魁','天钺','禄存','天马','三台','八座','恩光','天贵','龙池','凤阁','台辅','封诰','天福','天官','天厨','天才','天寿','解神','天德','月德'])
@@ -419,7 +419,7 @@ export default function ZiweiClient() {
         {minors.length > 0 && (
           <p className="text-[8px] text-gray-500 leading-relaxed mt-0.5">
             {minors.map((s, i) => (
-              <span key={i} className={SHA_XING.has(s.name) ? 'text-zhuhong/80' : 'text-shui-500/80'}>
+              <span key={i} className={SHA_XING.has(s.name) ? 'text-gold-600/80' : 'text-gold-600/80'}>
                 {s.name}{i < minors.length - 1 ? ',' : ''}
               </span>
             ))}
@@ -443,11 +443,11 @@ export default function ZiweiClient() {
             <td className="text-gray-400 pr-3 py-1.5 w-12 align-middle">{getT('ziweiPage.genderLabel')}</td>
             <td className="py-1.5">
               <label className="inline-flex items-center gap-1 cursor-pointer mr-5">
-                <input type="radio" name="gender" checked={gender === 'M'} onChange={() => setGender('M')} className="accent-shui-500" />
+                <input type="radio" name="gender" checked={gender === 'M'} onChange={() => setGender('M')} className="accent-gold-500" />
                 <span className="text-gray-200">{getT('ziweiPage.male')}</span>
               </label>
               <label className="inline-flex items-center gap-1 cursor-pointer">
-                <input type="radio" name="gender" checked={gender === 'F'} onChange={() => setGender('F')} className="accent-zhuhong-500" />
+                <input type="radio" name="gender" checked={gender === 'F'} onChange={() => setGender('F')} className="accent-gold-500" />
                 <span className="text-gray-200">{getT('ziweiPage.female')}</span>
               </label>
             </td>
@@ -487,7 +487,7 @@ export default function ZiweiClient() {
             </td>
           </tr>
         </tbody></table>
-        {error && <p className="text-xs text-zhuhong mt-2">{error}</p>}
+        {error && <p className="text-xs text-gold-600 mt-2">{error}</p>}
         {validationMsg && <p className="text-xs text-gold-500 mt-2">⚠ {validationMsg}</p>}
         <div className="mt-4 flex gap-2">
           <button onClick={analyze} disabled={!!validationMsg}
@@ -529,7 +529,7 @@ export default function ZiweiClient() {
           <h2 className="text-lg font-semibold text-gold-400 font-serif">
             本命：{soulDisplayName}
             <span className="text-xs text-gray-500 font-normal ml-3">
-              {getT('ziweiPage.goodFortune')}:<span className={`font-bold ${fortuneScore >= 80 ? 'text-jade-500' : fortuneScore >= 60 ? 'text-gold-500' : fortuneScore >= 40 ? 'text-zhuhong' : 'text-zhuhong'}`}>{fortuneScore}</span>
+              {getT('ziweiPage.goodFortune')}:<span className={`font-bold ${fortuneScore >= 80 ? 'text-gold-600' : fortuneScore >= 60 ? 'text-gold-500' : fortuneScore >= 40 ? 'text-gold-600' : 'text-gold-600'}`}>{fortuneScore}</span>
             </span>
           </h2>
           <div className="overflow-x-auto">
@@ -588,18 +588,18 @@ export default function ZiweiClient() {
               </div>
               <div>
                 <table className="w-full text-xs"><tbody>
-                  <tr className="border-b border-dark-600"><td className="py-1.5 text-jade-500 font-medium">{getT('ziweiPage.auspiciousStars')}</td><td className="py-1.5 text-zhuhong font-medium">{getT('ziweiPage.inauspiciousStars')}</td></tr>
+                  <tr className="border-b border-dark-600"><td className="py-1.5 text-gold-600 font-medium">{getT('ziweiPage.auspiciousStars')}</td><td className="py-1.5 text-gold-600 font-medium">{getT('ziweiPage.inauspiciousStars')}</td></tr>
                   <tr className="border-b border-dark-700">
-                    <td className="py-1.5 text-jade-500/80 text-[10px]">{auspiciousStats.jiList || '—'}</td>
-                    <td className="py-1.5 text-zhuhong/80 text-[10px]">{auspiciousStats.shaList || '—'}</td>
+                    <td className="py-1.5 text-gold-600/80 text-[10px]">{auspiciousStats.jiList || '—'}</td>
+                    <td className="py-1.5 text-gold-600/80 text-[10px]">{auspiciousStats.shaList || '—'}</td>
                   </tr>
                   <tr>
-                    <td className="py-1.5 text-jade-500 font-semibold">{getT('ziweiPage.auspiciousCount').replace('{n}', String(auspCount))}</td>
-                    <td className="py-1.5 text-jade-500 font-semibold">{getT('ziweiPage.inauspiciousCount').replace('{n}', String(inauspCount))}</td>
+                    <td className="py-1.5 text-gold-600 font-semibold">{getT('ziweiPage.auspiciousCount').replace('{n}', String(auspCount))}</td>
+                    <td className="py-1.5 text-gold-600 font-semibold">{getT('ziweiPage.inauspiciousCount').replace('{n}', String(inauspCount))}</td>
                   </tr>
                 </tbody></table>
                 <p className="text-xs text-gray-400 mt-2">{getT('ziweiPage.auspiciousRatio').replace('{a}', String(auspCount)).replace('{b}', String(inauspCount))}=<span className="text-gold-400 font-semibold">{auspIndex}%</span></p>
-                <p className="text-xs text-gray-400 mt-1">{getT('ziweiPage.goodFortune')}=<span className={`font-bold ${fortuneScore >= 80 ? 'text-jade-500' : fortuneScore >= 60 ? 'text-gold-500' : fortuneScore >= 40 ? 'text-zhuhong' : 'text-zhuhong'}`}>{fortuneScore}</span></p>
+                <p className="text-xs text-gray-400 mt-1">{getT('ziweiPage.goodFortune')}=<span className={`font-bold ${fortuneScore >= 80 ? 'text-gold-600' : fortuneScore >= 60 ? 'text-gold-500' : fortuneScore >= 40 ? 'text-gold-600' : 'text-gold-600'}`}>{fortuneScore}</span></p>
               </div>
             </div>
           </div>
@@ -613,25 +613,25 @@ export default function ZiweiClient() {
                 {sihuaAnalysis.lu.star && (
                 <div className="bg-dark-700/60 rounded-lg p-2 text-center">
                   <p className="text-xs text-gray-500">化禄</p>
-                  <p className="font-semibold text-jade-500 text-sm">{sihuaAnalysis.lu.star}</p>
+                  <p className="font-semibold text-gold-600 text-sm">{sihuaAnalysis.lu.star}</p>
                   <p className="text-xs text-gray-400 mt-0.5">{sihuaAnalysis.lu.meaning.split('，').slice(1).join('，')}</p>
                 </div>)}
                 {sihuaAnalysis.quan.star && (
                 <div className="bg-dark-700/60 rounded-lg p-2 text-center">
                   <p className="text-xs text-gray-500">化权</p>
-                  <p className="font-semibold text-jade-500 text-sm">{sihuaAnalysis.quan.star}</p>
+                  <p className="font-semibold text-gold-600 text-sm">{sihuaAnalysis.quan.star}</p>
                   <p className="text-xs text-gray-400 mt-0.5">{sihuaAnalysis.quan.meaning.split('，').slice(1).join('，')}</p>
                 </div>)}
                 {sihuaAnalysis.ke.star && (
                 <div className="bg-dark-700/60 rounded-lg p-2 text-center">
                   <p className="text-xs text-gray-500">化科</p>
-                  <p className="font-semibold text-jade-500 text-sm">{sihuaAnalysis.ke.star}</p>
+                  <p className="font-semibold text-gold-600 text-sm">{sihuaAnalysis.ke.star}</p>
                   <p className="text-xs text-gray-400 mt-0.5">{sihuaAnalysis.ke.meaning.split('，').slice(1).join('，')}</p>
                 </div>)}
                 {sihuaAnalysis.ji.star && (
                 <div className="bg-dark-700/60 rounded-lg p-2 text-center">
                   <p className="text-xs text-gray-500">化忌</p>
-                  <p className="font-semibold text-jade-500 text-sm">{sihuaAnalysis.ji.star}</p>
+                  <p className="font-semibold text-gold-600 text-sm">{sihuaAnalysis.ji.star}</p>
                   <p className="text-xs text-gray-400 mt-0.5">{sihuaAnalysis.ji.meaning.split('，').slice(1).join('，')}</p>
                 </div>)}
               </div>

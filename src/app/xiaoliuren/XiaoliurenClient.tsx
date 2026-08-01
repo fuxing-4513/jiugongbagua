@@ -66,7 +66,7 @@ export default function XiaoliurenClient() {
           <h2 className="text-lg font-semibold text-gray-200 mb-4">{getT('modules.xiaoliuren.resultTitle')}</h2>
           <div className="bg-dark-700 rounded-lg p-4">
             <p className="text-lg font-bold text-gray-200">{result.name}</p>
-            <p className={`text-sm font-semibold mt-1 ${result.fortune === '吉' ? 'text-jade-500' : 'text-zhuhong'}`}>
+            <p className={`text-sm font-semibold mt-1 ${result.fortune === '吉' ? 'text-gold-600' : 'text-gold-600'}`}>
               {result.fortune === '吉' ? getT('modules.xiaoliuren.lucky') : getT('modules.xiaoliuren.unlucky')}
             </p>
             <p className="text-sm text-gray-400 mt-2">{meanings[resIdx]}</p>

@@ -20,11 +20,11 @@ export interface LingqianCategory {
 // 颜色映射
 export const LEVEL_COLORS: Record<string,string> = {
   '上上':'text-gold-600 bg-gold-500/15 border-gold-500/30',
-  '上吉':'text-jade-600 bg-jade-500/15 border-jade-500/30',
-  '大吉':'text-jade-600 bg-jade-500/15 border-jade-500/30',
-  '中吉':'text-jade-500 bg-jade-500/10 border-jade-500/25',
+  '上吉':'text-gold-600 bg-gold-500/15 border-gold-500/30',
+  '大吉':'text-gold-600 bg-gold-500/15 border-gold-500/30',
+  '中吉':'text-gold-600 bg-gold-500/10 border-gold-500/25',
   '中平':'text-gray-500 bg-dark-700 border-dark-600',
-  '中下':'text-tu-600 bg-tu-500/10 border-tu-500/25',
-  '下下':'text-zhuhong bg-zhuhong/10 border-zhuhong/25',
-  '下平':'text-zhuhong/80 bg-zhuhong/5 border-zhuhong/20',
+  '中下':'text-gold-600 bg-gold-500/10 border-gold-500/25',
+  '下下':'text-gold-600 bg-gold-500/10 border-gold-500/25',
+  '下平':'text-gold-600/80 bg-gold-500/5 border-gold-500/20',
 }

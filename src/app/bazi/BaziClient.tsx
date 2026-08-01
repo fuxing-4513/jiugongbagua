@@ -277,7 +277,7 @@ function mergeShenSha(pillarShenSha: PillarShenSha[]): { name: string; type: '�
 
 const shenShaTagColor = (type: string) => {
   if (type === '吉') return 'bg-gold-900/50 text-gold-300 border border-gold-700/50'
-  if (type === '凶') return 'bg-zhuhong/10 text-zhuhong border border-zhuhong/40'
+  if (type === '凶') return 'bg-gold-500/10 text-gold-600 border border-gold-500/40'
   return 'bg-dark-700 text-gray-400 border border-dark-600'
 }
 
@@ -750,11 +750,11 @@ export default function BaziClient() {
 
   const ssColor = (s: string) => {
     if (!s) return 'text-gray-500'
-    if (s.includes('比肩')||s.includes('劫财')) return 'text-shui-600'
-    if (s.includes('食神')||s.includes('伤官')) return 'text-jade-600'
+    if (s.includes('比肩')||s.includes('劫财')) return 'text-gold-600'
+    if (s.includes('食神')||s.includes('伤官')) return 'text-gold-600'
     if (s.includes('正财')||s.includes('偏财')) return 'text-gold-600'
-    if (s.includes('正官')||s.includes('七杀')) return 'text-zhuhong'
-    if (s.includes('正印')||s.includes('偏印')) return 'text-tu-600'
+    if (s.includes('正官')||s.includes('七杀')) return 'text-gold-600'
+    if (s.includes('正印')||s.includes('偏印')) return 'text-gold-600'
     return 'text-gray-400'
   }
 
@@ -842,14 +842,14 @@ export default function BaziClient() {
 
       {/* 错误 Toast */}
       {error && (
-        <div className="my-3 p-4 bg-zhuhong/10 border-2 border-zhuhong/60 rounded-xl toast-enter">
+        <div className="my-3 p-4 bg-gold-500/10 border-2 border-gold-500/60 rounded-xl toast-enter">
           <div className="flex items-start gap-3">
             <span className="text-lg shrink-0">⚠️</span>
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-semibold text-zhuhong mb-0.5">排盘出错</p>
-              <p className="text-sm text-zhuhong/90 leading-relaxed">{error}</p>
+              <p className="text-sm font-semibold text-gold-600 mb-0.5">排盘出错</p>
+              <p className="text-sm text-gold-600/90 leading-relaxed">{error}</p>
             </div>
-            <button onClick={() => setError('')} className="text-zhuhong/60 hover:text-zhuhong shrink-0 mt-0.5" aria-label="关闭错误提示">✕</button>
+            <button onClick={() => setError('')} className="text-gold-600/60 hover:text-gold-600 shrink-0 mt-0.5" aria-label="关闭错误提示">✕</button>
           </div>
         </div>
       )}
@@ -936,10 +936,10 @@ export default function BaziClient() {
                 {result.pills.map((x: PillarInfo,i: number)=><td key={i} className={`p-2 border border-dark-600 text-center font-medium ${ssColor(x.ssG)}`}>{x.ssG}</td>)}
               </tr>
               <tr><td className="p-2 border border-dark-600 text-gray-500 bg-dark-700">地支</td>
-                {result.pills.map((x: PillarInfo,i: number)=><td key={i} className="p-2 border border-dark-600 text-center font-bold text-jade-500 font-serif text-base">{x.zhi}</td>)}
+                {result.pills.map((x: PillarInfo,i: number)=><td key={i} className="p-2 border border-dark-600 text-center font-bold text-gold-600 font-serif text-base">{x.zhi}</td>)}
               </tr>
               <tr><td className="p-2 border border-dark-600 text-gray-500 bg-dark-700">地支十神</td>
-                {result.pills.map((x: PillarInfo,i: number)=><td key={i} className="p-2 border border-dark-600 text-center font-medium text-shui-500">{x.ssZ}</td>)}
+                {result.pills.map((x: PillarInfo,i: number)=><td key={i} className="p-2 border border-dark-600 text-center font-medium text-gold-600">{x.ssZ}</td>)}
               </tr>
               <tr><td className="p-2 border border-dark-600 text-gray-500 bg-dark-700">藏干</td>
                 {result.pills.map((x: PillarInfo,i: number)=><td key={i} className="p-2 border border-dark-600 text-center text-gray-400">{x.hd}</td>)}
@@ -979,15 +979,15 @@ export default function BaziClient() {
           </div>
           <div className="bg-dark-700/60 rounded-lg p-2.5 text-center">
             <p className="text-xs text-gray-500 mb-0.5">旺衰</p>
-            <p className="font-bold text-sm" style={{color:result.enrich.旺衰.verdict.includes("身强") ? "#ef4444" : result.enrich.旺衰.verdict.includes("弱") ? "#3b82f6" : "#fbbf24"}}>{result.enrich.旺衰.verdict}</p>
+            <p className="font-bold text-sm" style={{color:"#987818"}}>{result.enrich.旺衰.verdict}</p>
           </div>
           <div className="bg-dark-700/60 rounded-lg p-2.5 text-center">
             <p className="text-xs text-gray-500 mb-0.5">调候用神</p>
-            <p className="font-bold text-jade-500 text-sm">{result.enrich.调候用神.join("、") || "无"}</p>
+            <p className="font-bold text-gold-600 text-sm">{result.enrich.调候用神.join("、") || "无"}</p>
           </div>
           <div className="bg-dark-700/60 rounded-lg p-2.5 text-center">
             <p className="text-xs text-gray-500 mb-0.5">五行缺</p>
-            <p className="font-bold text-zhuhong text-sm">{result.enrich.五行统计.missing.join("、") || "无"}</p>
+            <p className="font-bold text-gold-600 text-sm">{result.enrich.五行统计.missing.join("、") || "无"}</p>
           </div>
         </div>
         {result.enrich.地支关系.length > 0 && (
@@ -1024,7 +1024,7 @@ export default function BaziClient() {
           <div className="grid grid-cols-5 gap-1.5 mb-3">
             {
 Object.entries(result.wx).map(([w,c]): React.ReactNode =>(
-              <div key={w} className={`rounded-lg p-2 text-center border border-dark-600 ${w==='金'?'bg-gold-500/10 text-gold-600':w==='木'?'bg-jade-500/10 text-jade-600':w==='水'?'bg-shui-500/10 text-shui-600':w==='火'?'bg-zhuhong/10 text-zhuhong':'bg-tu-500/10 text-tu-600'}`}>
+              <div key={w} className={`rounded-lg p-2 text-center border border-dark-600 ${w==='金'?'bg-gold-500/10 text-gold-600':w==='木'?'bg-gold-500/10 text-gold-600':w==='水'?'bg-gold-500/10 text-gold-600':w==='火'?'bg-gold-500/10 text-gold-600':'bg-gold-500/10 text-gold-600'}`}>
                 <p className="text-sm font-bold mb-0.5">{w}</p><p className="text-xs text-gray-400">{c}个</p>
               </div>
             ))}
@@ -1040,15 +1040,15 @@ Object.entries(result.wx).map(([w,c]): React.ReactNode =>(
             </div>
             <div className="bg-dark-700/60 rounded-lg p-3 border border-dark-600">
               <p className="text-[10px] text-gray-500 mb-1">身宫</p>
-              <p className="text-sm font-semibold text-jade-500">{result.shenGong}</p>
+              <p className="text-sm font-semibold text-gold-600">{result.shenGong}</p>
             </div>
             <div className="bg-dark-700/60 rounded-lg p-3 border border-dark-600">
               <p className="text-[10px] text-gray-500 mb-1">胎元</p>
-              <p className="text-sm font-semibold text-jade-500">{result.taiYuan}</p>
+              <p className="text-sm font-semibold text-gold-600">{result.taiYuan}</p>
             </div>
             <div className="bg-dark-700/60 rounded-lg p-3 border border-dark-600">
               <p className="text-[10px] text-gray-500 mb-1">旬空</p>
-              <p className="text-sm font-semibold text-jade-500">{result.xunKong}</p>
+              <p className="text-sm font-semibold text-gold-600">{result.xunKong}</p>
             </div>
           </div>
         </div>
@@ -1061,7 +1061,7 @@ Object.entries(result.wx).map(([w,c]): React.ReactNode =>(
           {result.shenSha.map((s: ShenShaItem,i: number)=>(
             <div key={i} className={`text-xs p-3 rounded border ${shenShaTagColor(s.type)}`}>
               <span className="font-semibold mr-1.5">{s.name}</span>
-              <span className={`text-[10px] ${s.type==='吉'?'text-gold-400/70':s.type==='凶'?'text-zhuhong/70':'text-gray-500'}`}>（{s.type}）</span>
+              <span className={`text-[10px] ${s.type==='吉'?'text-gold-400/70':s.type==='凶'?'text-gold-600/70':'text-gray-500'}`}>（{s.type}）</span>
               <p className="text-[11px] text-gray-400 mt-1.5 leading-relaxed">{s.meaning}</p>
               {s.resolve && <p className="text-[10px] text-gold-500/60 mt-1.5 leading-relaxed">✦ 化解：{s.resolve}</p>}
             </div>
@@ -1078,19 +1078,19 @@ Object.entries(result.wx).map(([w,c]): React.ReactNode =>(
       {/* 四大分析模块 */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-4">
-          <h3 className="text-sm font-semibold mb-2 text-jade-500">🧠 性格分析</h3>
+          <h3 className="text-sm font-semibold mb-2 text-gold-600">🧠 性格分析</h3>
           <p className="text-xs text-gray-300 leading-relaxed">{result.analysis.personality}</p>
         </div>
         <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-4">
-          <h3 className="text-sm font-semibold mb-2 text-jade-500">💕 感情分析</h3>
+          <h3 className="text-sm font-semibold mb-2 text-gold-600">💕 感情分析</h3>
           <p className="text-xs text-gray-300 leading-relaxed">{result.analysis.love}</p>
         </div>
         <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-4">
-          <h3 className="text-sm font-semibold mb-2 text-jade-500">💼 事业分析</h3>
+          <h3 className="text-sm font-semibold mb-2 text-gold-600">💼 事业分析</h3>
           <p className="text-xs text-gray-300 leading-relaxed">{result.analysis.career}</p>
         </div>
         <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-4">
-          <h3 className="text-sm font-semibold mb-2 text-jade-500">💰 财运分析</h3>
+          <h3 className="text-sm font-semibold mb-2 text-gold-600">💰 财运分析</h3>
           <p className="text-xs text-gray-300 leading-relaxed">{result.analysis.wealth}</p>
         </div>
       </div>
@@ -1123,32 +1123,32 @@ Object.entries(result.wx).map(([w,c]): React.ReactNode =>(
 
               {judgmentResult.charNarr.length > 0 && (
                 <div className="p-3 rounded-lg bg-dark-700/40 border border-dark-600">
-                  <h4 className="text-xs font-semibold text-jade-500 mb-2">🧠 性格</h4>
+                  <h4 className="text-xs font-semibold text-gold-600 mb-2">🧠 性格</h4>
                   {judgmentResult.charNarr.map((s,i)=><p key={i} className="text-xs text-gray-200 mb-1 leading-relaxed">{s}</p>)}
                 </div>
               )}
 
               {judgmentResult.marriageNarr.length > 0 && (
                 <div className="p-3 rounded-lg bg-dark-700/40 border border-dark-600">
-                  <h4 className="text-xs font-semibold text-jade-500 mb-2">❤️ 婚姻感情</h4>
+                  <h4 className="text-xs font-semibold text-gold-600 mb-2">❤️ 婚姻感情</h4>
                   {judgmentResult.marriageNarr.map((s,i)=><p key={'m'+i} className="text-xs text-gray-200 mb-1 leading-relaxed">{s}</p>)}
                   {judgmentResult.spouseDynamicNarr && judgmentResult.spouseDynamicNarr.map((s,i)=><p key={'sd'+i} className="text-xs text-gray-200 mb-1 leading-relaxed">{s}</p>)}
-                  {judgmentResult.wanHunNarr.length > 0 && judgmentResult.wanHunNarr.map((s,i)=><p key={'wh'+i} className="text-xs text-shui-500 mt-1 leading-relaxed">{s}</p>)}
-                  {judgmentResult.jieHunNarr.length > 0 && judgmentResult.jieHunNarr.map((s,i)=><p key={'jh'+i} className="text-xs text-zhuhong mt-1 leading-relaxed">{s}</p>)}
-                  {judgmentResult.liHunNarr.length > 0 && judgmentResult.liHunNarr.map((s,i)=><p key={'lh'+i} className="text-xs text-zhuhong mt-1 leading-relaxed">{s}</p>)}
+                  {judgmentResult.wanHunNarr.length > 0 && judgmentResult.wanHunNarr.map((s,i)=><p key={'wh'+i} className="text-xs text-gold-600 mt-1 leading-relaxed">{s}</p>)}
+                  {judgmentResult.jieHunNarr.length > 0 && judgmentResult.jieHunNarr.map((s,i)=><p key={'jh'+i} className="text-xs text-gold-600 mt-1 leading-relaxed">{s}</p>)}
+                  {judgmentResult.liHunNarr.length > 0 && judgmentResult.liHunNarr.map((s,i)=><p key={'lh'+i} className="text-xs text-gold-600 mt-1 leading-relaxed">{s}</p>)}
                 </div>
               )}
 
               {judgmentResult.healthNarr.length > 0 && (
                 <div className="p-3 rounded-lg bg-dark-700/40 border border-dark-600">
-                  <h4 className="text-xs font-semibold text-jade-500 mb-2">🏥 健康</h4>
+                  <h4 className="text-xs font-semibold text-gold-600 mb-2">🏥 健康</h4>
                   {judgmentResult.healthNarr.map((s,i)=><p key={i} className="text-xs text-gray-200 mb-1 leading-relaxed">{s}</p>)}
                 </div>
               )}
 
               {judgmentResult.prefNarr.length > 0 && (
                 <div className="p-3 rounded-lg bg-dark-700/40 border border-dark-600">
-                  <h4 className="text-xs font-semibold text-jade-500 mb-2">⭐ 运势指南</h4>
+                  <h4 className="text-xs font-semibold text-gold-600 mb-2">⭐ 运势指南</h4>
                   {judgmentResult.prefNarr.map((s,i)=><p key={i} className="text-xs text-gray-200 mb-1 leading-relaxed">{s}</p>)}
                 </div>
               )}
@@ -1156,13 +1156,13 @@ Object.entries(result.wx).map(([w,c]): React.ReactNode =>(
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {judgmentResult.parentNarr.length > 0 && (
                   <div className="p-3 rounded-lg bg-dark-700/40 border border-dark-600">
-                    <h4 className="text-xs font-semibold text-jade-500 mb-2">👪 父母</h4>
+                    <h4 className="text-xs font-semibold text-gold-600 mb-2">👪 父母</h4>
                     {judgmentResult.parentNarr.map((s,i)=><p key={i} className="text-xs text-gray-200 mb-1 leading-relaxed">{s}</p>)}
                   </div>
                 )}
                 {judgmentResult.friendModeNarr && judgmentResult.friendModeNarr.length > 0 && (
                   <div className="p-3 rounded-lg bg-dark-700/40 border border-dark-600">
-                    <h4 className="text-xs font-semibold text-jade-500 mb-2">🤝 交友社交</h4>
+                    <h4 className="text-xs font-semibold text-gold-600 mb-2">🤝 交友社交</h4>
                     {judgmentResult.friendModeNarr.map((s,i)=><p key={i} className="text-xs text-gray-200 mb-1 leading-relaxed">{s}</p>)}
                   </div>
                 )}
@@ -1170,7 +1170,7 @@ Object.entries(result.wx).map(([w,c]): React.ReactNode =>(
 
               {judgmentResult.childrenNarr.length > 0 && (
                 <div className="p-3 rounded-lg bg-dark-700/40 border border-dark-600">
-                  <h4 className="text-xs font-semibold text-jade-500 mb-2">👶 子女</h4>
+                  <h4 className="text-xs font-semibold text-gold-600 mb-2">👶 子女</h4>
                   {judgmentResult.childrenNarr.map((s,i)=><p key={'c'+i} className="text-xs text-gray-200 mb-1 leading-relaxed">{s}</p>)}
                   {judgmentResult.childrenRelationNarr && judgmentResult.childrenRelationNarr.map((s,i)=><p key={'cr'+i} className="text-xs text-gray-200 mb-1 leading-relaxed">{s}</p>)}
                 </div>
@@ -1180,7 +1180,7 @@ Object.entries(result.wx).map(([w,c]): React.ReactNode =>(
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {judgmentResult.wealthNarr.length > 0 && (
                   <div className="p-3 rounded-lg bg-dark-700/40 border border-dark-600">
-                    <h4 className="text-xs font-semibold text-jade-500 mb-2">💰 财富</h4>
+                    <h4 className="text-xs font-semibold text-gold-600 mb-2">💰 财富</h4>
                     {judgmentResult.wealthNarr.map((s,i)=><p key={'w'+i} className="text-xs text-gray-200 mb-1 leading-relaxed">{s}</p>)}
                     {judgmentResult.moneyMindsetNarr && judgmentResult.moneyMindsetNarr.map((s,i)=><p key={'mm'+i} className="text-xs text-gray-200 mb-1 leading-relaxed">{s}</p>)}
                   </div>
@@ -1188,7 +1188,7 @@ Object.entries(result.wx).map(([w,c]): React.ReactNode =>(
                 {/* 事业 = 事业 + 技术能力 合并 */}
                 {judgmentResult.careerNarr.length > 0 && (
                   <div className="p-3 rounded-lg bg-dark-700/40 border border-dark-600">
-                    <h4 className="text-xs font-semibold text-jade-500 mb-2">💼 事业</h4>
+                    <h4 className="text-xs font-semibold text-gold-600 mb-2">💼 事业</h4>
                     {judgmentResult.careerNarr.map((s,i)=><p key={'ca'+i} className="text-xs text-gray-200 mb-1 leading-relaxed">{s}</p>)}
                     {judgmentResult.techAbilityNarr && judgmentResult.techAbilityNarr.map((s,i)=><p key={'ta'+i} className="text-xs text-gray-200 mb-1 leading-relaxed">{s}</p>)}
                   </div>
@@ -1197,21 +1197,21 @@ Object.entries(result.wx).map(([w,c]): React.ReactNode =>(
 
               {judgmentResult.deepHumanNarr && judgmentResult.deepHumanNarr.length > 0 && (
                 <div className="p-3 rounded-lg bg-dark-700/40 border border-dark-600">
-                  <h4 className="text-xs font-semibold text-jade-500 mb-2">💎 人生洞察</h4>
+                  <h4 className="text-xs font-semibold text-gold-600 mb-2">💎 人生洞察</h4>
                   {judgmentResult.deepHumanNarr.map((s,i)=><p key={i} className="text-xs text-gray-200 mb-1 leading-relaxed">{s}</p>)}
                 </div>
               )}
 
               {judgmentResult.daYunNarr.length > 0 && (
                 <div className="p-3 rounded-lg bg-dark-700/40 border border-dark-600">
-                  <h4 className="text-xs font-semibold text-jade-500 mb-2">📈 大运走势</h4>
+                  <h4 className="text-xs font-semibold text-gold-600 mb-2">📈 大运走势</h4>
                   {judgmentResult.daYunNarr.map((s,i)=><p key={i} className="text-xs text-gray-200 mb-1 leading-relaxed">{s}</p>)}
                 </div>
               )}
 
               {judgmentResult.flowYearNarr.length > 0 && (
                 <div className="p-3 rounded-lg bg-dark-700/40 border border-dark-600">
-                  <h4 className="text-xs font-semibold text-jade-500 mb-2">📅 流年提醒</h4>
+                  <h4 className="text-xs font-semibold text-gold-600 mb-2">📅 流年提醒</h4>
                   {judgmentResult.flowYearNarr.map((s,i)=><p key={i} className="text-xs text-gray-200 mb-1 leading-relaxed">{s}</p>)}
                 </div>
               )}
@@ -1229,23 +1229,23 @@ Object.entries(result.wx).map(([w,c]): React.ReactNode =>(
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
                 <div className="bg-dark-700/60 rounded-lg p-3 border border-dark-600">
                   <p className="text-[10px] text-gray-500 mb-1">格局</p>
-                  <p className="text-sm font-semibold text-jade-500">
+                  <p className="text-sm font-semibold text-gold-600">
                     {baziEnrichResult?.格局?.primary || baziEnrichResult?.格局?.classical || '未定'}
                   </p>
                 </div>
                 <div className="bg-dark-700/60 rounded-lg p-3 border border-dark-600">
                   <p className="text-[10px] text-gray-500 mb-1">旺衰</p>
-                  <p className="text-sm font-semibold text-jade-500">{baziEnrichResult?.旺衰?.verdict || ''}</p>
+                  <p className="text-sm font-semibold text-gold-600">{baziEnrichResult?.旺衰?.verdict || ''}</p>
                 </div>
                 <div className="bg-dark-700/60 rounded-lg p-3 border border-dark-600">
                   <p className="text-[10px] text-gray-500 mb-1">调候用神</p>
-                  <p className="text-sm font-semibold text-jade-500">
+                  <p className="text-sm font-semibold text-gold-600">
                     {baziEnrichResult?.调候用神?.join('、') || '—'}
                   </p>
                 </div>
                 <div className="bg-dark-700/60 rounded-lg p-3 border border-dark-600">
                   <p className="text-[10px] text-gray-500 mb-1">五行缺</p>
-                  <p className="text-sm font-semibold text-jade-500">
+                  <p className="text-sm font-semibold text-gold-600">
                     {baziEnrichResult?.五行统计?.missing?.join('、') || '无缺'}
                   </p>
                 </div>
@@ -1297,7 +1297,7 @@ Object.entries(result.wx).map(([w,c]): React.ReactNode =>(
           }}
           className={`text-sm px-4 min-h-[44px] rounded-lg border transition-all ${
             saved
-              ? 'border-jade-500/25 bg-jade-500/20 text-jade-500'
+              ? 'border-gold-500/25 bg-gold-500/20 text-gold-600'
               : 'border-gold-500/50 text-gold-400 hover:bg-gold-500/10'
           }`}
         >

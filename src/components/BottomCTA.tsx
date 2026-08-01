@@ -19,7 +19,7 @@ export default function BottomCTA() {
           </Link>
           <Link
             href="/glossary"
-            className="px-6 py-3 border border-jade-400/30 rounded-lg text-jade-400 font-medium hover:bg-jade-400/10 transition-colors"
+            className="px-6 py-3 border border-gold-500/30 rounded-lg text-gold-600 font-medium hover:bg-gold-500/10 transition-colors"
           >
             术语百科
           </Link>

@@ -57,7 +57,7 @@ export default function Nav() {
           <div className="relative">
             <button
               onClick={() => setToolsOpen(!toolsOpen)}
-              className="flex items-center gap-1 px-3 py-2 text-sm text-gray-600 hover:text-jade-500 rounded-lg hover:bg-black/[0.03] transition-all"
+              className="flex items-center gap-1 px-3 py-2 text-sm text-gray-600 hover:text-gold-600 rounded-lg hover:bg-black/[0.03] transition-all"
               aria-expanded={toolsOpen}
             >
               <span>测算工具</span>
@@ -74,7 +74,7 @@ export default function Nav() {
                       <p className="px-3 pb-1 text-[11px] text-gray-400 font-medium tracking-wider">命理推算</p>
                       {toolCategories[0].items.map((mod) => (
                         <Link key={mod.href} href={mod.href}
-                          className="flex items-center gap-2.5 px-3 py-2 text-sm text-gray-600 hover:bg-black/[0.03] hover:text-jade-500 rounded-lg transition-all"
+                          className="flex items-center gap-2.5 px-3 py-2 text-sm text-gray-600 hover:bg-black/[0.03] hover:text-gold-600 rounded-lg transition-all"
                           onClick={() => setToolsOpen(false)}
                         >
                           <span className="text-base w-5 text-center">{mod.emoji||''}</span>
@@ -87,7 +87,7 @@ export default function Nav() {
                       <p className="px-3 pb-1 text-[11px] text-gray-400 font-medium tracking-wider">生活测算</p>
                       {toolCategories[1].items.map((mod) => (
                         <Link key={mod.href} href={mod.href}
-                          className="flex items-center gap-2.5 px-3 py-2 text-sm text-gray-600 hover:bg-black/[0.03] hover:text-jade-500 rounded-lg transition-all"
+                          className="flex items-center gap-2.5 px-3 py-2 text-sm text-gray-600 hover:bg-black/[0.03] hover:text-gold-600 rounded-lg transition-all"
                           onClick={() => setToolsOpen(false)}
                         >
                           <span className="text-base w-5 text-center">{mod.emoji||''}</span>
@@ -123,7 +123,7 @@ export default function Nav() {
                   <div className="absolute top-full right-0 mt-2 w-28 bg-white border border-gray-200 rounded-xl shadow-lg py-1.5 z-20">
                     {(Object.entries(localeNames) as [SupportedLocale, string][]).map(([key, name]) => (
                       <button key={key} onClick={() => handleLangChange(key)}
-                        className={`block w-full text-left px-4 py-1.5 text-sm transition-colors ${locale === key ? 'bg-jade-50 text-jade-600 font-medium' : 'text-gray-500 hover:bg-gray-50 hover:text-jade-500'}`}
+                        className={`block w-full text-left px-4 py-1.5 text-sm transition-colors ${locale === key ? 'bg-gold-500-50 text-gold-600 font-medium' : 'text-gray-500 hover:bg-gray-50 hover:text-gold-600'}`}
                       >{name}</button>
                     ))}
                   </div>
@@ -134,7 +134,7 @@ export default function Nav() {
         </div>
 
         {/* Mobile Menu Button */}
-        <button className="lg:hidden flex items-center justify-center w-10 h-10 text-gray-600 hover:text-jade-500 active:scale-95 transition-transform" onClick={() => setMobileMenuOpen(!mobileMenuOpen)} aria-label="Toggle menu">
+        <button className="lg:hidden flex items-center justify-center w-10 h-10 text-gray-600 hover:text-gold-600 active:scale-95 transition-transform" onClick={() => setMobileMenuOpen(!mobileMenuOpen)} aria-label="Toggle menu">
           {mobileMenuOpen ? (
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
           ) : (
@@ -175,7 +175,7 @@ export default function Nav() {
               <div className="flex gap-2">
                 {(Object.entries(localeNames) as [SupportedLocale, string][]).map(([key, name]) => (
                   <button key={key} onClick={() => { handleLangChange(key); setMobileMenuOpen(false) }}
-                    className={`text-xs px-2 py-1 rounded ${locale === key ? 'bg-jade-50 text-jade-600' : 'text-gray-400 hover:text-jade-500'}`}
+                    className={`text-xs px-2 py-1 rounded ${locale === key ? 'bg-gold-500-50 text-gold-600' : 'text-gray-400 hover:text-gold-600'}`}
                   >{name}</button>
                 ))}
               </div>
@@ -191,7 +191,7 @@ export default function Nav() {
 
 function NavLink({ href, children }: { href: string; children: React.ReactNode }) {
   return (
-    <Link href={href} className="px-3 py-2 text-sm text-gray-600 hover:text-jade-500 rounded-lg hover:bg-black/[0.03] transition-all">
+    <Link href={href} className="px-3 py-2 text-sm text-gray-600 hover:text-gold-600 rounded-lg hover:bg-black/[0.03] transition-all">
       {children}
     </Link>
   )
@@ -199,7 +199,7 @@ function NavLink({ href, children }: { href: string; children: React.ReactNode }
 
 function MobileLink({ href, onClick, emoji, children }: { href: string; onClick: () => void; emoji?: string; children: React.ReactNode }) {
   return (
-    <Link href={href} onClick={onClick} className="flex items-center gap-2 px-2 py-1.5 text-sm text-gray-600 hover:text-jade-500 rounded-lg hover:bg-gray-50 transition-all">
+    <Link href={href} onClick={onClick} className="flex items-center gap-2 px-2 py-1.5 text-sm text-gray-600 hover:text-gold-600 rounded-lg hover:bg-gray-50 transition-all">
       {emoji && <span className="text-xs">{emoji}</span>}
       <span>{children}</span>
     </Link>

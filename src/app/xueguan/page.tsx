@@ -75,7 +75,7 @@ export default function XueguanPage() {
         </p>
         <div className="flex items-center justify-center gap-6 text-sm text-gray-400 mt-4">
           <span>📖 已收录 <strong className="text-gold-500">{totalBooks}</strong> 部</span>
-          <span>✅ 完整收录 <strong className="text-jade-500">{completeBooks}</strong> 部</span>
+          <span>✅ 完整收录 <strong className="text-gold-600">{completeBooks}</strong> 部</span>
           <span>📂 <strong className="text-gray-500">{categoryTree.length}</strong> 大类</span>
         </div>
 

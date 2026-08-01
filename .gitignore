@@ -11,3 +11,4 @@ docs/
 *.pem
 secrets*
 credentials*
+.gh-pages-tmp/

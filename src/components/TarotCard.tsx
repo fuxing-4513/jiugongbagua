@@ -198,7 +198,7 @@ export default function TarotCard({
 
                 {/* Element label */}
                 <p
-                  className="text-jade-400 text-center"
+                  className="text-gold-600 text-center"
                   style={{ fontSize: dims.fsEl }}
                 >
                   {card.element}

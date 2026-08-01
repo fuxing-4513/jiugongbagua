@@ -167,7 +167,7 @@ export default function ZongheZhengmingPage() {
           </div>
           <button onClick={doCalc} className="bg-gold-600 hover:bg-gold-500 text-dark-900 font-semibold px-6 py-2 rounded-lg text-sm">{btnText}</button>
         </div>
-        {error && <p className="text-zhuhong text-sm">{error}</p>}
+        {error && <p className="text-gold-600 text-sm">{error}</p>}
       </div>
 
       {result && (
@@ -186,7 +186,7 @@ export default function ZongheZhengmingPage() {
                 {isCN ? ' · 五行局 ' : locale === 'ja' ? ' · 五行局 ' : locale === 'ko' ? ' · 오행국 ' : ' · WJ '}
                 {result.fiveElem}
               </p>
-              {result.solarNote && <p className="text-xs text-jade-500 mt-1">{result.solarNote}</p>}
+              {result.solarNote && <p className="text-xs text-gold-600 mt-1">{result.solarNote}</p>}
             </div>
 
             {/* 八字推演 */}
@@ -196,9 +196,9 @@ export default function ZongheZhengmingPage() {
               </h3>
               <div className="grid grid-cols-2 gap-2 text-xs">
                 <div>{isCN ? '格局' : locale === 'ja' ? '格局' : locale === 'ko' ? '격국' : 'Pattern'}: <span className="text-gold-400 font-semibold">{result.enrich.格局.primary}</span></div>
-                <div>{isCN ? '旺衰' : locale === 'ja' ? '旺衰' : locale === 'ko' ? '왕쇠' : 'Strength'}: <span className="font-semibold" style={{color: result.enrich.旺衰.verdict.includes('强') ? '#ef4444' : result.enrich.旺衰.verdict.includes('弱') ? '#3b82f6' : '#fbbf24'}}>{result.enrich.旺衰.verdict}</span></div>
-                <div>{isCN ? '五行缺' : locale === 'ja' ? '五行欠乏' : locale === 'ko' ? '오행 부족' : 'Missing'}: <span className="text-zhuhong">{result.enrich.五行统计.missing.join('、') || (isCN ? '无' : locale === 'ja' ? '無' : locale === 'ko' ? '없음' : 'none')}</span></div>
-                <div>{isCN ? '调候' : locale === 'ja' ? '調候' : locale === 'ko' ? '조후' : 'Adjusting'}: <span className="text-jade-500">{result.enrich.调候用神.join('、') || (isCN ? '无' : locale === 'ja' ? '無' : locale === 'ko' ? '없음' : 'none')}</span></div>
+                <div>{isCN ? '旺衰' : locale === 'ja' ? '旺衰' : locale === 'ko' ? '왕쇠' : 'Strength'}: <span className="font-semibold" style={{color: '#987818'}}>{result.enrich.旺衰.verdict}</span></div>
+                <div>{isCN ? '五行缺' : locale === 'ja' ? '五行欠乏' : locale === 'ko' ? '오행 부족' : 'Missing'}: <span className="text-gold-600">{result.enrich.五行统计.missing.join('、') || (isCN ? '无' : locale === 'ja' ? '無' : locale === 'ko' ? '없음' : 'none')}</span></div>
+                <div>{isCN ? '调候' : locale === 'ja' ? '調候' : locale === 'ko' ? '조후' : 'Adjusting'}: <span className="text-gold-600">{result.enrich.调候用神.join('、') || (isCN ? '无' : locale === 'ja' ? '無' : locale === 'ko' ? '없음' : 'none')}</span></div>
               </div>
               {result.enrich.地支关系.length > 0 && (
                 <div className="flex flex-wrap gap-1 mt-2">
@@ -213,14 +213,14 @@ export default function ZongheZhengmingPage() {
             {(() => {
               const cv = crossValidate(result.enrich, result.ziweiMock, { lang: locale })
               return (
-                <div className={`rounded-lg p-3 border ${cv.consistency === '同向印证' || cv.consistency === 'Aligned' ? 'bg-jade-500/10 border-jade-500/40' : cv.consistency === '互补印证' || cv.consistency === 'Complementary' ? 'bg-gold-500/10 border-gold-500/40' : 'bg-zhuhong/10 border-zhuhong/40'}`}>
+                <div className={`rounded-lg p-3 border ${cv.consistency === '同向印证' || cv.consistency === 'Aligned' ? 'bg-gold-500/10 border-gold-500/40' : cv.consistency === '互补印证' || cv.consistency === 'Complementary' ? 'bg-gold-500/10 border-gold-500/40' : 'bg-gold-500/10 border-gold-500/40'}`}>
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-xs text-gray-400">
                       {isCN ? '综合印证' : locale === 'ja' ? '総合検証' : locale === 'ko' ? '종합 검증' : 'Cross Validation'}
                     </span>
                     <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${
-                      cv.consistency === '同向印证' || cv.consistency === 'Aligned' ? 'bg-jade-500/10 text-jade-600' :
-                      cv.consistency === '互补印证' || cv.consistency === 'Complementary' ? 'bg-gold-500/10 text-gold-600' : 'bg-zhuhong/10 text-zhuhong'
+                      cv.consistency === '同向印证' || cv.consistency === 'Aligned' ? 'bg-gold-500/10 text-gold-600' :
+                      cv.consistency === '互补印证' || cv.consistency === 'Complementary' ? 'bg-gold-500/10 text-gold-600' : 'bg-gold-500/10 text-gold-600'
                     }`}>{cv.consistency}</span>
                   </div>
                   <p className="text-xs text-gray-300">{cv.axes.fusedAxis}</p>

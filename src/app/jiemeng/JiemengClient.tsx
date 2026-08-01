@@ -408,7 +408,7 @@ export default function JiemengClient() {
 
                 {/* 现代白话 */}
                 <div className="mb-4">
-                  <p className="text-xs text-shui-600/90 mb-1">{uiText.modernText}</p>
+                  <p className="text-xs text-gold-600/90 mb-1">{uiText.modernText}</p>
                   <p className="text-sm text-gray-700 leading-relaxed">{selectedDream.modern}</p>
                 </div>
               </>
@@ -425,8 +425,8 @@ export default function JiemengClient() {
                   return (
                     <div className="space-y-4">
                       {/* 荣格分析心理学 */}
-                      <div className="bg-shui-500/5 border border-shui-500/25 rounded-lg p-4">
-                        <p className="text-xs text-shui-600/90 mb-1">🧙 {PSYCHOLOGY_VIEW_LANG.jung[locale] || PSYCHOLOGY_VIEW_LANG.jung['zh-CN']}</p>
+                      <div className="bg-gold-500/5 border border-gold-500/25 rounded-lg p-4">
+                        <p className="text-xs text-gold-600/90 mb-1">🧙 {PSYCHOLOGY_VIEW_LANG.jung[locale] || PSYCHOLOGY_VIEW_LANG.jung['zh-CN']}</p>
                         <p className="text-sm text-gray-700 leading-relaxed">{psych.jung}</p>
                       </div>
                       {/* 弗洛伊德精神分析 */}
@@ -435,8 +435,8 @@ export default function JiemengClient() {
                         <p className="text-sm text-gray-700 leading-relaxed">{psych.freud}</p>
                       </div>
                       {/* 格式塔心理治疗 */}
-                      <div className="bg-jade-500/5 border border-jade-500/25 rounded-lg p-4">
-                        <p className="text-xs text-jade-600/90 mb-1">🎭 {PSYCHOLOGY_VIEW_LANG.gestalt[locale] || PSYCHOLOGY_VIEW_LANG.gestalt['zh-CN']}</p>
+                      <div className="bg-gold-500/5 border border-gold-500/25 rounded-lg p-4">
+                        <p className="text-xs text-gold-600/90 mb-1">🎭 {PSYCHOLOGY_VIEW_LANG.gestalt[locale] || PSYCHOLOGY_VIEW_LANG.gestalt['zh-CN']}</p>
                         <p className="text-sm text-gray-700 leading-relaxed">{psych.gestalt}</p>
                       </div>
                       {/* 综合视角 */}

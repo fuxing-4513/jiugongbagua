@@ -23,10 +23,10 @@ interface Props {
 // 纳音五行色
 const nyColors: Record<string, string> = {
   '金': 'border-gold-500/60 bg-gold-500/10',
-  '木': 'border-jade-500/60 bg-jade-500/10',
-  '水': 'border-shui-500/60 bg-shui-500/10',
-  '火': 'border-zhuhong/60 bg-zhuhong/10',
-  '土': 'border-tu-500/60 bg-tu-500/10',
+  '木': 'border-gold-500/60 bg-gold-500/10',
+  '水': 'border-gold-500/60 bg-gold-500/10',
+  '火': 'border-gold-500/60 bg-gold-500/10',
+  '土': 'border-gold-500/60 bg-gold-500/10',
 }
 
 // 干支→纳音五行

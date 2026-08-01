@@ -87,9 +87,9 @@ export const WX_PERSONALITY: Record<string,{positive:string,negative:string,styl
 }
 
 // ─── 五行UI配色 ───
-export const WXC: Record<string,string> = {木:'text-jade-600',火:'text-zhuhong',土:'text-tu-600',金:'text-gold-600',水:'text-shui-600'}
-export const WXBG: Record<string,string> = {木:'bg-jade-500/10',火:'bg-zhuhong/10',土:'bg-tu-500/10',金:'bg-gold-500/10',水:'bg-shui-500/10'}
-export const WXBAR: Record<string,string> = {木:'from-jade-500 to-jade-700',火:'from-zhuhong to-zhuhong-dark',土:'from-tu-500 to-tu-700',金:'from-gold-500 to-gold-700',水:'from-shui-500 to-shui-700'}
+export const WXC: Record<string,string> = {木:'text-gold-600',火:'text-gold-600',土:'text-gold-600',金:'text-gold-600',水:'text-gold-600'}
+export const WXBG: Record<string,string> = {木:'bg-gold-500/10',火:'bg-gold-500/10',土:'bg-gold-500/10',金:'bg-gold-500/10',水:'bg-gold-500/10'}
+export const WXBAR: Record<string,string> = {木:'from-gold-500 to-gold-600',火:'from-gold-500 to-gold-600',土:'from-gold-500 to-gold-600',金:'from-gold-500 to-gold-600',水:'from-gold-500 to-gold-600'}
 
 // ─── 起月干（五虎遁） ───
 export const YUE_GAN: Record<string,string[]> = {
