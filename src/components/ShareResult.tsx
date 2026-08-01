@@ -50,9 +50,9 @@ export default function ShareResult({ text, title, className = '', label = '📋
       onClick={handleCopy}
       className={`inline-flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg border transition-all ${
         copied
-          ? 'bg-green-900/30 border-green-600 text-green-400'
+          ? 'bg-jade-500/10 border-jade-500/25 text-jade-500'
           : error
-            ? 'bg-red-900/30 border-red-600 text-red-400'
+            ? 'bg-zhuhong/10 border-zhuhong/25 text-zhuhong'
             : 'bg-dark-700 border-dark-600 text-gray-400 hover:text-gold-400 hover:border-gold-500/50'
       } ${className}`}
     >

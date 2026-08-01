@@ -19,12 +19,12 @@ export interface LingqianCategory {
 
 // 颜色映射
 export const LEVEL_COLORS: Record<string,string> = {
-  '上上':'text-emerald-400 bg-emerald-900/30 border-emerald-700',
-  '上吉':'text-green-400 bg-green-900/30 border-green-700',
-  '大吉':'text-green-400 bg-green-900/30 border-green-700',
-  '中吉':'text-lime-400 bg-lime-900/30 border-lime-700',
-  '中平':'text-yellow-400 bg-yellow-900/30 border-yellow-700',
-  '中下':'text-orange-400 bg-orange-900/30 border-orange-700',
-  '下下':'text-red-400 bg-red-900/30 border-red-700',
-  '下平':'text-rose-400 bg-rose-900/30 border-rose-700',
+  '上上':'text-gold-600 bg-gold-500/15 border-gold-500/30',
+  '上吉':'text-jade-600 bg-jade-500/15 border-jade-500/30',
+  '大吉':'text-jade-600 bg-jade-500/15 border-jade-500/30',
+  '中吉':'text-jade-500 bg-jade-500/10 border-jade-500/25',
+  '中平':'text-gray-500 bg-dark-700 border-dark-600',
+  '中下':'text-tu-600 bg-tu-500/10 border-tu-500/25',
+  '下下':'text-zhuhong bg-zhuhong/10 border-zhuhong/25',
+  '下平':'text-zhuhong/80 bg-zhuhong/5 border-zhuhong/20',
 }

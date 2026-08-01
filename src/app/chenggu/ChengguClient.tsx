@@ -638,9 +638,9 @@ export default function ChengguClient() {
           <span className="text-xs text-gray-400">{getT('chengguPage.genderLabel')}</span>
           <div className="flex bg-dark-700 rounded-lg p-1 gap-1">
             <button onClick={()=>{setGender('male');setResult(null)}}
-              className={`px-4 py-1.5 rounded-md text-xs font-medium transition-all ${gender==='male'?'bg-blue-500 text-white':'text-gray-400'}`}>♂ {getT('chengguPage.maleLabel')}</button>
+              className={`px-4 py-1.5 rounded-md text-xs font-medium transition-all ${gender==='male'?'bg-gold-600 text-dark-900':'text-gray-400'}`}>♂ {getT('chengguPage.maleLabel')}</button>
             <button onClick={()=>{setGender('female');setResult(null)}}
-              className={`px-4 py-1.5 rounded-md text-xs font-medium transition-all ${gender==='female'?'bg-pink-500 text-white':'text-gray-400'}`}>♀ {getT('chengguPage.femaleLabel')}</button>
+              className={`px-4 py-1.5 rounded-md text-xs font-medium transition-all ${gender==='female'?'bg-gold-600 text-dark-900':'text-gray-400'}`}>♀ {getT('chengguPage.femaleLabel')}</button>
           </div>
           <span className="text-[10px] text-gray-500 ml-1">{getT('chengguPage.genderNote')}</span>
         </div>
@@ -657,7 +657,7 @@ export default function ChengguClient() {
         <p className="text-[10px] text-gray-400">阳历：{r.solarLabel}</p>
         <p className="text-[10px] text-gray-400 mb-2">阴历：{r.lunarLabel}</p>
         <p className="text-4xl font-bold text-gold-400">{r.liang}两{r.qian}钱</p>
-        <p className={`text-sm mt-1 ${['上吉','Excellent','大吉','Great Auspicious','上吉','대길'].includes(r.level)?('text-green-400'):['中吉','Good','中吉','Moderate Auspicious','중길'].includes(r.level)?('text-green-500'):['中平','Average','中平','Neutral','중평'].includes(r.level)?('text-yellow-400'):('text-red-400')}`}>骨重：{r.liang}两{r.qian}钱 · {r.level}</p>
+        <p className={`text-sm mt-1 ${['上吉','Excellent','大吉','Great Auspicious','上吉','대길'].includes(r.level)?('text-jade-500'):['中吉','Good','中吉','Moderate Auspicious','중길'].includes(r.level)?('text-jade-500'):['中平','Average','中平','Neutral','중평'].includes(r.level)?('text-gold-500'):('text-zhuhong')}`}>骨重：{r.liang}两{r.qian}钱 · {r.level}</p>
       </div>
 
       <div className="grid grid-cols-4 gap-2 text-xs">
@@ -685,27 +685,27 @@ export default function ChengguClient() {
       {/* 命书分析 */}
       <div className="bg-dark-800/80 rounded-xl border border-gold-500/30 p-5">
         <h3 className="text-sm font-semibold text-gold-400 mb-3">{getT('chengguPage.mingShuTitle')}</h3>
-        <p className="text-xs text-amber-300 mb-3 leading-relaxed">{r.mingShu.overview}</p>
+        <p className="text-xs text-gold-500 mb-3 leading-relaxed">{r.mingShu.overview}</p>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
           <div className="bg-dark-700/60 rounded-lg p-3">
-            <h4 className="text-blue-400 font-semibold mb-1">{getT('chengguPage.personality')}</h4>
+            <h4 className="text-jade-500 font-semibold mb-1">{getT('chengguPage.personality')}</h4>
             <p className="text-gray-300 leading-relaxed">{r.mingShu.personality}</p>
           </div>
           <div className="bg-dark-700/60 rounded-lg p-3">
-            <h4 className="text-pink-400 font-semibold mb-1">{getT('chengguPage.marriage')}</h4>
+            <h4 className="text-jade-500 font-semibold mb-1">{getT('chengguPage.marriage')}</h4>
             <p className="text-gray-300 leading-relaxed">{r.mingShu.marriage}</p>
           </div>
           <div className="bg-dark-700/60 rounded-lg p-3">
-            <h4 className="text-cyan-400 font-semibold mb-1">{getT('chengguPage.career')}</h4>
+            <h4 className="text-jade-500 font-semibold mb-1">{getT('chengguPage.career')}</h4>
             <p className="text-gray-300 leading-relaxed">{r.mingShu.career}</p>
           </div>
           <div className="bg-dark-700/60 rounded-lg p-3">
-            <h4 className="text-green-400 font-semibold mb-1">{getT('chengguPage.wealth')}</h4>
+            <h4 className="text-jade-500 font-semibold mb-1">{getT('chengguPage.wealth')}</h4>
             <p className="text-gray-300 leading-relaxed">{r.mingShu.wealth}</p>
           </div>
         </div>
         <div className="mt-3 bg-dark-700/60 rounded-lg p-3">
-          <h4 className="text-red-400 font-semibold mb-1 text-xs">{getT('chengguPage.health')}</h4>
+          <h4 className="text-jade-500 font-semibold mb-1 text-xs">{getT('chengguPage.health')}</h4>
           <p className="text-gray-300 leading-relaxed text-xs">{r.mingShu.health}</p>
         </div>
         <div className="mt-3 bg-gold-900/20 rounded-lg p-3 border border-gold-700/30">

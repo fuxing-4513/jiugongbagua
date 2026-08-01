@@ -4,13 +4,13 @@
 import type { SupportedLocale } from './i18n'
 
 export const BRIGHTNESS: Record<string, { label: string; color: string; level: number }> = {
-  '庙': { label: '廟', color: 'text-green-400', level: 5 },
-  '旺': { label: '旺', color: 'text-green-300', level: 4 },
-  '得': { label: '得', color: 'text-blue-300',  level: 3 },
-  '利': { label: '利', color: 'text-cyan-300',  level: 2 },
-  '平': { label: '平', color: 'text-yellow-400', level: 1 },
-  '不': { label: '不', color: 'text-orange-400', level: -1 },
-  '陷': { label: '陷', color: 'text-red-400',   level: -2 },
+  '庙': { label: '廟', color: 'text-gold-600', level: 5 },
+  '旺': { label: '旺', color: 'text-jade-500', level: 4 },
+  '得': { label: '得', color: 'text-shui-500',  level: 3 },
+  '利': { label: '利', color: 'text-tu-500',  level: 2 },
+  '平': { label: '平', color: 'text-gray-500', level: 1 },
+  '不': { label: '不', color: 'text-zhuhong/80', level: -1 },
+  '陷': { label: '陷', color: 'text-zhuhong',   level: -2 },
   '':   { label: '—',  color: 'text-gray-400',  level: 0 },
 }
 

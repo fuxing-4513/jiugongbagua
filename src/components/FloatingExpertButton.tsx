@@ -51,7 +51,7 @@ export default function FloatingExpertButton() {
       {/* 浮动按钮——右侧居中 */}
       <button
         onClick={() => setOpen(true)}
-        className="fixed right-0 top-1/2 -translate-y-1/2 z-40 flex flex-col items-center gap-1 px-2 py-3 rounded-l-lg bg-amber-500/85 text-white text-[10px] font-medium shadow-lg hover:bg-amber-500 hover:shadow-amber-500/30 transition-all duration-200 cursor-pointer"
+        className="fixed right-0 top-1/2 -translate-y-1/2 z-40 flex flex-col items-center gap-1 px-2 py-3 rounded-l-lg bg-gold-500/85 text-white text-[10px] font-medium shadow-lg hover:bg-gold-500/50 hover:shadow-amber-500/30 transition-all duration-200 cursor-pointer"
         title="专家解析"
       >
         <span className="text-base">💬</span>

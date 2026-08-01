@@ -21,7 +21,7 @@ const T_ZHI = ['子','丑','寅','卯','辰','巳','午','未','申','酉','戌'
 const YANG_GAN = ['甲','丙','戊','庚','壬'];
 const YANG_ZHI = ['子','寅','辰','午','申','戌'];
 const YIN_ZHI  = ['丑','卯','巳','未','酉','亥'];
-const WU_XING_COLORS: Record<string,string> = {'金':'text-yellow-400','木':'text-green-400','水':'text-blue-400','火':'text-red-400','土':'text-amber-400'};
+const WU_XING_COLORS: Record<string,string> = {'金':'text-gold-500','木':'text-jade-500','水':'text-shui-500','火':'text-zhuhong','土':'text-tu-500'};
 const PILLAR_LABELS = ['年柱','月柱','日柱','时柱'];
 
 export default function AppClient() {
@@ -222,7 +222,7 @@ export default function AppClient() {
               <div className="pt-2 border-t border-dark-600">
                 <TrueSolarTime enabled={trueSolarOn} onToggle={setTrueSolarOn} longitude={trueSolarLng}
                   onLongitudeChange={setTrueSolarLng} compact />
-                {trueSolarOn && <p className="text-xs text-amber-600/70 mt-1">⏱ 校正后时辰：{resolvedHour.toFixed(1)}时</p>}
+                {trueSolarOn && <p className="text-xs text-gold-600/70 mt-1">⏱ 校正后时辰：{resolvedHour.toFixed(1)}时</p>}
               </div>
             )}
           </div>
@@ -265,21 +265,21 @@ export default function AppClient() {
                   ))}
                 </div>
               ) : bzTg[0] && bzDz[0] ? (
-                <p className="text-sm text-red-400">{getT('appPage.yearPillarInvalid')}</p>
+                <p className="text-sm text-zhuhong">{getT('appPage.yearPillarInvalid')}</p>
               ) : <p className="text-sm text-gray-600">请先选择年柱天干地支</p>}
               {validYears.length > 0 && <p className="text-sm text-gray-600 mt-1">同八字每60年一轮回</p>}
             </div>
           </div>
         )}
 
-        {validationMsg && <p className="text-xs text-red-400 mt-3">{validationMsg}</p>}
+        {validationMsg && <p className="text-xs text-zhuhong mt-3">{validationMsg}</p>}
       </div>
 
       {/* Analyze Button */}
       <div className="text-center mb-10">
         <button onClick={handleAnalyze} disabled={!isValid || isAnalyzing}
           className={`px-10 min-h-[52px] py-3.5 rounded-full text-base font-bold shadow-lg transition-all ${
-            isValid && !isAnalyzing ? 'bg-gradient-to-r from-gold-500 to-amber-500 text-dark-900 hover:shadow-xl hover:scale-105 active:scale-95' : 'bg-dark-700 text-gray-500 cursor-not-allowed'}`}>
+            isValid && !isAnalyzing ? 'bg-gradient-to-r from-gold-500 to-gold-500 text-dark-900 hover:shadow-xl hover:scale-105 active:scale-95' : 'bg-dark-700 text-gray-500 cursor-not-allowed'}`}>
           {isAnalyzing ? <span className="flex items-center gap-2"><span className="animate-spin inline-block w-4 h-4 border-2 border-dark-900/30 border-t-dark-900 rounded-full" />{getT('appPage.analyzing')}</span> : getT('appPage.analyzeButton')}
         </button>
         {!analyzed && !isAnalyzing && <p className="text-sm text-gray-500 mt-2">{getT('appPage.analyzeHint')}</p>}
@@ -287,12 +287,12 @@ export default function AppClient() {
 
       {/* Error Message — 增强样式 */}
       {errorMsg && (
-        <div className="max-w-lg mx-auto mb-8 bg-red-950/80 border-2 border-red-500/60 rounded-xl p-4 text-center toast-enter">
-          <p className="text-red-300 text-sm font-semibold">{getT('appPage.errorMsg')} {errorMsg}</p>
-          <p className="text-xs text-red-400/80 mt-1">请检查输入信息或尝试其他排盘模式</p>
+        <div className="max-w-lg mx-auto mb-8 bg-zhuhong/10 border-2 border-zhuhong/60 rounded-xl p-4 text-center toast-enter">
+          <p className="text-zhuhong text-sm font-semibold">{getT('appPage.errorMsg')} {errorMsg}</p>
+          <p className="text-xs text-zhuhong/80 mt-1">请检查输入信息或尝试其他排盘模式</p>
           <button
             onClick={() => setErrorMsg('')}
-            className="mt-2 px-3 py-1 text-xs text-red-400/60 hover:text-red-300 underline"
+            className="mt-2 px-3 py-1 text-xs text-zhuhong/60 hover:text-zhuhong underline"
           >
             {getT('appPage.closeLabel')}
           </button>
@@ -334,14 +334,14 @@ export default function AppClient() {
 
       {/* VIP 功能 — 目前为 UI 占位，待接入真实支付系统后启用 */}
       {analyzed && (
-        <div className="mt-12 bg-gradient-to-r from-amber-50 to-yellow-50 border border-amber-200 rounded-xl p-6 text-center">
+        <div className="mt-12 bg-gradient-to-r from-gold-500/5 to-gold-500/5 border border-gold-500/25 rounded-xl p-6 text-center">
           <div className="text-3xl mb-2">🚧</div>
-          <h3 className="text-lg font-bold text-amber-700 mb-1">{getT('appPage.vipTitle')}</h3>
-          <p className="text-sm text-amber-600 mb-4">{getT('appPage.vipDesc')}</p>
-          <div className="inline-block px-6 py-2.5 bg-amber-100 text-amber-500 rounded-full text-sm font-medium border border-amber-200">
+          <h3 className="text-lg font-bold text-jade-500 mb-1">{getT('appPage.vipTitle')}</h3>
+          <p className="text-sm text-gold-600 mb-4">{getT('appPage.vipDesc')}</p>
+          <div className="inline-block px-6 py-2.5 bg-gold-500/10 text-gold-500 rounded-full text-sm font-medium border border-gold-500/25">
             {getT('appPage.vipComingSoon')}
           </div>
-          <p className="text-xs text-amber-400 mt-3">{getT('appPage.vipNote')}</p>
+          <p className="text-xs text-gold-500 mt-3">{getT('appPage.vipNote')}</p>
         </div>
       )}
     </div>
@@ -396,7 +396,7 @@ function BaziResultView({ result, name }: { result: BaziChartResult; name: strin
             <div key={k} className="text-center min-w-[60px]">
               <p className={`text-lg font-bold ${WU_XING_COLORS[k]}`}>{k}</p>
               <div className="w-full h-3 bg-dark-700 rounded-full mt-1 overflow-hidden">
-                <div className={`h-full rounded-full ${k==='金'?'bg-yellow-500':k==='木'?'bg-green-500':k==='水'?'bg-blue-500':k==='火'?'bg-red-500':'bg-amber-500'}`}
+                <div className={`h-full rounded-full ${k==='金'?'bg-gold-500/50':k==='木'?'bg-jade-500/50':k==='水'?'bg-shui-500/50':k==='火'?'bg-zhuhong/50':'bg-tu-500/50'}`}
                   style={{width:`${(v/Math.max(...Object.values(wx),1))*100}%`}}/>
               </div>
               <p className="text-[10px] text-gray-400 mt-0.5">{v}个</p>
@@ -435,14 +435,14 @@ function BaziResultView({ result, name }: { result: BaziChartResult; name: strin
           <div className="mt-3 space-y-1.5">
             {shenSha.map((s,i) => (
               <div key={i} className={`text-xs p-2 rounded ${
-                s.type==='吉'?'bg-green-900/20 border border-green-700/30':
-                s.type==='凶'?'bg-red-900/20 border border-red-700/30':
+                s.type==='吉'?'bg-jade-500/10 border border-jade-500/30':
+                s.type==='凶'?'bg-zhuhong/10 border border-zhuhong/30':
                 'bg-dark-700/50 border border-dark-600'}`}>
                 <span className={
-                  s.type==='吉'?'text-green-400':s.type==='凶'?'text-red-400':'text-gray-300'
+                  s.type==='吉'?'text-jade-500':s.type==='凶'?'text-zhuhong':'text-gray-300'
                 }>{s.type==='吉'?'🟢':s.type==='凶'?'🔴':'⚪'} {s.name}</span>
                 {s.meaning && <span className="text-gray-400 ml-1">— {s.meaning}</span>}
-                {s.resolve && <span className="text-amber-500/80 ml-1">💡 {s.resolve}</span>}
+                {s.resolve && <span className="text-gold-500/80 ml-1">💡 {s.resolve}</span>}
               </div>
             ))}
           </div>
@@ -569,17 +569,17 @@ function ZiweiResultView({ data, name }: { data: Record<string, unknown>; name: 
     <section className="space-y-6">
       <div className="bg-dark-800/80 border border-dark-600 rounded-xl p-4 text-center">
         <p className="text-xs text-gray-500 mb-1">{name ? `${name} · ` : ''}紫微斗数命盘{bodyBranch && <> · 身宮：{soulPalace?.earthlyBranch}（{soulPalace?.name}）</>}</p>
-        <p className="text-base font-bold text-purple-400 font-serif">命宮：<span className="text-gold-400">{soulStars.join('、') || '無主星'}</span> {soulPalace?.heavenlyStem}{soulPalace?.earthlyBranch}</p>
+        <p className="text-base font-bold text-jade-500 font-serif">命宮：<span className="text-gold-400">{soulStars.join('、') || '無主星'}</span> {soulPalace?.heavenlyStem}{soulPalace?.earthlyBranch}</p>
       </div>
 
       <div className="bg-dark-800/80 border border-dark-600 rounded-xl p-4">
-        <h3 className="text-sm font-semibold text-purple-300 font-serif mb-3 text-center">主星亮度</h3>
+        <h3 className="text-sm font-semibold text-jade-500 font-serif mb-3 text-center">主星亮度</h3>
         <div className="flex flex-wrap gap-2 justify-center">
           {allStars.map((s: StarItem, i: number) => {
             const b = BRIGHTNESS[s.brightness || ''] || { label: '—', color: 'text-gray-500' };
             return (
-              <div key={i} className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs border ${s.type==='major'?'bg-purple-900/30 border-purple-700/40':'bg-dark-700/50 border-dark-600'}`}>
-                <span className={s.type==='major'?'text-purple-300 font-medium':'text-gray-400'}>{s.type==='major'?'⭐':'·'} {s.name}</span>
+              <div key={i} className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs border ${s.type==='major'?'bg-shui-500/10 border-shui-500/40':'bg-dark-700/50 border-dark-600'}`}>
+                <span className={s.type==='major'?'text-shui-500 font-medium':'text-gray-400'}>{s.type==='major'?'⭐':'·'} {s.name}</span>
                 <span className={`${b.color} text-[10px] font-medium`}>{b.label}</span>
               </div>
             );
@@ -588,14 +588,14 @@ function ZiweiResultView({ data, name }: { data: Record<string, unknown>; name: 
       </div>
 
       <div className="bg-dark-800/80 border border-dark-600 rounded-xl p-4">
-        <h3 className="text-sm font-semibold text-purple-300 font-serif mb-3 text-center">格局分析</h3>
+        <h3 className="text-sm font-semibold text-jade-500 font-serif mb-3 text-center">格局分析</h3>
         {patterns.length > 0 ? (
           <div className="space-y-2">
             {patterns.map((p: PatternDef, i: number) => (
-              <div key={i} className={`p-3 rounded-lg border text-xs ${p.rating==='上'?'bg-green-900/20 border-green-700/30':p.rating==='中上'?'bg-blue-900/20 border-blue-700/30':'bg-dark-700/50 border-dark-600'}`}>
+              <div key={i} className={`p-3 rounded-lg border text-xs ${p.rating==='上'?'bg-jade-500/10 border-jade-500/30':p.rating==='中上'?'bg-shui-500/10 border-shui-500/30':'bg-dark-700/50 border-dark-600'}`}>
                 <div className="flex items-center gap-2 mb-1">
-                  <span className={p.rating==='上'?'text-green-400':p.rating==='中上'?'text-blue-400':'text-yellow-400'}>{p.rating==='上'?'🏆':p.rating==='中上'?'💎':'✨'} {p.name}</span>
-                  <span className={`text-[10px] px-1.5 py-0.5 rounded ${p.rating==='上'?'bg-green-900/40 text-green-400':p.rating==='中上'?'bg-blue-900/40 text-blue-400':'bg-yellow-900/30 text-yellow-400'}`}>{p.rating}</span>
+                  <span className={p.rating==='上'?'text-jade-500':p.rating==='中上'?'text-shui-500':'text-gold-500'}>{p.rating==='上'?'🏆':p.rating==='中上'?'💎':'✨'} {p.name}</span>
+                  <span className={`text-[10px] px-1.5 py-0.5 rounded ${p.rating==='上'?'bg-jade-500/10 text-jade-500':p.rating==='中上'?'bg-shui-500/10 text-shui-500':'bg-gold-500/10 text-gold-500'}`}>{p.rating}</span>
                 </div>
                 <p className="text-gray-300 leading-relaxed">{p.desc}</p>
               </div>
@@ -605,7 +605,7 @@ function ZiweiResultView({ data, name }: { data: Record<string, unknown>; name: 
       </div>
 
       <div className="bg-dark-800/80 border border-dark-600 rounded-xl p-4">
-        <h3 className="text-sm font-semibold text-purple-300 font-serif mb-3 text-center">本命——命宮之各星說明</h3>
+        <h3 className="text-sm font-semibold text-jade-500 font-serif mb-3 text-center">本命——命宮之各星說明</h3>
         {soulStars.length > 0 ? (
           <div className="space-y-3">
             {soulStars.map((starName: string) => {
@@ -613,7 +613,7 @@ function ZiweiResultView({ data, name }: { data: Record<string, unknown>; name: 
               if (!desc) return null;
               return (
                 <div key={starName} className="bg-dark-700/50 border border-dark-600 rounded-lg p-3">
-                  <p className="text-sm font-medium text-purple-300 mb-1">⭐ {starName}</p>
+                  <p className="text-sm font-medium text-shui-500 mb-1">⭐ {starName}</p>
                   <p className="text-xs text-gray-300 leading-relaxed">{desc}</p>
                 </div>
               );
@@ -628,15 +628,15 @@ function ZiweiResultView({ data, name }: { data: Record<string, unknown>; name: 
       </div>
 
       <div className="bg-dark-800/80 border border-dark-600 rounded-xl p-4">
-        <h3 className="text-sm font-semibold text-purple-300 font-serif mb-3 text-center">十二宮一覽</h3>
+        <h3 className="text-sm font-semibold text-jade-500 font-serif mb-3 text-center">十二宮一覽</h3>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
           {palaces.map((p: PalaceInfo, i: number) => {
             const stars = [...p.majorStars, ...p.minorStars];
             return (
               <div key={i} className="bg-dark-700/50 border border-dark-600 rounded-lg p-2.5">
-                <p className="text-[10px] text-purple-400 font-bold mb-1">{p.name}{p.isBodyPalace?' 🏠':''}{p.isOriginalPalace?' 📍':''}</p>
+                <p className="text-[10px] text-jade-500 font-bold mb-1">{p.name}{p.isBodyPalace?' 🏠':''}{p.isOriginalPalace?' 📍':''}</p>
                 <div className="space-y-0.5">
-                  {stars.slice(0,4).map((s: StarItem, j: number)=>{const b=BRIGHTNESS[s.brightness||''];return(<div key={j} className="flex items-center justify-between text-[10px]"><span className={s.type==='major'?'text-purple-300 font-medium':'text-gray-400'}>{s.name}</span>{b&&<span className={b.color}>{b.label}</span>}</div>)})}
+                  {stars.slice(0,4).map((s: StarItem, j: number)=>{const b=BRIGHTNESS[s.brightness||''];return(<div key={j} className="flex items-center justify-between text-[10px]"><span className={s.type==='major'?'text-shui-500 font-medium':'text-gray-400'}>{s.name}</span>{b&&<span className={b.color}>{b.label}</span>}</div>)})}
                   {stars.length>4&&<p className="text-[9px] text-gray-600">+{stars.length-4}星...</p>}
                 </div>
               </div>

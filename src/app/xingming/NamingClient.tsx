@@ -11498,13 +11498,13 @@ function getStroke(char: string): number { return STROKE[char] || ((char.charCod
 
 // ── 五行颜色 ──
 const WXC: Record<string, string> = {
-  '木':'bg-green-900/40 text-green-300 border-green-700',
-  '火':'bg-red-900/40 text-red-300 border-red-700',
-  '土':'bg-amber-900/40 text-amber-300 border-amber-700',
-  '金':'bg-yellow-900/40 text-yellow-300 border-yellow-700',
-  '水':'bg-blue-900/40 text-blue-300 border-blue-700',
+  '木':'bg-jade-500/10 text-jade-600 border-jade-500/25',
+  '火':'bg-zhuhong/10 text-zhuhong border-zhuhong/25',
+  '土':'bg-tu-500/10 text-tu-600 border-tu-500/25',
+  '金':'bg-gold-500/10 text-gold-600 border-gold-500/25',
+  '水':'bg-shui-500/10 text-shui-600 border-shui-500/25',
 }
-const gradeC: Record<string, string> = {'大吉':'text-green-400','吉':'text-green-500','中吉':'text-yellow-400','中':'text-yellow-500','凶':'text-red-400','大凶':'text-red-500'}
+const gradeC: Record<string, string> = {'大吉':'text-jade-500','吉':'text-jade-500','中吉':'text-gold-500','中':'text-gold-500','凶':'text-zhuhong','大凶':'text-zhuhong'}
 
 // ── 81数理详解（精简版）──
 const NUM_DETAIL: Record<number, { score: string; title: string; sign: string }> = {
@@ -18604,7 +18604,7 @@ export default function NamingClient() {
             <button onClick={handleWuxingSubmit}
               className="bg-gold-600 hover:bg-gold-500 text-dark-900 font-semibold px-6 py-2.5 rounded-lg transition-colors active:scale-95">{locale === 'en' ? 'Generate Names' : locale === 'ja' ? '命名を開始' : locale === 'ko' ? '작명 시작' : '开始起名'}</button>
             {lunarInfo && <p className="text-xs text-gray-500 mt-2">{lunarInfo}</p>}
-            {wxError && <p className="text-xs text-red-400 mt-2">{wxError}</p>}
+            {wxError && <p className="text-xs text-zhuhong mt-2">{wxError}</p>}
           </div>
 
           {/* 八字命盘 + 五行分析 */}
@@ -18612,8 +18612,8 @@ export default function NamingClient() {
             const b = baziResult
             const pillarLabels = ['年柱','月柱','日柱','时柱']
             const totalWx = Object.values(b.wxCount).reduce((a, c) => a + c, 0) || 1
-            const wxColor: Record<string,string> = {'木':'from-green-400 to-green-600','火':'from-red-400 to-red-600','土':'from-amber-400 to-amber-600','金':'from-yellow-400 to-yellow-600','水':'from-blue-400 to-blue-600'}
-            const wxBg: Record<string,string> = {'木':'bg-green-700/30','火':'bg-red-700/30','土':'bg-amber-700/30','金':'bg-yellow-700/30','水':'bg-blue-700/30'}
+            const wxColor: Record<string,string> = {'木':'from-jade-500 to-jade-600','火':'from-zhuhong to-zhuhong-dark','土':'from-tu-500 to-tu-600','金':'from-gold-500 to-gold-600','水':'from-shui-500 to-shui-600'}
+            const wxBg: Record<string,string> = {'木':'bg-jade-500/30','火':'bg-zhuhong/30','土':'bg-tu-500/30','金':'bg-gold-500/30','水':'bg-shui-500/30'}
             return (
               <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-5">
                 <h3 className="text-sm font-semibold text-gray-200 mb-4">八字命盘</h3>
@@ -18690,7 +18690,7 @@ export default function NamingClient() {
                   </div>
                   <div className="bg-dark-700 rounded-lg p-3">
                     <span className="text-gray-500 block">身强弱</span>
-                    <span className={`text-sm font-semibold ${b.bodyStrength==='身强'?'text-red-400':b.bodyStrength==='身弱'?'text-blue-400':'text-yellow-400'}`}>{b.bodyStrength}</span>
+                    <span className={`text-sm font-semibold ${b.bodyStrength==='身强'?'text-zhuhong':b.bodyStrength==='身弱'?'text-shui-500':'text-gold-500'}`}>{b.bodyStrength}</span>
                   </div>
                   <div className="bg-dark-700 rounded-lg p-3">
                     <span className="text-gray-500 block">用神</span>
@@ -18722,7 +18722,7 @@ export default function NamingClient() {
                   <div key={i} className="bg-dark-800/80 rounded-xl border border-gold-500/20 p-5 hover:border-gold-500/50 transition-all">
                     <div className="flex items-center justify-between mb-3">
                       <span className="text-lg font-bold font-serif text-gold-400">{r.fullName}</span>
-                      <span className={`text-lg font-bold ${r.avgScore>=80?'text-green-400':r.avgScore>=60?'text-yellow-400':'text-red-400'}`}>{r.avgScore}分</span>
+                      <span className={`text-lg font-bold ${r.avgScore>=80?'text-jade-500':r.avgScore>=60?'text-gold-500':'text-zhuhong'}`}>{r.avgScore}分</span>
                     </div>
                     <div className="flex gap-2 mb-3">
                       {r.chars.map((c, j) => (

@@ -821,7 +821,7 @@ const FIELD_ORDER = ['fuwei','tianyi','shengqi','yannian','liusha','jueming','hu
 const numToField: Record<number, string> = {}
 for (const [k, f] of Object.entries(FIELDS)) for (const n of f.numbers) numToField[n] = k
 
-const TYPE_STYLE: Record<string, string> = { '吉':'bg-green-900/50 text-green-300 border-green-700', '凶':'bg-red-900/50 text-red-300 border-red-700', '平':'bg-cyan-900/50 text-cyan-300 border-cyan-700', '次吉':'bg-green-900/30 text-green-400 border-green-700', '大吉':'bg-yellow-900/40 text-yellow-300 border-yellow-700', '次凶':'bg-orange-900/40 text-orange-300 border-orange-700', '大凶':'bg-red-900/60 text-red-300 border-red-700', '小吉':'bg-teal-900/40 text-teal-300 border-teal-700' }
+const TYPE_STYLE: Record<string, string> = { '吉':'bg-jade-500/15 text-jade-600 border-jade-500/30', '凶':'bg-zhuhong/10 text-zhuhong border-zhuhong/25', '平':'bg-dark-700 text-gray-500 border-dark-600', '次吉':'bg-jade-500/10 text-jade-500 border-jade-500/25', '大吉':'bg-gold-500/15 text-gold-600 border-gold-500/30', '次凶':'bg-zhuhong/5 text-zhuhong/80 border-zhuhong/20', '大凶':'bg-zhuhong/15 text-zhuhong-dark border-zhuhong-dark/30', '小吉':'bg-jade-500/5 text-jade-500 border-jade-500/20' }
 
 // 七星对应
 const STAR7 = [
@@ -965,7 +965,7 @@ export default function ShumaClient() {
           <div className="grid grid-cols-7 gap-1">
             {STAR7.map((s, i) => (
               <div key={i} className="text-center">
-                <div className={`text-[11px] font-serif mb-1 ${i===4||i===6?'text-red-400':i===5?'text-yellow-300':'text-blue-300'}`}>{s.name.split('·')[0]}</div>
+                <div className={`text-[11px] font-serif mb-1 ${i===4||i===6?'text-zhuhong':i===5?'text-gold-500':'text-shui-500'}`}>{s.name.split('·')[0]}</div>
                 <div className={`text-[10px] px-1 py-0.5 rounded ${TYPE_STYLE[s.level] || 'bg-dark-700'}`}>{tName(
                   Object.entries(FIELDS).find(([,v]) => v.name === s.field)?.[0] || '',
                   locale
@@ -998,8 +998,8 @@ export default function ShumaClient() {
           {/* 综合评分 */}
           <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-5 text-center">
             <p className="text-xs text-gray-500 mb-1">{getT('shumaPage.overallScore')}</p>
-            <p className={`text-4xl font-bold ${result.score >= 60 ? 'text-green-400' : result.score >= 40 ? 'text-yellow-400' : 'text-red-400'}`}>{result.score}</p>
-            <p className={`text-sm mt-1 font-semibold ${result.score >= 60 ? 'text-green-400' : result.score >= 40 ? 'text-yellow-400' : 'text-red-400'}`}>{result.overall}</p>
+            <p className={`text-4xl font-bold ${result.score >= 60 ? 'text-jade-500' : result.score >= 40 ? 'text-gold-500' : 'text-zhuhong'}`}>{result.score}</p>
+            <p className={`text-sm mt-1 font-semibold ${result.score >= 60 ? 'text-jade-500' : result.score >= 40 ? 'text-gold-500' : 'text-zhuhong'}`}>{result.overall}</p>
           </div>
 
           {/* 号码分段 & 组合解析 */}
@@ -1037,11 +1037,11 @@ export default function ShumaClient() {
               <p className="text-xs text-gray-400 mb-2">{tName(result.dominantField, locale)} · {getStarTextField(result.dominantField, 'description', locale)}</p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 <div className="bg-dark-700 rounded-lg p-3">
-                  <p className="text-[10px] text-green-400 mb-1">{getT('shumaPage.strengths')}</p>
+                  <p className="text-[10px] text-jade-500 mb-1">{getT('shumaPage.strengths')}</p>
                   <p className="text-[11px] text-gray-300">{getStarTextField(result.dominantField, 'strengths', locale)}</p>
                 </div>
                 <div className="bg-dark-700 rounded-lg p-3">
-                  <p className="text-[10px] text-red-400 mb-1">{getT('shumaPage.weaknesses')}</p>
+                  <p className="text-[10px] text-zhuhong mb-1">{getT('shumaPage.weaknesses')}</p>
                   <p className="text-[11px] text-gray-300">{getStarTextField(result.dominantField, 'weaknesses', locale)}</p>
                 </div>
               </div>

@@ -23,8 +23,8 @@ function getLiuQin(yaoWx: string, gongWx: string): string {
 }
 
 const LIUQIN_COLOR: Record<string, string> = {
-  '父母': 'text-purple-300', '兄弟': 'text-blue-300', '子孙': 'text-green-300',
-  '妻财': 'text-yellow-300', '官鬼': 'text-red-300',
+  '父母': 'text-gold-600', '兄弟': 'text-shui-600', '子孙': 'text-jade-600',
+  '妻财': 'text-tu-600', '官鬼': 'text-zhuhong',
 }
 
 // ── 卦宫归属 ──
@@ -94,14 +94,14 @@ function Coin({ result, settled, delay, tossing, size }: { result: boolean; sett
           }}
         >
           {/* 方孔 */}
-          <div className={`${hole} border-2 border-amber-800/60 rounded-[2px] bg-dark-950/50`} />
+          <div className={`${hole} border-2 border-gold-500/60 rounded-[2px] bg-dark-950/50`} />
           {/* 四字 */}
-          <span className={`absolute ${textSize} font-bold text-amber-900/80`} style={{ top: isXl ? '4px' : '2px' }}>乾</span>
-          <span className={`absolute ${textSize} font-bold text-amber-900/80`} style={{ bottom: isXl ? '4px' : '2px' }}>隆</span>
-          <span className={`absolute ${textSize} font-bold text-amber-900/80`} style={{ left: isXl ? '4px' : '2px' }}>通</span>
-          <span className={`absolute ${textSize} font-bold text-amber-900/80`} style={{ right: isXl ? '4px' : '2px' }}>寶</span>
+          <span className={`absolute ${textSize} font-bold text-jade-500/80`} style={{ top: isXl ? '4px' : '2px' }}>乾</span>
+          <span className={`absolute ${textSize} font-bold text-jade-500/80`} style={{ bottom: isXl ? '4px' : '2px' }}>隆</span>
+          <span className={`absolute ${textSize} font-bold text-jade-500/80`} style={{ left: isXl ? '4px' : '2px' }}>通</span>
+          <span className={`absolute ${textSize} font-bold text-jade-500/80`} style={{ right: isXl ? '4px' : '2px' }}>寶</span>
           {/* 内圈 */}
-          <div className={`absolute inset-2 rounded-full border border-amber-800/15 pointer-events-none`} />
+          <div className={`absolute inset-2 rounded-full border border-gold-500/15 pointer-events-none`} />
         </div>
         {/* 背面：满文 */}
         <div
@@ -114,11 +114,11 @@ function Coin({ result, settled, delay, tossing, size }: { result: boolean; sett
             boxShadow: '0 3px 12px rgba(0,0,0,0.6), inset 0 1px 4px rgba(255,255,200,0.4), inset 0 -2px 4px rgba(0,0,0,0.2)',
           }}
         >
-          <div className={`${hole} border-2 border-amber-800/60 rounded-[2px] bg-dark-950/50`} />
-          <div className="absolute inset-2 rounded-full border border-amber-800/25 pointer-events-none" />
-          <div className="absolute inset-3 rounded-full border border-amber-800/15 pointer-events-none" />
-          <span className={`absolute ${tinyText} text-amber-800/50 font-bold`} style={{ top: isXl ? '5px' : '3px' }}>滿</span>
-          <span className={`absolute ${tinyText} text-amber-800/50 font-bold`} style={{ bottom: isXl ? '5px' : '3px' }}>文</span>
+          <div className={`${hole} border-2 border-gold-500/60 rounded-[2px] bg-dark-950/50`} />
+          <div className="absolute inset-2 rounded-full border border-gold-500/25 pointer-events-none" />
+          <div className="absolute inset-3 rounded-full border border-gold-500/15 pointer-events-none" />
+          <span className={`absolute ${tinyText} text-jade-500/50 font-bold`} style={{ top: isXl ? '5px' : '3px' }}>滿</span>
+          <span className={`absolute ${tinyText} text-jade-500/50 font-bold`} style={{ bottom: isXl ? '5px' : '3px' }}>文</span>
         </div>
       </div>
     </div>
@@ -137,7 +137,7 @@ function YaoLine({ v, idx, shiYao, yingYao, gong }: { v: number; idx: number; sh
       {v === 0 ? (
         <><span className="block w-5 h-0.5 bg-gold-400 rounded" /><span className="block w-2 h-0.5 bg-dark-700" /><span className="block w-5 h-0.5 bg-gold-400 rounded" /></>
       ) : (
-        <><span className="block w-5 h-0.5 bg-amber-600 rounded" /><span className="block w-0.5 h-0.5 bg-amber-600 rounded-full" /><span className="block w-5 h-0.5 bg-amber-600 rounded" /></>
+        <><span className="block w-5 h-0.5 bg-gold-500/10 rounded" /><span className="block w-0.5 h-0.5 bg-gold-500/10 rounded-full" /><span className="block w-5 h-0.5 bg-gold-500/10 rounded" /></>
       )}
       <span className={`text-[9px] ${LIUQIN_COLOR[lq]} w-8`}>{lq}</span>
       {isShi && <span className="text-[8px] text-gold-400 font-bold ml-1">世</span>}
@@ -153,7 +153,7 @@ function YaoLineWithChange({ v, idx, shiYao, yingYao, gong, hexNum, changing }: 
     <div className="flex items-center gap-1 py-0.5">
       <YaoLine v={v} idx={idx} shiYao={shiYao} yingYao={yingYao} gong={gong} hexNum={hexNum} />
       {isChanging && (
-        <span className="text-[8px] text-amber-500 animate-pulse">○</span>
+        <span className="text-[8px] text-gold-500 animate-pulse">○</span>
       )}
     </div>
   )
@@ -395,9 +395,9 @@ export default function LiuyaoClient() {
                       </div>
                     ) : (
                       <div className="flex items-center gap-1">
-                        <span className="block w-6 h-0.5 bg-amber-600 rounded" />
-                        <span className="block w-0.5 h-0.5 bg-amber-600 rounded-full" />
-                        <span className="block w-6 h-0.5 bg-amber-600 rounded" />
+                        <span className="block w-6 h-0.5 bg-gold-500/10 rounded" />
+                        <span className="block w-0.5 h-0.5 bg-gold-500/10 rounded-full" />
+                        <span className="block w-6 h-0.5 bg-gold-500/10 rounded" />
                       </div>
                     )
                   ) : (
@@ -406,7 +406,7 @@ export default function LiuyaoClient() {
                     </span>
                   )}
                   {manualChangings.includes(i) && (
-                    <span className="text-[8px] text-amber-500">○动</span>
+                    <span className="text-[8px] text-gold-500">○动</span>
                   )}
                 </div>
               ))}
@@ -464,7 +464,7 @@ export default function LiuyaoClient() {
                   <span key={i} className={`text-[10px] px-2 py-0.5 rounded ${
                     v === 0
                       ? 'bg-gold-900/30 text-gold-400 border border-gold-700/40'
-                      : 'bg-amber-900/20 text-amber-400 border border-amber-700/40'
+                      : 'bg-gold-500/10 text-gold-500 border border-gold-500/40'
                   }`}>
                     {YAO_NAMES[i]} {v === 0 ? '⚊' : '⚋'}
                     {manualChangings.includes(i) && ' ○'}
@@ -531,9 +531,9 @@ export default function LiuyaoClient() {
                             </div>
                           ) : (
                             <div className="flex items-center gap-2 animate-fadeIn">
-                              <span className="block w-8 h-0.5 bg-amber-500 rounded" />
-                              <span className="block w-0.5 h-0.5 bg-amber-500 rounded-full" />
-                              <span className="block w-8 h-0.5 bg-amber-500 rounded" />
+                              <span className="block w-8 h-0.5 bg-gold-500/50 rounded" />
+                              <span className="block w-0.5 h-0.5 bg-gold-500/50 rounded-full" />
+                              <span className="block w-8 h-0.5 bg-gold-500/50 rounded" />
                             </div>
                           )
                         ) : isCurrent ? (
@@ -547,9 +547,9 @@ export default function LiuyaoClient() {
                               </div>
                             ) : (
                               <div className="flex items-center gap-2 animate-fadeIn">
-                                <span className="block w-8 h-0.5 bg-amber-500 rounded" />
-                                <span className="block w-0.5 h-0.5 bg-amber-500 rounded-full" />
-                                <span className="block w-8 h-0.5 bg-amber-500 rounded" />
+                                <span className="block w-8 h-0.5 bg-gold-500/50 rounded" />
+                                <span className="block w-0.5 h-0.5 bg-gold-500/50 rounded-full" />
+                                <span className="block w-8 h-0.5 bg-gold-500/50 rounded" />
                               </div>
                             )
                           ) : (
@@ -686,9 +686,9 @@ export default function LiuyaoClient() {
 
           {/* 变卦 */}
           {cvd && (
-            <div className="bg-dark-800/80 rounded-xl border border-amber-600/30 p-5">
+            <div className="bg-dark-800/80 rounded-xl border border-gold-500/30 p-5">
               <div className="text-center mb-2">
-                <p className="text-xs text-amber-500 mb-1">→ 变卦（动爻变化后的结果）</p>
+                <p className="text-xs text-gold-500 mb-1">→ 变卦（动爻变化后的结果）</p>
                 <p className="text-lg text-gold-400 font-serif">
                   {TRI[cvd.upper]}{TRI[cvd.lower]} {cvd.name}
                 </p>

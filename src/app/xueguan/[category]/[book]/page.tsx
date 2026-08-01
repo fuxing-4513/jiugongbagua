@@ -117,8 +117,8 @@ export default async function BookPage({ params }: Props) {
                   <span className="text-gray-300 group-open:text-gold-400 transition-colors">{i + 1}.</span>
                   <span>{ch.title}</span>
                   {/* 白话/注释标记 */}
-                  {ch.vernacular && <span className="text-[10px] bg-sky-50 text-sky-400 px-1.5 py-0.5 rounded">白话</span>}
-                  {ch.notes && <span className="text-[10px] bg-amber-50 text-amber-400 px-1.5 py-0.5 rounded">注</span>}
+                  {ch.vernacular && <span className="text-[10px] bg-shui-500/5 text-shui-500 px-1.5 py-0.5 rounded">白话</span>}
+                  {ch.notes && <span className="text-[10px] bg-gold-500/5 text-gold-500 px-1.5 py-0.5 rounded">注</span>}
                   <span className="ml-auto text-gray-300 group-open:rotate-180 transition-transform text-xs">▼</span>
                 </summary>
                 <div className="px-5 pb-5 pt-2 border-t border-gray-50">
@@ -147,20 +147,20 @@ export default async function BookPage({ params }: Props) {
 
                   {/* 白话译文 */}
                   {ch.vernacular && (
-                    <div className="mt-4 pt-4 border-t border-sky-50">
+                    <div className="mt-4 pt-4 border-t border-shui-500/25">
                       <div className="flex items-center gap-1.5 mb-2">
-                        <span className="text-sky-400 text-xs">💬</span>
-                        <span className="text-[10px] font-medium text-sky-500">白话参考</span>
+                        <span className="text-shui-500 text-xs">💬</span>
+                        <span className="text-[10px] font-medium text-shui-500">白话参考</span>
                       </div>
                       <div className="prose prose-sm max-w-none text-gray-500 leading-relaxed whitespace-pre-line">{ch.vernacular}</div>
                     </div>
                   )}
                   {/* 注释 */}
                   {ch.notes && (
-                    <div className="mt-3 pt-3 border-t border-amber-50">
+                    <div className="mt-3 pt-3 border-t border-gold-500/25">
                       <div className="flex items-center gap-1.5 mb-1">
-                        <span className="text-amber-400 text-xs">📝</span>
-                        <span className="text-[10px] font-medium text-amber-500">注释</span>
+                        <span className="text-gold-500 text-xs">📝</span>
+                        <span className="text-[10px] font-medium text-gold-500">注释</span>
                       </div>
                       <div className="prose prose-sm max-w-none text-gray-400 leading-relaxed whitespace-pre-line text-xs">{ch.notes}</div>
                     </div>
@@ -173,10 +173,10 @@ export default async function BookPage({ params }: Props) {
       )}
 
       {!hasFullText && (
-        <div className="mb-10 bg-amber-50 border border-amber-100 rounded-xl p-5 text-center">
+        <div className="mb-10 bg-gold-500/5 border border-gold-500/25 rounded-xl p-5 text-center">
           <p className="text-3xl mb-2">📝</p>
-          <p className="text-sm text-amber-700 font-medium mb-1">原文持续整理中</p>
-          <p className="text-xs text-amber-500">本书的原文内容正在逐章录入与清洗中，敬请期待后续更新。</p>
+          <p className="text-sm text-gold-600 font-medium mb-1">原文持续整理中</p>
+          <p className="text-xs text-gold-500">本书的原文内容正在逐章录入与清洗中，敬请期待后续更新。</p>
         </div>
       )}
 

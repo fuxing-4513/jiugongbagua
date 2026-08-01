@@ -217,7 +217,7 @@ export default function LingqianClient() {
     setShaking(false)
   }
 
-  if (!category) return <div className="max-w-2xl mx-auto px-4 py-10 text-red-400">{getT('lingqianPage.loadError')}</div>
+  if (!category) return <div className="max-w-2xl mx-auto px-4 py-10 text-zhuhong">{getT('lingqianPage.loadError')}</div>
 
   return (
     <div className="max-w-2xl mx-auto px-4 py-10">
@@ -277,7 +277,7 @@ export default function LingqianClient() {
               </p>
             )}
             {phase === 'done' && (
-              <p className="text-emerald-400">{getT('lingqianPage.done')}</p>
+              <p className="text-jade-500">{getT('lingqianPage.done')}</p>
             )}
           </div>
         </div>
@@ -286,7 +286,7 @@ export default function LingqianClient() {
         <button onClick={draw} disabled={phase !== 'idle'}
           className={`mt-2 px-10 py-3 rounded-xl text-base font-bold transition-all active:scale-95 ${
             phase === 'idle'
-              ? 'bg-gradient-to-r from-gold-500 to-amber-500 text-dark-900 shadow-lg shadow-gold-500/20 hover:shadow-xl hover:shadow-gold-500/30'
+              ? 'bg-gradient-to-r from-gold-500 to-gold-500 text-dark-900 shadow-lg shadow-gold-500/20 hover:shadow-xl hover:shadow-gold-500/30'
               : 'bg-dark-600 text-gray-400 cursor-not-allowed'
           }`}>
           {phase === 'idle' ? getT('lingqianPage.drawButton') : getT('lingqianPage.waitingButton')}

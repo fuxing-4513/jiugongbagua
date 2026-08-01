@@ -277,7 +277,7 @@ function mergeShenSha(pillarShenSha: PillarShenSha[]): { name: string; type: '�
 
 const shenShaTagColor = (type: string) => {
   if (type === '吉') return 'bg-gold-900/50 text-gold-300 border border-gold-700/50'
-  if (type === '凶') return 'bg-red-900/40 text-red-300 border border-red-700/40'
+  if (type === '凶') return 'bg-zhuhong/10 text-zhuhong border border-zhuhong/40'
   return 'bg-dark-700 text-gray-400 border border-dark-600'
 }
 
@@ -750,11 +750,11 @@ export default function BaziClient() {
 
   const ssColor = (s: string) => {
     if (!s) return 'text-gray-500'
-    if (s.includes('比肩')||s.includes('劫财')) return 'text-blue-300'
-    if (s.includes('食神')||s.includes('伤官')) return 'text-green-300'
-    if (s.includes('正财')||s.includes('偏财')) return 'text-yellow-300'
-    if (s.includes('正官')||s.includes('七杀')) return 'text-red-300'
-    if (s.includes('正印')||s.includes('偏印')) return 'text-purple-300'
+    if (s.includes('比肩')||s.includes('劫财')) return 'text-shui-600'
+    if (s.includes('食神')||s.includes('伤官')) return 'text-jade-600'
+    if (s.includes('正财')||s.includes('偏财')) return 'text-gold-600'
+    if (s.includes('正官')||s.includes('七杀')) return 'text-zhuhong'
+    if (s.includes('正印')||s.includes('偏印')) return 'text-tu-600'
     return 'text-gray-400'
   }
 
@@ -797,9 +797,9 @@ export default function BaziClient() {
             <span className="text-xs text-gray-400">性别：</span>
             <div className="flex bg-dark-700 rounded-lg p-1 gap-1">
               <button onClick={() => setGender('男')} aria-label="选择男性"
-                className={`px-4 min-h-[44px] rounded-md text-xs font-medium transition-all ${gender === '男' ? 'bg-blue-500 text-white' : 'text-gray-400'}`}>♂ 男</button>
+                className={`px-4 min-h-[44px] rounded-md text-xs font-medium transition-all ${gender === '男' ? 'bg-gold-600 text-dark-900' : 'text-gray-400'}`}>♂ 男</button>
               <button onClick={() => setGender('女')} aria-label="选择女性"
-                className={`px-4 min-h-[44px] rounded-md text-xs font-medium transition-all ${gender === '女' ? 'bg-pink-500 text-white' : 'text-gray-400'}`}>♀ 女</button>
+                className={`px-4 min-h-[44px] rounded-md text-xs font-medium transition-all ${gender === '女' ? 'bg-gold-600 text-dark-900' : 'text-gray-400'}`}>♀ 女</button>
             </div>
           </div>
           <TrueSolarTime
@@ -842,14 +842,14 @@ export default function BaziClient() {
 
       {/* 错误 Toast */}
       {error && (
-        <div className="my-3 p-4 bg-red-950/70 border-2 border-red-500/60 rounded-xl toast-enter">
+        <div className="my-3 p-4 bg-zhuhong/10 border-2 border-zhuhong/60 rounded-xl toast-enter">
           <div className="flex items-start gap-3">
             <span className="text-lg shrink-0">⚠️</span>
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-semibold text-red-300 mb-0.5">排盘出错</p>
-              <p className="text-sm text-red-200/90 leading-relaxed">{error}</p>
+              <p className="text-sm font-semibold text-zhuhong mb-0.5">排盘出错</p>
+              <p className="text-sm text-zhuhong/90 leading-relaxed">{error}</p>
             </div>
-            <button onClick={() => setError('')} className="text-red-400/60 hover:text-red-300 shrink-0 mt-0.5" aria-label="关闭错误提示">✕</button>
+            <button onClick={() => setError('')} className="text-zhuhong/60 hover:text-zhuhong shrink-0 mt-0.5" aria-label="关闭错误提示">✕</button>
           </div>
         </div>
       )}
@@ -887,9 +887,9 @@ export default function BaziClient() {
       )}
 
       {trueSolarChanged && (
-        <div className="mb-4 p-4 bg-amber-950/80 border-2 border-amber-500/70 rounded-xl shadow-[0_0_15px_rgba(251,191,36,0.15)]">
-          <p className="text-sm text-amber-300 font-bold">⚠️ 真太阳时修正导致时柱变化</p>
-          <p className="text-xs text-amber-200/90 mt-1.5 leading-relaxed">由于经度偏差，真太阳时修正后您出生时辰的地支（时柱）发生了变化，排盘结果已据此重新计算。</p>
+        <div className="mb-4 p-4 bg-gold-500/10 border-2 border-gold-500/70 rounded-xl shadow-[0_0_15px_rgba(251,191,36,0.15)]">
+          <p className="text-sm text-gold-600 font-bold">⚠️ 真太阳时修正导致时柱变化</p>
+          <p className="text-xs text-gold-500/90 mt-1.5 leading-relaxed">由于经度偏差，真太阳时修正后您出生时辰的地支（时柱）发生了变化，排盘结果已据此重新计算。</p>
         </div>
       )}
     </div>
@@ -904,15 +904,15 @@ export default function BaziClient() {
       {/* 分析Tab导航 */}
       <div className="flex gap-3 flex-wrap bg-dark-800/80 rounded-xl border border-dark-600 p-3">
         <button onClick={()=>setActiveTab('classic')}
-          className={`flex-1 min-w-[110px] px-4 py-3.5 rounded-xl text-base font-bold tracking-wider transition-all duration-200 shadow-lg ${activeTab==='classic'?'bg-gradient-to-br from-amber-300 via-gold-400 to-gold-600 text-dark-900 shadow-[0_0_20px_rgba(251,191,36,0.4)] border border-amber-200/50 scale-105':'bg-dark-800 text-gray-200 border-2 border-gold-500/40 hover:border-gold-400/80 hover:bg-dark-700 hover:text-gold-200 hover:shadow-[0_0_15px_rgba(251,191,36,0.15)]'}`}>
+          className={`flex-1 min-w-[110px] px-4 py-3.5 rounded-xl text-base font-bold tracking-wider transition-all duration-200 shadow-lg ${activeTab==='classic'?'bg-gradient-to-br from-gold-500 via-gold-400 to-gold-600 text-dark-900 shadow-[0_0_20px_rgba(251,191,36,0.4)] border border-gold-500/50 scale-105':'bg-dark-800 text-gray-200 border-2 border-gold-500/40 hover:border-gold-400/80 hover:bg-dark-700 hover:text-gold-200 hover:shadow-[0_0_15px_rgba(251,191,36,0.15)]'}`}>
           <span className="text-lg mr-1">📜</span> 经典分析
         </button>
         <button onClick={()=>setActiveTab('deep')}
-          className={`flex-1 min-w-[110px] px-4 py-3.5 rounded-xl text-base font-bold tracking-wider transition-all duration-200 shadow-lg ${activeTab==='deep'?'bg-gradient-to-br from-amber-300 via-gold-400 to-gold-600 text-dark-900 shadow-[0_0_20px_rgba(251,191,36,0.4)] border border-amber-200/50 scale-105':'bg-dark-800 text-gray-200 border-2 border-gold-500/40 hover:border-gold-400/80 hover:bg-dark-700 hover:text-gold-200 hover:shadow-[0_0_15px_rgba(251,191,36,0.15)]'}`}>
+          className={`flex-1 min-w-[110px] px-4 py-3.5 rounded-xl text-base font-bold tracking-wider transition-all duration-200 shadow-lg ${activeTab==='deep'?'bg-gradient-to-br from-gold-500 via-gold-400 to-gold-600 text-dark-900 shadow-[0_0_20px_rgba(251,191,36,0.4)] border border-gold-500/50 scale-105':'bg-dark-800 text-gray-200 border-2 border-gold-500/40 hover:border-gold-400/80 hover:bg-dark-700 hover:text-gold-200 hover:shadow-[0_0_15px_rgba(251,191,36,0.15)]'}`}>
           <span className="text-lg mr-1">🔮</span> 深度分析
         </button>
         <button onClick={()=>setActiveTab('yinzheng')}
-          className={`flex-1 min-w-[110px] px-4 py-3.5 rounded-xl text-base font-bold tracking-wider transition-all duration-200 shadow-lg ${activeTab==='yinzheng'?'bg-gradient-to-br from-amber-300 via-gold-400 to-gold-600 text-dark-900 shadow-[0_0_20px_rgba(251,191,36,0.4)] border border-amber-200/50 scale-105':'bg-dark-800 text-gray-200 border-2 border-gold-500/40 hover:border-gold-400/80 hover:bg-dark-700 hover:text-gold-200 hover:shadow-[0_0_15px_rgba(251,191,36,0.15)]'}`}>
+          className={`flex-1 min-w-[110px] px-4 py-3.5 rounded-xl text-base font-bold tracking-wider transition-all duration-200 shadow-lg ${activeTab==='yinzheng'?'bg-gradient-to-br from-gold-500 via-gold-400 to-gold-600 text-dark-900 shadow-[0_0_20px_rgba(251,191,36,0.4)] border border-gold-500/50 scale-105':'bg-dark-800 text-gray-200 border-2 border-gold-500/40 hover:border-gold-400/80 hover:bg-dark-700 hover:text-gold-200 hover:shadow-[0_0_15px_rgba(251,191,36,0.15)]'}`}>
           <span className="text-lg mr-1">🔄</span> 综合印证
         </button>
       </div>
@@ -936,10 +936,10 @@ export default function BaziClient() {
                 {result.pills.map((x: PillarInfo,i: number)=><td key={i} className={`p-2 border border-dark-600 text-center font-medium ${ssColor(x.ssG)}`}>{x.ssG}</td>)}
               </tr>
               <tr><td className="p-2 border border-dark-600 text-gray-500 bg-dark-700">地支</td>
-                {result.pills.map((x: PillarInfo,i: number)=><td key={i} className="p-2 border border-dark-600 text-center font-bold text-amber-400 font-serif text-base">{x.zhi}</td>)}
+                {result.pills.map((x: PillarInfo,i: number)=><td key={i} className="p-2 border border-dark-600 text-center font-bold text-jade-500 font-serif text-base">{x.zhi}</td>)}
               </tr>
               <tr><td className="p-2 border border-dark-600 text-gray-500 bg-dark-700">地支十神</td>
-                {result.pills.map((x: PillarInfo,i: number)=><td key={i} className="p-2 border border-dark-600 text-center font-medium text-cyan-300">{x.ssZ}</td>)}
+                {result.pills.map((x: PillarInfo,i: number)=><td key={i} className="p-2 border border-dark-600 text-center font-medium text-shui-500">{x.ssZ}</td>)}
               </tr>
               <tr><td className="p-2 border border-dark-600 text-gray-500 bg-dark-700">藏干</td>
                 {result.pills.map((x: PillarInfo,i: number)=><td key={i} className="p-2 border border-dark-600 text-center text-gray-400">{x.hd}</td>)}
@@ -983,11 +983,11 @@ export default function BaziClient() {
           </div>
           <div className="bg-dark-700/60 rounded-lg p-2.5 text-center">
             <p className="text-xs text-gray-500 mb-0.5">调候用神</p>
-            <p className="font-bold text-cyan-400 text-sm">{result.enrich.调候用神.join("、") || "无"}</p>
+            <p className="font-bold text-jade-500 text-sm">{result.enrich.调候用神.join("、") || "无"}</p>
           </div>
           <div className="bg-dark-700/60 rounded-lg p-2.5 text-center">
             <p className="text-xs text-gray-500 mb-0.5">五行缺</p>
-            <p className="font-bold text-red-400 text-sm">{result.enrich.五行统计.missing.join("、") || "无"}</p>
+            <p className="font-bold text-zhuhong text-sm">{result.enrich.五行统计.missing.join("、") || "无"}</p>
           </div>
         </div>
         {result.enrich.地支关系.length > 0 && (
@@ -1010,7 +1010,7 @@ export default function BaziClient() {
         <div className="flex flex-wrap gap-2">
           <span className="text-xs text-gray-500">整柱: </span>
           {result.enrich.整柱.filter(p => p.verdict.includes("截脚") || p.verdict.includes("盖头")).map((p,i) => (
-            <span key={i} className="text-xs px-2 py-0.5 rounded-full bg-orange-900/40 text-orange-300 border border-orange-800">{p.pillar}柱{p.verdict}</span>
+            <span key={i} className="text-xs px-2 py-0.5 rounded-full bg-gold-500/10 text-gold-600 border border-gold-500/25">{p.pillar}柱{p.verdict}</span>
           ))}
         </div>
         )}
@@ -1024,7 +1024,7 @@ export default function BaziClient() {
           <div className="grid grid-cols-5 gap-1.5 mb-3">
             {
 Object.entries(result.wx).map(([w,c]): React.ReactNode =>(
-              <div key={w} className={`rounded-lg p-2 text-center border border-dark-600 ${w==='金'?'bg-yellow-900/40 text-yellow-300':w==='木'?'bg-green-900/40 text-green-300':w==='水'?'bg-blue-900/40 text-blue-300':w==='火'?'bg-red-900/40 text-red-300':'bg-amber-900/40 text-amber-300'}`}>
+              <div key={w} className={`rounded-lg p-2 text-center border border-dark-600 ${w==='金'?'bg-gold-500/10 text-gold-600':w==='木'?'bg-jade-500/10 text-jade-600':w==='水'?'bg-shui-500/10 text-shui-600':w==='火'?'bg-zhuhong/10 text-zhuhong':'bg-tu-500/10 text-tu-600'}`}>
                 <p className="text-sm font-bold mb-0.5">{w}</p><p className="text-xs text-gray-400">{c}个</p>
               </div>
             ))}
@@ -1040,15 +1040,15 @@ Object.entries(result.wx).map(([w,c]): React.ReactNode =>(
             </div>
             <div className="bg-dark-700/60 rounded-lg p-3 border border-dark-600">
               <p className="text-[10px] text-gray-500 mb-1">身宫</p>
-              <p className="text-sm font-semibold text-blue-300">{result.shenGong}</p>
+              <p className="text-sm font-semibold text-jade-500">{result.shenGong}</p>
             </div>
             <div className="bg-dark-700/60 rounded-lg p-3 border border-dark-600">
               <p className="text-[10px] text-gray-500 mb-1">胎元</p>
-              <p className="text-sm font-semibold text-purple-300">{result.taiYuan}</p>
+              <p className="text-sm font-semibold text-jade-500">{result.taiYuan}</p>
             </div>
             <div className="bg-dark-700/60 rounded-lg p-3 border border-dark-600">
               <p className="text-[10px] text-gray-500 mb-1">旬空</p>
-              <p className="text-sm font-semibold text-amber-300">{result.xunKong}</p>
+              <p className="text-sm font-semibold text-jade-500">{result.xunKong}</p>
             </div>
           </div>
         </div>
@@ -1061,9 +1061,9 @@ Object.entries(result.wx).map(([w,c]): React.ReactNode =>(
           {result.shenSha.map((s: ShenShaItem,i: number)=>(
             <div key={i} className={`text-xs p-3 rounded border ${shenShaTagColor(s.type)}`}>
               <span className="font-semibold mr-1.5">{s.name}</span>
-              <span className={`text-[10px] ${s.type==='吉'?'text-gold-400/70':s.type==='凶'?'text-red-400/70':'text-gray-500'}`}>（{s.type}）</span>
+              <span className={`text-[10px] ${s.type==='吉'?'text-gold-400/70':s.type==='凶'?'text-zhuhong/70':'text-gray-500'}`}>（{s.type}）</span>
               <p className="text-[11px] text-gray-400 mt-1.5 leading-relaxed">{s.meaning}</p>
-              {s.resolve && <p className="text-[10px] text-amber-400/60 mt-1.5 leading-relaxed">✦ 化解：{s.resolve}</p>}
+              {s.resolve && <p className="text-[10px] text-gold-500/60 mt-1.5 leading-relaxed">✦ 化解：{s.resolve}</p>}
             </div>
           ))}
         </div>
@@ -1072,25 +1072,25 @@ Object.entries(result.wx).map(([w,c]): React.ReactNode =>(
       <div className="bg-dark-800/80 rounded-xl border border-gold-500/30 p-4">
         <h3 className="text-sm font-semibold text-gold-300 mb-3">📜 命理批断</h3>
         {result.analysis.general.map((s:string,i:number)=><p key={i} className="text-xs text-gray-300 mb-1.5 leading-relaxed">{s}</p>)}
-        {result.analysis.classical.map((s:string,i:number)=><p key={i} className="text-xs text-amber-300 mb-1 font-medium leading-relaxed">{s}</p>)}
+        {result.analysis.classical.map((s:string,i:number)=><p key={i} className="text-xs text-gold-500 mb-1 font-medium leading-relaxed">{s}</p>)}
       </div>
 
       {/* 四大分析模块 */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-4">
-          <h3 className="text-sm font-semibold mb-2 text-blue-400">🧠 性格分析</h3>
+          <h3 className="text-sm font-semibold mb-2 text-jade-500">🧠 性格分析</h3>
           <p className="text-xs text-gray-300 leading-relaxed">{result.analysis.personality}</p>
         </div>
         <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-4">
-          <h3 className="text-sm font-semibold mb-2 text-pink-400">💕 感情分析</h3>
+          <h3 className="text-sm font-semibold mb-2 text-jade-500">💕 感情分析</h3>
           <p className="text-xs text-gray-300 leading-relaxed">{result.analysis.love}</p>
         </div>
         <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-4">
-          <h3 className="text-sm font-semibold mb-2 text-cyan-400">💼 事业分析</h3>
+          <h3 className="text-sm font-semibold mb-2 text-jade-500">💼 事业分析</h3>
           <p className="text-xs text-gray-300 leading-relaxed">{result.analysis.career}</p>
         </div>
         <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-4">
-          <h3 className="text-sm font-semibold mb-2 text-green-400">💰 财运分析</h3>
+          <h3 className="text-sm font-semibold mb-2 text-jade-500">💰 财运分析</h3>
           <p className="text-xs text-gray-300 leading-relaxed">{result.analysis.wealth}</p>
         </div>
       </div>
@@ -1123,32 +1123,32 @@ Object.entries(result.wx).map(([w,c]): React.ReactNode =>(
 
               {judgmentResult.charNarr.length > 0 && (
                 <div className="p-3 rounded-lg bg-dark-700/40 border border-dark-600">
-                  <h4 className="text-xs font-semibold text-blue-300 mb-2">🧠 性格</h4>
+                  <h4 className="text-xs font-semibold text-jade-500 mb-2">🧠 性格</h4>
                   {judgmentResult.charNarr.map((s,i)=><p key={i} className="text-xs text-gray-200 mb-1 leading-relaxed">{s}</p>)}
                 </div>
               )}
 
               {judgmentResult.marriageNarr.length > 0 && (
                 <div className="p-3 rounded-lg bg-dark-700/40 border border-dark-600">
-                  <h4 className="text-xs font-semibold text-pink-300 mb-2">❤️ 婚姻感情</h4>
+                  <h4 className="text-xs font-semibold text-jade-500 mb-2">❤️ 婚姻感情</h4>
                   {judgmentResult.marriageNarr.map((s,i)=><p key={'m'+i} className="text-xs text-gray-200 mb-1 leading-relaxed">{s}</p>)}
                   {judgmentResult.spouseDynamicNarr && judgmentResult.spouseDynamicNarr.map((s,i)=><p key={'sd'+i} className="text-xs text-gray-200 mb-1 leading-relaxed">{s}</p>)}
-                  {judgmentResult.wanHunNarr.length > 0 && judgmentResult.wanHunNarr.map((s,i)=><p key={'wh'+i} className="text-xs text-indigo-300 mt-1 leading-relaxed">{s}</p>)}
-                  {judgmentResult.jieHunNarr.length > 0 && judgmentResult.jieHunNarr.map((s,i)=><p key={'jh'+i} className="text-xs text-rose-300 mt-1 leading-relaxed">{s}</p>)}
-                  {judgmentResult.liHunNarr.length > 0 && judgmentResult.liHunNarr.map((s,i)=><p key={'lh'+i} className="text-xs text-red-400 mt-1 leading-relaxed">{s}</p>)}
+                  {judgmentResult.wanHunNarr.length > 0 && judgmentResult.wanHunNarr.map((s,i)=><p key={'wh'+i} className="text-xs text-shui-500 mt-1 leading-relaxed">{s}</p>)}
+                  {judgmentResult.jieHunNarr.length > 0 && judgmentResult.jieHunNarr.map((s,i)=><p key={'jh'+i} className="text-xs text-zhuhong mt-1 leading-relaxed">{s}</p>)}
+                  {judgmentResult.liHunNarr.length > 0 && judgmentResult.liHunNarr.map((s,i)=><p key={'lh'+i} className="text-xs text-zhuhong mt-1 leading-relaxed">{s}</p>)}
                 </div>
               )}
 
               {judgmentResult.healthNarr.length > 0 && (
                 <div className="p-3 rounded-lg bg-dark-700/40 border border-dark-600">
-                  <h4 className="text-xs font-semibold text-red-300 mb-2">🏥 健康</h4>
+                  <h4 className="text-xs font-semibold text-jade-500 mb-2">🏥 健康</h4>
                   {judgmentResult.healthNarr.map((s,i)=><p key={i} className="text-xs text-gray-200 mb-1 leading-relaxed">{s}</p>)}
                 </div>
               )}
 
               {judgmentResult.prefNarr.length > 0 && (
                 <div className="p-3 rounded-lg bg-dark-700/40 border border-dark-600">
-                  <h4 className="text-xs font-semibold text-purple-300 mb-2">⭐ 运势指南</h4>
+                  <h4 className="text-xs font-semibold text-jade-500 mb-2">⭐ 运势指南</h4>
                   {judgmentResult.prefNarr.map((s,i)=><p key={i} className="text-xs text-gray-200 mb-1 leading-relaxed">{s}</p>)}
                 </div>
               )}
@@ -1156,13 +1156,13 @@ Object.entries(result.wx).map(([w,c]): React.ReactNode =>(
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {judgmentResult.parentNarr.length > 0 && (
                   <div className="p-3 rounded-lg bg-dark-700/40 border border-dark-600">
-                    <h4 className="text-xs font-semibold text-orange-300 mb-2">👪 父母</h4>
+                    <h4 className="text-xs font-semibold text-jade-500 mb-2">👪 父母</h4>
                     {judgmentResult.parentNarr.map((s,i)=><p key={i} className="text-xs text-gray-200 mb-1 leading-relaxed">{s}</p>)}
                   </div>
                 )}
                 {judgmentResult.friendModeNarr && judgmentResult.friendModeNarr.length > 0 && (
                   <div className="p-3 rounded-lg bg-dark-700/40 border border-dark-600">
-                    <h4 className="text-xs font-semibold text-emerald-300 mb-2">🤝 交友社交</h4>
+                    <h4 className="text-xs font-semibold text-jade-500 mb-2">🤝 交友社交</h4>
                     {judgmentResult.friendModeNarr.map((s,i)=><p key={i} className="text-xs text-gray-200 mb-1 leading-relaxed">{s}</p>)}
                   </div>
                 )}
@@ -1170,7 +1170,7 @@ Object.entries(result.wx).map(([w,c]): React.ReactNode =>(
 
               {judgmentResult.childrenNarr.length > 0 && (
                 <div className="p-3 rounded-lg bg-dark-700/40 border border-dark-600">
-                  <h4 className="text-xs font-semibold text-green-300 mb-2">👶 子女</h4>
+                  <h4 className="text-xs font-semibold text-jade-500 mb-2">👶 子女</h4>
                   {judgmentResult.childrenNarr.map((s,i)=><p key={'c'+i} className="text-xs text-gray-200 mb-1 leading-relaxed">{s}</p>)}
                   {judgmentResult.childrenRelationNarr && judgmentResult.childrenRelationNarr.map((s,i)=><p key={'cr'+i} className="text-xs text-gray-200 mb-1 leading-relaxed">{s}</p>)}
                 </div>
@@ -1180,7 +1180,7 @@ Object.entries(result.wx).map(([w,c]): React.ReactNode =>(
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {judgmentResult.wealthNarr.length > 0 && (
                   <div className="p-3 rounded-lg bg-dark-700/40 border border-dark-600">
-                    <h4 className="text-xs font-semibold text-amber-300 mb-2">💰 财富</h4>
+                    <h4 className="text-xs font-semibold text-jade-500 mb-2">💰 财富</h4>
                     {judgmentResult.wealthNarr.map((s,i)=><p key={'w'+i} className="text-xs text-gray-200 mb-1 leading-relaxed">{s}</p>)}
                     {judgmentResult.moneyMindsetNarr && judgmentResult.moneyMindsetNarr.map((s,i)=><p key={'mm'+i} className="text-xs text-gray-200 mb-1 leading-relaxed">{s}</p>)}
                   </div>
@@ -1188,7 +1188,7 @@ Object.entries(result.wx).map(([w,c]): React.ReactNode =>(
                 {/* 事业 = 事业 + 技术能力 合并 */}
                 {judgmentResult.careerNarr.length > 0 && (
                   <div className="p-3 rounded-lg bg-dark-700/40 border border-dark-600">
-                    <h4 className="text-xs font-semibold text-cyan-300 mb-2">💼 事业</h4>
+                    <h4 className="text-xs font-semibold text-jade-500 mb-2">💼 事业</h4>
                     {judgmentResult.careerNarr.map((s,i)=><p key={'ca'+i} className="text-xs text-gray-200 mb-1 leading-relaxed">{s}</p>)}
                     {judgmentResult.techAbilityNarr && judgmentResult.techAbilityNarr.map((s,i)=><p key={'ta'+i} className="text-xs text-gray-200 mb-1 leading-relaxed">{s}</p>)}
                   </div>
@@ -1197,21 +1197,21 @@ Object.entries(result.wx).map(([w,c]): React.ReactNode =>(
 
               {judgmentResult.deepHumanNarr && judgmentResult.deepHumanNarr.length > 0 && (
                 <div className="p-3 rounded-lg bg-dark-700/40 border border-dark-600">
-                  <h4 className="text-xs font-semibold text-violet-300 mb-2">💎 人生洞察</h4>
+                  <h4 className="text-xs font-semibold text-jade-500 mb-2">💎 人生洞察</h4>
                   {judgmentResult.deepHumanNarr.map((s,i)=><p key={i} className="text-xs text-gray-200 mb-1 leading-relaxed">{s}</p>)}
                 </div>
               )}
 
               {judgmentResult.daYunNarr.length > 0 && (
                 <div className="p-3 rounded-lg bg-dark-700/40 border border-dark-600">
-                  <h4 className="text-xs font-semibold text-yellow-300 mb-2">📈 大运走势</h4>
+                  <h4 className="text-xs font-semibold text-jade-500 mb-2">📈 大运走势</h4>
                   {judgmentResult.daYunNarr.map((s,i)=><p key={i} className="text-xs text-gray-200 mb-1 leading-relaxed">{s}</p>)}
                 </div>
               )}
 
               {judgmentResult.flowYearNarr.length > 0 && (
                 <div className="p-3 rounded-lg bg-dark-700/40 border border-dark-600">
-                  <h4 className="text-xs font-semibold text-teal-300 mb-2">📅 流年提醒</h4>
+                  <h4 className="text-xs font-semibold text-jade-500 mb-2">📅 流年提醒</h4>
                   {judgmentResult.flowYearNarr.map((s,i)=><p key={i} className="text-xs text-gray-200 mb-1 leading-relaxed">{s}</p>)}
                 </div>
               )}
@@ -1229,23 +1229,23 @@ Object.entries(result.wx).map(([w,c]): React.ReactNode =>(
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
                 <div className="bg-dark-700/60 rounded-lg p-3 border border-dark-600">
                   <p className="text-[10px] text-gray-500 mb-1">格局</p>
-                  <p className="text-sm font-semibold text-blue-300">
+                  <p className="text-sm font-semibold text-jade-500">
                     {baziEnrichResult?.格局?.primary || baziEnrichResult?.格局?.classical || '未定'}
                   </p>
                 </div>
                 <div className="bg-dark-700/60 rounded-lg p-3 border border-dark-600">
                   <p className="text-[10px] text-gray-500 mb-1">旺衰</p>
-                  <p className="text-sm font-semibold text-purple-300">{baziEnrichResult?.旺衰?.verdict || ''}</p>
+                  <p className="text-sm font-semibold text-jade-500">{baziEnrichResult?.旺衰?.verdict || ''}</p>
                 </div>
                 <div className="bg-dark-700/60 rounded-lg p-3 border border-dark-600">
                   <p className="text-[10px] text-gray-500 mb-1">调候用神</p>
-                  <p className="text-sm font-semibold text-green-300">
+                  <p className="text-sm font-semibold text-jade-500">
                     {baziEnrichResult?.调候用神?.join('、') || '—'}
                   </p>
                 </div>
                 <div className="bg-dark-700/60 rounded-lg p-3 border border-dark-600">
                   <p className="text-[10px] text-gray-500 mb-1">五行缺</p>
-                  <p className="text-sm font-semibold text-amber-300">
+                  <p className="text-sm font-semibold text-jade-500">
                     {baziEnrichResult?.五行统计?.missing?.join('、') || '无缺'}
                   </p>
                 </div>
@@ -1297,7 +1297,7 @@ Object.entries(result.wx).map(([w,c]): React.ReactNode =>(
           }}
           className={`text-sm px-4 min-h-[44px] rounded-lg border transition-all ${
             saved
-              ? 'border-green-500 bg-green-500/20 text-green-400'
+              ? 'border-jade-500/25 bg-jade-500/20 text-jade-500'
               : 'border-gold-500/50 text-gold-400 hover:bg-gold-500/10'
           }`}
         >

@@ -497,7 +497,7 @@ export default function MeihuaClient() {
         </div>
       )}
 
-      {error && <p className="text-xs text-red-400 mb-2">{error}</p>}
+      {error && <p className="text-xs text-zhuhong mb-2">{error}</p>}
       <button onClick={doCalc} className="bg-gold-600 hover:bg-gold-500 text-dark-900 font-semibold px-6 py-2.5 rounded-lg transition-colors active:scale-95">起卦</button>
     </div>
 
@@ -545,19 +545,19 @@ export default function MeihuaClient() {
               </div>
               <div className="grid grid-cols-2 gap-2">
                 <div className="bg-dark-700/40 rounded-lg p-3">
-                  <p className="text-[10px] text-cyan-400 font-medium mb-1">💼 {locale === 'en' ? 'Career' : locale === 'ja' ? '事業' : locale === 'ko' ? '사업' : '事业'}</p>
+                  <p className="text-[10px] text-jade-500 font-medium mb-1">💼 {locale === 'en' ? 'Career' : locale === 'ja' ? '事業' : locale === 'ko' ? '사업' : '事业'}</p>
                   <p className="text-[11px] text-gray-300 leading-relaxed">{duan.career}</p>
                 </div>
                 <div className="bg-dark-700/40 rounded-lg p-3">
-                  <p className="text-[10px] text-pink-400 font-medium mb-1">❤️ {locale === 'en' ? 'Love' : locale === 'ja' ? '感情' : locale === 'ko' ? '감정' : '感情'}</p>
+                  <p className="text-[10px] text-jade-500 font-medium mb-1">❤️ {locale === 'en' ? 'Love' : locale === 'ja' ? '感情' : locale === 'ko' ? '감정' : '感情'}</p>
                   <p className="text-[11px] text-gray-300 leading-relaxed">{duan.love}</p>
                 </div>
                 <div className="bg-dark-700/40 rounded-lg p-3">
-                  <p className="text-[10px] text-green-400 font-medium mb-1">🌿 {locale === 'en' ? 'Health' : locale === 'ja' ? '健康' : locale === 'ko' ? '건강' : '健康'}</p>
+                  <p className="text-[10px] text-jade-500 font-medium mb-1">🌿 {locale === 'en' ? 'Health' : locale === 'ja' ? '健康' : locale === 'ko' ? '건강' : '健康'}</p>
                   <p className="text-[11px] text-gray-300 leading-relaxed">{duan.health}</p>
                 </div>
                 <div className="bg-dark-700/40 rounded-lg p-3">
-                  <p className="text-[10px] text-yellow-400 font-medium mb-1">💰 {locale === 'en' ? 'Wealth' : locale === 'ja' ? '財運' : locale === 'ko' ? '재운' : '财运'}</p>
+                  <p className="text-[10px] text-jade-500 font-medium mb-1">💰 {locale === 'en' ? 'Wealth' : locale === 'ja' ? '財運' : locale === 'ko' ? '재운' : '财运'}</p>
                   <p className="text-[11px] text-gray-300 leading-relaxed">{duan.wealth}</p>
                 </div>
               </div>

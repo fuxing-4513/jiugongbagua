@@ -72,15 +72,15 @@ export default function ExpertDialog({ toolName, toolEmoji, close }: ExpertDialo
           {/* 专家介绍 */}
           <div className="mt-4 space-y-2">
             <div className="flex items-start gap-2 text-xs text-gray-400">
-              <span className="text-amber-400 shrink-0 mt-0.5">✦</span>
+              <span className="text-gold-500 shrink-0 mt-0.5">✦</span>
               <span>资深命理师团队，多年实战经验</span>
             </div>
             <div className="flex items-start gap-2 text-xs text-gray-400">
-              <span className="text-amber-400 shrink-0 mt-0.5">✦</span>
+              <span className="text-gold-500 shrink-0 mt-0.5">✦</span>
               <span>针对您的问题提供定制化解析</span>
             </div>
             <div className="flex items-start gap-2 text-xs text-gray-400">
-              <span className="text-amber-400 shrink-0 mt-0.5">✦</span>
+              <span className="text-gold-500 shrink-0 mt-0.5">✦</span>
               <span>九宫独家技法，不一样的命理视角</span>
             </div>
           </div>
@@ -93,7 +93,7 @@ export default function ExpertDialog({ toolName, toolEmoji, close }: ExpertDialo
               // 预留：社交工具接入后跳转到沟通页面
               close()
             }}
-            className="w-full py-2.5 rounded-lg bg-amber-500/20 text-amber-400 text-sm font-medium hover:bg-amber-500/30 transition-all border border-amber-500/30"
+            className="w-full py-2.5 rounded-lg bg-gold-500/20 text-gold-500 text-sm font-medium hover:bg-gold-500/30 transition-all border border-gold-500/30"
           >
             联系专家
           </button>

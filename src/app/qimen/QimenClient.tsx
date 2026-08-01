@@ -84,11 +84,11 @@ export default function QimenClient() {
 
       <div className="grid grid-cols-3 gap-3">
         <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-4 text-center">
-          <p className={`text-sm font-bold ${QIMEN_DOORS[r.doorIndex].luck==='大吉'?'text-green-400':QIMEN_DOORS[r.doorIndex].luck==='凶'||QIMEN_DOORS[r.doorIndex].luck==='大凶'?'text-red-400':'text-yellow-400'}`}>{QIMEN_DOORS[r.doorIndex].name}门</p>
+          <p className={`text-sm font-bold ${QIMEN_DOORS[r.doorIndex].luck==='大吉'?'text-jade-500':QIMEN_DOORS[r.doorIndex].luck==='凶'||QIMEN_DOORS[r.doorIndex].luck==='大凶'?'text-zhuhong':'text-gold-500'}`}>{QIMEN_DOORS[r.doorIndex].name}门</p>
           <p className="text-[10px] text-gray-500">{QIMEN_DOORS[r.doorIndex].dir} · {QIMEN_DOORS[r.doorIndex].luck}</p>
         </div>
         <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-4 text-center">
-          <p className={`text-sm font-bold ${QIMEN_STARS[r.starIndex].luck==='大吉'?'text-green-400':QIMEN_STARS[r.starIndex].luck==='凶'?'text-red-400':'text-yellow-400'}`}>{QIMEN_STARS[r.starIndex].name}星</p>
+          <p className={`text-sm font-bold ${QIMEN_STARS[r.starIndex].luck==='大吉'?'text-jade-500':QIMEN_STARS[r.starIndex].luck==='凶'?'text-zhuhong':'text-gold-500'}`}>{QIMEN_STARS[r.starIndex].name}星</p>
           <p className="text-[10px] text-gray-500">{QIMEN_STARS[r.starIndex].dir} · {QIMEN_STARS[r.starIndex].luck}</p>
         </div>
         <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-4 text-center">

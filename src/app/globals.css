@@ -30,6 +30,20 @@
   --color-zhuhong: #c43a31;
   --color-zhuhong-dark: #a82f28;
 
+  /* ── 水蓝（五行：水；信息性蓝色） ── */
+  --color-shui-300: #6a9ab8;
+  --color-shui-400: #4a7a9a;
+  --color-shui-500: #3a6a8a;
+  --color-shui-600: #2d5a7a;
+  --color-shui-700: #20506e;
+
+  /* ── 土黄（五行：土；中性偏暖） ── */
+  --color-tu-300: #b89a68;
+  --color-tu-400: #9c7c48;
+  --color-tu-500: #8a6d3b;
+  --color-tu-600: #7a5f30;
+  --color-tu-700: #6a5228;
+
   --font-serif: 'Noto Serif SC', 'Georgia', serif;
   --font-sans: 'Noto Sans SC', 'system-ui', sans-serif;
 }

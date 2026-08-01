@@ -236,7 +236,7 @@ export default function TaluoClient() {
         />
         {flipped && (
           <span
-            className={`text-[9px] font-medium ${orientation === 'upright' ? 'text-emerald-600' : 'text-rose-600'}`}
+            className={`text-[9px] font-medium ${orientation === 'upright' ? 'text-jade-600' : 'text-zhuhong-dark'}`}
           >
             {orientation === 'upright' ? `▲ ${TAROT_ORIENTATION_LANG.upright[locale] || TAROT_ORIENTATION_LANG.upright['zh-CN']}` : `▼ ${TAROT_ORIENTATION_LANG.reversed[locale] || TAROT_ORIENTATION_LANG.reversed['zh-CN']}`}
           </span>
@@ -283,7 +283,7 @@ export default function TaluoClient() {
           </div>
           {count >= 3 && (
             <div className="w-full text-center mt-2">
-              <div className="inline-flex items-center gap-1 text-[11px] text-gray-600 bg-amber-50/80 px-3 py-1 rounded-full border border-amber-200">
+              <div className="inline-flex items-center gap-1 text-[11px] text-gray-600 bg-gold-500/5 px-3 py-1 rounded-full border border-gold-500/25">
                 <span>↑ {locale === 'en' ? 'You' : locale === 'ja' ? 'あなた' : locale === 'ko' ? '당신' : '你'}</span>
                 <span className="text-gray-600">·</span>
                 <span>{locale === 'en' ? 'Partner' : locale === 'ja' ? '相手' : locale === 'ko' ? '상대방' : '对方'}</span>
@@ -338,7 +338,7 @@ export default function TaluoClient() {
 
             {/* Staff (cards 7-10) */}
             {count >= 7 && (
-              <div className="flex flex-wrap justify-center gap-3 mt-4 pt-4 border-t border-amber-100 w-full">
+              <div className="flex flex-wrap justify-center gap-3 mt-4 pt-4 border-t border-gold-500/25 w-full">
                 {[6, 7, 8, 9].map((i) => renderCardAtPosition(i))}
               </div>
             )}
@@ -371,7 +371,7 @@ export default function TaluoClient() {
         }`}
       >
         {/* Tab bar */}
-        <div className="flex gap-1 mb-4 bg-amber-50 rounded-lg p-1 border border-amber-200 max-w-md mx-auto">
+        <div className="flex gap-1 mb-4 bg-gold-500/5 rounded-lg p-1 border border-gold-500/25 max-w-md mx-auto">
           {[
             { key: 'core' as ReadingTab, label: locale === 'en' ? '📖 Core Meaning' : locale === 'ja' ? '📖 コア意味' : locale === 'ko' ? '📖 핵심 의미' : '📖 核心含义' },
             { key: 'context' as ReadingTab, label: locale === 'en' ? '💡 Context' : locale === 'ja' ? '💡 状況視点' : locale === 'ko' ? '💡 상황 관점' : '💡 情景视角' },
@@ -384,7 +384,7 @@ export default function TaluoClient() {
               className={`flex-1 text-xs py-1.5 px-2 rounded-md transition-all font-medium ${
                 readingTab === tab.key
                   ? 'bg-gold-600 text-dark-950 shadow-sm'
-                  : 'text-gray-500 hover:text-gray-700 hover:bg-amber-100'
+                  : 'text-gray-500 hover:text-gray-700 hover:bg-gold-500/10'
               }`}
             >
               {tab.label}
@@ -402,7 +402,7 @@ export default function TaluoClient() {
               return (
                 <div
                   key={`core-${i}`}
-                  className="bg-white/80 border border-amber-200/50 rounded-xl p-4"
+                  className="bg-white/80 border border-gold-500/50 rounded-xl p-4"
                   style={{
                     animation: `fadeSlideUp 0.4s ease-out ${i * 0.1}s both`,
                   }}
@@ -424,10 +424,10 @@ export default function TaluoClient() {
                       {interp.core}
                     </p>
                     <p className="text-gray-600">
-                      <span className="text-emerald-600/80 text-[11px]">{pos.name}方面：</span>
+                      <span className="text-jade-600/80 text-[11px]">{pos.name}方面：</span>
                       {interp.aspect}
                     </p>
-                    <div className="pt-2 border-t border-amber-100">
+                    <div className="pt-2 border-t border-gold-500/25">
                       <p className="text-gray-500 text-xs">
                         <span className="text-gold-600/80">💡 {locale === 'en' ? 'Advice:' : locale === 'ja' ? 'アドバイス：' : locale === 'ko' ? '조언：' : '建议：'}</span>
                         {interp.advice}
@@ -446,7 +446,7 @@ export default function TaluoClient() {
               return (
                 <div
                   key={`ctx-${i}`}
-                  className="bg-white/80 border border-amber-200/50 rounded-xl p-4"
+                  className="bg-white/80 border border-gold-500/50 rounded-xl p-4"
                   style={{
                     animation: `fadeSlideUp 0.4s ease-out ${i * 0.1}s both`,
                   }}
@@ -460,7 +460,7 @@ export default function TaluoClient() {
                   <div className="space-y-2 text-sm leading-relaxed">
                     {interp.contextual ? (
                       <p className="text-gray-700">
-                        <span className="text-rose-600/80 text-[11px]">
+                        <span className="text-zhuhong-dark/80 text-[11px]">
                           {pos.context === 'love'
                             ? (locale === 'en' ? '❤️ Love:' : locale === 'ja' ? '❤️ 恋愛視点：' : locale === 'ko' ? '❤️ 연애 관점：' : '❤️ 感情视角：')
                             : pos.context === 'work'
@@ -476,7 +476,7 @@ export default function TaluoClient() {
                         {locale === 'en' ? 'This position does not have a specific context' : locale === 'ja' ? 'このポジションには具体的な状況視点はありません' : locale === 'ko' ? '이 위치에는 특정 상황 관점이 없습니다' : '该位置不涉及具体情景视角'}
                       </p>
                     )}
-                    <div className="pt-2 border-t border-amber-100">
+                    <div className="pt-2 border-t border-gold-500/25">
                       <p className="text-gray-500 text-xs">
                         <span className="text-gold-600/80">💡 {pos.name} {locale === 'en' ? 'Advice:' : locale === 'ja' ? 'アドバイス：' : locale === 'ko' ? '조언：' : '建议：'}</span>
                         {interp.advice}
@@ -488,7 +488,7 @@ export default function TaluoClient() {
             })}
 
           {readingTab === 'overview' && (
-            <div className="bg-white/80 border border-amber-200/50 rounded-xl p-5">
+            <div className="bg-white/80 border border-gold-500/50 rounded-xl p-5">
               <p className="text-[11px] text-gold-600/80 mb-3 tracking-wider uppercase">
                 {spread?.name} · {locale === 'en' ? 'All Cards' : locale === 'ja' ? '全カード' : locale === 'ko' ? '전체 카드' : '全部牌面'}
               </p>
@@ -500,13 +500,13 @@ export default function TaluoClient() {
                   return (
                     <div
                       key={`ov-${i}`}
-                      className="flex items-start gap-3 pb-3 border-b border-amber-200/40 last:border-0"
+                      className="flex items-start gap-3 pb-3 border-b border-gold-500/40 last:border-0"
                     >
                       <span className="text-lg mt-0.5 shrink-0">{pos.icon}</span>
                       <div className="min-w-0 flex-1">
                         <p className="text-sm font-medium text-gold-700">
                           {drawn.card.name.zh}
-                          <span className={`text-[10px] ml-1.5 ${isUp ? 'text-emerald-600' : 'text-rose-600'}`}>
+                          <span className={`text-[10px] ml-1.5 ${isUp ? 'text-jade-600' : 'text-zhuhong-dark'}`}>
                             {isUp ? `▲${TAROT_ORIENTATION_LANG.upright[locale] || TAROT_ORIENTATION_LANG.upright['zh-CN']}` : `▼${TAROT_ORIENTATION_LANG.reversed[locale] || TAROT_ORIENTATION_LANG.reversed['zh-CN']}`}
                           </span>
                         </p>
@@ -560,11 +560,11 @@ export default function TaluoClient() {
                 key={spr.id}
                 type="button"
                 onClick={() => startReading(spr.id)}
-                className="group bg-amber-50/80 border border-amber-200/50 rounded-2xl p-5 text-left hover:border-gold-400/60 hover:bg-amber-50 transition-all hover:shadow-md hover:shadow-gold-200/30 active:scale-[0.98] min-h-[200px] flex flex-col justify-between"
+                className="group bg-gold-500/5 border border-gold-500/50 rounded-2xl p-5 text-left hover:border-gold-400/60 hover:bg-gold-500/5 transition-all hover:shadow-md hover:shadow-gold-200/30 active:scale-[0.98] min-h-[200px] flex flex-col justify-between"
               >
                 <div>
                   <div className="flex items-center gap-3 mb-3">
-                    <div className="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center text-lg shrink-0">
+                    <div className="w-10 h-10 rounded-full bg-gold-500/10 flex items-center justify-center text-lg shrink-0">
                       {SPREAD_ICONS[spr.id] || '🃏'}
                     </div>
                     <div className="min-w-0">
@@ -582,7 +582,7 @@ export default function TaluoClient() {
                   {spr.positions.map((p) => (
                     <span
                       key={p.key}
-                      className="text-[10px] text-gray-600 bg-amber-100/70 px-2 py-0.5 rounded whitespace-nowrap"
+                      className="text-[10px] text-gray-600 bg-gold-500/10 px-2 py-0.5 rounded whitespace-nowrap"
                     >
                       {p.icon}{p.name}
                     </span>
@@ -650,7 +650,7 @@ export default function TaluoClient() {
           </div>
 
           {/* Card layout */}
-          <div className="bg-white/60 border border-amber-200/40 rounded-2xl p-6 sm:p-8">
+          <div className="bg-white/60 border border-gold-500/40 rounded-2xl p-6 sm:p-8">
             {renderSpreadLayout()}
 
             {/* Flip hint (only show if some cards aren't flipped yet) */}

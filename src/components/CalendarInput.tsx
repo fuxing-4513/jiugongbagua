@@ -195,7 +195,7 @@ export default function CalendarInput({
           >{lunarLabel}</button>
         </div>
         {yearLeapMonth > 0 && calendarType === 'lunar' && (
-          <span className={`text-amber-400/70 ${compact ? 'text-[10px]' : 'text-xs'}`}>
+          <span className={`text-gold-500/70 ${compact ? 'text-[10px]' : 'text-xs'}`}>
             {y}年闰{yearLeapMonth}月
           </span>
         )}
@@ -237,7 +237,7 @@ export default function CalendarInput({
           <input type="checkbox" id="calLeapMonth" checked={isLeapMonth}
             onChange={e => onLeapMonthChange(e.target.checked)}
             className="rounded accent-gold-500" />
-          <label htmlFor="calLeapMonth" className={`text-amber-400 cursor-pointer ${compact ? 'text-xs' : 'text-sm'}`}>
+          <label htmlFor="calLeapMonth" className={`text-gold-500 cursor-pointer ${compact ? 'text-xs' : 'text-sm'}`}>
             闰{m}月
           </label>
         </div>
@@ -245,12 +245,12 @@ export default function CalendarInput({
 
       {/* Validation */}
       {validationMsg && (
-        <p className={`text-amber-400 mt-2 ${compact ? 'text-[10px]' : 'text-xs'}`}>⚠ {validationMsg}</p>
+        <p className={`text-gold-500 mt-2 ${compact ? 'text-[10px]' : 'text-xs'}`}>⚠ {validationMsg}</p>
       )}
 
       {/* Date Summary */}
       {!compact && (
-        <div className="mt-3 bg-amber-50/80 border border-gray-200 rounded-lg px-3 py-2 text-center">
+        <div className="mt-3 bg-gold-500/5 border border-gray-200 rounded-lg px-3 py-2 text-center">
           <p className="text-[10px] text-gray-500">当前设定</p>
           <p className="text-sm text-gold-700 font-medium">
             {dateDisplay} {hourLabel}

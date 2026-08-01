@@ -38,16 +38,16 @@ interface DetailData { el: string; name: string; total: number; chars: CharDetai
 const ELEMENTS = ['jin', 'mu', 'shui', 'huo', 'tu'] as const
 const EL_NAMES: Record<string, string> = { jin: '金', mu: '木', shui: '水', huo: '火', tu: '土' }
 const EL_COLORS: Record<string, string> = {
-  jin: 'border-yellow-500', mu: 'border-green-500',
-  shui: 'border-blue-500', huo: 'border-red-500', tu: 'border-amber-500',
+  jin: 'border-gold-500/25', mu: 'border-jade-500/25',
+  shui: 'border-shui-500/25', huo: 'border-zhuhong/25', tu: 'border-gold-500/25',
 }
 const EL_BG: Record<string, string> = {
-  jin: 'bg-yellow-500/20', mu: 'bg-green-500/20',
-  shui: 'bg-blue-500/20', huo: 'bg-red-500/20', tu: 'bg-amber-500/20',
+  jin: 'bg-gold-500/20', mu: 'bg-jade-500/20',
+  shui: 'bg-shui-500/20', huo: 'bg-zhuhong/20', tu: 'bg-tu-500/20',
 }
 const EL_TEXT: Record<string, string> = {
-  jin: 'text-yellow-400', mu: 'text-green-400',
-  shui: 'text-blue-400', huo: 'text-red-400', tu: 'text-amber-400',
+  jin: 'text-gold-500', mu: 'text-jade-500',
+  shui: 'text-shui-500', huo: 'text-zhuhong', tu: 'text-gold-500',
 }
 
 export default function NamingChars() {
@@ -158,7 +158,7 @@ export default function NamingChars() {
         <h3 className="text-lg font-semibold text-gold-600 font-serif">📚 起名用字参考</h3>
         <p className="text-xs text-gray-500 mt-1">
           数据来源：康熙字典 · 点击查看详细解释
-          {detailData && <span className="text-green-500 ml-1">● 详情已加载</span>}
+          {detailData && <span className="text-jade-500 ml-1">● 详情已加载</span>}
         </p>
       </div>
 
@@ -185,7 +185,7 @@ export default function NamingChars() {
           {listData && (
             <>
               <span>属{listData.elementName}字：<b className="text-gray-200">{listData.total.toLocaleString()}</b></span>
-              <span>吉字：<b className="text-green-400">{jiTotal.toLocaleString()}</b></span>
+              <span>吉字：<b className="text-jade-500">{jiTotal.toLocaleString()}</b></span>
             </>
           )}
         </div>
@@ -241,7 +241,7 @@ export default function NamingChars() {
                   {group.stroke}画
                   <span className="text-gray-500 font-normal ml-2">
                     共 {group.chars.length} 字
-                    {group.jiCount > 0 && <span className="text-green-500"> · 吉 {group.jiCount}</span>}
+                    {group.jiCount > 0 && <span className="text-jade-500"> · 吉 {group.jiCount}</span>}
                   </span>
                 </span>
               </div>
@@ -262,7 +262,7 @@ export default function NamingChars() {
                     <span className="text-sm font-serif text-gray-200 leading-tight">{c.zi}</span>
                     <span className="text-[9px] text-gray-500 leading-tight truncate max-w-full">{c.pinyin}</span>
                     {c.isJi && (
-                      <span className="absolute -top-0.5 -right-0.5 text-[8px] bg-green-600 text-white px-0.5 rounded-full leading-tight font-semibold">
+                      <span className="absolute -top-0.5 -right-0.5 text-[8px] bg-jade-500/10 text-white px-0.5 rounded-full leading-tight font-semibold">
                         吉
                       </span>
                     )}
@@ -316,18 +316,18 @@ export default function NamingChars() {
               )}
               {selectedZi.jixiong && (
                 <span className={`text-xs px-2 py-0.5 rounded-full border ${
-                  selectedZi.jixiong === '吉' ? 'border-green-500 bg-green-500/20 text-green-400' :
-                  selectedZi.jixiong === '凶' ? 'border-red-500 bg-red-500/20 text-red-400' :
+                  selectedZi.jixiong === '吉' ? 'border-jade-500/25 bg-jade-500/20 text-jade-500' :
+                  selectedZi.jixiong === '凶' ? 'border-zhuhong/25 bg-zhuhong/20 text-zhuhong' :
                   'border-gray-500 bg-gray-500/20 text-gray-300'
                 }`}>
                   吉凶：{selectedZi.jixiong}
                 </span>
               )}
               {selectedZi.changyong && (
-                <span className="text-xs px-2 py-0.5 rounded-full border border-blue-500/50 bg-blue-500/10 text-blue-400">常用字</span>
+                <span className="text-xs px-2 py-0.5 rounded-full border border-shui-500/50 bg-shui-500/10 text-shui-500">常用字</span>
               )}
               {selectedZi.biaozhun && (
-                <span className="text-xs px-2 py-0.5 rounded-full border border-purple-500/50 bg-purple-500/10 text-purple-400">标准字体</span>
+                <span className="text-xs px-2 py-0.5 rounded-full border border-shui-500/50 bg-shui-500/10 text-jade-600">标准字体</span>
               )}
             </div>
 
@@ -430,45 +430,45 @@ export default function NamingChars() {
               </div>
             )}
             {selectedZi.kangxiZidian && (
-              <div className="mb-3 p-3 bg-amber-900/20 rounded-lg border border-amber-700/30">
-                <p className="text-[10px] text-amber-400 mb-1">📜 康熙字典</p>
+              <div className="mb-3 p-3 bg-gold-500/10 rounded-lg border border-gold-500/30">
+                <p className="text-[10px] text-gold-500 mb-1">📜 康熙字典</p>
                 <p className="text-xs text-gray-200 leading-relaxed whitespace-pre-wrap">{selectedZi.kangxiZidian}</p>
               </div>
             )}
             {selectedZi.shuowen && (
-              <div className="mb-3 p-3 bg-indigo-900/20 rounded-lg border border-indigo-700/30">
-                <p className="text-[10px] text-indigo-400 mb-1">📖 说文解字</p>
+              <div className="mb-3 p-3 bg-jade-500/5 rounded-lg border border-jade-500/20">
+                <p className="text-[10px] text-jade-600 mb-1">📖 说文解字</p>
                 <p className="text-xs text-gray-200 leading-relaxed whitespace-pre-wrap">{selectedZi.shuowen}</p>
               </div>
             )}
             {selectedZi.shuowenZhu && (
-              <div className="mb-3 p-3 bg-purple-900/20 rounded-lg border border-purple-700/30">
-                <p className="text-[10px] text-purple-400 mb-1">📖 说文解字注</p>
+              <div className="mb-3 p-3 bg-jade-500/5 rounded-lg border border-jade-500/20">
+                <p className="text-[10px] text-jade-600 mb-1">📖 说文解字注</p>
                 <p className="text-xs text-gray-200 leading-relaxed whitespace-pre-wrap">{selectedZi.shuowenZhu}</p>
               </div>
             )}
 
             {/* 古籍渊源 */}
             {selectedZi.gujiYuanyuan && (
-              <div className="mb-3 p-3 bg-amber-900/20 rounded-lg border border-amber-700/30">
-                <p className="text-[10px] text-amber-400 mb-1">📜 古籍渊源</p>
+              <div className="mb-3 p-3 bg-gold-500/10 rounded-lg border border-gold-500/30">
+                <p className="text-[10px] text-gold-500 mb-1">📜 古籍渊源</p>
                 <p className="text-xs text-gray-200 leading-relaxed whitespace-pre-wrap">{selectedZi.gujiYuanyuan}</p>
               </div>
             )}
             {/* 字形演变 */}
             {selectedZi.zixingYanbian && (
-              <div className="mb-3 p-3 bg-indigo-900/20 rounded-lg border border-indigo-700/30">
-                <p className="text-[10px] text-indigo-400 mb-1">🖋 字形演变</p>
+              <div className="mb-3 p-3 bg-jade-500/5 rounded-lg border border-jade-500/20">
+                <p className="text-[10px] text-jade-600 mb-1">🖋 字形演变</p>
                 <p className="text-xs text-gray-200 leading-relaxed">{selectedZi.zixingYanbian}</p>
               </div>
             )}
             {/* 五行与命局 */}
             {selectedZi.wuxingYiju && (
-              <div className="mb-3 p-3 bg-teal-900/20 rounded-lg border border-teal-700/30">
-                <p className="text-[10px] text-teal-400 mb-1">☯ 五行与命局</p>
+              <div className="mb-3 p-3 bg-jade-500/5 rounded-lg border border-jade-500/20">
+                <p className="text-[10px] text-jade-600 mb-1">☯ 五行与命局</p>
                 <p className="text-xs text-gray-200 leading-relaxed">{selectedZi.wuxingYiju}</p>
                 {selectedZi.mingjuShiyi && (
-                  <div className="mt-2 pt-2 border-t border-teal-800/30">
+                  <div className="mt-2 pt-2 border-t border-jade-500/20">
                     <p className="text-xs text-gray-200 leading-relaxed">{selectedZi.mingjuShiyi}</p>
                   </div>
                 )}

@@ -428,11 +428,11 @@ export function calcLean(card: TarotCard, reversed: boolean): number {
 
 /** 倾向分文字描述 */
 export function interpretLean(score: number): { label: string; color: string } {
-  if (score >= 80) return { label: '强烈是', color: 'text-emerald-400' }
-  if (score >= 60) return { label: '倾向是', color: 'text-emerald-300' }
-  if (score >= 41) return { label: '不明确', color: 'text-yellow-400' }
-  if (score >= 21) return { label: '倾向否', color: 'text-rose-300' }
-  return { label: '强烈否', color: 'text-rose-400' }
+  if (score >= 80) return { label: '强烈是', color: 'text-jade-600' }
+  if (score >= 60) return { label: '倾向是', color: 'text-jade-500' }
+  if (score >= 41) return { label: '不明确', color: 'text-gray-500' }
+  if (score >= 21) return { label: '倾向否', color: 'text-zhuhong/80' }
+  return { label: '强烈否', color: 'text-zhuhong' }
 }
 
 /** 多语言翻译表 */

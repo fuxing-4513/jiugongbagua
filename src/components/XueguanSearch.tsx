@@ -216,7 +216,7 @@ export default function XueguanSearch({ placeholder = '搜索古籍名称、作�
                   </div>
                 )}
                 {r.matchedField === 'keyword' && (
-                  <div className="text-xs text-blue-400 mt-0.5">
+                  <div className="text-xs text-shui-500 mt-0.5">
                     标签匹配 · {r.matchedText}
                   </div>
                 )}

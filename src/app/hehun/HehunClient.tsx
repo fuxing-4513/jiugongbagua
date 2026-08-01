@@ -7,9 +7,9 @@ import { useLocale, useT } from '@/lib/i18n'
 // ── 五行基础 ──
 const WX_TG: Record<string, string> = {甲:'木',乙:'木',丙:'火',丁:'火',戊:'土',己:'土',庚:'金',辛:'金',壬:'水',癸:'水'}
 const WX_DZ: Record<string, string> = {子:'水',丑:'土',寅:'木',卯:'木',辰:'土',巳:'火',午:'火',未:'土',申:'金',酉:'金',戌:'土',亥:'水'}
-const WXC: Record<string, string> = {木:'text-green-400',火:'text-red-400',土:'text-yellow-400',金:'text-gray-300',水:'text-blue-400'}
-const WXBG: Record<string, string> = {木:'bg-green-900/40 border-green-500/30',火:'bg-red-900/40 border-red-500/30',土:'bg-amber-900/40 border-amber-500/30',金:'bg-gray-800/40 border-gray-500/30',水:'bg-blue-900/40 border-blue-500/30'}
-const WXBAR: Record<string, string> = {木:'from-green-400 to-green-600',火:'from-red-400 to-red-600',土:'from-amber-400 to-amber-600',金:'from-yellow-400 to-yellow-600',水:'from-blue-400 to-blue-600'}
+const WXC: Record<string, string> = {木:'text-jade-500',火:'text-zhuhong',土:'text-tu-600',金:'text-gray-300',水:'text-shui-600'}
+const WXBG: Record<string, string> = {木:'bg-jade-500/10 border-jade-500/30',火:'bg-zhuhong/10 border-zhuhong/30',土:'bg-tu-500/10 border-tu-500/30',金:'bg-gray-800/40 border-gray-500/30',水:'bg-shui-500/10 border-shui-500/30'}
+const WXBAR: Record<string, string> = {木:'from-jade-500 to-jade-600',火:'from-zhuhong to-zhuhong-dark',土:'from-tu-500 to-tu-600',金:'from-gold-500 to-gold-600',水:'from-shui-500 to-shui-600'}
 const SHENG: Record<string, string> = {木:'火',火:'土',土:'金',金:'水',水:'木'}
 const KE: Record<string, string> = {木:'土',土:'水',水:'火',火:'金',金:'木'}
 
@@ -299,8 +299,8 @@ interface PersonForm { name: string; cal: 'solar' | 'lunar'; year: string; month
         const b = p.bazi, a = p.analysis, pl = locale === 'en' ? ['Year','Month','Day','Hour'] : locale === 'ja' ? ['年','月','日','時'] : locale === 'ko' ? ['년','월','일','시'] : ['年','月','日','时']
         const total = Object.values(a.wxCount).reduce((a,b)=>a+b,0) || 1
         return (
-          <div key={i} className={'bg-dark-800/80 rounded-xl border p-5 '+(i===0?'border-blue-500/20':'border-pink-500/20')}>
-            <h3 className={'text-sm font-semibold mb-4 '+(i===0?'text-blue-400':'text-pink-400')}>{(i===0?getT('hehunPage.maleLabel'):getT('hehunPage.femaleLabel'))} {p.name}</h3>
+          <div key={i} className={'bg-dark-800/80 rounded-xl border p-5 '+(i===0?'border-shui-500/20':'border-zhuhong/20')}>
+            <h3 className={'text-sm font-semibold mb-4 '+(i===0?'text-shui-600':'text-zhuhong')}>{(i===0?getT('hehunPage.maleLabel'):getT('hehunPage.femaleLabel'))} {p.name}</h3>
             <p className="text-[11px] text-gray-500 mb-3">{locale === 'en' ? 'Zodiac' : locale === 'ja' ? '十二支' : locale === 'ko' ? '띠' : '生肖'} {p.animal}</p>
             <div className="overflow-x-auto mb-3">
               <table className="w-full text-xs">
@@ -316,12 +316,12 @@ interface PersonForm { name: string; cal: 'solar' | 'lunar'; year: string; month
             <div className="flex gap-1.5 mb-3">
               {['木','火','土','金','水'].map(wx => {
                 const cnt = a.wxCount[wx] || 0, pct = Math.round((cnt/total)*100) || 0
-                return <div key={wx} className="flex-1"><div className="text-center text-[9px] mb-0.5"><span className={'font-semibold '+(WXC[wx]||'text-gray-400')}>{wx}</span></div><div className={'h-12 rounded overflow-hidden flex flex-col justify-end '+(WXBG[wx]||'bg-dark-700')}><div className={'rounded-t bg-gradient-to-t '+(WXBAR[wx]||'from-amber-500 to-amber-700')} style={{height:Math.max(pct,5)+'%'}}></div></div><div className="text-center text-[9px] text-gray-600">{cnt.toFixed(1)}</div></div>
+                return <div key={wx} className="flex-1"><div className="text-center text-[9px] mb-0.5"><span className={'font-semibold '+(WXC[wx]||'text-gray-400')}>{wx}</span></div><div className={'h-12 rounded overflow-hidden flex flex-col justify-end '+(WXBG[wx]||'bg-dark-700')}><div className={'rounded-t bg-gradient-to-t '+(WXBAR[wx]||'from-gold-500 to-gold-700')} style={{height:Math.max(pct,5)+'%'}}></div></div><div className="text-center text-[9px] text-gray-600">{cnt.toFixed(1)}</div></div>
               })}
             </div>
             <div className="grid grid-cols-3 gap-2 text-xs">
               <div className="bg-dark-700 rounded-lg p-2"><span className="text-gray-500 block text-[10px]">Ri Zhu</span><span className={'text-sm font-bold '+(WXC[b.riZhuWx]||'text-gray-200')}>{b.riZhu}({b.riZhuWx})</span></div>
-              <div className="bg-dark-700 rounded-lg p-2"><span className="text-gray-500 block text-[10px]">{getT('hehunPage.bodyStrong')}/{getT('hehunPage.bodyWeak')}</span><span className={'text-sm font-semibold '+(a.bodyStrength==='身强'?'text-red-400':a.bodyStrength==='身弱'?'text-blue-400':'text-yellow-400')}>{a.bodyStrength}</span></div>
+              <div className="bg-dark-700 rounded-lg p-2"><span className="text-gray-500 block text-[10px]">{getT('hehunPage.bodyStrong')}/{getT('hehunPage.bodyWeak')}</span><span className={'text-sm font-semibold '+(a.bodyStrength==='身强'?'text-zhuhong':a.bodyStrength==='身弱'?'text-shui-600':'text-gold-500')}>{a.bodyStrength}</span></div>
               <div className="bg-dark-700 rounded-lg p-2"><span className="text-gray-500 block text-[10px]">Yong Shen</span><span className={'text-sm font-bold '+(WXC[a.yongShen]||'text-gold-400')}>{a.yongShen}</span></div>
             </div>
           </div>
@@ -334,18 +334,18 @@ interface PersonForm { name: string; cal: 'solar' | 'lunar'; year: string; month
     <div className="space-y-4">
       <div className="bg-gradient-to-br from-dark-800 to-dark-900 rounded-2xl border border-gold-500/20 p-8 text-center">
         <p className="text-xs text-gray-400 mb-1">{getT('hehunPage.totalScore')}</p>
-        <p className={'text-5xl font-bold font-serif mb-2 '+(res.total>=70?'text-green-400':res.total>=45?'text-yellow-400':'text-red-400')}>{res.total}%</p>
-        <span className={'inline-block px-5 py-1.5 rounded-full text-sm font-semibold border '+(res.total>=70?'border-green-500/40 bg-green-900/20 text-green-400':res.total>=45?'border-yellow-500/40 bg-yellow-900/20 text-yellow-400':'border-red-500/40 bg-red-900/20 text-red-400')}>{getT('hehunPage.' + res.level)} 💍</span>
+        <p className={'text-5xl font-bold font-serif mb-2 '+(res.total>=70?'text-jade-500':res.total>=45?'text-gold-500':'text-zhuhong')}>{res.total}%</p>
+        <span className={'inline-block px-5 py-1.5 rounded-full text-sm font-semibold border '+(res.total>=70?'border-jade-500/40 bg-jade-500/10 text-jade-500':res.total>=45?'border-gold-500/40 bg-gold-500/10 text-gold-500':'border-zhuhong/40 bg-zhuhong/10 text-zhuhong')}>{getT('hehunPage.' + res.level)} 💍</span>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         {res.dims.map((d,i)=>(
           <div key={i} className="bg-dark-800/80 rounded-xl border border-dark-600 p-4">
             <div className="flex justify-between items-center mb-1">
               <span className="text-xs text-gray-400">{d.label}</span>
-              <span className={'text-base font-bold '+(d.score>=70?'text-green-400':d.score>=45?'text-yellow-400':'text-red-400')}>{d.score}</span>
+              <span className={'text-base font-bold '+(d.score>=70?'text-jade-500':d.score>=45?'text-gold-500':'text-zhuhong')}>{d.score}</span>
             </div>
             <div className="w-full h-1.5 bg-dark-700 rounded-full overflow-hidden mb-1">
-              <div className={'h-full rounded-full transition-all duration-500 '+(d.score>=70?'bg-green-500':d.score>=45?'bg-yellow-500':'bg-red-500')} style={{width:d.score+'%'}}></div>
+              <div className={'h-full rounded-full transition-all duration-500 '+(d.score>=70?'bg-jade-500/50':d.score>=45?'bg-gold-500/50':'bg-zhuhong/50')} style={{width:d.score+'%'}}></div>
             </div>
             <p className="text-[10px] text-gray-500">{d.detail}</p>
             <p className="text-[10px] text-gray-400 mt-0.5">{d.desc}</p>
@@ -354,12 +354,12 @@ interface PersonForm { name: string; cal: 'solar' | 'lunar'; year: string; month
       </div>      <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-5">
         <h3 className="text-xs font-semibold text-gray-200 mb-3">{getT('hehunPage.personalityAnalysis')}</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-          <div className="bg-dark-700/50 rounded-lg p-3 border border-blue-500/10">
-            <p className="text-[10px] text-blue-400 font-semibold mb-1">{res.mRes.name}</p>
+          <div className="bg-dark-700/50 rounded-lg p-3 border border-shui-500/10">
+            <p className="text-[10px] text-jade-500 font-semibold mb-1">{res.mRes.name}</p>
             <p className="text-[11px] text-gray-400 leading-relaxed">{getPersonalityDesc(res.mRes.bazi.riZhuWx,res.mRes.bazi.dz,res.mRes.bazi.tg)}</p>
           </div>
-          <div className="bg-dark-700/50 rounded-lg p-3 border border-pink-500/10">
-            <p className="text-[10px] text-pink-400 font-semibold mb-1">{res.wRes.name}</p>
+          <div className="bg-dark-700/50 rounded-lg p-3 border border-zhuhong/10">
+            <p className="text-[10px] text-zhuhong font-semibold mb-1">{res.wRes.name}</p>
             <p className="text-[11px] text-gray-400 leading-relaxed">{getPersonalityDesc(res.wRes.bazi.riZhuWx,res.wRes.bazi.dz,res.wRes.bazi.tg)}</p>
           </div>
         </div>
@@ -371,25 +371,25 @@ interface PersonForm { name: string; cal: 'solar' | 'lunar'; year: string; month
       <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-5">
         <h3 className="text-xs font-semibold text-gray-200 mb-3">{getT('hehunPage.careerAnalysis')}</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-          <div className="bg-dark-700/50 rounded-lg p-3 border border-blue-500/10">
-            <p className="text-[10px] text-blue-400 font-semibold mb-1">{res.mRes.name}</p>
-            <ul className="space-y-0.5">{getCareerDesc(res.mRes.bazi,res.mRes.analysis).map((t,i)=><li key={i} className="text-[11px] text-gray-400 leading-relaxed flex gap-1"><span className="text-amber-400 shrink-0 mt-0.5">•</span><span>{t}</span></li>)}</ul>
+          <div className="bg-dark-700/50 rounded-lg p-3 border border-shui-500/10">
+            <p className="text-[10px] text-jade-500 font-semibold mb-1">{res.mRes.name}</p>
+            <ul className="space-y-0.5">{getCareerDesc(res.mRes.bazi,res.mRes.analysis).map((t,i)=><li key={i} className="text-[11px] text-gray-400 leading-relaxed flex gap-1"><span className="text-gold-500 shrink-0 mt-0.5">•</span><span>{t}</span></li>)}</ul>
           </div>
-          <div className="bg-dark-700/50 rounded-lg p-3 border border-pink-500/10">
-            <p className="text-[10px] text-pink-400 font-semibold mb-1">{res.wRes.name}</p>
-            <ul className="space-y-0.5">{getCareerDesc(res.wRes.bazi,res.wRes.analysis).map((t,i)=><li key={i} className="text-[11px] text-gray-400 leading-relaxed flex gap-1"><span className="text-amber-400 shrink-0 mt-0.5">•</span><span>{t}</span></li>)}</ul>
+          <div className="bg-dark-700/50 rounded-lg p-3 border border-zhuhong/10">
+            <p className="text-[10px] text-zhuhong font-semibold mb-1">{res.wRes.name}</p>
+            <ul className="space-y-0.5">{getCareerDesc(res.wRes.bazi,res.wRes.analysis).map((t,i)=><li key={i} className="text-[11px] text-gray-400 leading-relaxed flex gap-1"><span className="text-gold-500 shrink-0 mt-0.5">•</span><span>{t}</span></li>)}</ul>
           </div>
         </div>
       </div>
       <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-5">
         <h3 className="text-xs font-semibold text-gray-200 mb-3">{getT('hehunPage.wealthAnalysis')}</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-          <div className="bg-dark-700/50 rounded-lg p-3 border border-blue-500/10">
-            <p className="text-[10px] text-blue-400 font-semibold mb-1">{res.mRes.name}</p>
+          <div className="bg-dark-700/50 rounded-lg p-3 border border-shui-500/10">
+            <p className="text-[10px] text-jade-500 font-semibold mb-1">{res.mRes.name}</p>
             <ul className="space-y-0.5">{getWealthDesc(res.mRes.analysis).map((t,i)=><li key={i} className="text-[11px] text-gray-400 leading-relaxed flex gap-1"><span className="text-gold-400 shrink-0 mt-0.5">•</span><span>{t}</span></li>)}</ul>
           </div>
-          <div className="bg-dark-700/50 rounded-lg p-3 border border-pink-500/10">
-            <p className="text-[10px] text-pink-400 font-semibold mb-1">{res.wRes.name}</p>
+          <div className="bg-dark-700/50 rounded-lg p-3 border border-zhuhong/10">
+            <p className="text-[10px] text-zhuhong font-semibold mb-1">{res.wRes.name}</p>
             <ul className="space-y-0.5">{getWealthDesc(res.wRes.analysis).map((t,i)=><li key={i} className="text-[11px] text-gray-400 leading-relaxed flex gap-1"><span className="text-gold-400 shrink-0 mt-0.5">•</span><span>{t}</span></li>)}</ul>
           </div>
         </div>
@@ -413,7 +413,7 @@ interface PersonForm { name: string; cal: 'solar' | 'lunar'; year: string; month
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           {[{key:'male',label:getT('hehunPage.maleLabel'),p:m,sp:setM,g:'m' as const},{key:'female',label:getT('hehunPage.femaleLabel'),p:w,sp:setW,g:'w' as const}].map(s => (
             <div key={s.key}>
-              <h3 className={'text-sm font-semibold mb-3 '+(s.key==='male'?'text-blue-400':'text-pink-400')}>{s.key==='male'?'👨':'👩'} {s.label}</h3>
+              <h3 className={'text-sm font-semibold mb-3 '+(s.key==='male'?'text-shui-600':'text-zhuhong')}>{s.key==='male'?'👨':'👩'} {s.label}</h3>
               <input value={s.p.name} onChange={e=>s.sp({...s.p,name:e.target.value})} placeholder={getT('hehunPage.namePlaceholder').replace('{name}', s.label)} maxLength={10} className="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-gray-200 text-sm mb-3 focus:outline-none focus:border-gold-500"/>
               <CalendarInput
                 calendarType={s.p.cal as CalendarType}
@@ -434,7 +434,7 @@ interface PersonForm { name: string; cal: 'solar' | 'lunar'; year: string; month
           ))}
         </div>
         <div className="flex justify-center mt-5"><button onClick={doCalc} className="bg-gold-600 hover:bg-gold-500 text-dark-900 font-semibold px-8 py-2.5 rounded-lg transition-colors active:scale-95 text-sm">{getT('hehunPage.submit')}</button></div>
-        {err && <p className="text-xs text-red-400 text-center mt-2">{err}</p>}
+        {err && <p className="text-xs text-zhuhong text-center mt-2">{err}</p>}
       </div>
       {renderResult}
       {renderDetails}

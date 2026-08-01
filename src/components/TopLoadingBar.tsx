@@ -30,7 +30,7 @@ export default function TopLoadingBar() {
   return (
     <div className="fixed top-0 left-0 right-0 z-[9999] h-0.5 bg-dark-800">
       <div
-        className="h-full bg-gradient-to-r from-gold-500 to-amber-400 transition-all duration-300 ease-out"
+        className="h-full bg-gradient-to-r from-gold-500 to-gold-500 transition-all duration-300 ease-out"
         style={{ width: `${progress}%` }}
       />
     </div>

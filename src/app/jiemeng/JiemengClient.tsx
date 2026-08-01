@@ -256,7 +256,7 @@ export default function JiemengClient() {
       <p className="text-gray-600 mb-8">{loaded && dreamDB ? uiText.entryCount.replace('{count}', String(dreamDB.length)) : uiText.loading} · {uiText.subtitle}</p>
 
       {/* 搜索框 */}
-      <div className="bg-white/80 rounded-xl border border-amber-200/60 p-6 mb-4">
+      <div className="bg-white/80 rounded-xl border border-gold-500/60 p-6 mb-4">
         <div className="flex gap-2">
           <input
             type="text"
@@ -264,7 +264,7 @@ export default function JiemengClient() {
             onChange={e => handleInput(e.target.value)}
             onKeyDown={e => e.key === 'Enter' && handleSearch()}
             placeholder={uiText.searchPlaceholder}
-            className="flex-1 px-4 py-2.5 bg-white border border-amber-200 rounded-lg text-gray-800 placeholder-gray-400 focus:outline-none focus:border-gold-500 text-sm sm:text-base"
+            className="flex-1 px-4 py-2.5 bg-white border border-gold-500/25 rounded-lg text-gray-800 placeholder-gray-400 focus:outline-none focus:border-gold-500 text-sm sm:text-base"
           />
           <button
             onClick={handleSearch}
@@ -286,7 +286,7 @@ export default function JiemengClient() {
               className={`text-xs sm:text-sm px-3 py-1.5 rounded-full border transition-colors whitespace-nowrap ${
                 activeCategory === cat
                   ? 'bg-gold-600 border-gold-500 text-dark-900 font-medium'
-                  : 'bg-amber-50 border-amber-200 text-gray-600 hover:border-gold-400'
+                  : 'bg-gold-500/5 border-gold-500/25 text-gray-600 hover:border-gold-400'
               }`}
             >
               {CAT_ICON[cat] || '📋'} {DREAM_CATEGORY_LANG[cat]?.[locale] || cat}
@@ -303,7 +303,7 @@ export default function JiemengClient() {
             <button
               key={i}
               onClick={() => { setKeyword(item.keyword); doSearch(item.keyword) }}
-              className="text-xs bg-amber-100/60 hover:bg-gold-100/80 text-gray-500 hover:text-gold-600 px-2.5 py-1 rounded-full border border-amber-200/60 transition-colors"
+              className="text-xs bg-gold-500/10 hover:bg-gold-100/80 text-gray-500 hover:text-gold-600 px-2.5 py-1 rounded-full border border-gold-500/60 transition-colors"
             >
               {item.keyword}
             </button>
@@ -318,10 +318,10 @@ export default function JiemengClient() {
           {pagedResults.map((dream, i) => (
             <div key={i}
               onClick={() => setSelectedDream(dream)}
-              className="bg-white/80 rounded-xl border border-amber-200/60 p-4 cursor-pointer hover:border-gold-400/60 transition-colors"
+              className="bg-white/80 rounded-xl border border-gold-500/60 p-4 cursor-pointer hover:border-gold-400/60 transition-colors"
             >
               <div className="flex items-center gap-2 mb-1.5">
-                <span className="text-xs bg-amber-100/60 text-gray-600 px-1.5 py-0.5 rounded">{CAT_ICON[dream.category]||''} {DREAM_CATEGORY_LANG[dream.category]?.[locale] || dream.category}</span>
+                <span className="text-xs bg-gold-500/10 text-gray-600 px-1.5 py-0.5 rounded">{CAT_ICON[dream.category]||''} {DREAM_CATEGORY_LANG[dream.category]?.[locale] || dream.category}</span>
                 <h3 className="text-base font-medium text-gray-800">{dream.title}</h3>
                 {dream.mood && (
                   <span className="text-[10px] text-gray-500 ml-auto">{dream.mood}</span>
@@ -341,7 +341,7 @@ export default function JiemengClient() {
 
       {/* 无结果 */}
       {searched && results.length === 0 && (
-        <div className="bg-white/80 rounded-xl border border-amber-200/60 p-5 text-center">
+        <div className="bg-white/80 rounded-xl border border-gold-500/60 p-5 text-center">
           <p className="text-sm text-gray-600 mb-2">{uiText.notFound.replace('{keyword}', keyword)}</p>
           <p className="text-xs text-gray-500">{uiText.suggestions}</p>
         </div>
@@ -354,7 +354,7 @@ export default function JiemengClient() {
             const count = dreamDB ? dreamDB.filter(d => d.category === cat).length : 0
             return (
               <button key={cat} onClick={() => browseCategory(cat)}
-                className="bg-white/80 border border-amber-200/60 rounded-xl p-4 text-center hover:border-gold-400/60 transition-colors"
+                className="bg-white/80 border border-gold-500/60 rounded-xl p-4 text-center hover:border-gold-400/60 transition-colors"
               >
                 <div className="text-2xl mb-1">{CAT_ICON[cat] || '📋'}</div>
                 <div className="text-sm text-gray-800">{DREAM_CATEGORY_LANG[cat]?.[locale] || cat}</div>
@@ -369,11 +369,11 @@ export default function JiemengClient() {
       {selectedDream && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4"
           onClick={() => setSelectedDream(null)}>
-          <div className="bg-white/90 border border-amber-200/60 rounded-2xl max-w-lg w-full max-h-[85vh] overflow-y-auto p-6"
+          <div className="bg-white/90 border border-gold-500/60 rounded-2xl max-w-lg w-full max-h-[85vh] overflow-y-auto p-6"
             onClick={e => e.stopPropagation()}>
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2">
-                <span className="text-xs bg-amber-100/60 text-gray-600 px-2 py-0.5 rounded">
+                <span className="text-xs bg-gold-500/10 text-gray-600 px-2 py-0.5 rounded">
                   {CAT_ICON[selectedDream.category]} {DREAM_CATEGORY_LANG[selectedDream.category]?.[locale] || selectedDream.category}
                 </span>
                 <h2 className="text-lg font-bold text-gold-700">{selectedDream.title}</h2>
@@ -383,7 +383,7 @@ export default function JiemengClient() {
             </div>
 
             {/* 视角切换标签 */}
-            <div className="flex gap-1 mb-4 bg-amber-50 rounded-lg p-1 border border-amber-100/60">
+            <div className="flex gap-1 mb-4 bg-gold-500/5 rounded-lg p-1 border border-gold-500/60">
               <button
                 onClick={() => setPsychoTab(false)}
                 className={`flex-1 text-sm py-1.5 rounded-md transition-colors ${
@@ -401,14 +401,14 @@ export default function JiemengClient() {
             {!psychoTab ? (
               <>
                 {/* 古籍原文 */}
-                <div className="bg-amber-50 rounded-lg p-4 mb-4 border border-amber-100/60">
+                <div className="bg-gold-500/5 rounded-lg p-4 mb-4 border border-gold-500/60">
                   <p className="text-xs text-gold-600/90 mb-1">{uiText.ancientText}</p>
                   <p className="text-sm text-gray-700 leading-relaxed">{selectedDream.ancient}</p>
                 </div>
 
                 {/* 现代白话 */}
                 <div className="mb-4">
-                  <p className="text-xs text-blue-600/90 mb-1">{uiText.modernText}</p>
+                  <p className="text-xs text-shui-600/90 mb-1">{uiText.modernText}</p>
                   <p className="text-sm text-gray-700 leading-relaxed">{selectedDream.modern}</p>
                 </div>
               </>
@@ -425,22 +425,22 @@ export default function JiemengClient() {
                   return (
                     <div className="space-y-4">
                       {/* 荣格分析心理学 */}
-                      <div className="bg-violet-50/80 border border-violet-200 rounded-lg p-4">
-                        <p className="text-xs text-violet-600/90 mb-1">🧙 {PSYCHOLOGY_VIEW_LANG.jung[locale] || PSYCHOLOGY_VIEW_LANG.jung['zh-CN']}</p>
+                      <div className="bg-shui-500/5 border border-shui-500/25 rounded-lg p-4">
+                        <p className="text-xs text-shui-600/90 mb-1">🧙 {PSYCHOLOGY_VIEW_LANG.jung[locale] || PSYCHOLOGY_VIEW_LANG.jung['zh-CN']}</p>
                         <p className="text-sm text-gray-700 leading-relaxed">{psych.jung}</p>
                       </div>
                       {/* 弗洛伊德精神分析 */}
-                      <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
-                        <p className="text-xs text-amber-600/90 mb-1">🛋️ {PSYCHOLOGY_VIEW_LANG.freud[locale] || PSYCHOLOGY_VIEW_LANG.freud['zh-CN']}</p>
+                      <div className="bg-gold-500/5 border border-gold-500/25 rounded-lg p-4">
+                        <p className="text-xs text-gold-600/90 mb-1">🛋️ {PSYCHOLOGY_VIEW_LANG.freud[locale] || PSYCHOLOGY_VIEW_LANG.freud['zh-CN']}</p>
                         <p className="text-sm text-gray-700 leading-relaxed">{psych.freud}</p>
                       </div>
                       {/* 格式塔心理治疗 */}
-                      <div className="bg-emerald-50/80 border border-emerald-200 rounded-lg p-4">
-                        <p className="text-xs text-emerald-600/90 mb-1">🎭 {PSYCHOLOGY_VIEW_LANG.gestalt[locale] || PSYCHOLOGY_VIEW_LANG.gestalt['zh-CN']}</p>
+                      <div className="bg-jade-500/5 border border-jade-500/25 rounded-lg p-4">
+                        <p className="text-xs text-jade-600/90 mb-1">🎭 {PSYCHOLOGY_VIEW_LANG.gestalt[locale] || PSYCHOLOGY_VIEW_LANG.gestalt['zh-CN']}</p>
                         <p className="text-sm text-gray-700 leading-relaxed">{psych.gestalt}</p>
                       </div>
                       {/* 综合视角 */}
-                      <div className="bg-amber-50 rounded-lg p-4 border border-amber-100/60">
+                      <div className="bg-gold-500/5 rounded-lg p-4 border border-gold-500/60">
                         <p className="text-xs text-gray-500 mb-1">💡 {PSYCHOLOGY_VIEW_LANG.summary[locale] || PSYCHOLOGY_VIEW_LANG.summary['zh-CN']}</p>
                         <p className="text-sm text-gray-700 leading-relaxed">{psych.summary}</p>
                       </div>
@@ -464,10 +464,10 @@ export default function JiemengClient() {
             {/* 关键词标签 */}
             <div className="flex flex-wrap gap-1 mt-3">
               {selectedDream.tags.map((tag, i) => (
-                <span key={i} className="text-[10px] bg-amber-100/60 text-gray-500 px-2 py-0.5 rounded">{tag}</span>
+                <span key={i} className="text-[10px] bg-gold-500/10 text-gray-500 px-2 py-0.5 rounded">{tag}</span>
               ))}
               {selectedDream.mood && selectedDream.mood.split(',').map((m, i) => (
-                <span key={i} className="text-[10px] bg-amber-100/60 text-gray-500 px-2 py-0.5 rounded">😴 {m.trim()}</span>
+                <span key={i} className="text-[10px] bg-gold-500/10 text-gray-500 px-2 py-0.5 rounded">😴 {m.trim()}</span>
               ))}
             </div>
               <div className="flex justify-end mt-2">

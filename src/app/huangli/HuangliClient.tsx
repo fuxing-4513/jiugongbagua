@@ -280,13 +280,13 @@ export default function HuangliClient() {
 
   return (<>
     <div className="max-w-3xl mx-auto px-4 py-10">
-      <h1 className="text-3xl font-bold text-red-900 font-serif mb-3">{getT('modules.huangli.name')}</h1>
+      <h1 className="text-3xl font-bold text-jade-500 font-serif mb-3">{getT('modules.huangli.name')}</h1>
       <p className="text-gray-600 mb-8">{getT('modules.huangli.desc')}</p>
 
       {/* Date Navigator */}
-      <div className="bg-white rounded-xl border border-red-100 p-4 mb-6">
+      <div className="bg-white rounded-xl border border-zhuhong/25 p-4 mb-6">
         <div className="flex items-center justify-between">
-          <button onClick={prevDay} className="w-10 h-10 flex items-center justify-center rounded-lg bg-red-50 text-red-700 hover:bg-red-100 transition-colors">
+          <button onClick={prevDay} className="w-10 h-10 flex items-center justify-center rounded-lg bg-zhuhong/5 text-zhuhong-dark hover:bg-zhuhong/10 transition-colors">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
@@ -298,7 +298,7 @@ export default function HuangliClient() {
                 type="number"
                 value={year}
                 onChange={e => setYear(parseInt(e.target.value) || now.getFullYear())}
-                className="w-20 px-2 py-1 text-center border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-red-300"
+                className="w-20 px-2 py-1 text-center border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-zhuhong/25"
                 min={1900} max={2100}
               />
               <span className="text-sm text-gray-500">{getT('huangliPage.yearLabel')}</span>
@@ -306,7 +306,7 @@ export default function HuangliClient() {
                 type="number"
                 value={month}
                 onChange={e => setMonth(Math.min(12, Math.max(1, parseInt(e.target.value) || 1)))}
-                className="w-16 px-2 py-1 text-center border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-red-300"
+                className="w-16 px-2 py-1 text-center border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-zhuhong/25"
                 min={1} max={12}
               />
               <span className="text-sm text-gray-500">{getT('huangliPage.monthLabel')}</span>
@@ -314,17 +314,17 @@ export default function HuangliClient() {
                 type="number"
                 value={day}
                 onChange={e => setDay(Math.min(31, Math.max(1, parseInt(e.target.value) || 1)))}
-                className="w-16 px-2 py-1 text-center border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-red-300"
+                className="w-16 px-2 py-1 text-center border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-zhuhong/25"
                 min={1} max={31}
               />
               <span className="text-sm text-gray-500">{getT('huangliPage.dayLabel')}</span>
             </div>
-            <button onClick={goToday} className="text-xs bg-red-100 text-red-700 px-2 py-1 rounded hover:bg-red-200 transition-colors">
+            <button onClick={goToday} className="text-xs bg-zhuhong/10 text-zhuhong-dark px-2 py-1 rounded hover:bg-zhuhong/10 transition-colors">
               {getT('huangliPage.goToday')}
             </button>
           </div>
 
-          <button onClick={nextDay} className="w-10 h-10 flex items-center justify-center rounded-lg bg-red-50 text-red-700 hover:bg-red-100 transition-colors">
+          <button onClick={nextDay} className="w-10 h-10 flex items-center justify-center rounded-lg bg-zhuhong/5 text-zhuhong-dark hover:bg-zhuhong/10 transition-colors">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
@@ -333,44 +333,44 @@ export default function HuangliClient() {
       </div>
 
       {/* Main Huangli Card */}
-      <div className="bg-white rounded-xl border border-red-100 p-4 mb-4">
-        <h2 className="text-lg font-semibold text-red-900 mb-2">{getT('modules.huangli.today')}</h2>
+      <div className="bg-white rounded-xl border border-zhuhong/25 p-4 mb-4">
+        <h2 className="text-lg font-semibold text-jade-500 mb-2">{getT('modules.huangli.today')}</h2>
         <p className="text-sm text-gray-500 mb-4">{data.dateStr} {data.weekDay}</p>
 
         {/* Quick Info */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
-          <div className="bg-red-50 rounded-lg p-3 text-center">
+          <div className="bg-zhuhong/5 rounded-lg p-3 text-center">
             <p className="text-xs text-gray-500">{getT('modules.huangli.lunarDate')}</p>
             <p className="text-base font-semibold text-gray-800 font-serif">{data.lunarDate}</p>
           </div>
-          <div className="bg-red-50 rounded-lg p-3 text-center">
+          <div className="bg-zhuhong/5 rounded-lg p-3 text-center">
             <p className="text-xs text-gray-500">{getT('modules.huangli.zodiac')}</p>
             <p className="text-base font-semibold text-gray-800">{data.zodiac}</p>
           </div>
-          <div className="bg-red-50 rounded-lg p-3 text-center">
+          <div className="bg-zhuhong/5 rounded-lg p-3 text-center">
             <p className="text-xs text-gray-500">{getT('modules.huangli.fiveElements')}</p>
             <p className="text-base font-semibold text-gray-800">{data.season}</p>
           </div>
-          <div className="bg-red-50 rounded-lg p-3 text-center">
+          <div className="bg-zhuhong/5 rounded-lg p-3 text-center">
             <p className="text-xs text-gray-500">{getT('modules.huangli.auspiciousDirection')}</p>
             <p className="text-base font-semibold text-gray-800">{data.auspiciousDirection}</p>
           </div>
         </div>
 
         {/* Gan-Zhi */}
-        <div className="bg-gradient-to-r from-red-50 to-amber-50 rounded-xl p-4 mb-6 border border-red-100">
+        <div className="bg-gradient-to-r from-zhuhong/5 to-gold-500/5 rounded-xl p-4 mb-6 border border-zhuhong/25">
           <div className="grid grid-cols-3 gap-3 text-center">
             <div>
               <p className="text-xs text-gray-500 mb-1">{getT('huangliPage.yearPillarLabel')}</p>
-              <p className="text-lg font-bold text-red-900 font-serif">{data.ganZhiYear}</p>
+              <p className="text-lg font-bold text-jade-500 font-serif">{data.ganZhiYear}</p>
             </div>
             <div>
               <p className="text-xs text-gray-500 mb-1">{getT('huangliPage.monthPillarLabel')}</p>
-              <p className="text-lg font-bold text-red-900 font-serif">{data.ganZhiMonth}</p>
+              <p className="text-lg font-bold text-jade-500 font-serif">{data.ganZhiMonth}</p>
             </div>
             <div>
               <p className="text-xs text-gray-500 mb-1">{getT('huangliPage.dayPillarLabel')}</p>
-              <p className="text-lg font-bold text-red-900 font-serif">{data.ganZhiDay}</p>
+              <p className="text-lg font-bold text-jade-500 font-serif">{data.ganZhiDay}</p>
             </div>
           </div>
         </div>
@@ -400,7 +400,7 @@ export default function HuangliClient() {
           <div className="mb-4">
             <div className="flex flex-wrap gap-2">
               {data.lunarFestival.map((f, i) => (
-                <span key={i} className="bg-red-600 text-white text-sm px-3 py-1 rounded-full font-medium">
+                <span key={i} className="bg-zhuhong text-white text-sm px-3 py-1 rounded-full font-medium">
                   🎉 {f}
                 </span>
               ))}
@@ -411,20 +411,20 @@ export default function HuangliClient() {
         {/* Suitable & Avoid */}
         <div className="space-y-4">
           <div>
-            <p className="text-sm font-semibold text-green-700 mb-2">{getT('modules.huangli.suitable')}</p>
+            <p className="text-sm font-semibold text-jade-500 mb-2">{getT('modules.huangli.suitable')}</p>
             <div className="flex flex-wrap gap-2">
               {data.suitable.map((item, i) => (
-                <span key={i} className="bg-green-50 text-green-700 text-sm px-3 py-1 rounded-full border border-green-200">
+                <span key={i} className="bg-jade-500/5 text-jade-600 text-sm px-3 py-1 rounded-full border border-jade-500/25">
                   {item}
                 </span>
               ))}
             </div>
           </div>
           <div>
-            <p className="text-sm font-semibold text-red-700 mb-2">{getT('modules.huangli.avoid')}</p>
+            <p className="text-sm font-semibold text-jade-500 mb-2">{getT('modules.huangli.avoid')}</p>
             <div className="flex flex-wrap gap-2">
               {data.avoid.map((item, i) => (
-                <span key={i} className="bg-red-50 text-red-700 text-sm px-3 py-1 rounded-full border border-red-200">
+                <span key={i} className="bg-zhuhong/5 text-zhuhong-dark text-sm px-3 py-1 rounded-full border border-zhuhong/25">
                   {item}
                 </span>
               ))}
@@ -436,25 +436,25 @@ export default function HuangliClient() {
 
       {/* 老黄历吉时查询 */}
       <div className="max-w-3xl mx-auto px-4">
-      <div className="bg-white rounded-xl border border-red-100 p-4 mb-4">
-        <h2 className="text-base font-bold text-red-900 mb-1">{getT('huangliPage.auspiciousHourTitle')}</h2>
+      <div className="bg-white rounded-xl border border-zhuhong/25 p-4 mb-4">
+        <h2 className="text-base font-bold text-jade-500 mb-1">{getT('huangliPage.auspiciousHourTitle')}</h2>
         <p className="text-xs text-gray-400 mb-3">{getT('huangliPage.auspiciousHourDesc')}</p>
         {(()=>{const sc=genShiChen(data.ganZhiDay.charAt(0),data.ganZhiDay.charAt(1),data.dayOfYear);return(
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             {sc.map((s,i)=>(
-              <div key={i} className={`rounded-lg px-3 py-2 text-xs border ${s.starGod.includes("吉")?"bg-green-50/50 border-green-200/60":"bg-red-50/30 border-red-200/50"} hover:shadow-sm transition-shadow`}>
+              <div key={i} className={`rounded-lg px-3 py-2 text-xs border ${s.starGod.includes("吉")?"bg-jade-500/5 border-jade-500/60":"bg-zhuhong/5 border-zhuhong/50"} hover:shadow-sm transition-shadow`}>
                 <div className="flex items-center gap-1.5 mb-0.5">
                   <span className="text-sm font-bold text-gray-800">{s.name}</span>
                   <span className="text-[10px] text-gray-400">{s.timeRange}</span>
-                  <span className={`ml-auto text-[10px] px-1.5 py-0.5 rounded-full font-medium ${s.starGod.includes("吉")?"bg-green-100 text-green-700":"bg-red-100 text-red-600"}`}>{s.starGod.substring(0,2)}</span>
+                  <span className={`ml-auto text-[10px] px-1.5 py-0.5 rounded-full font-medium ${s.starGod.includes("吉")?"bg-jade-500/10 text-jade-600":"bg-zhuhong/10 text-zhuhong-dark"}`}>{s.starGod.substring(0,2)}</span>
                 </div>
                 <div className="flex gap-3 text-[10px] text-gray-500">
                   <span>{getT('huangliPage.chongPrefix')}{s.conflict}</span>
                   <span>{getT('huangliPage.caiShenPrefix')}{s.wealthGod}</span>
                 </div>
                 <div className="flex gap-2 mt-1 text-[10px]">
-                  <span className="text-green-700">{getT('huangliPage.suitable')} {s.suitable}</span>
-                  <span className="text-red-500">{getT('huangliPage.avoid')} {s.avoid}</span>
+                  <span className="text-jade-600">{getT('huangliPage.suitable')} {s.suitable}</span>
+                  <span className="text-zhuhong">{getT('huangliPage.avoid')} {s.avoid}</span>
                 </div>
               </div>
             ))}
@@ -465,17 +465,17 @@ export default function HuangliClient() {
 
       {/* 二十四节气时间表 */}
       <div className="max-w-3xl mx-auto px-4">
-      <div className="bg-white rounded-xl border border-red-100 p-4 mb-4">
-        <h2 className="text-base font-bold text-red-900 mb-1">{getT('huangliPage.solarTermsTitle')}</h2>
+      <div className="bg-white rounded-xl border border-zhuhong/25 p-4 mb-4">
+        <h2 className="text-base font-bold text-jade-500 mb-1">{getT('huangliPage.solarTermsTitle')}</h2>
         <p className="text-xs text-gray-400 mb-3">{getT('huangliPage.solarTermsDesc').replace('{year}', String(year))}</p>
         <div className="divide-y divide-gray-100">
           {SOLAR_TERMS.map((st,i)=>{
             const m=parseInt(st.date)
             const se=m>=3&&m<=5?"春":m>=6&&m<=8?"夏":m>=9&&m<=11?"秋":"冬"
-            const sb=se==="春"?"bg-green-50 border-green-200 text-green-700":se==="夏"?"bg-orange-50 border-orange-200 text-orange-600":se==="秋"?"bg-amber-50 border-amber-200 text-amber-700":"bg-blue-50 border-blue-200 text-blue-700"
+            const sb=se==="春"?"bg-jade-500/5 border-jade-500/25 text-jade-600":se==="夏"?"bg-zhuhong/5 border-zhuhong/25 text-zhuhong-dark":se==="秋"?"bg-gold-500/5 border-gold-500/25 text-gold-600":"bg-shui-500/5 border-shui-500/25 text-shui-600"
             const bgs=sb.split(" ");const si=bgs[0];const bi=bgs[1];const ti=bgs[2]
             return(
-              <div key={i} className={`flex items-start gap-3 py-2.5 px-1 rounded-lg ${se===getSeason(month)?"bg-red-50/50 -mx-1 px-2":""}`}>
+              <div key={i} className={`flex items-start gap-3 py-2.5 px-1 rounded-lg ${se===getSeason(month)?"bg-zhuhong/5 -mx-1 px-2":""}`}>
                 <div className={`flex-shrink-0 w-14 h-12 rounded-lg flex flex-col items-center justify-center border ${si+" "+bi}`}>
                   <span className={`text-xs font-bold ${ti}`}>{st.name}</span>
                   <span className="text-[9px] text-gray-500">{st.date}</span>
@@ -485,7 +485,7 @@ export default function HuangliClient() {
                     <span className={`text-xs font-semibold ${ti}`}>#{se}</span>
                     <span className="text-[10px] text-gray-300">|</span>
                     <span className="text-[10px] text-gray-400">{st.en}</span>
-                    {se===getSeason(month)&&<span className="text-[10px] font-medium text-red-600 ml-auto">● {getT('huangliPage.currentLabel')}</span>}
+                    {se===getSeason(month)&&<span className="text-[10px] font-medium text-zhuhong-dark ml-auto">● {getT('huangliPage.currentLabel')}</span>}
                   </div>
                   <p className="text-xs text-gray-600 leading-relaxed">{st.desc}</p>
                 </div>

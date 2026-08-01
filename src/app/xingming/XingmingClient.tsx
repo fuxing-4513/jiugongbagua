@@ -533,8 +533,8 @@ function getNumDetail(val: number) {
 }
 
 // ── 五行颜色 ──
-const WXC: Record<string, string> = {'木':'bg-green-900/40 text-green-300 border-green-700','火':'bg-red-900/40 text-red-300 border-red-700','土':'bg-amber-900/40 text-amber-300 border-amber-700','金':'bg-yellow-900/40 text-yellow-300 border-yellow-700','水':'bg-blue-900/40 text-blue-300 border-blue-700'}
-const gradeC: Record<string, string> = {'大吉':'text-green-400','吉':'text-green-500','中吉':'text-yellow-400','中':'text-yellow-500','凶':'text-red-400','大凶':'text-red-500'}
+const WXC: Record<string, string> = {'木':'bg-jade-500/10 text-jade-600 border-jade-500/25','火':'bg-zhuhong/10 text-zhuhong border-zhuhong/25','土':'bg-tu-500/10 text-tu-600 border-tu-500/25','金':'bg-gold-500/10 text-gold-600 border-gold-500/25','水':'bg-shui-500/10 text-shui-600 border-shui-500/25'}
+const gradeC: Record<string, string> = {'大吉':'text-jade-500','吉':'text-jade-500','中吉':'text-gold-500','中':'text-gold-500','凶':'text-zhuhong','大凶':'text-zhuhong'}
 
 export default function XingmingClient() {
   const { locale } = useLocale()
@@ -705,7 +705,7 @@ export default function XingmingClient() {
     <h1 className="text-3xl font-bold text-gold-400 font-serif mb-3">{L.title}</h1>
     <p className="text-gray-400 mb-6">
       {L.subtitle}
-      {!kangxiLoaded && <span className="text-amber-600 text-xs ml-2">{L.loadingKangxi}</span>}
+      {!kangxiLoaded && <span className="text-gold-600 text-xs ml-2">{L.loadingKangxi}</span>}
       {kangxiLoaded && kangxiStrokes && <span className="text-xs text-gray-500 ml-2">{L.loaded}</span>}
     </p>
     
@@ -776,7 +776,7 @@ export default function XingmingClient() {
         <div key={i} className="bg-dark-800/80 rounded-xl border border-dark-600 p-5">
           <div className="flex items-center gap-2 mb-2">
             <h3 className="text-sm font-semibold text-gold-300">{getWugeLabel(w.key, locale)}{w.val}{locale === 'en' ? ' - ' : '所示之'}{getWugeTypeLabel(w.key, locale)}</h3>
-            <span className={`text-[10px] px-1.5 py-0.5 rounded border ${w.score === '大吉' ? 'border-green-700 text-green-300 bg-green-900/30' : w.score === '凶' || w.score === '大凶' ? 'border-red-700 text-red-300 bg-red-900/30' : 'border-yellow-700 text-yellow-300 bg-yellow-900/30'}`}>{JI_TYPE_LANG[w.score]?.[locale] || w.score}</span>
+            <span className={`text-[10px] px-1.5 py-0.5 rounded border ${w.score === '大吉' ? 'border-jade-500/25 text-jade-500 bg-jade-500/10' : w.score === '凶' || w.score === '大凶' ? 'border-zhuhong/25 text-zhuhong bg-zhuhong/10' : 'border-gold-500/25 text-gold-500 bg-gold-500/10'}`}>{JI_TYPE_LANG[w.score]?.[locale] || w.score}</span>
           </div>
           <p className="text-[10px] text-gray-500 mb-2">{w.label}</p>
           <div className="bg-dark-700 rounded-lg p-3">
@@ -810,8 +810,8 @@ export default function XingmingClient() {
       {/* 总评 */}
       <div className="bg-dark-800/80 rounded-xl border border-gold-500/30 p-5 text-center">
         <p className="text-xs text-gray-500 mb-1">{L.totalScore}</p>
-        <p className={`text-4xl font-bold ${r.avgScore >= 80 ? 'text-green-400' : r.avgScore >= 60 ? 'text-yellow-400' : 'text-red-400'}`}>{r.avgScore}</p>
-        <p className={`text-sm mt-1 font-semibold ${r.avgScore >= 80 ? 'text-green-400' : r.avgScore >= 60 ? 'text-yellow-400' : 'text-red-400'}`}>
+        <p className={`text-4xl font-bold ${r.avgScore >= 80 ? 'text-jade-500' : r.avgScore >= 60 ? 'text-gold-500' : 'text-zhuhong'}`}>{r.avgScore}</p>
+        <p className={`text-sm mt-1 font-semibold ${r.avgScore >= 80 ? 'text-jade-500' : r.avgScore >= 60 ? 'text-gold-500' : 'text-zhuhong'}`}>
           {r.avgScore >= 90 ? L.ratingExcellent : r.avgScore >= 80 ? L.ratingGreat : r.avgScore >= 70 ? L.ratingGood : r.avgScore >= 60 ? L.ratingFair : L.ratingPoor}
         </p>
       </div>
