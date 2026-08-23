@@ -10,6 +10,7 @@ interface Dream {
   keyword: string; title: string; category: string
   tags: string[]; ancient: string; modern: string
   detail: string; mood: string; psychology: string
+  psychologyNote?: string
 }
 
 // ── 加载外部解梦数据库 ──
@@ -313,6 +314,14 @@ export default function JiemengClient() {
                   <p className="text-xs text-blue-600/90 mb-1">💡 白话解析</p>
                   <p className="text-sm text-gray-700 leading-relaxed">{selectedDream.modern}</p>
                 </div>
+
+                {/* 心理学要点（与传统解梦融合展示） */}
+                {selectedDream.psychologyNote && (
+                  <div className="bg-violet-50/70 border border-violet-200/60 rounded-lg p-3 mb-4">
+                    <p className="text-xs text-violet-600/90 mb-1">🧠 心理学视角</p>
+                    <p className="text-sm text-gray-700 leading-relaxed">{selectedDream.psychologyNote}</p>
+                  </div>
+                )}
               </>
             ) : (
               <>
