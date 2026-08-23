@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: '帮助中心 - 九宫八卦',
+  title: '帮助中心',
   description: '九宫八卦帮助中心：从入门指南到高级使用技巧，为您解答各种平台使用问题。',
 };
 

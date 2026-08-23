@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: '常见问题 - 九宫八卦',
+  title: '常见问题',
   description: '关于九宫八卦命理平台的常见问题解答，涵盖入门指南、准确度、隐私安全、功能选择、收费说明、技术支持等。',
 };
 

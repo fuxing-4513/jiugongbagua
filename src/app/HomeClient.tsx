@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useLocale, useT } from '@/lib/i18n'
 
@@ -24,6 +24,7 @@ const modules: ModuleInfo[] = [
   { key: 'ziwei', nameKey: 'modules.ziwei.name', descKey: 'modules.ziwei.desc', sourceKey: 'modules.ziwei.source', emoji: '⭐', href: '/ziwei' },
   { key: 'zonghe', nameKey: 'modules.zonghe.name', descKey: 'modules.zonghe.desc', sourceKey: 'modules.zonghe.source', emoji: '🔗', href: '/zonghe-zhengming' },
   { key: 'liuyao', nameKey: 'modules.liuyao.name', descKey: 'modules.liuyao.desc', sourceKey: 'modules.liuyao.source', emoji: '☯', href: '/liuyao' },
+  { key: 'xiaoliuren', nameKey: 'modules.xiaoliuren.name', descKey: 'modules.xiaoliuren.desc', sourceKey: 'modules.xiaoliuren.source', emoji: '👋', href: '/xiaoliuren' },
   { key: 'jiemeng', nameKey: 'modules.jiemeng.name', descKey: 'modules.jiemeng.desc', sourceKey: 'modules.jiemeng.source', emoji: '💤', href: '/jiemeng' },
   { key: 'fengshui', nameKey: 'modules.fengshui.name', descKey: 'modules.fengshui.desc', sourceKey: 'modules.fengshui.source', emoji: '🧭', href: '/fengshui' },
   { key: 'chenggu', nameKey: 'modules.chenggu.name', descKey: 'modules.chenggu.desc', sourceKey: 'modules.chenggu.source', emoji: '⚖️', href: '/chenggu' },
@@ -220,12 +221,20 @@ export default function HomeClient() {
 function FreeChartWidget() {
   useLocale()
   const [calendarType, setCalendarType] = useState<CalendarType>('solar')
-  const [year, setYear] = useState(String(new Date().getFullYear()))
-  const [month, setMonth] = useState(String(new Date().getMonth() + 1))
-  const [day, setDay] = useState(String(new Date().getDate()))
+  // 默认日期在客户端挂载后再填当天，避免 SSR 静态 HTML 写死构建日期
+  const [year, setYear] = useState('')
+  const [month, setMonth] = useState('')
+  const [day, setDay] = useState('')
   const [hour, setHour] = useState('6')
   const [isLeapMonth, setIsLeapMonth] = useState(false)
   const [gender, setGender] = useState('男')
+
+  useEffect(() => {
+    const now = new Date()
+    setYear(String(now.getFullYear()))
+    setMonth(String(now.getMonth() + 1))
+    setDay(String(now.getDate()))
+  }, [])
 
   const y = parseInt(year) || 2000
   const m = parseInt(month) || 1

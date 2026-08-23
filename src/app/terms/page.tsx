@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: '服务条款 - 九宫八卦',
+  title: '服务条款',
   description: '九宫八卦平台服务条款：基础功能免费使用，命理分析仅供娱乐参考，不构成专业建议。',
 };
 

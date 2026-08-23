@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { getAllTerms, getTermsByCategory, categoryMeta } from '@/lib/glossary-data';
 
 export const metadata: Metadata = {
-  title: '术语百科 - 九宫八卦',
+  title: '术语百科',
   description: '中国传统命理学术语百科大全，涵盖天干地支、五行八卦、八字命理、紫微斗数等易学概念的详细解读。',
 };
 

@@ -40,6 +40,13 @@ export default function Nav() {
 
   const handleLangChange = (lang: SupportedLocale) => {
     setLocale(lang)
+    // 同步 ?lang= 到地址栏，与 hreflang 备用链接保持一致（可分享、可被搜索引擎收录）
+    try {
+      const url = new URL(window.location.href)
+      if (lang === 'zh-CN') url.searchParams.delete('lang')
+      else url.searchParams.set('lang', lang)
+      window.history.replaceState(null, '', url.toString())
+    } catch {}
     setLangOpen(false)
   }
 

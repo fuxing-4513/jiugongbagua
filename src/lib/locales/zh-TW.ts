@@ -4,7 +4,7 @@ export const zhTW = {
     tagline: 'AI 命理 · 古籍為基 · 智慧傳承',
     description: '中國傳統命理文化平台，提供八字排盤、紫微斗數、六爻、小六壬、周公解夢、姓名打分等在線服務',
     disclaimer: '僅供娛樂參考，請勿過度依賴',
-    copyright: '© 2024 九宮八卦 版權所有',
+    copyright: '© 2026 九宮八卦 版權所有',
   },
   nav: {
     home: '首頁',
@@ -117,7 +117,7 @@ export const zhTW = {
     privacy: '隱私政策',
     terms: '服務條款',
     brandDesc: '傳統智慧 × AI 科技',
-    copyright: '© 2024 九宮八卦 版權所有',
+    copyright: '© 2026 九宮八卦 版權所有',
     disclaimer: '僅供娛樂參考，請勿過度依賴',
   },
   privacy: {

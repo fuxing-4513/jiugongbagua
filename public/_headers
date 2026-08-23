@@ -1,21 +1,17 @@
 /*
-  X-Content-Type-Options: nosniff
   X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=(), interest-cohort=()
   Cross-Origin-Embedder-Policy: require-corp
   Cross-Origin-Opener-Policy: same-origin
-  X-Powered-By: 
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://hm.baidu.com https://*.baidu.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https://aisage-api.4513.workers.dev https://api.deepseek.com https://hm.baidu.com https://*.baidu.com https://www.google-analytics.com; frame-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'; media-src 'self'; upgrade-insecure-requests
   Access-Control-Allow-Origin: https://www.jiugongbagua.com
   Access-Control-Allow-Methods: GET, HEAD, OPTIONS
-  Access-Control-Allow-Credentials: true
 
 /data/*
   Access-Control-Allow-Origin: https://www.jiugongbagua.com
   Cache-Control: public, max-age=300
-
-/data/*.json
-  Access-Control-Allow-Origin: https://www.jiugongbagua.com
 
 /*.json
   Access-Control-Allow-Origin: https://www.jiugongbagua.com
@@ -29,3 +25,6 @@
 
 /data/v2/*
   Cache-Control: no-cache, no-store, must-revalidate
+
+/_next/static/*
+  Cache-Control: public, max-age=31536000, immutable

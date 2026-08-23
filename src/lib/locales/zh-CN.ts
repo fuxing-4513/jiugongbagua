@@ -4,7 +4,7 @@ export const zhCN = {
     tagline: 'AI 命理 · 古籍为基 · 智慧传承',
     description: '中国传统命理文化平台，提供八字排盘、紫微斗数、六爻、小六壬、周公解梦、姓名打分等在线服务',
     disclaimer: '仅供娱乐参考，请勿过度依赖',
-    copyright: '© 2024 九宫八卦 版权所有',
+    copyright: '© 2026 九宫八卦 版权所有',
   },
   nav: {
     home: '首页',
@@ -117,7 +117,7 @@ export const zhCN = {
     privacy: '隐私政策',
     terms: '服务条款',
     brandDesc: '传统智慧 × AI 科技',
-    copyright: '© 2024 九宫八卦 版权所有',
+    copyright: '© 2026 九宫八卦 版权所有',
     disclaimer: '仅供娱乐参考，请勿过度依赖',
   },
   privacy: {

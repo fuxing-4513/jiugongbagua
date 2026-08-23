@@ -32,6 +32,16 @@ const localeNames: Record<SupportedLocale, string> = {
 
 const LOCALE_KEY = 'jiugong-locale'
 
+/** 从 URL ?lang= 参数读取语言（供 hreflang 链接落地时生效） */
+function getLocaleFromUrl(): SupportedLocale | null {
+  if (typeof window === 'undefined') return null
+  try {
+    const v = new URLSearchParams(window.location.search).get('lang')
+    if (v === 'zh-CN' || v === 'zh-TW' || v === 'en') return v
+  } catch {}
+  return null
+}
+
 function getStoredLocale(): SupportedLocale {
   if (typeof window === 'undefined') return 'zh-CN'
   try {
@@ -41,8 +51,13 @@ function getStoredLocale(): SupportedLocale {
   return 'zh-CN'
 }
 
+/** 初始语言：URL 参数优先于 localStorage */
+function getInitialLocale(): SupportedLocale {
+  return getLocaleFromUrl() ?? getStoredLocale()
+}
+
 export function LocaleProvider({ children }: { children: React.ReactNode }) {
-  const [locale, setLocaleState] = useState<SupportedLocale>(getStoredLocale)
+  const [locale, setLocaleState] = useState<SupportedLocale>(getInitialLocale)
 
   const setLocale = useCallback((newLocale: SupportedLocale) => {
     setLocaleState(newLocale)

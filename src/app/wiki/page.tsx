@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: '命理百科 - 九宫八卦',
+  title: '命理百科',
   description: '全面了解中国传统命理文化知识体系，包括八字命理、紫微斗数、风水堪舆、六爻等核心内容。',
 };
 

@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: '隐私政策 - 九宫八卦',
+  title: '隐私政策',
   description: '九宫八卦隐私政策：我们重视您的隐私，所有排盘数据仅在浏览器本地处理，不上传服务器。',
 };
 

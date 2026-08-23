@@ -516,7 +516,7 @@ export default function BaziClient() {
   const [isLeapMonth, setIsLeapMonth] = useState(false)
   const [bzTg, setBzTg] = useState(['甲','甲','甲','甲'])
   const [bzDz, setBzDz] = useState(['子','寅','午','子'])
-  const [bzYear, setBzYear] = useState(String(new Date().getFullYear()))
+  const [bzYear, setBzYear] = useState(String(now.getFullYear()))
   const [result, setResult] = useState<BaziResult | null>(null)
   const [error, setError] = useState('')
   const [saved, setSaved] = useState(false)

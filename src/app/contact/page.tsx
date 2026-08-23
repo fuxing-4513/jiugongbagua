@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: '联系我们 - 九宫八卦',
+  title: '联系我们',
   description: '联系九宫八卦平台：邮箱 support@jiugongbagua.com，或预约专家进行一对一命理咨询。',
 };
 

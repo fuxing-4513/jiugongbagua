@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import { Solar, Lunar } from 'lunar-typescript'
 import { getMaxDay } from '@/components/CalendarInput'
 import CalendarInput, { type CalendarType } from '@/components/CalendarInput'
@@ -201,14 +201,15 @@ export default function MeihuaClient() {
   const [matter, setMatter] = useState('')
   const [num1, setNum1] = useState(''); const [num2, setNum2] = useState(''); const [num3, setNum3] = useState('')
   const [calendarType, setCalendarType] = useState<CalendarType>('solar')
-  const [calYear, setCalYear] = useState(String(new Date().getFullYear()))
-  const [calMonth, setCalMonth] = useState(String(new Date().getMonth() + 1))
-  const [calDay, setCalDay] = useState(String(new Date().getDate()))
+  // 默认日期客户端挂载后填当天，避免静态导出写死构建日期导致水合不一致
+  const [calYear, setCalYear] = useState('')
+  const [calMonth, setCalMonth] = useState('')
+  const [calDay, setCalDay] = useState('')
   const [calHour, setCalHour] = useState('0')
   const [calIsLeap, setCalIsLeap] = useState(false)
   const [symbolText, setSymbolText] = useState('')
   const [symbolMode, setSymbolMode] = useState<'auto' | 'stroke' | 'word'>('auto')
-  const [ltYear, setLtYear] = useState(String(new Date().getFullYear()))
+  const [ltYear, setLtYear] = useState('')
   const [ltMonth, setLtMonth] = useState('1'); const [ltDay, setLtDay] = useState('1')
   const [ltHour, setLtHour] = useState('0'); const [ltGender, setLtGender] = useState('男')
   const [result, setResult] = useState<{

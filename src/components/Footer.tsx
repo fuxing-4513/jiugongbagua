@@ -21,7 +21,7 @@ export default function Footer() {
             </div>
             <p className="text-xs text-gray-500">{getT('footer.brandDesc')}</p>
             <div className="mt-3 space-y-1">
-              <Link href="/about" className="block text-xs text-gray-500 hover:text-gold-600 transition-colors">平台介绍</Link>
+              <Link href="/wiki" className="block text-xs text-gray-500 hover:text-gold-600 transition-colors">平台介绍</Link>
               <Link href="/contact" className="block text-xs text-gray-500 hover:text-gold-600 transition-colors">{getT('footer.contact')}</Link>
             </div>
           </div>

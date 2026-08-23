@@ -4,7 +4,7 @@ export const en = {
     tagline: 'AI Destiny · Classical Roots · Wisdom Passed On',
     description: 'Traditional Chinese metaphysics platform offering Ba Zi, Zi Wei, Liu Yao, dream interpretation, name scoring, and more online services.',
     disclaimer: 'For entertainment reference only',
-    copyright: '© 2024 Nine Palaces Eight Trigrams. All rights reserved.',
+    copyright: '© 2026 Nine Palaces Eight Trigrams. All rights reserved.',
   },
   nav: {
     home: 'Home',
@@ -117,7 +117,7 @@ export const en = {
     privacy: 'Privacy Policy',
     terms: 'Terms of Service',
     brandDesc: 'Ancient Wisdom × AI Technology',
-    copyright: '© 2024 Nine Palaces Eight Trigrams. All rights reserved.',
+    copyright: '© 2026 Nine Palaces Eight Trigrams. All rights reserved.',
     disclaimer: 'For entertainment reference only — do not rely excessively',
   },
   privacy: {
