@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { dreamPages } from '../../dream-data'
+import { dreamPages } from '../dream-data'
 import { notFound } from 'next/navigation'
 
 const SITE = 'https://www.jiugongbagua.com'

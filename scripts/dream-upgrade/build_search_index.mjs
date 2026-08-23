@@ -13,7 +13,7 @@ import { fileURLToPath } from 'url';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const SRC = join(ROOT, 'public', 'data', 'c5dc0cc7-dreams-c3526e2d.json');
-const OUT = join(ROOT, 'public', 'data', 'c5dc0cc7-dreams-index-c3526e2d.json');
+const OUT = join(ROOT, 'public', 'data', 'c5dc0cc7-dreams-c3526e2d.json.idx');
 
 const raw = JSON.parse(readFileSync(SRC, 'utf-8'));
 const dreams = Array.isArray(raw) ? raw : raw.dreams;

@@ -57,7 +57,7 @@ let fileIdx = 0;
 for (let i = 0; i < unique.length; i += CHUNK) {
   const chunk = unique.slice(i, i + CHUNK);
   const varName = `dreamPages_${fileIdx}`;
-  const content = `// 自动生成 — 勿手改 (generate_dream_pages.mjs)\nexport const ${varName}: DreamPageData[] = ${JSON.stringify(chunk)};\n`;
+  const content = `// 自动生成 — 勿手改 (generate_dream_pages.mjs)\nimport type { DreamPageData } from './types';\n\nexport const ${varName}: DreamPageData[] = ${JSON.stringify(chunk)};\n`;
   writeFileSync(join(OUT_DIR, `part${fileIdx}.ts`), content, 'utf-8');
   console.log(`  part${fileIdx}.ts: ${chunk.length} 条`);
   fileIdx++;
