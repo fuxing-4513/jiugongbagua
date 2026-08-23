@@ -211,10 +211,6 @@ body {
   0%, 100% { transform: translateY(-50%) translateX(0); }
   50% { transform: translateY(-50%) translateX(-6px); }
 }
-@keyframes aiGlow {
-  0%, 100% { box-shadow: 0 0 8px rgba(232,200,74,0.2), 0 0 16px rgba(232,200,74,0.1); }
-  50% { box-shadow: 0 0 16px rgba(232,200,74,0.4), 0 0 32px rgba(232,200,74,0.2); }
-}
 @keyframes aiSpin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }

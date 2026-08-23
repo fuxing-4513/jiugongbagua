@@ -8,7 +8,7 @@ import HeritageSection from '@/components/HeritageSection'
 import ClassicQuotes from '@/components/ClassicQuotes'
 import BottomCTA from '@/components/BottomCTA'
 import CalendarInput, { type CalendarType, getMaxDay, lunarToSolarDate } from '@/components/CalendarInput'
-import AisageChat from '@/components/AisageChat'
+
 
 interface ModuleInfo {
   key: string
@@ -63,11 +63,6 @@ export default function HomeClient() {
 
       {/* ── 分隔线 ── */}
       <div className="w-16 h-px mx-auto bg-dark-500/40 mb-12"></div>
-
-      {/* ===== 玄学 AI 对话（放立即排盘上方） ===== */}
-      <section className="max-w-xl mx-auto mt-4 mb-8">
-        <AisageChat />
-      </section>
 
       {/* ===== 免费排盘 ===== */}
       <FreeChartWidget />
@@ -137,82 +132,6 @@ export default function HomeClient() {
       {/* ===== 底部 CTA ===== */}
       <BottomCTA />
     </div>
-
-      {/* 浮动客服头像按钮 */}
-      <div
-        onClick={() => window.open('/aisage.html', '_blank')}
-        className="fixed right-1 sm:right-3 top-1/2 -translate-y-1/2 z-50 flex flex-col items-center gap-1 sm:gap-2 cursor-pointer group"
-      >
-        <div
-          className="w-20 h-20 sm:w-[120px] sm:h-[120px] rounded-full flex items-center justify-center"
-          style={{
-            background: 'linear-gradient(135deg, #0a0a0f 0%, rgba(232,200,74,0.15) 100%)',
-            border: '3px solid rgba(232,200,74,0.7)',
-            boxShadow: '0 0 20px rgba(232,200,74,0.3), 0 0 40px rgba(232,200,74,0.15)',
-            animation: 'aiGlow 3s ease-in-out infinite',
-          }}
-        >
-          <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" className="w-full h-full" style={{filter: 'drop-shadow(0 0 4px rgba(232,200,74,0.3))'}}>
-            <defs>
-              <radialGradient id="shadow" cx="50%" cy="50%" r="50%">
-                <stop offset="0%" stop-color="#e8c84a" stop-opacity="0.3"/>
-                <stop offset="100%" stop-color="#e8c84a" stop-opacity="0"/>
-              </radialGradient>
-            </defs>
-            <circle cx="60" cy="60" r="59" fill="#ffecd6"/>
-            <circle cx="60" cy="60" r="56" fill="#ffe4c4"/>
-            <ellipse cx="62" cy="36" rx="34" ry="30" fill="#1a1a2e"/>
-            <ellipse cx="62" cy="32" rx="36" ry="28" fill="#252540"/>
-            <path d="M28 32 Q34 18 46 28 Q52 16 60 28 Q66 16 74 28 Q82 18 88 32 Q82 22 60 18 Q38 22 28 32Z" fill="#1a1a2e"/>
-            <ellipse cx="60" cy="58" rx="30" ry="32" fill="#ffe4c4"/>
-            <ellipse cx="45" cy="52" rx="7" ry="6" fill="white"/>
-            <ellipse cx="46" cy="52" rx="4" ry="4.5" fill="#2c1810"/>
-            <ellipse cx="47" cy="50" rx="1.5" ry="1.5" fill="white"/>
-            <path d="M38 48 Q40 45 42 47" fill="none" stroke="#2c1810" stroke-width="0.8" stroke-linecap="round"/>
-            <path d="M38 52 Q40 50 42 51" fill="none" stroke="#2c1810" stroke-width="0.8" stroke-linecap="round"/>
-            <ellipse cx="75" cy="52" rx="7" ry="6" fill="white"/>
-            <ellipse cx="74" cy="52" rx="4" ry="4.5" fill="#2c1810"/>
-            <ellipse cx="73" cy="50" rx="1.5" ry="1.5" fill="white"/>
-            <path d="M82 48 Q80 45 78 47" fill="none" stroke="#2c1810" stroke-width="0.8" stroke-linecap="round"/>
-            <path d="M82 52 Q80 50 78 51" fill="none" stroke="#2c1810" stroke-width="0.8" stroke-linecap="round"/>
-            <path d="M37 44 Q42 40 52 42" fill="none" stroke="#1a1a2e" stroke-width="1.2" stroke-linecap="round"/>
-            <path d="M68 42 Q78 40 83 44" fill="none" stroke="#1a1a2e" stroke-width="1.2" stroke-linecap="round"/>
-            <ellipse cx="36" cy="62" rx="5" ry="3" fill="#ffb6c1" opacity="0.4"/>
-            <ellipse cx="84" cy="62" rx="5" ry="3" fill="#ffb6c1" opacity="0.4"/>
-            <path d="M60 56 Q58 60 60 63" fill="none" stroke="#d4a0a0" stroke-width="1" stroke-linecap="round"/>
-            <g>
-              <path d="M46 72 Q53 76 60 74 Q67 76 74 72" fill="none" stroke="#e06060" stroke-width="1.8" stroke-linecap="round" opacity="0">
-                <animate attributeName="opacity" values="1;1;0;0;0;1" dur="3s" repeatCount="indefinite"/>
-              </path>
-              <path fill="#e06060" opacity="0">
-                <animate attributeName="opacity" values="0;0;1;0;0;0" dur="3s" repeatCount="indefinite"/>
-                <animate attributeName="d" values="M46 72 Q53 78 60 75 Q67 78 74 72;M46 72 Q53 76 60 73 Q67 76 74 72;M46 72 Q53 78 60 75 Q67 78 74 72" dur="0.5s" repeatCount="indefinite"/>
-              </path>
-              <path fill="#d05050" opacity="0">
-                <animate attributeName="opacity" values="0;0;0;1;1;0" dur="3s" repeatCount="indefinite"/>
-                <animate attributeName="d" values="M46 72 Q53 82 60 78 Q67 82 74 72;M46 72 Q53 76 60 74 Q67 76 74 72;M46 72 Q53 82 60 78 Q67 82 74 72;M46 72 Q53 77 60 74 Q67 77 74 72" dur="0.4s" repeatCount="indefinite"/>
-              </path>
-            </g>
-            <path d="M32 88 Q34 80 40 82 L44 82 Q46 80 50 82 L50 110 L32 110Z" fill="#f0d860"/>
-            <path d="M88 88 Q86 80 80 82 L76 82 Q74 80 70 82 L70 110 L88 110Z" fill="#f0d860"/>
-            <path d="M50 82 L60 96 L70 82" fill="none" stroke="#d4a843" stroke-width="1.5"/>
-            <path d="M56 82 L60 90 L64 82 L60 86Z" fill="#d4a843"/>
-            <path d="M26 52 Q24 42 30 40 Q34 38 36 42" fill="none" stroke="#666" stroke-width="2.5" stroke-linecap="round"/>
-            <path d="M94 52 Q96 42 90 40 Q86 38 84 42" fill="none" stroke="#666" stroke-width="2.5" stroke-linecap="round"/>
-            <circle cx="26" cy="54" r="4" fill="#888"/>
-            <circle cx="94" cy="54" r="4" fill="#888"/>
-            <g>
-              <path d="M84 86 Q90 82 94 76 Q96 72 92 70" fill="none" stroke="#ffe4c4" stroke-width="4" stroke-linecap="round">
-                <animateTransform attributeName="transform" type="rotate" values="-8 84 86;18 84 86;-8 84 86" dur="1.2s" repeatCount="indefinite"/>
-              </path>
-              <circle cx="92" cy="69" r="4.5" fill="#ffe4c4">
-                <animateTransform attributeName="transform" type="rotate" values="-8 84 86;18 84 86;-8 84 86" dur="1.2s" repeatCount="indefinite"/>
-              </circle>
-            </g>
-            <text x="60" y="106" text-anchor="middle" fill="#000000" font-size="12" font-weight="bold">玄学AI</text>
-          </svg>
-        </div>
-      </div>
     </>
   )
 }
