@@ -110,6 +110,11 @@ export function dataPath(key: string): string {
   return `/data/${decode(fname)}.json`;
 }
 
+/** 轻量索引路径（解梦秒搜用）：/data/<prefix>-dreams-<hash>.json.idx */
+export function dreamIndexPath(): string {
+  return `${dataPath('dreams')}.idx`;
+}
+
 /** 获取五行系列文件名（支持动态火金木水土） */
 export function wxListPath(el: string): string {
   return dataPath(`wx${el.charAt(0).toUpperCase() + el.slice(1)}`);

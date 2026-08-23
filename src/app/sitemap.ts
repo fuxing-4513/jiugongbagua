@@ -1,6 +1,7 @@
 export const dynamic = 'force-static'
 
 import type { MetadataRoute } from 'next'
+import { dreamPages } from '@/app/jiemeng/dream-data'
 
 const baseUrl = 'https://jiugongbagua.com'
 
@@ -42,7 +43,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: '/terms', priority: 0.3, changeFreq: 'yearly' as const },
   ]
 
-  const allPages = [...mainPages, ...infoPages]
+  // 解梦词条独立落地页（SEO）
+  const dreamLandingPages = dreamPages.map(d => ({
+    path: `/jiemeng/${d.slug}/`,
+    priority: 0.6,
+    changeFreq: 'monthly' as const,
+  }))
+
+  const allPages = [...mainPages, ...infoPages, ...dreamLandingPages]
 
   return allPages.map(({ path, priority, changeFreq }) => ({
     url: `${baseUrl}${path}`,
