@@ -9,6 +9,9 @@ import { synonymMatch, multiTermMatch } from '@/lib/dream-synonyms'
 import { generatePsychology } from '@/lib/dream-psychology'
 import { SEARCH_INDEX, type InlineDreamRow } from './searchIndex'
 
+/** 扩展行：详情弹窗可能携带全量库的 detail/mood */
+type DreamRow = InlineDreamRow & { detail?: string; mood?: string }
+
 /** 完整词条（懒加载增强用） */
 interface Dream {
   keyword: string; title: string; category: string
@@ -78,10 +81,10 @@ export default function JiemengClient() {
   const searchParams = useSearchParams()
   // 搜索能力由内联索引保证，页面即到即搜
   const [keyword, setKeyword] = useState('')
-  const [results, setResults] = useState<InlineDreamRow[]>([])
+  const [results, setResults] = useState<DreamRow[]>([])
   const [searched, setSearched] = useState(false)
   const [activeCategory, setActiveCategory] = useState('')
-  const [selectedDream, setSelectedDream] = useState<InlineDreamRow | null>(null)
+  const [selectedDream, setSelectedDream] = useState<DreamRow | null>(null)
   const [psychoTab, setPsychoTab] = useState(false)
   const [fullReady, setFullReady] = useState(!!fullData)
   const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined)
@@ -160,7 +163,7 @@ export default function JiemengClient() {
   }, [])
 
   // 点击结果 → 打开详情（内联索引兜底，全量库增强）
-  const openDetail = (item: InlineDreamRow) => {
+  const openDetail = (item: DreamRow) => {
     setPsychoTab(false)
     if (fullData) {
       const hit = fullData.find(d => d.keyword === item.k && d.title === item.t) ||
@@ -353,10 +356,10 @@ export default function JiemengClient() {
                 </div>
 
                 {/* 详细解读（来自全量库时才有） */}
-                {(selectedDream as any).detail && (selectedDream as any).detail !== selectedDream.m && (
+                {selectedDream.detail && selectedDream.detail !== selectedDream.m && (
                   <div className="mb-4">
                     <p className="text-xs text-gray-500 mb-1">📖 详细解读</p>
-                    <p className="text-sm text-gray-600 leading-relaxed whitespace-pre-line">{(selectedDream as any).detail}</p>
+                    <p className="text-sm text-gray-600 leading-relaxed whitespace-pre-line">{selectedDream.detail}</p>
                   </div>
                 )}
               </>
@@ -367,7 +370,7 @@ export default function JiemengClient() {
                     keyword: selectedDream.k,
                     category: selectedDream.c,
                     tags: selectedDream.g,
-                    mood: (selectedDream as any).mood || '',
+                    mood: selectedDream.mood || '',
                     modern: selectedDream.m,
                   })
                   return (
