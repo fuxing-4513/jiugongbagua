@@ -137,12 +137,14 @@ export function synonymMatch(query: string, keyword: string): boolean {
   }
 
   // ── 3: 含2字以上重叠 + 语义检查 ──
+  // 注意：仅当查询词较长(>=3字)时才启用字重叠模糊匹配。
+  // 二字词之间编辑距离恒为2，若放开会导致所有二字词互相命中（结果被垃圾淹没）。
   const overlapping = qChars.filter(c => kChars.includes(c))
-  if (overlapping.length >= 2) {
-    // 2字重叠 → 大概率是相同的词根
+  if (q.length >= 3 && overlapping.length >= 2) {
+    // 长查询词与关键词有2字重叠 → 大概率同词根
     return true
   }
-  if (overlapping.length === 1) {
+  if (q.length >= 3 && overlapping.length === 1) {
     // 1字重叠 → 还需检查语义关系
     const shared = overlapping[0]
     // 查双方的上下文是否在对方的能力范围内
@@ -168,9 +170,10 @@ export function synonymMatch(query: string, keyword: string): boolean {
     }
   }
 
-  // ── 4: 编辑距离（短词） ──
-  if (q.length <= 4 && k.length <= 4) {
-    if (levenshtein(q, k) <= 2) return true
+  // ── 4: 编辑距离（短词，仅同长度且高度相似） ──
+  // 二字词编辑距离恒≤2，必须收紧为"仅差1字"才视为近似（如 掉牙≈换牙）
+  if (q.length === k.length && q.length <= 4) {
+    if (levenshtein(q, k) <= 1) return true
   }
 
   return false
