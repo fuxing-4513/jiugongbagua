@@ -118,11 +118,15 @@ export default function JiemengClient() {
     }
 
     const terms = trimmed.split(/\s+/).filter(Boolean)
+    // ASCII 大小写不敏感（"ai" 可搜到 "AI"）；中文无大小写，不受影响
+    const lowerTerms = terms.map(t => t.toLowerCase())
     const matched = SEARCH_INDEX.filter(d => {
-      const searchText = `${d.k} ${d.t} ${d.m} ${(d.g || []).join(' ')}`
-      const exactMatch = terms.every(term =>
-        d.k.includes(term) || term.includes(d.k) ||
-        d.t.includes(term) || searchText.includes(term)
+      const searchText = `${d.k} ${d.t} ${d.m} ${(d.g || []).join(' ')}`.toLowerCase()
+      const kLow = d.k.toLowerCase()
+      const tLow = d.t.toLowerCase()
+      const exactMatch = lowerTerms.every(term =>
+        kLow.includes(term) || term.includes(kLow) ||
+        tLow.includes(term) || searchText.includes(term)
       )
       if (exactMatch) return true
       if (terms.every(term => synonymMatch(term, d.k))) return true

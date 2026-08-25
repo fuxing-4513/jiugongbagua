@@ -139,8 +139,10 @@ export function synonymMatch(query: string, keyword: string): boolean {
   // ── 3: 含2字以上重叠 + 语义检查 ──
   // 注意：仅当查询词较长(>=3字)时才启用字重叠模糊匹配。
   // 二字词之间编辑距离恒为2，若放开会导致所有二字词互相命中（结果被垃圾淹没）。
+  // 且 keyword 为长文本(白话/详情)时单字重叠必然≥2，必须用长度门槛挡住（"梦见水"曾全库命中）。
   const overlapping = qChars.filter(c => kChars.includes(c))
-  if (q.length >= 3 && overlapping.length >= 2) {
+  const kIsLongText = k.length > 12
+  if (q.length >= 3 && overlapping.length >= 2 && !kIsLongText) {
     // 长查询词与关键词有2字重叠 → 大概率同词根
     return true
   }
@@ -171,8 +173,9 @@ export function synonymMatch(query: string, keyword: string): boolean {
   }
 
   // ── 4: 编辑距离（短词，仅同长度且高度相似） ──
-  // 二字词编辑距离恒≤2，必须收紧为"仅差1字"才视为近似（如 掉牙≈换牙）
-  if (q.length === k.length && q.length <= 4) {
+  // 二字词编辑距离恒≤2，必须收紧为"仅差1字"才视为近似（如 掉牙≈换牙）；
+  // 单字词之间距离恒为1（狗≈猫也=1），长度1必须整体排除。
+  if (q.length === k.length && q.length >= 2 && q.length <= 4) {
     if (levenshtein(q, k) <= 1) return true
   }
 
