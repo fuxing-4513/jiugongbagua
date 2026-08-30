@@ -2,12 +2,18 @@
 
 import { useState, useMemo, useCallback, useRef } from 'react'
 import { astro } from 'iztro'
+import type { IFunctionalAstrolabe } from 'iztro/lib/astro/FunctionalAstrolabe'
+import { Iztrolabe } from 'react-iztro'
 import { getMaxDay, lunarToSolarDate, getYearLeapMonth } from '@/components/CalendarInput'
-import { analyzeSiHua, getWuXingJuMeaning, getExtraPatterns } from '@/lib/ziwei-enrich'
+import { analyzeSiHua, getWuXingJuMeaning } from '@/lib/ziwei-enrich'
+import { detectPatterns as detectZwdPatterns, getMingGongSummary } from '@/lib/ziwei-zwd/patterns'
+import { iztroToZiweiChart } from '@/lib/ziwei-zwd/adapter'
+import { ALL_BOOKS, searchClassics, TOTAL_PARAGRAPHS } from '@/lib/ziwei-zwd/classics'
 import LoadingSpinner from '@/components/LoadingSpinner'
 import Breadcrumb from '@/components/Breadcrumb'
 import { exportAsPng } from '@/utils/export-image'
 import { saveToHistory } from '@/lib/history'
+import './ziwei-iztro-dark.css'
 
 // ── Types ──
 type CalendarType = 'solar' | 'lunar'
@@ -41,14 +47,6 @@ const HOUR_OPTIONS = [
   { value: '6', label: '午 11:00~12:59' }, { value: '7', label: '未 13:00~14:59' },
   { value: '8', label: '申 15:00~16:59' }, { value: '9', label: '酉 17:00~18:59' },
   { value: '10', label: '戌 19:00~20:59' }, { value: '11', label: '亥 21:00~22:59' },
-]
-
-// ── 4x4 table layout by earthlyBranch ──
-const CHART_ROWS: (string | null)[][] = [
-  ['巳', '午', '未', '申'],
-  ['辰', null, null, '酉'],
-  ['卯', '戌', null, null],
-  ['寅', '丑', '子', '亥'],
 ]
 
 // ── iztro palace names → traditional display ──
@@ -121,191 +119,16 @@ const STAR_DESC: Record<string, string> = {
   '天使':'天使：死亡星，主意外。天使入命，需注意人身安全。',
 }
 
-// ── Pattern/格局 Library ──
-interface PatternDef { name: string; desc: string; rating: string }
-interface StarInfo { name: string; brightness?: string; mutagen?: string }
-
-type PalaceForPattern = { name: string; majorStars: StarInfo[]; minorStars: StarInfo[]; adjectiveStars: StarInfo[]; earthlyBranch: string }
-
-function detectPatterns(palaces: PalaceForPattern[], bornSihua: { star: string }[]): PatternDef[] {
-  const patterns: PatternDef[] = []
-  const getP = (n: string) => palaces.find(p => p.name === n)
-  const getStars = (n: string) => (getP(n)?.majorStars || []).map((s: StarInfo) => s.name)
-  const soul = getP('命宫')
-  const sb = soul?.earthlyBranch || ''
-  const has = (n: string, star: string) => (getStars(n) || []).includes(star)
-  const hasAny = (n: string, stars: string[]) => stars.some(s => (getStars(n) || []).includes(s))
-
-  // 三方四正：命宫 + 财帛 + 官禄
-  const triStars = (p: string) => {
-    const q = getP(p); if (!q) return []
-    return [...(q.majorStars || []).map(s => s.name), ...(q.minorStars || []).map(s => s.name), ...(q.adjectiveStars || []).map(s => s.name)]
-  }
-  const triAll = [...new Set([...triStars('命宫'), ...triStars('财帛'), ...triStars('官禄')])]
-  const triHas = (star: string) => triAll.includes(star)
-  const triHasAny = (stars: string[]) => stars.some(s => triAll.includes(s))
-  // 迁移宫（对宫）
-
-  // ═══════════════════════════════════════════
-  // 顶级格局（上格）
-  // ═══════════════════════════════════════════
-
-  // 紫府同宫
-  if (has('命宫', '紫微') && has('命宫', '天府'))
-    patterns.push({ name: '紫府同宮格', desc: '紫微天府二帝星同守命宮，帝王之象，主貴氣非凡，一生衣食無憂，事業有成。' + (sb === '寅' || sb === '申' ? '寅申為正格，格局更高。' : ''), rating: '上' })
-
-  // 君臣庆会
-  if (has('命宫', '紫微') && hasAny('命宫', ['左辅', '右弼']))
-    patterns.push({ name: '君臣慶會格', desc: '紫微帝星得左右輔弼拱照，君臣相得，主貴氣加身，有領導才能，得貴人相助。', rating: '上' })
-
-  // 日照雷门
-  if (has('命宫', '太阳') && sb === '卯')
-    patterns.push({ name: '日照雷門格', desc: '旭日東升於卯，如日照雷門，光輝燦爛。主早年發達，聲名遠播。', rating: '上' })
-
-  // 日丽中天
-  if (has('命宫', '太阳') && sb === '午')
-    patterns.push({ name: '日麗中天格', desc: '太陽居午宮，如日中天，光輝至極。主權勢顯赫，名揚四海。', rating: '上' })
-
-  // 月朗天门
-  if (has('命宫', '太阴') && sb === '亥')
-    patterns.push({ name: '月朗天門格', desc: '太陰在亥為月朗天門，主溫潤清貴，智慧過人，適合文職、藝術。', rating: '上' })
-
-  // 月生沧海
-  if (has('命宫', '太阴') && sb === '酉')
-    patterns.push({ name: '月生滄海格', desc: '太陰在酉，如月出海，主富貴清雅，宜文職才藝。', rating: '上' })
-
-  // 七杀朝斗
-  if (has('命宫', '七杀') && hasAny('迁移', ['紫微', '天府']))
-    patterns.push({ name: '七殺朝斗格', desc: '七殺在命，對宮紫微天府照拱，為上貴格局。作風強勢，攻擊力強，有領導力。' + (sb === '寅' || sb === '申' ? '寅申為正格。' : ''), rating: '上' })
-
-  // 武贪格
-  if (has('命宫', '武曲') && has('命宫', '贪狼'))
-    patterns.push({ name: '武貪不發少年格', desc: '武曲貪狼守命，主中年後大發達，少年辛苦磨練。' + (sb === '丑' || sb === '未' ? '丑未為正格。' : ''), rating: '上' })
-
-  // 紫微朝垣（三方见紫微）
-  if (!has('命宫', '紫微') && triHas('紫微'))
-    patterns.push({ name: '紫微朝垣格', desc: '三方四正中紫微照拱，貴氣加身，得上司提攜，有領導才能。', rating: '上' })
-
-  // 三奇加会（科权禄）
-  const sihuaLabels = bornSihua.map(s => s.star)
-  if (sihuaLabels.length >= 3 && ['禄', '权', '科'].every(t => bornSihua.some(s => s.star.includes(t) || t === '')))
-    patterns.push({ name: '三奇加會格', desc: '科權祿三奇會合，主才華出眾，名利雙收，一生有特殊成就。', rating: '上' })
-
-  // ═══════════════════════════════════════════
-  // 中上级格局
-  // ═══════════════════════════════════════════
-
-  // 府相朝垣
-  if (triHas('天府') && triHas('天相'))
-    patterns.push({ name: '府相朝垣格', desc: '天府天相在三方四正朝照，穩重踏實，一生衣食豐足，宜從事金融、管理行業。', rating: '中上' })
-
-  // 机月同梁
-  if (['天机', '太阴', '天同', '天梁'].filter(x => triHas(x)).length >= 3)
-    patterns.push({ name: '機月同梁格', desc: '天機、太陰、天同、天梁在三方四正齊聚，主智謀機變，宜公職、策劃、文秘之職。吏人優裕之格。', rating: '中上' })
-
-  // 阳梁昌禄
-  if (triHas('太阳') && triHas('天梁') && triHasAny(['文昌', '禄存']))
-    patterns.push({ name: '陽梁昌祿格', desc: '太陽天梁配文昌或祿存，主科甲功名，利學業考試，適合學術研究。', rating: '中上' })
-
-  // 文星拱命
-  if (['文昌', '文曲', '左辅', '右弼', '天魁', '天钺'].filter(x => triHas(x)).length >= 4)
-    patterns.push({ name: '文星拱命格', desc: '輔弼昌曲魁鉞會照，聰明多藝，宜文職、學術研究，文采出眾。', rating: '中上' })
-
-  // 紫微+七杀/破军/贪狼
-  if (has('命宫', '紫微') && has('命宫', '七杀'))
-    patterns.push({ name: '紫殺格', desc: '紫微七殺同守命宮，化殺為權，威權顯赫，宜軍警、管理。', rating: '中上' })
-  if (has('命宫', '紫微') && has('命宫', '破军'))
-    patterns.push({ name: '紫破格', desc: '紫微破軍同守命宮，開創性強，宜創業、革新，但變動較大。', rating: '中上' })
-  if (has('命宫', '紫微') && has('命宫', '贪狼'))
-    patterns.push({ name: '紫貪格', desc: '紫微貪狼同守命宮，多才多藝，桃花旺盛，宜演藝、公關行業。', rating: '中' })
-
-  // 廉贞组合
-  if (has('命宫', '廉贞') && has('命宫', '七杀'))
-    patterns.push({ name: '廉貞七殺格', desc: '廉貞七殺同守命宮，積富之人。性格果決剛毅，做事雷厲風行。', rating: '中上' })
-  if (has('命宫', '廉贞') && has('命宫', '破军'))
-    patterns.push({ name: '廉貞破軍格', desc: '廉貞破軍同守命宮，浪裡行舟，變動多端，宜開拓型事業。', rating: '中' })
-  if (has('命宫', '廉贞') && has('命宫', '天府'))
-    patterns.push({ name: '廉府格', desc: '廉貞天府同守命宮，才華內斂，能文能武，宜管理、行政。', rating: '中上' })
-  if (has('命宫', '廉贞') && has('命宫', '天相'))
-    patterns.push({ name: '廉相格', desc: '廉貞天相同守命宮，能文能武，宜公務、服務行業。', rating: '中' })
-  if (has('命宫', '廉贞') && has('命宫', '贪狼') && (sb === '巳' || sb === '亥'))
-    patterns.push({ name: '泛水桃花格', desc: '廉貞貪狼居巳亥，泛水桃花，風流倜儻，才華出眾，但感情複雜。', rating: '中' })
-
-  // 武曲组合
-  if (has('命宫', '武曲') && has('命宫', '七杀'))
-    patterns.push({ name: '武殺格', desc: '武曲七殺同守命宮，剛毅果決，宜軍警、工業、外科醫生。', rating: '中' })
-  if (has('命宫', '武曲') && has('命宫', '破军'))
-    patterns.push({ name: '武破格', desc: '武曲破軍同守命宮，動盪中求發展，宜開創新事業。', rating: '中' })
-  if (has('命宫', '武曲') && has('命宫', '天府'))
-    patterns.push({ name: '武府格', desc: '武曲天府同守命宮，文武兼備，剛柔並濟，宜管理崗位，財運穩定。', rating: '中上' })
-  if (has('命宫', '武曲') && has('命宫', '天相'))
-    patterns.push({ name: '武相格', desc: '武曲天相同守命宮，剛正不阿，宜公職、企業管理。', rating: '中上' })
-
-  // ═══════════════════════════════════════════
-  // 中级格局
-  // ═══════════════════════════════════════════
-
-  // 巨日
-  if (has('命宫', '巨门') && has('命宫', '太阳'))
-    patterns.push({ name: '巨日同宮格', desc: '巨門與太陽同宮，以口為業，宜律師、教師、媒體等行業，能言善辯。', rating: '中' })
-
-  // 巨机
-  if (has('命宫', '巨门') && has('命宫', '天机'))
-    patterns.push({ name: '巨機同臨格', desc: '巨門天機同守命宮，智慧過人，口才出眾，宜研究、顧問行業。', rating: '中' })
-
-  // 杀破狼
-  if (['七杀', '破军', '贪狼'].filter(x => triHas(x)).length >= 2)
-    patterns.push({ name: '殺破狼格', desc: '七殺、破軍、貪狼在三方四正，主變動、開創、冒險精神強。一生波瀾壯闊，宜創業從商。', rating: '中' })
-
-  // 同梁
-  if (triHas('天同') && triHas('天梁'))
-    patterns.push({ name: '同梁拱照格', desc: '天同天梁在三方照拱，福壽雙全，宜慈善、宗教、公務行業。', rating: '中上' })
-
-  // 同阴
-  if (has('命宫', '天同') && has('命宫', '太阴'))
-    patterns.push({ name: '同陰格', desc: '天同太陰同守命宮，溫柔體貼，宜服務、藝術行業。', rating: '中' })
-
-  // 禄马交驰
-  if ((has('命宫', '禄存') && triHas('天马')) || (triHas('禄存') && triHas('天马')))
-    patterns.push({ name: '祿馬交馳格', desc: '祿存天馬交會，主奔波勞碌而招財，宜外地發展、經商貿易。', rating: '中' })
-
-  // 六吉汇聚
-  const liuji = ['左辅', '右弼', '文昌', '文曲', '天魁', '天钺']
-  const liujiCount = liuji.filter(x => triHas(x)).length
-  if (liujiCount >= 3)
-    patterns.push({ name: '六吉拱命格', desc: `六吉星中${liujiCount}顆會照三方四正，貴人多助，處處逢源，事半功倍。`, rating: liujiCount >= 5 ? '上' : '中上' })
-
-  // 六煞回避
-  const liusha = ['擎羊', '陀罗', '火星', '铃星', '地空', '地劫']
-  const liushaCount = liusha.filter(x => triHas(x)).length
-  if (liushaCount >= 3)
-    patterns.push({ name: '六煞聚會格', desc: `六煞星中${liushaCount}顆在三方四正，一生多波折考驗，需修身養性，行善積德化解。`, rating: '中下' })
-
-  // 空劫拱命
-  if (triHas('地空') && triHas('地劫'))
-    patterns.push({ name: '空劫夾命格', desc: '地空地劫在三方四正，思想獨特，不入俗流，宜創意、藝術行業，但需防虛幻不實。', rating: '中' })
-
-  // 昌曲夹命
-  if (triHas('文昌') && triHas('文曲'))
-    patterns.push({ name: '昌曲拱命格', desc: '文昌文曲在三方四正，文采出眾，學業有成，宜學術、文學、藝術。', rating: '中上' })
-
-  // 魁钺夹命
-  if (triHas('天魁') && triHas('天钺'))
-    patterns.push({ name: '魁鉞拱命格', desc: '天魁天鉞在三方四正，貴人運極佳，得上司長輩提攜，宜公職。', rating: '中上' })
-
-  // 日月并明
-  if (triHas('太阳') && triHas('太阴'))
-    patterns.push({ name: '日月並明格', desc: '太陽太陰在三方四正，陰陽調和，事業家庭兩全，一生光明磊落。', rating: '中上' })
-
-  // 辅弼拱主
-  if (has('命宫', '紫微') && triHasAny(['左辅', '右弼']))
-    patterns.push({ name: '輔弼拱主格', desc: '紫微坐命，左輔右弼在三方拱照，帝星得輔，權威更盛。', rating: '上' })
-
-  return patterns
-}
-
 // ── Star info type ──
 interface FullStarInfo { name: string; brightness: string; mutagen: string; type: string; scope: string }
+
+// ── 格局分级 (ziwei-zwd patterns) ──
+const PATTERN_LEVELS: { key: 'excellent' | 'good' | 'neutral' | 'caution'; label: string; cls: string }[] = [
+  { key: 'excellent', label: '上等格局', cls: 'text-gold-400' },
+  { key: 'good', label: '良好格局', cls: 'text-green-400' },
+  { key: 'neutral', label: '中性格局', cls: 'text-gray-300' },
+  { key: 'caution', label: '凶格警示', cls: 'text-red-400' },
+]
 
 // ── Component ──
 export default function ZiweiClient() {
@@ -321,6 +144,8 @@ export default function ZiweiClient() {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const exportRef = useRef<HTMLDivElement>(null)
+  const [activeTab, setActiveTab] = useState<'patterns' | 'sihua' | 'stars' | 'classics'>('patterns')
+  const [clsQuery, setClsQuery] = useState('')
 
   const y = parseInt(year) || 2000
   const m = parseInt(month) || 1
@@ -344,8 +169,8 @@ export default function ZiweiClient() {
     setLoading(true)
     if (validationMsg) { setError(validationMsg); setLoading(false); return }
     try {
-      // CalendarInput 的 hour 值用的是地支索引 (0=子,6=午,11=亥), 需转成实际小时数
-      const h = ((parseInt(hour) || 6) * 2 + 23) % 24
+      // iztro 的 timeIndex 即地支索引 (0=早子时, 6=午时, 11=亥时), 与 hour state 一致
+      const h = parseInt(hour) || 0
       const sd = calendarType === 'solar'
         ? `${y}-${String(m).padStart(2, '0')}-${String(d).padStart(2, '0')}`
         : lunarToSolarDate(y, m, d, isLeap)
@@ -406,12 +231,20 @@ export default function ZiweiClient() {
   const auspIndex = auspCount + inauspCount > 0 ? Math.round((auspCount / (auspCount + inauspCount)) * 100) : 50
   const fortuneScore = Math.round((brightnessScore + auspIndex) / 2)
 
-  // ── Patterns ──
-  const patterns = useMemo(() => {
-    if (!soulPalace) return []
-    return detectPatterns(palaces as PalaceForPattern[], bornSihua as { star: string }[])
-  }, [soulPalace, palaces, bornSihua])
-  const patternIndex = patterns.length > 0 ? Math.min(100, 50 + patterns.length * 15) : 50
+  // ── Patterns (旧版简化识别已由 ziwei-zwd 引擎替代) ──
+  // ── ziwei-zwd (倪海厦体系) 格局识别 ──
+  const zwdPatterns = useMemo(() => {
+    if (!result) return []
+    try { return detectZwdPatterns(iztroToZiweiChart(result as unknown as IFunctionalAstrolabe)) } catch { return [] }
+  }, [result])
+
+  const mingSummary = useMemo(() => {
+    if (!result) return null
+    try { return getMingGongSummary(iztroToZiweiChart(result as unknown as IFunctionalAstrolabe)) } catch { return null }
+  }, [result])
+
+  // ── 古籍文库搜索 ──
+  const clsHits = useMemo(() => searchClassics(clsQuery), [clsQuery])
 
   // SiHua analysis
   const sihuaAnalysis = (() => {
@@ -435,7 +268,6 @@ export default function ZiweiClient() {
   }, [soulPalace])
 
   const soulDisplayName = soulPalace ? (IZTRO_TO_DISPLAY[soulPalace.name] || soulPalace.name) : '—'
-  const zodiac = (result?.zodiac as string) || ''
   const fiveElem = (result?.fiveElementsClass as string) || ''
   const wuXingJuMeaning = getWuXingJuMeaning(fiveElem)
   const soul = (result?.soul as string) || ''
@@ -444,54 +276,6 @@ export default function ZiweiClient() {
   const lunarDate = (result?.lunarDate as string) || ''
   const chineseDate = (result?.chineseDate as string) || ''
   const timeRange = (result?.timeRange as string) || HOUR_OPTIONS.find(o => o.value === hour)?.label || ''
-
-  // ═══ BUILD PALACE CELL DATA ═══
-  const renderPalaceCell = (branch: string) => {
-    const p = palaceMap[branch]
-    if (!p) return <td key={branch} className="border border-dark-600 p-1.5 bg-dark-900/30 text-[9px] text-gray-600 align-top">{branch}</td>
-    const isSoul = p.name === '命宫'
-    const isBody = p.isBodyPalace
-    const displayName = IZTRO_TO_DISPLAY[p.name] || p.name
-    const majors = (p.majorStars || []) as FullStarInfo[]
-    const minors = [...(p.minorStars || []), ...(p.adjectiveStars || [])] as FullStarInfo[]
-    const bg = isSoul ? 'bg-gold-900/25 border-gold-400 shadow-[0_0_8px_rgba(200,160,80,0.3)]'
-      : isBody ? 'bg-gold-900/15 border-gold-500/50'
-      : 'bg-dark-800/70 border-dark-600'
-    return (
-      <td key={branch} className={`border p-1.5 align-top ${bg}`}>
-        <p className="text-[9px] text-gray-600 mb-0.5">{p.heavenlyStem}{p.earthlyBranch}</p>
-        <p className={`font-semibold text-xs mb-0.5 ${isSoul ? 'text-gold-300' : 'text-gold-400'}`}>
-          {displayName}
-          {isBody && <span className="text-[8px] text-gold-500 ml-0.5">身</span>}
-        </p>
-        {p.decadal?.range && <p className="text-[8px] text-gray-500">大限:{p.decadal.range[0]}-{p.decadal.range[1]}</p>}
-        {majors.length > 0 ? (
-          <div className="mt-0.5">
-            {majors.map((s, i) => {
-              const b = BRIGHTNESS[s.brightness || ''] || BRIGHTNESS['']
-              const mu = s.mutagen && MUTAGEN[s.mutagen] ? MUTAGEN[s.mutagen] : null
-              return (
-                <span key={i} className="text-[10px] text-gold-300 font-semibold">
-                  {s.name}{b.label !== '—' && <span className={`text-[8px] ${b.color}`}>{b.label}</span>}
-                  {mu && <span className={`text-[8px] ${mu.color}`}>{mu.label}</span>}
-                  {i < majors.length - 1 && ' '}
-                </span>
-              )
-            })}
-          </div>
-        ) : <p className="text-[9px] text-gray-600 italic">—</p>}
-        {minors.length > 0 && (
-          <p className="text-[8px] text-gray-500 leading-relaxed mt-0.5">
-            {minors.map((s, i) => (
-              <span key={i} className={SHA_XING.has(s.name) ? 'text-red-400/80' : 'text-cyan-300/80'}>
-                {s.name}{i < minors.length - 1 ? ',' : ''}
-              </span>
-            ))}
-          </p>
-        )}
-      </td>
-    )
-  }
 
   // ═══ RENDER ═══
   return (
@@ -570,67 +354,29 @@ export default function ZiweiClient() {
       {/* ═══ Results ═══ */}
       {result && (
         <div ref={exportRef} className="space-y-6">
-          {/* ── Control Bar ── */}
-          <div className="bg-dark-800/60 rounded-lg border border-dark-600 p-3 text-sm flex items-center gap-4 flex-wrap">
-            <span className="text-gray-400 text-xs">流月起始宮位</span>
-            <label className="text-gray-200 text-xs"><input type="radio" name="flow" defaultChecked className="mr-1 accent-gold-500" />流月起始宮位</label>
-            <label className="text-gray-500 text-xs"><input type="radio" name="flow" className="mr-1" />流年本宮</label>
-            <label className="text-gray-500 text-xs"><input type="radio" name="flow" className="mr-1" />流年斗君</label>
-            <span className="text-gray-600 mx-1">|</span>
-            <select className="px-2 py-1 bg-dark-700 border border-dark-500 rounded text-gray-200 text-xs">
-              <option>國曆</option><option>農曆</option>
-            </select>
-            <select className="px-1.5 py-1 bg-dark-700 border border-dark-500 rounded text-gray-200 text-xs" value={year} onChange={e => setYear(e.target.value)}>
-              {Array.from({ length: 200 }, (_, i) => 1900 + i).map(v => <option key={v} value={v}>{v}</option>)}
-            </select>
-            <button className="px-2 min-h-[44px] text-xs bg-gold-600/20 border border-gold-500/30 rounded text-gold-400 hover:bg-gold-600/40">流年</button>
-            <button className="px-2 min-h-[44px] text-xs border border-dark-500 rounded text-gray-500 hover:text-gray-300">流月</button>
-            <button className="px-2 min-h-[44px] text-xs border border-dark-500 rounded text-gray-500 hover:text-gray-300">流日</button>
-            <button className="px-2 min-h-[44px] text-xs border border-dark-500 rounded text-gray-500 hover:text-gray-300">流時</button>
+          {/* ── Summary Bar ── */}
+          <div className="bg-dark-800/80 rounded-xl border border-gold-500/20 p-4 text-xs text-gray-300 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+            <div><p className="text-[10px] text-gray-500 mb-0.5">陽曆</p><p className="text-gray-200">{solarDate} {timeRange}</p></div>
+            <div><p className="text-[10px] text-gray-500 mb-0.5">農曆</p><p className="text-gray-200">{lunarDate}</p></div>
+            <div><p className="text-[10px] text-gray-500 mb-0.5">干支</p><p className="text-gray-200">{chineseDate}</p></div>
+            <div><p className="text-[10px] text-gray-500 mb-0.5">五行局</p><p className="text-gold-300 font-semibold">{fiveElem}{wuXingJuMeaning ? `（${wuXingJuMeaning}）` : ''}</p></div>
+            <div><p className="text-[10px] text-gray-500 mb-0.5">命主 / 身主</p><p className="text-gray-200">{soul} / {body}</p></div>
+            <div>
+              <p className="text-[10px] text-gray-500 mb-0.5">好運指數</p>
+              <p className={`font-bold ${fortuneScore >= 80 ? 'text-green-400' : fortuneScore >= 60 ? 'text-yellow-400' : fortuneScore >= 40 ? 'text-orange-400' : 'text-red-400'}`}>{fortuneScore}</p>
+            </div>
           </div>
 
-          {/* ── 12-Palace Table ── */}
-          <h2 className="text-lg font-semibold text-gold-400 font-serif">
-            本命：{soulDisplayName}
-            <span className="text-xs text-gray-500 font-normal ml-3">
-              好運指數:<span className={`font-bold ${fortuneScore >= 80 ? 'text-green-400' : fortuneScore >= 60 ? 'text-yellow-400' : fortuneScore >= 40 ? 'text-orange-400' : 'text-red-400'}`}>{fortuneScore}</span>
-            </span>
-          </h2>
-          <div className="overflow-x-auto">
-            <table className="w-full border-collapse" style={{ minWidth: 600 }}>
-              <tbody>
-                {CHART_ROWS.map((row, ri) => (
-                  <tr key={ri}>
-                    {row.map((branch, ci) => {
-                      if (ri === 1 && ci === 1) {
-                        return (
-                          <td key="center" colSpan={2} className="border border-dark-600 bg-dark-850/80 p-3 text-center align-middle">
-                            <div className="text-[10px] leading-relaxed text-gray-300 space-y-0.5">
-                              <p>陽曆：{solarDate} {timeRange} {gender === 'M' ? '陽男' : '陰女'}</p>
-                              <p>農曆：{lunarDate}</p>
-                              <p>干支：{chineseDate}</p>
-                              <p>五行局：{fiveElem}</p>
-                              <p className="text-[9px]">
-                                生年四化：{bornSihua.length > 0
-                                  ? bornSihua.map((s, i) => <span key={i} className={`${s.color} font-semibold`}>{s.star}{s.label}{i < bornSihua.length - 1 ? '、' : ''}</span>)
-                                  : <span className="text-gray-500">—</span>}
-                              </p>
-                              <p>命主：{soul}　身主：{body}</p>
-                              <p className="text-gray-500">生肖：{zodiac}</p>
-                            </div>
-                          </td>
-                        )
-                      }
-                      if (!branch) {
-                        if (ri === 2 && (ci === 2 || ci === 3)) return <td key={ci} className="border border-dark-600 bg-dark-900/30" />
-                        return null
-                      }
-                      return renderPalaceCell(branch)
-                    })}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+          {/* ── Astrolabe (react-iztro 专业星盘: 大限/流年/流月/流日/流时/飞星/三方四正) ── */}
+          <div className="bg-dark-800/60 rounded-xl border border-gold-500/20 p-3 md:p-5 overflow-x-auto">
+            <Iztrolabe
+              birthday={`${y}-${String(m).padStart(2, '0')}-${String(clampedDay).padStart(2, '0')}`}
+              birthTime={parseInt(hour) || 0}
+              gender={gender === 'M' ? 'male' : 'female'}
+              birthdayType={calendarType}
+              isLeapMonth={calendarType === 'lunar' && isLeap ? true : undefined}
+              width="100%"
+            />
           </div>
 
           {/* ── Brightness & Auspicious Analysis ── */}
@@ -668,74 +414,147 @@ export default function ZiweiClient() {
             </div>
           </div>
 
-          {/* ── Pattern Analysis ── */}
+          {/* ── Tabs: 格局 / 四化 / 星曜 / 古籍 ── */}
           <div className="bg-dark-800/80 rounded-xl border border-gold-500/20 p-6">
-            {sihuaAnalysis && sihuaAnalysis.lu.star && (
-            <div className="bg-dark-800/80 rounded-xl border border-dark-600 p-4 mb-4">
-              <h3 className="text-sm font-semibold text-gold-300 font-serif mb-3 text-center">四化深度分析</h3>
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                {sihuaAnalysis.lu.star && (
-                <div className="bg-dark-700/60 rounded-lg p-2 text-center">
-                  <p className="text-xs text-gray-500">化禄</p>
-                  <p className="font-semibold text-green-400 text-sm">{sihuaAnalysis.lu.star}</p>
-                  <p className="text-xs text-gray-400 mt-0.5">{sihuaAnalysis.lu.meaning.split('，').slice(1).join('，')}</p>
-                </div>)}
-                {sihuaAnalysis.quan.star && (
-                <div className="bg-dark-700/60 rounded-lg p-2 text-center">
-                  <p className="text-xs text-gray-500">化权</p>
-                  <p className="font-semibold text-purple-400 text-sm">{sihuaAnalysis.quan.star}</p>
-                  <p className="text-xs text-gray-400 mt-0.5">{sihuaAnalysis.quan.meaning.split('，').slice(1).join('，')}</p>
-                </div>)}
-                {sihuaAnalysis.ke.star && (
-                <div className="bg-dark-700/60 rounded-lg p-2 text-center">
-                  <p className="text-xs text-gray-500">化科</p>
-                  <p className="font-semibold text-blue-400 text-sm">{sihuaAnalysis.ke.star}</p>
-                  <p className="text-xs text-gray-400 mt-0.5">{sihuaAnalysis.ke.meaning.split('，').slice(1).join('，')}</p>
-                </div>)}
-                {sihuaAnalysis.ji.star && (
-                <div className="bg-dark-700/60 rounded-lg p-2 text-center">
-                  <p className="text-xs text-gray-500">化忌</p>
-                  <p className="font-semibold text-red-400 text-sm">{sihuaAnalysis.ji.star}</p>
-                  <p className="text-xs text-gray-400 mt-0.5">{sihuaAnalysis.ji.meaning.split('，').slice(1).join('，')}</p>
-                </div>)}
-              </div>
-              <p className="text-xs text-gray-400 text-center mt-2">{sihuaAnalysis.summary}</p>
+            <div className="flex flex-wrap gap-1 border-b border-dark-600 pb-3 mb-5">
+              {([['patterns', '✨ 格局分析'], ['sihua', '四化深度'], ['stars', '星曜說明'], ['classics', '📜 古籍文庫']] as const).map(([k, l]) => (
+                <button key={k} onClick={() => setActiveTab(k)}
+                  className={`px-3 min-h-[36px] rounded-md text-sm transition-colors ${activeTab === k ? 'bg-gold-600/20 text-gold-300 border border-gold-500/40' : 'text-gray-500 hover:text-gray-300 border border-transparent'}`}>
+                  {l}
+                </button>
+              ))}
             </div>
+
+            {activeTab === 'patterns' && (
+              <>
+                {mingSummary && (
+                  <div className="bg-gold-900/15 border border-gold-500/30 rounded-lg p-4 mb-5">
+                    <p className="text-sm text-gold-300 font-semibold mb-1">命宮總論 · {soulDisplayName}</p>
+                    <p className="text-xs text-gray-300 leading-relaxed">主星：{mingSummary.stars.join('、') || '（無主星，借對宮安星）'}</p>
+                    <p className="text-xs text-gray-400 mt-1.5 leading-relaxed">{mingSummary.nature}</p>
+                    {mingSummary.keywords.length > 0 && (
+                      <p className="text-[11px] text-gray-500 mt-1.5">關鍵詞：{mingSummary.keywords.join('、')}</p>
+                    )}
+                  </div>
+                )}
+                {zwdPatterns.length > 0 ? (
+                  <div className="space-y-5">
+                    {PATTERN_LEVELS.map(({ key, label, cls }) => {
+                      const list = zwdPatterns.filter(p => p.level === key)
+                      if (list.length === 0) return null
+                      return (
+                        <div key={key}>
+                          <h4 className={`text-sm font-semibold ${cls} mb-2.5`}>{label}（{list.length}）</h4>
+                          <div className="space-y-3">
+                            {list.map((p, i) => (
+                              <div key={i} className="bg-dark-700/50 rounded-lg p-3.5 border border-dark-600">
+                                <div className="flex items-baseline gap-2 flex-wrap">
+                                  <span className="text-gold-300 font-semibold text-sm">【{p.name}】</span>
+                                  {p.source && <span className="text-[10px] text-gray-500">出處：{p.source}</span>}
+                                </div>
+                                <p className="text-xs text-gray-400 mt-1.5 leading-relaxed">{p.description}</p>
+                                {p.conditions?.required && p.conditions.required.length > 0 && (
+                                  <p className="text-[10px] text-green-400/80 mt-1.5">✓ 成立條件：{p.conditions.required.join('；')}</p>
+                                )}
+                                {p.conditions?.bonus && p.conditions.bonus.length > 0 && (
+                                  <p className="text-[10px] text-cyan-400/80 mt-0.5">＋ 加分條件：{p.conditions.bonus.join('；')}</p>
+                                )}
+                                {p.conditions?.breaking && p.conditions.breaking.length > 0 && (
+                                  <p className="text-[10px] text-red-400/90 mt-0.5">⚠ 破格警示：{p.conditions.breaking.join('；')}</p>
+                                )}
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )
+                    })}
+                  </div>
+                ) : (
+                  <p className="text-xs text-gray-500">命盤暫未發現明顯格局。</p>
+                )}
+              </>
             )}
 
-            <h3 className="text-base font-semibold text-gold-400 font-serif mb-4">格局分析</h3>
-            {patterns.length > 0 ? (
-              <div className="space-y-3">
+            {activeTab === 'sihua' && (
+              sihuaAnalysis ? (
+                <>
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                    <div className="bg-dark-700/60 rounded-lg p-2.5 text-center">
+                      <p className="text-xs text-gray-500">化祿</p>
+                      <p className="font-semibold text-green-400 text-sm">{sihuaAnalysis.lu.star || '—'}</p>
+                      <p className="text-xs text-gray-400 mt-0.5">{sihuaAnalysis.lu.meaning ? sihuaAnalysis.lu.meaning.split('，').slice(1).join('，') : '—'}</p>
+                    </div>
+                    <div className="bg-dark-700/60 rounded-lg p-2.5 text-center">
+                      <p className="text-xs text-gray-500">化權</p>
+                      <p className="font-semibold text-purple-400 text-sm">{sihuaAnalysis.quan.star || '—'}</p>
+                      <p className="text-xs text-gray-400 mt-0.5">{sihuaAnalysis.quan.meaning ? sihuaAnalysis.quan.meaning.split('，').slice(1).join('，') : '—'}</p>
+                    </div>
+                    <div className="bg-dark-700/60 rounded-lg p-2.5 text-center">
+                      <p className="text-xs text-gray-500">化科</p>
+                      <p className="font-semibold text-blue-400 text-sm">{sihuaAnalysis.ke.star || '—'}</p>
+                      <p className="text-xs text-gray-400 mt-0.5">{sihuaAnalysis.ke.meaning ? sihuaAnalysis.ke.meaning.split('，').slice(1).join('，') : '—'}</p>
+                    </div>
+                    <div className="bg-dark-700/60 rounded-lg p-2.5 text-center">
+                      <p className="text-xs text-gray-500">化忌</p>
+                      <p className="font-semibold text-red-400 text-sm">{sihuaAnalysis.ji.star || '—'}</p>
+                      <p className="text-xs text-gray-400 mt-0.5">{sihuaAnalysis.ji.meaning ? sihuaAnalysis.ji.meaning.split('，').slice(1).join('，') : '—'}</p>
+                    </div>
+                  </div>
+                  <p className="text-xs text-gray-400 text-center mt-3">{sihuaAnalysis.summary}</p>
+                </>
+              ) : (
+                <p className="text-xs text-gray-500">本命盤無四化星。</p>
+              )
+            )}
+
+            {activeTab === 'stars' && (
+              soulStarDescs.length > 0 ? (
                 <table className="w-full text-xs"><tbody>
-                  {patterns.map((p, i) => (
+                  {soulStarDescs.map(({ name, desc }, i) => (
                     <tr key={i} className="border-b border-dark-700">
-                      <td className="py-2 w-36 text-gold-300 font-semibold align-top">【{p.name}】</td>
-                      <td className="py-2 text-gray-400 leading-relaxed">{p.desc}</td>
+                      <td className="py-2 w-16 text-gold-300 font-semibold align-top">{name}</td>
+                      <td className="py-2 text-gray-400 leading-relaxed">{desc}</td>
                     </tr>
                   ))}
                 </tbody></table>
-                <p className="text-xs text-gray-400">格局總數 共{patterns.length}吉0兇</p>
-                <p className="text-xs text-gray-400">格局吉凶指數=<span className="text-gold-400 font-semibold">{patternIndex}%</span></p>
-              </div>
-            ) : <p className="text-xs text-gray-500">命盤暫未發現明顯格局。</p>}
-          </div>
+              ) : (
+                <div className="text-xs text-gray-500">
+                  <p className="mb-2">命宮暫無詳細星曜數據。請確認已正確輸入生辰並成功排盤。</p>
+                  {soulPalace && <p className="text-gray-600">命宮數據：{(soulPalace.majorStars as FullStarInfo[])?.map((s: FullStarInfo) => s.name).join(', ') || '(無主星)'}</p>}
+                </div>
+              )
+            )}
 
-          {/* ── Star Descriptions ── */}
-          <div className="bg-dark-800/80 rounded-xl border border-gold-500/20 p-6">
-            <h3 className="text-base font-semibold text-gold-400 font-serif mb-4">本命：{soulDisplayName}之各星說明</h3>
-            {soulStarDescs.length > 0 ? (
-              <table className="w-full text-xs"><tbody>
-                {soulStarDescs.map(({ name, desc }, i) => (
-                  <tr key={i} className="border-b border-dark-700">
-                    <td className="py-2 w-16 text-gold-300 font-semibold align-top">{name}</td>
-                    <td className="py-2 text-gray-400 leading-relaxed">{desc}</td>
-                  </tr>
-                ))}
-              </tbody></table>
-            ) : (
-              <div className="text-xs text-gray-500">
-                <p className="mb-2">命宮暫無詳細星曜數據。請確認已正確輸入生辰並成功排盤。</p>
-                {soulPalace && <p className="text-gray-600">命宮數據：{(soulPalace.majorStars as FullStarInfo[])?.map((s: FullStarInfo) => s.name).join(', ') || '(無主星)'}</p>}
+            {activeTab === 'classics' && (
+              <div>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-5">
+                  {ALL_BOOKS.map(b => (
+                    <div key={b.slug} className="bg-dark-700/50 rounded-lg p-3.5 border border-dark-600">
+                      <p className="text-gold-300 font-semibold text-sm">{b.title}</p>
+                      <p className="text-[10px] text-gray-500 mt-0.5">{b.dynasty} · {b.author} · 共 {b.chapters.reduce((s, c) => s + c.paragraphs.length, 0)} 段</p>
+                      <p className="text-[11px] text-gray-400 mt-1.5 leading-relaxed line-clamp-3">{b.intro}</p>
+                    </div>
+                  ))}
+                </div>
+                <input
+                  value={clsQuery}
+                  onChange={e => setClsQuery(e.target.value)}
+                  placeholder={`在全 ${TOTAL_PARAGRAPHS} 段古籍原文中搜索，如：貪狼、化祿、七殺…`}
+                  className="w-full px-3 min-h-[44px] bg-dark-700 border border-dark-500 rounded-lg text-gray-200 text-sm placeholder-gray-600 focus:outline-none focus:border-gold-500/50"
+                />
+                {clsQuery && clsHits.length > 0 && (
+                  <div className="space-y-2.5 mt-4">
+                    {clsHits.map((h, i) => (
+                      <div key={i} className="bg-dark-700/50 rounded-lg p-3.5 border border-dark-600">
+                        <p className="text-[10px] text-gray-500 mb-1">《{h.bookTitle}》 · {h.chapterTitle}</p>
+                        <p className="text-xs text-gray-300 leading-relaxed">{h.text}</p>
+                      </div>
+                    ))}
+                  </div>
+                )}
+                {clsQuery && clsHits.length === 0 && (
+                  <p className="text-xs text-gray-500 mt-3">未找到相關段落，試試其他關鍵詞。</p>
+                )}
               </div>
             )}
           </div>

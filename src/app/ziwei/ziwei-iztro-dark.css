@@ -1,0 +1,32 @@
+/* react-iztro 暗色主题覆盖 — 适配九宫八卦暗色 UI */
+/* 只覆盖 CSS 变量 + 边框/背景，星盘结构样式保留 */
+
+.iztro-astrolabe-theme-default {
+  --iztro-star-font-size-big: 13px;
+  --iztro-star-font-size-small: 12px;
+  --iztro-color-major: #e8c07a;      /* 主星: 金色 */
+  --iztro-color-focus: #e8e8e8;      /* 化忌文字: 近白 */
+  --iztro-color-quan: #7aa2f7;       /* 化权: 蓝 */
+  --iztro-color-tough: #d8a657;      /* 煞星: 橙棕 */
+  --iztro-color-awesome: #f7768e;    /* 化忌/警示: 红 */
+  --iztro-color-active: #7dcfff;     /* 大限: 青 */
+  --iztro-color-happy: #bb9af7;      /* 桃花星: 紫 */
+  --iztro-color-nice: #9ece6a;       /* 吉星: 绿 */
+  --iztro-color-decorator-1: #e0af68;
+  --iztro-color-decorator-2: #f7768e;
+  --iztro-color-text: #9aa5b5;       /* 次要文字 */
+  --iztro-color-border: rgba(255, 255, 255, 0.14);
+  --iztro-color-decadal: #7dcfff;
+  --iztro-color-yearly: #f7768e;
+  --iztro-color-monthly: #9ece6a;
+  --iztro-color-daily: #e0af68;
+  --iztro-color-hourly: #9aa5b5;
+}
+
+.iztro-astrolabe {
+  background: transparent;
+}
+
+.iztro-palace {
+  border-color: var(--iztro-color-border);
+}
