@@ -210,11 +210,11 @@ export function mergeShenSha(pillarShenSha: PillarShenSha[]): ShenShaItem[] {
   return all.length > 0 ? all : [{ name:'无特殊神煞', type:'中性', meaning:'此八字未见显著神煞入局。' }]
 }
 
-/** 神煞标签颜色 — 黑白灰版面（2026-08-31 用户要求，避免彩色审美疲劳） */
+/** 神煞标签颜色 — 白底黑字（2026-08-31 用户要求：高对比、去彩色） */
 export const shenShaTagColor = (type: string) => {
-  if (type === '吉') return 'bg-gray-600/30 text-gray-100 border border-gray-500/40'
-  if (type === '凶') return 'bg-gray-800/80 text-gray-400 border border-gray-600/50'
-  return 'bg-gray-700/30 text-gray-400 border border-gray-600/40'
+  if (type === '吉') return 'bg-white text-gray-900 border border-gray-300'
+  if (type === '凶') return 'bg-white text-gray-900 border border-gray-400'
+  return 'bg-white text-gray-900 border border-gray-300'
 }
 
 /** 神煞对性格的影响 — 单个效果 */

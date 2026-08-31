@@ -100,6 +100,25 @@ export default function HomeClient() {
       {/* ── 分隔线 ── */}
       <div className="w-16 h-px mx-auto bg-dark-500/40 mb-14"></div>
 
+      {/* ===== 易学书馆（全部工具上方独立入口） ===== */}
+      <section className="mb-14">
+        <h2 className="text-xl font-semibold text-gold-600 font-serif mb-4 text-center">📖 易学书馆</h2>
+        <Link
+          href="/xueguan"
+          className="block group rounded-xl border border-gold-500/30 bg-gradient-to-r from-dark-800 to-dark-800/60 p-6 hover:border-gold-400/60 transition-all duration-200"
+        >
+          <div className="flex items-center gap-5">
+            <div className="text-4xl group-hover:scale-110 transition-transform duration-200">📜</div>
+            <div>
+              <h3 className="text-lg font-semibold text-gold-300 group-hover:text-gold-200 transition-colors">易学书馆</h3>
+              <p className="text-xs text-gray-400 mt-1 leading-relaxed">
+                135 部命理、卜筮、风水、道家经典古籍全文 · 分类阅读 · 全文检索
+              </p>
+            </div>
+          </div>
+        </Link>
+      </section>
+
       {/* ===== 全部工具 Grid ===== */}
       <section className="mb-14">
         <h2 className="text-xl font-semibold text-gold-600 font-serif mb-4 text-center">🔮 全部工具</h2>

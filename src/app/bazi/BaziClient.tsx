@@ -783,8 +783,8 @@ Object.entries(result.wx).map(([w,c]): React.ReactNode =>(
             <div key={i} className={`text-xs p-3 rounded border ${shenShaTagColor(s.type)}`}>
               <span className="font-semibold mr-1.5">{s.name}</span>
               <span className="text-[10px] text-gray-500">（{s.type}）</span>
-              <p className="text-[11px] text-gray-400 mt-1.5 leading-relaxed">{s.meaning}</p>
-              {s.resolve && <p className="text-[10px] text-gray-500 mt-1.5 leading-relaxed">✦ 化解：{s.resolve}</p>}
+              <p className="text-[11px] text-gray-700 mt-1.5 leading-relaxed">{s.meaning}</p>
+              {s.resolve && <p className="text-[10px] text-gray-600 mt-1.5 leading-relaxed">✦ 化解：{s.resolve}</p>}
             </div>
           ))}
         </div>
