@@ -7,32 +7,25 @@ import {
   REL_COLOR, NODE_PILLAR, WX_CYCLE, WX_OF, type PillarLike, type BaziRelation,
 } from '@/lib/bazi-relations'
 
-// ═══ 浅色宣纸配色（参考图风格：米白底、深褐字、传统五行色） ═══
+// ═══ 浅色宣纸配色（参考图：米白底、深褐字、传统五行色） ═══
 const PAPER = {
-  bg: '#f6f1e3',        // 卡片底（米黄宣纸）
-  card: '#fdfaf1',      // 子卡底
-  border: '#ddd3bc',    // 边框
-  text: '#3d382e',      // 主文字
-  sub: '#8b8170',       // 次要文字
-  title: '#9a4f2a',     // 标题（赭红）
-  accent: '#b26a3a',    // 强调
-  line: '#c9bfa6',      // 分隔线
+  bg: '#f6f1e3', card: '#fdfaf1', border: '#ddd3bc',
+  text: '#3d382e', sub: '#8b8170', title: '#9a4f2a', line: '#c9bfa6',
 }
 const WX_HEX: Record<string, string> = {
   木: '#3f7d4e', 火: '#c2523f', 土: '#a97e3d', 金: '#8a8437', 水: '#3f6f8e',
 }
-// 关系线颜色（浅色底上更浓）
 const REL_LIGHT: Record<string, string> = {
   '同柱': '#6b6352', '生': '#3f7d4e', '克': '#c2523f', '五合': '#7a5c8e',
   '六合': '#2f7d4f', '三合': '#3f6f8e', '六冲': '#c0392b', '三刑': '#9c3f5f',
   '六害': '#a97e3d', '相破': '#d08a3f',
 }
 
-// ── 布局坐标（viewBox 0 0 400 250） ──
-const COL_X = [55, 145, 255, 345]
-const GAN_Y = 80
-const ZHI_Y = 180
-const R = 24
+// ── 布局（参考图：四柱横排，天干上/地支下，日主居中突出） ──
+const COL_X = [52, 148, 252, 348]
+const GAN_Y = 68
+const ZHI_Y = 168
+const R = 26
 
 interface Props {
   pills: PillarLike[]
@@ -66,14 +59,24 @@ export default function SiZhuView({ pills, dayun, gender, mingGong, shenGong, ta
     const i = parseInt(id.slice(1))
     return id.startsWith('g') ? { x: COL_X[i], y: GAN_Y } : { x: COL_X[i], y: ZHI_Y }
   }
-  const linePath = (a: string, b: string) => {
-    const p1 = nodeXY(a), p2 = nodeXY(b)
-    const dx = p2.x - p1.x, dy = p2.y - p1.y
-    const dist = Math.hypot(dx, dy)
-    const curve = dist > 130 ? 40 : dist > 80 ? 22 : 6
+  // 关系分类：同柱 / 相邻 / 隔柱
+  const relKind = (r: BaziRelation) => {
+    const ia = parseInt(r.a.slice(1)), ib = parseInt(r.b.slice(1))
+    if (r.a.slice(1) === r.b.slice(1)) return 'tong'   // 同柱（天干-地支）
+    if (Math.abs(ia - ib) === 1) return 'lin'          // 相邻柱
+    return 'ge'                                        // 隔柱
+  }
+  // 相邻/隔柱只画地支行或天干行? —— 参考图：柱间关系画在地支行（干支视角）
+  // 画线函数：同柱=竖线，相邻=短横弧，隔柱=大弧
+  const linePath = (r: BaziRelation) => {
+    const p1 = nodeXY(r.a), p2 = nodeXY(r.b)
+    const kind = relKind(r)
+    if (kind === 'tong') return { d: `M${p1.x},${p1.y} L${p2.x},${p2.y}`, mx: p1.x, my: (p1.y + p2.y) / 2 }
+    const dx = p2.x - p1.x
+    const dist = Math.abs(dx)
+    const curve = kind === 'lin' ? 12 : 34
     const mx = (p1.x + p2.x) / 2, my = (p1.y + p2.y) / 2
-    const nx = -dy / dist, ny = dx / dist
-    const cx = mx + nx * curve, cy = my + ny * curve
+    const cx = mx, cy = my - curve
     return { d: `M${p1.x},${p1.y} Q${cx},${cy} ${p2.x},${p2.y}`, mx: cx, my: cy }
   }
 
@@ -84,29 +87,37 @@ export default function SiZhuView({ pills, dayun, gender, mingGong, shenGong, ta
     </button>
   )
 
+  // ── 节点：干支大字 + 十神小字（参考图风格：天干字大、十神在柱下方） ──
   const renderNode = (id: string, ch: string, wx: string, ss: string, isDay: boolean) => {
     const { x, y } = nodeXY(id)
     const on = selected === id
-    const active = !selected || selRels.some(r => r.a === id || r.b === id)
     const c = WX_HEX[wx] || '#8b8170'
     return (
-      <g key={id} onClick={() => setSelected(on ? null : id)} className="cursor-pointer"
-        opacity={active ? 1 : 0.18} style={{ transition: 'opacity .2s' }}>
-        <circle cx={x} cy={y} r={isDay ? R + 5 : R}
+      <g key={id} onClick={() => setSelected(on ? null : id)} className="cursor-pointer" style={{ transition: 'opacity .2s' }}>
+        <circle cx={x} cy={y} r={isDay ? R + 6 : R}
           fill={on ? '#f3e7d3' : PAPER.card}
-          stroke={c} strokeWidth={on ? 3 : isDay ? 2.4 : 1.8} />
-        {isDay && <circle cx={x} cy={y} r={R + 10} fill="none" stroke={c} strokeWidth={0.9} strokeDasharray="3 3" opacity={0.85} />}
+          stroke={c} strokeWidth={on ? 3 : isDay ? 2.6 : 1.8} />
+        {isDay && <circle cx={x} cy={y} r={R + 11} fill="none" stroke={c} strokeWidth={0.9} strokeDasharray="3 3" opacity={0.85} />}
         <text x={x} y={y + 1} textAnchor="middle" dominantBaseline="middle"
-          fontSize={isDay ? 26 : 20} fontWeight={700} fill={c} fontFamily="serif">{ch}</text>
-        <text x={x} y={y + (isDay ? 19 : 15)} textAnchor="middle" fontSize={9} fill={PAPER.sub}>{ss}</text>
+          fontSize={isDay ? 28 : 21} fontWeight={700} fill={c} fontFamily="serif">{ch}</text>
       </g>
     )
   }
+
+  // 十神标签（柱下方小字）
+  const renderSS = (i: number, ssG: string, ssZ: string, isDay: boolean) => (
+    <text key={'ss' + i} x={COL_X[i]} y={ZHI_Y + 44} textAnchor="middle" fontSize={9.5} fill={PAPER.sub}>
+      {isDay ? `日主·${ssG}` : `${ssG}·${ssZ}`}
+    </text>
+  )
 
   const isCurStage = (idx: number) => curAge != null && (
     (idx === 0 && curAge <= 15) || (idx === 1 && curAge >= 16 && curAge <= 30) ||
     (idx === 2 && curAge >= 31 && curAge <= 45) || (idx === 3 && curAge >= 46)
   )
+
+  // 默认显示：同柱 + 相邻；隔柱点击时才显示
+  const visibleRels = relations.filter(r => !selected || selRels.some(sr => sr.id === r.id))
 
   return (
     <div className="rounded-xl p-4" style={{ background: PAPER.bg, border: `1px solid ${PAPER.border}`, color: PAPER.text }}>
@@ -123,46 +134,62 @@ export default function SiZhuView({ pills, dayun, gender, mingGong, shenGong, ta
       {/* ═══ 一、先天气脉 ═══ */}
       {subTab === 'qimai' && (
         <div className="space-y-3">
-          {/* 四柱干支关系图 */}
           <div className="rounded-lg p-1 select-none" style={{ background: PAPER.card, border: `1px solid ${PAPER.border}` }}>
-            <svg viewBox="0 0 400 250" className="w-full">
-              {/* 关系线 */}
-              {relations.map(r => {
+            <svg viewBox="0 0 400 230" className="w-full">
+              {/* 关系线：默认只画 同柱竖线 + 相邻短线；点击后显示全部（隔柱大弧淡显） */}
+              {visibleRels.map(r => {
+                const kind = relKind(r)
+                if (!selected && kind === 'ge') return null   // 未点击时不画隔柱线
                 const active = !selected || selRels.some(sr => sr.id === r.id)
-                const { d, mx, my } = linePath(r.a, r.b)
-                const c = REL_LIGHT[r.type] || REL_COLOR[r.type] || '#8b8170'
-                const sameCol = r.a.slice(1) === r.b.slice(1)
+                const { d, mx, my } = linePath(r)
+                const c = REL_LIGHT[r.type] || '#8b8170'
+                const isTong = kind === 'tong'
+                const isGe = kind === 'ge'
                 return (
-                  <g key={r.id} opacity={active ? (selected ? 1 : 0.85) : 0.12} style={{ transition: 'opacity .2s' }}>
+                  <g key={r.id} opacity={active ? (isGe ? 0.85 : 1) : 0.15} style={{ transition: 'opacity .2s' }}>
                     <path d={d} fill="none" stroke={c}
-                      strokeWidth={active ? (selected ? 2.2 : 1.3) : 0.7}
-                      strokeDasharray={sameCol ? '5 3' : undefined} />
-                    {!sameCol && (
-                      <g transform={`translate(${mx},${my}) rotate(${Math.atan2(nodeXY(r.b).y - nodeXY(r.a).y, nodeXY(r.b).x - nodeXY(r.a).x) * 180 / Math.PI})`}>
-                        <path d="M-5,-3.5 L4,0 L-5,3.5" fill="none" stroke={c} strokeWidth={1} />
+                      strokeWidth={active ? (isTong ? 1.6 : selected ? 1.8 : 1.1) : 0.6}
+                      strokeDasharray={isTong || isGe ? undefined : undefined} />
+                    {/* 同柱关系标注（支生干/干生支/自坐同气/截脚） */}
+                    {isTong && (
+                      <g transform={`translate(${mx},${my})`}>
+                        <rect x={-16} y={-7.5} width={32} height={15} rx={7.5} fill={PAPER.card} stroke={c} strokeWidth={0.6} />
+                        <text textAnchor="middle" dominantBaseline="middle" fontSize={8} fill={c}>{r.sub.slice(0, 4)}</text>
                       </g>
                     )}
-                    {active && (
+                    {/* 相邻生克标注 */}
+                    {!isTong && !isGe && (
                       <g transform={`translate(${mx},${my})`}>
-                        <rect x={-15} y={-8} width={30} height={15} rx={7.5}
-                          fill={PAPER.card} stroke={c} strokeWidth={0.7} />
+                        <rect x={-13} y={-7.5} width={26} height={15} rx={7.5} fill={PAPER.card} stroke={c} strokeWidth={0.6} />
+                        <text textAnchor="middle" dominantBaseline="middle" fontSize={8} fill={c}>{r.type}</text>
+                      </g>
+                    )}
+                    {/* 隔柱关系标注（点击后） */}
+                    {isGe && selected && (
+                      <g transform={`translate(${mx},${my})`}>
+                        <rect x={-17} y={-8} width={34} height={16} rx={8} fill="#f3e7d3" stroke={c} strokeWidth={0.8} />
                         <text textAnchor="middle" dominantBaseline="middle" fontSize={8} fill={c}>{r.type}</text>
                       </g>
                     )}
                   </g>
                 )
               })}
+
               {/* 柱名 */}
               {NODE_PILLAR.map((n, i) => (
-                <text key={n} x={COL_X[i]} y={20} textAnchor="middle" fontSize={11} fill={PAPER.title} fontWeight={600} fontFamily="serif">{n}</text>
+                <text key={n} x={COL_X[i]} y={16} textAnchor="middle" fontSize={10.5} fill={PAPER.title} fontWeight={600} fontFamily="serif">{n}</text>
               ))}
-              {/* 干支节点 */}
+              {/* 天干节点 */}
               {pills.map((p, i) => renderNode(`g${i}`, p.gan, WX_OF[p.gan] || '土', p.ssG, i === 2))}
+              {/* 地支节点 */}
               {pills.map((p, i) => renderNode(`z${i}`, p.zhi, WX_OF[p.zhi] || '土', p.ssZ, false))}
+              {/* 十神（柱下方） */}
+              {pills.map((p, i) => renderSS(i, p.ssG, p.ssZ, i === 2))}
               {/* 用/体 */}
-              <text x={6} y={GAN_Y} textAnchor="start" fontSize={8.5} fill={PAPER.sub}>用·天干</text>
-              <text x={6} y={ZHI_Y} textAnchor="start" fontSize={8.5} fill={PAPER.sub}>体·地支</text>
+              <text x={4} y={GAN_Y} textAnchor="start" fontSize={8.5} fill={PAPER.sub}>用·天干</text>
+              <text x={4} y={ZHI_Y} textAnchor="start" fontSize={8.5} fill={PAPER.sub}>体·地支</text>
             </svg>
+            {/* 图例（默认只列同柱+相邻，隔柱点击后出现） */}
             <div className="flex flex-wrap gap-x-3 gap-y-1 justify-center pb-1.5">
               {Object.entries(REL_LIGHT).map(([t, c]) => (
                 <span key={t} className="inline-flex items-center gap-1 text-[10px]" style={{ color: PAPER.sub }}>
@@ -173,7 +200,9 @@ export default function SiZhuView({ pills, dayun, gender, mingGong, shenGong, ta
           </div>
 
           <p className="text-[10px] text-center leading-relaxed" style={{ color: PAPER.sub }}>
-            点击任意干支，高亮它牵动的全部关系（同柱生克、相邻生克、天干五合、地支六合/三合/六冲/三刑/六害/相破）。用=天干，外显的追求与取得资源的方式；体=地支，根基与藏蓄能量。取象与喜忌判读需完整命局报告，可回八字排盘查看。
+            {selected
+              ? `「${selected.startsWith('g') ? pills[parseInt(selected.slice(1))].gan : pills[parseInt(selected.slice(1))].zhi}」牵动 ${selRels.length} 条关系（相邻生克、同柱耦合、三合三会、隔柱刑冲）——见下方明细。`
+              : '点任一个字，高亮它牵动的全部关系（相邻生克、同柱耦合、三合三会、隔柱刑冲）。用=天干，外显的追求与取得资源的方式；体=地支，根基与藏蓄的能量。取象与喜忌判读需完整命局报告，可回八字排盘页查看。'}
           </p>
 
           {selected && (
