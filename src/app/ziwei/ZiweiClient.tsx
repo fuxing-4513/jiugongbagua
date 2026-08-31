@@ -5,8 +5,9 @@ import { astro } from 'iztro'
 import type { IFunctionalAstrolabe } from 'iztro/lib/astro/FunctionalAstrolabe'
 import { Iztrolabe } from 'react-iztro'
 import { getMaxDay, lunarToSolarDate, getYearLeapMonth } from '@/components/CalendarInput'
-import { analyzeSiHua, getWuXingJuMeaning } from '@/lib/ziwei-enrich'
+import { getWuXingJuMeaning, getSihuaDeep } from '@/lib/ziwei-enrich'
 import { detectPatterns as detectZwdPatterns, getMingGongSummary } from '@/lib/ziwei-zwd/patterns'
+import { polishPattern } from '@/lib/ziwei-zwd/pattern-polish'
 import { iztroToZiweiChart } from '@/lib/ziwei-zwd/adapter'
 import { ALL_BOOKS, searchClassics, TOTAL_PARAGRAPHS } from '@/lib/ziwei-zwd/classics'
 import LoadingSpinner from '@/components/LoadingSpinner'
@@ -246,15 +247,16 @@ export default function ZiweiClient() {
   // ── 古籍文库搜索 ──
   const clsHits = useMemo(() => searchClassics(clsQuery), [clsQuery])
 
-  // SiHua analysis
-  const sihuaAnalysis = (() => {
-    const list = bornSihua.map(s => ({
-      star: s.star,
-      hua: (s.label || '').replace('化', ''),
-      gong: ''
-    }));
-    return list.length > 0 ? analyzeSiHua(list) : null;
-  })()
+  // ── 四化深度（生年四化落宫 + 宫干飞化） ──
+  const sihuaDeep = useMemo(() => {
+    if (!result || !Array.isArray(result.palaces)) return null
+    try {
+      return getSihuaDeep(result.palaces as unknown as { name: string; heavenlyStem?: string; earthlyBranch?: string; majorStars?: { name: string; mutagen?: string }[]; minorStars?: { name: string; mutagen?: string }[]; adjectiveStars?: { name: string; mutagen?: string }[] }[], {
+        soulBranch: (result as Record<string, string>).earthlyBranchOfSoulPalace,
+        bodyBranch: (result as Record<string, string>).earthlyBranchOfBodyPalace,
+      })
+    } catch { return null }
+  }, [result])
 
   // ── Star descriptions ──
   const soulStarDescs = useMemo(() => {
@@ -462,6 +464,22 @@ export default function ZiweiClient() {
                                 {p.conditions?.breaking && p.conditions.breaking.length > 0 && (
                                   <p className="text-[10px] text-red-400/90 mt-0.5">⚠ 破格警示：{p.conditions.breaking.join('；')}</p>
                                 )}
+                                {(() => { const pol = polishPattern(p); return (
+                                  <div className="mt-2 pt-2 border-t border-dark-600/70 space-y-1.5">
+                                    <div>
+                                      <p className="text-[10px] font-semibold text-blue-300 mb-0.5">🧠 性格特质</p>
+                                      <p className="text-[11px] text-gray-300 leading-relaxed">{pol.traits}</p>
+                                    </div>
+                                    <div>
+                                      <p className="text-[10px] font-semibold text-cyan-300 mb-0.5">📈 人生运势</p>
+                                      <p className="text-[11px] text-gray-300 leading-relaxed">{pol.fortune}</p>
+                                    </div>
+                                    <div>
+                                      <p className="text-[10px] font-semibold text-amber-300 mb-0.5">💡 人生指导</p>
+                                      <p className="text-[11px] text-gray-300 leading-relaxed">{pol.guidance}</p>
+                                    </div>
+                                  </div>
+                                ) })()}
                               </div>
                             ))}
                           </div>
@@ -476,35 +494,100 @@ export default function ZiweiClient() {
             )}
 
             {activeTab === 'sihua' && (
-              sihuaAnalysis ? (
-                <>
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                    <div className="bg-dark-700/60 rounded-lg p-2.5 text-center">
-                      <p className="text-xs text-gray-500">化祿</p>
-                      <p className="font-semibold text-green-400 text-sm">{sihuaAnalysis.lu.star || '—'}</p>
-                      <p className="text-xs text-gray-400 mt-0.5">{sihuaAnalysis.lu.meaning ? sihuaAnalysis.lu.meaning.split('，').slice(1).join('，') : '—'}</p>
+              <div className="space-y-6">
+                {/* 四化心法 */}
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                  {[['禄', '财源机遇', 'text-green-400'], ['权', '掌控地位', 'text-purple-400'], ['科', '名声化解', 'text-blue-400'], ['忌', '欠缺执念', 'text-red-400']].map(([h, m, c]) => (
+                    <div key={h} className="bg-dark-700/50 rounded-lg p-2.5 text-center border border-dark-600">
+                      <p className={`text-sm font-bold ${c}`}>化{h}</p>
+                      <p className="text-[10px] text-gray-400 mt-0.5">{m}</p>
                     </div>
-                    <div className="bg-dark-700/60 rounded-lg p-2.5 text-center">
-                      <p className="text-xs text-gray-500">化權</p>
-                      <p className="font-semibold text-purple-400 text-sm">{sihuaAnalysis.quan.star || '—'}</p>
-                      <p className="text-xs text-gray-400 mt-0.5">{sihuaAnalysis.quan.meaning ? sihuaAnalysis.quan.meaning.split('，').slice(1).join('，') : '—'}</p>
+                  ))}
+                </div>
+
+                {/* 生年四化总览 */}
+                {sihuaDeep && sihuaDeep.born.length > 0 ? (
+                  <>
+                    <div>
+                      <h4 className="text-xs font-semibold text-gold-300 mb-2">生年四化总览</h4>
+                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                        {(['禄', '权', '科', '忌'] as const).map(h => {
+                          const item = sihuaDeep.born.find(b => b.hua === h)
+                          const color = h === '禄' ? 'text-green-400' : h === '权' ? 'text-purple-400' : h === '科' ? 'text-blue-400' : 'text-red-400'
+                          return (
+                            <div key={h} className="bg-dark-700/60 rounded-lg p-2.5 text-center border border-dark-600">
+                              <p className="text-[10px] text-gray-500">化{h}</p>
+                              <p className={`font-semibold text-sm ${item ? color : 'text-gray-600'}`}>{item ? `${item.star}` : '—'}</p>
+                              {item && <p className="text-[10px] text-gray-400 mt-0.5">落{item.palace}宫</p>}
+                            </div>
+                          )
+                        })}
+                      </div>
+                      <p className="text-xs text-gray-400 mt-2.5 leading-relaxed">{sihuaDeep.summary}</p>
                     </div>
-                    <div className="bg-dark-700/60 rounded-lg p-2.5 text-center">
-                      <p className="text-xs text-gray-500">化科</p>
-                      <p className="font-semibold text-blue-400 text-sm">{sihuaAnalysis.ke.star || '—'}</p>
-                      <p className="text-xs text-gray-400 mt-0.5">{sihuaAnalysis.ke.meaning ? sihuaAnalysis.ke.meaning.split('，').slice(1).join('，') : '—'}</p>
+
+                    {/* 四化落宫详解 */}
+                    <div>
+                      <h4 className="text-xs font-semibold text-gold-300 mb-2">四化落宫详解</h4>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                        {sihuaDeep.byPalace.map((g, i) => (
+                          <div key={i} className="bg-dark-700/50 rounded-lg p-3 border border-dark-600">
+                            <p className="text-[11px] font-semibold text-purple-300 mb-1.5">【{g.palace}】{g.branch}宫</p>
+                            <div className="space-y-1.5">
+                              {g.items.map((it, j) => {
+                                const color = it.hua === '禄' ? 'text-green-400' : it.hua === '权' ? 'text-purple-400' : it.hua === '科' ? 'text-blue-400' : 'text-red-400'
+                                return (
+                                  <div key={j} className="text-[11px] leading-relaxed">
+                                    <span className={`font-semibold ${color}`}>{it.star}化{it.hua}</span>
+                                    <span className="text-gray-400">：{it.meaning}</span>
+                                  </div>
+                                )
+                              })}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
                     </div>
-                    <div className="bg-dark-700/60 rounded-lg p-2.5 text-center">
-                      <p className="text-xs text-gray-500">化忌</p>
-                      <p className="font-semibold text-red-400 text-sm">{sihuaAnalysis.ji.star || '—'}</p>
-                      <p className="text-xs text-gray-400 mt-0.5">{sihuaAnalysis.ji.meaning ? sihuaAnalysis.ji.meaning.split('，').slice(1).join('，') : '—'}</p>
+                  </>
+                ) : (
+                  <p className="text-xs text-gray-500">本命盤無生年四化星（年份干支所化四化未落於十二宮星曜）。</p>
+                )}
+
+                {/* 宫干飞化 */}
+                {sihuaDeep && sihuaDeep.flying.length > 0 && (
+                  <div>
+                    <h4 className="text-xs font-semibold text-gold-300 mb-1">宫干飞化（飞星四化）</h4>
+                    <p className="text-[10px] text-gray-500 mb-2">以十二宫宫干起四化，化星「飞入」其所在宫位。命宫/身宫所在行已高亮——此生重心所在。</p>
+                    <div className="overflow-x-auto">
+                      <table className="w-full text-[11px] border-collapse">
+                        <thead>
+                          <tr className="bg-dark-700">
+                            <th className="p-1.5 border border-dark-600 text-gray-500 w-16">宫位</th>
+                            <th className="p-1.5 border border-dark-600 text-green-400">化禄</th>
+                            <th className="p-1.5 border border-dark-600 text-purple-400">化权</th>
+                            <th className="p-1.5 border border-dark-600 text-blue-400">化科</th>
+                            <th className="p-1.5 border border-dark-600 text-red-400">化忌</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {sihuaDeep.flying.map((f, i) => (
+                            <tr key={i} className={f.isSoul || f.isBody ? 'bg-gold-900/20' : i % 2 ? 'bg-dark-750' : ''}>
+                              <td className="p-1.5 border border-dark-600 text-purple-300 font-semibold whitespace-nowrap">
+                                {f.palace}（{f.stem}{f.branch}）{f.isSoul ? '·命' : ''}{f.isBody ? '·身' : ''}
+                              </td>
+                              {f.items.map((it, j) => (
+                                <td key={j} className="p-1.5 border border-dark-600 text-gray-300 whitespace-nowrap">
+                                  {it.star}→<span className="text-gray-500">{it.dest}</span>
+                                </td>
+                              ))}
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
                     </div>
                   </div>
-                  <p className="text-xs text-gray-400 text-center mt-3">{sihuaAnalysis.summary}</p>
-                </>
-              ) : (
-                <p className="text-xs text-gray-500">本命盤無四化星。</p>
-              )
+                )}
+              </div>
             )}
 
             {activeTab === 'stars' && (

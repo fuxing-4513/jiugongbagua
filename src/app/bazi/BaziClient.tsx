@@ -9,6 +9,7 @@ import { saveChart } from '@/lib/collections'
 import { calcTrueSolarTime, CHINA_CITIES } from '@/lib/solar-time'
 import { saveToHistory } from '@/lib/history'
 import { enrichBazi, type EnrichResult } from '@/lib/bazi-enrich'
+import SiZhuView from '@/components/SiZhuView'
 import LoadingSpinner from '@/components/LoadingSpinner'
 import Breadcrumb from '@/components/Breadcrumb'
 import { exportAsPng } from '@/utils/export-image'
@@ -636,7 +637,18 @@ export default function BaziClient() {
           className={`flex-1 min-w-[110px] px-4 py-3.5 rounded-xl text-base font-bold tracking-wider transition-all duration-200 shadow-lg ${activeTab==='yinzheng'?'bg-gradient-to-br from-amber-300 via-gold-400 to-gold-600 text-dark-900 shadow-[0_0_20px_rgba(251,191,36,0.4)] border border-amber-200/50 scale-105':'bg-dark-800 text-gray-200 border-2 border-gold-500/40 hover:border-gold-400/80 hover:bg-dark-700 hover:text-gold-200 hover:shadow-[0_0_15px_rgba(251,191,36,0.15)]'}`}>
           <span className="text-lg mr-1">🔄</span> 综合印证
         </button>
+        <button onClick={()=>setActiveTab('sizhu')}
+          className={`flex-1 min-w-[110px] px-4 py-3.5 rounded-xl text-base font-bold tracking-wider transition-all duration-200 shadow-lg ${activeTab==='sizhu'?'bg-gradient-to-br from-amber-300 via-gold-400 to-gold-600 text-dark-900 shadow-[0_0_20px_rgba(251,191,36,0.4)] border border-amber-200/50 scale-105':'bg-dark-800 text-gray-200 border-2 border-gold-500/40 hover:border-gold-400/80 hover:bg-dark-700 hover:text-gold-200 hover:shadow-[0_0_15px_rgba(251,191,36,0.15)]'}`}>
+          <span className="text-lg mr-1">🕸</span> 四柱视角
+        </button>
       </div>
+
+      {/* 四柱视角内容 */}
+      {activeTab === 'sizhu' && (
+        <SiZhuView pills={result.pills} dayun={result.dayun} gender={gender === '男' ? '男' : '女'}
+          mingGong={result.mingGong} shenGong={result.shenGong} taiYuan={result.taiYuan}
+          curAge={result.currentAge} />
+      )}
 
       {/* 经典分析内容 */}
       {activeTab === 'classic' && (<>

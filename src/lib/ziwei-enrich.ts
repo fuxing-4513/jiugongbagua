@@ -133,3 +133,144 @@ export function analyzeDaXian(daxianList: any[], curAge: number): DaXianAnalysis
     future: future ? { startAge: future.startAge, endAge: future.endAge, gong: future.gong || '', summary: `下個大限${future.startAge}-${future.endAge}歲${future.gong ? '，在'+future.gong : ''}` } : { startAge: 0, endAge: 0, gong: '', summary: '' },
   }
 }
+
+// ═══════════ 四化深度（2026-08-31 新增） ═══════════
+// 干系四化表（生年四化与宫干飞化共用）
+export const GAN_SIHUA: Record<string, { lu: string; quan: string; ke: string; ji: string }> = {
+  甲: { lu: '廉贞', quan: '破军', ke: '武曲', ji: '太阳' },
+  乙: { lu: '天机', quan: '天梁', ke: '紫微', ji: '太阴' },
+  丙: { lu: '天同', quan: '天机', ke: '文昌', ji: '廉贞' },
+  丁: { lu: '太阴', quan: '天同', ke: '天机', ji: '巨门' },
+  戊: { lu: '贪狼', quan: '太阴', ke: '右弼', ji: '天机' },
+  己: { lu: '武曲', quan: '贪狼', ke: '天梁', ji: '文曲' },
+  庚: { lu: '太阳', quan: '武曲', ke: '太阴', ji: '天同' },
+  辛: { lu: '巨门', quan: '太阳', ke: '文曲', ji: '文昌' },
+  壬: { lu: '天梁', quan: '紫微', ke: '左辅', ji: '武曲' },
+  癸: { lu: '破军', quan: '巨门', ke: '太阴', ji: '贪狼' },
+}
+
+// 四化本质含义
+export const HUA_MEANING: Record<string, string> = {
+  禄: '化禄：财源、机遇与福气，主顺遂得利',
+  权: '化权：掌控、地位与魄力，主掌权得势',
+  科: '化科：名声、化解与贵人，主声名清贵',
+  忌: '化忌：欠缺、执念与功课，主此宫为人生课题',
+}
+
+// 十二宫四化落宫含义（宫位 × 四化）
+export const PALACE_HUA_MEANING: Record<string, Record<string, string>> = {
+  命宫: { 禄: '一生际遇顺遂，多得众人助力，性格乐观进取', 权: '自我掌控欲强，有领袖气质，不甘人下', 科: '名声清贵，举止得体，多得贵人提携', 忌: '自我要求苛刻，易钻牛角尖，需学会放过自己' },
+  兄弟: { 禄: '手足相助，兄弟缘分深厚，合作得力', 权: '兄弟中有掌权能人，可借力', 科: '手足名声佳，家风和睦', 忌: '兄弟缘薄，易生计较，宜各自安好' },
+  夫妻: { 禄: '配偶带财，感情融洽，婚姻助力大', 权: '配偶强势能干，家中掌权', 科: '婚姻名声好，配偶得体大方', 忌: '感情执念深，易生口角，需多包容沟通' },
+  子女: { 禄: '子女缘佳，聪慧有福，晚年有靠', 权: '子女有出息，能独当一面', 科: '子女名声好，教育有成', 忌: '为子女操心劳神，教育宜松紧有度' },
+  财帛: { 禄: '财源广进，正财顺遂，赚钱机会多', 权: '理财有魄力，能掌财权，投资有决断', 科: '理财名声好，财路清白，稳中求进', 忌: '钱财易耗，宜守不宜攻，谨防冲动消费' },
+  疾厄: { 禄: '健康顺遂，少病少痛，恢复力强', 权: '体质强健，精力充沛', 科: '有病易愈，常遇良医，注重养生', 忌: '健康易出问题，需定期检查，劳逸结合' },
+  迁移: { 禄: '出外发展得利，贵人远来，异乡有成就', 权: '出外掌权，走动有成，见多识广', 科: '外出名声佳，交游广阔', 忌: '远行多阻，宜安土重迁，出行注意安全' },
+  仆役: { 禄: '朋友得力，人脉生财，团队合作顺', 权: '朋友中有领导人物，能借势而上', 科: '广结善缘，口碑好，以诚待人', 忌: '因友损财，慎防小人，交友宜慎' },
+  官禄: { 禄: '事业顺遂，升迁有望，工作得心应手', 权: '事业掌权，位高权重，管理能力强', 科: '事业名声佳，考试升迁多利', 忌: '事业多阻，压力较大，宜稳扎稳打' },
+  田宅: { 禄: '置业运佳，家宅兴旺，不动产运好', 权: '房产有掌控力，家中有话语权', 科: '家宅名声好，居家清雅', 忌: '家宅不宁，慎防搬迁损耗，注意家居安全' },
+  福德: { 禄: '精神富足，享福之命，内心安乐', 权: '内心强大，有主见，福由自造', 科: '心境平和，德望高，受人敬重', 忌: '内心焦虑，易多思虑，宜培养兴趣爱好' },
+  父母: { 禄: '父母助力，家境不错，长辈缘好', 权: '父母能干强势，家教严格', 科: '父母名声好，书香门第', 忌: '父母缘分淡，或为其操心，宜多尽孝' },
+}
+
+export interface SihuaDeepEntry {
+  star: string
+  hua: '禄' | '权' | '科' | '忌'
+  palace: string
+  meaning: string
+}
+
+interface PalaceLike {
+  name: string
+  heavenlyStem?: string
+  earthlyBranch?: string
+  majorStars?: { name: string; mutagen?: string }[]
+  minorStars?: { name: string; mutagen?: string }[]
+  adjectiveStars?: { name: string; mutagen?: string }[]
+}
+
+export interface SihuaDeepResult {
+  born: SihuaDeepEntry[]
+  byPalace: { palace: string; branch: string; items: SihuaDeepEntry[] }[]
+  flying: {
+    palace: string
+    branch: string
+    stem: string
+    items: { hua: '禄' | '权' | '科' | '忌'; star: string; dest: string }[]
+    isSoul: boolean
+    isBody: boolean
+  }[]
+  summary: string
+}
+
+export function getSihuaDeep(palaces: PalaceLike[], opts?: { soulBranch?: string; bodyBranch?: string }): SihuaDeepResult {
+  const allStars: { star: string; mutagen: string; palace: string }[] = []
+  for (const p of palaces) {
+    for (const arr of [p.majorStars, p.minorStars, p.adjectiveStars]) {
+      for (const s of arr || []) {
+        if (s.mutagen && (s.mutagen === '禄' || s.mutagen === '权' || s.mutagen === '科' || s.mutagen === '忌')) {
+          allStars.push({ star: s.name, mutagen: s.mutagen, palace: p.name })
+        }
+      }
+    }
+  }
+
+  const born: SihuaDeepEntry[] = allStars.map(x => ({
+    star: x.star, hua: x.mutagen as SihuaDeepEntry['hua'], palace: x.palace,
+    meaning: sihuaFullMeaning(x.star, x.mutagen, x.palace),
+  }))
+
+  const byPalace = palaces
+    .filter(p => allStars.some(x => x.palace === p.name))
+    .map(p => ({
+      palace: p.name,
+      branch: p.earthlyBranch || '',
+      items: allStars.filter(x => x.palace === p.name).map(x => ({
+        star: x.star, hua: x.mutagen as SihuaDeepEntry['hua'], palace: x.palace,
+        meaning: sihuaFullMeaning(x.star, x.mutagen, x.palace),
+      })),
+    }))
+
+  // 宫干飞化：以每宫天干起四化，化星飞入其所在宫位
+  const starPalaceMap: Record<string, string> = {}
+  for (const p of palaces) {
+    for (const arr of [p.majorStars, p.minorStars, p.adjectiveStars]) {
+      for (const s of arr || []) starPalaceMap[s.name] = p.name
+    }
+  }
+  const flying = palaces.map(p => {
+    const stem = p.heavenlyStem || ''
+    const t = GAN_SIHUA[stem]
+    const items = (t ? [['禄', t.lu], ['权', t.quan], ['科', t.ke], ['忌', t.ji]] as const : [])
+      .map(([hua, star]) => ({ hua, star, dest: starPalaceMap[star] || '—' }))
+    return {
+      palace: p.name,
+      branch: p.earthlyBranch || '',
+      stem,
+      items,
+      isSoul: opts?.soulBranch === p.earthlyBranch,
+      isBody: opts?.bodyBranch === p.earthlyBranch,
+    }
+  })
+
+  const parts: string[] = []
+  const lu = born.find(b => b.hua === '禄'), quan = born.find(b => b.hua === '权'), ke = born.find(b => b.hua === '科'), ji = born.find(b => b.hua === '忌')
+  if (lu) parts.push(`化禄${lu.star}入${lu.palace}`)
+  if (quan) parts.push(`化权${quan.star}入${quan.palace}`)
+  if (ke) parts.push(`化科${ke.star}入${ke.palace}`)
+  if (ji) parts.push(`化忌${ji.star}入${ji.palace}`)
+  let summary = ''
+  if (lu && quan && ke) summary = '禄权科三奇嘉会，富贵双全之命'
+  else if (lu && quan) summary = '禄权交驰，财权兼备'
+  else if (lu && ke) summary = '禄科双美，名利双收'
+  if (ji) summary = (summary ? summary + '；' : '') + `化忌在${ji.palace}宫，此宫即此生功课所在`
+  if (parts.length) summary = (summary ? summary + '。' : '') + '生年四化：' + parts.join('；')
+
+  return { born, byPalace, flying, summary }
+}
+
+function sihuaFullMeaning(star: string, hua: string, palace: string): string {
+  const starM = SI_HUA_MEANING[star]?.[hua] || `${star}化${hua}`
+  const palM = PALACE_HUA_MEANING[palace]?.[hua] || ''
+  return `${starM}。落${palace}宫：${palM}`
+}

@@ -3,6 +3,7 @@
 import { useState, useMemo, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import { computeBaziChart, type BaziChartResult, getPillarShenShaLabel } from '@/lib/bazi-engine';
+import SiZhuView from '@/components/SiZhuView';
 import { BRIGHTNESS, STAR_DESC, detectPatterns, type PatternDef } from '@/lib/ziwei-data';
 import CalendarInput, { type CalendarType, getMaxDay } from '@/components/CalendarInput';
 import { calcTrueSolarHour } from '@/lib/solar-time';
@@ -291,7 +292,7 @@ export default function AppClient() {
       )}
 
       {/* Results */}
-      {analyzed && baziResult && <BaziResultView result={baziResult} name={name} />}
+      {analyzed && baziResult && <BaziResultView result={baziResult} name={name} gender={gender as '男' | '女'} />}
       {analyzed && ziweiResult && <ZiweiResultView data={ziweiResult} name={name} />}
 
       {/* VIP 功能 — 目前为 UI 占位，待接入真实支付系统后启用 */}
@@ -311,9 +312,10 @@ export default function AppClient() {
 }
 
 /* ══════════════ Bazi Result View ══════════════ */
-function BaziResultView({ result, name }: { result: BaziChartResult; name: string }) {
+function BaziResultView({ result, name, gender }: { result: BaziChartResult; name: string; gender: '男' | '女' }) {
   const { pills, wx, str, shenSha, pillarShenSha, dayun, analysis, baziStr, birthYear, curAge } = result;
   const wxEntries = Object.entries(wx).sort((a,b) => b[1]-a[1]);
+  const [view, setView] = useState<'overview' | 'sizhu'>('overview');
 
   return (
     <section className="space-y-6">
@@ -323,6 +325,21 @@ function BaziResultView({ result, name }: { result: BaziChartResult; name: strin
         <p className="text-base font-bold text-gold-400 font-serif">{baziStr}</p>
       </div>
 
+      {/* 视图切换：经典解读 / 四柱视角 */}
+      <div className="flex gap-2 bg-dark-800/80 border border-dark-600 rounded-xl p-2">
+        <button onClick={() => setView('overview')}
+          className={`flex-1 px-4 py-2.5 rounded-lg text-sm font-semibold transition-all ${view === 'overview' ? 'bg-gold-500 text-dark-900 shadow-lg shadow-gold-400/30' : 'text-gray-400 hover:text-gold-500 border border-dark-600'}`}>
+          📜 经典解读
+        </button>
+        <button onClick={() => setView('sizhu')}
+          className={`flex-1 px-4 py-2.5 rounded-lg text-sm font-semibold transition-all ${view === 'sizhu' ? 'bg-gold-500 text-dark-900 shadow-lg shadow-gold-400/30' : 'text-gray-400 hover:text-gold-500 border border-dark-600'}`}>
+          🕸 四柱视角
+        </button>
+      </div>
+
+      {view === 'sizhu' && <SiZhuView pills={pills} dayun={dayun} gender={gender} curAge={curAge} />}
+
+      {view === 'overview' && (<>
       {/* 四柱命盘 */}
       <div className="bg-dark-800/80 border border-dark-600 rounded-xl p-4">
         <h3 className="text-sm font-semibold text-gold-300 font-serif mb-3 text-center">四柱命盘</h3>
@@ -471,6 +488,7 @@ function BaziResultView({ result, name }: { result: BaziChartResult; name: strin
           )}
         </div>
       </div>
+      </>)}
     </section>
   );
 }
