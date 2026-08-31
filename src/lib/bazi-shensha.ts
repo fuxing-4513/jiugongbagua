@@ -88,7 +88,7 @@ const XIAOHAO: Record<string,string> = {子:'辰',丑:'巳',寅:'午',卯:'未',
 const SIFEI_MONTH: Record<string,string> = {寅:'申酉',卯:'申酉',辰:'申酉', 巳:'亥子',午:'亥子',未:'亥子', 申:'寅卯',酉:'寅卯',戌:'寅卯', 亥:'巳午',子:'巳午',丑:'巳午'}
 const SHIE: Set<string> = new Set(['甲辰','乙巳','丙申','丁亥','戊戌','己丑','庚辰','辛巳','壬申','癸亥'])
 const KUI_GANG_RI: Set<string> = new Set(['庚辰','庚戌','壬辰','戊戌'])
-const GULUAN: Set<string> = new Set(['乙巳','丁巳','辛亥','戊申','甲寅'])
+const GULUAN: Set<string> = new Set(['乙巳','丁巳','辛亥','戊申','甲寅','戊午','壬子'])
 const YINYANG_CUO: Set<string> = new Set(['丙子','丁丑','戊寅','辛卯','壬辰','癸巳','丙午','丁未','戊申','辛酉','壬戌','癸亥'])
 const JINSHEN: Set<string> = new Set(['甲子','甲午','己卯','己酉'])
 const TUISHEN: Set<string> = new Set(['丁卯','丁酉','壬午','壬子'])
@@ -138,7 +138,7 @@ export function calcPillarShenSha(tg: string[], dz: string[], dayGan: string, da
     if (YUANCHEN[yZhi] === z) push(items, '元辰', '凶')
     if (DAHAO[yZhi] === z) push(items, '大耗', '凶')
     if (XIAOHAO[yZhi] === z) push(items, '小耗', '凶')
-    const gj = GOUJIAO[yZhi]; if (gj) { if (z === gj[0] || z === gj[1]) push(items, '勾神', '凶'); if (z === gj[1] || z === gj[2]) push(items, '绞煞', '凶') }
+    const gj = GOUJIAO[yZhi]; if (gj) { if (z === gj[0]) push(items, '勾神', '凶'); if (z === gj[1]) push(items, '绞煞', '凶') }
     if (ZAISHA[yZhi] === z) push(items, '灾煞', '凶')
     if (SUISHA[yZhi] === z) push(items, '岁煞', '凶')
     if (WANGSHEN[yZhi] === z) push(items, '亡神', '凶')
@@ -210,11 +210,11 @@ export function mergeShenSha(pillarShenSha: PillarShenSha[]): ShenShaItem[] {
   return all.length > 0 ? all : [{ name:'无特殊神煞', type:'中性', meaning:'此八字未见显著神煞入局。' }]
 }
 
-/** 神煞标签颜色 */
+/** 神煞标签颜色 — 黑白灰版面（2026-08-31 用户要求，避免彩色审美疲劳） */
 export const shenShaTagColor = (type: string) => {
-  if (type === '吉') return 'bg-gold-900/50 text-gold-300 border border-gold-700/50'
-  if (type === '凶') return 'bg-red-900/40 text-red-300 border border-red-700/40'
-  return 'bg-dark-700 text-gray-400 border border-dark-600'
+  if (type === '吉') return 'bg-gray-600/30 text-gray-100 border border-gray-500/40'
+  if (type === '凶') return 'bg-gray-800/80 text-gray-400 border border-gray-600/50'
+  return 'bg-gray-700/30 text-gray-400 border border-gray-600/40'
 }
 
 /** 神煞对性格的影响 — 单个效果 */

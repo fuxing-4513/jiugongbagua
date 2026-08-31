@@ -396,15 +396,10 @@ function BaziResultView({ result, name }: { result: BaziChartResult; name: strin
         {shenSha.length > 0 && shenSha[0].name !== '无特殊神煞' && (
           <div className="mt-3 space-y-1.5">
             {shenSha.map((s,i) => (
-              <div key={i} className={`text-xs p-2 rounded ${
-                s.type==='吉'?'bg-green-900/20 border border-green-700/30':
-                s.type==='凶'?'bg-red-900/20 border border-red-700/30':
-                'bg-dark-700/50 border border-dark-600'}`}>
-                <span className={
-                  s.type==='吉'?'text-green-400':s.type==='凶'?'text-red-400':'text-gray-300'
-                }>{s.type==='吉'?'🟢':s.type==='凶'?'🔴':'⚪'} {s.name}</span>
+              <div key={i} className="text-xs p-2 rounded bg-gray-700/30 border border-gray-600/40">
+                <span className="text-gray-200 font-medium">（{s.type}）{s.name}</span>
                 {s.meaning && <span className="text-gray-400 ml-1">— {s.meaning}</span>}
-                {s.resolve && <span className="text-amber-500/80 ml-1">💡 {s.resolve}</span>}
+                {s.resolve && <span className="text-gray-500 ml-1">✦ {s.resolve}</span>}
               </div>
             ))}
           </div>
