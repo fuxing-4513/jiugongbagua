@@ -3,17 +3,15 @@
 import React, { createContext, useContext, useState, useCallback } from 'react'
 import { zhCN, type Locale as LocaleCN } from './locales/zh-CN'
 import { zhTW, type Locale as LocaleTW } from './locales/zh-TW'
-import { en, type Locale as LocaleEN } from './locales/en'
 
-export type SupportedLocale = 'zh-CN' | 'zh-TW' | 'en'
+export type SupportedLocale = 'zh-CN' | 'zh-TW'
 
-const locales: Record<SupportedLocale, LocaleCN | LocaleTW | LocaleEN> = {
+const locales: Record<SupportedLocale, LocaleCN | LocaleTW> = {
   'zh-CN': zhCN,
   'zh-TW': zhTW,
-  'en': en,
 }
 
-type LocaleType = LocaleCN | LocaleTW | LocaleEN
+type LocaleType = LocaleCN | LocaleTW
 
 interface LocaleContextType {
   locale: SupportedLocale
@@ -27,7 +25,6 @@ const LocaleContext = createContext<LocaleContextType | null>(null)
 const localeNames: Record<SupportedLocale, string> = {
   'zh-CN': '简体中文',
   'zh-TW': '繁體中文',
-  'en': 'English',
 }
 
 const LOCALE_KEY = 'jiugong-locale'
@@ -37,7 +34,7 @@ function getLocaleFromUrl(): SupportedLocale | null {
   if (typeof window === 'undefined') return null
   try {
     const v = new URLSearchParams(window.location.search).get('lang')
-    if (v === 'zh-CN' || v === 'zh-TW' || v === 'en') return v
+    if (v === 'zh-CN' || v === 'zh-TW') return v
   } catch {}
   return null
 }
@@ -46,7 +43,7 @@ function getStoredLocale(): SupportedLocale {
   if (typeof window === 'undefined') return 'zh-CN'
   try {
     const v = localStorage.getItem(LOCALE_KEY)
-    if (v === 'zh-CN' || v === 'zh-TW' || v === 'en') return v
+    if (v === 'zh-CN' || v === 'zh-TW') return v
   } catch {}
   return 'zh-CN'
 }
