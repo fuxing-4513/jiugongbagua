@@ -62,22 +62,21 @@ export default function Nav() {
         </Link>
 
         {/* Desktop Nav */}
-        <div className="hidden lg:flex items-center gap-5">
-          <Link href="/" className="text-sm text-gray-600 hover:text-jade-500 transition-colors">
+        <div className="hidden lg:flex items-center gap-4">
+          <Link href="/" className="text-sm text-gray-600 hover:text-jade-500 transition-colors whitespace-nowrap">
             {getT('nav.home')}
           </Link>
 
-          <Link href="/bazi" className="text-sm text-gray-600 hover:text-jade-500 transition-colors">{getT('nav.bazi')}</Link>
-          <Link href="/ziwei" className="text-sm text-gray-600 hover:text-jade-500 transition-colors">{getT('nav.ziwei')}</Link>
-          <Link href="/liuyao" className="text-sm text-gray-600 hover:text-jade-500 transition-colors">{getT('nav.liuyao')}</Link>
-          <Link href="/huangli" className="text-sm text-gray-600 hover:text-jade-500 transition-colors">{getT('nav.huangli')}</Link>
+          <Link href="/tools" className="text-sm text-gray-600 hover:text-jade-500 transition-colors whitespace-nowrap">排盘推演</Link>
+          <Link href="/huangli" className="text-sm text-gray-600 hover:text-jade-500 transition-colors whitespace-nowrap">每日宜忌</Link>
+          <Link href="/xueguan" className="text-sm text-gray-600 hover:text-jade-500 transition-colors whitespace-nowrap">古籍书馆</Link>
 
-          {/* 更多工具 Dropdown */}
+          {/* 全部工具 Dropdown */}
           <div className="relative">
             <button
               onClick={() => setToolsOpen(!toolsOpen)}
-              className="text-sm text-gray-600 hover:text-jade-500 transition-colors flex items-center gap-1"
-              aria-label="更多工具"
+              className="text-sm text-gray-600 hover:text-jade-500 transition-colors flex items-center gap-1 whitespace-nowrap"
+              aria-label="全部工具"
               aria-expanded={toolsOpen}
             >
               {getT('nav.tools')}
@@ -104,15 +103,17 @@ export default function Nav() {
                       ))}
                     </div>
                   ))}
+                  <div className="mx-3 my-1 border-t border-gray-100" />
+                  <Link href="/tools" className="flex items-center gap-2 px-4 py-1.5 text-sm text-gold-600 hover:bg-gold-50 transition-colors" onClick={() => setToolsOpen(false)}>
+                    ✨ 排盘推演总览
+                  </Link>
                 </div>
               </>
             )}
           </div>
 
-          <Link href="/wenku" className="text-sm text-gray-600 hover:text-jade-500 transition-colors">{getT('nav.wenku')}</Link>
-          <Link href="/glossary" className="text-sm text-gray-600 hover:text-jade-500 transition-colors">{getT('nav.glossary')}</Link>
-          <Link href="/app" className="text-sm text-gold-600 hover:text-gold-500 transition-colors font-medium">{getT('nav.app')}</Link>
-          <Link href="/profile" className="text-sm text-gray-600 hover:text-jade-500 transition-colors" title="我的收藏">👤 我的</Link>
+          <Link href="/app" className="text-sm text-gold-600 hover:text-gold-500 transition-colors font-medium whitespace-nowrap">{getT('nav.app')}</Link>
+          <Link href="/profile" className="text-sm text-gray-600 hover:text-jade-500 transition-colors whitespace-nowrap" title="我的收藏">👤 我的</Link>
 
           {/* Language */}
           <div className="relative">
@@ -155,10 +156,9 @@ export default function Nav() {
         <div className="lg:hidden border-t border-gray-200 bg-white">
           <div className="px-4 py-3 space-y-2">
             <Link href="/" className="block py-2 text-sm text-gray-600 hover:text-jade-500" onClick={() => setMobileMenuOpen(false)}>{getT('nav.home')}</Link>
-            <Link href="/bazi" className="block py-2 text-sm text-gray-600 hover:text-jade-500" onClick={() => setMobileMenuOpen(false)}>{getT('nav.bazi')}</Link>
-            <Link href="/ziwei" className="block py-2 text-sm text-gray-600 hover:text-jade-500" onClick={() => setMobileMenuOpen(false)}>{getT('nav.ziwei')}</Link>
-            <Link href="/liuyao" className="block py-2 text-sm text-gray-600 hover:text-jade-500" onClick={() => setMobileMenuOpen(false)}>{getT('nav.liuyao')}</Link>
-            <Link href="/huangli" className="block py-2 text-sm text-gray-600 hover:text-jade-500" onClick={() => setMobileMenuOpen(false)}>{getT('nav.huangli')}</Link>
+            <Link href="/tools" className="block py-2 text-sm text-gray-600 hover:text-jade-500" onClick={() => setMobileMenuOpen(false)}>排盘推演</Link>
+            <Link href="/huangli" className="block py-2 text-sm text-gray-600 hover:text-jade-500" onClick={() => setMobileMenuOpen(false)}>每日宜忌</Link>
+            <Link href="/xueguan" className="block py-2 text-sm text-gray-600 hover:text-jade-500" onClick={() => setMobileMenuOpen(false)}>古籍书馆</Link>
             <div className="py-2">
               <p className="text-xs text-gray-500 mb-1">{getT('nav.tools')}</p>
               {toolCategories.map((cat, ci) => (
@@ -175,8 +175,6 @@ export default function Nav() {
                 </div>
               ))}
             </div>
-            <Link href="/wenku" className="block py-2 text-sm text-gray-600 hover:text-jade-500" onClick={() => setMobileMenuOpen(false)}>{getT('nav.wenku')}</Link>
-            <Link href="/glossary" className="block py-2 text-sm text-gray-600 hover:text-jade-500" onClick={() => setMobileMenuOpen(false)}>{getT('nav.glossary')}</Link>
             <Link href="/app" className="block py-2 text-sm text-gold-600 hover:text-gold-500 font-medium" onClick={() => setMobileMenuOpen(false)}>{getT('nav.app')}</Link>
             <Link href="/profile" className="block py-2 text-sm text-gray-600 hover:text-jade-500" onClick={() => setMobileMenuOpen(false)}>👤 我的收藏</Link>
             <Link href="/help" className="block py-2 text-sm text-gray-500 hover:text-jade-500" onClick={() => setMobileMenuOpen(false)}>{getT('nav.help')}</Link>

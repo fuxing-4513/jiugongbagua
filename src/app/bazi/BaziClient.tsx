@@ -803,7 +803,7 @@ Object.entries(result.wx).map(([w,c]): React.ReactNode =>(
       </div>
 {/* 命理批断 - 概述+古籍 */}
       <div className="bg-dark-800/80 rounded-xl border border-gold-500/30 p-4">
-        <h3 className="text-sm font-semibold text-gold-300 mb-3">📜 命理批断</h3>
+        <h3 className="text-sm font-semibold text-gold-300 mb-3">📜 决策参考 · 白话解读</h3>
         {result.analysis.general.map((s:string,i:number)=><p key={i} className="text-xs text-gray-300 mb-1.5 leading-relaxed">{s}</p>)}
         {result.analysis.classical.map((s:string,i:number)=><p key={i} className="text-xs text-amber-300 mb-1 font-medium leading-relaxed">{s}</p>)}
       </div>
@@ -841,7 +841,7 @@ Object.entries(result.wx).map(([w,c]): React.ReactNode =>(
       {/* 九宫深层分析内容 */}
       {activeTab === 'deep' && deepResult && (<>
         <div className="bg-dark-800/80 rounded-xl border border-gold-500/30 p-4">
-          <h3 className="text-sm font-semibold text-gold-300 mb-3">🔮 深度分析</h3>
+          <h3 className="text-sm font-semibold text-gold-300 mb-3">🔮 AI 深度解读</h3>
           <p className="text-xs text-gray-500 mb-3">涵盖六穿/六冲/三刑/暗合/破/三合/六合/出处共根/旺点/十神/断事/命主叙事</p>
 
           {/* 🏠 命主人生叙事 — 前置实战解读 */}

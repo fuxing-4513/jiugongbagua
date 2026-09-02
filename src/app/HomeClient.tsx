@@ -59,6 +59,10 @@ export default function HomeClient() {
           {getT('home.heroDesc')}
         </p>
         <ClassicQuotes />
+        {/* 信任条 */}
+        <p className="text-[11px] text-gray-500 tracking-widest mt-4">
+          {getT('home.trustBar')}
+        </p>
       </section>
 
       {/* ── 分隔线 ── */}
@@ -69,6 +73,41 @@ export default function HomeClient() {
 
       {/* ── 分隔线 ── */}
       <div className="w-16 h-px mx-auto bg-dark-500/40 my-14"></div>
+
+      {/* ===== 三大人生场景卡 ===== */}
+      <section className="mb-14">
+        <h2 className="text-xl font-semibold text-gold-600 font-serif mb-2 text-center">{getT('home.scenarios.title')}</h2>
+        <p className="text-center text-gray-500 text-sm mb-6">{getT('home.scenarios.subtitle')}</p>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {[
+            { key: 'career', emoji: '💼', href: '/bazi' },
+            { key: 'love', emoji: '💞', href: '/hehun' },
+            { key: 'risk', emoji: '🧭', href: '/app' },
+          ].map(s => (
+            <Link key={s.key} href={s.href}
+              className="group flex flex-col rounded-xl border border-dark-600/60 bg-gradient-to-b from-dark-800/90 to-dark-900/60 p-5 hover:border-violet-400/50 transition-all duration-200 hover:shadow-lg hover:shadow-violet-900/10">
+              <div className="text-2xl mb-3">{s.emoji}</div>
+              <h3 className="text-base font-semibold text-gray-100 group-hover:text-violet-300 transition-colors leading-snug mb-2">
+                {getT(`home.scenarios.${s.key}.question`)}
+              </h3>
+              <p className="text-xs text-gray-400 leading-relaxed mb-4 flex-1">
+                {getT(`home.scenarios.${s.key}.empathy`)}
+              </p>
+              <div className="flex flex-wrap gap-1 mb-4">
+                {getT(`home.scenarios.${s.key}.tags`).split('·').map((t: string) => (
+                  <span key={t} className="text-[10px] px-2 py-0.5 rounded-full border border-dark-500/60 text-gray-500">{t}</span>
+                ))}
+              </div>
+              <span className="text-xs font-medium text-gold-500 group-hover:text-gold-400 transition-colors">
+                {getT(`home.scenarios.${s.key}.cta`)} →
+              </span>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* ── 分隔线 ── */}
+      <div className="w-16 h-px mx-auto bg-dark-500/40 mb-14"></div>
 
       {/* ===== 十二生肖百科 ===== */}
       <section className="mb-14">
@@ -119,9 +158,11 @@ export default function HomeClient() {
         </Link>
       </section>
 
-      {/* ===== 全部工具 Grid ===== */}
+      {/* ===== 免费工具矩阵 ===== */}
       <section className="mb-14">
-        <h2 className="text-xl font-semibold text-gold-600 font-serif mb-4 text-center">🔮 全部工具</h2>
+        <h2 className="text-xl font-semibold text-gold-600 font-serif mb-2 text-center">✨ {getT('home.tools.title')}</h2>
+        <p className="text-center text-sm text-violet-300/80 mb-1">{getT('home.tools.subtitle')}</p>
+        <p className="text-center text-[10px] text-gray-600 mb-6">{getT('home.tools.footnote')}</p>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {modules.map((mod) => (
             <Link

@@ -438,7 +438,7 @@ function BaziResultView({ result, name, gender }: { result: BaziChartResult; nam
 
       {/* 命理批断 */}
       <div className="bg-dark-800/80 border border-dark-600 rounded-xl p-4">
-        <h3 className="text-sm font-semibold text-gold-300 font-serif mb-3 text-center">命理批断</h3>
+        <h3 className="text-sm font-semibold text-gold-300 font-serif mb-3 text-center">决策参考 · 白话解读</h3>
 
         <div className="space-y-4">
           {/* 概述 */}

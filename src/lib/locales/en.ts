@@ -1,9 +1,9 @@
 export const en = {
   site: {
     name: 'Nine Palaces Eight Trigrams',
-    tagline: 'AI Destiny · Classical Roots · Wisdom Passed On',
-    description: 'Traditional Chinese metaphysics platform offering Ba Zi, Zi Wei, Liu Yao, dream interpretation, name scoring, and more online services.',
-    disclaimer: 'For entertainment reference only',
+    tagline: 'AI Decision Engine · Classical Texts · Transparent Reasoning',
+    description: 'Chinese metaphysics decision reference platform: Bazi, Ziwei, Qimen & more, grounded in 135 classical texts with plain-language AI interpretation for situational insight',
+    disclaimer: 'Traditional metaphysics for cultural study · AI insights for reference only · Not professional medical, legal, or investment advice',
     copyright: '© 2026 Nine Palaces Eight Trigrams. All rights reserved.',
   },
   nav: {
@@ -28,11 +28,39 @@ export const en = {
   },
   home: {
     title: 'Nine Palaces Eight Trigrams',
-    subtitle: 'Ancient Wisdom · Modern Insight',
-    heroTitle: 'Trace the Threads of Destiny, Illuminate the Path of Life',
-    heroDesc: 'Following the scholarly lineages of Chen Xiyi, Shao Kangjie, Jing Fang and other masters, drawing from classics like "Di Tian Sui", "Zi Wei Dou Shu Complete Book", "I Ching", and "San Ming Tong Hui" — with AI delivering deep destiny readings.',
+    subtitle: 'AI Decision Engine · Classical Texts · Transparent Reasoning',
+    heroTitle: 'See your true situation at the critical moment',
+    heroDesc: 'Career crossroads, relationship puzzles, life turns — we don\'t hand you a fate, we help you see the energies and timing, so the decision stays yours.',
     heroQuote: 'Heaven moves with vigor; the noble one strives unceasingly for self-improvement.',
     heroQuoteSource: 'I Ching · Qian Hexagram',
+    trustBar: 'Sourced from classical texts · Fully transparent reasoning · Free AI insights · Birth data never stored',
+    scenarios: {
+      title: 'Which crossroads are you stuck at?',
+      subtitle: 'Three common life scenarios — see your real situation first',
+      career: {
+        question: 'Should you persist, or find a new wilderness?',
+        empathy: 'The desk lamp burning late can\'t show where to go next. See the energies you\'ve overlooked, align your talents with opportunity.',
+        tags: 'Potential · Trend · Timing',
+        cta: 'Check my career pattern',
+      },
+      love: {
+        question: 'Soulmate, or a trial of fate?',
+        empathy: 'The undercurrents in a relationship are never settled by a simple "compatible or not." Decode the energy field between you — and find the real window for communication.',
+        tags: 'Energy match · Bond depth · Communication',
+        cta: 'Check our compatibility',
+      },
+      risk: {
+        question: 'Avoid the reefs, or sail blind into the storm?',
+        empathy: 'Fate promises no smooth road, and sets no traps either. See the light and the undertow ahead — know when to rise with the tide, and when to hold.',
+        tags: 'Risk signals · Opportunity · Timing',
+        cta: 'Check my near-term trends',
+      },
+    },
+    tools: {
+      title: 'What would you like to explore today?',
+      subtitle: 'All free · Instant results · No sign-up needed',
+      footnote: '7,749 dream entries · 2,808 name character guides · 135 classical texts in full — all original content',
+    },
     shengxiao: 'Chinese Zodiac',
     shengxiaoDesc: 'Tap a zodiac sign to explore its origin, traits, symbolism, and fortune',
     allTools: 'All Tools',
@@ -118,7 +146,7 @@ export const en = {
     terms: 'Terms of Service',
     brandDesc: 'Ancient Wisdom × AI Technology',
     copyright: '© 2026 Nine Palaces Eight Trigrams. All rights reserved.',
-    disclaimer: 'For entertainment reference only — do not rely excessively',
+    disclaimer: 'Traditional metaphysics for cultural study · AI insights for reference only · Not professional medical, legal, or investment advice',
   },
   privacy: {
     title: 'Privacy Policy',
