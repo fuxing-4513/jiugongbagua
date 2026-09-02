@@ -1,0 +1,13 @@
+name = "jiugong-ai"
+main = "worker/index.js"
+compatibility_date = "2025-01-01"
+
+[observability]
+enabled = true
+
+# 限次计数用 KV（可选；无则跳过限次）
+# [[kv_namespaces]]
+# binding = "LIMIT_KV"
+# id = "填入你的 KV namespace id"
+
+# DeepSeek key 用 secret 注入：npx wrangler secret put DEEPSEEK_API_KEY

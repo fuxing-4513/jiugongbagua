@@ -56,7 +56,7 @@ export default function ExpertsClient() {
     setBookingId(id)
     setTimeout(() => {
       setBookingId(null)
-      alert(`已成功预约${experts.find(e => e.id === id)?.name}老师！客服将在24小时内与您联系。`)
+      alert(`预约成功！请添加 ${experts.find(e => e.id === id)?.name} 老师微信（见页面底部二维码/客服微信），发送您的命盘编号即可开始深度咨询。`)
     }, 300)
   }
 
@@ -76,8 +76,22 @@ export default function ExpertsClient() {
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-10">
-      <h1 className="text-3xl font-bold text-red-900 font-serif mb-3">{getT('modules.experts.name')}</h1>
-      <p className="text-gray-600 mb-8">{getT('modules.experts.desc')}</p>
+      <div className="text-center mb-8">
+        <h1 className="text-3xl font-bold text-red-900 font-serif mb-2">🎓 大师深度解读</h1>
+        <p className="text-sm text-gray-600 max-w-2xl mx-auto leading-relaxed">
+          AI 已帮你把命盘讲了个大概——但每个人生节点背后的取舍，值得一位经验丰富的顾问陪你把细节捋清楚。
+        </p>
+        <p className="text-[11px] text-gray-400 mt-2">咨询服务定位为「人生规划与决策参考」，明码标价、按需选择，绝不贩卖焦虑。</p>
+
+        {/* 三步流程 */}
+        <div className="mt-6 flex flex-wrap items-center justify-center gap-2 text-xs text-gray-500">
+          <span className="px-3 py-1.5 rounded-full bg-red-50 text-red-800 border border-red-100">① 免费 AI 排盘解读</span>
+          <span className="text-gray-300">→</span>
+          <span className="px-3 py-1.5 rounded-full bg-amber-50 text-amber-800 border border-amber-100">② 添加老师微信，发送你的命盘编号</span>
+          <span className="text-gray-300">→</span>
+          <span className="px-3 py-1.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-100">③ 预约时间，深度对话</span>
+        </div>
+      </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {experts.map((expert) => (

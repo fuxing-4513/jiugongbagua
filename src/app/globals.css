@@ -291,7 +291,28 @@ body {
   border: 1px solid rgba(120, 160, 140, 0.18);
 }
 
-/* ── 选中文字高亮 ── */
+/* ── 星云紫渐变光效（科技感点缀） ── */
+.text-aurora {
+  background: linear-gradient(92deg, #8b5cf6 0%, #6366f1 45%, #d4af37 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.glow-line {
+  background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.55), rgba(212, 175, 55, 0.5), transparent);
+}
+.glow-card-hover:hover {
+  box-shadow: 0 0 0 1px rgba(99, 102, 241, 0.25), 0 8px 30px rgba(99, 102, 241, 0.12);
+}
+/* 夜晚模式下的渐变保持亮度 */
+[data-theme='night'] .text-aurora {
+  background: linear-gradient(92deg, #a78bfa 0%, #818cf8 45%, #e0c25a 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ── 文本选中高亮 ── */
 ::selection {
   background: rgba(91, 140, 122, 0.25);
   color: #1a1a1a;

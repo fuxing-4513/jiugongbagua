@@ -4,6 +4,7 @@ import { useState, useMemo, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import { computeBaziChart, type BaziChartResult, getPillarShenShaLabel } from '@/lib/bazi-engine';
 import SiZhuView from '@/components/SiZhuView';
+import AIAskPanel from '@/components/AIAskPanel';
 import { BRIGHTNESS, STAR_DESC, detectPatterns, type PatternDef } from '@/lib/ziwei-data';
 import CalendarInput, { type CalendarType, getMaxDay } from '@/components/CalendarInput';
 import { calcTrueSolarHour } from '@/lib/solar-time';
@@ -487,6 +488,14 @@ function BaziResultView({ result, name, gender }: { result: BaziChartResult; nam
             </div>
           )}
         </div>
+      </div>
+      {/* AI 决策顾问（读取当前命盘） */}
+      <div className="mt-4">
+        <AIAskPanel
+          compact
+          chartContext={`四柱八字（${gender}造）：${['年', '月', '日', '时'].map((n, i) => `${n}柱 ${pills[i].gan}${pills[i].zhi}`).join('，')}；十神：${pills.map(p => p.ssG).join('、')}。请用白话做情境评估，忌恐吓词汇。`}
+          onOpenExpert={() => { try { (window as unknown as { location: Location }).location.href = '/experts' } catch {} }}
+        />
       </div>
       </>)}
     </section>

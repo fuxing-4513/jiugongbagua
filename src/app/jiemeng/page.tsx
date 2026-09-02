@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: '周公解梦大全在线查询，收录梦境类型解析，输入梦到的事物即可查看周公解梦释义、吉凶征兆与运势预示。',
   keywords: '周公解梦,梦境解析,梦到,解梦大全,梦的预兆',
   openGraph: { title: '周公解梦在线查询', description: '周公解梦大全在线查询，收录梦境类型解析，查看周公解梦释义、吉凶征兆。' },
-  alternates: { canonical: 'https://jiugongbagua.com/jiemeng', languages: { 'zh-CN': 'https://jiugongbagua.com/jiemeng', 'zh-TW': 'https://jiugongbagua.com/jiemeng?lang=zh-TW', 'en': 'https://jiugongbagua.com/jiemeng?lang=en' } },
+  alternates: { canonical: 'https://jiugongbagua.com/jiemeng', languages: { 'zh-CN': 'https://jiugongbagua.com/jiemeng', 'zh-TW': 'https://jiugongbagua.com/jiemeng?lang=zh-TW',  } },
 }
 
 export default function JiemengPage() {

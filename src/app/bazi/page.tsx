@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: 'https://jiugongbagua.com/bazi',
-    languages: { 'zh-CN': 'https://jiugongbagua.com/bazi', 'zh-TW': 'https://jiugongbagua.com/bazi?lang=zh-TW', 'en': 'https://jiugongbagua.com/bazi?lang=en' },
+    languages: { 'zh-CN': 'https://jiugongbagua.com/bazi', 'zh-TW': 'https://jiugongbagua.com/bazi?lang=zh-TW',  },
   },
 }
 

@@ -10,6 +10,8 @@ import { calcTrueSolarTime, CHINA_CITIES } from '@/lib/solar-time'
 import { saveToHistory } from '@/lib/history'
 import { enrichBazi, type EnrichResult } from '@/lib/bazi-enrich'
 import SiZhuView from '@/components/SiZhuView'
+import ClassicSource from '@/components/ClassicSource'
+import AIAskPanel from '@/components/AIAskPanel'
 import LoadingSpinner from '@/components/LoadingSpinner'
 import Breadcrumb from '@/components/Breadcrumb'
 import { exportAsPng } from '@/utils/export-image'
@@ -806,6 +808,21 @@ Object.entries(result.wx).map(([w,c]): React.ReactNode =>(
         <h3 className="text-sm font-semibold text-gold-300 mb-3">📜 决策参考 · 白话解读</h3>
         {result.analysis.general.map((s:string,i:number)=><p key={i} className="text-xs text-gray-300 mb-1.5 leading-relaxed">{s}</p>)}
         {result.analysis.classical.map((s:string,i:number)=><p key={i} className="text-xs text-amber-300 mb-1 font-medium leading-relaxed">{s}</p>)}
+        <ClassicSource
+          book="滴天髓"
+          section="通神论·天道第一"
+          quote={'「欲识三元万法宗，先观帝载与神功。坤元合德机缄通，五气偏全定吉凶。」「天道有寒暖，发育万物。人道得之，不可过也。」——本分析依四柱气象与五行流通判读，属传统命理框架，仅供参考。'}
+          link="/xueguan/mingli-bazi/ditian-sui/"
+        />
+      </div>
+
+      {/* AI 决策顾问（读取当前命盘） */}
+      <div className="mt-4">
+        <AIAskPanel
+          compact
+          chartContext={`四柱八字（${gender}造）：${['年', '月', '日', '时'].map((n, i) => `${n}柱 ${result.pills[i].gz}`).join('，')}；十神：${result.pills.map(p => p.ssG).join('、')}；命宫/身宫等详见盘面。请用白话做情境评估，忌恐吓词汇。`}
+          onOpenExpert={() => { try { (window as unknown as { location: Location }).location.href = '/experts' } catch {} }}
+        />
       </div>
 
       {/* 四大分析模块 */}

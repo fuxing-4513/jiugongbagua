@@ -65,8 +65,8 @@ export default function HomeClient() {
         </p>
       </section>
 
-      {/* ── 分隔线 ── */}
-      <div className="w-16 h-px mx-auto bg-dark-500/40 mb-12"></div>
+      {/* ── 分隔线（紫金光效） ── */}
+      <div className="w-40 h-px mx-auto glow-line mb-12"></div>
 
       {/* ===== 免费排盘 ===== */}
       <FreeChartWidget />

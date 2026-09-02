@@ -11,6 +11,7 @@ import { polishPattern } from '@/lib/ziwei-zwd/pattern-polish'
 import { iztroToZiweiChart } from '@/lib/ziwei-zwd/adapter'
 import { ALL_BOOKS, searchClassics, TOTAL_PARAGRAPHS } from '@/lib/ziwei-zwd/classics'
 import LoadingSpinner from '@/components/LoadingSpinner'
+import ClassicSource from '@/components/ClassicSource'
 import Breadcrumb from '@/components/Breadcrumb'
 import { exportAsPng } from '@/utils/export-image'
 import { saveToHistory } from '@/lib/history'
@@ -429,6 +430,12 @@ export default function ZiweiClient() {
 
             {activeTab === 'patterns' && (
               <>
+                <ClassicSource
+                  book="骨髓赋"
+                  section="紫微斗数·看命要诀"
+                  quote={'「看命之要，先看命宫。命宫主星定其格局，三方四正定其用武。次看身宫，身宫定其晚景与依归。再看大限流年，定其一生进退之节。」——格局判读依此要诀，属传统命理框架，仅供参考。'}
+                  link="/ziwei"
+                />
                 {mingSummary && (
                   <div className="bg-gold-900/15 border border-gold-500/30 rounded-lg p-4 mb-5">
                     <p className="text-sm text-gold-300 font-semibold mb-1">命宮總論 · {soulDisplayName}</p>
