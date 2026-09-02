@@ -104,6 +104,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           }}
         />
       </head>
+      {/* 主题初始化（防闪烁）：读 localStorage 在首帧前设置 data-theme */}
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `try{if(localStorage.getItem('jiugong-theme')==='night')document.documentElement.setAttribute('data-theme','night')}catch(e){}`,
+        }}
+      />
       <body className="min-h-screen flex flex-col">
         <LayoutClient>{children}</LayoutClient>
       </body>

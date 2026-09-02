@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useLocale, useT, type SupportedLocale } from '@/lib/i18n'
 
 const toolCategories: { label: string; items: { key: string; href: string; emoji?: string }[] }[] = [
@@ -36,7 +36,21 @@ export default function Nav() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [toolsOpen, setToolsOpen] = useState(false)
   const [langOpen, setLangOpen] = useState(false)
+  const [night, setNight] = useState(false)
   const getT = useT()
+
+  // 同步当前主题状态
+  useEffect(() => {
+    setNight(document.documentElement.getAttribute('data-theme') === 'night')
+  }, [])
+
+  const toggleTheme = () => {
+    const next = !night
+    setNight(next)
+    if (next) document.documentElement.setAttribute('data-theme', 'night')
+    else document.documentElement.removeAttribute('data-theme')
+    try { localStorage.setItem('jiugong-theme', next ? 'night' : 'light') } catch {}
+  }
 
   const handleLangChange = (lang: SupportedLocale) => {
     setLocale(lang)
@@ -115,6 +129,16 @@ export default function Nav() {
           <Link href="/app" className="text-sm text-gold-600 hover:text-gold-500 transition-colors font-medium whitespace-nowrap">{getT('nav.app')}</Link>
           <Link href="/profile" className="text-sm text-gray-600 hover:text-jade-500 transition-colors whitespace-nowrap" title="我的收藏">👤 我的</Link>
 
+          {/* 主题切换 */}
+          <button
+            onClick={toggleTheme}
+            className="text-sm text-gray-600 hover:text-jade-500 transition-colors flex items-center gap-1 border border-gray-300 rounded px-2 py-1"
+            aria-label={night ? '切换到白天模式' : '切换到夜晚模式'}
+            title={night ? '白天模式' : '夜晚模式'}
+          >
+            {night ? '☀️' : '🌙'}
+          </button>
+
           {/* Language */}
           <div className="relative">
             <button
@@ -155,7 +179,10 @@ export default function Nav() {
       {mobileMenuOpen && (
         <div className="lg:hidden border-t border-gray-200 bg-white">
           <div className="px-4 py-3 space-y-2">
-            <Link href="/" className="block py-2 text-sm text-gray-600 hover:text-jade-500" onClick={() => setMobileMenuOpen(false)}>{getT('nav.home')}</Link>
+            <div className="flex items-center justify-between">
+              <Link href="/" className="block py-2 text-sm text-gray-600 hover:text-jade-500" onClick={() => setMobileMenuOpen(false)}>{getT('nav.home')}</Link>
+              <button onClick={toggleTheme} className="text-lg px-2 py-1 rounded hover:bg-gray-100" aria-label="切换主题">{night ? '☀️ 白天' : '🌙 夜晚'}</button>
+            </div>
             <Link href="/tools" className="block py-2 text-sm text-gray-600 hover:text-jade-500" onClick={() => setMobileMenuOpen(false)}>排盘推演</Link>
             <Link href="/huangli" className="block py-2 text-sm text-gray-600 hover:text-jade-500" onClick={() => setMobileMenuOpen(false)}>每日宜忌</Link>
             <Link href="/xueguan" className="block py-2 text-sm text-gray-600 hover:text-jade-500" onClick={() => setMobileMenuOpen(false)}>古籍书馆</Link>

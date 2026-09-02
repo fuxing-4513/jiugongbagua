@@ -70,12 +70,103 @@
 html { scroll-behavior: smooth; }
 body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
 
-/* ── 全局背景 — 白色 ── */
+/* ── 全局背景（白天默认：米白；夜晚：深空灰） ── */
+:root {
+  --jg-bg: #faf9f6;
+  --jg-text: #2d2d3f;
+}
+[data-theme='night'] {
+  --jg-bg: #0d0f12;
+  --jg-text: #e6e8ee;
+}
 body {
   font-family: var(--font-sans);
-  background: #faf9f6;
-  color: #2d2d3f;
+  background: var(--jg-bg);
+  color: var(--jg-text);
+  transition: background .3s ease, color .3s ease;
 }
+
+/* ═══ 夜晚模式色板覆盖（Tailwind v4 @theme 变量 = CSS 变量，运行时切换） ═══ */
+[data-theme='night'] {
+  /* 背景/卡片系（原浅灰 → 深空灰梯度，方向保持：数值小=更深） */
+  --color-dark-950: #0b0d11;
+  --color-dark-900: #12151a;
+  --color-dark-850: #181c22;
+  --color-dark-800: #1e232b;
+  --color-dark-750: #252b35;
+  --color-dark-700: #2d343f;
+  --color-dark-600: #3a424f;
+  --color-dark-500: #4a5464;
+  /* 古金色系（原深金 → 亮金，暗底可读） */
+  --color-gold-300: #ecd27a;
+  --color-gold-400: #e0c25a;
+  --color-gold-500: #d4af37;
+  --color-gold-600: #c9a02c;
+  --color-gold-700: #b8922a;
+  --color-gold-900: #8a6d1f;
+  /* 青玉色变亮 */
+  --color-jade-300: #86d9bd;
+  --color-jade-400: #66c2a2;
+  --color-jade-500: #4faa8c;
+  --color-jade-600: #3e9178;
+  --color-jade-700: #337a65;
+}
+
+/* 夜晚：反转"浅色下压深"的文字修正（gray 文字在暗底用 Tailwind 原生亮灰） */
+[data-theme='night'] .text-gray-200,
+[data-theme='night'] .text-gray-300,
+[data-theme='night'] .text-gray-400 { color: #c7ced9 !important; }
+[data-theme='night'] .text-gray-500,
+[data-theme='night'] .text-gray-600 { color: #939cab !important; }
+[data-theme='night'] .text-gray-700,
+[data-theme='night'] .text-gray-800,
+[data-theme='night'] .text-gray-900 { color: #b6bfcc !important; }
+/* 夜晚：bg-dark 卡内灰字亮化 */
+[data-theme='night'] .bg-dark-950.text-gray-200,
+[data-theme='night'] .bg-dark-900.text-gray-200, [data-theme='night'] .bg-dark-850.text-gray-200,
+[data-theme='night'] .bg-dark-800.text-gray-200, [data-theme='night'] .bg-dark-750.text-gray-200,
+[data-theme='night'] .bg-dark-700.text-gray-200, [data-theme='night'] .bg-dark-600.text-gray-200,
+[data-theme='night'] .bg-dark-950.text-gray-300, [data-theme='night'] .bg-dark-900.text-gray-300,
+[data-theme='night'] .bg-dark-800.text-gray-300, [data-theme='night'] .bg-dark-750.text-gray-300,
+[data-theme='night'] .bg-dark-700.text-gray-300, [data-theme='night'] .bg-dark-600.text-gray-300,
+[data-theme='night'] .bg-dark-950.text-gray-400, [data-theme='night'] .bg-dark-900.text-gray-400,
+[data-theme='night'] .bg-dark-800.text-gray-400, [data-theme='night'] .bg-dark-750.text-gray-400,
+[data-theme='night'] .bg-dark-700.text-gray-400, [data-theme='night'] .bg-dark-600.text-gray-400 {
+  color: #c7ced9 !important;
+}
+[data-theme='night'] .bg-dark-950.text-gray-500,
+[data-theme='night'] .bg-dark-900.text-gray-500, [data-theme='night'] .bg-dark-800.text-gray-500,
+[data-theme='night'] .bg-dark-700.text-gray-500, [data-theme='night'] .bg-dark-600.text-gray-500 {
+  color: #939cab !important;
+}
+/* 夜晚：gold 亮化 */
+[data-theme='night'] .text-gold-300,
+[data-theme='night'] .text-gold-400,
+[data-theme='night'] .text-gold-500 { color: #e0c25a !important; }
+[data-theme='night'] .bg-gold-50 { background: rgba(212, 175, 55, 0.12) !important; }
+[data-theme='night'] .bg-gold-100 { background: rgba(212, 175, 55, 0.18) !important; }
+/* 夜晚：白色卡片/元素反转 */
+[data-theme='night'] .bg-white { background: #1e232b !important; }
+[data-theme='night'] .border-gray-100 { border-color: #2d343f !important; }
+[data-theme='night'] .border-gray-200 { border-color: #333a46 !important; }
+[data-theme='night'] .border-gray-300 { border-color: #3a424f !important; }
+[data-theme='night'] .hover\:bg-gray-100:hover { background: #262c36 !important; }
+[data-theme='night'] .hover\:bg-gold-50:hover { background: rgba(212, 175, 55, 0.12) !important; }
+[data-theme='night'] .bg-jade-50 { background: rgba(79, 170, 140, 0.12) !important; }
+[data-theme='night'] .bg-gray-50 { background: #1a1f27 !important; }
+[data-theme='night'] .bg-gray-100 { background: #222833 !important; }
+/* 夜晚：面板与叠加层 */
+[data-theme='night'] .glass-panel {
+  background: rgba(18, 21, 26, 0.75);
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.4);
+}
+[data-theme='night'] .cosmic-overlay { opacity: 0.25; }
+[data-theme='night'] ::-webkit-scrollbar-track { background: #15181e; }
+[data-theme='night'] ::-webkit-scrollbar-thumb { background: #3a424f; }
+[data-theme='night'] .skeleton { background: linear-gradient(90deg, #1a1f27 25%, #222833 50%, #1a1f27 75%); background-size: 200% 100%; }
+/* 夜晚：文本选中 */
+[data-theme='night'] ::selection { background: rgba(103, 146, 201, 0.35); color: #fff; }
 
 /* ── 浅色背景下文字颜色修正 ── */
 /* 白色/浅灰背景：所有灰色文字调深以保证可读性 */
