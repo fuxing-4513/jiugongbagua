@@ -1,5 +1,5 @@
-// AI Worker 配置（部署后填入实际 URL）
-export const AI_WORKER_URL = 'https://jiugong-ai.example.workers.dev'
+// AI Worker 配置
+export const AI_WORKER_URL = 'https://jiugong-ai.4513.workers.dev'
 
 // 每日免费次数（localStorage 计数，按设备）
 const LIMIT_KEY = 'jiugong-ai-limit'
