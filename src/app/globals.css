@@ -573,10 +573,10 @@ body {
   pointer-events: none;
   z-index: 0;
 }
-.jg-blob-violet { background: #6366f1; opacity: 0.16; }
-.jg-blob-gold { background: #d4af37; opacity: 0.1; }
-.jg-blob-cyan { background: #00f2fe; opacity: 0.06; }
-.jg-blob-purple { background: #7b2cbf; opacity: 0.14; }
+.jg-blob-violet { background: #6366f1; opacity: 0; }
+.jg-blob-gold { background: #d4af37; opacity: 0; }
+.jg-blob-cyan { background: #00f2fe; opacity: 0; }
+.jg-blob-purple { background: #7b2cbf; opacity: 0; }
 [data-theme='night'] .jg-blob-violet { background: #7b2cbf; opacity: 0.35; }
 [data-theme='night'] .jg-blob-gold { opacity: 0.16; }
 [data-theme='night'] .jg-blob-cyan { opacity: 0.13; }
