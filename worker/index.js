@@ -1,12 +1,27 @@
 /**
- * 九宫 AI 决策对话 Worker
+ * 九宫 AI 决策对话 Worker（安全加固版）
  * 端点：
- *   POST /api/chat     多轮对话（DeepSeek 流式 SSE）{ messages, chart, anchors }
- *   POST /api/evaluate 排盘结果情境评估 { chart, analysis, refs }
- * 安全：DEEPSEEK_API_KEY 存为 Worker Secret；仅允许站点来源；简单限次（基于客户端标识的 KV 计数，无 KV 时降级）
+ *   POST /api/chat     多轮对话（DeepSeek 流式 SSE）
+ *   POST /api/evaluate 排盘结果情境评估
+ *   GET  /api/balance  余额查询（需 Authorization: Bearer <ADMIN_TOKEN>）
+ *   GET  /api/usage    当日用量统计（需 ADMIN_TOKEN）
+ *
+ * 安全设计：
+ *   1. DEEPSEEK_API_KEY 仅存 Worker Secret，永不下发前端
+ *   2. 来源白名单：仅允许本站域名（浏览器跨域请求带 Origin）
+ *   3. 同 IP 每分钟限 10 次（KV）
+ *   4. 全站每日熔断：当日累计调用达上限(DAILY_CALL_LIMIT)即拒绝——盗刷损失封顶
+ *   5. 管理端点需 ADMIN_TOKEN
  */
 const DS_URL = 'https://api.deepseek.com/chat/completions'
+const DS_BALANCE_URL = 'https://api.deepseek.com/user/balance'
 const DS_MODEL = 'deepseek-chat'
+
+// ── 风控参数 ──
+const ALLOWED_ORIGINS = ['https://jiugongbagua.com', 'https://www.jiugongbagua.com', 'http://localhost:3000', 'http://localhost:3001']
+const DAILY_CALL_LIMIT = 300   // 全站每日调用上限（熔断值；正常免费 5 次/人·天，300 次约够 60 活跃用户，可按需调大）
+const IP_MIN_LIMIT = 10        // 同 IP 每分钟上限
+const ADMIN_TOKEN = 'ADMIN_TOKEN_PLACEHOLDER' // 会被 wrangler secret 覆盖
 
 const SYSTEM_PROMPT = `你是「九宫」AI 命理决策顾问——一个把传统命理当作决策参考框架的助手，不是算命先生。
 
@@ -17,64 +32,114 @@ const SYSTEM_PROMPT = `你是「九宫」AI 命理决策顾问——一个把传
 4. 涉及重大决策（医疗、法律、投资、婚恋）时提醒用户理性判断、多方参考。
 5. 输出用简体中文，分段清晰，每段不超过 3 行。`
 
-const DEFAULT_MESSAGES = [
-  { role: 'system', content: SYSTEM_PROMPT },
-]
-
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url)
+    const method = request.method
 
-    // CORS
-    const cors = {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'POST, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type',
-      'Access-Control-Max-Age': '86400',
+    // CORS 预检（收紧 Allow-Origin：动态回显合法来源）
+    if (method === 'OPTIONS') {
+      const origin = request.headers.get('Origin') || ''
+      const allowOrigin = ALLOWED_ORIGINS.includes(origin) ? origin : 'https://www.jiugongbagua.com'
+      return new Response(null, {
+        status: 204,
+        headers: {
+          'Access-Control-Allow-Origin': allowOrigin,
+          'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
+          'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+          'Access-Control-Max-Age': '86400',
+        },
+      })
     }
-    if (request.method === 'OPTIONS') return new Response(null, { status: 204, headers: cors })
 
-    if (request.method !== 'POST') return new Response('Not Found', { status: 404 })
+    // ── 管理端点（需 ADMIN_TOKEN）──
+    const authHeader = request.headers.get('Authorization') || ''
+    const token = (env.ADMIN_TOKEN || ADMIN_TOKEN)
+    if (url.pathname === '/api/balance' || url.pathname === '/api/usage') {
+      if (authHeader !== `Bearer ${token}`) return Response.json({ error: 'unauthorized' }, { status: 401 })
+      if (!env.DEEPSEEK_API_KEY) return Response.json({ error: 'DEEPSEEK_API_KEY 未配置' }, { status: 500 })
+      if (url.pathname === '/api/balance') return fetchBalance(env)
+      return fetchUsage(env)
+    }
 
-    // 简单防滥用：同 IP 每分钟 10 次（无 KV 时仅日志）
-    let quotaOk = true
+    // ── 业务端点：仅 POST ──
+    if (method !== 'POST') return new Response('Not Found', { status: 404 })
+
+    // 1) 来源白名单（非浏览器/伪造来源一律拒绝）
+    const origin = request.headers.get('Origin') || ''
+    const referer = request.headers.get('Referer') || ''
+    const fromAllowed = ALLOWED_ORIGINS.some(o => origin === o || referer.startsWith(o))
+    if (!fromAllowed) {
+      return Response.json({ error: '来源不被允许' }, { status: 403, headers: corsHeader(origin) })
+    }
+    if (!env.DEEPSEEK_API_KEY) return Response.json({ error: '服务未配置完成' }, { status: 500, headers: corsHeader(origin) })
+
+    // 2) KV 风控（无 KV 时放行——生产必须绑定）
     if (env.LIMIT_KV) {
-      const ip = request.headers.get('CF-Connecting-IP') || 'anon'
-      const key = `limit:${ip}`
       const now = Date.now()
-      const rec = await env.LIMIT_KV.get(key, 'json').catch(() => null)
-      const list = (rec && Array.isArray(rec.ts) ? rec.ts : []).filter(t => now - t < 60000)
-      if (list.length >= 10) quotaOk = false
-      else {
-        list.push(now)
-        await env.LIMIT_KV.put(key, JSON.stringify({ ts: list }), { expirationTtl: 120 }).catch(() => {})
+      const ip = request.headers.get('CF-Connecting-IP') || 'anon'
+
+      // 2a) 同 IP 每分钟限次
+      const ipKey = `ip:${ip}`
+      const ipRec = await env.LIMIT_KV.get(ipKey, 'json').catch(() => null)
+      const tsList = (ipRec && Array.isArray(ipRec.ts) ? ipRec.ts : []).filter(t => now - t < 60000)
+      if (tsList.length >= IP_MIN_LIMIT) {
+        return Response.json({ error: '请求过于频繁，请稍后再试' }, { status: 429, headers: corsHeader(origin) })
       }
-    }
-    if (!quotaOk) return Response.json({ error: '请求过于频繁，请稍后再试' }, { status: 429, headers: cors })
 
+      // 2b) 全站每日熔断
+      const dayKey = `day:${new Date().toISOString().slice(0, 10)}`
+      const dayRec = await env.LIMIT_KV.get(dayKey, 'json').catch(() => null)
+      const dayCount = (dayRec && typeof dayRec.n === 'number') ? dayRec.n : 0
+      if (dayCount >= DAILY_CALL_LIMIT) {
+        return Response.json({ error: '今日 AI 额度已用完，请明天再来' }, { status: 429, headers: corsHeader(origin) })
+      }
+
+      // 计数（尽力而为，失败不阻断）
+      tsList.push(now)
+      await env.LIMIT_KV.put(ipKey, JSON.stringify({ ts: tsList }), { expirationTtl: 120 }).catch(() => {})
+      await env.LIMIT_KV.put(dayKey, JSON.stringify({ n: dayCount + 1 }), { expirationTtl: 90000 }).catch(() => {})
+    }
+
+    // 3) 路由
     let body
-    try { body = await request.json() } catch { return Response.json({ error: 'bad json' }, { status: 400, headers: cors }) }
+    try { body = await request.json() } catch { return Response.json({ error: 'bad json' }, { status: 400, headers: corsHeader(origin) }) }
 
-    const path = url.pathname
-    if (path === '/api/chat') {
-      return handleChat(body, env, cors)
-    }
-    if (path === '/api/evaluate') {
-      return handleEvaluate(body, env, cors)
-    }
-    return Response.json({ error: 'unknown endpoint' }, { status: 404, headers: cors })
+    if (url.pathname === '/api/chat') return handleChat(body, env, corsHeader(origin))
+    if (url.pathname === '/api/evaluate') return handleEvaluate(body, env, corsHeader(origin))
+    return Response.json({ error: 'unknown endpoint' }, { status: 404, headers: corsHeader(origin) })
   },
+}
+
+function corsHeader(origin) {
+  return {
+    'Access-Control-Allow-Origin': ALLOWED_ORIGINS.includes(origin) ? origin : 'https://www.jiugongbagua.com',
+    'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+  }
+}
+
+async function fetchBalance(env) {
+  const resp = await fetch(DS_BALANCE_URL, {
+    headers: { 'Authorization': `Bearer ${env.DEEPSEEK_API_KEY}` },
+  })
+  const j = await resp.json().catch(() => ({}))
+  return Response.json(j)
+}
+
+async function fetchUsage(env) {
+  const dayKey = `day:${new Date().toISOString().slice(0, 10)}`
+  const dayRec = await env.LIMIT_KV.get(dayKey, 'json').catch(() => null)
+  const dayCount = (dayRec && typeof dayRec.n === 'number') ? dayRec.n : 0
+  return Response.json({ today: dayCount, limit: DAILY_CALL_LIMIT })
 }
 
 async function handleChat(body, env, cors) {
   const messages = Array.isArray(body.messages) ? body.messages : []
   if (messages.length === 0) return Response.json({ error: '缺少消息' }, { status: 400, headers: cors })
 
-  // 拼装上下文：命盘摘要 + 时间轴锚定（可选）
   let context = ''
-  if (body.chart) {
-    context += `\n\n【当前命盘摘要】\n${String(body.chart).slice(0, 1500)}`
-  }
+  if (body.chart) context += `\n\n【当前命盘摘要】\n${String(body.chart).slice(0, 1500)}`
   if (Array.isArray(body.anchors) && body.anchors.length) {
     context += `\n\n【用户提供的人生节点（用于校准推断，勿重复追问）】\n${body.anchors.map((a, i) => `${i + 1}. ${String(a).slice(0, 200)}`).join('\n')}`
   }
@@ -106,14 +171,11 @@ async function handleEvaluate(body, env, cors) {
 }
 
 async function streamDeepSeek(messages, env, cors) {
-  const key = env.DEEPSEEK_API_KEY
-  if (!key) return Response.json({ error: '服务未配置完成' }, { status: 500, headers: cors })
-
   const upstream = await fetch(DS_URL, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${key}`,
+      'Authorization': `Bearer ${env.DEEPSEEK_API_KEY}`,
     },
     body: JSON.stringify({
       model: DS_MODEL,
@@ -129,7 +191,6 @@ async function streamDeepSeek(messages, env, cors) {
     return Response.json({ error: `上游错误 ${upstream.status}`, detail: errText.slice(0, 200) }, { status: 502, headers: cors })
   }
 
-  // 透传 SSE 流
   return new Response(upstream.body, {
     status: 200,
     headers: {
