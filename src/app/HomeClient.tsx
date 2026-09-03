@@ -66,10 +66,61 @@ const quickTools = [
   { emoji: '♈', name: '星座', href: '/xingzuo' },
 ]
 
+// ── 三大痛点场景卡（九宫语：决策参考·去宿命化·共情） ──
+const scenarioCards = [
+  {
+    q: '该坚持，还是该转身？',
+    empathy: '不甘心的人才会问这个问题。你的大运走到哪一步、流年推着哪颗星——时机这件事，古人琢磨了三千年。',
+    cta: '看我的大运周期',
+    href: '/bazi',
+  },
+  {
+    q: '对的人，还是错的时间？',
+    empathy: '合盘不是算谁配谁，是看两个人的能量在哪里重叠、在哪里错位——把隐秘的羁绊摊开，很多纠结自然就懂了。',
+    cta: '看双人能量场',
+    href: '/hehun',
+  },
+  {
+    q: '往前冲，还是先稳住？',
+    empathy: '命运不设坦途，也不埋陷阱。关键是看清眼前是风口还是暗礁——古籍教人知进退，从不教人认命。',
+    cta: '看近期进退节律',
+    href: '/app',
+  },
+]
+
+// ── 首页 FAQ（打消顾虑：原理/用法/隐私） ──
+const faqItems = [
+  {
+    q: '命理分析的结果，应该怎么看？',
+    a: '把它当「决策参考」，别当「判决书」。命盘是古人观察人生命运周期的经验框架——同一种格局，有人乘风而起，有人困守原地，差别全在后天的选择与行动。平台结论只做情境提示，重大决定请综合理性判断。',
+  },
+  {
+    q: '九宫和市面上的免费算命软件，有什么区别？',
+    a: '三点：① 依据不同——我们直接溯源 135 部公版古籍全文（滴天髓/紫微斗数全书/三命通会等），不做网络二手内容的搬运；② 过程透明——结论附古籍依据可展开核对，不是黑盒；③ 内容原创——解梦 7,749 词条、姓名详解等均为逐条整理编写。',
+  },
+  {
+    q: '我不懂专业术语，能看懂吗？',
+    a: '能。结果页以白话解读为主，术语都有通俗解释；四柱视角用图表呈现干支关系，直观不烧脑。想深入时再展开「专业模式」看星曜、十神等盘面细节。',
+  },
+  {
+    q: 'AI 真的能理解「命运」吗？',
+    a: '坦诚说：AI 不通灵。它是「古籍推理框架 + 你的命盘数据」的运算助手——把传统命理的分析逻辑跑一遍，再用白话讲给你听。它的价值在帮你梳理处境、看见盲区，而非预测未来。',
+  },
+  {
+    q: '我的出生日期等隐私安全吗？',
+    a: '安全。① 排盘计算在你的浏览器本地完成，生辰不上传服务器；② 即使使用 AI 对话，也只发送必要的命盘摘要，服务端不留存对话记录；③ 网站不注册、不收集个人身份信息。',
+  },
+  {
+    q: '用九宫要收费吗？大师咨询怎么算？',
+    a: '基础功能全部免费：八字/紫微排盘、白话解读、每日宜忌、解梦、姓名等。大师深度咨询明码标价、按次沟通，价格与流程在「大师深度解读」页公开，绝无隐藏消费。',
+  },
+]
+
 export default function HomeClient() {
   const getT = useT()
   const router = useRouter()
   const [aiQ, setAiQ] = useState('')
+  const [openFaq, setOpenFaq] = useState<number | null>(0)
 
   const askAi = (e: React.FormEvent) => {
     e.preventDefault()
@@ -91,11 +142,28 @@ export default function HomeClient() {
             {/* 左：文案 + AI 输入 */}
             <div>
               <span className="jg-chip mb-5">✦ AI 时空决策引擎 · 古籍原典 · 135 部全文</span>
-              <h1 className="text-3xl md:text-5xl font-bold text-gray-900 dark:text-gray-50 leading-tight mb-4">
+              <h1 className="text-3xl md:text-5xl font-bold text-gray-900 dark:text-gray-50 leading-tight mb-6">
                 在关键时刻，
                 <br />
                 <span className="jg-text-grad">看清真实处境</span>
               </h1>
+
+              {/* ═══ 三大痛点场景（先共情，再给方法） ═══ */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
+                {scenarioCards.map(s => (
+                  <Link key={s.href} href={s.href}
+                    className="group jg-card-plain p-3.5 hover:!border-violet-400/50 transition-colors flex flex-col">
+                    <p className="text-[13px] font-bold text-gray-800 dark:text-gray-100 leading-snug mb-1.5 group-hover:text-violet-600 dark:group-hover:text-violet-300 transition-colors">
+                      {s.q}
+                    </p>
+                    <p className="text-[11px] text-gray-500 dark:text-gray-400 leading-relaxed mb-2.5 flex-1">
+                      {s.empathy}
+                    </p>
+                    <span className="text-[10px] font-medium jg-text-accent">{s.cta} →</span>
+                  </Link>
+                ))}
+              </div>
+
               <p className="text-base md:text-lg text-gray-600 dark:text-gray-300 max-w-xl mb-5 leading-relaxed">
                 事业进退、感情迷局、人生转折——不给你宿命断言，
                 只帮你照见能量与时机，<span className="font-medium text-gray-800 dark:text-gray-100">理性做出你自己的决定</span>。
@@ -226,6 +294,36 @@ export default function HomeClient() {
         {/* ════ 学派源流（精简） ════ */}
         <section className="mb-14">
           <HeritageSection />
+        </section>
+
+        {/* ════ 常见问题（打消顾虑：原理/用法/隐私） ════ */}
+        <section className="mb-14">
+          <div className="text-center mb-6">
+            <h2 className="text-xl font-bold text-gray-900 dark:text-gray-50 mb-1.5">常见问题</h2>
+            <p className="text-xs text-gray-500 dark:text-gray-400">关于九宫八卦的技术原理、使用方式与数据安全——你关心的，我们坦诚答</p>
+          </div>
+          <div className="max-w-2xl mx-auto space-y-2.5">
+            {faqItems.map((f, i) => (
+              <div key={i} className="jg-card-plain overflow-hidden">
+                <button
+                  onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                  className="w-full flex items-center justify-between gap-3 px-4 py-3.5 text-left"
+                  aria-expanded={openFaq === i}
+                >
+                  <span className="text-sm font-medium text-gray-800 dark:text-gray-100">{f.q}</span>
+                  <span className={`text-violet-500 dark:text-violet-300 text-xs transition-transform duration-200 ${openFaq === i ? 'rotate-45' : ''}`}>＋</span>
+                </button>
+                {openFaq === i && (
+                  <p className="px-4 pb-4 text-xs text-gray-600 dark:text-gray-400 leading-relaxed border-t border-gray-100 dark:border-gray-800 pt-3">
+                    {f.a}
+                  </p>
+                )}
+              </div>
+            ))}
+          </div>
+          <p className="text-center mt-4">
+            <Link href="/faq" className="text-xs jg-text-accent hover:underline">还有疑问？查看完整 FAQ →</Link>
+          </p>
         </section>
       </div>
     </>
