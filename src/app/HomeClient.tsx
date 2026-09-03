@@ -2,13 +2,14 @@
 
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { useLocale, useT } from '@/lib/i18n'
 
+import RotatingCompass from '@/components/visual/RotatingCompass'
+import TaijiOrbit from '@/components/visual/TaijiOrbit'
+import StarField from '@/components/visual/StarField'
 import HeritageSection from '@/components/HeritageSection'
-import ClassicQuotes from '@/components/ClassicQuotes'
-import BottomCTA from '@/components/BottomCTA'
 import CalendarInput, { type CalendarType, getMaxDay, lunarToSolarDate } from '@/components/CalendarInput'
-
 
 interface ModuleInfo {
   key: string
@@ -36,171 +37,217 @@ const modules: ModuleInfo[] = [
   { key: 'shuma', nameKey: 'modules.shuma.name', descKey: 'modules.shuma.desc', sourceKey: 'modules.shuma.source', emoji: '🔢', href: '/shuma' },
   { key: 'huangli', nameKey: 'modules.huangli.name', descKey: 'modules.huangli.desc', sourceKey: 'modules.huangli.source', emoji: '📅', href: '/huangli' },
   { key: 'taluo', nameKey: 'modules.taluo.name', descKey: 'modules.taluo.desc', sourceKey: 'modules.taluo.source', emoji: '🃏', href: '/taluo' },
-  { key: 'wenku', nameKey: 'modules.wenku.name', descKey: 'modules.wenku.desc', sourceKey: 'modules.wenku.source', emoji: '📚', href: '/wenku' },
   { key: 'hehun', nameKey: 'modules.hehun.name', descKey: 'modules.hehun.desc', sourceKey: 'modules.hehun.source', emoji: '💑', href: '/hehun' },
-  { key: 'experts', nameKey: 'modules.experts.name', descKey: 'modules.experts.desc', sourceKey: 'modules.experts.source', emoji: '👨🏫', href: '/experts' },
+  { key: 'experts', nameKey: 'modules.experts.name', descKey: 'modules.experts.desc', sourceKey: 'modules.experts.source', emoji: '🎓', href: '/experts' },
+]
+
+// ── Bento 主卡（上排：三大精算引擎） ──
+const bentoMain = [
+  { emoji: '📜', title: '四柱八字', tag: 'AI 精算 · 能量周期 · 财官节点', desc: '五行喜忌、大运走势、性格画像——你的「人生周期表」', href: '/bazi', accent: 'violet', visual: 'taiji' as const },
+  { emoji: '⭐', title: '紫微斗数', tag: 'AI 精算 · 格局 · 心理画像', desc: '十四主星十二宫，从命宫到人生剧本，白话讲给你听', href: '/ziwei', accent: 'gold', visual: 'star' as const },
+  { emoji: '💬', title: 'AI 决策对话', tag: '古籍依据 · 透明推理', desc: '排完盘直接问：现在适合跳槽吗？今年该不该创业？', href: '/ai', accent: 'cyan', visual: 'none' as const },
+]
+// ── Bento 副卡（中排） ──
+const bentoSub = [
+  { emoji: '🧭', title: '奇门遁甲', tag: '特定时空 · 择吉 · 策略', href: '/qimen' },
+  { emoji: '💑', title: '双人合盘', tag: '情侣契合 · 事业搭档', href: '/hehun' },
+  { emoji: '📅', title: '每日宜忌', tag: '今日能量 · 吉神方位', href: '/huangli' },
+]
+// ── 轻工具横条 ──
+const quickTools = [
+  { emoji: '💤', name: '解梦', href: '/jiemeng' },
+  { emoji: '📝', name: '姓名', href: '/xingming' },
+  { emoji: '☯', name: '六爻', href: '/liuyao' },
+  { emoji: '👋', name: '小六壬', href: '/xiaoliuren' },
+  { emoji: '🌸', name: '梅花', href: '/meihua' },
+  { emoji: '🏮', name: '灵签', href: '/lingqian' },
+  { emoji: '🃏', name: '塔罗', href: '/taluo' },
+  { emoji: '🔢', name: '号码', href: '/shuma' },
+  { emoji: '⚖️', name: '称骨', href: '/chenggu' },
+  { emoji: '♈', name: '星座', href: '/xingzuo' },
 ]
 
 export default function HomeClient() {
   const getT = useT()
+  const router = useRouter()
+  const [aiQ, setAiQ] = useState('')
+
+  const askAi = (e: React.FormEvent) => {
+    e.preventDefault()
+    const q = aiQ.trim()
+    router.push(q ? `/ai?q=${encodeURIComponent(q)}` : '/ai')
+  }
 
   return (
     <>
       <div className="max-w-6xl mx-auto px-4">
-      {/* ===== Hero 区域 ===== */}
-      <section className="text-center pt-16 pb-12 md:pt-20 md:pb-16">
-        <p className="text-sm text-gold-600/80 tracking-widest mb-3">
-          {getT('site.tagline')}
-        </p>
-        <h1 className="text-3xl md:text-5xl font-bold text-gold-600 font-serif mb-4 leading-tight">
-          {getT('home.heroTitle')}
-        </h1>
-        <p className="text-base md:text-lg text-gray-400 max-w-2xl mx-auto mb-4 leading-relaxed">
-          {getT('home.heroDesc')}
-        </p>
-        <ClassicQuotes />
-        {/* 信任条 */}
-        <p className="text-[11px] text-gray-500 tracking-widest mt-4">
-          {getT('home.trustBar')}
-        </p>
-      </section>
+        {/* ════ Hero：科技罗盘 + AI 入口 ════ */}
+        <section className="relative pt-12 pb-8 overflow-hidden">
+          {/* 背景：星点 + 紫光斑 + 网格 */}
+          <div className="absolute inset-0 pointer-events-none">
+            <StarField className="absolute inset-0 w-full h-full opacity-70" />
+            <div className="absolute -top-24 -right-24 w-96 h-96 jg-blob-violet opacity-60" />
+            <div className="absolute -bottom-20 -left-16 w-72 h-72 jg-blob-cyan opacity-40" />
+          </div>
 
-      {/* ── 分隔线（紫金光效） ── */}
-      <div className="w-40 h-px mx-auto glow-line mb-12"></div>
-
-      {/* ===== 免费排盘 ===== */}
-      <FreeChartWidget />
-
-      {/* ── 分隔线 ── */}
-      <div className="w-16 h-px mx-auto bg-dark-500/40 my-14"></div>
-
-      {/* ===== 三大人生场景卡 ===== */}
-      <section className="mb-14">
-        <h2 className="text-xl font-semibold text-gold-600 font-serif mb-2 text-center">{getT('home.scenarios.title')}</h2>
-        <p className="text-center text-gray-500 text-sm mb-6">{getT('home.scenarios.subtitle')}</p>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {[
-            { key: 'career', emoji: '💼', href: '/bazi' },
-            { key: 'love', emoji: '💞', href: '/hehun' },
-            { key: 'risk', emoji: '🧭', href: '/app' },
-          ].map(s => (
-            <Link key={s.key} href={s.href}
-              className="group flex flex-col rounded-xl border border-dark-600/60 bg-gradient-to-b from-dark-800/90 to-dark-900/60 p-5 hover:border-violet-400/50 transition-all duration-200 hover:shadow-lg hover:shadow-violet-900/10">
-              <div className="text-2xl mb-3">{s.emoji}</div>
-              <h3 className="text-base font-semibold text-gray-100 group-hover:text-violet-300 transition-colors leading-snug mb-2">
-                {getT(`home.scenarios.${s.key}.question`)}
-              </h3>
-              <p className="text-xs text-gray-400 leading-relaxed mb-4 flex-1">
-                {getT(`home.scenarios.${s.key}.empathy`)}
+          <div className="relative z-10 grid lg:grid-cols-[1.15fr_1fr] gap-10 items-center">
+            {/* 左：文案 + AI 输入 */}
+            <div>
+              <span className="jg-chip mb-5">✦ AI 时空决策引擎 · 古籍原典 · 135 部全文</span>
+              <h1 className="text-3xl md:text-5xl font-bold text-gray-900 dark:text-gray-50 leading-tight mb-4">
+                在关键时刻，
+                <br />
+                <span className="jg-text-grad">看清真实处境</span>
+              </h1>
+              <p className="text-base md:text-lg text-gray-600 dark:text-gray-300 max-w-xl mb-5 leading-relaxed">
+                事业进退、感情迷局、人生转折——不给你宿命断言，
+                只帮你照见能量与时机，<span className="font-medium text-gray-800 dark:text-gray-100">理性做出你自己的决定</span>。
               </p>
-              <div className="flex flex-wrap gap-1 mb-4">
-                {getT(`home.scenarios.${s.key}.tags`).split('·').map((t: string) => (
-                  <span key={t} className="text-[10px] px-2 py-0.5 rounded-full border border-dark-500/60 text-gray-500">{t}</span>
+
+              {/* AI 发光输入框 */}
+              <form onSubmit={askAi} className="max-w-xl mb-4">
+                <div className="relative">
+                  <input
+                    value={aiQ}
+                    onChange={e => setAiQ(e.target.value)}
+                    placeholder="输入出生年月日时，或直接问：最近适合换工作吗？"
+                    className="jg-input w-full !py-3.5 !pr-28 text-sm"
+                  />
+                  <button type="submit" className="jg-btn-ai absolute right-1.5 top-1/2 -translate-y-1/2 !py-2 !px-4 text-xs">
+                    AI 解读 →
+                  </button>
+                </div>
+              </form>
+
+              {/* 信任胶囊 */}
+              <div className="flex flex-wrap gap-2 mb-6">
+                {['古籍原典可溯源', '推理过程全透明', 'AI 免费解读', '生辰不存服务器'].map(t => (
+                  <span key={t} className="text-[11px] px-2.5 py-1 rounded-full border border-gray-200 dark:border-gray-700 text-gray-500 dark:text-gray-400">
+                    ✓ {t}
+                  </span>
                 ))}
               </div>
-              <span className="text-xs font-medium text-gold-500 group-hover:text-gold-400 transition-colors">
-                {getT(`home.scenarios.${s.key}.cta`)} →
-              </span>
-            </Link>
-          ))}
-        </div>
-      </section>
 
-      {/* ── 分隔线 ── */}
-      <div className="w-16 h-px mx-auto bg-dark-500/40 mb-14"></div>
+              {/* CTA */}
+              <div className="flex flex-wrap gap-3">
+                <Link href="/bazi" className="jg-btn-primary">📜 免费排八字</Link>
+                <Link href="/ziwei" className="jg-btn">⭐ 排紫微盘</Link>
+                <Link href="/tools" className="jg-btn-ghost">全部工具 →</Link>
+              </div>
+            </div>
 
-      {/* ===== 十二生肖百科 ===== */}
-      <section className="mb-14">
-        <h2 className="text-xl font-semibold text-gold-600 font-serif mb-4 text-center">🐉 十二生肖</h2>
-        <p className="text-center text-gray-500 text-sm mb-6">点击生肖了解起源传说、性格特征、文化象征与运势</p>
-        <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-12 gap-2">
-          {[
-            {emoji:'🐭',name:'鼠'},{emoji:'🐮',name:'牛'},{emoji:'🐯',name:'虎'},{emoji:'🐰',name:'兔'},
-            {emoji:'🐲',name:'龙'},{emoji:'🐍',name:'蛇'},{emoji:'🐴',name:'马'},{emoji:'🐏',name:'羊'},
-            {emoji:'🐵',name:'猴'},{emoji:'🐔',name:'鸡'},{emoji:'🐶',name:'狗'},{emoji:'🐷',name:'猪'}
-          ].map(s => (
-            <Link key={s.name} href="/shengxiao"
-              className="group flex flex-col items-center p-3 rounded-xl border border-dark-600/50 hover:border-jade-400/50 transition-all duration-200">
-              <span className="text-2xl mb-1">{s.emoji}</span>
-              <span className="text-xs font-medium text-gray-600 group-hover:text-jade-500">{s.name}</span>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      {/* ── 分隔线 ── */}
-      <div className="w-16 h-px mx-auto bg-dark-500/40 mb-14"></div>
-
-      {/* ===== 学派源流 ===== */}
-      <section id="heritage" className="mb-14">
-        <HeritageSection />
-      </section>
-
-      {/* ── 分隔线 ── */}
-      <div className="w-16 h-px mx-auto bg-dark-500/40 mb-14"></div>
-
-      {/* ===== 易学书馆（全部工具上方独立入口） ===== */}
-      <section className="mb-14">
-        <h2 className="text-xl font-semibold text-gold-600 font-serif mb-4 text-center">📖 易学书馆</h2>
-        <Link
-          href="/xueguan"
-          className="block group rounded-xl border border-gold-500/30 bg-gradient-to-r from-dark-800 to-dark-800/60 p-6 hover:border-gold-400/60 transition-all duration-200"
-        >
-          <div className="flex items-center gap-5">
-            <div className="text-4xl group-hover:scale-110 transition-transform duration-200">📜</div>
-            <div>
-              <h3 className="text-lg font-semibold text-gold-300 group-hover:text-gold-200 transition-colors">易学书馆</h3>
-              <p className="text-xs text-gray-400 mt-1 leading-relaxed">
-                135 部命理、卜筮、风水、道家经典古籍全文 · 分类阅读 · 全文检索
-              </p>
+            {/* 右：科技罗盘 */}
+            <div className="flex justify-center lg:justify-end">
+              <div className="relative">
+                <div className="absolute inset-0 jg-glow-drop rounded-full opacity-50" />
+                <RotatingCompass size={440} className="relative z-10" />
+              </div>
             </div>
           </div>
-        </Link>
-      </section>
+        </section>
 
-      {/* ===== 免费工具矩阵 ===== */}
-      <section className="mb-14">
-        <h2 className="text-xl font-semibold text-gold-600 font-serif mb-2 text-center">✨ {getT('home.tools.title')}</h2>
-        <p className="text-center text-sm text-violet-300/80 mb-1">{getT('home.tools.subtitle')}</p>
-        <p className="text-center text-[10px] text-gray-600 mb-6">{getT('home.tools.footnote')}</p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-          {modules.map((mod) => (
-            <Link
-              key={mod.key}
-              href={mod.href}
-              className="group rounded-xl border border-dark-600/50 p-5 hover:border-jade-400/60 transition-all duration-200"
-            >
-              <div className="text-3xl mb-3 group-hover:scale-110 transition-transform duration-200">
-                {mod.emoji}
-              </div>
-              <h3 className="text-base font-semibold text-gray-800 group-hover:text-jade-500 transition-colors mb-1">
-                {getT(mod.nameKey)}
-              </h3>
-              <p className="text-xs text-gray-500 leading-relaxed mb-2">
-                {getT(mod.descKey)}
-              </p>
-              {getT(mod.sourceKey) && getT(mod.sourceKey) !== mod.sourceKey && (
-                <p className="text-[10px] text-gold-900 font-serif italic">
-                  {getT(mod.sourceKey)}
-                </p>
-              )}
-            </Link>
-          ))}
+        {/* ════ Bento Grid：三大精算引擎 ════ */}
+        <section className="mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {bentoMain.map(c => (
+              <Link key={c.href} href={c.href}
+                className={`jg-tile group relative overflow-hidden p-6 min-h-[210px] flex flex-col ${c.accent === 'cyan' ? '!border-cyan-400/30' : ''}`}>
+                {c.visual === 'taiji' && (
+                  <div className="absolute -right-6 -bottom-6 opacity-70 group-hover:opacity-100 transition-opacity duration-500 group-hover:scale-110">
+                    <TaijiOrbit size={130} />
+                  </div>
+                )}
+                <div className="relative z-10 flex flex-col h-full">
+                  <div className="text-3xl mb-3 group-hover:scale-110 transition-transform duration-300 w-fit">{c.emoji}</div>
+                  <h2 className="text-lg font-bold text-gray-900 dark:text-gray-50 mb-1">{c.title}</h2>
+                  <p className="text-[11px] font-medium text-violet-500 dark:text-violet-300 mb-2 tracking-wide">{c.tag}</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed mb-4 flex-1">{c.desc}</p>
+                  <span className="text-xs font-semibold jg-text-accent group-hover:translate-x-1 transition-transform duration-300">
+                    开始测算 →
+                  </span>
+                </div>
+              </Link>
+            ))}
+          </div>
+
+          {/* 副卡排 */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-4">
+            {bentoSub.map(c => (
+              <Link key={c.href} href={c.href}
+                className="jg-card group p-5 flex items-center gap-4 hover:!border-violet-400/40 transition-colors">
+                <div className="text-2xl w-11 h-11 flex items-center justify-center rounded-xl bg-violet-500/10 group-hover:scale-110 transition-transform duration-300">
+                  {c.emoji}
+                </div>
+                <div>
+                  <h3 className="text-sm font-semibold text-gray-800 dark:text-gray-100">{c.title}</h3>
+                  <p className="text-[11px] text-gray-500 dark:text-gray-400 mt-0.5">{c.tag}</p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        {/* ════ 免费排盘 ════ */}
+        <div className="jg-card p-6 md:p-8 mb-14">
+          <FreeChartWidget />
         </div>
-      </section>
 
-      {/* ===== 底部 CTA ===== */}
-      <BottomCTA />
-    </div>
+        {/* ════ 轻工具横条 ════ */}
+        <section className="mb-14">
+          <div className="flex items-end justify-between mb-4">
+            <div>
+              <h2 className="text-lg font-bold text-gray-900 dark:text-gray-50">✨ 今天，想测点什么？</h2>
+              <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">全部免费 · 即点即测 · 无需注册</p>
+            </div>
+            <Link href="/tools" className="text-xs jg-text-accent hover:underline shrink-0">查看全部 →</Link>
+          </div>
+          <div className="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-10 gap-2.5">
+            {quickTools.map(t => (
+              <Link key={t.href} href={t.href}
+                className="jg-card-plain group flex flex-col items-center gap-1.5 py-3.5 px-1 text-center hover:!border-violet-400/40 transition-colors">
+                <span className="text-xl group-hover:scale-110 transition-transform duration-200">{t.emoji}</span>
+                <span className="text-[11px] text-gray-600 dark:text-gray-300 group-hover:text-violet-500 dark:group-hover:text-violet-300 transition-colors">
+                  {t.name}
+                </span>
+              </Link>
+            ))}
+          </div>
+          <p className="text-center text-[10px] text-gray-400 dark:text-gray-500 mt-3">
+            解梦 7,749 词条 · 姓名 2,808 字详解 · 古籍 135 部全文 —— 内容均为原创整理
+          </p>
+        </section>
+
+        {/* ════ 古籍信任 + 易学书馆 ════ */}
+        <section className="mb-14">
+          <div className="jg-tile relative overflow-hidden p-6">
+            <div className="absolute -right-10 -top-10 w-48 h-48 jg-blob-gold opacity-50" />
+            <div className="relative z-10 flex flex-col sm:flex-row sm:items-center gap-5">
+              <div className="text-4xl group-hover:scale-110">📜</div>
+              <div className="flex-1">
+                <h2 className="text-lg font-bold text-gray-900 dark:text-gray-50 mb-1">易学书馆 · 135 部古籍全文</h2>
+                <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">
+                  《滴天髓》《紫微斗数全书》《三命通会》……每一句结论都可溯源到原典。
+                  免费阅读、全文检索——古籍是公版文化资产，我们只做整理与白话导读。
+                </p>
+              </div>
+              <Link href="/xueguan" className="jg-btn shrink-0">进入书馆 →</Link>
+            </div>
+          </div>
+        </section>
+
+        {/* ════ 学派源流（精简） ════ */}
+        <section className="mb-14">
+          <HeritageSection />
+        </section>
+      </div>
     </>
   )
 }
 
-// ── 免费排盘 Widget ──
+// ── 免费排盘 Widget（含日历选择） ──
 function FreeChartWidget() {
   useLocale()
   const [calendarType, setCalendarType] = useState<CalendarType>('solar')
-  // 默认日期在客户端挂载后再填当天，避免 SSR 静态 HTML 写死构建日期
   const [year, setYear] = useState('')
   const [month, setMonth] = useState('')
   const [day, setDay] = useState('')
@@ -236,21 +283,23 @@ function FreeChartWidget() {
 
   return (
     <section className="max-w-xl mx-auto">
-      <h2 className="text-xl font-semibold text-gold-600 font-serif mb-1 text-center">🔮 立即排盘</h2>
-      <p className="text-xs text-gray-600 text-center mb-6">输入出生信息，AI 即刻为您深度批命</p>
+      <div className="flex items-center gap-2 justify-center mb-4">
+        <h2 className="text-lg font-bold text-gray-900 dark:text-gray-50">🔮 立即排盘</h2>
+        <span className="text-[10px] px-2 py-0.5 rounded-full jg-chip">30 秒出盘</span>
+      </div>
+      <p className="text-xs text-gray-500 dark:text-gray-400 text-center mb-5">输入出生信息，AI 即刻为您白话解读</p>
 
-      {/* 性别选择 */}
       <div className="flex items-center gap-4 mb-4 justify-center">
-        <span className="text-sm text-gray-500">性别</span>
+        <span className="text-sm text-gray-500 dark:text-gray-400">性别</span>
         <div className="flex gap-2">
-          {['男','女'].map(g => (
+          {['男', '女'].map(g => (
             <button
               key={g}
               onClick={() => setGender(g)}
               className={`px-4 py-1.5 rounded-lg text-sm font-medium transition-all ${
                 gender === g
-                  ? 'bg-gold-500/20 text-gold-400 border border-gold-500/40'
-                  : 'bg-dark-700 text-gray-400 border border-dark-600 hover:border-dark-500'
+                  ? 'bg-violet-500/15 text-violet-600 dark:text-violet-300 border border-violet-400/40'
+                  : 'bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 border border-gray-200 dark:border-gray-700 hover:border-gray-300'
               }`}
             >
               {g === '男' ? '♂ 男' : '♀ 女'}
@@ -277,21 +326,19 @@ function FreeChartWidget() {
 
       <Link
         href={chartHref}
-        className={`block w-full mt-6 min-h-[44px] py-3 rounded-lg text-center font-semibold text-lg transition-all ${
+        className={`block w-full mt-6 min-h-[46px] py-3 rounded-xl text-center font-semibold text-base transition-all ${
           isValid
-            ? 'bg-gold-500 text-dark-900 hover:bg-gold-400 shadow-lg shadow-gold-500/20 hover:shadow-gold-500/40 active:scale-[0.98]'
-            : 'bg-dark-600 text-gray-500 cursor-not-allowed pointer-events-none'
+            ? 'jg-btn-primary !w-full !min-h-[46px]'
+            : 'bg-gray-200 dark:bg-gray-700 text-gray-400 cursor-not-allowed pointer-events-none'
         }`}
         onClick={e => { if (!isValid) e.preventDefault() }}
       >
         直接排盘 🚀
       </Link>
 
-      <p className="text-center text-[10px] text-gray-600 mt-3">
-        支持阳历/阴历 · 精确到时辰 · 19+ 命理模块 · AI 深度解读
+      <p className="text-center text-[10px] text-gray-400 dark:text-gray-500 mt-3">
+        支持阳历 / 阴历 · 精确到时辰 · 19+ 命理模块 · AI 白话解读
       </p>
     </section>
   )
 }
-
-

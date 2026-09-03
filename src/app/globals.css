@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* dark: 变体 = data-theme='night'（跟随站内主题切换，而非系统偏好） */
+@custom-variant dark (&:where([data-theme='night'], [data-theme='night'] *));
+
 @theme {
   /* ── 极浅灰底色系（接近白色，与首页一致） ── */
   --color-dark-950: #fafafa;

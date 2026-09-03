@@ -18,6 +18,7 @@ export default function AIAskPanel({
   anchorsDefault,    // 时间轴锚定默认值
   evaluateMode,      // 评估模式（点按钮直接出一份情境评估）
   onOpenExpert,      // 大师 CTA 回调（选填）
+  initialInput,      // 初始问题（URL q 参数透传）
   compact,
 }: {
   chartContext?: string
@@ -25,10 +26,11 @@ export default function AIAskPanel({
   anchorsDefault?: string[]
   evaluateMode?: boolean
   onOpenExpert?: () => void
+  initialInput?: string
   compact?: boolean
 }) {
   const [messages, setMessages] = useState<Msg[]>([])
-  const [input, setInput] = useState('')
+  const [input, setInput] = useState(initialInput || '')
   const [anchors, setAnchors] = useState<string[]>(anchorsDefault || [])
   const [anchorText, setAnchorText] = useState('')
   const [busy, setBusy] = useState(false)
