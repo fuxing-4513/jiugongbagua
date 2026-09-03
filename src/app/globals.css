@@ -72,12 +72,12 @@ body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; 
 
 /* ── 全局背景（白天默认：米白；夜晚：深空灰） ── */
 :root {
-  --jg-bg: #faf9f6;
-  --jg-text: #2d2d3f;
+  --jg-bg: #ffffff;
+  --jg-text: #1c1c28;
 }
 [data-theme='night'] {
-  --jg-bg: #0d0f12;
-  --jg-text: #e6e8ee;
+  --jg-bg: #08080a;
+  --jg-text: #eae8f6;
 }
 body {
   font-family: var(--font-sans);
@@ -88,15 +88,15 @@ body {
 
 /* ═══ 夜晚模式色板覆盖（Tailwind v4 @theme 变量 = CSS 变量，运行时切换） ═══ */
 [data-theme='night'] {
-  /* 背景/卡片系（原浅灰 → 深空灰梯度，方向保持：数值小=更深） */
-  --color-dark-950: #0b0d11;
-  --color-dark-900: #12151a;
-  --color-dark-850: #181c22;
-  --color-dark-800: #1e232b;
-  --color-dark-750: #252b35;
-  --color-dark-700: #2d343f;
-  --color-dark-600: #3a424f;
-  --color-dark-500: #4a5464;
+  /* 背景/卡片系（原浅灰 → 赛博黑梯度，方向保持：数值小=更深；基座 #08080A） */
+  --color-dark-950: #08080a;
+  --color-dark-900: #0d0d13;
+  --color-dark-850: #101017;
+  --color-dark-800: #15151e;
+  --color-dark-750: #1a1a25;
+  --color-dark-700: #21212e;
+  --color-dark-600: #2b2b3a;
+  --color-dark-500: #38384a;
   /* 古金色系（原深金 → 亮金，暗底可读） */
   --color-gold-300: #ecd27a;
   --color-gold-400: #e0c25a;
@@ -146,25 +146,25 @@ body {
 [data-theme='night'] .bg-gold-50 { background: rgba(212, 175, 55, 0.12) !important; }
 [data-theme='night'] .bg-gold-100 { background: rgba(212, 175, 55, 0.18) !important; }
 /* 夜晚：白色卡片/元素反转 */
-[data-theme='night'] .bg-white { background: #1e232b !important; }
-[data-theme='night'] .border-gray-100 { border-color: #2d343f !important; }
-[data-theme='night'] .border-gray-200 { border-color: #333a46 !important; }
-[data-theme='night'] .border-gray-300 { border-color: #3a424f !important; }
-[data-theme='night'] .hover\:bg-gray-100:hover { background: #262c36 !important; }
+[data-theme='night'] .bg-white { background: #171722 !important; }
+[data-theme='night'] .border-gray-100 { border-color: #24242f !important; }
+[data-theme='night'] .border-gray-200 { border-color: #2b2b37 !important; }
+[data-theme='night'] .border-gray-300 { border-color: #34343f !important; }
+[data-theme='night'] .hover\:bg-gray-100:hover { background: #1d1d29 !important; }
 [data-theme='night'] .hover\:bg-gold-50:hover { background: rgba(212, 175, 55, 0.12) !important; }
 [data-theme='night'] .bg-jade-50 { background: rgba(79, 170, 140, 0.12) !important; }
-[data-theme='night'] .bg-gray-50 { background: #1a1f27 !important; }
-[data-theme='night'] .bg-gray-100 { background: #222833 !important; }
+[data-theme='night'] .bg-gray-50 { background: #101016 !important; }
+[data-theme='night'] .bg-gray-100 { background: #16161f !important; }
 /* 夜晚：面板与叠加层 */
 [data-theme='night'] .glass-panel {
-  background: rgba(18, 21, 26, 0.75);
-  border-bottom-color: rgba(255, 255, 255, 0.08);
-  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.4);
+  background: rgba(9, 9, 13, 0.78);
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
 }
 [data-theme='night'] .cosmic-overlay { opacity: 0.25; }
-[data-theme='night'] ::-webkit-scrollbar-track { background: #15181e; }
-[data-theme='night'] ::-webkit-scrollbar-thumb { background: #3a424f; }
-[data-theme='night'] .skeleton { background: linear-gradient(90deg, #1a1f27 25%, #222833 50%, #1a1f27 75%); background-size: 200% 100%; }
+[data-theme='night'] ::-webkit-scrollbar-track { background: #0b0b0f; }
+[data-theme='night'] ::-webkit-scrollbar-thumb { background: #2c2c3a; }
+[data-theme='night'] .skeleton { background: linear-gradient(90deg, #0e0e15 25%, #181822 50%, #0e0e15 75%); background-size: 200% 100%; }
 /* 夜晚：文本选中 */
 [data-theme='night'] ::selection { background: rgba(103, 146, 201, 0.35); color: #fff; }
 
@@ -330,4 +330,282 @@ body {
 @keyframes goldShine {
   0%, 100% { opacity: 0.8; filter: brightness(1); }
   50% { opacity: 1; filter: brightness(1.3); }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   V2 视觉体系 · 设计令牌（Design Tokens）
+   白天：纯白底 + 墨字 + 星云紫 #6366F1
+   夜晚：赛博黑 #08080A 网格 + 发光金 #D4AF37 + 赛博青 #00F2FE + 深空紫 #7B2CBF
+   新首页/新组件一律消费 --jg-* 语义变量；旧页面走 dark-*/gray 覆盖不冲突。
+   ══════════════════════════════════════════════════════════════════ */
+:root {
+  /* 基底 */
+  --jg-bg: #ffffff;            /* 白天纯白 */
+  --jg-bg-2: #f6f7fd;          /* 浅星云紫段背景（卡片底） */
+  --jg-text: #1c1c28;          /* 墨字 */
+  --jg-text-2: #585872;
+  --jg-text-3: #9292a8;
+  --jg-line: #e7e8f4;
+  /* 品牌色 */
+  --jg-accent: #6366f1;        /* 星云紫（主） */
+  --jg-accent-2: #8b5cf6;      /* 星云紫（次/紫罗兰） */
+  --jg-accent-ink: #4f46e5;    /* 白底上可读的强调文字/链接 */
+  --jg-accent-soft: rgba(99, 102, 241, 0.09);
+  --jg-accent-line: rgba(99, 102, 241, 0.26);
+  --jg-gold: #a67c1a;          /* 古籍金（白天压深，保可读） */
+  --jg-gold-soft: rgba(166, 124, 26, 0.1);
+  /* 表面/光效 */
+  --jg-card: rgba(255, 255, 255, 0.9);
+  --jg-grid-line: rgba(28, 28, 40, 0.045);
+  --jg-glow: rgba(99, 102, 241, 0.16);
+  --jg-glow-strong: rgba(99, 102, 241, 0.3);
+  --jg-border-grad: linear-gradient(135deg, rgba(99, 102, 241, 0.55), rgba(139, 92, 246, 0.2) 45%, rgba(99, 102, 241, 0.05));
+  --jg-shadow-card: 0 14px 44px -22px rgba(79, 70, 229, 0.35), 0 2px 10px -6px rgba(28, 28, 40, 0.08);
+  --jg-hero-title: linear-gradient(105deg, #1c1c28 0%, #4338ca 52%, #6366f1 100%);
+  --jg-cta-main: linear-gradient(120deg, #4f46e5 0%, #6366f1 55%, #8b5cf6 100%);
+  --jg-cta-main-text: #ffffff;
+  --jg-cta-main-glow: 0 10px 30px -12px rgba(99, 102, 241, 0.65);
+  --jg-cta-ai: linear-gradient(120deg, #7c3aed 0%, #6366f1 60%, #4f9cf6 100%);
+  --jg-cta-ai-text: #ffffff;
+  --jg-cta-ai-glow: 0 10px 30px -12px rgba(124, 58, 237, 0.55);
+  --jg-radar: rgba(99, 102, 241, 0.55);
+}
+[data-theme='night'] {
+  /* 基底 */
+  --jg-bg: #08080a;            /* 赛博黑 */
+  --jg-bg-2: #0d0d13;          /* 略升一档的暗面 */
+  --jg-text: #eae8f6;
+  --jg-text-2: #a09eb6;
+  --jg-text-3: #68667e;
+  --jg-line: rgba(255, 255, 255, 0.09);
+  /* 品牌色 */
+  --jg-accent: #00f2fe;        /* 赛博青（交互主色） */
+  --jg-accent-2: #7b2cbf;      /* 深空紫 */
+  --jg-accent-ink: #e7c766;    /* 发光金——暗底强调文字/链接 */
+  --jg-accent-soft: rgba(0, 242, 254, 0.1);
+  --jg-accent-line: rgba(0, 242, 254, 0.3);
+  --jg-gold: #d4af37;          /* 发光金 */
+  --jg-gold-soft: rgba(212, 175, 55, 0.12);
+  /* 表面/光效 */
+  --jg-card: rgba(13, 13, 20, 0.72);   /* 毛玻璃卡 */
+  --jg-grid-line: rgba(0, 242, 254, 0.055);
+  --jg-glow: rgba(0, 242, 254, 0.12);
+  --jg-glow-strong: rgba(0, 242, 254, 0.32);
+  --jg-border-grad: linear-gradient(135deg, rgba(212, 175, 55, 0.65), rgba(0, 242, 254, 0.3) 45%, rgba(123, 44, 191, 0.7));
+  --jg-shadow-card: 0 18px 60px -24px rgba(0, 0, 0, 0.9), 0 0 34px -16px rgba(0, 242, 254, 0.4);
+  --jg-hero-title: linear-gradient(105deg, #f7ecd0 0%, #d4af37 55%, #a78bfa 100%);
+  --jg-cta-main: linear-gradient(120deg, #c9a227 0%, #d4af37 45%, #e8c75c 100%);
+  --jg-cta-main-text: #131108;
+  --jg-cta-main-glow: 0 10px 32px -10px rgba(212, 175, 55, 0.55);
+  --jg-cta-ai: linear-gradient(120deg, #00f2fe 0%, #3f7df6 55%, #7b2cbf 125%);
+  --jg-cta-ai-text: #ffffff;
+  --jg-cta-ai-glow: 0 10px 34px -10px rgba(0, 242, 254, 0.45);
+  --jg-radar: rgba(0, 242, 254, 0.6);
+}
+/* 夜间保持旧 violet 文本可读（白天覆盖在下方，属性选择器权重更高） */
+[data-theme='night'] .text-violet-100 { color: #ede9fe !important; }
+[data-theme='night'] .text-violet-200 { color: #ddd6fe !important; }
+[data-theme='night'] .text-violet-300 { color: #c4b5fd !important; }
+[data-theme='night'] .text-violet-400 { color: #a78bfa !important; }
+[data-theme='night'] .text-jade-300 { color: #86d9bd !important; }
+[data-theme='night'] .text-jade-400 { color: #66c2a2 !important; }
+
+/* ── 文字（白天白底：violet 系列压深到可读深紫） ── */
+.text-violet-100 { color: #4c3fb8 !important; }
+.text-violet-200 { color: #5b4bd0 !important; }
+.text-violet-300 { color: #6d5bd0 !important; }
+.text-violet-400 { color: #7c6ad9 !important; }
+.text-jg { color: var(--jg-text) !important; }
+.text-jg-2 { color: var(--jg-text-2) !important; }
+.text-jg-3 { color: var(--jg-text-3) !important; }
+.jg-text-accent { color: var(--jg-accent-ink); }
+.jg-text-gold { color: var(--jg-gold); }
+.jg-text-grad {
+  background: var(--jg-hero-title);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ── 表面：玻璃卡（渐变发光边框 + 毛玻璃） ── */
+.jg-card {
+  border: 1px solid transparent;
+  background:
+    linear-gradient(var(--jg-card), var(--jg-card)) padding-box,
+    var(--jg-border-grad) border-box;
+  border-radius: 1rem;
+  box-shadow: var(--jg-shadow-card);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+.jg-card-plain {
+  background: var(--jg-bg-2);
+  border: 1px solid var(--jg-line);
+  border-radius: 1rem;
+}
+/* ── 磁贴（Bento 单元）：hover 渐变发光描边 ── */
+.jg-tile {
+  position: relative;
+  background: var(--jg-bg-2);
+  border: 1px solid var(--jg-line);
+  border-radius: 1rem;
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+.jg-tile::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: var(--jg-border-grad);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+}
+.jg-tile:hover::before { opacity: 1; }
+.jg-tile:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--jg-shadow-card);
+}
+/* ── 按钮 ── */
+.jg-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 0.85rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.15s ease, filter 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.jg-btn:active { transform: scale(0.97); }
+.jg-btn-primary {
+  background: var(--jg-cta-main);
+  color: var(--jg-cta-main-text);
+  box-shadow: var(--jg-cta-main-glow);
+}
+.jg-btn-primary:hover { filter: brightness(1.08); transform: translateY(-1px); }
+.jg-btn-ai {
+  background: var(--jg-cta-ai);
+  color: var(--jg-cta-ai-text);
+  box-shadow: var(--jg-cta-ai-glow);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+}
+.jg-btn-ai:hover { filter: brightness(1.1); transform: translateY(-1px); }
+.jg-btn-ghost {
+  background: transparent;
+  color: var(--jg-accent-ink);
+  border: 1px solid var(--jg-accent-line);
+}
+.jg-btn-ghost:hover { background: var(--jg-accent-soft); }
+/* ── 芯片 ── */
+.jg-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border-radius: 999px;
+  border: 1px solid var(--jg-accent-line);
+  color: var(--jg-accent-ink);
+  background: var(--jg-accent-soft);
+  font-size: 0.72rem;
+  padding: 0.3rem 0.8rem;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+/* ── 输入框 ── */
+.jg-input {
+  width: 100%;
+  background: var(--jg-bg);
+  border: 1px solid var(--jg-line);
+  color: var(--jg-text);
+  border-radius: 0.9rem;
+  padding: 0.8rem 1.05rem;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.jg-input::placeholder { color: var(--jg-text-3); }
+.jg-input:focus {
+  border-color: var(--jg-accent);
+  box-shadow: 0 0 0 4px var(--jg-glow);
+}
+/* ── 背景装饰：赛博网格（夜）/ 星尘点阵（日） ── */
+.jg-grid-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(var(--jg-grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--jg-grid-line) 1px, transparent 1px);
+  background-size: 44px 44px;
+  -webkit-mask-image: radial-gradient(ellipse 90% 75% at 50% 10%, #000 25%, transparent 75%);
+  mask-image: radial-gradient(ellipse 90% 75% at 50% 10%, #000 25%, transparent 75%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+[data-theme='night'] .jg-grid-bg { opacity: 1; }
+.jg-dots-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(var(--jg-grid-line) 1px, transparent 1.5px);
+  background-size: 26px 26px;
+  -webkit-mask-image: radial-gradient(ellipse 90% 75% at 50% 10%, #000 30%, transparent 78%);
+  mask-image: radial-gradient(ellipse 90% 75% at 50% 10%, #000 30%, transparent 78%);
+  opacity: 1;
+  transition: opacity 0.4s ease;
+}
+[data-theme='night'] .jg-dots-bg { opacity: 0; }
+/* ── 光斑 ── */
+.jg-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(72px);
+  pointer-events: none;
+  z-index: 0;
+}
+.jg-blob-violet { background: #6366f1; opacity: 0.16; }
+.jg-blob-gold { background: #d4af37; opacity: 0.1; }
+.jg-blob-cyan { background: #00f2fe; opacity: 0.06; }
+.jg-blob-purple { background: #7b2cbf; opacity: 0.14; }
+[data-theme='night'] .jg-blob-violet { background: #7b2cbf; opacity: 0.35; }
+[data-theme='night'] .jg-blob-gold { opacity: 0.16; }
+[data-theme='night'] .jg-blob-cyan { opacity: 0.13; }
+[data-theme='night'] .jg-blob-purple { opacity: 0.4; }
+/* ── 罗盘辉光 ── */
+.jg-glow-drop { filter: drop-shadow(0 0 22px var(--jg-radar)); }
+/* ── 动画（旋转组件统一绕 viewBox 中心） ── */
+.jg-spin-slow, .jg-spin-slower, .jg-spin-rev, .jg-orbit, .jg-orbit-rev {
+  transform-box: view-box;
+  transform-origin: 50% 50%;
+}
+.jg-spin-slow { animation: jgSpin 42s linear infinite; }
+.jg-spin-slower { animation: jgSpin 84s linear infinite; }
+.jg-spin-rev { animation: jgSpinRev 56s linear infinite; }
+.jg-orbit { animation: jgSpin 18s linear infinite; }
+.jg-orbit-rev { animation: jgSpinRev 26s linear infinite; }
+@keyframes jgSpin { to { transform: rotate(360deg); } }
+@keyframes jgSpinRev { to { transform: rotate(-360deg); } }
+.jg-dash-flow { animation: jgDashFlow 9s linear infinite; }
+@keyframes jgDashFlow { to { stroke-dashoffset: -240; } }
+.jg-pulse-soft { animation: jgPulseSoft 2.8s ease-in-out infinite; }
+@keyframes jgPulseSoft {
+  0%, 100% { opacity: 0.25; }
+  50% { opacity: 1; }
+}
+.jg-float-y { animation: jgFloatY 7s ease-in-out infinite; }
+@keyframes jgFloatY {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+.jg-glow-pulse { animation: jgGlowPulse 3.6s ease-in-out infinite; }
+@keyframes jgGlowPulse {
+  0%, 100% { box-shadow: var(--jg-shadow-card); }
+  50% { box-shadow: var(--jg-shadow-card), 0 0 44px -8px var(--jg-glow-strong); }
 }
