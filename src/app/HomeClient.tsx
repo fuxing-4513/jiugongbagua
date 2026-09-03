@@ -6,7 +6,6 @@ import { useRouter } from 'next/navigation'
 import { useLocale, useT } from '@/lib/i18n'
 
 import RotatingCompass from '@/components/visual/RotatingCompass'
-import TaijiOrbit from '@/components/visual/TaijiOrbit'
 import StarField from '@/components/visual/StarField'
 import HeritageSection from '@/components/HeritageSection'
 import CalendarInput, { type CalendarType, getMaxDay, lunarToSolarDate } from '@/components/CalendarInput'
@@ -43,9 +42,9 @@ const modules: ModuleInfo[] = [
 
 // ── Bento 主卡（上排：三大精算引擎） ──
 const bentoMain = [
-  { emoji: '📜', title: '四柱八字', tag: 'AI 精算 · 能量周期 · 财官节点', desc: '五行喜忌、大运走势、性格画像——你的「人生周期表」', href: '/bazi', accent: 'violet', visual: 'taiji' as const },
-  { emoji: '⭐', title: '紫微斗数', tag: 'AI 精算 · 格局 · 心理画像', desc: '十四主星十二宫，从命宫到人生剧本，白话讲给你听', href: '/ziwei', accent: 'gold', visual: 'star' as const },
-  { emoji: '💬', title: 'AI 决策对话', tag: '古籍依据 · 透明推理', desc: '排完盘直接问：现在适合跳槽吗？今年该不该创业？', href: '/ai', accent: 'cyan', visual: 'none' as const },
+  { emoji: '📜', title: '四柱八字', tag: 'AI 精算 · 能量周期 · 财官节点', desc: '五行喜忌、大运走势、性格画像——你的「人生周期表」', href: '/bazi', accent: 'violet' },
+  { emoji: '⭐', title: '紫微斗数', tag: 'AI 精算 · 格局 · 心理画像', desc: '十四主星十二宫，从命宫到人生剧本，白话讲给你听', href: '/ziwei', accent: 'gold' },
+  { emoji: '💬', title: 'AI 决策对话', tag: '古籍依据 · 透明推理', desc: '排完盘直接问：现在适合跳槽吗？今年该不该创业？', href: '/ai', accent: 'cyan' },
 ]
 // ── Bento 副卡（中排） ──
 const bentoSub = [
@@ -152,11 +151,6 @@ export default function HomeClient() {
             {bentoMain.map(c => (
               <Link key={c.href} href={c.href}
                 className={`jg-tile group relative overflow-hidden p-6 min-h-[210px] flex flex-col ${c.accent === 'cyan' ? '!border-cyan-400/30' : ''}`}>
-                {c.visual === 'taiji' && (
-                  <div className="absolute -right-6 -bottom-6 opacity-70 group-hover:opacity-100 transition-opacity duration-500 group-hover:scale-110">
-                    <TaijiOrbit size={130} />
-                  </div>
-                )}
                 <div className="relative z-10 flex flex-col h-full">
                   <div className="text-3xl mb-3 group-hover:scale-110 transition-transform duration-300 w-fit">{c.emoji}</div>
                   <h2 className="text-lg font-bold text-gray-900 dark:text-gray-50 mb-1">{c.title}</h2>
