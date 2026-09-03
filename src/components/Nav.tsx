@@ -129,14 +129,14 @@ export default function Nav() {
           <Link href="/app" className="text-sm text-gold-600 hover:text-gold-500 transition-colors font-medium whitespace-nowrap">{getT('nav.app')}</Link>
           <Link href="/profile" className="text-sm text-gray-600 hover:text-jade-500 transition-colors whitespace-nowrap" title="我的收藏">👤 我的</Link>
 
-          {/* 主题切换 */}
+          {/* 主题切换（夜/昼） */}
           <button
             onClick={toggleTheme}
-            className="text-sm text-gray-600 hover:text-jade-500 transition-colors flex items-center gap-1 border border-gray-300 rounded px-2 py-1"
+            className="text-sm text-gray-600 hover:text-jade-500 transition-colors flex items-center gap-1 border border-gray-300 dark:border-gray-600 rounded px-2.5 py-1"
             aria-label={night ? '切换到白天模式' : '切换到夜晚模式'}
-            title={night ? '白天模式' : '夜晚模式'}
+            title={night ? '点击切换为白天（昼）' : '点击切换为夜晚（夜）'}
           >
-            {night ? '☀️' : '🌙'}
+            {night ? '昼' : '夜'}
           </button>
 
           {/* Language */}
@@ -181,7 +181,7 @@ export default function Nav() {
           <div className="px-4 py-3 space-y-2">
             <div className="flex items-center justify-between">
               <Link href="/" className="block py-2 text-sm text-gray-600 hover:text-jade-500" onClick={() => setMobileMenuOpen(false)}>{getT('nav.home')}</Link>
-              <button onClick={toggleTheme} className="text-lg px-2 py-1 rounded hover:bg-gray-100" aria-label="切换主题">{night ? '☀️ 白天' : '🌙 夜晚'}</button>
+              <button onClick={toggleTheme} className="text-sm px-3 py-1.5 rounded-lg border border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800" aria-label="切换主题">{night ? '昼' : '夜'}</button>
             </div>
             <Link href="/tools" className="block py-2 text-sm text-gray-600 hover:text-jade-500" onClick={() => setMobileMenuOpen(false)}>排盘推演</Link>
             <Link href="/huangli" className="block py-2 text-sm text-gray-600 hover:text-jade-500" onClick={() => setMobileMenuOpen(false)}>每日宜忌</Link>
