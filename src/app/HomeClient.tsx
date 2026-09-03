@@ -82,11 +82,9 @@ export default function HomeClient() {
       <div className="max-w-6xl mx-auto px-4">
         {/* ════ Hero：科技罗盘 + AI 入口 ════ */}
         <section className="relative pt-12 pb-8 overflow-hidden">
-          {/* 背景：星点 + 光斑（光斑仅夜晚显示，白天保持干净纯白） */}
+          {/* 背景：星点（细腻点缀，不喧宾夺主） */}
           <div className="absolute inset-0 pointer-events-none">
-            <StarField className="absolute inset-0 w-full h-full opacity-40 dark:opacity-70" />
-            <div className="absolute -top-24 -right-24 w-96 h-96 jg-blob-violet opacity-0 dark:opacity-60" />
-            <div className="absolute -bottom-20 -left-16 w-72 h-72 jg-blob-cyan opacity-0 dark:opacity-40" />
+            <StarField className="absolute inset-0 w-full h-full opacity-40 dark:opacity-60" />
           </div>
 
           <div className="relative z-10 grid lg:grid-cols-[1.15fr_1fr] gap-10 items-center">
@@ -137,10 +135,7 @@ export default function HomeClient() {
 
             {/* 右：科技罗盘 */}
             <div className="flex justify-center lg:justify-end">
-              <div className="relative">
-                <div className="absolute inset-0 jg-glow-drop rounded-full opacity-0 dark:opacity-60" />
-                <RotatingCompass size={440} className="relative z-10" />
-              </div>
+              <RotatingCompass size={440} className="relative z-10" />
             </div>
           </div>
         </section>
@@ -214,7 +209,6 @@ export default function HomeClient() {
         {/* ════ 古籍信任 + 易学书馆 ════ */}
         <section className="mb-14">
           <div className="jg-tile relative overflow-hidden p-6">
-            <div className="absolute -right-10 -top-10 w-48 h-48 jg-blob-gold opacity-0 dark:opacity-50" />
             <div className="relative z-10 flex flex-col sm:flex-row sm:items-center gap-5">
               <div className="text-4xl group-hover:scale-110">📜</div>
               <div className="flex-1">
