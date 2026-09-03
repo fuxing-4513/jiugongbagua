@@ -1,0 +1,20 @@
+name = "jiugong-api"
+main = "worker-api/index.js"
+compatibility_date = "2025-01-01"
+
+# 同域路由：jiugongbagua.com/api/* → 本 Worker（会话 cookie 同域生效）
+routes = [
+  { pattern = "jiugongbagua.com/api/*", zone_name = "jiugongbagua.com" },
+  { pattern = "www.jiugongbagua.com/api/*", zone_name = "jiugongbagua.com" },
+]
+
+# 限速计数 KV（复用 jiugong-ai 的 LIMIT_KV namespace）
+[[kv_namespaces]]
+binding = "LIMIT_KV"
+id = "258c636c301e44d2b68f715962f460ba"
+
+# 用户数据库（APAC 区）
+[[d1_databases]]
+binding = "JG_DB"
+database_name = "jiugong-db"
+database_id = "1172ac41-c90d-4a96-9940-defce72cbd62"
