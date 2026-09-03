@@ -12,6 +12,7 @@ import { enrichBazi, type EnrichResult } from '@/lib/bazi-enrich'
 import SiZhuView from '@/components/SiZhuView'
 import ClassicSource from '@/components/ClassicSource'
 import AIAskPanel from '@/components/AIAskPanel'
+import SaveChartButton from '@/components/SaveChartButton'
 import LoadingSpinner from '@/components/LoadingSpinner'
 import Breadcrumb from '@/components/Breadcrumb'
 import { exportAsPng } from '@/utils/export-image'
@@ -817,7 +818,14 @@ Object.entries(result.wx).map(([w,c]): React.ReactNode =>(
       </div>
 
       {/* AI 决策顾问（读取当前命盘） */}
-      <div className="mt-4">
+      <div className="mt-4 space-y-3">
+        <div className="flex justify-end">
+          <SaveChartButton
+            chartType="bazi"
+            title={new Date().toLocaleDateString('zh-CN') + ' 八字'}
+            summary={`四柱八字（${gender}造）：${['年', '月', '日', '时'].map((n, i) => `${n}柱 ${result.pills[i].gz}`).join('，')}；十神：${result.pills.map(p => p.ssG).join('、')}；本命格局与运势分析详见九宫排盘结果。`}
+          />
+        </div>
         <AIAskPanel
           compact
           chartContext={`四柱八字（${gender}造）：${['年', '月', '日', '时'].map((n, i) => `${n}柱 ${result.pills[i].gz}`).join('，')}；十神：${result.pills.map(p => p.ssG).join('、')}；命宫/身宫等详见盘面。请用白话做情境评估，忌恐吓词汇。`}

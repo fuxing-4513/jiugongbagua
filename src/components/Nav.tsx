@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { useLocale, useT, type SupportedLocale } from '@/lib/i18n'
+import { api } from '@/lib/api'
 
 const toolCategories: { label: string; items: { key: string; href: string; emoji?: string }[] }[] = [
   { label: '命理推算', items: [
@@ -37,11 +38,17 @@ export default function Nav() {
   const [toolsOpen, setToolsOpen] = useState(false)
   const [langOpen, setLangOpen] = useState(false)
   const [night, setNight] = useState(false)
+  const [loggedIn, setLoggedIn] = useState<boolean | null>(null)
   const getT = useT()
 
   // 同步当前主题状态
   useEffect(() => {
     setNight(document.documentElement.getAttribute('data-theme') === 'night')
+  }, [])
+
+  // 登录态检查
+  useEffect(() => {
+    api.me().then(r => setLoggedIn(!!r.ok)).catch(() => setLoggedIn(false))
   }, [])
 
   const toggleTheme = () => {
@@ -127,7 +134,13 @@ export default function Nav() {
           </div>
 
           <Link href="/app" className="text-sm text-gold-600 hover:text-gold-500 transition-colors font-medium whitespace-nowrap">{getT('nav.app')}</Link>
-          <Link href="/profile" className="text-sm text-gray-600 hover:text-jade-500 transition-colors whitespace-nowrap" title="我的收藏">👤 我的</Link>
+          {loggedIn === null ? (
+            <span className="text-sm text-gray-400 whitespace-nowrap">…</span>
+          ) : loggedIn ? (
+            <Link href="/mycharts" className="text-sm text-gray-600 dark:text-gray-300 hover:text-jade-500 transition-colors whitespace-nowrap" title="我的命盘">📁 我的命盘</Link>
+          ) : (
+            <Link href="/login" className="text-sm text-gray-600 dark:text-gray-300 hover:text-jade-500 transition-colors whitespace-nowrap">登录</Link>
+          )}
 
           {/* 主题切换（夜/昼） */}
           <button
@@ -203,7 +216,11 @@ export default function Nav() {
               ))}
             </div>
             <Link href="/app" className="block py-2 text-sm text-gold-600 hover:text-gold-500 font-medium" onClick={() => setMobileMenuOpen(false)}>{getT('nav.app')}</Link>
-            <Link href="/profile" className="block py-2 text-sm text-gray-600 hover:text-jade-500" onClick={() => setMobileMenuOpen(false)}>👤 我的收藏</Link>
+            {loggedIn ? (
+              <Link href="/mycharts" className="block py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-jade-500" onClick={() => setMobileMenuOpen(false)}>📁 我的命盘</Link>
+            ) : (
+              <Link href="/login" className="block py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-jade-500" onClick={() => setMobileMenuOpen(false)}>登录</Link>
+            )}
             <Link href="/help" className="block py-2 text-sm text-gray-500 hover:text-jade-500" onClick={() => setMobileMenuOpen(false)}>{getT('nav.help')}</Link>
             <Link href="/contact" className="block py-2 text-sm text-gray-500 hover:text-jade-500" onClick={() => setMobileMenuOpen(false)}>{getT('nav.contact')}</Link>
             <div className="pt-2 border-t border-gray-200">
