@@ -191,8 +191,15 @@ export default function Compass3D({
         ;(c as unknown as Record<string, unknown>).maxDistance = 7.5
         ;(c as unknown as Record<string, unknown>).minPolarAngle = Math.PI * 0.1
         ;(c as unknown as Record<string, unknown>).maxPolarAngle = Math.PI * 0.55
-        ;(c as unknown as Record<string, unknown>).rotateSpeed = 0.55
-        ;(c as unknown as Record<string, unknown>).zoomSpeed = 0.7
+        // 移动端适配：单指拖转更灵敏、禁用捏合缩放（防误触与页面手势冲突）
+        const isTouch = typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0)
+        if (isTouch) {
+          ;(c as unknown as Record<string, unknown>).rotateSpeed = 1.15
+          ;(c as unknown as Record<string, unknown>).enableZoom = false
+        } else {
+          ;(c as unknown as Record<string, unknown>).rotateSpeed = 0.55
+          ;(c as unknown as Record<string, unknown>).zoomSpeed = 0.7
+        }
         c.target.set(0, 0.02, 0)
       })
       .catch(() => undefined) // 加载失败仅失去拖拽，罗盘与自转不受影响
@@ -286,7 +293,7 @@ export default function Compass3D({
   return (
     <div
       ref={hostRef}
-      className={`relative mx-auto aspect-square w-full max-w-[500px] select-none touch-none ${className}`}
+      className={`relative mx-auto aspect-square w-full max-w-[min(74vw,500px)] sm:max-w-[420px] lg:max-w-[500px] select-none touch-none ${className}`}
       role="img"
       aria-label="可拖拽旋转的 3D 立体风水罗盘：二十四山、八卦宫与天池指针"
     />
