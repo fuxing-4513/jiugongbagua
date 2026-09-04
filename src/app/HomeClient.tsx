@@ -64,6 +64,8 @@ const quickTools = [
   { emoji: '🔢', nameKey: 'modules.shuma.name', href: '/shuma' },
   { emoji: '⚖️', nameKey: 'modules.chenggu.name', href: '/chenggu' },
   { emoji: '♈', nameKey: 'modules.xingzuo.name', href: '/xingzuo' },
+  { emoji: '🪐', nameKey: 'modules.astro.name', href: '/astro' },
+  { emoji: '✨', nameKey: 'modules.numerology.name', href: '/numerology' },
 ]
 
 export default function HomeClient() {
@@ -218,7 +220,7 @@ export default function HomeClient() {
             </div>
             <Link href="/tools" className="text-xs jg-text-accent hover:underline shrink-0">查看全部 →</Link>
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 md:gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3 md:gap-4">
             {quickTools.map(t => (
               <Link key={t.href} href={t.href}
                 className="jg-card-plain group flex flex-col items-center gap-2 py-5 px-2 text-center hover:border-violet-400/40! transition-colors">

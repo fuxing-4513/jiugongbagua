@@ -120,6 +120,8 @@ export const zhCN = {
     hehun: { name: '合婚测算', desc: '八字合婚，生肖五行匹配分析', source: '《三元合婚法》', emoji: '💑' },
     experts: { name: '专家预约', desc: '资深命理专家在线咨询预约', source: '', emoji: '👨‍🏫', book: '立即预约', experience: '从业经验', specialties: '擅长领域' },
     heluo: { name: '河洛推命', desc: '河图洛书数理推命，天地之数定乾坤', source: '《河图洛书》《皇极经世》', emoji: '☯' },
+    astro: { name: '西洋占星', desc: '现代西洋占星星盘：上升星座、行星落座落宫、相位解读', source: '瑞士星历同精度（VSOP87）', emoji: '🪐' },
+    numerology: { name: '生命灵数', desc: '毕达哥拉斯灵数体系：生命路径、表达数、灵魂冲动数解读', source: 'Pythagorean 数字体系', emoji: '✨' },
     shengxiao: { name: '十二生肖', desc: '十二生肖起源传说、性格特征与文化象征', source: '《生肖文化》', emoji: '🐉' },
   },
   heritage: {

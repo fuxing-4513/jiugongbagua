@@ -35,6 +35,8 @@ const toolGroups: { label: string; items: { key: string; emoji: string; href: st
     label: '自我与数理',
     items: [
       { key: 'xingming', emoji: '📝', href: '/xingming' },
+      { key: 'astro', emoji: '🪐', href: '/astro' },
+      { key: 'numerology', emoji: '✨', href: '/numerology' },
       { key: 'shuma', emoji: '🔢', href: '/shuma' },
       { key: 'chenggu', emoji: '⚖️', href: '/chenggu' },
       { key: 'fengshui', emoji: '🧭', href: '/fengshui' },
