@@ -169,16 +169,17 @@ export default function HomeClient() {
                 只帮你照见能量与时机，<span className="font-medium text-gray-800 dark:text-gray-100">理性做出你自己的决定</span>。
               </p>
 
-              {/* AI 发光输入框 */}
+              {/* AI 发光输入框（强化显眼：常驻紫光边） */}
               <form onSubmit={askAi} className="max-w-xl mb-6">
                 <div className="relative">
+                  <div className="absolute -inset-[2px] rounded-2xl bg-gradient-to-r from-violet-500/50 via-fuchsia-500/30 to-violet-500/50 dark:from-violet-500/60 dark:via-cyan-400/30 dark:to-violet-500/60 opacity-80 blur-[6px]" />
                   <input
                     value={aiQ}
                     onChange={e => setAiQ(e.target.value)}
                     placeholder="输入出生年月日时，或直接问：最近适合换工作吗？"
-                    className="jg-input w-full !py-4 !pr-28 text-sm"
+                    className="jg-input relative w-full !py-4 !pr-28 text-sm !border-2 !border-violet-400/70 dark:!border-violet-400/60 shadow-[0_2px_16px_rgba(139,92,246,0.18)]"
                   />
-                  <button type="submit" className="jg-btn-ai absolute right-1.5 top-1/2 -translate-y-1/2 !py-2.5 !px-4 text-xs">
+                  <button type="submit" className="jg-btn-ai absolute right-1.5 top-1/2 -translate-y-1/2 !py-2.5 !px-4 text-xs z-10">
                     AI 解读 →
                   </button>
                 </div>
@@ -276,7 +277,7 @@ export default function HomeClient() {
 
         {/* ════ 古籍信任 + 易学书馆 ════ */}
         <section className="mb-14">
-          <div className="jg-tile relative overflow-hidden p-7 md:p-9 border-2 !border-gold-400/30 dark:!border-gold-500/25">
+          <div className="jg-tile relative overflow-hidden p-7 md:p-9 border-2 !border-gold-600/45 dark:!border-gold-400/40">
             <div className="relative z-10 flex flex-col md:flex-row md:items-center gap-6 md:gap-8">
               <div className="text-5xl md:text-6xl shrink-0 mx-auto md:mx-0">📜</div>
               <div className="flex-1 text-center md:text-left">
