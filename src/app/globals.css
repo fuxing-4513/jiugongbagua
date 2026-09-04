@@ -319,9 +319,9 @@ body {
 .jg-frame-gold { border: 2px solid #987818 !important; }
 [data-theme='night'] .jg-frame-gold { border-color: #d4af37 !important; }
 
-/* ── AI 输入框强化（昼夜醒目：紫边框+微光） ── */
-.jg-input-glow { border: 2px solid #8b5cf6 !important; box-shadow: 0 0 0 1px rgba(139, 92, 246, 0.15), 0 2px 18px rgba(139, 92, 246, 0.22) !important; }
-.jg-input-glow:focus { border-color: #7c3aed !important; box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.18), 0 2px 22px rgba(139, 92, 246, 0.3) !important; }
+/* ── AI 输入框强化（昼=金色柔光/夜=紫色光晕——配合双主题色调） ── */
+.jg-input-glow { border: 1.5px solid #b08d2e !important; box-shadow: 0 0 0 1px rgba(176, 141, 46, 0.1), 0 2px 14px rgba(176, 141, 46, 0.16) !important; }
+.jg-input-glow:focus { border-color: #987818 !important; box-shadow: 0 0 0 3px rgba(176, 141, 46, 0.15), 0 2px 18px rgba(176, 141, 46, 0.22) !important; }
 [data-theme='night'] .jg-input-glow { border-color: #a78bfa !important; box-shadow: 0 0 0 1px rgba(167, 139, 250, 0.2), 0 2px 20px rgba(139, 92, 246, 0.35) !important; }
 [data-theme='night'] .jg-input-glow:focus { border-color: #c4b5fd !important; box-shadow: 0 0 0 4px rgba(167, 139, 250, 0.25), 0 2px 26px rgba(139, 92, 246, 0.45) !important; }
 

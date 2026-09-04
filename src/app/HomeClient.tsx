@@ -169,10 +169,10 @@ export default function HomeClient() {
                 只帮你照见能量与时机，<span className="font-medium text-gray-800 dark:text-gray-100">理性做出你自己的决定</span>。
               </p>
 
-              {/* AI 发光输入框（强化显眼：常驻紫光边） */}
+              {/* AI 发光输入框（昼=金色柔光 / 夜=紫色光晕） */}
               <form onSubmit={askAi} className="max-w-xl mb-6">
                 <div className="relative">
-                  <div className="absolute -inset-[2px] rounded-2xl bg-gradient-to-r from-violet-500/50 via-fuchsia-500/30 to-violet-500/50 dark:from-violet-500/60 dark:via-cyan-400/30 dark:to-violet-500/60 opacity-80 blur-[6px]" />
+                  <div className="absolute -inset-[1.5px] rounded-2xl bg-gradient-to-r from-amber-400/25 via-yellow-500/15 to-amber-400/25 dark:from-violet-500/60 dark:via-cyan-400/30 dark:to-violet-500/60 opacity-70 blur-[5px]" />
                   <input
                     value={aiQ}
                     onChange={e => setAiQ(e.target.value)}
