@@ -48,20 +48,26 @@ export const BODY_META: Record<PlanetKey, { name: string; symbol: string }> = {
   northNode: { name: '北交点', symbol: '☊' },
 }
 
-// 行星/数据文件映射（VSOP87 不含冥王星与月亮，单独处理）
-const VSOP_DATA: Record<string, string> = {
-  mercury: 'vsop87Bmercury', venus: 'vsop87Bvenus', earth: 'vsop87Bearth',
-  mars: 'vsop87Bmars', jupiter: 'vsop87Bjupiter', saturn: 'vsop87Bsaturn',
-  uranus: 'vsop87Buranus', neptune: 'vsop87Bneptune',
+// 静态导入 VSOP87 数据（webpack 需静态解析）
+import vsop87Bmercury from 'astronomia/data/vsop87Bmercury'
+import vsop87Bvenus from 'astronomia/data/vsop87Bvenus'
+import vsop87Bearth from 'astronomia/data/vsop87Bearth'
+import vsop87Bmars from 'astronomia/data/vsop87Bmars'
+import vsop87Bjupiter from 'astronomia/data/vsop87Bjupiter'
+import vsop87Bsaturn from 'astronomia/data/vsop87Bsaturn'
+import vsop87Buranus from 'astronomia/data/vsop87Buranus'
+import vsop87Bneptune from 'astronomia/data/vsop87Bneptune'
+
+const VSOP_DATA: Record<string, unknown> = {
+  mercury: vsop87Bmercury, venus: vsop87Bvenus, earth: vsop87Bearth,
+  mars: vsop87Bmars, jupiter: vsop87Bjupiter, saturn: vsop87Bsaturn,
+  uranus: vsop87Buranus, neptune: vsop87Bneptune,
 }
 
-// 动态加载 VSOP 数据（浏览器打包用动态 import 路径兼容）
 let planetCache: Record<string, InstanceType<typeof A.planetposition.Planet>> = {}
-async function getPlanet(name: string): Promise<InstanceType<typeof A.planetposition.Planet>> {
+function getPlanet(name: string): InstanceType<typeof A.planetposition.Planet> {
   if (planetCache[name]) return planetCache[name]
-  // 通过 astronomia 包内 data（next/webpack 打包时解析 lib/data 下 .cjs）
-  const mod: any = await import(`astronomia/data/${VSOP_DATA[name]}`)
-  const data = mod.default || mod
+  const data = (VSOP_DATA[name] as any)?.default || VSOP_DATA[name]
   planetCache[name] = new A.planetposition.Planet(data)
   return planetCache[name]
 }
