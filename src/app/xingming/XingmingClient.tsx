@@ -442,11 +442,12 @@ function getStroke(char: string): number {
 }
 
 function charWx(c: string): string {
-  // 1. 人工调整的常用取名字典（391 字，优先级最高）
-  if (CHARS_WX[c]) return CHARS_WX[c]
-  // 2. 全量字源五行（kangxizidian 抓取 19584 字）
+  // 1. 全量字源五行（kangxizidian.net 抓取 19584 字——唯一标准，优先）
+  //    （此前人工字典 391 字优先，其中 82 字与 kangxi 冲突（如"智"标水实为火）——已按用户要求反转）
   const wx = WUXING_DICT[c]
   if (wx) return wx
+  // 2. 人工调整字典（仅补充 kangxi 未收录的生僻字）
+  if (CHARS_WX[c]) return CHARS_WX[c]
   // 3. 偏旁部首判断
   const r = radicalWx(c)
   if (r) return r
@@ -856,7 +857,7 @@ const CHARS_WX: Record<string, string> = {
   '惠':'水',
   '敏':'水',
   '慧':'水',
-  '智':'水',
+  '智':'火',
   '灵':'水',
   '嘉':'水',
   '慈':'水',

@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { useLocale, useT } from '@/lib/i18n'
+import { useLocale, useT, useTArray } from '@/lib/i18n'
 
 import RotatingCompass from '@/components/visual/RotatingCompass'
 import StarField from '@/components/visual/StarField'
@@ -79,7 +79,7 @@ export default function HomeClient() {
     { q: getT('home.scenarios.risk.question'), empathy: getT('home.scenarios.risk.empathy'), cta: getT('home.scenarios.risk.cta'), href: '/app' },
   ]
   // FAQ（i18n 双语）
-  const faqItems = getT('home.faq.items') as unknown as { q: string; a: string }[]
+  const faqItems = useTArray()('home.faq.items') as { q: string; a: string }[]
 
   const askAi = (e: React.FormEvent) => {
     e.preventDefault()
@@ -146,7 +146,7 @@ export default function HomeClient() {
 
               {/* 信任胶囊 */}
               <div className="flex flex-wrap gap-2.5 mb-8">
-                {(getT('home.trustPills') as unknown as string[]).map(t => (
+                {(useTArray()('home.trustPills') as string[]).map(t => (
                   <span key={t} className="text-[11px] px-3 py-1 rounded-full border border-gray-200 dark:border-gray-700 text-gray-500 dark:text-gray-400">
                     ✓ {t}
                   </span>

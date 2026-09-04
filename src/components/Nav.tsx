@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
-import { useLocale, useT, type SupportedLocale } from '@/lib/i18n'
+import { useLocale, useT, useTArray, type SupportedLocale } from '@/lib/i18n'
 import { api } from '@/lib/api'
 
 const toolCategories: { label: string; items: { key: string; href: string; emoji?: string }[] }[] = [
@@ -60,6 +60,18 @@ export default function Nav() {
   }
 
   const handleLangChange = (lang: SupportedLocale) => {
+    // 繁体 → 简体：整页刷新（SSR 输出简体，避免 DOM 残留繁体转换结果）
+    if (locale === 'zh-TW' && lang === 'zh-CN') {
+      try {
+        localStorage.setItem('jiugong-locale', 'zh-CN')
+        const url = new URL(window.location.href)
+        url.searchParams.delete('lang')
+        window.history.replaceState(null, '', url.toString())
+      } catch {}
+      setLangOpen(false)
+      window.location.reload()
+      return
+    }
     setLocale(lang)
     // 同步 ?lang= 到地址栏，与 hreflang 备用链接保持一致（可分享、可被搜索引擎收录）
     try {
@@ -209,7 +221,7 @@ export default function Nav() {
       {/* 移动端常驻导航条（关键入口直接可见，无需展开菜单） */}
       <nav className="lg:hidden border-t border-gray-100 dark:border-gray-800 bg-white/90 dark:bg-[#101318]/90 backdrop-blur-sm">
         <div className="flex overflow-x-auto no-scrollbar gap-1 px-3 py-2">
-          {(getT('home.mobileNav') as unknown as { label: string }[]).map((n, i) => {
+          {(useTArray()('home.mobileNav') as { label: string }[]).map((n, i) => {
             const hrefs = ['/', '/tools', '/huangli', '/ai', '/xueguan', '/app']
             return (
               <Link key={i} href={hrefs[i] || '/'} onClick={() => setMobileMenuOpen(false)}

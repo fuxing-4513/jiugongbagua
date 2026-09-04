@@ -89,6 +89,17 @@ export function t(key: string, locale: LocaleType): string {
   return typeof value === 'string' ? value : key
 }
 
+// 取任意类型值（数组/对象——用于 FAQ 列表、导航列表等结构化文案）
+export function tAny(key: string, locale: LocaleType): unknown {
+  const keys = key.split('.')
+  let value: unknown = locale
+  for (const k of keys) {
+    if (typeof value !== 'object' || value === null) return undefined
+    value = (value as Record<string, unknown>)[k]
+  }
+  return value
+}
+
 // Hook: returns a getT(key) function bound to current locale
 // Replaces duplicated inline getT across components
 export function useT() {
@@ -96,6 +107,7 @@ export function useT() {
   return useCallback((key: string): string => t(key, locale), [locale])
 }
 
+// Hook: 结构化数据（数组/对象）取值（见下方 useTArray）
 // Hook: returns a getTArray(key) function for array-valued locale keys
 export function useTArray() {
   const { t: locale } = useLocale()

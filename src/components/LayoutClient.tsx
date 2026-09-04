@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react'
 import { LocaleProvider, useLocale } from '@/lib/i18n'
+import TraditionalConverter from './TraditionalConverter'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import ErrorBoundary from '@/components/ErrorBoundary'
@@ -20,6 +21,7 @@ function LayoutInner({ children }: { children: React.ReactNode }) {
   return (
     <>
       <div className="cosmic-overlay" aria-hidden="true" />
+      <TraditionalConverter />
       <TopLoadingBar />
       <ErrorBoundary>
         <Nav />
