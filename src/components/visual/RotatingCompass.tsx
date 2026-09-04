@@ -39,6 +39,7 @@ export default function RotatingCompass({
     <svg
       width={size}
       height={size}
+      style={{ maxWidth: '100%', height: 'auto' }}
       viewBox="0 0 400 400"
       className={className}
       role="img"

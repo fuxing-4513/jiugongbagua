@@ -325,6 +325,10 @@ body {
 [data-theme='night'] .jg-input-glow { border-color: #a78bfa !important; box-shadow: 0 0 0 1px rgba(167, 139, 250, 0.2), 0 2px 20px rgba(139, 92, 246, 0.35) !important; }
 [data-theme='night'] .jg-input-glow:focus { border-color: #c4b5fd !important; box-shadow: 0 0 0 4px rgba(167, 139, 250, 0.25), 0 2px 26px rgba(139, 92, 246, 0.45) !important; }
 
+/* ── 隐藏滚动条（移动端横向 tab 用） ── */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
 /* ── 选中文字高亮 ── */
 ::selection {
   background: rgba(91, 140, 122, 0.25);

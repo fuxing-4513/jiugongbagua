@@ -188,6 +188,25 @@ export default function Nav() {
         </button>
       </div>
 
+      {/* 移动端常驻导航条（关键入口直接可见，无需展开菜单） */}
+      <nav className="lg:hidden border-t border-gray-100 dark:border-gray-800 bg-white/90 dark:bg-[#101318]/90 backdrop-blur-sm">
+        <div className="flex overflow-x-auto no-scrollbar gap-1 px-3 py-2">
+          {[
+            { label: '🏠 首页', href: '/' },
+            { label: '📜 排盘', href: '/tools' },
+            { label: '📅 宜忌', href: '/huangli' },
+            { label: '💬 AI 对话', href: '/ai' },
+            { label: '📖 古籍书馆', href: '/xueguan' },
+            { label: '⚡ 快速测算', href: '/app' },
+          ].map(n => (
+            <Link key={n.href} href={n.href} onClick={() => setMobileMenuOpen(false)}
+              className="shrink-0 px-3 py-1.5 rounded-full text-xs text-gray-600 dark:text-gray-300 bg-gray-50 dark:bg-gray-800/60 border border-gray-100 dark:border-gray-700 hover:border-violet-300 dark:hover:border-violet-500/50 hover:text-violet-600 dark:hover:text-violet-300 transition-colors whitespace-nowrap">
+              {n.label}
+            </Link>
+          ))}
+        </div>
+      </nav>
+
       {/* Mobile Menu */}
       {mobileMenuOpen && (
         <div className="lg:hidden border-t border-gray-200 bg-white">
