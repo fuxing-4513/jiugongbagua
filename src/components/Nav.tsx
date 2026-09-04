@@ -178,6 +178,24 @@ export default function Nav() {
           </div>
         </div>
 
+        {/* 移动端快捷：语言 + 夜昼（与 PC 端对齐） */}
+        <div className="lg:hidden flex items-center gap-1.5 mr-1">
+          <button
+            onClick={() => handleLangChange(locale === 'zh-CN' ? 'zh-TW' : 'zh-CN')}
+            className="text-xs px-2 py-1 rounded-lg border border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:border-jade-300 transition-colors"
+            aria-label="切换简繁"
+          >
+            {locale === 'zh-CN' ? '繁' : '简'}
+          </button>
+          <button
+            onClick={toggleTheme}
+            className="text-xs px-2 py-1 rounded-lg border border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:border-violet-300 transition-colors"
+            aria-label="切换昼夜"
+          >
+            {night ? '昼' : '夜'}
+          </button>
+        </div>
+
         {/* Mobile Menu Button */}
         <button className="lg:hidden flex items-center justify-center w-10 h-10 text-gray-600 hover:text-jade-500 active:scale-95 transition-transform" onClick={() => setMobileMenuOpen(!mobileMenuOpen)} aria-label="Toggle menu">
           {mobileMenuOpen ? (
@@ -191,19 +209,15 @@ export default function Nav() {
       {/* 移动端常驻导航条（关键入口直接可见，无需展开菜单） */}
       <nav className="lg:hidden border-t border-gray-100 dark:border-gray-800 bg-white/90 dark:bg-[#101318]/90 backdrop-blur-sm">
         <div className="flex overflow-x-auto no-scrollbar gap-1 px-3 py-2">
-          {[
-            { label: '🏠 首页', href: '/' },
-            { label: '📜 排盘', href: '/tools' },
-            { label: '📅 宜忌', href: '/huangli' },
-            { label: '💬 AI 对话', href: '/ai' },
-            { label: '📖 古籍书馆', href: '/xueguan' },
-            { label: '⚡ 快速测算', href: '/app' },
-          ].map(n => (
-            <Link key={n.href} href={n.href} onClick={() => setMobileMenuOpen(false)}
-              className="shrink-0 px-3 py-1.5 rounded-full text-xs text-gray-600 dark:text-gray-300 bg-gray-50 dark:bg-gray-800/60 border border-gray-100 dark:border-gray-700 hover:border-violet-300 dark:hover:border-violet-500/50 hover:text-violet-600 dark:hover:text-violet-300 transition-colors whitespace-nowrap">
-              {n.label}
-            </Link>
-          ))}
+          {(getT('home.mobileNav') as unknown as { label: string }[]).map((n, i) => {
+            const hrefs = ['/', '/tools', '/huangli', '/ai', '/xueguan', '/app']
+            return (
+              <Link key={i} href={hrefs[i] || '/'} onClick={() => setMobileMenuOpen(false)}
+                className="shrink-0 px-3 py-1.5 rounded-full text-xs text-gray-600 dark:text-gray-300 bg-gray-50 dark:bg-gray-800/60 border border-gray-100 dark:border-gray-700 hover:border-violet-300 dark:hover:border-violet-500/50 hover:text-violet-600 dark:hover:text-violet-300 transition-colors whitespace-nowrap">
+                {n.label}
+              </Link>
+            )
+          })}
         </div>
       </nav>
 
