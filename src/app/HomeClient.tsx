@@ -132,69 +132,69 @@ export default function HomeClient() {
     <>
       <div className="max-w-6xl mx-auto px-4">
         {/* ════ Hero：科技罗盘 + AI 入口 ════ */}
-        <section className="relative pt-12 pb-8 overflow-hidden">
+        <section className="relative pt-14 md:pt-16 pb-10 overflow-hidden">
           {/* 背景：星点（细腻点缀，不喧宾夺主） */}
           <div className="absolute inset-0 pointer-events-none">
             <StarField className="absolute inset-0 w-full h-full opacity-40 dark:opacity-60" />
           </div>
 
-          <div className="relative z-10 grid lg:grid-cols-[1.15fr_1fr] gap-10 items-center">
+          <div className="relative z-10 grid lg:grid-cols-[1.15fr_1fr] gap-12 items-center">
             {/* 左：文案 + AI 输入 */}
             <div>
-              <span className="jg-chip mb-5">✦ AI 时空决策引擎 · 古籍原典 · 135 部全文</span>
-              <h1 className="text-3xl md:text-5xl font-bold text-gray-900 dark:text-gray-50 leading-tight mb-6">
+              <span className="jg-chip mb-6">✦ AI 时空决策引擎 · 古籍原典 · 135 部全文</span>
+              <h1 className="text-3xl md:text-5xl font-bold text-gray-900 dark:text-gray-50 leading-tight mb-8">
                 在关键时刻，
                 <br />
                 <span className="jg-text-grad">看清真实处境</span>
               </h1>
 
               {/* ═══ 三大痛点场景（先共情，再给方法） ═══ */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
                 {scenarioCards.map(s => (
                   <Link key={s.href} href={s.href}
-                    className="group jg-card-plain p-3.5 hover:!border-violet-400/50 transition-colors flex flex-col">
-                    <p className="text-[13px] font-bold text-gray-800 dark:text-gray-100 leading-snug mb-1.5 group-hover:text-violet-600 dark:group-hover:text-violet-300 transition-colors">
+                    className="group jg-card-plain p-4 hover:!border-violet-400/50 transition-colors flex flex-col">
+                    <p className="text-[13.5px] font-bold text-gray-800 dark:text-gray-100 leading-relaxed mb-2 group-hover:text-violet-600 dark:group-hover:text-violet-300 transition-colors">
                       {s.q}
                     </p>
-                    <p className="text-[11px] text-gray-500 dark:text-gray-400 leading-relaxed mb-2.5 flex-1">
+                    <p className="text-[11.5px] text-gray-500 dark:text-gray-400 leading-relaxed mb-3 flex-1">
                       {s.empathy}
                     </p>
-                    <span className="text-[10px] font-medium jg-text-accent">{s.cta} →</span>
+                    <span className="text-[10.5px] font-medium jg-text-accent">{s.cta} →</span>
                   </Link>
                 ))}
               </div>
 
-              <p className="text-base md:text-lg text-gray-600 dark:text-gray-300 max-w-xl mb-5 leading-relaxed">
+              <p className="text-base md:text-lg text-gray-600 dark:text-gray-300 max-w-xl mb-7 leading-relaxed">
                 事业进退、感情迷局、人生转折——不给你宿命断言，
                 只帮你照见能量与时机，<span className="font-medium text-gray-800 dark:text-gray-100">理性做出你自己的决定</span>。
               </p>
 
               {/* AI 发光输入框 */}
-              <form onSubmit={askAi} className="max-w-xl mb-4">
+              <form onSubmit={askAi} className="max-w-xl mb-6">
                 <div className="relative">
                   <input
                     value={aiQ}
                     onChange={e => setAiQ(e.target.value)}
                     placeholder="输入出生年月日时，或直接问：最近适合换工作吗？"
-                    className="jg-input w-full !py-3.5 !pr-28 text-sm"
+                    className="jg-input w-full !py-4 !pr-28 text-sm"
                   />
-                  <button type="submit" className="jg-btn-ai absolute right-1.5 top-1/2 -translate-y-1/2 !py-2 !px-4 text-xs">
+                  <button type="submit" className="jg-btn-ai absolute right-1.5 top-1/2 -translate-y-1/2 !py-2.5 !px-4 text-xs">
                     AI 解读 →
                   </button>
                 </div>
               </form>
 
               {/* 信任胶囊 */}
-              <div className="flex flex-wrap gap-2 mb-6">
+              <div className="flex flex-wrap gap-2.5 mb-8">
                 {['古籍原典可溯源', '推理过程全透明', 'AI 免费解读', '生辰不存服务器'].map(t => (
-                  <span key={t} className="text-[11px] px-2.5 py-1 rounded-full border border-gray-200 dark:border-gray-700 text-gray-500 dark:text-gray-400">
+                  <span key={t} className="text-[11px] px-3 py-1 rounded-full border border-gray-200 dark:border-gray-700 text-gray-500 dark:text-gray-400">
                     ✓ {t}
                   </span>
                 ))}
               </div>
 
               {/* CTA */}
-              <div className="flex flex-wrap gap-3">
+              <div className="flex flex-wrap gap-3.5">
                 <Link href="/bazi" className="jg-btn-primary">📜 免费排八字</Link>
                 <Link href="/ziwei" className="jg-btn">⭐ 排紫微盘</Link>
                 <Link href="/tools" className="jg-btn-ghost">全部工具 →</Link>
@@ -258,12 +258,12 @@ export default function HomeClient() {
             </div>
             <Link href="/tools" className="text-xs jg-text-accent hover:underline shrink-0">查看全部 →</Link>
           </div>
-          <div className="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-10 gap-2.5">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 md:gap-4">
             {quickTools.map(t => (
               <Link key={t.href} href={t.href}
-                className="jg-card-plain group flex flex-col items-center gap-1.5 py-3.5 px-1 text-center hover:!border-violet-400/40 transition-colors">
-                <span className="text-xl group-hover:scale-110 transition-transform duration-200">{t.emoji}</span>
-                <span className="text-[11px] text-gray-600 dark:text-gray-300 group-hover:text-violet-500 dark:group-hover:text-violet-300 transition-colors">
+                className="jg-card-plain group flex flex-col items-center gap-2 py-5 px-2 text-center hover:!border-violet-400/40 transition-colors">
+                <span className="text-2xl md:text-[28px] group-hover:scale-110 transition-transform duration-200">{t.emoji}</span>
+                <span className="text-xs md:text-[13px] text-gray-600 dark:text-gray-300 group-hover:text-violet-500 dark:group-hover:text-violet-300 transition-colors font-medium">
                   {t.name}
                 </span>
               </Link>
@@ -276,17 +276,22 @@ export default function HomeClient() {
 
         {/* ════ 古籍信任 + 易学书馆 ════ */}
         <section className="mb-14">
-          <div className="jg-tile relative overflow-hidden p-6">
-            <div className="relative z-10 flex flex-col sm:flex-row sm:items-center gap-5">
-              <div className="text-4xl group-hover:scale-110">📜</div>
-              <div className="flex-1">
-                <h2 className="text-lg font-bold text-gray-900 dark:text-gray-50 mb-1">易学书馆 · 135 部古籍全文</h2>
-                <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">
+          <div className="jg-tile relative overflow-hidden p-7 md:p-9 border-2 !border-gold-400/30 dark:!border-gold-500/25">
+            <div className="relative z-10 flex flex-col md:flex-row md:items-center gap-6 md:gap-8">
+              <div className="text-5xl md:text-6xl shrink-0 mx-auto md:mx-0">📜</div>
+              <div className="flex-1 text-center md:text-left">
+                <h2 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-gray-50 mb-2">易学书馆 · 135 部古籍全文</h2>
+                <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed max-w-2xl">
                   《滴天髓》《紫微斗数全书》《三命通会》……每一句结论都可溯源到原典。
-                  免费阅读、全文检索——古籍是公版文化资产，我们只做整理与白话导读。
+                  免费阅读、全文检索——古籍是公版文化资产，我们只做整理与白话导读，传承不设墙。
+                </p>
+                <p className="text-[11px] text-gold-600/80 dark:text-gold-400/70 mt-2.5">
+                  📖 命理典籍 · 易学经典 · 占卜术数 —— 持续收录中
                 </p>
               </div>
-              <Link href="/xueguan" className="jg-btn shrink-0">进入书馆 →</Link>
+              <div className="shrink-0 flex justify-center">
+                <Link href="/xueguan" className="jg-btn-primary !px-8 !py-3.5">进入书馆 →</Link>
+              </div>
             </div>
           </div>
         </section>
