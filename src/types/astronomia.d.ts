@@ -32,3 +32,9 @@ declare module 'astronomia' {
     astrometric(jde: number, earth: unknown): { ra: number; dec: number }
   }
 }
+
+// VSOP87 数据子模块（无类型——宽松 any）
+declare module 'astronomia/data/*' {
+  const data: { default?: unknown; L?: unknown; B?: unknown; R?: unknown }
+  export default data
+}
