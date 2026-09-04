@@ -7,10 +7,18 @@ import ShareResult from '@/components/ShareResult'
 import { dataPath } from '@/lib/anti-scrape'
 import { synonymMatch, multiTermMatch } from '@/lib/dream-synonyms'
 import { generatePsychology } from '@/lib/dream-psychology'
-import { SEARCH_INDEX, type InlineDreamRow } from './searchIndex'
 
-/** 扩展行：详情弹窗可能携带全量库的 detail/mood */
-type DreamRow = InlineDreamRow & { detail?: string; mood?: string }
+/** 精简索引行（外置 JSON 懒加载：k标题词/t标题/c分类/g关键词/m摘要——大幅减小首屏 JS） */
+interface LiteDreamRow {
+  k: string
+  t: string
+  c: string
+  g: string[]
+  m: string
+}
+
+/** 扩展行：详情弹窗可能携带全量库的 detail/mood/ancient */
+type DreamRow = LiteDreamRow & { detail?: string; mood?: string; ancient?: string; a?: string }
 
 /** 完整词条（懒加载增强用） */
 interface Dream {
@@ -87,7 +95,38 @@ export default function JiemengClient() {
   const [selectedDream, setSelectedDream] = useState<DreamRow | null>(null)
   const [psychoTab, setPsychoTab] = useState(false)
   const [fullReady, setFullReady] = useState(!!fullData)
+  // 精简索引（外置 JSON 懒加载 + sessionStorage 缓存——首屏不再下载 4.7MB 内联索引）
+  const [indexData, setIndexData] = useState<LiteDreamRow[]>([])
+  const [indexLoading, setIndexLoading] = useState(true)
   const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined)
+
+  // 懒加载精简索引（搜索数据）
+  useEffect(() => {
+    let alive = true
+    try {
+      const cached = sessionStorage.getItem('jiugong_dream_index')
+      if (cached) {
+        const parsed = JSON.parse(cached)
+        if (Array.isArray(parsed) && parsed.length > 1000) {
+          setIndexData(parsed as LiteDreamRow[])
+          setIndexLoading(false)
+          return
+        }
+      }
+    } catch {}
+    fetch(dataPath('dreamIndex'))
+      .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json() })
+      .then(arr => {
+        if (!alive) return
+        if (Array.isArray(arr) && arr.length > 1000) {
+          setIndexData(arr as LiteDreamRow[])
+          try { sessionStorage.setItem('jiugong_dream_index', JSON.stringify(arr)) } catch {}
+        }
+        setIndexLoading(false)
+      })
+      .catch(() => { if (alive) setIndexLoading(false) })
+    return () => { alive = false }
+  }, [])
 
   // 后台尝试加载全量库（增强详情；被CDN拦截也不影响任何功能）
   useEffect(() => {
@@ -96,15 +135,15 @@ export default function JiemengClient() {
     fullCallbacks.push((ok) => { if (ok) setFullReady(true) })
   }, [])
 
-  // 支持 ?q= 直接搜索（SEO 落地页入口）
+  // 支持 ?q= 直接搜索（SEO 落地页入口——等索引就绪后执行）
   useEffect(() => {
     const q = searchParams?.get('q')
-    if (q && q.trim()) {
+    if (q && q.trim() && indexData.length) {
       setKeyword(q.trim())
       doSearch(q.trim())
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchParams])
+  }, [searchParams, indexData])
 
   // 搜索逻辑：内联索引，毫秒级响应，零网络依赖
   const doSearch = (q: string) => {
@@ -120,7 +159,7 @@ export default function JiemengClient() {
     const terms = trimmed.split(/\s+/).filter(Boolean)
     // ASCII 大小写不敏感（"ai" 可搜到 "AI"）；中文无大小写，不受影响
     const lowerTerms = terms.map(t => t.toLowerCase())
-    const matched = SEARCH_INDEX.filter(d => {
+    const matched = indexData.filter(d => {
       const searchText = `${d.k} ${d.t} ${d.m} ${(d.g || []).join(' ')}`.toLowerCase()
       const kLow = d.k.toLowerCase()
       const tLow = d.t.toLowerCase()
@@ -152,34 +191,35 @@ export default function JiemengClient() {
     setActiveCategory(cat)
     setKeyword('')
     setSearched(true)
-    setResults(SEARCH_INDEX.filter(d => d.c === cat))
+    setResults(indexData.filter(d => d.c === cat))
     setSelectedDream(null)
   }
 
-  // 热门梦境（按各分类取第一条）
+  // 热门梦境（按各分类取第一条）——依赖 indexData（加载完成后更新）
   const hotKeywords = useMemo(() => {
     const seen = new Set<string>()
-    return SEARCH_INDEX.filter(d => {
+    return indexData.filter(d => {
       if (seen.has(d.c)) return false
       seen.add(d.c)
       return true
     }).map(d => ({ keyword: d.k }))
-  }, [])
+  }, [indexData])
 
-  // 点击结果 → 打开详情（内联索引兜底，全量库增强）
+  // 点击结果 → 打开详情（索引兜底，全量库增强）
   const openDetail = (item: DreamRow) => {
     setPsychoTab(false)
     if (fullData) {
       const hit = fullData.find(d => d.keyword === item.k && d.title === item.t) ||
                   fullData.find(d => d.keyword === item.k) ||
                   fullData.find(d => d.title === item.t)
-      if (hit) { setSelectedDream({ ...item, detail: hit.detail, mood: hit.mood }); return }
+      if (hit) { setSelectedDream({ ...item, detail: hit.detail, mood: hit.mood, ancient: hit.ancient }); return }
     }
-    // 全量库未就绪：用内联数据展示（detail 用白话+古籍兜底）
+    // 全量库未就绪：用摘要展示（古籍原文见独立详情页）
     setSelectedDream({
       ...item,
-      detail: item.m.length > 60 ? item.m : `${item.m}\n\n📜 古籍参考：${item.a}`,
+      detail: item.m,
       mood: '',
+      ancient: '',
     })
   }
 
@@ -192,7 +232,16 @@ export default function JiemengClient() {
   return (
     <div className="max-w-3xl mx-auto px-4 py-10">
       <h1 className="text-3xl font-bold text-gold-700 font-serif mb-3">周公解梦</h1>
-      <p className="text-gray-600 mb-8">收录 {SEARCH_INDEX.length} 条梦境解析 · 含《周公解梦》《梦林玄解》《断梦秘书》古籍原文 · 支持多词组合搜索</p>
+      <p className="text-gray-600 mb-8">
+        {indexLoading ? (
+          <span className="inline-flex items-center gap-2 text-amber-600">
+            <span className="inline-block w-3.5 h-3.5 border-2 border-amber-500 border-t-transparent rounded-full animate-spin" />
+            正在加载解梦数据库…
+          </span>
+        ) : (
+          <>收录 {indexData.length} 条梦境解析 · 含《周公解梦》《梦林玄解》《断梦秘书》古籍原文 · 支持多词组合搜索</>
+        )}
+      </p>
 
       {/* 搜索框 */}
       <div className="bg-white/80 rounded-xl border border-amber-200/60 p-6 mb-4">
@@ -210,7 +259,7 @@ export default function JiemengClient() {
             className="bg-gold-600 hover:bg-gold-500 text-dark-900 font-semibold px-5 py-2 rounded-lg transition-colors whitespace-nowrap cursor-pointer"
           >搜索</button>
         </div>
-        <p className="text-[10px] text-gray-500 mt-2">📚 收录 {SEARCH_INDEX.length} 条梦境解析 · 古籍与心理学双视角 · 支持多词组合搜索</p>
+        <p className="text-[10px] text-gray-500 mt-2">📚 收录 {indexData.length} 条梦境解析 · 古籍与心理学双视角 · 支持多词组合搜索</p>
       </div>
 
       {/* 分类导航 */}
@@ -292,7 +341,7 @@ export default function JiemengClient() {
       {!searched && (
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
           {ALL_CATEGORIES.map(cat => {
-            const count = SEARCH_INDEX.filter(d => d.c === cat).length
+            const count = indexData.filter(d => d.c === cat).length
             return (
               <button key={cat} onClick={() => browseCategory(cat)}
                 className="bg-white/80 border border-amber-200/60 rounded-xl p-4 text-center hover:border-gold-400/60 transition-colors"
@@ -346,10 +395,10 @@ export default function JiemengClient() {
             {!psychoTab ? (
               <>
                 {/* 古籍原文 */}
-                {selectedDream.a && (
+                {selectedDream.ancient && (
                   <div className="bg-amber-50 rounded-lg p-4 mb-4 border border-amber-100/60">
                     <p className="text-xs text-gold-600/90 mb-1">📜 古籍原文</p>
-                    <p className="text-sm text-gray-700 leading-relaxed">{selectedDream.a}</p>
+                    <p className="text-sm text-gray-700 leading-relaxed">{selectedDream.ancient}</p>
                   </div>
                 )}
 
@@ -415,7 +464,7 @@ export default function JiemengClient() {
                 href={`/jiemeng/${encodeURIComponent(selectedDream.k).replace(/[%()（）\s.]/g, '').toLowerCase()}/`}
                 className="text-xs text-gold-600 hover:underline">查看完整网页版 ›</Link>
               <ShareResult
-                text={`${selectedDream.t}\n\n古籍原文: ${selectedDream.a}\n\n白话解析: ${selectedDream.m}`}
+                text={`${selectedDream.t}\n\n古籍原文: ${selectedDream.ancient}\n\n白话解析: ${selectedDream.m}`}
                 label="📋 复制解梦"
               />
             </div>
