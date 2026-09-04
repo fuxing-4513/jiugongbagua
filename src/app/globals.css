@@ -315,7 +315,17 @@ body {
   color: transparent;
 }
 
-/* ── 文本选中高亮 ── */
+/* ── 金色实边框（古籍板块：昼深金/夜亮金——专属类避免 Tailwind ! 语法问题） ── */
+.jg-frame-gold { border: 2px solid #987818 !important; }
+[data-theme='night'] .jg-frame-gold { border-color: #d4af37 !important; }
+
+/* ── AI 输入框强化（昼夜醒目：紫边框+微光） ── */
+.jg-input-glow { border: 2px solid #8b5cf6 !important; box-shadow: 0 0 0 1px rgba(139, 92, 246, 0.15), 0 2px 18px rgba(139, 92, 246, 0.22) !important; }
+.jg-input-glow:focus { border-color: #7c3aed !important; box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.18), 0 2px 22px rgba(139, 92, 246, 0.3) !important; }
+[data-theme='night'] .jg-input-glow { border-color: #a78bfa !important; box-shadow: 0 0 0 1px rgba(167, 139, 250, 0.2), 0 2px 20px rgba(139, 92, 246, 0.35) !important; }
+[data-theme='night'] .jg-input-glow:focus { border-color: #c4b5fd !important; box-shadow: 0 0 0 4px rgba(167, 139, 250, 0.25), 0 2px 26px rgba(139, 92, 246, 0.45) !important; }
+
+/* ── 选中文字高亮 ── */
 ::selection {
   background: rgba(91, 140, 122, 0.25);
   color: #1a1a1a;

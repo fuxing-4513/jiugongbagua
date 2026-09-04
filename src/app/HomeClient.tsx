@@ -152,7 +152,7 @@ export default function HomeClient() {
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
                 {scenarioCards.map(s => (
                   <Link key={s.href} href={s.href}
-                    className="group jg-card-plain p-4 hover:!border-violet-400/50 transition-colors flex flex-col">
+                    className="group jg-card-plain p-4 hover:border-violet-400/50! transition-colors flex flex-col">
                     <p className="text-[13.5px] font-bold text-gray-800 dark:text-gray-100 leading-relaxed mb-2 group-hover:text-violet-600 dark:group-hover:text-violet-300 transition-colors">
                       {s.q}
                     </p>
@@ -177,9 +177,9 @@ export default function HomeClient() {
                     value={aiQ}
                     onChange={e => setAiQ(e.target.value)}
                     placeholder="输入出生年月日时，或直接问：最近适合换工作吗？"
-                    className="jg-input relative w-full !py-4 !pr-28 text-sm !border-2 !border-violet-400/70 dark:!border-violet-400/60 shadow-[0_2px_16px_rgba(139,92,246,0.18)]"
+                    className="jg-input jg-input-glow w-full py-4! pr-28! text-sm"
                   />
-                  <button type="submit" className="jg-btn-ai absolute right-1.5 top-1/2 -translate-y-1/2 !py-2.5 !px-4 text-xs z-10">
+                  <button type="submit" className="jg-btn-ai absolute right-1.5 top-1/2 -translate-y-1/2 py-2.5! px-4! text-xs z-10">
                     AI 解读 →
                   </button>
                 </div>
@@ -214,7 +214,7 @@ export default function HomeClient() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {bentoMain.map(c => (
               <Link key={c.href} href={c.href}
-                className={`jg-tile group relative overflow-hidden p-6 min-h-[210px] flex flex-col ${c.accent === 'cyan' ? '!border-cyan-400/30' : ''}`}>
+                className={`jg-tile group relative overflow-hidden p-6 min-h-[210px] flex flex-col ${c.accent === 'cyan' ? 'border-cyan-400/30!' : ''}`}>
                 <div className="relative z-10 flex flex-col h-full">
                   <div className="text-3xl mb-3 group-hover:scale-110 transition-transform duration-300 w-fit">{c.emoji}</div>
                   <h2 className="text-lg font-bold text-gray-900 dark:text-gray-50 mb-1">{c.title}</h2>
@@ -232,7 +232,7 @@ export default function HomeClient() {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-4">
             {bentoSub.map(c => (
               <Link key={c.href} href={c.href}
-                className="jg-card group p-5 flex items-center gap-4 hover:!border-violet-400/40 transition-colors">
+                className="jg-card group p-5 flex items-center gap-4 hover:border-violet-400/40! transition-colors">
                 <div className="text-2xl w-11 h-11 flex items-center justify-center rounded-xl bg-violet-500/10 group-hover:scale-110 transition-transform duration-300">
                   {c.emoji}
                 </div>
@@ -262,7 +262,7 @@ export default function HomeClient() {
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 md:gap-4">
             {quickTools.map(t => (
               <Link key={t.href} href={t.href}
-                className="jg-card-plain group flex flex-col items-center gap-2 py-5 px-2 text-center hover:!border-violet-400/40 transition-colors">
+                className="jg-card-plain group flex flex-col items-center gap-2 py-5 px-2 text-center hover:border-violet-400/40! transition-colors">
                 <span className="text-2xl md:text-[28px] group-hover:scale-110 transition-transform duration-200">{t.emoji}</span>
                 <span className="text-xs md:text-[13px] text-gray-600 dark:text-gray-300 group-hover:text-violet-500 dark:group-hover:text-violet-300 transition-colors font-medium">
                   {t.name}
@@ -277,7 +277,7 @@ export default function HomeClient() {
 
         {/* ════ 古籍信任 + 易学书馆 ════ */}
         <section className="mb-14">
-          <div className="jg-tile relative overflow-hidden p-7 md:p-9 border-2 !border-gold-600/45 dark:!border-gold-400/40">
+          <div className="jg-tile relative overflow-hidden p-7 md:p-9 jg-frame-gold">
             <div className="relative z-10 flex flex-col md:flex-row md:items-center gap-6 md:gap-8">
               <div className="text-5xl md:text-6xl shrink-0 mx-auto md:mx-0">📜</div>
               <div className="flex-1 text-center md:text-left">
@@ -291,7 +291,7 @@ export default function HomeClient() {
                 </p>
               </div>
               <div className="shrink-0 flex justify-center">
-                <Link href="/xueguan" className="jg-btn-primary !px-8 !py-3.5">进入书馆 →</Link>
+                <Link href="/xueguan" className="jg-btn-primary px-8! py-3.5!">进入书馆 →</Link>
               </div>
             </div>
           </div>
@@ -420,7 +420,7 @@ function FreeChartWidget() {
         href={chartHref}
         className={`block w-full mt-6 min-h-[46px] py-3 rounded-xl text-center font-semibold text-base transition-all ${
           isValid
-            ? 'jg-btn-primary !w-full !min-h-[46px]'
+            ? 'jg-btn-primary w-full! min-h-[46px]!'
             : 'bg-gray-200 dark:bg-gray-700 text-gray-400 cursor-not-allowed pointer-events-none'
         }`}
         onClick={e => { if (!isValid) e.preventDefault() }}

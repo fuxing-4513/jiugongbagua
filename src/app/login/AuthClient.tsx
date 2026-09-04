@@ -75,7 +75,7 @@ function AuthContent() {
             </p>
           )}
 
-          <button type="submit" disabled={busy} className="jg-btn-primary w-full !min-h-[44px]">
+          <button type="submit" disabled={busy} className="jg-btn-primary w-full min-h-[44px]!">
             {busy ? '请稍候…' : mode === 'login' ? '登 录' : '注册并登录'}
           </button>
         </form>
