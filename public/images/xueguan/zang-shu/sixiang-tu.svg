@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 260" width="320" height="208">
+<text x="200" y="26" text-anchor="middle" font-size="16" fill="#5a4632" font-family="serif" font-weight="bold">四象（四势）吉格</text>
+<text x="200" y="58" text-anchor="middle" font-size="13.5" fill="#3d2f1d" font-family="serif">玄武垂头（后有靠）</text>
+<path d="M160,80 q40,-12 80,0" fill="none" stroke="#8c6d1f" stroke-width="2.5" stroke-linecap="round"/>
+<text x="90" y="120" text-anchor="middle" font-size="13" fill="#3a6ea5" font-family="serif">青龙蜿蜒</text>
+<text x="310" y="120" text-anchor="middle" font-size="13" fill="#b85450" font-family="serif">白虎驯俯</text>
+<path d="M120,100 q-10,60 80,60 q90,0 80,-60" fill="none" stroke="#b08d2e" stroke-width="2.5" stroke-linecap="round"/>
+<text x="200" y="200" text-anchor="middle" font-size="13" fill="#3d7a3d" font-family="serif">朱雀翔舞（前有案）</text>
+<text x="200" y="235" text-anchor="middle" font-size="11" fill="#8a7a5e" font-family="serif">左青龙 · 右白虎 · 前朱雀 · 后玄武——四势全则穴吉</text>
+</svg>

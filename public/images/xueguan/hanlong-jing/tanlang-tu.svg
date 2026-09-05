@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 260" width="240" height="208">
+<text x="150" y="24" text-anchor="middle" font-size="16" fill="#5a4632" font-family="serif" font-weight="bold">贪狼星峰</text>
+<path d="M80,220 L150,60 L220,220" fill="none" stroke="#8c6d1f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<ellipse cx="150" cy="60" rx="3" ry="8" fill="#8c6d1f"/><path d="M150,75 q-25,60 -60,130" fill="none" stroke="#c9b37e" stroke-width="1.5"/><path d="M150,75 q25,60 60,130" fill="none" stroke="#c9b37e" stroke-width="1.5"/>
+<text x="150" y="244" text-anchor="middle" font-size="12" fill="#6b5b43" font-family="serif">贪狼顿起笋生峰 · 一峰独秀，形如竹笋</text>
+</svg>

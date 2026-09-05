@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" width="480" height="320">
+<text x="240" y="26" text-anchor="middle" font-size="17" fill="#5a4632" font-family="serif" font-weight="bold">五行相生 · 通关之序</text>
+<circle cx="200" cy="160" r="88" fill="none" stroke="#e5dcc8" stroke-width="1" stroke-dasharray="4 3"/>
+<circle cx="200" cy="160" r="88" fill="none" stroke="#e5dcc8" stroke-width="1" stroke-dasharray="4 3"/>
+<circle cx="200" cy="160" r="88" fill="none" stroke="#e5dcc8" stroke-width="1" stroke-dasharray="4 3"/>
+<circle cx="200" cy="160" r="88" fill="none" stroke="#e5dcc8" stroke-width="1" stroke-dasharray="4 3"/>
+<circle cx="200" cy="160" r="88" fill="none" stroke="#e5dcc8" stroke-width="1" stroke-dasharray="4 3"/>
+<circle cx="240" cy="60" r="34" fill="#3d7a3d1a" stroke="#3d7a3d" stroke-width="2"/>
+<text x="240" y="65" text-anchor="middle" font-size="15" fill="#3d7a3d" font-family="serif" font-weight="bold">木</text>
+<circle cx="360" cy="150" r="34" fill="#b854501a" stroke="#b85450" stroke-width="2"/>
+<text x="360" y="155" text-anchor="middle" font-size="15" fill="#b85450" font-family="serif" font-weight="bold">火</text>
+<circle cx="300" cy="260" r="34" fill="#b08d2e1a" stroke="#b08d2e" stroke-width="2"/>
+<text x="300" y="265" text-anchor="middle" font-size="15" fill="#b08d2e" font-family="serif" font-weight="bold">土</text>
+<circle cx="140" cy="260" r="34" fill="#6b7f991a" stroke="#6b7f99" stroke-width="2"/>
+<text x="140" y="265" text-anchor="middle" font-size="15" fill="#6b7f99" font-family="serif" font-weight="bold">金</text>
+<circle cx="70" cy="150" r="34" fill="#3a6ea51a" stroke="#3a6ea5" stroke-width="2"/>
+<text x="70" y="155" text-anchor="middle" font-size="15" fill="#3a6ea5" font-family="serif" font-weight="bold">水</text>
+<text x="300" y="97" text-anchor="middle" font-size="11" fill="#8a7a5e">相生→</text>
+<text x="330" y="197" text-anchor="middle" font-size="11" fill="#8a7a5e">相生→</text>
+<text x="220" y="252" text-anchor="middle" font-size="11" fill="#8a7a5e">相生→</text>
+<text x="105" y="197" text-anchor="middle" font-size="11" fill="#8a7a5e">相生→</text>
+<text x="155" y="97" text-anchor="middle" font-size="11" fill="#8a7a5e">相生→</text>
+<text x="200" y="300" text-anchor="middle" font-size="11.5" fill="#8a7a5e">木生火 · 火生土 · 土生金 · 金生水 · 水生木</text>
+</svg>

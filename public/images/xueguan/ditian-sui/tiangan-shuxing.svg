@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" width="480" height="320">
+<text x="240" y="26" text-anchor="middle" font-size="17" fill="#5a4632" font-family="serif" font-weight="bold">十天干体性与五行归属</text>
+<rect x="30" y="46" width="420" height="23" rx="5" fill="#faf7f0" stroke="#d8c9a3" stroke-width="0.8"/>
+<text x="70" y="62" text-anchor="middle" font-size="14" fill="#8c6d1f" font-family="serif">甲</text>
+<text x="140" y="62" text-anchor="middle" font-size="12.5" fill="#5a4632" font-family="serif">阳木</text>
+<text x="270" y="62" text-anchor="middle" font-size="12" fill="#6b5b43" font-family="serif">参天大树·栋梁之才</text>
+<rect x="30" y="72" width="420" height="23" rx="5" fill="#f5efe2" stroke="#d8c9a3" stroke-width="0.8"/>
+<text x="70" y="88" text-anchor="middle" font-size="14" fill="#8c6d1f" font-family="serif">乙</text>
+<text x="140" y="88" text-anchor="middle" font-size="12.5" fill="#5a4632" font-family="serif">阴木</text>
+<text x="270" y="88" text-anchor="middle" font-size="12" fill="#6b5b43" font-family="serif">花草藤蔓·柔韧生长</text>
+<rect x="30" y="98" width="420" height="23" rx="5" fill="#faf7f0" stroke="#d8c9a3" stroke-width="0.8"/>
+<text x="70" y="114" text-anchor="middle" font-size="14" fill="#8c6d1f" font-family="serif">丙</text>
+<text x="140" y="114" text-anchor="middle" font-size="12.5" fill="#5a4632" font-family="serif">阳火</text>
+<text x="270" y="114" text-anchor="middle" font-size="12" fill="#6b5b43" font-family="serif">太阳之火·光明热烈</text>
+<rect x="30" y="124" width="420" height="23" rx="5" fill="#f5efe2" stroke="#d8c9a3" stroke-width="0.8"/>
+<text x="70" y="140" text-anchor="middle" font-size="14" fill="#8c6d1f" font-family="serif">丁</text>
+<text x="140" y="140" text-anchor="middle" font-size="12.5" fill="#5a4632" font-family="serif">阴火</text>
+<text x="270" y="140" text-anchor="middle" font-size="12" fill="#6b5b43" font-family="serif">灯烛之火·温和细致</text>
+<rect x="30" y="150" width="420" height="23" rx="5" fill="#faf7f0" stroke="#d8c9a3" stroke-width="0.8"/>
+<text x="70" y="166" text-anchor="middle" font-size="14" fill="#8c6d1f" font-family="serif">戊</text>
+<text x="140" y="166" text-anchor="middle" font-size="12.5" fill="#5a4632" font-family="serif">阳土</text>
+<text x="270" y="166" text-anchor="middle" font-size="12" fill="#6b5b43" font-family="serif">城墙之土·厚重可靠</text>
+<rect x="30" y="176" width="420" height="23" rx="5" fill="#f5efe2" stroke="#d8c9a3" stroke-width="0.8"/>
+<text x="70" y="192" text-anchor="middle" font-size="14" fill="#8c6d1f" font-family="serif">己</text>
+<text x="140" y="192" text-anchor="middle" font-size="12.5" fill="#5a4632" font-family="serif">阴土</text>
+<text x="270" y="192" text-anchor="middle" font-size="12" fill="#6b5b43" font-family="serif">田园之土·滋养包容</text>
+<rect x="30" y="202" width="420" height="23" rx="5" fill="#faf7f0" stroke="#d8c9a3" stroke-width="0.8"/>
+<text x="70" y="218" text-anchor="middle" font-size="14" fill="#8c6d1f" font-family="serif">庚</text>
+<text x="140" y="218" text-anchor="middle" font-size="12.5" fill="#5a4632" font-family="serif">阳金</text>
+<text x="270" y="218" text-anchor="middle" font-size="12" fill="#6b5b43" font-family="serif">刀剑之金·刚毅果决</text>
+<rect x="30" y="228" width="420" height="23" rx="5" fill="#f5efe2" stroke="#d8c9a3" stroke-width="0.8"/>
+<text x="70" y="244" text-anchor="middle" font-size="14" fill="#8c6d1f" font-family="serif">辛</text>
+<text x="140" y="244" text-anchor="middle" font-size="12.5" fill="#5a4632" font-family="serif">阴金</text>
+<text x="270" y="244" text-anchor="middle" font-size="12" fill="#6b5b43" font-family="serif">珠玉之金·精致灵秀</text>
+<rect x="30" y="254" width="420" height="23" rx="5" fill="#faf7f0" stroke="#d8c9a3" stroke-width="0.8"/>
+<text x="70" y="270" text-anchor="middle" font-size="14" fill="#8c6d1f" font-family="serif">壬</text>
+<text x="140" y="270" text-anchor="middle" font-size="12.5" fill="#5a4632" font-family="serif">阳水</text>
+<text x="270" y="270" text-anchor="middle" font-size="12" fill="#6b5b43" font-family="serif">江河之水·奔流不息</text>
+<rect x="30" y="280" width="420" height="23" rx="5" fill="#f5efe2" stroke="#d8c9a3" stroke-width="0.8"/>
+<text x="70" y="296" text-anchor="middle" font-size="14" fill="#8c6d1f" font-family="serif">癸</text>
+<text x="140" y="296" text-anchor="middle" font-size="12.5" fill="#5a4632" font-family="serif">阴水</text>
+<text x="270" y="296" text-anchor="middle" font-size="12" fill="#6b5b43" font-family="serif">雨露之水·润物无声</text>
+</svg>

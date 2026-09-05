@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 260" width="240" height="208">
+<text x="150" y="24" text-anchor="middle" font-size="16" fill="#5a4632" font-family="serif" font-weight="bold">武曲行龙</text>
+<path d="M30,190 Q60,90 100,190 M110,190 Q145,70 185,190 M195,190 Q230,90 265,190" fill="none" stroke="#8c6d1f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<ellipse cx="100" cy="150" rx="4" ry="3" fill="none" stroke="#8c6d1f"/><ellipse cx="185" cy="140" rx="4" ry="3" fill="none" stroke="#8c6d1f"/>
+<text x="150" y="244" text-anchor="middle" font-size="12" fill="#6b5b43" font-family="serif">星峰圆净如覆钟 · 行龙端正，金水相生</text>
+</svg>

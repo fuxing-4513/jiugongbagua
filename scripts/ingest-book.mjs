@@ -39,6 +39,13 @@ const PLAN = {
     kw: ['玄空', '蒋大鸿', '地理辨正', '青囊', '三元九运', '理气'],
     split: '== ',
   },
+  'renzi-xuzhi': {
+    file: 'renzi-xuzhi.txt', id: 'renzi-xuzhi', category: 'fengshui-xingshi',
+    title: '人子须知', author: '徐善继、徐善述', dynasty: '明', vol: '三十卷',
+    summary: '明代风水形势派集大成之作，龙穴砂水四科详备，风水文献百科',
+    kw: ['人子须知', '徐善继', '风水', '形势', '龙穴砂水', '寻龙点穴'],
+    split: '== ',
+  },
 }
 
 async function main() {
