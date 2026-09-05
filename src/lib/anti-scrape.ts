@@ -88,6 +88,7 @@ type FileKey = keyof typeof FILE_MAP;
 const FILE_MAP = {
   kangxi:        `${PREFIX}-kangxi-${HASH}`,
   xueguanSearch: `${PREFIX}-xueguan-search-${HASH}`,
+  wenkuSearch: `${PREFIX}-wenku-search-${HASH}`,
   dreams:        `${PREFIX}-dreams-${HASH}`,
   dreamIndex:    `${PREFIX}-dream-index-${HASH}`,
   dreamBackup:   `${PREFIX}-dreams_backup_454-ignore`,

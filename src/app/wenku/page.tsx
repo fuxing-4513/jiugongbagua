@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import WenkuSearch from '@/components/WenkuSearch'
 
 export const metadata: Metadata = {
   title: '九宫文库 · 知识中心 · 九宫',
@@ -44,6 +45,10 @@ const SECTIONS = [
 export default function WenkuPage() {
   return (
     <div className="max-w-5xl mx-auto px-4 py-10">
+      {/* 文库全库搜索 */}
+      <div className="mb-8">
+        <WenkuSearch />
+      </div>
       <div className="mb-10 text-center">
         <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-100 font-serif mb-3">📚 九宫文库</h1>
         <p className="text-sm text-gray-500 max-w-2xl mx-auto leading-relaxed">
