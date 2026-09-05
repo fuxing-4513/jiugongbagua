@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import Breadcrumb from '@/components/Breadcrumb'
-import { PEOPLE } from '@/data/renwu/people'
+import { ALL_PEOPLE as PEOPLE } from '@/data/renwu/people'
 import { findBook } from '@/data/xueguan/books'
 
 export function generateStaticParams() {

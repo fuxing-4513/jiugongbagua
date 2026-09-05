@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { PEOPLE } from '@/data/renwu/people'
+import { ALL_PEOPLE as PEOPLE } from '@/data/renwu/people'
 
 export const metadata: Metadata = {
   title: '人物百科 · 术数先贤 · 九宫文库',

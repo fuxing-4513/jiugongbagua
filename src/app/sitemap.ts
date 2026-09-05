@@ -10,7 +10,7 @@ import { DAOIST_CATALOG } from '@/data/rare-catalog/daoist-rare'
 import { LOC_CATALOG } from '@/data/rare-catalog/loc-catalog'
 import { LOC_BATCH2 } from '@/data/rare-catalog/loc-batch2'
 import { getHexagrams } from '@/lib/hexagram-data'
-import { PEOPLE } from '@/data/renwu/people'
+import { ALL_PEOPLE as PEOPLE } from '@/data/renwu/people'
 import { TIAN_GAN, DI_ZHI } from '@/data/ganzhi/ganzhi'
 
 const baseUrl = 'https://jiugongbagua.com'

@@ -13,7 +13,7 @@ export interface GlossaryTerm {
   related?: string[];
 }
 
-export type GlossaryCategory = 'ziwei' | 'bazi' | 'yijing' | 'huangli';
+export type GlossaryCategory = 'ziwei' | 'bazi' | 'yijing' | 'huangli' | 'qimen' | 'liuren' | 'fengshui' | 'xiangshu' | 'liuyao' | 'daoxue' | 'xingming' | 'zexuan' | 'zhongyi' | 'meng' | 'zhanxing'
 
 export const categoryMeta: Record<GlossaryCategory, {
   emoji: string;
@@ -44,6 +44,61 @@ export const categoryMeta: Record<GlossaryCategory, {
     name: '黄历节气',
     desc: '黄历融合了农历、二十四节气、干支纪年等传统时间体系，指导农事生产并影响日常择日、祭祀等民俗活动。',
     color: '#2E7D32',
+  },
+  qimen: {
+    emoji: '🧭', name: '奇门遁甲',
+    desc: '奇门遁甲以洛书九宫为框架，融合八门、九星、八神与三奇六仪，用于方位决策与时辰择吉。',
+    color: '#B8860B',
+  },
+  liuren: {
+    emoji: '🕯️', name: '六壬',
+    desc: '六壬以月将加时起天地盘十二神将断吉凶——古传三式之一。',
+    color: '#2E8B57',
+  },
+  fengshui: {
+    emoji: '🏔️', name: '风水堪舆',
+    desc: '风水（堪舆）以龙穴砂水与理气挨星为核心，研究环境与人的关系。',
+    color: '#556B2F',
+  },
+  xiangshu: {
+    emoji: '👤', name: '相术',
+    desc: '相术包括面相、手相、骨相——以形态气色观人禀性的传统术。',
+    color: '#8B4513',
+  },
+  liuyao: {
+    emoji: '🪙', name: '六爻纳甲',
+    desc: '六爻（纳甲筮法）以钱代蓍起卦，配干支六亲六神断吉凶。',
+    color: '#D2691E',
+  },
+  daoxue: {
+    emoji: '☯️', name: '道学丹道',
+    desc: '道家哲学与内丹修炼术语——精气神、性命、周天火候等。',
+    color: '#708090',
+  },
+  xingming: {
+    emoji: '📛', name: '姓名学',
+    desc: '以汉字笔画五行与三才配置论姓名吉凶的现代民俗应用。',
+    color: '#B8860B',
+  },
+  zexuan: {
+    emoji: '📅', name: '择日',
+    desc: '择吉术——建除十二神、二十八宿、神煞与日用吉凶。',
+    color: '#CD853F',
+  },
+  zhongyi: {
+    emoji: '🌿', name: '中医运气',
+    desc: '中医基础与五运六气术语——藏象、经络、阴阳五行的医学应用。',
+    color: '#3CB371',
+  },
+  meng: {
+    emoji: '🌙', name: '梦占',
+    desc: '中国古代梦占文化——梦书传统与解梦方法。',
+    color: '#6A5ACD',
+  },
+  zhanxing: {
+    emoji: '🔮', name: '星占',
+    desc: '传统星占（七政四余/二十八宿）与西方占星术语。',
+    color: '#9370DB',
   },
 };
 
@@ -151,7 +206,12 @@ export const allTerms: GlossaryTerm[] = [
   {slug:'dahan',name:'大寒',pinyin:'Dà Hán',english:'Major Cold',category:'huangli',shortDesc:'太阳位于黄经300°，寒至极点，随后春归大地。',detail:'大寒在公历1月20-21日之间，太阳到达黄经300度。大寒为二十四节气的最后一个节气，寒冷达到顶峰但春天已不远。此时鸡始乳、征鸟厉疾。民间有大寒迎年的习俗，除旧布新准备迎接新春。',related:['xiaohan','lichun']},
 ];
 
-export function getAllTerms(): GlossaryTerm[] { return allTerms; }
+import { EXT_TERMS_1 } from '@/lib/glossary-ext-1'
+import { EXT_TERMS_2 } from '@/lib/glossary-ext-2'
+import { EXT_TERMS_3 } from '@/lib/glossary-ext-3'
+import { EXT_TERMS_4 } from '@/lib/glossary-ext-4'
+
+export function getAllTerms(): GlossaryTerm[] { return [...allTerms, ...EXT_TERMS_1, ...EXT_TERMS_2, ...EXT_TERMS_3, ...EXT_TERMS_4]; }
 export function getTermBySlug(slug: string): GlossaryTerm | undefined { return allTerms.find(t => t.slug === slug); }
 export function getTermsByCategory(cat: GlossaryCategory): GlossaryTerm[] { return allTerms.filter(t => t.category === cat); }
 export function getAllSlugs(): string[] { return allTerms.map(t => t.slug); }
