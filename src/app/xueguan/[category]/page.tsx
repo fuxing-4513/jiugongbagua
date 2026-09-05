@@ -127,6 +127,14 @@ export default async function CategoryPage({ params }: Props) {
 }
 
 /** 书籍卡片 */
+/** 阴宅/阳宅类型徽标（风水类——标题关键词判断） */
+function HouseTypeBadge({ title }: { title: string }) {
+  const isYang = /阳宅|八宅|藏宅/.test(title)
+  const isYin = /葬|青囊|雪心|灵城|入地眼|地理|撼龙|疑龙|天玉|罗经|发微|右弼|催官/.test(title)
+  if (isYang) return <span className="text-[10px] px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-300">🏠 阳宅</span>
+  if (isYin) return <span className="text-[10px] px-1.5 py-0.5 rounded bg-indigo-500/10 text-indigo-600 dark:text-indigo-300">⛰️ 阴宅</span>
+  return <span className="text-[10px] px-1.5 py-0.5 rounded bg-gray-500/10 text-gray-500">理气/形峦</span>
+}
 function BookCard({ book }: { book: BookMeta }) {
   return (
     <Link
@@ -135,8 +143,9 @@ function BookCard({ book }: { book: BookMeta }) {
     >
       <div className="flex items-start gap-3">
         <div className="flex-1 min-w-0">
-          <h3 className="font-bold text-gray-800 group-hover:text-gold-600 transition-colors text-base mb-1">
+          <h3 className="font-bold text-gray-800 group-hover:text-gold-600 transition-colors text-base mb-1 flex items-center gap-2 flex-wrap">
             {book.title}
+            {book.category.includes('fengshui') && <HouseTypeBadge title={book.title} />}
           </h3>
           <div className="flex items-center gap-3 text-xs text-gray-400 mb-2">
             <span>{book.author}</span>
