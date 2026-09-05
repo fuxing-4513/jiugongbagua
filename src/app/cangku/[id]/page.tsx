@@ -65,6 +65,20 @@ export default async function EntryPage({ params }: Props) {
         <p className="text-[10px] text-gray-400 dark:text-gray-500 mt-3">核实日期：{e.verifiedAt}</p>
       </div>
 
+      {/* 录文区（有录文才显示——数据到位即呈现） */}
+      {e.luwen && e.luwen.text.length > 0 && (
+        <div className="rounded-2xl border border-emerald-200/60 dark:border-emerald-500/25 bg-white/85 dark:bg-[#13161c]/85 p-5 mb-5">
+          <h2 className="text-sm font-bold text-gray-800 dark:text-gray-100 mb-1">📜 录文</h2>
+          <p className="text-[11px] text-gray-400 mb-3">底本：{e.luwen.source}</p>
+          <div className="space-y-3">
+            {e.luwen.text.map((t, i) => (
+              <p key={i} className="text-sm text-gray-700 dark:text-gray-200 leading-loose whitespace-pre-line font-serif">{t}</p>
+            ))}
+          </div>
+          {e.luwen.notes && <p className="text-[11px] text-gray-400 mt-3">校勘：{e.luwen.notes}</p>}
+        </div>
+      )}
+
       {/* 官方入口 + 版权 */}
       {e.officialLink && (
         <div className="rounded-xl border border-sky-200/60 dark:border-sky-500/25 bg-sky-50/60 dark:bg-sky-500/5 p-4 mb-5">

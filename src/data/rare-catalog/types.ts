@@ -27,4 +27,10 @@ export interface RareEntry {
   relatedBookIds?: string[]  // 关联本馆已收古籍（book-ids）
   verifiedAt: string         // 核实日期（YYYY-MM-DD；未在线复核标"待复核"）
   priority: number           // 采集优先级 1-5
+  // ── 录文（不造假原则：仅收公版/开放授权录文——无源不填）──
+  luwen?: {
+    source: string           // 录文底本与来源（馆藏原卷/公版录文集/开放授权）
+    text: string[]           // 录文段落（分段）
+    notes?: string           // 校勘/说明
+  }
 }
