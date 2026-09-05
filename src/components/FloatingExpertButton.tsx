@@ -25,7 +25,6 @@ const TOOL_INFO: Record<string, {name: string, emoji: string}> = {
   '/zonghe-zhengming':{name:'综合证明', emoji:'🔗'},
   '/fengshui':        {name:'风水测算', emoji:'🧭'},
   '/xingzuo':         {name:'星座运势', emoji:'♈'},
-  '/wenku':           {name:'命理文库', emoji:'📚'},
 }
 
 /**

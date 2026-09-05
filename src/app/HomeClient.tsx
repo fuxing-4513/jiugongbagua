@@ -263,6 +263,27 @@ export default function HomeClient() {
           <HeritageSection />
         </section>
 
+        {/* ════ 九宫文库（独立板块——知识体系，同易学书馆金框样式） ════ */}
+        <section className="mb-14">
+          <div className="jg-tile relative overflow-hidden p-7 md:p-9 jg-frame-gold">
+            <div className="relative z-10 flex flex-col md:flex-row md:items-center gap-6 md:gap-8">
+              <div className="text-5xl md:text-6xl shrink-0 mx-auto md:mx-0">📚</div>
+              <div className="flex-1 text-center md:text-left">
+                <h2 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-gray-50 mb-2">{getT('home.wenku.title')}</h2>
+                <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed max-w-2xl">
+                  {getT('home.wenku.desc')}
+                </p>
+                <p className="text-[11px] text-gold-600/80 dark:text-gold-400/70 mt-2.5">
+                  {getT('home.wenku.note')}
+                </p>
+              </div>
+              <div className="shrink-0 flex justify-center">
+                <Link href="/wenku" className="jg-btn-primary px-8! py-3.5!">{getT('home.wenku.cta')}</Link>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* ════ 常见问题（打消顾虑：原理/用法/隐私） ════ */}
         <section className="mb-14">
           <div className="text-center mb-6">
