@@ -387,4 +387,7 @@ import { EXT_PEOPLE_1 } from '@/data/renwu/people-ext-1'
 import { EXT_PEOPLE_2 } from '@/data/renwu/people-ext-2'
 import { EXT_PEOPLE_3 } from '@/data/renwu/people-ext-3'
 import { EXT_PEOPLE_4 } from '@/data/renwu/people-ext-4'
-export const ALL_PEOPLE: PersonEntry[] = [...PEOPLE, ...EXT_PEOPLE_1, ...EXT_PEOPLE_2, ...EXT_PEOPLE_3, ...EXT_PEOPLE_4]
+import { EXT_PEOPLE_5 } from '@/data/renwu/people-ext-5'
+import { EXT_PEOPLE_6 } from '@/data/renwu/people-ext-6'
+import { EXT_PEOPLE_7 } from '@/data/renwu/people-ext-7'
+export const ALL_PEOPLE: PersonEntry[] = [...PEOPLE, ...EXT_PEOPLE_1, ...EXT_PEOPLE_2, ...EXT_PEOPLE_3, ...EXT_PEOPLE_4, ...EXT_PEOPLE_5, ...EXT_PEOPLE_6, ...EXT_PEOPLE_7]
