@@ -2,11 +2,12 @@ import type { Metadata } from 'next'
 import { DUNHUANG_CATALOG, DUNHUANG_BATCH2 } from '@/data/rare-catalog/dunhuang'
 import { SONGYUAN_CATALOG } from '@/data/rare-catalog/songyuan'
 import { DAOIST_CATALOG } from '@/data/rare-catalog/daoist-rare'
+import { LOC_CATALOG } from '@/data/rare-catalog/loc-catalog'
 import { findBook } from '@/data/xueguan/books'
 import Link from 'next/link'
 import Breadcrumb from '@/components/Breadcrumb'
 
-const ALL = [...DUNHUANG_CATALOG, ...DUNHUANG_BATCH2, ...DAOIST_CATALOG, ...SONGYUAN_CATALOG]
+const ALL = [...DUNHUANG_CATALOG, ...DUNHUANG_BATCH2, ...DAOIST_CATALOG, ...LOC_CATALOG, ...SONGYUAN_CATALOG]
 
 export function generateStaticParams() {
   return ALL.map(e => ({ id: e.id }))

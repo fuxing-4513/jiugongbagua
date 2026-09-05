@@ -7,6 +7,7 @@ import { getAllTerms } from '@/lib/glossary-data'
 import { DUNHUANG_CATALOG, DUNHUANG_BATCH2 } from '@/data/rare-catalog/dunhuang'
 import { SONGYUAN_CATALOG } from '@/data/rare-catalog/songyuan'
 import { DAOIST_CATALOG } from '@/data/rare-catalog/daoist-rare'
+import { LOC_CATALOG } from '@/data/rare-catalog/loc-catalog'
 
 const baseUrl = 'https://jiugongbagua.com'
 
@@ -71,7 +72,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }))
 
   // 珍稀馆藏条目页（馆藏号长尾——学术检索词）
-  const rarePages = [...DUNHUANG_CATALOG, ...DUNHUANG_BATCH2, ...DAOIST_CATALOG, ...SONGYUAN_CATALOG].map(e => ({
+  const rarePages = [...DUNHUANG_CATALOG, ...DUNHUANG_BATCH2, ...DAOIST_CATALOG, ...LOC_CATALOG, ...SONGYUAN_CATALOG].map(e => ({
     path: `/cangku/${e.id}/`,
     priority: 0.6,
     changeFreq: 'monthly' as const,

@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { DUNHUANG_CATALOG, DUNHUANG_BATCH2 } from '@/data/rare-catalog/dunhuang'
 import { SONGYUAN_CATALOG } from '@/data/rare-catalog/songyuan'
 import { DAOIST_CATALOG } from '@/data/rare-catalog/daoist-rare'
+import { LOC_CATALOG } from '@/data/rare-catalog/loc-catalog'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
@@ -11,6 +12,7 @@ export const metadata: Metadata = {
 
 const LIBS = [
   { id: 'dunhuang', name: '敦煌玄学文献著录库', emoji: '🏜️', desc: '法国 BnF Pelliot 与英国 BL Stein 敦煌遗书中的风水、占梦、星占、择日、道经文献——P/S 编号体系著录', count: DUNHUANG_CATALOG.length + DUNHUANG_BATCH2.length, items: [...DUNHUANG_CATALOG, ...DUNHUANG_BATCH2] },
+  { id: 'loc', name: '欧美馆藏珍本著录库', emoji: '🗽', desc: '美国国会图书馆中国善本中的易学与丹道要籍——据 LOC 馆藏记录著录（数字资源已开放）', count: LOC_CATALOG.length, items: LOC_CATALOG },
   { id: 'daozang', name: '道藏海外珍本著录库', emoji: '☯️', desc: '海外藏《道藏》全藏与道经珍本——道教文献版本基准（含续拓）', count: DAOIST_CATALOG.length, items: DAOIST_CATALOG },
   { id: 'songyuan', name: '海外宋元易学珍本著录库', emoji: '🏯', desc: '日本宫内厅书陵部宋元版汉籍与欧美馆藏中的易学珍本——版本谱系考订', count: SONGYUAN_CATALOG.length, items: SONGYUAN_CATALOG },
 ]
