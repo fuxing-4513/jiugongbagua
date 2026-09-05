@@ -1,7 +1,7 @@
 // 九宫古籍 AI 问答 Worker（Workers AI + 书级知识索引 RAG）
 // 端点：POST /api/ask-book  { question: string }
 // 响应：{ answer, sources: [{ bookId, title }], model }
-import { Ai } from '@cloudflare/ai'
+// 注：Workers AI binding 直接可用（env.AI.run）——无需 @cloudflare/ai 包
 
 interface BookIndex {
   id: string; title: string; author: string; dynasty: string
@@ -26,6 +26,9 @@ export default {
     // 1. 枚举书索引（存 index key）
     const idxRaw = await BOOKS.get('__index__')
     const bookIds: string[] = idxRaw ? JSON.parse(idxRaw) : []
+    if (bookIds.length === 0) {
+      return new Response(JSON.stringify({ answer: '古籍知识索引暂未就绪——请稍后再试。', sources: [] }), { headers: json() })
+    }
     // 2. 关键词检索（书名/作者/关键词/简介重合打分）
     const scored: { id: string; title: string; score: number; preface: string; chapters: { title: string; preview: string }[] }[] = []
     const q = question.toLowerCase()
@@ -62,9 +65,9 @@ ${ctx}
 
 用户问题：${question}`
 
-    // 4. Workers AI 生成
+    // 4. Workers AI 生成（binding 直接 run——新版 API）
     try {
-      const ai = new Ai((env as unknown as Record<string, unknown>).AI as Record<string, unknown>)
+      const ai = (env as unknown as Record<string, unknown>).AI as { run: (model: string, opts: Record<string, unknown>) => Promise<Record<string, unknown>> }
       const model = (env as unknown as { AI_MODEL?: string }).AI_MODEL || '@cf/meta/llama-3.1-8b-instruct'
       const r = await ai.run(model, { messages: [{ role: 'user', content: prompt }], max_tokens: 500 })
       const text = ((r as { response?: string }).response || '').trim()

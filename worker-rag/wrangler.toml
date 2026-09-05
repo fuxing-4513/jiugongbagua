@@ -1,6 +1,12 @@
 name = "jiugong-books-ai"
-main = "src/index.js"
+main = "src/index.ts"
 compatibility_date = "2025-06-01"
+
+# 域名路由（同域 /api/ask-book → 本 Worker——优先于 jiugong-api 的 /api/*）
+routes = [
+  { pattern = "jiugongbagua.com/api/ask-book", zone_name = "jiugongbagua.com" },
+  { pattern = "www.jiugongbagua.com/api/ask-book", zone_name = "jiugongbagua.com" }
+]
 
 # Workers AI 绑定（免费额度）
 [ai]
@@ -9,12 +15,11 @@ binding = "AI"
 # 古籍知识索引 KV
 [[kv_namespaces]]
 binding = "BOOKS_KV"
-id = "BOOKS_KV_ID_PLACEHOLDER"
-preview_id = "BOOKS_KV_ID_PLACEHOLDER"
+id = "47d5288974fd4ef8b6dadca413a10ef6"
 
 # 模型（可环境变量覆盖）
 [vars]
-AI_MODEL = "@cf/meta/llama-3.1-8b-instruct"
+AI_MODEL = "@cf/mistralai/mistral-small-3.1-24b-instruct"
 
 [observability]
 enabled = true
