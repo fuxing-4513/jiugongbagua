@@ -2210,6 +2210,39 @@ export const bookCatalog = [
     order: 17,
     related: ['qingnang-jing', 'qingnang-aoyu', 'tianyu-jing', 'yangzhai-sanyao'],
   },
+  // ============================================================
+  // 医学史/民俗文献类（历史文化定位——正文整编中）
+  // ============================================================
+  {
+    id: 'zhuyou-shisan-ke',
+    title: '祝由十三科',
+    author: '托名黄帝（清通行本）',
+    dynasty: '清（辑）',
+    category: 'yiyi-jingdian',
+    summary: '古代祝由医学文献汇编，分十三科载禁法符咒——医学史与民俗研究文献',
+    description: '《祝由十三科》为清代通行的祝由医学文献，托名黄帝，分大方脉、诸风、胎产、眼目、小儿等十三科，载录古代禁法、祝说与符式。祝由术作为上古巫医向方术过渡的历史形态，对研究古代医疗观念、民俗心理与道教文化具有文献价值。本馆以医学史文献收录——书中方法不具备现代医学效力。',
+    keywords: ['祝由', '十三科', '医学史', '禁法', '民俗'],
+    volumes: '二卷',
+    isComplete: false,
+    estimatedChars: 15000,
+    order: 18,
+    related: ['huangdi-neijing-yunqi', 'jinkui-yuelue', 'yuhan-jing'],
+  },
+  {
+    id: 'taishang-sandong-shenzhou',
+    title: '太上三洞神咒',
+    author: '道藏辑',
+    dynasty: '明（道藏）',
+    category: 'daojia-jingdian',
+    summary: '道教符咒经典辑要，载三洞神咒——道教文化研究文献',
+    description: '《太上三洞神咒》辑自明代《正统道藏》，汇集道教三洞经系重要咒文，涉及诵咒、存思、召遣等科仪环节，是研究道教仪式音乐、符咒文化与宗教民俗的重要文本。本馆以道教文化文献收录——所述科仪属于宗教文化范畴。',
+    keywords: ['道教', '神咒', '符箓', '科仪', '道藏'],
+    volumes: '十二卷',
+    isComplete: false,
+    estimatedChars: 30000,
+    order: 19,
+    related: ['huangting-jing', 'yunji-qiqian', 'baopu-zi'],
+  },
 ]
 
 // ============================================================

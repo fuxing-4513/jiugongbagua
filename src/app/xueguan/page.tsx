@@ -79,6 +79,13 @@ export default function XueguanPage() {
           <span>📂 <strong className="text-gray-500">{categoryTree.length}</strong> 大类</span>
         </div>
 
+        {/* 馆藏说明（医学史/民俗文献定位——合规免责） */}
+        <div className="mt-5 max-w-3xl mx-auto rounded-xl border border-amber-200/70 dark:border-amber-500/25 bg-amber-50/70 dark:bg-amber-500/5 px-5 py-4 text-left">
+          <p className="text-xs leading-relaxed text-amber-800/90 dark:text-amber-200/80">
+            📜 <strong>馆藏说明</strong>：本馆收录的中国传统典籍均为历史文化文献，含命理、卜筮、风水、择日及古代医学史与民俗文献（如祝由、符箓相关篇章）——供文化研究与学术参考，不构成医疗建议、不提供疗效承诺。古籍所述方法与观念不代表现代科学结论，身体不适请及时就医。
+          </p>
+        </div>
+
         {/* 搜索入口 */}
         <div className="mt-6 max-w-lg mx-auto">
           <a
