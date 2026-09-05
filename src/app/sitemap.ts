@@ -4,6 +4,8 @@ import type { MetadataRoute } from 'next'
 import { dreamPages } from '@/app/jiemeng/dream-data'
 import { allBookIds } from '@/data/xueguan/book-ids'
 import { getAllTerms } from '@/lib/glossary-data'
+import { DUNHUANG_CATALOG } from '@/data/rare-catalog/dunhuang'
+import { SONGYUAN_CATALOG } from '@/data/rare-catalog/songyuan'
 
 const baseUrl = 'https://jiugongbagua.com'
 
@@ -67,7 +69,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     changeFreq: 'monthly' as const,
   }))
 
-  const allPages = [...mainPages, ...infoPages, ...dreamLandingPages, ...bookPages, ...glossaryPages]
+  // 珍稀馆藏条目页（馆藏号长尾——学术检索词）
+  const rarePages = [...DUNHUANG_CATALOG, ...SONGYUAN_CATALOG].map(e => ({
+    path: `/cangku/${e.id}/`,
+    priority: 0.6,
+    changeFreq: 'monthly' as const,
+  }))
+
+  const allPages = [...mainPages, ...infoPages, ...dreamLandingPages, ...bookPages, ...glossaryPages, { path: '/cangku/', priority: 0.6, changeFreq: 'weekly' as const }, ...rarePages]
 
   return allPages.map(({ path, priority, changeFreq }) => ({
     url: `${baseUrl}${path}`,

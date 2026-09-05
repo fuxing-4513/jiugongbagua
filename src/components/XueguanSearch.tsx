@@ -3,6 +3,7 @@
 import { useState, useEffect, useMemo, useRef } from 'react'
 import Link from 'next/link'
 import Fuse from 'fuse.js'
+import { dataPath } from '@/lib/anti-scrape'
 
 interface SearchBook {
   id: string
@@ -40,7 +41,7 @@ export default function XueguanSearch({ placeholder = '搜索古籍名称、作�
 
   // 加载搜索索引
   useEffect(() => {
-    fetch('/data/xueguan-search.json')
+    fetch(dataPath('xueguanSearch'))
       .then(r => r.json())
       .then(data => {
         setIndex(data)

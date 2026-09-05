@@ -79,6 +79,21 @@ export default function XueguanPage() {
           <span>📂 <strong className="text-gray-500">{categoryTree.length}</strong> 大类</span>
         </div>
 
+        {/* 珍稀馆藏入口 */}
+        <div className="mt-4">
+          <a href="/cangku"
+            className="flex items-center justify-between gap-3 px-5 py-3 bg-gradient-to-r from-[#fdf8ee] to-[#f8f1df] dark:from-[#1a1c22] dark:to-[#181a20] border border-gold-300/70 dark:border-gold-500/30 rounded-xl text-sm hover:border-gold-400 dark:hover:border-gold-500/60 transition-all group">
+            <span className="flex items-center gap-3">
+              <span className="text-lg">🏛️</span>
+              <span className="text-left">
+                <span className="font-medium text-gray-800 dark:text-gray-100 block">珍稀馆藏 · 海外玄学古籍著录库</span>
+                <span className="text-xs text-gray-500 dark:text-gray-400">敦煌遗书（P.2831/P.3507…）· 宋元易学珍本 · 佚书残卷——馆藏级著录</span>
+              </span>
+            </span>
+            <span className="text-gold-500 group-hover:translate-x-0.5 transition-transform">→</span>
+          </a>
+        </div>
+
         {/* 馆藏说明（医学史/民俗文献定位——合规免责） */}
         <div className="mt-5 max-w-3xl mx-auto rounded-xl border border-amber-200/70 dark:border-amber-500/25 bg-amber-50/70 dark:bg-amber-500/5 px-5 py-4 text-left">
           <p className="text-xs leading-relaxed text-amber-800/90 dark:text-amber-200/80">

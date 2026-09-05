@@ -41,4 +41,53 @@ Allow: /
 User-agent: YisouSpider
 Crawl-delay: 2
 
+# ===== 防爬：封禁整站镜像/采集工具（不影响搜索引擎与 AI bot）=====
+User-agent: HTTrack
+Disallow: /
+
+User-agent: wget
+Disallow: /
+
+User-agent: curl
+Disallow: /
+
+User-agent: Scrapy
+Disallow: /
+
+User-agent: Python-urllib
+Disallow: /
+
+User-agent: python-requests
+Disallow: /
+
+User-agent: Go-http-client
+Disallow: /
+
+User-agent: masscan
+Disallow: /
+
+User-agent: sqlmap
+Disallow: /
+
+User-agent: nikto
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /data/
+
+User-agent: DotBot
+Disallow: /data/
+
+User-agent: SemrushBot
+Disallow: /data/
+
+User-agent: AhrefsBot
+Disallow: /data/
+
+User-agent: DataForSeoBot
+Disallow: /
+
+User-agent: Bytespider
+Disallow: /data/
+
 Sitemap: https://www.jiugongbagua.com/sitemap.xml
