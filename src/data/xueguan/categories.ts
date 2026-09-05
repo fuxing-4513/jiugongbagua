@@ -41,6 +41,12 @@ export interface BookMeta {
   volumes: string
   /** 是否为完整收录 */
   isComplete: boolean
+  /** 文献可信度：作者题署的学术说明（如"传统题署刘伯温，现代学术认为作者问题存在争议"——无争议可省） */
+  authorNote?: string
+  /** 文献可信度：成书年代说明（成书年代有争议/托名时标注） */
+  eraNote?: string
+  /** 底本/版本说明（sourceVersion 的展示别名——如"据明万历本整理"） */
+  sourceNote?: string
   /** 排序权重 */
   order: number
   /** 关联其他书籍 id */

@@ -77,6 +77,18 @@ export default async function BookPage({ params }: Props) {
             <span className="text-gray-300 text-xs">部分收录</span>
           )}
         </div>
+        {/* 文献可信度标注（作者/年代争议——学术口径） */}
+        {(book.authorNote || book.eraNote || book.sourceNote) && (
+          <div className="mt-3 space-y-1 text-xs text-gray-400 dark:text-gray-500 leading-relaxed">
+            {book.authorNote && <p><span className="text-gray-400 font-medium">📌 作者说明：</span>{book.authorNote}</p>}
+            {book.eraNote && <p><span className="text-gray-400 font-medium">📌 年代说明：</span>{book.eraNote}</p>}
+            {book.sourceNote && <p><span className="text-gray-400 font-medium">📌 版本说明：</span>{book.sourceNote}</p>}
+          </div>
+        )}
+        {/* AI 摘要引言（GEO：首段独立回答"这是什么书"） */}
+        {book.description && (
+          <p className="mt-4 text-sm text-gray-500 dark:text-gray-400 leading-relaxed max-w-3xl">{book.description}</p>
+        )}
       </div>
 
       <div className="mb-8 flex flex-wrap gap-2">
