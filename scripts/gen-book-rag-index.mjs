@@ -29,7 +29,7 @@ for (const file of fs.readdirSync(contentDir)) {
     // preface
     const pref = blk.match(/preface: \{[\s\S]*?content: `([\s\S]*?)`,?\s*\}/)
     const preface = pref ? pref[1].replace(/\\n/g, '\n').replace(/`/g, '').slice(0, 600) : ''
-    // chapters（双格式：反引号 ` 与单引号 '——旧数据 batch 用单引号）
+    // chapters（双格式：反引号 ` 与单引号 '——旧数据 batch 用单引号；preview 300 字）
     const chs = []
     const tits = [...blk.matchAll(/title: '([^']{2,50})',[\s\S]{0,400}?content: (`[\s\S]*?`|'(?:[^'\\]|\\.)*')/g)]
     for (const t of tits) {
@@ -40,20 +40,20 @@ for (const file of fs.readdirSync(contentDir)) {
       else { body = body.slice(1, -1).replace(/\\n/g, ' ').replace(/\\'/g, "'").replace(/\\\\/g, '\\') }
       body = body.replace(/\s+/g, ' ').trim()
       if (body.length < 20) continue
-      chs.push({ title: title.slice(0, 40), preview: body.slice(0, 150) })
-      if (chs.length >= 100) break
+      chs.push({ title: title.slice(0, 50), preview: body.slice(0, 300) })
+      if (chs.length >= 200) break
     }
-    if (chs.length === 0) continue
+    // 有 bookId 且 isComplete 的书一律进索引（无章节也进——元数据/导读兜底——保证"这本书讲什么"必答）
     const entry = {
       id: bid, title: b.title, author: b.author || '', dynasty: b.dynasty || '',
       summary: (b.summary || '').slice(0, 250), keywords: b.keywords || [],
-      preface: preface || (b.description || '').slice(0, 300),
+      preface: preface || (b.description || '').slice(0, 400),
       chapters: chs,
     }
     fs.writeFileSync(path.join(outDir, `${bid}.json`), JSON.stringify(entry))
     ids.push(bid)
     count++
-  }
+    }
 }
 fs.writeFileSync(path.join(outDir, '__index__.json'), JSON.stringify(ids))
 console.log(`RAG 索引 v2: ${count} 书 → ${outDir}/`)

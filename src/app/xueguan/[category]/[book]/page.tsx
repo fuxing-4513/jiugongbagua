@@ -124,7 +124,7 @@ export default async function BookPage({ params }: Props) {
 
       {hasFullText && (
         <div className="mb-10">
-          <BookAsk bookTitle={book.title} />
+          <BookAsk bookTitle={book.title} bookId={book.id} />
           <h2 className="text-lg font-bold text-gray-700 mb-3 flex items-center gap-2"><span>📜</span> 原文阅读 <span className="text-xs text-gray-400 font-normal">（{content.chapters.length} 节）</span></h2>
           <div className="space-y-4">
             {content.chapters.map((ch: any, i: number) => (

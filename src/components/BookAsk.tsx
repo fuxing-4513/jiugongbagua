@@ -6,7 +6,7 @@ import { useState } from 'react'
 
 const EXAMPLES = ['这本书讲了什么？', '它的核心思想是什么？', '和同类古籍比有什么特点？']
 
-export default function BookAsk({ bookTitle }: { bookTitle: string }) {
+export default function BookAsk({ bookTitle, bookId }: { bookTitle: string; bookId?: string }) {
   const [q, setQ] = useState('')
   const [answer, setAnswer] = useState('')
   const [sources, setSources] = useState<{ bookId: string; title: string }[]>([])
@@ -21,7 +21,7 @@ export default function BookAsk({ bookTitle }: { bookTitle: string }) {
       const r = await fetch('/api/ask-book', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ question: text }),
+        body: JSON.stringify({ question: text, bookId: bookId || null }),
       })
       const data = await r.json()
       if (!r.ok) throw new Error(data.error || 'AI 服务暂不可用')
