@@ -80,7 +80,7 @@ export default function XueguanPage() {
         </div>
 
         {/* 珍稀馆藏入口 */}
-        <div className="mt-4">
+        <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
           <a href="/cangku"
             className="flex items-center justify-between gap-3 px-5 py-3 bg-gradient-to-r from-[#fdf8ee] to-[#f8f1df] dark:from-[#1a1c22] dark:to-[#181a20] border border-gold-300/70 dark:border-gold-500/30 rounded-xl text-sm hover:border-gold-400 dark:hover:border-gold-500/60 transition-all group">
             <span className="flex items-center gap-3">
@@ -88,6 +88,17 @@ export default function XueguanPage() {
               <span className="text-left">
                 <span className="font-medium text-gray-800 dark:text-gray-100 block">珍稀馆藏 · 海外玄学古籍著录库</span>
                 <span className="text-xs text-gray-500 dark:text-gray-400">敦煌遗书（P.2831/P.3507…）· 宋元易学珍本 · 佚书残卷——馆藏级著录</span>
+              </span>
+            </span>
+            <span className="text-gold-500 group-hover:translate-x-0.5 transition-transform">→</span>
+          </a>
+          <a href="/gua"
+            className="flex items-center justify-between gap-3 px-5 py-3 bg-gradient-to-r from-[#fdf8ee] to-[#f8f1df] dark:from-[#1a1c22] dark:to-[#181a20] border border-gold-300/70 dark:border-gold-500/30 rounded-xl text-sm hover:border-gold-400 dark:hover:border-gold-500/60 transition-all group">
+            <span className="flex items-center gap-3">
+              <span className="text-lg">☰</span>
+              <span className="text-left">
+                <span className="font-medium text-gray-800 dark:text-gray-100 block">卦象百科 · 六十四卦详解</span>
+                <span className="text-xs text-gray-500 dark:text-gray-400">每卦卦画·原文·白话·导读——乾/坤/屯/蒙逐卦解读</span>
               </span>
             </span>
             <span className="text-gold-500 group-hover:translate-x-0.5 transition-transform">→</span>

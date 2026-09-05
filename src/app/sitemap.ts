@@ -9,6 +9,7 @@ import { SONGYUAN_CATALOG } from '@/data/rare-catalog/songyuan'
 import { DAOIST_CATALOG } from '@/data/rare-catalog/daoist-rare'
 import { LOC_CATALOG } from '@/data/rare-catalog/loc-catalog'
 import { LOC_BATCH2 } from '@/data/rare-catalog/loc-batch2'
+import { getHexagrams } from '@/lib/hexagram-data'
 
 const baseUrl = 'https://jiugongbagua.com'
 
@@ -79,7 +80,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     changeFreq: 'monthly' as const,
   }))
 
-  const allPages = [...mainPages, ...infoPages, ...dreamLandingPages, ...bookPages, ...glossaryPages, { path: '/cangku/', priority: 0.6, changeFreq: 'weekly' as const }, ...rarePages]
+  // 卦象百科（64 卦独立页——"乾卦/屯卦"长尾）
+  const guaPages = getHexagrams().map(g => ({
+    path: `/gua/${g.slug}/`,
+    priority: 0.7,
+    changeFreq: 'monthly' as const,
+  }))
+
+  const allPages = [...mainPages, ...infoPages, ...dreamLandingPages, ...bookPages, ...glossaryPages, { path: '/cangku/', priority: 0.6, changeFreq: 'weekly' as const }, ...rarePages, { path: '/gua/', priority: 0.7, changeFreq: 'weekly' as const }, ...guaPages]
 
   return allPages.map(({ path, priority, changeFreq }) => ({
     url: `${baseUrl}${path}`,
