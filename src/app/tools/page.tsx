@@ -47,6 +47,7 @@ const toolGroups: { label: string; items: { key: string; emoji: string; href: st
     items: [
       { key: 'huangli', emoji: '📅', href: '/huangli' },
       { key: 'shengxiao', emoji: '🐉', href: '/shengxiao' },
+      { key: 'wuyun', emoji: '☯️', href: '/wuyun' },
       { key: 'wenku', emoji: '📚', href: '/wenku' },
       { key: 'experts', emoji: '👨‍🏫', href: '/experts' },
     ],

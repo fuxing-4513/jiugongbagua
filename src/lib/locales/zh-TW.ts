@@ -122,6 +122,7 @@ export const zhTW = {
     heluo: { name: '河洛推命', desc: '河圖洛書數理推命，天地之數定乾坤', source: '《河圖洛書》《皇極經世》', emoji: '☯' },
     astro: { name: '西洋占星', desc: '現代西洋占星星盤：上升星座、行星落座落宮、相位解讀', source: '瑞士星曆同精度（VSOP87）', emoji: '🪐' },
     numerology: { name: '生命靈數', desc: '畢達哥拉斯靈數體系：生命路徑、表達數、靈魂衝動數解讀', source: 'Pythagorean 數字體系', emoji: '✨' },
+    wuyun: { name: '五運六氣', desc: '依黃帝內經運氣七篇推全年氣候與養生要點', source: '素問·運氣七篇', emoji: '☯️' },
     shengxiao: { name: '十二生肖', desc: '十二生肖起源傳說、性格特徵與文化象徵', source: '《生肖文化》', emoji: '🐉' },
   },
   heritage: {

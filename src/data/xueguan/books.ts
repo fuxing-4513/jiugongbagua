@@ -2180,6 +2180,21 @@ export const bookCatalog = [
     order: 15,
     related: ['dunjia-yanyi', 'qimen-dunjia-miji'],
   },
+  {
+    id: 'tai-xuan-jing',
+    title: '太玄经',
+    author: '扬雄',
+    dynasty: '西汉',
+    category: 'bushi-yijing',
+    summary: '扬雄仿《周易》而作的哲学占测经典，以玄为首、八十一首涵盖宇宙万物运行',
+    description: '《太玄经》为西汉扬雄仿《周易》体例所作的重要哲学著作。全书以"玄"为最高范畴，构建了方、州、部、家四重结构与八十一首的占测体系，每首九赞，对应一年三百六十四日有余，将天文历法与宇宙运行之道融为一炉。书中保留了大量汉代宇宙论与象数思想，是研究两汉哲学、易学与占测文化不可绕过的一环。',
+    keywords: ['太玄', '扬雄', '八十一首', '玄学', '象数', '占测'],
+    volumes: '十卷',
+    isComplete: true,
+    estimatedChars: 34000,
+    order: 16,
+    related: ['zhouyi', 'jingfang-yizhuan', 'hetu-luoshu'],
+  },
 ]
 
 // ============================================================

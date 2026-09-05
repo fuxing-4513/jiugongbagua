@@ -25,6 +25,13 @@ const PLAN = {
     kw: ['奇门遁甲', '烟波钓叟歌', '九宫', '八门', '三奇六仪'],
     split: null, // 不分章（单章）
   },
+  'tai-xuan-jing': {
+    file: 'tai-xuan-jing.txt', id: 'tai-xuan-jing', category: 'bushi-yijing',
+    title: '太玄经', author: '扬雄', dynasty: '西汉', vol: '十卷',
+    summary: '扬雄仿《周易》而作的哲学占测经典，以玄为首、八十一首涵盖宇宙万物运行',
+    kw: ['太玄', '扬雄', '玄学', '易学', '占测'],
+    split: '=== ',
+  },
 }
 
 async function main() {
