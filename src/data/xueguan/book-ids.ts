@@ -141,4 +141,5 @@ export const allBookIds: BookIdEntry[] = [
   { category: "daojia-jingdian", id: "zuowang-lun" },
   { category: "bushi-qimen", id: "yanbo-diaosou-ge" },
   { category: "bushi-yijing", id: "tai-xuan-jing" },
+  { category: "fengshui-liqi", id: "dili-bianzheng" },
 ]

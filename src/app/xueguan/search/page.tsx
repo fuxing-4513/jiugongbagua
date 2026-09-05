@@ -4,10 +4,10 @@ import XueguanSearch from '@/components/XueguanSearch'
 
 export const metadata: Metadata = {
   title: '古籍搜索 - 易学书馆 | 九宫八卦',
-  description: '在 135 部命理、卜筮、风水、道家古籍中全文搜索，支持书名、作者、章节、关键词多维度检索。',
+  description: '在 数百部命理、卜筮、风水、道家古籍中全文搜索，支持书名、作者、章节、关键词多维度检索。',
   openGraph: {
     title: '古籍搜索 - 易学书馆',
-    description: '135 部古籍全文检索，九宫易学正本清源',
+    description: '数百部古籍全文检索，九宫易学正本清源',
     siteName: '九宫八卦',
     type: 'website',
     url: 'https://jiugongbagua.com/xueguan/search',
@@ -30,7 +30,7 @@ export default function XueguanSearchPage() {
           🔍 古籍搜索
         </h1>
         <p className="text-sm text-gray-400">
-          覆盖 135 部命理·卜筮·风水·道家·医易·西方玄学古籍
+          覆盖 数百部命理·卜筮·风水·道家·医易·西方玄学古籍
         </p>
       </div>
 

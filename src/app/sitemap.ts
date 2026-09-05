@@ -53,7 +53,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     changeFreq: 'monthly' as const,
   }))
 
-  // 古籍书详情页（135 部完整书——每书独立长尾页——SEO 核心资产）
+  // 古籍书详情页（数百部完整书——每书独立长尾页——SEO 核心资产）
   const bookPages = allBookIds.map(b => ({
     path: `/xueguan/${b.category}/${b.id}/`,
     priority: 0.7,

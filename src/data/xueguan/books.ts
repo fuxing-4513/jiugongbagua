@@ -2195,6 +2195,21 @@ export const bookCatalog = [
     order: 16,
     related: ['zhouyi', 'jingfang-yizhuan', 'hetu-luoshu'],
   },
+  {
+    id: 'dili-bianzheng',
+    title: '地理辨正',
+    author: '蒋大鸿',
+    dynasty: '清',
+    category: 'fengshui-liqi',
+    summary: '玄空风水开山经典，辨正青囊诸经，阐发三元九运理气大义',
+    description: '《地理辨正》为明末清初玄空风水宗师蒋大鸿的代表作，是三元玄空理气派的奠基文献。全书辨正《青囊经》《青囊序》《青囊奥语》《天玉经》《都天宝照经》等古经真义，提出以三元九运、零正神为核心的山向理气法度，一扫当时风水界支离割裂之弊。蒋氏之学影响深远，后世玄空各派（无常派、滇南派等）皆溯源于此。',
+    keywords: ['玄空', '蒋大鸿', '三元九运', '青囊', '理气', '天玉经'],
+    volumes: '五卷',
+    isComplete: true,
+    estimatedChars: 12000,
+    order: 17,
+    related: ['qingnang-jing', 'qingnang-aoyu', 'tianyu-jing', 'yangzhai-sanyao'],
+  },
 ]
 
 // ============================================================

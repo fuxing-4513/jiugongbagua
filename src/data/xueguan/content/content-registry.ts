@@ -88,6 +88,7 @@ import { yangzhaiShishuContent as shishuCont } from './yangzhai-shishu'
 import { zhouyiCantongqiContent } from './zhouyi-cantongqi'
 import { zuowanglunContent } from './zuowang-lun'; import { yanbodiaosougeContent } from './yanbo-diaosou-ge'
 import { taixuanjingContent } from './tai-xuan-jing'
+import { dilibianzhengContent } from './dili-bianzheng'
 import { huangtingjingContent } from './huangting-jing'
 import { shenxianZhuanContent } from './shenxian-zhuan'
 import { xingmingGuizhiContent } from './xingming-guizhi'
@@ -164,7 +165,7 @@ export const bookContentMap: Record<string, BookChapter> = {
   'zohar':zoharDeepContent, 'astrology-medieval':astrologyDeepContent, 'santai-bishi':z13, 'xianggu-jing':xiangguDeep, 'shanhai-jing':z14,
   'zhangzhong-jing':zhangzhongDeep, 'jinkui-yuelue':jinkuiDeep, 'rider-waite-tarot':z16,
   'zhuangzi-wai':zhuangziwaiDeep,
-  'zuowang-lun':zuowanglunContent, 'yanbo-diaosou-ge':yanbodiaosougeContent, 'tai-xuan-jing':taixuanjingContent,
+  'zuowang-lun':zuowanglunContent, 'yanbo-diaosou-ge':yanbodiaosougeContent, 'tai-xuan-jing':taixuanjingContent, 'dili-bianzheng':dilibianzhengContent,
 
 }
 export function getBookContent(bookId: string): BookChapter | undefined { return bookContentMap[bookId] }

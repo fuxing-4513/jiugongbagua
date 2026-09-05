@@ -106,7 +106,7 @@ export default function ToolsPage() {
       ))}
 
       <p className="text-center text-[10px] text-gray-600 mt-6">
-        解梦 7,749 词条 · 姓名 2,808 字详解 · 古籍 135 部全文 —— 传统命理模型仅供文化研究与决策参考
+        解梦 7,749 词条 · 姓名 2,808 字详解 · 古籍 数百部全文 —— 传统命理模型仅供文化研究与决策参考
       </p>
     </div>
   )

@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   description: '九宫八卦易学书馆，汇集中国命理、卜筮、风水、相术、道家及西方占星塔罗等经典古籍，分类清晰、数据结构化，支持AI检索调用。九宫易学，正本清源。',
   openGraph: {
     title: '易学书馆 - 九宫古籍图书馆',
-    description: '汇集 135 部命理卜筮风水道家古籍，全文录入，数据结构化，支持AI调用。',
+    description: '汇集 数百部命理卜筮风水道家古籍，全文录入，数据结构化，支持AI调用。',
     siteName: '九宫八卦',
     type: 'website',
     url: 'https://jiugongbagua.com/xueguan',
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary',
     title: '易学书馆 - 九宫古籍图书馆',
-    description: '汇集 135 部命理卜筮风水道家古籍，全文录入，数据结构化，支持AI调用。',
+    description: '汇集 数百部命理卜筮风水道家古籍，全文录入，数据结构化，支持AI调用。',
   },
   keywords: ['易学书馆', '九宫八卦', '古籍', '命理', '卜筮', '风水', '道家经典', '占星', '塔罗'],
 }

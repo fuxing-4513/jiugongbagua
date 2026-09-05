@@ -32,6 +32,13 @@ const PLAN = {
     kw: ['太玄', '扬雄', '玄学', '易学', '占测'],
     split: '=== ',
   },
+  'dili-bianzheng': {
+    file: 'dili-bianzheng.txt', id: 'dili-bianzheng', category: 'fengshui-liqi',
+    title: '地理辨正', author: '蒋大鸿', dynasty: '清', vol: '五卷',
+    summary: '玄空风水开山经典，辨正青囊诸经，阐发三元九运理气大义',
+    kw: ['玄空', '蒋大鸿', '地理辨正', '青囊', '三元九运', '理气'],
+    split: '== ',
+  },
 }
 
 async function main() {
