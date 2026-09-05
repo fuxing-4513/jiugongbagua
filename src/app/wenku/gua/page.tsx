@@ -15,7 +15,7 @@ export default function GuaIndexPage() {
       <p className="text-center text-sm text-gray-500 mb-8">每卦含卦画、原文、白话与导读——点击卦名进入详解页</p>
       <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-8 gap-2.5">
         {guas.map(g => (
-          <Link key={g.slug} href={`/gua/${g.slug}`}
+          <Link key={g.slug} href={`/wenku/gua/${g.slug}`}
             className="rounded-xl border border-gray-200/80 dark:border-gray-700/60 bg-white/85 dark:bg-[#13161c]/85 p-3 text-center hover:border-gold-400 dark:hover:border-gold-500/60 transition-colors group">
             <div className="text-[10px] text-gray-400">{g.seq}</div>
             {g.figSrc ? (

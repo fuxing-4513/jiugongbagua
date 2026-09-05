@@ -76,12 +76,12 @@ export default async function GuaPage({ params }: Props) {
       {/* 关联 */}
       <div className="flex flex-wrap gap-2 items-center">
         <Link href="/xueguan/bushi-yijing/zhouyi" className="text-xs px-3 py-1.5 rounded-lg border border-gold-300/60 dark:border-gold-500/30 text-gold-700 dark:text-gold-300 hover:bg-gold-500/5">《周易》全文</Link>
-        <Link href="/gua" className="text-xs px-3 py-1.5 rounded-lg border border-gray-200 text-gray-500 hover:border-gold-300">← 全部六十四卦</Link>
+        <Link href="/wenku/gua" className="text-xs px-3 py-1.5 rounded-lg border border-gray-200 text-gray-500 hover:border-gold-300">← 全部六十四卦</Link>
         {g.seq > 1 && (
-          <Link href={`/gua/${all[g.seq - 2].slug}`} className="text-xs px-3 py-1.5 rounded-lg border border-gray-200 text-gray-500 hover:border-gold-300">↑ 上一卦：{all[g.seq - 2].name}</Link>
+          <Link href={`/wenku/gua/${all[g.seq - 2].slug}`} className="text-xs px-3 py-1.5 rounded-lg border border-gray-200 text-gray-500 hover:border-gold-300">↑ 上一卦：{all[g.seq - 2].name}</Link>
         )}
         {g.seq < 64 && (
-          <Link href={`/gua/${all[g.seq].slug}`} className="text-xs px-3 py-1.5 rounded-lg border border-gray-200 text-gray-500 hover:border-gold-300">↓ 下一卦：{all[g.seq].name}</Link>
+          <Link href={`/wenku/gua/${all[g.seq].slug}`} className="text-xs px-3 py-1.5 rounded-lg border border-gray-200 text-gray-500 hover:border-gold-300">↓ 下一卦：{all[g.seq].name}</Link>
         )}
       </div>
     </div>

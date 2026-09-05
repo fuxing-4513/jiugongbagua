@@ -82,12 +82,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // 卦象百科（64 卦独立页——"乾卦/屯卦"长尾）
   const guaPages = getHexagrams().map(g => ({
-    path: `/gua/${g.slug}/`,
+    path: `/wenku/gua/${g.slug}/`,
     priority: 0.7,
     changeFreq: 'monthly' as const,
   }))
 
-  const allPages = [...mainPages, ...infoPages, ...dreamLandingPages, ...bookPages, ...glossaryPages, { path: '/cangku/', priority: 0.6, changeFreq: 'weekly' as const }, ...rarePages, { path: '/gua/', priority: 0.7, changeFreq: 'weekly' as const }, ...guaPages]
+  const allPages = [...mainPages, ...infoPages, ...dreamLandingPages, ...bookPages, ...glossaryPages, { path: '/cangku/', priority: 0.6, changeFreq: 'weekly' as const }, ...rarePages, { path: '/wenku/gua/', priority: 0.7, changeFreq: 'weekly' as const }, ...guaPages]
 
   return allPages.map(({ path, priority, changeFreq }) => ({
     url: `${baseUrl}${path}`,

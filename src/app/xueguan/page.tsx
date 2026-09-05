@@ -92,7 +92,7 @@ export default function XueguanPage() {
             </span>
             <span className="text-gold-500 group-hover:translate-x-0.5 transition-transform">→</span>
           </a>
-          <a href="/gua"
+          <a href="/wenku/gua"
             className="flex items-center justify-between gap-3 px-5 py-3 bg-gradient-to-r from-[#fdf8ee] to-[#f8f1df] dark:from-[#1a1c22] dark:to-[#181a20] border border-gold-300/70 dark:border-gold-500/30 rounded-xl text-sm hover:border-gold-400 dark:hover:border-gold-500/60 transition-all group">
             <span className="flex items-center gap-3">
               <span className="text-lg">☰</span>
