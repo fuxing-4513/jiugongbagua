@@ -56,14 +56,39 @@ export default async function EntryPage({ params }: Props) {
 
       {/* 考订 */}
       <div className="rounded-2xl border border-gray-200/80 dark:border-gray-700/60 bg-white/85 dark:bg-[#13161c]/85 p-5 mb-5">
-        <h2 className="text-sm font-bold text-gray-800 dark:text-gray-100 mb-3">📝 九宫考订</h2>
+        <h2 className="text-sm font-bold text-gray-800 dark:text-gray-100 mb-3">📝 学术考证 · 九宫按</h2>
         <div className="space-y-2">
           {e.kaoding.map((k, i) => (
             <p key={i} className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">{k}</p>
           ))}
         </div>
+        {e.versions && <p className="text-xs text-gray-500 dark:text-gray-400 mt-3 leading-relaxed"><strong>版本谱系：</strong>{e.versions}</p>}
         <p className="text-[10px] text-gray-400 dark:text-gray-500 mt-3">核实日期：{e.verifiedAt}</p>
       </div>
+
+      {/* 白话导读 */}
+      {e.translation && e.translation.length > 0 && (
+        <div className="rounded-2xl border border-gold-200/70 dark:border-gold-500/25 bg-[#fdfbf5] dark:bg-[#16181e] p-5 mb-5">
+          <h2 className="text-sm font-bold text-gray-800 dark:text-gray-100 mb-3">🗣️ 白话导读</h2>
+          <div className="space-y-2">
+            {e.translation.map((t, i) => (
+              <p key={i} className="text-sm text-gray-700 dark:text-gray-200 leading-relaxed">{t}</p>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* 现代解释 */}
+      {e.modernInterpretation && e.modernInterpretation.length > 0 && (
+        <div className="rounded-2xl border border-indigo-200/60 dark:border-indigo-500/25 bg-white/85 dark:bg-[#13161c]/85 p-5 mb-5">
+          <h2 className="text-sm font-bold text-gray-800 dark:text-gray-100 mb-3">🔎 现代视角解读</h2>
+          <div className="space-y-2">
+            {e.modernInterpretation.map((t, i) => (
+              <p key={i} className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">{t}</p>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* 录文区（有录文才显示——数据到位即呈现） */}
       {e.luwen && e.luwen.text.length > 0 && (
