@@ -15,6 +15,7 @@ export default function GanzhiPage() {
       <div className="mb-8 text-center">
         <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-100 font-serif mb-3">🌳 干支百科</h1>
         <p className="text-sm text-gray-500">十天干 · 十二地支——八字、择日、奇门、六壬共通的桥梁知识</p>
+        <p className="text-[11px] text-emerald-600 dark:text-emerald-400 mt-2">✅ {TIAN_GAN.length + DI_ZHI.length} 干支已全部建成（天干 {TIAN_GAN.length} · 地支 {DI_ZHI.length}）——五行 · 阴阳 · 方位 · 藏干 · 类象 · 关联</p>
       </div>
 
       <h2 className="text-sm font-bold text-gray-600 dark:text-gray-300 mb-3">☀️ 十天干</h2>

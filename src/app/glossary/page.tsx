@@ -14,7 +14,8 @@ export default function GlossaryPage() {
   return (
     <div className="max-w-6xl mx-auto px-4 py-10">
       <h1 className="text-3xl font-bold text-gold-400 font-serif mb-2">术语百科</h1>
-      <p className="text-gray-400 mb-8">中国传统命理学术语详解 · {allTerms.length} 个词条</p>
+      <p className="text-gray-400 mb-1">中国传统命理学术语详解 · <span className="text-emerald-400 font-medium">{allTerms.length} 个词条 · 已全部建成</span></p>
+      <p className="text-gray-500 text-xs mb-8">15 大分类全开放 · 每条含九宫原创白话解读（据公版原典整理）</p>
       {categories.map(cat => {
         const terms = getTermsByCategory(cat);
         const meta = categoryMeta[cat];
