@@ -10,6 +10,7 @@ import { DAOIST_CATALOG } from '@/data/rare-catalog/daoist-rare'
 import { LOC_CATALOG } from '@/data/rare-catalog/loc-catalog'
 import { LOC_BATCH2 } from '@/data/rare-catalog/loc-batch2'
 import { getHexagrams } from '@/lib/hexagram-data'
+import { PEOPLE } from '@/data/renwu/people'
 
 const baseUrl = 'https://jiugongbagua.com'
 
@@ -86,6 +87,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
     changeFreq: 'monthly' as const,
   }))
+
+  const personPages = PEOPLE.map(p => ({ path: `/wenku/renwu/${p.slug}/`, priority: 0.6, changeFreq: 'monthly' as const }))
 
   const allPages = [...mainPages, ...infoPages, ...dreamLandingPages, ...bookPages, ...glossaryPages, { path: '/cangku/', priority: 0.6, changeFreq: 'weekly' as const }, ...rarePages, { path: '/wenku/gua/', priority: 0.7, changeFreq: 'weekly' as const }, ...guaPages]
 

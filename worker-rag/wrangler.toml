@@ -1,0 +1,20 @@
+name = "jiugong-books-ai"
+main = "src/index.js"
+compatibility_date = "2025-06-01"
+
+# Workers AI 绑定（免费额度）
+[ai]
+binding = "AI"
+
+# 古籍知识索引 KV
+[[kv_namespaces]]
+binding = "BOOKS_KV"
+id = "BOOKS_KV_ID_PLACEHOLDER"
+preview_id = "BOOKS_KV_ID_PLACEHOLDER"
+
+# 模型（可环境变量覆盖）
+[vars]
+AI_MODEL = "@cf/meta/llama-3.1-8b-instruct"
+
+[observability]
+enabled = true

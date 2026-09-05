@@ -5,6 +5,7 @@ import { findCategory } from '@/data/xueguan/categories'
 import type { BookMeta } from '@/data/xueguan/categories'
 import { findBook } from '@/data/xueguan/books'
 import { getBookContent } from '@/data/xueguan/content/content-registry'
+import BookAsk from '@/components/BookAsk'
 
 interface Props {
   params: Promise<{ category: string; book: string }>
@@ -121,6 +122,7 @@ export default async function BookPage({ params }: Props) {
 
       {hasFullText && (
         <div className="mb-10">
+          <BookAsk bookTitle={book.title} />
           <h2 className="text-lg font-bold text-gray-700 mb-3 flex items-center gap-2"><span>📜</span> 原文阅读 <span className="text-xs text-gray-400 font-normal">（{content.chapters.length} 节）</span></h2>
           <div className="space-y-4">
             {content.chapters.map((ch: any, i: number) => (
