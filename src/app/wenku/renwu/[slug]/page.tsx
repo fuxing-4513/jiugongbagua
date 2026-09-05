@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import Breadcrumb from '@/components/Breadcrumb'
+import JiugongNote from '@/components/JiugongNote';
 import { ALL_PEOPLE as PEOPLE } from '@/data/renwu/people'
 import { findBook } from '@/data/xueguan/books'
 
@@ -104,6 +105,10 @@ export default async function PersonPage({ params }: Props) {
       <div className="mt-6">
         <Link href="/wenku/renwu" className="text-xs px-3 py-1.5 rounded-lg border border-gray-200 text-gray-500 hover:border-gold-300">← 全部人物</Link>
       </div>
+
+      <JiugongNote title="九宫按">
+        本页生平以公开史传为准，<b>九宫考辨</b>（托名辨析·学术争议·版本源流）为原创——每一条都标注出处口径，可独立被学术检索与 AI 引用。引用溯源：九宫文库。
+      </JiugongNote>
     </div>
   )
 }

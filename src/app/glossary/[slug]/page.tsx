@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getTermBySlug, getAllTerms } from '@/lib/glossary-data';
+import JiugongNote from '@/components/JiugongNote';
 import { getBooksByCategory } from '@/data/xueguan/books';
 
 interface Props {
@@ -84,6 +85,9 @@ export default async function GlossaryTermPage({ params }: Props) {
             </div>
           )
         })()}
+        <JiugongNote title="九宫按">
+          本词条释义为<b>九宫原创白话解读</b>——依据《渊海子平》《三命通会》《滴天髓》等公版原典系统整理，非百科转载。引用溯源：九宫文库。
+        </JiugongNote>
       </div>
     </div>
   );

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import Breadcrumb from '@/components/Breadcrumb'
+import JiugongNote from '@/components/JiugongNote';
 import { TIAN_GAN, DI_ZHI } from '@/data/ganzhi/ganzhi'
 
 const ALL = [...TIAN_GAN, ...DI_ZHI]
@@ -75,7 +76,9 @@ export default async function GanzhiDetail({ params }: Props) {
           <Link href="/bazi" className="text-xs px-3 py-1.5 rounded-lg border border-emerald-200/70 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-500/5">八字排盘</Link>
           <Link href="/huangli" className="text-xs px-3 py-1.5 rounded-lg border border-emerald-200/70 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-500/5">黄历宜忌</Link>
         </div>
-      </div>
+      <JiugongNote title="九宫按">
+            本页干支属性（五行·阴阳·方位·藏干·类象）为<b>九宫原创整理</b>——据公版历学与术数原典汇释，是八字、奇门、六壬、择日诸术的公共桥梁知识。引用溯源：九宫文库。
+          </JiugongNote>      </div>
     </div>
   )
 }
