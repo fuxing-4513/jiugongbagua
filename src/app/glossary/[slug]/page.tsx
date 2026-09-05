@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getTermBySlug, getAllTerms } from '@/lib/glossary-data';
+import { getBooksByCategory } from '@/data/xueguan/books';
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -62,6 +63,27 @@ export default async function GlossaryTermPage({ params }: Props) {
             </div>
           </div>
         )}
+        {/* 相关典籍（术语 → 该学科古籍——知识图谱互链） */}
+        {(() => {
+          const catMap: Record<string, string> = { bazi: 'mingli-bazi', ziwei: 'mingli-ziwei', yijing: 'bushi-yijing', huangli: 'zaji-zeri' }
+          const cat = catMap[term.category]
+          if (!cat) return null
+          const books = getBooksByCategory(cat).filter((b: any) => b.isComplete).slice(0, 5)
+          if (books.length === 0) return null
+          return (
+            <div className="mt-6 pt-4 border-t border-dark-600">
+              <h3 className="text-sm text-gray-400 mb-2">相关典籍</h3>
+              <div className="flex flex-wrap gap-2">
+                {books.map((b: any) => (
+                  <Link key={b.id} href={`/xueguan/${cat}/${b.id}`}
+                    className="text-sm px-3 py-1 bg-dark-700 text-gray-300 rounded hover:bg-dark-600 hover:text-gold-400 transition-colors">
+                    《{b.title}》
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )
+        })()}
       </div>
     </div>
   );

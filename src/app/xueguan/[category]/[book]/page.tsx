@@ -6,6 +6,8 @@ import type { BookMeta } from '@/data/xueguan/categories'
 import { findBook } from '@/data/xueguan/books'
 import { getBookContent } from '@/data/xueguan/content/content-registry'
 import BookAsk from '@/components/BookAsk'
+import { PEOPLE } from '@/data/renwu/people'
+import { CATEGORY_TOOLS } from '@/lib/book-tool-map'
 
 interface Props {
   params: Promise<{ category: string; book: string }>
@@ -193,6 +195,44 @@ export default async function BookPage({ params }: Props) {
           <p className="text-xs text-gold-500">本书的原文内容正在逐章录入与清洗中，敬请期待后续更新。</p>
         </div>
       )}
+
+      {/* 相关人物（P3 实体关系：people 反查） */}
+      {(() => {
+        const persons = PEOPLE.filter(p => (p.relatedBookIds || []).includes(book.id) || p.works.some(w => w.relatedBookId === book.id))
+        if (persons.length === 0) return null
+        return (
+          <div className="mb-10">
+            <h2 className="text-lg font-bold text-gray-700 mb-3 flex items-center gap-2"><span>👤</span> 相关人物</h2>
+            <div className="flex flex-wrap gap-2">
+              {persons.map(p => (
+                <Link key={p.id} href={`/wenku/renwu/${p.slug}`}
+                  className="px-3 py-1.5 rounded-lg border border-indigo-200/70 dark:border-indigo-500/25 text-sm text-indigo-700 dark:text-indigo-300 hover:bg-indigo-500/5 transition-colors">
+                  {p.name}<span className="text-[10px] text-gray-400 ml-1">{p.field}</span>
+                </Link>
+              ))}
+            </div>
+          </div>
+        )
+      })()}
+
+      {/* 相关工具（分类 → 本站工具——知识到应用打通） */}
+      {(() => {
+        const tools = CATEGORY_TOOLS[book.category] || []
+        if (tools.length === 0) return null
+        return (
+          <div className="mb-10">
+            <h2 className="text-lg font-bold text-gray-700 mb-3 flex items-center gap-2"><span>🧰</span> 相关工具</h2>
+            <div className="flex flex-wrap gap-2">
+              {tools.map(t => (
+                <Link key={t.href} href={t.href}
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-emerald-200/70 dark:border-emerald-500/25 text-sm text-emerald-700 dark:text-emerald-300 hover:bg-emerald-500/5 transition-colors">
+                  <span>{t.emoji}</span>{t.title}
+                </Link>
+              ))}
+            </div>
+          </div>
+        )
+      })()}
 
       {relatedBooks.length > 0 && (
         <div className="mb-10">
