@@ -2243,6 +2243,21 @@ export const bookCatalog = [
     order: 19,
     related: ['huangting-jing', 'yunji-qiqian', 'baopu-zi'],
   },
+  {
+    id: 'ziping-fujue',
+    title: '子平赋诀',
+    author: '辑自《渊海子平》',
+    dynasty: '宋元明（辑）',
+    category: 'mingli-bazi',
+    summary: '子平法核心口诀赋文辑录：继善篇、碧渊赋、四言五言独步、身命赋等',
+    description: '《子平赋诀》辑录《渊海子平》卷五"诸家赋文歌诀"中的核心篇目：继善篇总论命理纲要，四言独步与五言独步以简练韵语概括格局喜忌，碧渊赋、金玉赋、玄机赋铺陈十神生克与格局取用，身命赋专论日主强弱与环境。赋文以韵语浓缩子平法精髓，是传统命理学习的重要歌诀材料，与《滴天髓》《子平真诠》等互为表里。',
+    keywords: ['子平', '继善篇', '四言独步', '五言独步', '赋文', '歌诀'],
+    volumes: '一卷',
+    isComplete: true,
+    estimatedChars: 2300,
+    order: 20,
+    related: ['yuanhai-zipping', 'ditian-sui', 'zipping-zhenquan'],
+  },
 ]
 
 // ============================================================

@@ -142,4 +142,5 @@ export const allBookIds: BookIdEntry[] = [
   { category: "bushi-qimen", id: "yanbo-diaosou-ge" },
   { category: "bushi-yijing", id: "tai-xuan-jing" },
   { category: "fengshui-liqi", id: "dili-bianzheng" },
+  { category: "mingli-bazi", id: "ziping-fujue" },
 ]
