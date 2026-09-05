@@ -1,11 +1,11 @@
 import type { Metadata } from 'next'
-import { DUNHUANG_CATALOG } from '@/data/rare-catalog/dunhuang'
+import { DUNHUANG_CATALOG, DUNHUANG_BATCH2 } from '@/data/rare-catalog/dunhuang'
 import { SONGYUAN_CATALOG } from '@/data/rare-catalog/songyuan'
 import { findBook } from '@/data/xueguan/books'
 import Link from 'next/link'
 import Breadcrumb from '@/components/Breadcrumb'
 
-const ALL = [...DUNHUANG_CATALOG, ...SONGYUAN_CATALOG]
+const ALL = [...DUNHUANG_CATALOG, ...DUNHUANG_BATCH2, ...SONGYUAN_CATALOG]
 
 export function generateStaticParams() {
   return ALL.map(e => ({ id: e.id }))
@@ -82,10 +82,11 @@ export default async function EntryPage({ params }: Props) {
       {/* 官方入口 + 版权 */}
       {e.officialLink && (
         <div className="rounded-xl border border-sky-200/60 dark:border-sky-500/25 bg-sky-50/60 dark:bg-sky-500/5 p-4 mb-5">
-          <p className="text-sm text-sky-800 dark:text-sky-200">
-            🔗 官方入口：<a href={e.officialLink} target="_blank" rel="noopener noreferrer" className="underline decoration-dotted hover:text-sky-600">{e.officialLink.replace('https://', '')}</a>
-          </p>
-          <p className="text-[11px] text-sky-700/70 dark:text-sky-300/60 mt-1.5 leading-relaxed">{e.rightsNote}</p>
+          <a href={e.officialLink} target="_blank" rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-sky-600 text-white text-sm font-medium hover:bg-sky-700 transition-colors">
+            📖 查看官方图版/馆藏页 <span className="text-[10px] opacity-70">新窗口 ↗</span>
+          </a>
+          <p className="text-[11px] text-sky-700/70 dark:text-sky-300/60 mt-2 leading-relaxed">{e.rightsNote}</p>
         </div>
       )}
 
