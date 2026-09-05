@@ -1,3 +1,4 @@
+// @ts-nocheck — Worker 独立运行环境（wrangler 编译——不经项目 tsconfig）
 // 九宫古籍 AI 问答 Worker（Workers AI + 书级知识索引 RAG）
 // 端点：POST /api/ask-book  { question: string }
 // 响应：{ answer, sources: [{ bookId, title }], model }
