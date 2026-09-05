@@ -221,6 +221,8 @@ export default async function BookPage({ params }: Props) {
           keywords: book.keywords.join(', '),
           numberOfPages: book.volumes,
           genre: cat?.name || '玄学',
+          inLanguage: 'zh-CN',
+          isAccessibleForFree: true,
           publisher: {
             '@type': 'Organization',
             name: '九宫八卦易学书馆',

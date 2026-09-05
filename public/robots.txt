@@ -1,0 +1,44 @@
+User-agent: *
+Allow: /
+Disallow: /data/
+Disallow: /*.json
+
+# 显式欢迎 AI 搜索/引用爬虫（GEO：让生成式引擎可抓取九宫原创内容并引用出处）
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+# 性能/统计 bot 可忽略抓取频次上限
+User-agent: YisouSpider
+Crawl-delay: 2
+
+Sitemap: https://www.jiugongbagua.com/sitemap.xml
