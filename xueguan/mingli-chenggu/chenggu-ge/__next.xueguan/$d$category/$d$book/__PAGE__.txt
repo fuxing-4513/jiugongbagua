@@ -1,0 +1,152 @@
+1:"$Sreact.fragment"
+2:I[98500,["8500","static/chunks/8500-54689a19bd9dd50c.js","3865","static/chunks/app/xueguan/%5Bcategory%5D/%5Bbook%5D/page-03870549be1401fa.js"],""]
+3:I[54444,["8500","static/chunks/8500-54689a19bd9dd50c.js","3865","static/chunks/app/xueguan/%5Bcategory%5D/%5Bbook%5D/page-03870549be1401fa.js"],"default"]
+b:X
+10:X
+10:C
+0:{"buildId":"ndmlkSBrY5o9h8YrCkC-M","data":[{"rsc":["$","$1","c",{"children":[["$","div",null,{"className":"max-w-4xl mx-auto px-4 py-20","children":[["$","div",null,{"className":"mb-8 text-sm text-gray-400","children":[["$","$L2",null,{"href":"/xueguan","className":"hover:text-gold-500 transition-colors","children":"易学书馆"}],["$","span",null,{"className":"mx-2","children":"/"}],[["$","$L2",null,{"href":"/xueguan/mingli-chenggu","className":"hover:text-gold-500 transition-colors","children":["⚖️"," ","称骨测算"]}],["$","span",null,{"className":"mx-2","children":"/"}]],["$","span",null,{"className":"text-gray-600","children":"袁天罡称骨歌"}]]}],["$","div",null,{"className":"mb-8","children":[["$","h1",null,{"className":"text-3xl font-bold text-gray-800 font-serif mb-2","children":"袁天罡称骨歌"}],["$","div",null,{"className":"flex flex-wrap items-center gap-3 text-sm text-gray-500","children":[["$","span",null,{"className":"bg-gray-50 px-2 py-0.5 rounded","children":"唐"}],["$","span",null,{"className":"bg-gray-50 px-2 py-0.5 rounded","children":"袁天罡"}],["$","span",null,{"className":"bg-gray-50 px-2 py-0.5 rounded","children":"一卷"}],null,["$","span",null,{"className":"bg-gold-500-50 text-gold-600 px-2 py-0.5 rounded font-medium","children":"完整收录"}]]}],"$undefined",["$","p",null,{"className":"mt-4 text-sm text-gray-500 dark:text-gray-400 leading-relaxed max-w-3xl","children":"《袁天罡称骨歌》传说为唐代天文学家袁天罡所创。将出生年、月、日、时分别赋予不同的重量（以两为单位），四者相加得总重，对应称骨歌断语。歌诀按重量分篇，从二两一到七两一，共分为不同的命格层次。此法简单直观，流传甚广。"}]]}],["$","div",null,{"className":"mb-8 flex flex-wrap gap-2","children":[["$","span","称骨",{"className":"text-xs bg-gray-50 text-gray-500 px-2.5 py-1 rounded-full border border-gray-100","children":["#","称骨"]}],["$","span","袁天罡",{"className":"text-xs bg-gray-50 text-gray-500 px-2.5 py-1 rounded-full border border-gray-100","children":["#","袁天罡"]}],["$","span","重量",{"className":"text-xs bg-gray-50 text-gray-500 px-2.5 py-1 rounded-full border border-gray-100","children":["#","重量"]}],["$","span","命格",{"className":"text-xs bg-gray-50 text-gray-500 px-2.5 py-1 rounded-full border border-gray-100","children":["#","命格"]}],["$","span","歌诀",{"className":"text-xs bg-gray-50 text-gray-500 px-2.5 py-1 rounded-full border border-gray-100","children":["#","歌诀"]}]]}],["$","div",null,{"className":"mb-10","children":[["$","h2",null,{"className":"text-lg font-bold text-gray-700 mb-3 flex items-center gap-2","children":[["$","span",null,{"children":"📖"}]," 典籍简介"]}],["$","div",null,{"className":"bg-white border border-gray-100 rounded-xl p-6","children":["$","p",null,{"className":"text-gray-600 leading-relaxed whitespace-pre-line","children":"《袁天罡称骨歌》传说为唐代天文学家袁天罡所创。将出生年、月、日、时分别赋予不同的重量（以两为单位），四者相加得总重，对应称骨歌断语。歌诀按重量分篇，从二两一到七两一，共分为不同的命格层次。此法简单直观，流传甚广。"}]}]]}],["$","div",null,{"className":"mb-6 bg-gold-50/30 border border-gold-200/50 rounded-xl overflow-hidden","children":[["$","div",null,{"className":"px-5 py-2 bg-gold-50/50 border-b border-gold-200/30 flex items-center gap-2","children":[["$","span",null,{"className":"text-gold-500 text-sm","children":"🏛️"}],["$","span",null,{"className":"text-xs font-medium text-gold-600","children":"九宫导读"}]]}],["$","div",null,{"className":"px-5 py-4","children":["$","div",null,{"className":"prose prose-sm max-w-none text-gray-600 leading-relaxed whitespace-pre-line","children":"《袁天罡称骨歌》一卷，传为唐代天文学家袁天罡所创。以出生年、月、日、时分别赋予不同的重量（以两为单位），四者相加得总重，对照歌诀判断命运格局。\n\n【概要】\n称骨法属于数理命理学中最简易的一种方法。将年、月、日、时四柱各自按六十甲子纳音、节气、干支等分配固定重量，合计得出「总骨重」，再对照歌诀解读。\n\n【九宫按】\n称骨法虽不似子平八字、紫微斗数精密，但其数理模型简练直观，流传极广。从二两一到七两一，共分五十一格，由极贱至极贵，覆盖了几乎所有人生层次。唐代袁天罡与李淳风齐名，此法虽未必尽出天罡之手，但确为唐代术数之遗风。\n\n【阅读建议】\n先读取年表、月表、日表、时表，确定自身骨重，再对号入座读歌诀。注意：称骨歌仅限于参考娱乐，不宜过于执着。\n\n【版本说明】\n本文以通行本为底本，参校多个民间流传版本。歌诀部分各版本间略有出入，以流传最广的版本为准。"}]}]]}],["$","div",null,{"className":"mb-10","children":[["$","$L3",null,{"bookTitle":"袁天罡称骨歌","bookId":"chenggu-ge"}],["$","h2",null,{"className":"text-lg font-bold text-gray-700 mb-3 flex items-center gap-2","children":[["$","span",null,{"children":"📜"}]," 原文阅读 ",["$","span",null,{"className":"text-xs text-gray-400 font-normal","children":["（",2," 节）"]}]]}],["$","div",null,{"className":"space-y-4","children":[["$","details","intro",{"id":"ch-intro","className":"group bg-white border border-gray-100 rounded-xl overflow-hidden scroll-mt-24","children":["$L4","$L5"]}],"$L6"]}]]}],false,null,null,false,"$L7","$L8"]}],null,"$L9"]}],"isPartial":"$@a","staleTime":"$b","varyParams":null},{"rsc":"$Lc","isPartial":"$@d","staleTime":"$b","varyParams":null},{"rsc":"$Le","isPartial":"$@f","staleTime":"$b","varyParams":"$10"},{"rsc":"$L11","isPartial":"$@12","staleTime":"$b","varyParams":"$10"},{"rsc":"$L13","isPartial":"$@14","staleTime":"$b","varyParams":"$10"},{"rsc":"$L15","isPartial":"$@16","staleTime":"$b","varyParams":null}],"isUpgradeableISRFallback":false,"a":"$@17","rootVaryParams":null,"needsRuntimeRequest":"$@18"}
+1c:I[90484,[],"OutletBoundary"]
+1d:"$Sreact.suspense"
+1f:I[90484,[],"ViewportBoundary"]
+20:I[90484,[],"MetadataBoundary"]
+21:I[86869,[],"IconMark"]
+22:I[57121,[],""]
+23:I[74581,[],""]
+24:I[6843,["8500","static/chunks/8500-54689a19bd9dd50c.js","7903","static/chunks/7903-746d7ec89cb5c2ea.js","7177","static/chunks/app/layout-fc1a743aee2ee60c.js"],"default"]
+:HL["/_next/static/css/c13e47ad35e05bb3.css","style"]
+4:["$","summary",null,{"className":"px-5 py-3 text-sm font-medium text-gray-700 cursor-pointer hover:bg-gray-50 hover:text-gold-600 transition-colors flex items-center gap-2","children":[["$","span",null,{"className":"text-gray-300 group-open:text-gold-400 transition-colors","children":[1,"."]}],["$","span",null,{"children":"称骨算法说明"}],["$","span",null,{"className":"text-[10px] bg-gold-500/5 text-gold-600 px-1.5 py-0.5 rounded","children":"白话"}],["$","span",null,{"className":"text-[10px] bg-gold-500/5 text-gold-500 px-1.5 py-0.5 rounded","children":"注"}],["$","span",null,{"className":"ml-auto text-gray-300 group-open:rotate-180 transition-transform text-xs","children":"▼"}]]}]
+5:["$","div",null,{"className":"px-5 pb-5 pt-2 border-t border-gray-50","children":[["$","div",null,{"className":"prose prose-sm max-w-none text-gray-600 leading-relaxed whitespace-pre-line","children":"袁天罡称骨法以出生年、月、日、时分别赋予不同的重量（以两为单位），四者相加得总重，对照称骨歌诀判断命运格局。\n\n【称骨年表】\n出生年按干支六十甲子轮流值年，每年对应固定重量。\n例如：甲子年一两二钱，乙丑年九钱，丙寅年六钱……\n由于干支每年循环，用户需查阅万年历将出生年转换为干支，再查对应重量。\n\n【称骨月表】\n正月六钱，二月七钱，三月一两八钱，四月九钱，\n五月五钱，六月一两六钱，七月九钱，八月一两五钱，\n九月一两八钱，十月八钱，十一月九钱，十二月五钱。\n\n【称骨日表】\n初一五钱，初二一两，初三八钱，初四一两五钱，初五一两六钱，\n初六一两五钱，初七八钱，初八一两六钱，初九八钱，初十一两六钱，\n十一九钱，十二一两七钱，十三八钱，十四一两七钱，十五一两，\n十六八钱，十七九钱，十八一两八钱，十九五钱，二十一两五钱，\n廿一，廿二，廿三，廿四，廿五，廿六，廿七，廿八，廿九，三十各日皆有定数。\n\n【称骨时表】\n子时一两六钱，丑时六钱，寅时七钱，卯时一两，\n辰时九钱，巳时一两六钱，午时一两，未时八钱，\n申时八钱，酉时九钱，戌时六钱，亥时六钱。\n\n【计算示例】\n某人出生于甲子年正月初一子时：\n年：甲子年（一两二钱）+ 月：正月（六钱）+ 日：初一（五钱）+ 时：子时（一两六钱）\n总骨重 = 1.2 + 0.6 + 0.5 + 1.6 = 三两九钱\n查歌诀对应「三两九：此命终身运不通，劳劳作事尽皆空。苦心竭力成家计，到得那时在梦中。」"}],"$undefined",["$","div",null,{"className":"mt-4 pt-4 border-t border-gold-500/25","children":[["$","div",null,{"className":"flex items-center gap-1.5 mb-2","children":[["$","span",null,{"className":"text-gold-600 text-xs","children":"💬"}],["$","span",null,{"className":"text-[10px] font-medium text-gold-600","children":"白话参考"}]]}],["$","div",null,{"className":"prose prose-sm max-w-none text-gray-500 leading-relaxed whitespace-pre-line","children":"【白话】\n袁天罡称骨法将出生年、月、日、时分别赋予固定重量，四项相加得出总骨重，再对照称骨歌诀判断命运格局。从二两一到七两一，共分五十一格，覆盖了从极贱至极贵的人生各层次。此法简练直观，流传极广，但仅供参娱乐，不宜过于执着。"}]]}],["$","div",null,{"className":"mt-3 pt-3 border-t border-gold-500/25","children":[["$","div",null,{"className":"flex items-center gap-1.5 mb-1","children":[["$","span",null,{"className":"text-gold-500 text-xs","children":"📝"}],["$","span",null,{"className":"text-[10px] font-medium text-gold-500","children":"注释"}]]}],["$","div",null,{"className":"prose prose-sm max-w-none text-gray-400 leading-relaxed whitespace-pre-line text-xs","children":"年、月、日、时各表的详细重量数据因版本不同略有差异。本节所列为通行版数值。"}]]}]]}]
+19:T185e,══════════ 二两至二两九 ══════════
+
+【二两一】短命非业谓大空，平生灾难事重重。凶祸频临陷逆境，终世困苦事不成。
+
+【二两二】身寒骨冷苦伶仃，此命推来行乞人。劳劳碌碌无度日，终年打拱过平生。
+
+【二两三】此命推来骨肉轻，求谋作事事难成。妻儿兄弟应难许，别处他乡作散人。
+
+【二两四】此命推来福禄无，门庭困苦总难荣。六亲骨肉皆无靠，流浪他乡作老翁。
+
+【二两五】此命推来祖业微，门庭营度似稀奇。六亲骨肉如冰炭，一世勤劳自把持。
+
+【二两六】平生衣禄苦中求，独自营谋事不休。离祖出门宜早计，晚来衣禄自无休。
+
+【二两七】一生作事少商量，难靠祖宗作主张。独马单枪空做去，早年晚岁总无长。
+
+【二两八】一生行事似飘蓬，祖宗产业在梦中。若不过房改名姓，也当移徙二三通。
+
+【二两九】初年运限未曾亨，纵有功名在后成。须过四旬才可立，移居改姓始为良。
+
+══════════ 三两至三两九 ══════════
+
+【三两】劳劳碌碌苦中求，东奔西走何日休。若使终身勤与俭，老来稍可免忧愁。
+
+【三两一】忙忙碌碌苦中求，何日云开见日头。难得祖基家可立，中年衣食渐无忧。
+
+【三两二】初年运蹇事难谋，渐有财源如水流。到得中年衣食旺，那时名利一起来。
+
+【三两三】早年做事事难成，百年勤劳枉费心。半世自如流水去，后来运到始得金。
+
+【三两四】此命福气果如何，僧道门中衣禄多。离祖出家方为妙，朝晚拜佛念弥陀。
+
+【三两五】生平福量不周全，祖业根基觉少传。营事生涯宜守旧，时来衣食胜从前。
+
+【三两六】不须劳碌过平生，独自成家福不轻。早有福星常照命，任君行去百般成。
+
+【三两七】此命般般事不成，弟兄少力自孤行。虽然祖业须微有，来得明时去不明。
+
+【三两八】一身骨肉最清高，早入簧门姓氏标。待到年将三十六，蓝衫脱去换红袍。
+
+【三两九】此命终身运不通，劳劳作事尽皆空。苦心竭力成家计，到得那时在梦中。
+
+══════════ 四两至四两九 ══════════
+
+【四两】平生衣禄是绵长，件件心中自主张。前面风霜多受过，后来必定享安康。
+
+【四两一】此命推来事不同，为人能干异凡人。中年还有逍遥福，不比前番运未通。
+
+【四两二】得宽怀处且宽怀，何用双眉皱不开。若使中年命运济，那时名利一时来。
+
+【四两三】为人心性最聪明，作事轩昂近贵人。衣禄一生天注定，不须劳碌是丰亨。
+
+【四两四】万事由天莫苦求，须知福碌赖人修。当年财帛难如意，晚景欣然便不忧。
+
+【四两五】名利推来竟若何，前途辛苦后奔波。命中难养男与女，骨肉扶持也不多。
+
+【四两六】东西南北尽皆通，出姓移居更觉隆。衣禄无穷天数定，中年晚景一般同。
+
+【四两七】此命推来旺末年，妻荣子贵自怡然。平生原有滔滔福，可有财源如水流。
+
+【四两八】幼年运道未曾亨，若是蹉跎再不亨。兄弟六亲皆无靠，一身事业晚年成。
+
+【四两九】此命推来福不轻，自成自立显门庭。从来富贵人钦敬，使婢差奴过一生。
+
+══════════ 五两至五两九 ══════════
+
+【五两】为利为名终日劳，中年福禄也多遭。老来自有财星照，不比前番目下高。
+
+【五两一】一世荣华事事通，不须劳碌自亨通。兄弟叔侄皆如意，家业成时福禄宏。
+
+【五两二】一世亨通事事能，不须劳苦自然成。宗族欣然皆如意，家业丰亨自称心。
+
+【五两三】此命推来福泽宏，兴家立业在其中。一生衣食安排定，却是人间一富翁。
+
+【五两四】此命推来厚且清，诗书满腹看功成。丰衣足食自然稳，正是人间有福人。
+
+【五两五】走马扬鞭争利名，少年作事费评论。一朝福禄源源至，富贵荣华显六亲。
+
+【五两六】此格推来礼义通，一身福禄用无穷。甜酸苦辣皆尝过，滚滚财源盈而丰。
+
+【五两七】福禄丰盈万事全，一身荣耀显双亲。名扬威振人钦敬，处世逍遥似遇春。
+
+【五两八】平生福禄自然来，名利兼全福寿偕。雁塔题名为贵客，紫袍金带走金阶。
+
+【五两九】细推此格秀而清，必定才高学业成。甲第之中应有分，扬鞭走马显威荣。
+
+══════════ 六两至六两九 ══════════
+
+【六两】一朝金榜快题名，显祖荣宗大器成。衣禄定然原裕足，田园产业更丰盈。
+
+【六两一】不作朝中金榜客，定为世上大财翁。聪明天付经书熟，名显高科自是荣。
+
+【六两二】此命生来福不穷，读书必定显亲宗。紫衣金带为卿相，富贵荣华皆可同。
+
+【六两三】命主为官福禄长，得来富贵实非常。名题雁塔传金榜，大显门庭天下扬。
+
+【六两四】此格威权不可当，紫袍金带坐高堂。荣华富贵谁能及，积玉堆金满储仓。
+
+【六两五】细推此命福非轻，富贵荣华孰与争。定国安邦人极品，威声赫赫显功名。
+
+【六两六】时来运转去寻欢，无忧无虑自逍遥。若是连年吉庆事，高官得做马得骑。
+
+【六两七】此命生来福自宏，田园家业最高隆。平生衣禄盈丰足，一路荣华万事通。
+
+【六两八】富贵由天莫苦求，万金家计不须谋。十年不比前番事，祖业根基飞古留。
+
+【六两九】君是人间福禄星，一生富贵众人钦。总然衣禄由天定，安享荣华过一生。
+
+══════════ 七两至七两一 ══════════
+
+【七两】此命推来福不轻，何须愁虑苦劳心。荣华富贵已天定，正笏垂绅拜紫宸。
+
+【七两一】此命生成大不同，公侯卿相在其中。一生自有逍遥福，富贵荣华极品隆。6:["$","details","songjue",{"id":"ch-songjue","className":"group bg-white border border-gray-100 rounded-xl overflow-hidden scroll-mt-24","children":[["$","summary",null,{"className":"px-5 py-3 text-sm font-medium text-gray-700 cursor-pointer hover:bg-gray-50 hover:text-gold-600 transition-colors flex items-center gap-2","children":[["$","span",null,{"className":"text-gray-300 group-open:text-gold-400 transition-colors","children":[2,"."]}],["$","span",null,{"children":"称骨歌诀"}],["$","span",null,{"className":"text-[10px] bg-gold-500/5 text-gold-600 px-1.5 py-0.5 rounded","children":"白话"}],["$","span",null,{"className":"text-[10px] bg-gold-500/5 text-gold-500 px-1.5 py-0.5 rounded","children":"注"}],["$","span",null,{"className":"ml-auto text-gray-300 group-open:rotate-180 transition-transform text-xs","children":"▼"}]]}],["$","div",null,{"className":"px-5 pb-5 pt-2 border-t border-gray-50","children":[["$","div",null,{"className":"prose prose-sm max-w-none text-gray-600 leading-relaxed whitespace-pre-line","children":"$19"}],"$undefined",["$","div",null,{"className":"mt-4 pt-4 border-t border-gold-500/25","children":[["$","div",null,{"className":"flex items-center gap-1.5 mb-2","children":[["$","span",null,{"className":"text-gold-600 text-xs","children":"💬"}],["$","span",null,{"className":"text-[10px] font-medium text-gold-600","children":"白话参考"}]]}],"$L1a"]}],"$L1b"]}]]}]
+7:["$","div",null,{"className":"mt-12 pt-6 border-t border-gray-100","children":["$","div",null,{"className":"flex items-center justify-between","children":["$","div",null,{"className":"flex items-center gap-3","children":[["$","$L2",null,{"href":"/xueguan/mingli-chenggu","className":"text-sm text-gold-500 hover:text-gold-600 transition-colors","children":["← 返回 ","称骨测算"]}],["$","span",null,{"className":"text-gray-200 text-xs","children":"·"}],["$","$L2",null,{"href":"/xueguan","className":"text-sm text-gray-400 hover:text-gold-500 transition-colors","children":"返回书馆首页"}],["$","span",null,{"className":"text-gray-200 text-xs","children":"·"}],["$","$L2",null,{"href":"/","className":"text-sm text-gray-400 hover:text-gold-500 transition-colors","children":"🏠 返回九宫八卦首页"}]]}]}]}]
+8:["$","script",null,{"type":"application/ld+json","dangerouslySetInnerHTML":{"__html":"{\"@context\":\"https://schema.org\",\"@type\":\"Book\",\"@id\":\"https://jiugongbagua.com/xueguan/mingli-chenggu/chenggu-ge\",\"name\":\"袁天罡称骨歌\",\"author\":\"袁天罡\",\"description\":\"以出生年月日时加权称骨，断一生福禄\",\"keywords\":\"称骨, 袁天罡, 重量, 命格, 歌诀\",\"numberOfPages\":\"一卷\",\"genre\":\"称骨测算\",\"inLanguage\":\"zh-CN\",\"isAccessibleForFree\":true,\"publisher\":{\"@type\":\"Organization\",\"name\":\"九宫八卦易学书馆\",\"url\":\"https://jiugongbagua.com\"},\"provider\":{\"@type\":\"Organization\",\"name\":\"九宫八卦\"},\"maintainer\":{\"@type\":\"Organization\",\"name\":\"九宫八卦易学书馆\",\"url\":\"https://jiugongbagua.com\"}}"}}]
+9:["$","$L1c",null,{"children":["$","$1d",null,{"name":"Next.MetadataOutlet","children":"$@1e"}]}]
+c:["$","$1","h",{"children":[null,["$","$L1f",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]}],["$","div",null,{"hidden":true,"children":["$","$L20",null,{"children":["$","$1d",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"袁天罡称骨歌 - 称骨测算 | 易学书馆 | 九宫八卦 | 九宫八卦"}],["$","meta","1",{"name":"description","content":"袁天罡称骨歌 · 袁天罡 · 唐 · 以出生年月日时加权称骨，断一生福禄"}],["$","meta","2",{"name":"author","content":"九宫八卦"}],["$","meta","3",{"name":"keywords","content":"九宫八卦,八字排盘,紫微斗数,六爻,小六壬,周公解梦,姓名测试,号码测吉凶,黄历,塔罗,命理,易经,梅花易数,合婚,传统文化,奇门遁甲"}],["$","meta","4",{"name":"creator","content":"九宫八卦"}],["$","meta","5",{"name":"publisher","content":"九宫八卦"}],["$","meta","6",{"name":"robots","content":"index, follow"}],["$","meta","7",{"name":"googlebot","content":"index, follow"}],["$","meta","8",{"property":"og:title","content":"九宫八卦 - 传统命理在线测算平台"}],["$","meta","9",{"property":"og:description","content":"传承经典 · 智慧启航。八字排盘、紫微斗数、六爻、梅花易数、小六壬等二十余种传统命理服务。"}],["$","meta","10",{"property":"og:url","content":"https://jiugongbagua.com/"}],["$","meta","11",{"property":"og:site_name","content":"九宫八卦"}],["$","meta","12",{"property":"og:locale","content":"zh_CN"}],["$","meta","13",{"property":"og:type","content":"website"}],["$","meta","14",{"name":"twitter:card","content":"summary"}],["$","meta","15",{"name":"twitter:title","content":"九宫八卦 - 中国传统命理文化平台"}],["$","meta","16",{"name":"twitter:description","content":"九宫八卦是中国传统命理文化平台，提供八字排盘、紫微斗数、六爻、小六壬、周公解梦、姓名测试、号码测吉凶、黄历择日、塔罗等在线服务。"}],["$","link","17",{"rel":"icon","href":"/favicon.ico?083af30e08c51e01","type":"image/x-icon","sizes":"16x16"}],["$","$L21","18",{}]]}]}]}],null]}]
+e:["$","$1","c",{"children":[null,["$","$L22",null,{"parallelRouterKey":"children","template":["$","$L23",null,{}]}]]}]
+11:["$","$1","c",{"children":[null,["$","$L22",null,{"parallelRouterKey":"children","template":["$","$L23",null,{}]}]]}]
+13:["$","$1","c",{"children":[null,["$","$L22",null,{"parallelRouterKey":"children","template":["$","$L23",null,{}]}]]}]
+15:["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/c13e47ad35e05bb3.css","precedence":"next"}]],["$","html",null,{"lang":"zh-Hans","suppressHydrationWarning":true,"children":[["$","head",null,{"children":[["$","meta",null,{"httpEquiv":"Content-Security-Policy","content":"default-src 'self'; script-src 'self' 'unsafe-inline' https://hm.baidu.com https://*.baidu.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https://hm.baidu.com https://*.baidu.com https://www.google-analytics.com; frame-src 'self'; base-uri 'self'; form-action 'self'; object-src 'none'; media-src 'self'; upgrade-insecure-requests"}],["$","link",null,{"rel":"icon","type":"image/png","href":"/taiji-favicon.png"}],["$","link",null,{"rel":"icon","type":"image/svg+xml","href":"/favicon.svg"}],["$","link",null,{"rel":"icon","type":"image/x-icon","href":"/favicon.ico"}],["$","link",null,{"rel":"apple-touch-icon","href":"/taiji-favicon.png"}],["$","link",null,{"rel":"manifest","href":"/manifest.json"}],["$","link",null,{"rel":"preconnect","href":"https://fonts.gstatic.com"}],["$","script",null,{"type":"application/ld+json","dangerouslySetInnerHTML":{"__html":"[{\"@context\":\"https://schema.org\",\"@type\":\"WebSite\",\"name\":\"九宫八卦\",\"url\":\"https://jiugongbagua.com\",\"description\":\"中国传统命理文化平台\",\"inLanguage\":[\"zh-CN\",\"zh-TW\",\"en\"],\"potentialAction\":{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://jiugongbagua.com/wenku?q={search_term_string}\"},\"query-input\":\"required name=search_term_string\"}},{\"@context\":\"https://schema.org\",\"@type\":\"WebApplication\",\"name\":\"九宫八卦命理测算平台\",\"url\":\"https://jiugongbagua.com\",\"description\":\"九宫八卦是中国传统命理文化平台，提供八字排盘、紫微斗数、六爻、小六壬、周公解梦、姓名测试、号码测吉凶、黄历择日、塔罗等在线服务。\",\"applicationCategory\":\"LifestyleApplication\",\"operatingSystem\":\"All\"},{\"@context\":\"https://schema.org\",\"@type\":\"BreadcrumbList\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"首页\",\"item\":\"https://jiugongbagua.com\"}]}]"}}]]}],["$","script",null,{"dangerouslySetInnerHTML":{"__html":"try{if(localStorage.getItem('jiugong-theme')==='night')document.documentElement.setAttribute('data-theme','night')}catch(e){}"}}],["$","body",null,{"className":"min-h-screen flex flex-col","children":["$","$L24",null,{"children":["$","$L22",null,{"parallelRouterKey":"children","template":["$","$L23",null,{}],"notFound":[[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":404}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],[]]}]}]}]]}]]}]
+1a:["$","div",null,{"className":"prose prose-sm max-w-none text-gray-500 leading-relaxed whitespace-pre-line","children":"称骨歌诀共收录五十一格，从二两一到七两一，由轻至重。\n骨重越轻，命途越显艰辛劳苦；骨重越重，福禄越厚，格局越高。\n二两至三两之命多为贫寒劳累之人，四两至五两多属小康中产，\n五两以上渐入富贵之流，六两以上为官禄显达，七两则为极贵之格。\n然人命贵贱不可单凭骨重而定，此歌仅供参考，宜以自励自勉为要。"}]
+1b:["$","div",null,{"className":"mt-3 pt-3 border-t border-gold-500/25","children":[["$","div",null,{"className":"flex items-center gap-1.5 mb-1","children":[["$","span",null,{"className":"text-gold-500 text-xs","children":"📝"}],["$","span",null,{"className":"text-[10px] font-medium text-gold-500","children":"注释"}]]}],["$","div",null,{"className":"prose prose-sm max-w-none text-gray-400 leading-relaxed whitespace-pre-line text-xs","children":"各版本间歌诀文字略有差异。如「三两三」有的版本作「后来运到始得金」亦有作「后来运到始得亨」等。本文以流传最广的通行本为准。"}]]}]
+1e:null
+18:true
+b:300
+b:C
+17:0
+d:"$undefined"
+f:"$undefined"
+12:"$undefined"
+14:"$undefined"
+16:"$undefined"
+a:"$undefined"

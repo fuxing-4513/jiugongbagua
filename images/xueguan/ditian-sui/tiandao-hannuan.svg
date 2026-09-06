@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" width="480" height="320">
+<text x="240" y="26" text-anchor="middle" font-size="17" fill="#5a4632" font-family="serif" font-weight="bold">天道 · 寒暖燥湿示意</text>
+<rect x="60" y="70" width="160" height="90" rx="6" fill="#eef3fb" stroke="#3a6ea5" stroke-width="1.2"/>
+<text x="140" y="119" text-anchor="middle" font-size="13" fill="#3d2f1d" font-family="serif">寒（冬）
+水旺火衰
+喜火调候</text>
+<rect x="260" y="70" width="160" height="90" rx="6" fill="#fdf0e8" stroke="#b85450" stroke-width="1.2"/>
+<text x="340" y="119" text-anchor="middle" font-size="13" fill="#3d2f1d" font-family="serif">暖（夏）
+火旺水衰
+喜水调候</text>
+<line x1="60" y1="200" x2="420" y2="200" stroke="#b08d2e" stroke-width="2"/><text x="60" y="222" font-size="11.5" fill="#8a7a5e">寒</text><text x="400" y="222" text-anchor="end" font-size="11.5" fill="#8a7a5e">暖</text>
+<text x="240" y="260" text-anchor="middle" font-size="12" fill="#5a4632" font-family="serif">调候为急：夏生需水润局 · 冬生需火暖局</text>
+<text x="240" y="290" text-anchor="middle" font-size="11" fill="#8a7a5e">寒暖失衡则性情偏枯 · 得调候则气象中和</text>
+</svg>

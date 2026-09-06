@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" width="480" height="320">
+<text x="240" y="26" text-anchor="middle" font-size="17" fill="#5a4632" font-family="serif" font-weight="bold">滴天髓 · 任氏增注本对照（版本脉络）</text>
+<rect x="90" y="60" width="300" height="36" rx="6" fill="#faf7f0" stroke="#b08d2e" stroke-width="1.2"/>
+<text x="240" y="82" text-anchor="middle" font-size="13" fill="#3d2f1d" font-family="serif">《滴天髓》原文（相传京图撰 · 明刘基注）</text>
+<rect x="90" y="110" width="300" height="36" rx="6" fill="#f5efe2" stroke="#b08d2e" stroke-width="1.2"/>
+<text x="240" y="132" text-anchor="middle" font-size="13" fill="#3d2f1d" font-family="serif">任铁樵《滴天髓阐微》——增注实例阐发</text>
+<rect x="90" y="160" width="300" height="36" rx="6" fill="#fdf6e3" stroke="#987818" stroke-width="1.2"/>
+<text x="240" y="182" text-anchor="middle" font-size="13" fill="#3d2f1d" font-family="serif">通行本：原文 + 刘注 + 任氏阐微合刊</text>
+<text x="240" y="245" text-anchor="middle" font-size="12" fill="#5a4632" font-family="serif">原书以理明道 · 任注以例证道——研读宜原文与增注对参</text>
+</svg>

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 300" width="336" height="240">
+<text x="210" y="24" text-anchor="middle" font-size="16" fill="#5a4632" font-family="serif" font-weight="bold">葬书 · 形势格局图</text>
+<text x="60" y="60" font-size="13" fill="#3a6ea5" font-family="serif">青龙（左砂）</text>
+<text x="300" y="60" text-anchor="end" font-size="13" fill="#b85450" font-family="serif">白虎（右砂）</text>
+<path d="M210,40 q-50,60 -30,120 q10,25 40,20" fill="none" stroke="#3a6ea5" stroke-width="6" stroke-linecap="round"/>
+<path d="M210,40 q50,60 30,120 q-10,25 -40,20" fill="none" stroke="#b85450" stroke-width="6" stroke-linecap="round"/>
+<ellipse cx="210" cy="185" rx="52" ry="36" fill="#fdf6e3" stroke="#b08d2e" stroke-width="2.5"/>
+<text x="210" y="190" text-anchor="middle" font-size="13" fill="#8c6d1f" font-family="serif">穴位</text>
+<text x="210" y="95" text-anchor="middle" font-size="14" fill="#3d2f1d" font-family="serif">来龙（玄武垂头）</text>
+<text x="210" y="252" text-anchor="middle" font-size="12.5" fill="#3d7a3d" font-family="serif">明堂 · 水抱（朱雀翔舞）</text>
+<path d="M120,270 q90,10 180,0" fill="none" stroke="#3a6ea5" stroke-width="3"/>
+<path d="M180,268 q30,30 60,0" fill="none" stroke="#3a6ea5" stroke-width="2"/>
+<text x="60" y="285" font-size="11" fill="#8a7a5e" font-family="serif">左水右抱 · 龙虎环护 · 藏风聚气</text>
+</svg>

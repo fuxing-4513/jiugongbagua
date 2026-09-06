@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 260" width="272" height="208">
+<text x="170" y="26" text-anchor="middle" font-size="16" fill="#5a4632" font-family="serif" font-weight="bold">九尾狐 · 青丘之山</text>
+<!-- 狐身 -->
+<path d="M120,150 q20,-55 60,-45 q40,-8 55,20 q18,30 5,60 q-15,35 -55,35 q-50,0 -65,-30 q-12,-26 0,-40Z" fill="#f5c98a" stroke="#8c6d1f" stroke-width="2"/>
+<!-- 头 -->
+<circle cx="128" cy="98" r="20" fill="#f5c98a" stroke="#8c6d1f" stroke-width="2"/>
+<circle cx="120" cy="93" r="3" fill="#3d2f1d"/><circle cx="136" cy="93" r="3" fill="#3d2f1d"/>
+<path d="M124,104 q6,5 12,0" fill="none" stroke="#3d2f1d" stroke-width="1.5"/>
+<path d="M112,85 l-14,-8 l10,6" fill="#e8b36a" stroke="#8c6d1f" stroke-width="1.5"/>
+<path d="M146,84 l12,-10 l-8,7" fill="#e8b36a" stroke="#8c6d1f" stroke-width="1.5"/>
+<!-- 九尾扇形 -->
+<path d="M245,175 q30,-40 15,-80 M235,180 q45,-25 45,-65 M225,182 q55,-10 70,-45 M215,180 q60,5 85,-20 M205,175 q55,25 75,10" fill="none" stroke="#e8a35a" stroke-width="3.5" stroke-linecap="round"/>
+<text x="170" y="240" text-anchor="middle" font-size="12" fill="#6b5b43" font-family="serif">青丘之山有兽焉，其状如狐而九尾，音如婴儿</text>
+</svg>

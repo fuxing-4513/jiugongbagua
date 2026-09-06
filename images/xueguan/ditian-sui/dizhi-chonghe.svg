@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" width="480" height="320">
+<text x="240" y="26" text-anchor="middle" font-size="17" fill="#5a4632" font-family="serif" font-weight="bold">十二地支 · 六合与六冲</text>
+<rect x="40" y="60" width="180" height="26" rx="6" fill="#faf7f0" stroke="#b08d2e" stroke-width="1.2"/>
+<text x="130" y="77" text-anchor="middle" font-size="13" fill="#3d2f1d" font-family="serif">子丑合土</text>
+<rect x="40" y="90" width="180" height="26" rx="6" fill="#faf7f0" stroke="#b08d2e" stroke-width="1.2"/>
+<text x="130" y="107" text-anchor="middle" font-size="13" fill="#3d2f1d" font-family="serif">寅亥合木</text>
+<rect x="40" y="120" width="180" height="26" rx="6" fill="#faf7f0" stroke="#b08d2e" stroke-width="1.2"/>
+<text x="130" y="137" text-anchor="middle" font-size="13" fill="#3d2f1d" font-family="serif">卯戌合火</text>
+<rect x="40" y="150" width="180" height="26" rx="6" fill="#faf7f0" stroke="#b08d2e" stroke-width="1.2"/>
+<text x="130" y="167" text-anchor="middle" font-size="13" fill="#3d2f1d" font-family="serif">辰酉合金</text>
+<rect x="40" y="180" width="180" height="26" rx="6" fill="#faf7f0" stroke="#b08d2e" stroke-width="1.2"/>
+<text x="130" y="197" text-anchor="middle" font-size="13" fill="#3d2f1d" font-family="serif">巳申合水</text>
+<rect x="40" y="210" width="180" height="26" rx="6" fill="#faf7f0" stroke="#b08d2e" stroke-width="1.2"/>
+<text x="130" y="227" text-anchor="middle" font-size="13" fill="#3d2f1d" font-family="serif">午未合土</text>
+<rect x="260" y="60" width="180" height="26" rx="6" fill="#faf0f0" stroke="#b85450" stroke-width="1.2"/>
+<text x="350" y="77" text-anchor="middle" font-size="13" fill="#3d2f1d" font-family="serif">子午相冲</text>
+<rect x="260" y="90" width="180" height="26" rx="6" fill="#faf0f0" stroke="#b85450" stroke-width="1.2"/>
+<text x="350" y="107" text-anchor="middle" font-size="13" fill="#3d2f1d" font-family="serif">丑未相冲</text>
+<rect x="260" y="120" width="180" height="26" rx="6" fill="#faf0f0" stroke="#b85450" stroke-width="1.2"/>
+<text x="350" y="137" text-anchor="middle" font-size="13" fill="#3d2f1d" font-family="serif">寅申相冲</text>
+<rect x="260" y="150" width="180" height="26" rx="6" fill="#faf0f0" stroke="#b85450" stroke-width="1.2"/>
+<text x="350" y="167" text-anchor="middle" font-size="13" fill="#3d2f1d" font-family="serif">卯酉相冲</text>
+<rect x="260" y="180" width="180" height="26" rx="6" fill="#faf0f0" stroke="#b85450" stroke-width="1.2"/>
+<text x="350" y="197" text-anchor="middle" font-size="13" fill="#3d2f1d" font-family="serif">辰戌相冲</text>
+<rect x="260" y="210" width="180" height="26" rx="6" fill="#faf0f0" stroke="#b85450" stroke-width="1.2"/>
+<text x="350" y="227" text-anchor="middle" font-size="13" fill="#3d2f1d" font-family="serif">巳亥相冲</text>
+<text x="130" y="46" text-anchor="middle" font-size="13" fill="#3d7a3d">六合（合化）</text>
+<text x="350" y="46" text-anchor="middle" font-size="13" fill="#b85450">六冲（对冲）</text>
+<text x="240" y="270" text-anchor="middle" font-size="11.5" fill="#8a7a5e">地支三合：申子辰合水 · 亥卯未合木 · 寅午戌合火 · 巳酉丑合金</text>
+</svg>

@@ -1,0 +1,211 @@
+1:"$Sreact.fragment"
+2:I[98500,["8500","static/chunks/8500-54689a19bd9dd50c.js","3865","static/chunks/app/xueguan/%5Bcategory%5D/%5Bbook%5D/page-03870549be1401fa.js"],""]
+3:I[54444,["8500","static/chunks/8500-54689a19bd9dd50c.js","3865","static/chunks/app/xueguan/%5Bcategory%5D/%5Bbook%5D/page-03870549be1401fa.js"],"default"]
+c:X
+11:X
+11:C
+0:{"buildId":"ndmlkSBrY5o9h8YrCkC-M","data":[{"rsc":["$","$1","c",{"children":[["$","div",null,{"className":"max-w-4xl mx-auto px-4 py-20","children":[["$","div",null,{"className":"mb-8 text-sm text-gray-400","children":[["$","$L2",null,{"href":"/xueguan","className":"hover:text-gold-500 transition-colors","children":"易学书馆"}],["$","span",null,{"className":"mx-2","children":"/"}],[["$","$L2",null,{"href":"/xueguan/mingli-ziwei","className":"hover:text-gold-500 transition-colors","children":["⭐"," ","紫微斗数"]}],["$","span",null,{"className":"mx-2","children":"/"}]],["$","span",null,{"className":"text-gray-600","children":"紫微斗数全书"}]]}],["$","div",null,{"className":"mb-8","children":[["$","h1",null,{"className":"text-3xl font-bold text-gray-800 font-serif mb-2","children":"紫微斗数全书"}],["$","div",null,{"className":"flex flex-wrap items-center gap-3 text-sm text-gray-500","children":[["$","span",null,{"className":"bg-gray-50 px-2 py-0.5 rounded","children":"宋"}],["$","span",null,{"className":"bg-gray-50 px-2 py-0.5 rounded","children":"陈希夷（传）"}],["$","span",null,{"className":"bg-gray-50 px-2 py-0.5 rounded","children":"四卷"}],["$","span",null,{"className":"bg-gray-50 px-2 py-0.5 rounded","children":["~",60,"千字"]}],["$","span",null,{"className":"bg-gold-500-50 text-gold-600 px-2 py-0.5 rounded font-medium","children":"完整收录"}]]}],"$undefined",["$","p",null,{"className":"mt-4 text-sm text-gray-500 dark:text-gray-400 leading-relaxed max-w-3xl","children":"《紫微斗数全书》据传为北宋陈希夷（陈抟）所创，历经白玉蟾等人整理。全书系统阐述了紫微斗数的理论基础：十四主星、六吉六煞、十二宫分布、庙旺利陷、四化飞星等核心概念。是研习紫微斗数的根本典籍，所有后世斗数皆源出于此。"}]]}],["$","div",null,{"className":"mb-8 flex flex-wrap gap-2","children":[["$","span","十四主星",{"className":"text-xs bg-gray-50 text-gray-500 px-2.5 py-1 rounded-full border border-gray-100","children":["#","十四主星"]}],["$","span","十二宫",{"className":"text-xs bg-gray-50 text-gray-500 px-2.5 py-1 rounded-full border border-gray-100","children":["#","十二宫"]}],["$","span","庙旺利陷",{"className":"text-xs bg-gray-50 text-gray-500 px-2.5 py-1 rounded-full border border-gray-100","children":["#","庙旺利陷"]}],["$","span","四化",{"className":"text-xs bg-gray-50 text-gray-500 px-2.5 py-1 rounded-full border border-gray-100","children":["#","四化"]}],["$","span","陈希夷",{"className":"text-xs bg-gray-50 text-gray-500 px-2.5 py-1 rounded-full border border-gray-100","children":["#","陈希夷"]}]]}],["$","div",null,{"className":"mb-10","children":[["$","h2",null,{"className":"text-lg font-bold text-gray-700 mb-3 flex items-center gap-2","children":[["$","span",null,{"children":"📖"}]," 典籍简介"]}],["$","div",null,{"className":"bg-white border border-gray-100 rounded-xl p-6","children":["$","p",null,{"className":"text-gray-600 leading-relaxed whitespace-pre-line","children":"《紫微斗数全书》据传为北宋陈希夷（陈抟）所创，历经白玉蟾等人整理。全书系统阐述了紫微斗数的理论基础：十四主星、六吉六煞、十二宫分布、庙旺利陷、四化飞星等核心概念。是研习紫微斗数的根本典籍，所有后世斗数皆源出于此。"}]}]]}],["$","div",null,{"className":"mb-6 bg-gold-50/30 border border-gold-200/50 rounded-xl overflow-hidden","children":[["$","div",null,{"className":"px-5 py-2 bg-gold-50/50 border-b border-gold-200/30 flex items-center gap-2","children":[["$","span",null,{"className":"text-gold-500 text-sm","children":"🏛️"}],["$","span",null,{"className":"text-xs font-medium text-gold-600","children":"九宫导读"}]]}],["$","div",null,{"className":"px-5 py-4","children":["$","div",null,{"className":"prose prose-sm max-w-none text-gray-600 leading-relaxed whitespace-pre-line","children":"《紫微斗数全书》四卷，传为北宋陈希夷（陈抟）所创，历经白玉蟾等人整理，是紫微斗数学派的根本经典。\n\n【概要】\n全书系统阐述了紫微斗数的理论基础：十四主星星性、六吉六煞辅星、十二宫垣分布、庙旺利陷程度、四化飞星法则，以及太微赋、骨髓赋、八吉星诀等歌赋断诀。其以十二宫星曜盘为核心工具，结合命主生年干支、五行局数、安星法排盘，是中国命理学中最具图形化和最注重星曜象征意义的流派。\n\n【九宫按】\n紫微斗数源于宋代，吸收了五星术、十八飞星等早期星命术的养分，融合《易经》阴阳五行思想而成。其独到之处在于：一、将命盘分为十二宫，每宫对应人生不同领域；二、以十四主星为核心，每星各有庙旺利陷之程度；三、引入四化飞星机制，呈现运程变动；四、强调三方四正的格局呼应。后世台湾、香港的斗数家更将之发扬光大，形成了三合派、飞星派、四化派等不同流派。\n\n【阅读建议】\n建议先通读卷一的星曜总论，掌握十四主星和三吉星的基本性质；再读卷二的宫垣论，了解十二宫所司何事；其次读卷三的四化飞星，理解化禄、化权、化科、化忌的作用规律；最后读卷四的赋文，感受古人对斗数的整体把握。初学不宜一次求全，可反复阅读星曜章为核心。\n\n【版本说明】\n本文以通行本《紫微斗数全书》为底本整理。各版本间星曜赋性和口诀条目略有差异，本文择善而从。"}]}]]}],["$","div",null,{"className":"mb-10","children":[["$","$L3",null,{"bookTitle":"紫微斗数全书","bookId":"ziwei-quanshu"}],"$L4","$L5"]}],false,null,"$L6","$L7","$L8","$L9"]}],null,"$La"]}],"isPartial":"$@b","staleTime":"$c","varyParams":null},{"rsc":"$Ld","isPartial":"$@e","staleTime":"$c","varyParams":null},{"rsc":"$Lf","isPartial":"$@10","staleTime":"$c","varyParams":"$11"},{"rsc":"$L12","isPartial":"$@13","staleTime":"$c","varyParams":"$11"},{"rsc":"$L14","isPartial":"$@15","staleTime":"$c","varyParams":"$11"},{"rsc":"$L16","isPartial":"$@17","staleTime":"$c","varyParams":null}],"isUpgradeableISRFallback":false,"a":"$@18","rootVaryParams":null,"needsRuntimeRequest":"$@19"}
+1f:I[90484,[],"OutletBoundary"]
+20:"$Sreact.suspense"
+22:I[90484,[],"ViewportBoundary"]
+23:I[90484,[],"MetadataBoundary"]
+24:I[86869,[],"IconMark"]
+25:I[57121,[],""]
+26:I[74581,[],""]
+27:I[6843,["8500","static/chunks/8500-54689a19bd9dd50c.js","7903","static/chunks/7903-746d7ec89cb5c2ea.js","7177","static/chunks/app/layout-fc1a743aee2ee60c.js"],"default"]
+:HL["/_next/static/css/c13e47ad35e05bb3.css","style"]
+4:["$","h2",null,{"className":"text-lg font-bold text-gray-700 mb-3 flex items-center gap-2","children":[["$","span",null,{"children":"📜"}]," 原文阅读 ",["$","span",null,{"className":"text-xs text-gray-400 font-normal","children":["（",4," 节）"]}]]}]
+1a:T16d9,紫微斗数以十四主星为核心，配以六吉星、六煞星、若干杂曜，各星坐守十二宫垣，构成星曜盘。
+
+──────── 十四主星 ────────
+
+【紫微星】北斗帝星，化气为尊。属阴土。
+主贵、主权威。坐命者王者风范，志气高昂，有统御才能。
+但须左辅右弼相助，否则孤君寡人。紫微入命，格局宏大，亦好面子、喜掌权。
+庙旺：辰戌丑未。陷地：卯酉。
+
+【天机星】南斗益算之星，化气为善。属阴木。
+主智慧、谋略、变动。天机入命者聪敏机巧，善于策划，心思细密。
+然动则易变，有神经质倾向。
+庙旺：卯酉巳亥。陷地：子午。
+
+【太阳星】中天北斗，化气为贵。属阳火。
+主光明、博爱、正直。太阳入命者光明磊落，好施舍、乐助人。
+太阳在午为「日丽中天」，最吉；在子为「日入地网」，失辉。
+庙旺：寅卯辰巳午。陷地：子亥酉。
+
+【武曲星】北斗第六星，化气为财。属辛金。
+主刚毅、决断、财富。武曲入命者性格刚强，办事果断，有经济头脑。
+宜从事财经、军警、工程等职业。
+庙旺：辰戌丑未子午。陷地：卯酉。
+
+【天同星】南斗第四星，化气为福。属阳水。
+主温和、享乐、人缘。天同入命者性情温和，知足常乐，有福气。
+但过于安逸则流于懒散。
+庙旺：子午卯酉寅申。陷地：巳亥。
+
+【廉贞星】北斗第五星，化气为囚。属阴火。
+主操守、刚烈、情欲。廉贞入命者不拘小节，有才华、有叛逆精神。
+廉贞为次桃花星，在夫妻宫多主感情波折。
+庙旺：寅申巳亥。陷地：子午。
+
+【天府星】南斗主星，化气为库。属阳土。
+主包容、安定、积储。天府入命者稳重包容，有领导力，善于管理。
+天府为财库之星，坐财帛宫主财源稳定。
+庙旺：子午辰戌。陷地：卯酉。
+
+【太阴星】中天北斗，化气为富。属阴水。
+主阴柔、内敛、房产。太阴入命者心思细腻，气质优雅，有艺术感。
+太阴在亥为「月朗天门」，在酉为「月落天门」。
+庙旺：亥子丑寅卯辰。陷地：巳午未申。
+
+【贪狼星】北斗第一星，化气为桃花。属阳木。
+主才艺、欲望、交际。贪狼入命者多才多艺，人缘好，有交际手腕。
+贪狼为第一大桃花星，居四墓之地为「贪狼格」，主大富大贵。
+庙旺：辰戌丑未子午。陷地：寅申。
+
+【巨门星】北斗第二星，化气为暗。属阴水。
+主口才、暗蔽、是非。巨门入命者口才伶俐，爱说话，但也容易招口舌是非。
+巨门在午为「巨日同宫格」，可化解暗蔽之气。
+庙旺：子午卯酉。陷地：寅申巳亥辰戌丑未。
+
+【天相星】南斗第三星，化气为印。属阳水。
+主协调、辅助、中介。天相入命者相貌端正，处事圆融，有服务精神。
+天相为印星，喜与天梁同宫于寅申，主福寿双全。
+庙旺：子午辰戌寅申。陷地：卯酉巳亥。
+
+【天梁星】南斗第二星，化气为荫。属阳土。
+主清高、正义、长寿。天梁入命者正直无私，有长者风范，老年福泽深厚。
+天梁为寿星，可化解凶厄，在疾厄宫主长寿。
+庙旺：子午卯酉辰戌。陷地：寅申巳亥。
+
+【七杀星】南斗第六星，化气为将。属阴金。
+主权威、冒险、变动。七杀入命者刚毅果敢，有开创精神，但人生起伏较大。
+七杀坐命多为大将之才，但须注意冲动之性。
+庙旺：子午寅申辰戌。陷地：卯酉巳亥。
+
+【破军星】北斗第七星，化气为耗。属阴水。
+主破旧立新、变动。破军入命者勇于改变，不守成规，有革新精神。
+破军坐命，人生多有大起大落，成败之间须有定力。
+庙旺：子午卯酉。陷地：寅申辰戌巳亥。
+
+──────── 六吉星 ────────
+
+【文昌星】属辛金，主文墨、功名、学术。文昌入命者文采出众，考试运佳。
+【文曲星】属癸水，主才艺、口才、技艺。文曲入命者多才多艺，言辞敏捷。
+【左辅星】属阳土，主助力、贵人。左辅为助力之星，入命可增强贵人运。
+【右弼星】属阴水，主助力、合作。右弼与左辅相似，主他人相助成事。
+【天魁星】属阳火，主贵人、提携。天魁为天乙贵人，入命多得长辈提携。
+【天钺星】属阴火，主贵人、帮助。天钺与天魁并称，主阴贵人相助。
+
+──────── 六煞星 ────────
+
+【擎羊星】属阳金，主刑伤、冲突。擎羊入命者性格刚烈，易有争斗。
+【陀罗星】属阴金，主拖延、纠缠。陀罗入命者做事拖延，好事多磨。
+【火星】属阳火，主急躁、爆发。火星入命者脾气急躁，行动力强。
+【铃星】属阴火，主忧郁、暗斗。铃星入命者心事重重，容易钻牛角尖。
+【地空星】属阴火，主破耗、虚空。地空入命者财来财去，计划难成。
+【地劫星】属阴水，主劫夺、损失。地劫入命者易有意外损失。
+
+──────── 庙旺利陷简表 ────────
+
+紫微斗数以星曜在地支十二宫的不同落点论力量强弱：
+庙：星曜力量最强，吉星加倍吉，凶星减凶。
+旺：星曜力量强，吉星吉，凶星凶性减弱。
+得地：星曜力量中等。
+利：星曜力量偏弱。
+平：星曜力量不足，吉不显、凶加剧。
+陷：星曜力量最弱，吉星不吉、凶星大凶。
+
+例如：紫微在辰戌为庙，在丑未为旺，在卯酉为平陷。太阳在午为庙（日丽中天），在子为陷（日入地网）。此等星级判断是斗数断盘的基础。5:["$","div",null,{"className":"space-y-4","children":[["$","details","juan1",{"id":"ch-juan1","className":"group bg-white border border-gray-100 rounded-xl overflow-hidden scroll-mt-24","children":[["$","summary",null,{"className":"px-5 py-3 text-sm font-medium text-gray-700 cursor-pointer hover:bg-gray-50 hover:text-gold-600 transition-colors flex items-center gap-2","children":[["$","span",null,{"className":"text-gray-300 group-open:text-gold-400 transition-colors","children":[1,"."]}],["$","span",null,{"children":"卷一 · 星曜论"}],["$","span",null,{"className":"text-[10px] bg-gold-500/5 text-gold-600 px-1.5 py-0.5 rounded","children":"白话"}],["$","span",null,{"className":"text-[10px] bg-gold-500/5 text-gold-500 px-1.5 py-0.5 rounded","children":"注"}],["$","span",null,{"className":"ml-auto text-gray-300 group-open:rotate-180 transition-transform text-xs","children":"▼"}]]}],["$","div",null,{"className":"px-5 pb-5 pt-2 border-t border-gray-50","children":[["$","div",null,{"className":"prose prose-sm max-w-none text-gray-600 leading-relaxed whitespace-pre-line","children":"$1a"}],"$undefined",["$","div",null,{"className":"mt-4 pt-4 border-t border-gold-500/25","children":[["$","div",null,{"className":"flex items-center gap-1.5 mb-2","children":[["$","span",null,{"className":"text-gold-600 text-xs","children":"💬"}],["$","span",null,{"className":"text-[10px] font-medium text-gold-600","children":"白话参考"}]]}],["$","div",null,{"className":"prose prose-sm max-w-none text-gray-500 leading-relaxed whitespace-pre-line","children":"卷一为全书之根本，介绍了十四主星的性质与庙旺利陷。\n十四主星分为北斗星系（紫微、天机、太阳、武曲、天同、廉贞、破军）和南斗星系（天府、太阴、贪狼、巨门、天相、天梁、七杀），各具不同属性和职掌。\n六吉星（文昌、文曲、左辅、右弼、天魁、天钺）为命盘中的正面助力，六煞星（擎羊、陀罗、火星、铃星、地空、地劫）则主困难与磨练。\n庙旺利陷是判断星曜强弱的核心概念——庙旺之时吉星愈吉、凶星反制；陷落之时吉星无力、凶星肆虐。"}]]}],"$L1b"]}]]}],"$L1c","$L1d","$L1e"]}]
+6:["$","div",null,{"className":"mb-10","children":[["$","h2",null,{"className":"text-lg font-bold text-gray-700 mb-3 flex items-center gap-2","children":[["$","span",null,{"children":"🧰"}]," 相关工具"]}],["$","div",null,{"className":"flex flex-wrap gap-2","children":[["$","$L2","/ziwei",{"href":"/ziwei","className":"flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-emerald-200/70 dark:border-emerald-500/25 text-sm text-emerald-700 dark:text-emerald-300 hover:bg-emerald-500/5 transition-colors","children":[["$","span",null,{"children":"🌟"}],"紫微斗数"]}]]}]]}]
+7:["$","div",null,{"className":"mb-10","children":[["$","h2",null,{"className":"text-lg font-bold text-gray-700 mb-3 flex items-center gap-2","children":[["$","span",null,{"children":"🔗"}]," 关联典籍"]}],["$","div",null,{"className":"grid grid-cols-1 md:grid-cols-2 gap-3","children":[["$","$L2","ziwei-quanji",{"href":"/xueguan/mingli-ziwei/ziwei-quanji","className":"flex items-center gap-3 bg-white border border-gray-100 rounded-lg p-4 hover:shadow-sm hover:border-gold-200 transition-all group","children":[["$","span",null,{"className":"text-2xl text-gray-200","children":"📖"}],["$","div",null,{"className":"flex-1 min-w-0","children":[["$","div",null,{"className":"text-sm font-medium text-gray-700 group-hover:text-gold-600 transition-colors","children":"紫微斗数全集"}],["$","div",null,{"className":"text-xs text-gray-400","children":["佚名"," · ","明·清"]}]]}]]}]]}]]}]
+8:["$","div",null,{"className":"mt-12 pt-6 border-t border-gray-100","children":["$","div",null,{"className":"flex items-center justify-between","children":["$","div",null,{"className":"flex items-center gap-3","children":[["$","$L2",null,{"href":"/xueguan/mingli-ziwei","className":"text-sm text-gold-500 hover:text-gold-600 transition-colors","children":["← 返回 ","紫微斗数"]}],["$","span",null,{"className":"text-gray-200 text-xs","children":"·"}],["$","$L2",null,{"href":"/xueguan","className":"text-sm text-gray-400 hover:text-gold-500 transition-colors","children":"返回书馆首页"}],["$","span",null,{"className":"text-gray-200 text-xs","children":"·"}],["$","$L2",null,{"href":"/","className":"text-sm text-gray-400 hover:text-gold-500 transition-colors","children":"🏠 返回九宫八卦首页"}]]}]}]}]
+9:["$","script",null,{"type":"application/ld+json","dangerouslySetInnerHTML":{"__html":"{\"@context\":\"https://schema.org\",\"@type\":\"Book\",\"@id\":\"https://jiugongbagua.com/xueguan/mingli-ziwei/ziwei-quanshu\",\"name\":\"紫微斗数全书\",\"author\":\"陈希夷（传）\",\"description\":\"紫微斗数学派第一经典，奠定十二宫星曜体系\",\"keywords\":\"十四主星, 十二宫, 庙旺利陷, 四化, 陈希夷\",\"numberOfPages\":\"四卷\",\"genre\":\"紫微斗数\",\"inLanguage\":\"zh-CN\",\"isAccessibleForFree\":true,\"publisher\":{\"@type\":\"Organization\",\"name\":\"九宫八卦易学书馆\",\"url\":\"https://jiugongbagua.com\"},\"provider\":{\"@type\":\"Organization\",\"name\":\"九宫八卦\"},\"maintainer\":{\"@type\":\"Organization\",\"name\":\"九宫八卦易学书馆\",\"url\":\"https://jiugongbagua.com\"}}"}}]
+a:["$","$L1f",null,{"children":["$","$20",null,{"name":"Next.MetadataOutlet","children":"$@21"}]}]
+d:["$","$1","h",{"children":[null,["$","$L22",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]}],["$","div",null,{"hidden":true,"children":["$","$L23",null,{"children":["$","$20",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"紫微斗数全书 - 紫微斗数 | 易学书馆 | 九宫八卦 | 九宫八卦"}],["$","meta","1",{"name":"description","content":"紫微斗数全书 · 陈希夷（传） · 宋 · 紫微斗数学派第一经典，奠定十二宫星曜体系（约60千字）"}],["$","meta","2",{"name":"author","content":"九宫八卦"}],["$","meta","3",{"name":"keywords","content":"九宫八卦,八字排盘,紫微斗数,六爻,小六壬,周公解梦,姓名测试,号码测吉凶,黄历,塔罗,命理,易经,梅花易数,合婚,传统文化,奇门遁甲"}],["$","meta","4",{"name":"creator","content":"九宫八卦"}],["$","meta","5",{"name":"publisher","content":"九宫八卦"}],["$","meta","6",{"name":"robots","content":"index, follow"}],["$","meta","7",{"name":"googlebot","content":"index, follow"}],["$","meta","8",{"property":"og:title","content":"九宫八卦 - 传统命理在线测算平台"}],["$","meta","9",{"property":"og:description","content":"传承经典 · 智慧启航。八字排盘、紫微斗数、六爻、梅花易数、小六壬等二十余种传统命理服务。"}],["$","meta","10",{"property":"og:url","content":"https://jiugongbagua.com/"}],["$","meta","11",{"property":"og:site_name","content":"九宫八卦"}],["$","meta","12",{"property":"og:locale","content":"zh_CN"}],["$","meta","13",{"property":"og:type","content":"website"}],["$","meta","14",{"name":"twitter:card","content":"summary"}],["$","meta","15",{"name":"twitter:title","content":"九宫八卦 - 中国传统命理文化平台"}],["$","meta","16",{"name":"twitter:description","content":"九宫八卦是中国传统命理文化平台，提供八字排盘、紫微斗数、六爻、小六壬、周公解梦、姓名测试、号码测吉凶、黄历择日、塔罗等在线服务。"}],["$","link","17",{"rel":"icon","href":"/favicon.ico?083af30e08c51e01","type":"image/x-icon","sizes":"16x16"}],["$","$L24","18",{}]]}]}]}],null]}]
+f:["$","$1","c",{"children":[null,["$","$L25",null,{"parallelRouterKey":"children","template":["$","$L26",null,{}]}]]}]
+12:["$","$1","c",{"children":[null,["$","$L25",null,{"parallelRouterKey":"children","template":["$","$L26",null,{}]}]]}]
+14:["$","$1","c",{"children":[null,["$","$L25",null,{"parallelRouterKey":"children","template":["$","$L26",null,{}]}]]}]
+16:["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/c13e47ad35e05bb3.css","precedence":"next"}]],["$","html",null,{"lang":"zh-Hans","suppressHydrationWarning":true,"children":[["$","head",null,{"children":[["$","meta",null,{"httpEquiv":"Content-Security-Policy","content":"default-src 'self'; script-src 'self' 'unsafe-inline' https://hm.baidu.com https://*.baidu.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https://hm.baidu.com https://*.baidu.com https://www.google-analytics.com; frame-src 'self'; base-uri 'self'; form-action 'self'; object-src 'none'; media-src 'self'; upgrade-insecure-requests"}],["$","link",null,{"rel":"icon","type":"image/png","href":"/taiji-favicon.png"}],["$","link",null,{"rel":"icon","type":"image/svg+xml","href":"/favicon.svg"}],["$","link",null,{"rel":"icon","type":"image/x-icon","href":"/favicon.ico"}],["$","link",null,{"rel":"apple-touch-icon","href":"/taiji-favicon.png"}],["$","link",null,{"rel":"manifest","href":"/manifest.json"}],["$","link",null,{"rel":"preconnect","href":"https://fonts.gstatic.com"}],["$","script",null,{"type":"application/ld+json","dangerouslySetInnerHTML":{"__html":"[{\"@context\":\"https://schema.org\",\"@type\":\"WebSite\",\"name\":\"九宫八卦\",\"url\":\"https://jiugongbagua.com\",\"description\":\"中国传统命理文化平台\",\"inLanguage\":[\"zh-CN\",\"zh-TW\",\"en\"],\"potentialAction\":{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://jiugongbagua.com/wenku?q={search_term_string}\"},\"query-input\":\"required name=search_term_string\"}},{\"@context\":\"https://schema.org\",\"@type\":\"WebApplication\",\"name\":\"九宫八卦命理测算平台\",\"url\":\"https://jiugongbagua.com\",\"description\":\"九宫八卦是中国传统命理文化平台，提供八字排盘、紫微斗数、六爻、小六壬、周公解梦、姓名测试、号码测吉凶、黄历择日、塔罗等在线服务。\",\"applicationCategory\":\"LifestyleApplication\",\"operatingSystem\":\"All\"},{\"@context\":\"https://schema.org\",\"@type\":\"BreadcrumbList\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"首页\",\"item\":\"https://jiugongbagua.com\"}]}]"}}]]}],["$","script",null,{"dangerouslySetInnerHTML":{"__html":"try{if(localStorage.getItem('jiugong-theme')==='night')document.documentElement.setAttribute('data-theme','night')}catch(e){}"}}],["$","body",null,{"className":"min-h-screen flex flex-col","children":["$","$L27",null,{"children":["$","$L25",null,{"parallelRouterKey":"children","template":["$","$L26",null,{}],"notFound":[[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":404}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],[]]}]}]}]]}]]}]
+1b:["$","div",null,{"className":"mt-3 pt-3 border-t border-gold-500/25","children":[["$","div",null,{"className":"flex items-center gap-1.5 mb-1","children":[["$","span",null,{"className":"text-gold-500 text-xs","children":"📝"}],["$","span",null,{"className":"text-[10px] font-medium text-gold-500","children":"注释"}]]}],["$","div",null,{"className":"prose prose-sm max-w-none text-gray-400 leading-relaxed whitespace-pre-line text-xs","children":"十四主星的五行属性各版本略有差异。如紫微星，《全书》定属阴土，也有版本定属阴金。本文以通行本《紫微斗数全书》为准。"}]]}]
+1c:["$","details","juan2",{"id":"ch-juan2","className":"group bg-white border border-gray-100 rounded-xl overflow-hidden scroll-mt-24","children":[["$","summary",null,{"className":"px-5 py-3 text-sm font-medium text-gray-700 cursor-pointer hover:bg-gray-50 hover:text-gold-600 transition-colors flex items-center gap-2","children":[["$","span",null,{"className":"text-gray-300 group-open:text-gold-400 transition-colors","children":[2,"."]}],["$","span",null,{"children":"卷二 · 宫垣论"}],["$","span",null,{"className":"text-[10px] bg-gold-500/5 text-gold-600 px-1.5 py-0.5 rounded","children":"白话"}],["$","span",null,{"className":"text-[10px] bg-gold-500/5 text-gold-500 px-1.5 py-0.5 rounded","children":"注"}],["$","span",null,{"className":"ml-auto text-gray-300 group-open:rotate-180 transition-transform text-xs","children":"▼"}]]}],["$","div",null,{"className":"px-5 pb-5 pt-2 border-t border-gray-50","children":[["$","div",null,{"className":"prose prose-sm max-w-none text-gray-600 leading-relaxed whitespace-pre-line","children":"紫微斗数命盘分十二宫垣，逆时针排列。每宫对应人生各个领域，星曜入不同宫垣产生不同含义。\n\n──────── 十二宫详解 ────────\n\n【一、命宫】\n论一生之大体格局。命宫为十二宫之首，坐何星曜决定人的基本性格、才能、命运走向。\n命宫空宫者，须借对宫（迁移宫）星曜论之。\n\n【二、兄弟宫】\n论兄弟姐妹之情谊助力。吉星入兄弟宫者兄弟和睦有力，凶星入者兄弟不和或缘薄。\n\n【三、夫妻宫】\n论婚姻配偶之荣枯。吉星入夫妻宫者婚姻美满，桃花星则主感情丰富。\n煞星入夫妻宫多主婚姻波折。\n\n【四、子女宫】\n论子女之多寡贤愚。吉星入子女宫者子女有出息，桃花星多主子息旺盛。\n煞星则子女缘薄或教育困难。\n\n【五、财帛宫】\n论钱财之聚散得失。财星（武曲、天府、太阴）入财帛宫者财运丰足。\n煞星空劫入财帛宫则财来财去。四化亦影响财运走势。\n\n【六、疾厄宫】\n论身体之健康疾病。煞星入疾厄宫者体质较弱或常有隐疾。\n天梁入疾厄宫有消灾解厄之力。\n\n【七、迁移宫】\n论外出之运势机遇，亦为命宫之对宫，是命宫的「照宫」。\n迁移宫吉者外出发展有利，迁移宫凶者宜守本乡。\n\n【八、交友宫】（亦名仆役宫）\n论朋友之助益吉凶。吉星入交友宫者交友广阔，可得助力。\n煞星入则易因朋友破财或遭背叛。\n\n【九、官禄宫】\n论事业之成就高低。官禄宫吉者事业顺利，煞星则多阻碍。\n紫微、天府、天相入官禄宫主管理才能。\n\n【十、田宅宫】\n论房产之丰歉变动。太阴入田宅宫主房产丰足，煞星则房产多变动。\n\n【十一、福德宫】\n论精神之享福安乐。天同入福德宫主安乐享福，煞星则内心多忧。\n\n【十二、父母宫】\n论父母之缘分荫庇。吉星入父母宫则父母有助，煞星则父母缘薄或早离。\n\n──────── 三方四正 ────────\n\n每宫除本宫星曜外，还须看三方四正（即本宫+对宫+合宫四正位）。\n命宫之三方四正：命宫（本宫）、迁移宫（对宫）、财帛宫（三合）、官禄宫（三合）。\n此四方星曜综合影响命宫之吉凶。若三方四正多吉星，则格局高；多煞星则格局破。"}],"$undefined",["$","div",null,{"className":"mt-4 pt-4 border-t border-gold-500/25","children":[["$","div",null,{"className":"flex items-center gap-1.5 mb-2","children":[["$","span",null,{"className":"text-gold-600 text-xs","children":"💬"}],["$","span",null,{"className":"text-[10px] font-medium text-gold-600","children":"白话参考"}]]}],["$","div",null,{"className":"prose prose-sm max-w-none text-gray-500 leading-relaxed whitespace-pre-line","children":"卷二论述十二宫垣各司之职。命宫为总纲，其他十一宫分别对应兄弟、夫妻、子女、钱财、健康、出行、交友、事业、房产、精神、父母等人生领域。\n判断宫位吉凶不仅要看本宫星曜，更要看三方四正（本宫、对宫、另两个三合宫）的综合影响，这是斗数断盘的重要方法。"}]]}],["$","div",null,{"className":"mt-3 pt-3 border-t border-gold-500/25","children":[["$","div",null,{"className":"flex items-center gap-1.5 mb-1","children":[["$","span",null,{"className":"text-gold-500 text-xs","children":"📝"}],["$","span",null,{"className":"text-[10px] font-medium text-gold-500","children":"注释"}]]}],["$","div",null,{"className":"prose prose-sm max-w-none text-gray-400 leading-relaxed whitespace-pre-line text-xs","children":"十二宫顺序在斗数排盘中固定不变，但宫垣干支随生年定局。注意：每个宫垣内同时包含本宫星曜、三方四正借星、以及大小限的流年影响。"}]]}]]}]]}]
+1d:["$","details","juan3",{"id":"ch-juan3","className":"group bg-white border border-gray-100 rounded-xl overflow-hidden scroll-mt-24","children":[["$","summary",null,{"className":"px-5 py-3 text-sm font-medium text-gray-700 cursor-pointer hover:bg-gray-50 hover:text-gold-600 transition-colors flex items-center gap-2","children":[["$","span",null,{"className":"text-gray-300 group-open:text-gold-400 transition-colors","children":[3,"."]}],["$","span",null,{"children":"卷三 · 四化飞星论"}],["$","span",null,{"className":"text-[10px] bg-gold-500/5 text-gold-600 px-1.5 py-0.5 rounded","children":"白话"}],["$","span",null,{"className":"text-[10px] bg-gold-500/5 text-gold-500 px-1.5 py-0.5 rounded","children":"注"}],["$","span",null,{"className":"ml-auto text-gray-300 group-open:rotate-180 transition-transform text-xs","children":"▼"}]]}],["$","div",null,{"className":"px-5 pb-5 pt-2 border-t border-gray-50","children":[["$","div",null,{"className":"prose prose-sm max-w-none text-gray-600 leading-relaxed whitespace-pre-line","children":"四化（化禄、化权、化科、化忌）是紫微斗数中最核心的「动星」机制。\n安星排盘确定命盘后，依生年天干在固定宫位引动四化，使星曜产生质变。\n\n──────── 四化总论 ────────\n\n【化禄】主财禄、福气、享受。被化之星增其财性，入财帛宫大吉。\n【化权】主权威、掌控、升迁。被化之星增其权力，入官禄宫大利。\n【化科】主名声、文采、贵气。被化之星增其名气，入命宫主才华出众。\n【化忌】主困扰、阻滞、缺失。被化之星增其凶性，入何宫则该宫有事。\n\n──────── 十天干四化表 ────────\n\n甲廉破武阳：甲年生人——廉贞化禄、破军化权、武曲化科、太阳化忌\n乙机梁紫阴：乙年生人——天机化禄、天梁化权、紫微化科、太阴化忌\n丙同机昌廉：丙年生人——天同化禄、天机化权、文昌化科、廉贞化忌\n丁阴同机巨：丁年生人——太阴化禄、天同化权、天机化科、巨门化忌\n戊贪阴右机：戊年生人——贪狼化禄、太阴化权、右弼化科、天机化忌\n己武贪梁曲：己年生人——武曲化禄、贪狼化权、天梁化科、文曲化忌\n庚阳武阴同：庚年生人——太阳化禄、武曲化权、太阴化科、天同化忌\n辛巨阳曲昌：辛年生人——巨门化禄、太阳化权、文曲化科、文昌化忌\n壬梁紫辅武：壬年生人——天梁化禄、紫微化权、左辅化科、武曲化忌\n癸破巨阴贪：癸年生人——破军化禄、巨门化权、太阴化科、贪狼化忌\n\n──────── 四化应用 ────────\n\n四化入十二宫各有吉凶。\n化禄入命宫：一生财源不断，福禄丰厚。\n化权入命宫：领导能力强，中年事业有成。\n化科入命宫：文采出众，有名望。\n化忌入命宫：命途多阻滞，需加倍努力。\n\n化忌入父母宫：父母缘薄或健康不佳。\n化忌入夫妻宫：婚姻感情不顺。\n化忌入财帛宫：财运不佳，容易破财。\n化忌入疾厄宫：体质较弱，需注意健康。\n\n四化须结合星曜本身性质综合判断。如同为化忌，太阴化忌与太阳化忌的含义不同：\n太阴化忌多主感情困扰、房产损失；太阳化忌主男性亲属受累、光彩不彰。\n\n──────── 四化与飞星四化 ────────\n\n斗数流派中，「四化派」以四化为断盘根本，认为宫位格局吉凶全系于四化。\n「三合派」则以星曜会照为主，四化为辅。\n飞星派更进一步引入「飞宫四化」，命盘中每一宫的天干皆可化出四化至其它宫位，\n形成更复杂的宫位互动网络，称为「飞星四化」。"}],"$undefined",["$","div",null,{"className":"mt-4 pt-4 border-t border-gold-500/25","children":[["$","div",null,{"className":"flex items-center gap-1.5 mb-2","children":[["$","span",null,{"className":"text-gold-600 text-xs","children":"💬"}],["$","span",null,{"className":"text-[10px] font-medium text-gold-600","children":"白话参考"}]]}],["$","div",null,{"className":"prose prose-sm max-w-none text-gray-500 leading-relaxed whitespace-pre-line","children":"卷三讲述四化飞星——化禄、化权、化科、化忌。这是斗数中最精妙也最难掌握的机制。\n四化由生年天干决定，使固定的星曜在特定年份产生「质变」。\n化禄使星曜增财，化权增权，化科增名，化忌增困。\n掌握四化表是断盘的基本功，而飞星四化则是进阶技。"}]]}],["$","div",null,{"className":"mt-3 pt-3 border-t border-gold-500/25","children":[["$","div",null,{"className":"flex items-center gap-1.5 mb-1","children":[["$","span",null,{"className":"text-gold-500 text-xs","children":"📝"}],["$","span",null,{"className":"text-[10px] font-medium text-gold-500","children":"注释"}]]}],["$","div",null,{"className":"prose prose-sm max-w-none text-gray-400 leading-relaxed whitespace-pre-line text-xs","children":"四化表是所有斗数流派都必须掌握的基础。注意：四化表因流派不同略有差异，例如「癸干」有的版本为「破巨阴贪」，另有版本为「破巨阴弼」或「破巨阴机」。本文以通行本为准。"}]]}]]}]]}]
+28:Tc9b,《紫微斗数全书》收录了大量重要赋文歌诀，是断盘的口诀精华，历代斗数家皆须熟读。
+
+──────── 太微赋 ────────
+
+斗数之列，玄象昭然。紫微为帝座之尊，天机为谋臣之宿。
+太阳主贵，武曲主财，天同享福，廉贞化囚。
+天府为财库之星，太阴为田宅之宿。
+贪狼为桃花，巨门为暗曜，天相为印绶，天梁为荫星。
+七杀为将星，破军主耗。
+文昌文曲为文华之宿，左辅右弼为助力之宫。
+天魁天钺为贵人星，擎羊陀罗为刑伤星。
+火星铃星为煞曜，地空地劫为耗星。
+
+命宫吉则一生顺遂，命宫凶则万事蹉跎。
+福寿绵长，定主天同天梁；凶祸频临，多是七杀破军。
+贪狼同擎羊，人生须破财方可平安；巨门遇陀罗，是非口舌不离身。
+昌曲临命，才华盖世；辅弼同宫，左右逢源。
+
+日月同临，官居二品；府相朝垣，食禄千钟。
+杀破狼格，乱世英雄；紫府朝垣，太平宰相。
+
+──────── 骨髓赋（节选） ────────
+
+斗数推来骨髓清，人命富贵认分明。
+紫微坐命最为尊，十二宫中皆要论。
+天机织布多谋计，太阳普照福无穷。
+武曲性刚多竞争，天同福寿乐融融。
+廉贞主事多反复，天府仓库富且丰。
+太阴阴柔多蓄积，贪狼欲海没遮栏。
+巨门暗闭多是非，天相调和做衣裳。
+天梁受荫得长寿，七杀性烈有威严。
+破军消耗多更张，骨肉流离路茫茫。
+
+日月相逢天作合，夫妻和顺百事昌。
+武府同临财禄旺，日月并明天下扬。
+杀破狼格多变动，名利双收不寻常。
+府相朝垣家业厚，紫微辅弼帝王乡。
+
+──────── 八吉星诀 ────────
+
+左辅右弼居命，为人忠厚得助。
+文昌文曲在身，聪明文雅多才。
+天魁天钺临命，一生贵人常逢。
+禄存天马交驰，财源滚滚不穷。
+
+──────── 格局简识 ────────
+
+【紫府同宫格】紫微+天府在寅申，帝王之命，位极人臣。
+【日月并明格】太阳在卯+太阴在亥，光明普照，官居极品。
+【府相朝垣格】天府在命+天相在官禄/夫妻，事业婚姻双美。
+【机月同梁格】天机+太阴+天同+天梁，双禄交驰，文人富贵。
+【杀破狼格】七杀+破军+贪狼会照，英雄格局，乱世发迹。
+【紫微朝垣格】紫微+左辅+右弼+天魁+天钺，五方贵人，大贵之格。
+【日月反背格】太阳在申酉戌亥+太阴在寅卯辰巳，君臣异路，格局特殊。
+【巨日同宫格】巨门+太阳在寅申，「巨日同宫格」，光明破暗，主大贵。
+【廉贪会照格】廉贞+贪狼在巳亥，桃花泛滥，情欲交织。
+
+──────── 斗数总诀 ────────
+
+一论命宫定主星，二看四化显时情。
+三观三方四正位，四审星曜庙陷平。
+五行生克化万物，六亲宫位各分明。
+七政对应命盘转，八卦九宫天地灵。
+
+四化飞星转乾坤，宫宫相扣见天心。
+吉星汇聚多福禄，煞曜冲照须小心。
+若问命盘真消息，须向传中仔细寻。1e:["$","details","juan4",{"id":"ch-juan4","className":"group bg-white border border-gray-100 rounded-xl overflow-hidden scroll-mt-24","children":[["$","summary",null,{"className":"px-5 py-3 text-sm font-medium text-gray-700 cursor-pointer hover:bg-gray-50 hover:text-gold-600 transition-colors flex items-center gap-2","children":[["$","span",null,{"className":"text-gray-300 group-open:text-gold-400 transition-colors","children":[4,"."]}],["$","span",null,{"children":"卷四 · 赋文断诀"}],["$","span",null,{"className":"text-[10px] bg-gold-500/5 text-gold-600 px-1.5 py-0.5 rounded","children":"白话"}],["$","span",null,{"className":"text-[10px] bg-gold-500/5 text-gold-500 px-1.5 py-0.5 rounded","children":"注"}],["$","span",null,{"className":"ml-auto text-gray-300 group-open:rotate-180 transition-transform text-xs","children":"▼"}]]}],["$","div",null,{"className":"px-5 pb-5 pt-2 border-t border-gray-50","children":[["$","div",null,{"className":"prose prose-sm max-w-none text-gray-600 leading-relaxed whitespace-pre-line","children":"$28"}],"$undefined",["$","div",null,{"className":"mt-4 pt-4 border-t border-gold-500/25","children":[["$","div",null,{"className":"flex items-center gap-1.5 mb-2","children":[["$","span",null,{"className":"text-gold-600 text-xs","children":"💬"}],["$","span",null,{"className":"text-[10px] font-medium text-gold-600","children":"白话参考"}]]}],["$","div",null,{"className":"prose prose-sm max-w-none text-gray-500 leading-relaxed whitespace-pre-line","children":"卷四汇集了紫微斗数最重要的赋文。\n《太微赋》以骈文形式总论十四主星性质和吉凶格局，是斗数入门的口诀。\n《骨髓赋》作者不详，以七言诗句概括斗数要诀，以「骨髓」为名，意为命理精要、刻骨铭心。\n《八吉星诀》专论六吉星加禄存、天马的应用。\n格局部分是历代斗数家总结出的经典星曜组合，每一种格局都有特定的命理含义。"}]]}],["$","div",null,{"className":"mt-3 pt-3 border-t border-gold-500/25","children":[["$","div",null,{"className":"flex items-center gap-1.5 mb-1","children":[["$","span",null,{"className":"text-gold-500 text-xs","children":"📝"}],["$","span",null,{"className":"text-[10px] font-medium text-gold-500","children":"注释"}]]}],["$","div",null,{"className":"prose prose-sm max-w-none text-gray-400 leading-relaxed whitespace-pre-line text-xs","children":"赋文各版本间文字有异。比如「日月反背」有的版本为日申酉、月寅卯；有的版本为日酉戌、月卯辰。本文以通行本为准。"}]]}]]}]]}]
+21:null
+19:true
+c:300
+c:C
+18:0
+e:"$undefined"
+10:"$undefined"
+13:"$undefined"
+15:"$undefined"
+17:"$undefined"
+b:"$undefined"

@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 360" width="352" height="288">
+<text x="220" y="30" text-anchor="middle" font-size="17" fill="#5a4632" font-family="serif" font-weight="bold">五运六气运转图</text>
+<!-- 六气环 -->
+<circle cx="220" cy="185" r="120" fill="none" stroke="#e5dcc8" stroke-width="1.5" stroke-dasharray="5 4"/>
+<circle cx="220" cy="185" r="88" fill="none" stroke="#e5dcc8" stroke-width="1.5" stroke-dasharray="5 4"/>
+<circle cx="220" cy="185" r="40" fill="none" stroke="#e5dcc8" stroke-width="1"/>
+<text x="220" y="180" text-anchor="middle" font-size="12" fill="#8a7a5e" font-family="serif">中运</text>
+<!-- 六气位置（司天在南=上 在泉在北=下 常规上南下北） -->
+<g font-family="serif" font-size="13">
+<text x="220" y="52" text-anchor="middle" fill="#3d2f1d">司天（三之气）</text>
+<text x="220" y="330" text-anchor="middle" fill="#3d2f1d">在泉（终之气）</text>
+<text x="92" y="150" text-anchor="middle" fill="#5a4632">四之气</text>
+<text x="348" y="150" text-anchor="middle" fill="#5a4632">二之气</text>
+<text x="92" y="230" text-anchor="middle" fill="#5a4632">初之气</text>
+<text x="348" y="230" text-anchor="middle" fill="#5a4632">五之气</text>
+</g>
+<!-- 主气箭头示意 -->
+<path d="M220,65 q-70,0 -95,60 M125,215 q-10,45 35,60 M125,155 q-30,-45 30,-75 M315,155 q30,-45 -30,-75 M315,215 q10,45 -35,60 M220,325 q70,0 95,-60" fill="none" stroke="#b08d2e" stroke-width="1.6" marker-end="none"/>
+<text x="220" y="360" text-anchor="middle" font-size="12" fill="#6b5b43" font-family="serif">主气六步固定 · 客气随司天推移——三之气司天、终之气在泉</text>
+</svg>

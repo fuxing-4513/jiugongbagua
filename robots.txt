@@ -1,0 +1,106 @@
+User-Agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /.git/
+Disallow: /data/v2/
+Disallow: /data/system_config.json
+Disallow: /data/api_metrics_collect.json
+
+User-Agent: Baiduspider
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /.git/
+
+User-Agent: Googlebot
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /.git/
+
+User-Agent: bingbot
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /.git/
+
+User-Agent: GPTBot
+Disallow: /
+
+User-Agent: Claude-Web
+Disallow: /
+
+User-Agent: anthropic-ai
+Disallow: /
+
+User-Agent: CCBot
+Disallow: /
+
+User-Agent: FacebookBot
+Disallow: /
+
+User-Agent: Bytespider
+Disallow: /
+
+User-Agent: TikTok
+Disallow: /
+
+User-Agent: Amazonbot
+Disallow: /
+
+User-Agent: Applebot-Extended
+Disallow: /
+
+User-Agent: Google-Extended
+Disallow: /
+
+User-Agent: omgili
+Disallow: /
+
+User-Agent: omgilibot
+Disallow: /
+
+User-Agent: cohere-ai
+Disallow: /
+
+User-Agent: PerplexityBot
+Disallow: /
+
+User-Agent: YouBot
+Disallow: /
+
+User-Agent: ChatGPT-User
+Disallow: /
+
+User-Agent: gemini
+Disallow: /
+
+User-Agent: AhrefsBot
+Disallow: /
+
+User-Agent: SemrushBot
+Disallow: /
+
+User-Agent: Mozbot
+Disallow: /
+
+User-Agent: Screaming Frog SEO Spider
+Disallow: /
+
+User-Agent: BLEXBot
+Disallow: /
+
+User-Agent: DotBot
+Disallow: /
+
+User-Agent: MJ12bot
+Disallow: /
+
+User-Agent: DataForSeoBot
+Disallow: /
+
+User-Agent: SeekportBot
+Disallow: /
+
+Sitemap: https://www.jiugongbagua.com/sitemap.xml

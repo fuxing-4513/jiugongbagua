@@ -1,0 +1,183 @@
+1:"$Sreact.fragment"
+2:I[6843,["8500","static/chunks/8500-54689a19bd9dd50c.js","7903","static/chunks/7903-746d7ec89cb5c2ea.js","7177","static/chunks/app/layout-fc1a743aee2ee60c.js"],"default"]
+3:I[57121,[],""]
+4:I[74581,[],""]
+b:I[27123,[],"default",1]
+:HL["/_next/static/css/c13e47ad35e05bb3.css","style"]
+9:X
+0:{"P":null,"c":["","xueguan","fengshui-liqi","dili-bianzheng",""],"q":"","i":false,"f":[[["",{"children":["xueguan",{"children":[["category","fengshui-liqi","d",["search"]],{"children":[["book","dili-bianzheng","d",[]],{"children":["__PAGE__",{},"$undefined","$undefined",4608]},"$undefined","$undefined",4608]},"$undefined","$undefined",4608]},"$undefined","$undefined",4608]},"$undefined","$undefined",4624],[["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/c13e47ad35e05bb3.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]],["$","html",null,{"lang":"zh-Hans","suppressHydrationWarning":true,"children":[["$","head",null,{"children":[["$","meta",null,{"httpEquiv":"Content-Security-Policy","content":"default-src 'self'; script-src 'self' 'unsafe-inline' https://hm.baidu.com https://*.baidu.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https://hm.baidu.com https://*.baidu.com https://www.google-analytics.com; frame-src 'self'; base-uri 'self'; form-action 'self'; object-src 'none'; media-src 'self'; upgrade-insecure-requests"}],["$","link",null,{"rel":"icon","type":"image/png","href":"/taiji-favicon.png"}],["$","link",null,{"rel":"icon","type":"image/svg+xml","href":"/favicon.svg"}],["$","link",null,{"rel":"icon","type":"image/x-icon","href":"/favicon.ico"}],["$","link",null,{"rel":"apple-touch-icon","href":"/taiji-favicon.png"}],["$","link",null,{"rel":"manifest","href":"/manifest.json"}],["$","link",null,{"rel":"preconnect","href":"https://fonts.gstatic.com"}],["$","script",null,{"type":"application/ld+json","dangerouslySetInnerHTML":{"__html":"[{\"@context\":\"https://schema.org\",\"@type\":\"WebSite\",\"name\":\"九宫八卦\",\"url\":\"https://jiugongbagua.com\",\"description\":\"中国传统命理文化平台\",\"inLanguage\":[\"zh-CN\",\"zh-TW\",\"en\"],\"potentialAction\":{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://jiugongbagua.com/wenku?q={search_term_string}\"},\"query-input\":\"required name=search_term_string\"}},{\"@context\":\"https://schema.org\",\"@type\":\"WebApplication\",\"name\":\"九宫八卦命理测算平台\",\"url\":\"https://jiugongbagua.com\",\"description\":\"九宫八卦是中国传统命理文化平台，提供八字排盘、紫微斗数、六爻、小六壬、周公解梦、姓名测试、号码测吉凶、黄历择日、塔罗等在线服务。\",\"applicationCategory\":\"LifestyleApplication\",\"operatingSystem\":\"All\"},{\"@context\":\"https://schema.org\",\"@type\":\"BreadcrumbList\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"首页\",\"item\":\"https://jiugongbagua.com\"}]}]"}}]]}],["$","script",null,{"dangerouslySetInnerHTML":{"__html":"try{if(localStorage.getItem('jiugong-theme')==='night')document.documentElement.setAttribute('data-theme','night')}catch(e){}"}}],["$","body",null,{"className":"min-h-screen flex flex-col","children":["$","$L2",null,{"children":["$","$L3",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":404}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],[]],"forbidden":"$undefined","unauthorized":"$undefined"}]}]}]]}]]}],{"children":[["$","$1","c",{"children":[null,"$L5"]}],{"children":["$L6",{"children":["$L7",{"children":["$L8",{},null,false,null]},null,false,"$9"]},null,false,"$9"]},null,false,"$9"]},null,false,null],"$La",false]],"m":"$undefined","G":["$b",[]],"S":true,"h":null,"r":"$undefined","s":"$undefined","a":"$undefined","l":"$undefined","p":"$undefined","d":"$undefined","b":"ndmlkSBrY5o9h8YrCkC-M"}
+d:I[90484,[],"OutletBoundary"]
+e:"$Sreact.suspense"
+10:I[90484,[],"ViewportBoundary"]
+12:I[90484,[],"MetadataBoundary"]
+5:["$","$L3",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]
+6:["$","$1","c",{"children":[null,["$","$L3",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}]
+7:["$","$1","c",{"children":[null,["$","$L3",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}]
+8:["$","$1","c",{"children":["$Lc",null,["$","$Ld",null,{"children":["$","$e",null,{"name":"Next.MetadataOutlet","children":"$@f"}]}]]}]
+a:["$","$1","h",{"children":[null,["$","$L10",null,{"children":"$L11"}],["$","div",null,{"hidden":true,"children":["$","$L12",null,{"children":["$","$e",null,{"name":"Next.Metadata","children":"$L13"}]}]}],null]}]
+14:I[98500,["8500","static/chunks/8500-54689a19bd9dd50c.js","3865","static/chunks/app/xueguan/%5Bcategory%5D/%5Bbook%5D/page-03870549be1401fa.js"],""]
+15:I[54444,["8500","static/chunks/8500-54689a19bd9dd50c.js","3865","static/chunks/app/xueguan/%5Bcategory%5D/%5Bbook%5D/page-03870549be1401fa.js"],"default"]
+9:C
+c:["$","div",null,{"className":"max-w-4xl mx-auto px-4 py-20","children":[["$","div",null,{"className":"mb-8 text-sm text-gray-400","children":[["$","$L14",null,{"href":"/xueguan","className":"hover:text-gold-500 transition-colors","children":"易学书馆"}],["$","span",null,{"className":"mx-2","children":"/"}],[["$","$L14",null,{"href":"/xueguan/fengshui-liqi","className":"hover:text-gold-500 transition-colors","children":["🧭"," ","理气派"]}],["$","span",null,{"className":"mx-2","children":"/"}]],["$","span",null,{"className":"text-gray-600","children":"地理辨正"}]]}],["$","div",null,{"className":"mb-8","children":[["$","h1",null,{"className":"text-3xl font-bold text-gray-800 font-serif mb-2","children":"地理辨正"}],["$","div",null,{"className":"flex flex-wrap items-center gap-3 text-sm text-gray-500","children":[["$","span",null,{"className":"bg-gray-50 px-2 py-0.5 rounded","children":"清"}],["$","span",null,{"className":"bg-gray-50 px-2 py-0.5 rounded","children":"蒋大鸿"}],["$","span",null,{"className":"bg-gray-50 px-2 py-0.5 rounded","children":"五卷"}],["$","span",null,{"className":"bg-gray-50 px-2 py-0.5 rounded","children":["~",12,"千字"]}],["$","span",null,{"className":"bg-gold-500-50 text-gold-600 px-2 py-0.5 rounded font-medium","children":"完整收录"}]]}],"$undefined",["$","p",null,{"className":"mt-4 text-sm text-gray-500 dark:text-gray-400 leading-relaxed max-w-3xl","children":"《地理辨正》为明末清初玄空风水宗师蒋大鸿的代表作，是三元玄空理气派的奠基文献。全书辨正《青囊经》《青囊序》《青囊奥语》《天玉经》《都天宝照经》等古经真义，提出以三元九运、零正神为核心的山向理气法度，一扫当时风水界支离割裂之弊。蒋氏之学影响深远，后世玄空各派（无常派、滇南派等）皆溯源于此。"}]]}],["$","div",null,{"className":"mb-8 flex flex-wrap gap-2","children":[["$","span","玄空",{"className":"text-xs bg-gray-50 text-gray-500 px-2.5 py-1 rounded-full border border-gray-100","children":["#","玄空"]}],["$","span","蒋大鸿",{"className":"text-xs bg-gray-50 text-gray-500 px-2.5 py-1 rounded-full border border-gray-100","children":["#","蒋大鸿"]}],["$","span","三元九运",{"className":"text-xs bg-gray-50 text-gray-500 px-2.5 py-1 rounded-full border border-gray-100","children":["#","三元九运"]}],["$","span","青囊",{"className":"text-xs bg-gray-50 text-gray-500 px-2.5 py-1 rounded-full border border-gray-100","children":["#","青囊"]}],["$","span","理气",{"className":"text-xs bg-gray-50 text-gray-500 px-2.5 py-1 rounded-full border border-gray-100","children":["#","理气"]}],["$","span","天玉经",{"className":"text-xs bg-gray-50 text-gray-500 px-2.5 py-1 rounded-full border border-gray-100","children":["#","天玉经"]}]]}],["$","div",null,{"className":"mb-10","children":[["$","h2",null,{"className":"text-lg font-bold text-gray-700 mb-3 flex items-center gap-2","children":[["$","span",null,{"children":"📖"}]," 典籍简介"]}],["$","div",null,{"className":"bg-white border border-gray-100 rounded-xl p-6","children":["$","p",null,{"className":"text-gray-600 leading-relaxed whitespace-pre-line","children":"《地理辨正》为明末清初玄空风水宗师蒋大鸿的代表作，是三元玄空理气派的奠基文献。全书辨正《青囊经》《青囊序》《青囊奥语》《天玉经》《都天宝照经》等古经真义，提出以三元九运、零正神为核心的山向理气法度，一扫当时风水界支离割裂之弊。蒋氏之学影响深远，后世玄空各派（无常派、滇南派等）皆溯源于此。"}]}]]}],["$","div",null,{"className":"mb-6 bg-gold-50/30 border border-gold-200/50 rounded-xl overflow-hidden","children":[["$","div",null,{"className":"px-5 py-2 bg-gold-50/50 border-b border-gold-200/30 flex items-center gap-2","children":[["$","span",null,{"className":"text-gold-500 text-sm","children":"🏛️"}],["$","span",null,{"className":"text-xs font-medium text-gold-600","children":"九宫导读"}]]}],["$","div",null,{"className":"px-5 py-4","children":["$","div",null,{"className":"prose prose-sm max-w-none text-gray-600 leading-relaxed whitespace-pre-line","children":"《地理辨正》五卷，蒋大鸿（清）。\n\n【概要】\n玄空风水开山经典，辨正青囊诸经，阐发三元九运理气大义。\n\n【九宫按】\n本书是清代术数文献，言简意深，历来为奇门研究者所重。\n\n【阅读建议】\n通读原文，体会歌诀的体系框架，不必强求一字记诵。\n\n【版本说明】\n本文以维基文库公版文本为底本录入。"}]}]]}],["$","div",null,{"className":"mb-10","children":[["$","$L15",null,{"bookTitle":"地理辨正","bookId":"dili-bianzheng"}],["$","h2",null,{"className":"text-lg font-bold text-gray-700 mb-3 flex items-center gap-2","children":[["$","span",null,{"children":"📜"}]," 原文阅读 ",["$","span",null,{"className":"text-xs text-gray-400 font-normal","children":["（",7," 节）"]}]]}],["$","div",null,{"className":"space-y-4","children":[["$","details","ch1",{"id":"ch-ch1","className":"group bg-white border border-gray-100 rounded-xl overflow-hidden scroll-mt-24","children":["$L16","$L17"]}],"$L18","$L19","$L1a","$L1b","$L1c","$L1d"]}]]}],false,"$L1e",null,"$L1f","$L20","$L21"]}]
+16:["$","summary",null,{"className":"px-5 py-3 text-sm font-medium text-gray-700 cursor-pointer hover:bg-gray-50 hover:text-gold-600 transition-colors flex items-center gap-2","children":[["$","span",null,{"className":"text-gray-300 group-open:text-gold-400 transition-colors","children":[1,"."]}],["$","span",null,{"children":"序言"}],"$undefined","$undefined",["$","span",null,{"className":"ml-auto text-gray-300 group-open:rotate-180 transition-transform text-xs","children":"▼"}]]}]
+22:T114b,== 序 ==
+通三才之道曰儒。故天官、地理，皆学士家穷理之本业，而象纬之学，正三统，测灾祥，属有国家者之事。独地理为养生送死，生民日用所急，孝子慈孙，尤不可以不谨。宋儒朱、蔡诸贤，闲有发明，见于性理书中者，班班可考。顾仅能敷陈梗槩，而未究其精微。或者进而求之，通都所布管郭诸书，虽其言凿凿，而去之愈远，斯其为道显而隐，诚所谓闲世一出，非人不传者耶？
+
+余少失恃，壮失怙，先大父安溪公早以形家之书孜孜手授，久而后知俗学之非也。思穷径绝，迺得无极子之传于游方之外，习其所传，又十年所，于是远溯黄石、靑乌，近考靑田、幕讲，彼其言盖人人殊，而厥旨则一，且视天下山川土壤，虽大荒内外，亦如一也，其庶乎地学之正宗在是。辄欲举其说以吿学者，又不容显言。无已，则取当世相传之书，订其纰缪，而析其是非，使言之者无罪，而闻之者有所惩戒，而不至于乱。辨正之书所以作也。
+
+夫地学之有书，始于黄石，盛于杨公，而世所惑溺而不可卒解者，则莫甚于玉尺。故论断诸书，彚为一编，其俎豆之与爰昼，皆以云救也。
+
+于姜诸子问业日久，经史之暇，旁及此编，岂好事哉？我得此道，以释憾于我亲，从我游者，皆有亲也。姜氏习是编而遽梓之以公世，其又为天下后世之有亲者加之意欤？允哉儒者之用心也已。
+
+平阶蒋大鸿
+
+仆弱冠失恃，先大父安溪公命习地理之学，求之十年而始得其传，乃以所传徧证之大江南北古今名墓。又十年而始会其旨，从此益精求之，又十年而始穷其变，而我年则已老矣。
+
+姚水亲陇吿成，生平学地之志已毕，自此不复措意，夫岂不欲传之其人？然天律有禁，不得妄传，茍非忠信廉洁之人，未许与闻一二也。
+
+丹阳张孝廉仲馨，丹徒骆孝廉士鹏，山阴吕文学相烈，会稽姜公子垚，武陵胡公子泰征，淄川毕解元世持，皆以文章行业相师，因得略闻梗槩。此诸君子，或丹穴凤雏，或靑春鹗荐，皆自置甚高，不可一世，盖求其道以庇本根，非挟其术以为垄断，故能三缄其口，不漏片言，庶几不负仆之讲求尔。
+
+若夫中人以下，走四方求衣食者，仆初未尝不怜之，然欲冒禁而传真道，则未敢许也。
+
+至于仆之得传，有诀无书，以此事贵在心传，非可言罄。古书充栋，半属伪造，故有辨正一书，昌言救世，后复自言所得，作天元五歌，然皆庄蒙所谓糟粕，必求其精微，则亦不在此也。
+
+此外别无秘本，私为一家之书。近闻三吴两浙，都有自称得仆真传，以自衒鬻者，亦有自撰伪书，指为仆之秘本，以瞽惑后学者。天地之大，何所不容？但恐伪托之人，心术鲜正，以不正之术谋人身家，必误人之身家；以不正之书传之后世，必贻祸于后世。仆不忍不辨，惟有识者察之。
+
+华亭蒋平阶大鸿氏敬吿。
+
+== 叙 ==
+大元空五行之法，始于晋，盛于唐，一时著书立说者，类足为言理言气之祖。自宋以降，其法稍稍失传，于是诸法杂出，各持一说，以为求食之藉，而伪者曰益盛，真者日益失矣。惟国初蒋大鸿先生独得无极真传，将世俗诸书辨是非，定真伪，成地理辨正一书。自此书出，而天玉靑囊之奥，错综变化之机，阴阳动静之理，向之失传，已经六七百年，由先生一朝大声疾呼，发聋振瞆，说扫百家，而道济一世，岂非参天地，关盛衰，大有功于生民者乎？无何，一法始出，百弊丛生。今去先生未久，而著书立说者，又几乎汗牛而充栋矣。彼其说之率逞胸臆，而显与先生背者无论。即或有奉先生之教，取先生之书，句疏字栉，张皇补苴，行且自诩为功臣、为诤子矣。然究其说之所以然，与先生书不啻毫厘千里之谬。於戏！百年之近，已错乱至此，愚恐愈久而愈差也。不揣固陋，杜撰直解，不求字句之工，但期学者之易晓焉耳。终望博雅君子爱我者，幸教我以不逮焉。
+
+道光元年仲春朔，无心道人识。
+
+无锡章仲山，别号无心道人。
+
+== 地理辨正卷一 ==17:["$","div",null,{"className":"px-5 pb-5 pt-2 border-t border-gray-50","children":[["$","div",null,{"className":"prose prose-sm max-w-none text-gray-600 leading-relaxed whitespace-pre-line","children":"$22"}],"$undefined","$undefined","$undefined"]}]
+18:["$","details","ch2",{"id":"ch-ch2","className":"group bg-white border border-gray-100 rounded-xl overflow-hidden scroll-mt-24","children":[["$","summary",null,{"className":"px-5 py-3 text-sm font-medium text-gray-700 cursor-pointer hover:bg-gray-50 hover:text-gold-600 transition-colors flex items-center gap-2","children":[["$","span",null,{"className":"text-gray-300 group-open:text-gold-400 transition-colors","children":[2,"."]}],["$","span",null,{"children":"靑囊经"}],"$undefined","$undefined",["$","span",null,{"className":"ml-auto text-gray-300 group-open:rotate-180 transition-transform text-xs","children":"▼"}]]}],["$","div",null,{"className":"px-5 pb-5 pt-2 border-t border-gray-50","children":[["$","div",null,{"className":"prose prose-sm max-w-none text-gray-600 leading-relaxed whitespace-pre-line","children":"原本作黄石公授赤松子述义。\n\n云闲蒋平阶大鸿补传，无心道人直解。"}],"$undefined","$undefined","$undefined"]}]]}]
+23:T1ffa,{{楷体|古文作堪舆，郭氏作气感篇，邱氏作埕原论，今削之。天尊地卑，阳奇阴耦。一六共宗，二七同道，三八为朋，四九为友，五十同途。阖辟奇偶，五兆生成，流行终始。八体宏布，子母分施。天地定位，山泽通气。雷风相薄，水火不相射。中五立极，临制四方。背一面九，三七居旁，二八四六，纵横纪纲。阳以相阴，阴以含阳。阳生于阴，柔生于刚，阴德宏济，阳德顺昌。是故阳本阴，阴育阳，天依形，地附气，此之谓化始。}}
+
+传曰：此篇以无形之气为天地之始，而推原道之所从来也。夫阳气属天，而实兆于地之中。圣人作易，以明天地之道，皆言阴阳之互为其根者而已。天高而尊，地下而卑，然尊者有下济之德，卑者有上行之义。一阴一阳，一奇一耦，其数参伍所以齐一，其形对待所以往来。天地之匡廓，由此而成，四时之代谢，由此而运，万物之化育，由此而胚。
+
+夫此阴阳奇耦之道，随举一物，无不有之。天地无心，圣人无意，自然流露，而显其象于河图，遂有一六共宗，二七同道，三八为朋，四九为友、五十同途之象。圣人因其象而求其义，以奇者属阳，而有天一、天三、天五、天七、天九之名；以耦者属阴，而有地二、地四、地六、地八、地十之名。
+
+有一必有二，有三必有四，有五必有六，有七必有八，有九必有十，所谓参伍之数也。此一彼二，此三彼四，此五彼六，此七彼八，此九彼十，所谓对待之形也。天数与地数各得其五，此谓一成之数，而百千万亿无穷之数，由此而推也。
+
+天数、地数各得其五，合二五而成十。葢有五即有十，犹有一即有二，阴阳自然之道也，故有天之一，即有地之六，有地之二，即有天之七，有天之三，即有地之八，有地之四，即有天之九，有天之五，即有地之十。此阴阳之数，以参伍而齐一者也。易曰：五位相得，葢此谓也。
+
+而一六在下，则二七必在上；三八在左，则四九必在右，五居中，则十亦居中，此阴阳之数，对待而往来者也。易曰：五位相得，而各有合，葢谓此也。
+
+以其参伍而齐一，故一奇一耦，灿然而不棼；以其对待而往来，故奇耦之闲，一阖一辟，潜然而自应。此生成之所从出也。
+
+天一生水，而地六成之；地二生火，而天七成之；天三生木，而地八成之；地四生金，而天九成之；天五生土，而地十成之。一生一成，皆阴阳交媾之妙。二气相交，而五行兆焉。
+
+降于九天之上，升于九地之下，周流六虚，无有休息，始而终，终而复始，无一息不流行，则无一息不交媾。
+
+当其无而其体浑然已成；当其有而其体秩然有象。圣人因河图之象数而卦体立焉。
+
+夫河图止有四象，而卦成八体者，何也？葢一画成爻，爻者，交也。太始之气，止有一阳，是名太阳。⚊太阳一交而成太阴⚋，是曰两仪；太阴、太阳再交而成少阴⚎，少阳⚍，竝太阴⚏，太阳⚌，是曰四象。此河图之显象也。
+
+四象三交而成八卦，☰曰干☱，曰兑☲，曰离☳，曰震☴，曰巽☵，曰坎☶，曰艮☷，曰坤。葢即河图每方二数，析之则有八，此河图之象隐而显者也。
+
+故卦之八，由于四象，爻之三，由于三交。干、坤二卦为母，六卦为子，此八卦之子母也。诸卦自为母，三爻为子，此一卦之子母也。
+
+以此分施，造化布满。
+
+宇宙之闲，于是举阳之干为天，对以阴之坤为地，谓之天地定位，天覆于上，则地载于下也。此阴阳之一交而成天地者也。
+
+举阳之艮为山，对以阴之兑为泽，谓之山泽通气，山载于下，则泽受于上也。举阳之震为雷，对以阴之巽为风，谓之雷风相薄，雷发于下，则风动于上也。举阳之坎为水，对以阴之离为火，谓之水火不相射，水火平衡，形常相隔，而情常相亲也。此三阴三阳之各自为交而生万物者也。
+
+先贤以此为先天之卦，伏羲所定，本于龙马负图而作，实则浑沌初分，天地开辟之象也。
+
+四象虚中而成五位，此中五者，即四象之交气。干之真阳，坤之真阴，皆无形，而惟土有形。此土之下为黄泉，皆坤地积阴之气；此土之上为淸虚，皆干天积阳之气，而土肤之际，平铺如掌，乃至阴至阳，乾坤交媾之处，水火、风、雷、山泽诸凡天地之化机，皆露于此。故中五者，八卦托体储精，成形显用之所也。
+
+故河图、洛书，同此中五以立极也。
+
+河图虽有四象，而先天阳升阴降，上下初分，未可谓之四方。自中五立极，而后四极划然各正其方矣。
+
+有四方之正位，而四维介于其间，于是八方立焉，统中五皇极而为九，分而布之。一起正北，二居西南，三居正东，四居东南，五复居中，六居西北，七居正西，八居东北，九居正南，谓之九畴。此虽出于洛书，而实与河图之数符合，天地之理，自然发现，无不同也。布其位曰戴九履一，左三右七，二四为肩，六八为足，其八方之位，适与八方之数均齐。圣人即以八卦隷之，而其次序曰，坎一、坤二、震三、巽四、中五、干六、兑七、艮八、离九，此则四正四维，不易之定位也。
+
+数虽起一而用实首震，盖成位之后，少阳用事，先天主天而后天主日，元子继体代父为政也。《易》曰：「帝出乎震，齐乎巽，相见乎离，致役乎坤，说言乎兑，战乎干，劳乎坎，成言乎艮。」一二三四五六七八九者，古今之禅代推移，周而复始者也。震巽离坤兑干坎艮者，日月之出没，四时之气机，运行迁谢，循环无端者也。先贤以此为后天之卦，昔者大禹治水，神龟出洛，文王因之，作后天之卦，岂伏羲画卦之时，未有洛书，而大禹衍畴之时，未有后天卦位耶。窃以为图书，必出于一时，而先天后天卦位，亦定于一日，伏羲但有卦爻，而文王始系之辞耳。河图洛书非有二数，先天后天，非有二义也。特先天之卦以阴阳之对待者言，有彼此而无方隅。后天之卦以阴阳之流行者言，则有方隅矣。至其作卦之旨，要在于阴阳之亘根则一也。夫易之道，贵阳贱阴，则阳当为主而阴当为辅，而此云阳以相阴者何也？盖阳之妙不在于阳，而在于阴，阴中之阳，乃真阳也。故阴为之感而阳来应之，似乎阴反为君而阳反为相，此经言神明之旨也。然阳之所以来应乎阴者，以阴中本自有之，以类相从，故来应耳。岂非阴含阳乎，阴含阳则能生阳矣。一切发生之气，皆阳施之，则皆阴出之者也。刚柔即阴阳，阴阳以气言，刚柔以质言。《易》曰：「干刚坤柔。」又曰：「刚柔相摩，八卦相荡。」八卦之中，皆有阴阳，则皆有刚柔。若以阳为刚，以阴为柔，则宜乎刚生于柔矣。而乃云柔生于刚者，何也？无形之气，阳刚而阴柔，有形之质，阴刚而阳柔，于有形之刚质，又生无形之柔气，质生气，气还生质，故曰柔生于刚也。凡其所以能为相助，能为包含，生生不息如是者，则以阴之与阳，盖自有其德也。惟阴之德，能弘大夫阳以济阳之施，故阳之德，能亲顺夫阴以昌阴之化，此阴阳之妙，以气目感，见于河图洛书先后天之卦象者如是，由是则可以知天地之道矣。天地之道，阳常本于阴，而阴常育于阳，故天非廓然空虚者为天也，其气常依于有形而无时不下济，地非块然不动者为地也，其形常附于元气而无时不上升，然则天之气常在地中，而地之气皆天之气，阴阳虽曰二气，止一气耳。所以生天地者此气，所以生万物者此气，故曰化始也。19:["$","details","ch3",{"id":"ch-ch3","className":"group bg-white border border-gray-100 rounded-xl overflow-hidden scroll-mt-24","children":[["$","summary",null,{"className":"px-5 py-3 text-sm font-medium text-gray-700 cursor-pointer hover:bg-gray-50 hover:text-gold-600 transition-colors flex items-center gap-2","children":[["$","span",null,{"className":"text-gray-300 group-open:text-gold-400 transition-colors","children":[3,"."]}],["$","span",null,{"children":"上卷"}],"$undefined","$undefined",["$","span",null,{"className":"ml-auto text-gray-300 group-open:rotate-180 transition-transform text-xs","children":"▼"}]]}],["$","div",null,{"className":"px-5 pb-5 pt-2 border-t border-gray-50","children":[["$","div",null,{"className":"prose prose-sm max-w-none text-gray-600 leading-relaxed whitespace-pre-line","children":"$23"}],"$undefined","$undefined","$undefined"]}]]}]
+24:T12eb,{{楷体|天有五星，地有五行，天分星宿，地列山川，气行于地，形丽于天，因形察气，以立人纪。紫微天极，太乙之御，君临四正，南面而治，天市东宫，少微西掖，太极南垣，旁照四极。四七为经，五德为纬，运斡坤舆，垂光干纪，七政枢机，流通终始。地德上载，天光下临，阴用阳朝，阳用阴应，阴阳相见，福禄永贞，阴阳相乘，祸咎踵门。天之所临，地之所盛，形止气蓄，万物化生，气感而应，鬼福及人，是故天有象，地有形，上下相须而成一体，此之谓化机。}}
+
+传曰：此篇以有形之象，为天地之化机，而指示气之所从受也，上文既明河图洛书，先天后天八卦之理，圣人作易之旨尽于此，天地阴阳之道亦尽于此矣，然圣人不自作易，其四象八卦，皆仰法于天，故此篇专指天象以为言，夫易之八卦，取象于地之五行，实因天有五曜，五曜凝精上，而五行流气于下，天之星宿，五曜之分光列象者也，地之山川，五行之成体结撰者也，故山川非列宿，而常具列宿之形，观其形之所呈，即以知其气之所禀，夫有是形，御是气，物化自然，初未及乎人事，而圣人仰观俯察，人纪从此立焉，木为岁星，其方为东，其方为中央，其令为季夏，其德为信，金为太白，其方为西，其令为秋，其德为义，水为辰星，其方为北，其令为冬，其德为智，洪御世宰物，一天地之道也，备言天体，则有七政以司元化，日月五星是也，有四垣以镇四方，紫微天巿太微少微是也，有二十八宿以分布周天，苍龙七宿，角亢氏房心尾萁，朱鸟七宿，井鬼柳星张翼轸，白虎七宿，奎娄胃昂毕觜参，玄武七宿，斗牛女虚危室璧是也，四垣即四象，七政即阴阳五宿之根本，其枢在北斗，分之四方，而为二十八宿，故房虚昂星应日，心危毕张应月，角斗奎井应岁星，尾室觜翼应荧惑，亢失娄鬼应太白，箕璧参轸应辰星，氏女胃柳应镇星，临制其方，各一七政也，浑天周匝虽云四方，而已备八卦二十四爻之象矣，非经无以立极，非纬无以嬗化，一经一纬，真阴真阳之交道也，交道维络，而后天之体，环周而固于外，地之体，结束而安于中，此元气之流行，自然而成器者也，其始无始，其终无终，包罗六合，入于无间，虽名阴阳，一气而已，人能得此一气，则生者，可以善其生，而死者可以善其死，地理之道，盖人纪之一端，此端既立，则诸政以次应之，故圣人重其事，其用在地，而必求端于天，本其气之所自来也，然气不可见，而形可见，不可见之气，即寓于有可见之形，形者气之所成，而即以载气，气发于天，而载之者地，气本属阳，而载之者阴，故有阴即有阳，地得其所，则天气归之，天地无时不交会，阴阳无时不相见，相见而得其冲和之正，则为福德之门，相见而不得其冲和之正，即为相乘，而名祸咎之根，祸福殊途，所争一间，良足畏也，且亦知星宿之所以丽于天，山川之所以列于地者乎，天之气，无往不在，而日得天之阳精，而恒为日，而月得天之阴精，而恒为月，五曜得天五气之精，而恒为纬，至于四垣二十八宿，众星环列，又得日月五星之精，而恒为经，此则在天之有形者，有以载天之气也，地之气无往不在，而山得日月五星之气，而恒为山，川得日月五星之气，而恒为川，此则在地之有形者，有以载地之气也，列宿得天之气，而生于天，列宿与天为一体也，山川得地之气，而生于地，山川与地为一体也，万物之生于天地，何独不然，夫万物非能自生，借天地之气以生，然天地非有意生万物，万物各自有地焉，适与天地之气，相遇于窅冥恍惚之中，夫有所沾濡焉，夫有所绸缪焉，夫有所苞孕焉，遂使天地之气，止而不去，积之累之，与物为一，乃勃然以生耳，地理之道，必使我所取之形，足以纳气，而气不我，去则形与气交而为一，必使我所据之地，足以承天，而天不我隔，则地与天交而为一，夫天地形气既合而为一，则所葬之骨，亦与天地之气为一，而死魄生人，气脉灌输，亦与为一，福应之来，若机张审括，所谓化机也，不然，蓄之无门，止之无术，虽周天列宿，炳燿中天，而我不蒙其照，虽大地阳和，滂流八表，而我不沽其泽，天为匡廓，地为稿壤，骨为速朽，子孙为寄生，我未见其获福也，可不慎哉，可不慎哉。27:I[86869,[],"IconMark"]
+1a:["$","details","ch4",{"id":"ch-ch4","className":"group bg-white border border-gray-100 rounded-xl overflow-hidden scroll-mt-24","children":[["$","summary",null,{"className":"px-5 py-3 text-sm font-medium text-gray-700 cursor-pointer hover:bg-gray-50 hover:text-gold-600 transition-colors flex items-center gap-2","children":[["$","span",null,{"className":"text-gray-300 group-open:text-gold-400 transition-colors","children":[4,"."]}],["$","span",null,{"children":"中卷"}],"$undefined","$undefined",["$","span",null,{"className":"ml-auto text-gray-300 group-open:rotate-180 transition-transform text-xs","children":"▼"}]]}],["$","div",null,{"className":"px-5 pb-5 pt-2 border-t border-gray-50","children":[["$","div",null,{"className":"prose prose-sm max-w-none text-gray-600 leading-relaxed whitespace-pre-line","children":"$24"}],"$undefined","$undefined","$undefined"]}]]}]
+25:Tf5a,{{楷体|无极而太极也，理寓于气，气囿于地，日月星宿，刚气上腾，山川草木，柔气下凝，资阳以昌，用阴以成。阳德有象，阴德有位，地有四势，气从八方，外气行形，内气止生，乘风则散，界水则止。是故顺五兆，用八卦，排六甲，布八门，推五运，定六气，明地德，立人道，因变化，原终始，此谓之化成。}}
+
+传曰：此篇申言形气虽殊，而其理则一，示人以因形求气，为地理入用之准绳也，易曰：易有太极，是生两仪，太极者，所谓象帝之先，先天地生，能生天地万他之祖根也，本无有物，无象无数，无方隅，无往不在，言太极，而无极可知，后贤立说，虑学者以太极为有物，故申言以明之曰，无极而太极也，大而天地，细而万物，莫不各有太极，物物一太极，各一物全具一天地之理，人知太极物物皆具，则地理之道，思过半矣，理寓于气，气一太极也，气囿于形，形一太极也，以至中有太极，故能下凝，资阳以昌，资之以太极也，用阴以成，用之以太极也，太极之所显露者，谓之象，而所宣布者，谓之位，地无四势，以太极乘之，而命之为四势，气无八方，以太极御之，而命之为八方，势与方者，其象其气，而命之为势为方者，其极，极岂有定耶，则势与方，亦岂有定耶，四势之中，各自有象，则八方之中，亦各自有气，然此诸方之气，然此诸方之气，皆流行之气，因方成形，只谓之外气，苟任其流行而无止蓄，则从八方而来者，还从八方而去，千山万水，仅供耳目之玩，如传舍，如过客，总不足以濬发灵机，滋荄元化，必有为之内气者焉，所谓内气，非内所自有，即外来流行之气，于此乎止，有此一止，则八方之行形者，皆招摄翕聚乎此，是一止而无所不止，于此而言太极，乃为真太极矣，无所不止，则阳无所不资，阴无所不用，而生生不息之道在其中，太极生两仪，两仪生四象，四象生八卦，万事万物，皆胚胎乎此，前篇形止气蓄，万物化生，盖谓此也，然但言止，而不申明所以止之义，恐世之审气者，茫然所措手，故举气之最大而流行无间者，曰风曰水，夫风有气而无形，禀乎阳者也，水有形而兼有气，二者皆行气之物，气之阳者，从风而行，气之阴者从水而行，而行阳气者，反能散阳，以阳中有阴也，行阴气者，反能止阳，以阴中有阳也，大块之间，何处无风，何处无水，风原不能散气，所以嘘之使散者，病在乎乘，水原不能止气，所以吸之使止者，妙在乎界，苟能明乎乘与界之为义，审气以推太极之法，概可知矣，上文反复推详，皆泛言形气之理，至是乃实指地理之用，于是总括其全焉，顺五兆，以五星之正变审象也，用八卦，以八方之旺衰审位也，排六甲，以六甲之纪年审运也，布八门，以八风之开阖审气也，地理之矩矱尽于此矣，推五运，以五纪之盈虚审岁也，定六气，以六气之代谢审令也，谨岁时以扶地理之橐籥，尽于此矣，如是则太极不失其正，而地德可明，然圣人之明地德也，非徒邀福而已，盖地之五行，得其顺，则人之生也，五德备其全，而五常若其性，圣贤豪杰，接踵而出，而礼乐政刑，无不就理，岂非人道自此立乎，然此亦阴阳变化，自然之妙，虽有智者，不能以私意妄作，夫亦为知其所以然，因之而已，夫卜地葬亲，乃慎终之事，而子孙之世泽，皆出其中，则人道之所以终，即为人道之所以始，然则斯道也者，圣人开物成务，无有大于此者也，谓之化成宜哉。
+
+== 地理辨正卷二 ==1b:["$","details","ch5",{"id":"ch-ch5","className":"group bg-white border border-gray-100 rounded-xl overflow-hidden scroll-mt-24","children":[["$","summary",null,{"className":"px-5 py-3 text-sm font-medium text-gray-700 cursor-pointer hover:bg-gray-50 hover:text-gold-600 transition-colors flex items-center gap-2","children":[["$","span",null,{"className":"text-gray-300 group-open:text-gold-400 transition-colors","children":[5,"."]}],["$","span",null,{"children":"下卷"}],"$undefined","$undefined",["$","span",null,{"className":"ml-auto text-gray-300 group-open:rotate-180 transition-transform text-xs","children":"▼"}]]}],["$","div",null,{"className":"px-5 pb-5 pt-2 border-t border-gray-50","children":[["$","div",null,{"className":"prose prose-sm max-w-none text-gray-600 leading-relaxed whitespace-pre-line","children":"$25"}],"$undefined","$undefined","$undefined"]}]]}]
+26:T35ef,{{楷体|{{+|杨公养老看雌雄，天下诸书对不同。}}}}
+
+传曰：雌雄者，阴阳之别名，乃不云阴阳，而言雌雄者，言阴阳，则阴自为阴，阳自为阳，疑乎对待之物，互显其情者也，故善言阴阳者，必言雌雄，观雌则不必更观其雄，而知必有雄以应之，观雄则不必更观其雌，而知必有雌以配之，天地两雌雄也，山川雌雄中之显象者也，地有至阴之气，以招摄天之阳精，天之阳气，日下交乎地，而无形可见，止见其草木百谷，替荣秋落，蛟龙虫豸，升腾蛰藏而已，故圣人制婚姻，男先乎女，亦以阴之所在，阳必求之，山河大地，其可见之形怕阴也，实有不可见之阳以应之，所雌雄者也，故地理家不曰地脉，而曰龙神，言变化无常，不可以迹求者也，青囊经所谓阳以相阴，阴以含阳者，此雌雄也，所谓阳本阴，阴育阳者，此雌雄也，所谓阴用阳朝，阳用阴应者，此雌雄也，所谓资阳以昌，用阴以成者，此雌雄也，杨公得青囊之秘，洞彻阴阳之理，晚年其术益精，以此济世，即以此养生，然其中秘密，惟有看雌雄之一法，此外别无他法，夫地理之书，汗牛充栋，独此一法，不肯笔之于书，先贤口口相传，间世一出，盖自管郭以来，古今知者能有几人，既非聪明智巧所能推测，又岂宏览博物所得与闻，会者一言立晓，不知者累牍难明，若欲向书卷中求之，更河汉矣，故曰，天下诸书对不同也，曾公安亲受杨公之秘，故其所言深切著明如此，彼公安者，岂欺我哉。
+
+{{楷体|{{+|先看金龙动不动，次察血脉认来龙。}}}}
+
+传曰：此以下乃言看雌雄之法，金龙者，气之无形者也，龙本非金，而云金龙者，是乃干阳金气之所生，故曰金龙，动则属阳，静则属阴，气以动为生，以静为死，生者可用，死者不可用，其动大者，则大用之，其动小者，则小用之，此以龙之形象言也，形象既得，斯可辨其方位矣，血脉即金龙之血脉，非龙而实龙之所自来，所谓雌雄者也，观血脉之所自来，即知龙之所自来矣，察其血脉之来自何方也，知血脉之来自何方，即可认龙之来自何方矣，此杨公看雌雄之秘诀，非世人倒杖步量之死格局也，俗注辰戌丑未四金，恶煞为金龙者非。
+
+{{楷体|{{+|龙分两片阴阳取，水对三叉细认踪。}}}}
+
+传曰：两片，即雌雄，阴在此则阳必在彼，两路相交也，三叉，即后城门界水合处，必有三叉，细认踪，即察血脉以认来龙也，知三叉之在何方，则知来龙之属何脉矣。{{批|解曰：以两片为左旋右旋，以三叉为生旺墓，非。}}
+
+{{楷体|{{+|江南龙来江北望，江西龙去望江东。}}}}
+
+传曰：此所谓两片也，金龙本在江南，而所望之气脉，反在江北，金龙本在江西，而所望之气脉，反在江东，盖以有形之阴质，求无形之阳气也，杨公看雌雄之法，皆从空处为真龙，故立其名曰大玄空，虽云两片，实一片也。{{批|解曰：江南午丁未坤为一卦，江北子癸丑艮为一卦，共一父母，江西申庚酉辛戌干亥壬为一卦，江东寅甲卯乙辰巽已丙为一卦，共一父母，两卦之中，互相立向者，非。}}
+
+{{楷体|{{+|是以圣人卜河洛，瀍涧二水交华嵩，相其阴阳观流泉，卜世卜年宅都宫。}}}}
+
+传曰：此即周公下洛之事，以证地理之道，惟在察血脉认来龙也，圣人作都，不言华嵩之脉络，而言瀍涧之相交，则知所认之来龙，之以瀍涧也，又引刘公迁幽，相阴阳，观流泉，以合观之，见圣人作法，千古一揆也。
+
+{{楷体|{{+|晋世景纯传此术，演经立意出玄空，朱雀发原生旺气，一一讲说开愚蒙。}}}}
+
+传曰：推原元空大卦，不始于杨公，盖郭景纯先得青囊之秘，演而立之，直追周公制作之精意也，乃其义不过欲朱雀发源得生旺之气耳，来源既得生旺，即是来龙生旺，而诸福坐致矣，来源若非生旺，则来龙亦非生旺，而祸不旋踵矣，景纯当日以此开喻愚蒙，其如愚蒙之领会者少也。{{批|解曰：龙取生旺之气于穴中，水取生旺之气于穴前，又指气之生旺为长生帝旺墓库，合三叉者，非。}}
+
+{{楷体|{{+|一生二兮二生三，三生万物是玄关，山管山兮水管水，此是阴阳不待言。}}}}
+
+传曰：阴阳之妙用始于一，有一爻，即有三爻，有一卦即有三卦，故曰一生二，二生三，此乃天地之玄关，万物生生之槖籥也，又恐人误认山水为一，而不知辨别，故言山之玄关自管山，而水之玄关自管水，不相混杂，盖山有山之阴阳，而水有水之阴阳也，通乎此义，则世之言龙穴砂水者，真未梦见矣。{{批|解曰：生旺墓三合为玄关者，非。}}
+
+{{楷体|{{+|识得阴阳玄妙理，知其衰旺生与死，不问坐山与来水，但逢死气皆无取。}}}}
+
+传曰：此节畅言地理之要，只在衰旺生死之辨也，衰旺有运，生死乘时，阴阳玄妙之理，在乎知时而已，坐山有坐山之气运，来水有来水之气运，所谓山管山水管水也，二者皆须趋生而避死，从旺而去衰，然欲识得此理，非真知河洛之秘者，不能，岂俗师所传龙上五行收山，向上五行收水，顺道长生之说，所能按图而索骥者乎。
+
+{{楷体|{{+|先天罗经十二支，后天再用干与维，八干四维辅支位，子母公孙同此推。}}}}
+
+传曰：罗经二十四路已成之迹，人人所知，何须特举，此节非言罗经制造之法，盖将罗经直指雌雄交媾之玄关，以明衰旺生死之作用尔，十二支乃周天列宿之十二次舍，故曰先天，地道法天，虽有十二宫，而位分八卦，每卦三爻，则十二宫不足以尽地之数，故十干取戊己归中，以为皇极，而分布八干为四正之辅佐，然犹未足卦爻之数，遂以四隅四卦补成三八，于是卦为之母，而二十四路为之子焉，卦为之公，而二十四路为之孙焉，识得子母公孙，则雌雄之交媾在此，金龙之血脉在此，龙神之衰旺生死亦尽乎此矣。{{批|解曰：子寅辰干丙乙一龙为公，什申戌坤辛壬二龙为母，卯巳丑艮庚丁三龙为子，酉亥未巽癸甲四龙为孙，非。}}
+
+{{楷体|{{+|二十四山分顺逆，共成四十有八局，五行即在此中分，祖宗却从阴阳出，阳从左边团团转，阴从右路转相通，有人识得阴阳者，何愁大地不相逢。}}}}
+
+传曰：此一节申言上文未尽之旨，子母公孙，如何取用，盖二十四山，止应二十四局，而一山之局，又有顺逆不同，如有顺子一局，即有逆子一局，一山两局，岂非四十八局乎，此局得何五行，则龙神得何五行，五行不在此中分乎，然五行之根源宗祖，非取有形可见，有迹可寻之二十四山分五行，乃从玄空大卦雌雄交媾之真阴真阳分五行也，论至此，玄空立卦之义，几乎尽矣，而又恐人不知阴阳为何物，又重言以申明之，曰：如阳从左边团团转，则必阴从右路转相通，言有阴即有阳，有阳即有阴，所谓阴阳相见，雌雄交媾，玄空大卦之秘旨也，言左右，则上下四旁皆如是矣，此即上文龙分两片，江南龙来江北望之意，而反复言之者也，无奈世人止从形迹上著眼，不能领会玄空大卦之妙，故又发叹曰：有人识得此理者，乃识真阴阳真五行，真血脉，真神龙，随所指点，皆天机之妙，何愁大地不相逢乎？若不识此，虽大地当前，目迷五色，未有能得其真者也。{{批|解曰：阳龙左行为顺，阴龙右行为逆，阳亥龙左行为甲木，阴亥龙右行为乙木之类，非。}}
+
+{{楷体|{{+|阳山阳向水流阳，执定此说甚荒唐，阴山阴向水流阴，笑杀拘疑都一般。若能勘破固中理，妙用本来同一体，阴阳相见两为难，一山一水何足言。}}}}
+
+传曰：又言所谓识得阴阳者，乃玄空大卦真阴真阳，而非世之所谓净阴净阳也，若据净阴净阳之说，则阳山必须阳向，而水流阳，阴山必须阴向，而水流阴，时师拘拘于此，而不知其实无益也，真阴真阳，自有个中之妙，世人不得真传，无从勘破耳，若有明师指点，一言之下，立时勘破，则知不但净阴净阳不可分，所谓真阴真阳者，虽有阴阳之名，而止是一物，又何从分，既知阴阳为一物，则随手拈来，无非妙用，山与水为一体，阴与阳为一体，二十四山卦气相通者，皆为一体矣，夫净阴净阳者，一山只论一山之阴阳，一水只论一水之阴阳，故拘执有形，不能触类旁通耳，玄空大卦，一山不论一山之阴阳，而论与此山相见之阴阳，一水不论一水之阴阳，而论与此水相见之阴阳，所以为难知难能，而入于微妙之域，此岂净阴净阳之说，拘有形者，所可同日而语哉。
+
+{{楷体|{{+|二十四山双双起，少有时师通此义，五行分布二十四，时师此诀何曾记。}}}}
+
+传曰：即上文二十四山分顺逆之义，而重言以叹美之，此双只起者，一顺一逆，一山两用，故曰双双起也，五行分布者，二十四山，各自为五行，不相假借也，虽如此云，而其中实有奥义，惟得秘诀者，乃能通之，时师但从书卷中搜索，必不得之数也，于此可见二十四山成格有定，执指南者，人人能言之，而微妙之机，不可测识矣。{{批|解曰：干亥为一，甲卯为一，丁未为一之类，释双双起者，非。}}
+
+{{楷体|{{+|山上龙神不下水，水里龙神不上山，用此量山与步水，百里江山一响间。}}}}
+
+传曰：此即上文山管山水管水之义，而重言以叹美之，且又以世人之论龙神，但以山之脉络可寻者为龙神，即其所用水法，亦以山龙之法，不求乎水以资其用耳，不知山与水，乃各自有龙神也，特为指出，以正告天下后世焉，山上龙神，以山为龙者也，专以山之阴阳五行推顺逆生死，而水非所论，刚柔异质，燥湿殊性，分路扬镳，不相假也，即有山龙而兼得水龙之气者，亦山自为山，水自为水，非可以山之阴阳五行混入乎水之阴阳五行也，山则量山，以辨山之纯杂长短，水则步水，以辨水之纯杂长短，得此山水分用之法，百里江山，一览在目，此青囊之秘诀，亦青囊之捷诀也，呜呼！此言自曾公安剖露以来，于今几何年矣，而世无一人知者，哀哉。{{批|解曰：论山用双山五行，从地卦查来龙入首，论水用三合五行，从天卦查水神去来者，非。}}
+
+{{楷体|{{+|更有净阴净阳法，前后八尺不宜杂，斜正受来阴阳取，气乘生旺方无煞。来山起顶须要知，三节四节不须拘，只要龙神得生旺，阴阳却与穴中殊。}}}}
+
+传曰：此净阴净阳，非阳龙阳向水流阳之净阴净阳也，盖龙脉只从一卦来，则谓之净，若杂他卦，即谓之不净，而辨净与不净，尤在贴身一节，或从前来，或从后至，须极清纯，不得混杂，八尺言其最近也，言此尤为扼要，所谓血脉也，一节以后，则少宽矣，此节须纯乎龙运生旺之气，若一杂他气，即是煞气，吉中有凶矣，来水如此，来山亦然，须审其起顶出脉结穴，一二节之近，要得龙神生旺之气，盖龙顶上聚，受气广博，能操祸福之柄，即或直来侧受之穴，结穴之处，与来脉不同，而小不胜大，可无虞也，此以知山上龙神，水里龙神，皆以来脉求生旺，而尤重在到头一节，学者不可不慎也。{{批|解曰：以左转右转顺逆为阴阳者，非。}}
+
+{{楷体|{{+|天上星辰似织罗，水交三八要相过，水发城门须要会，劫如湖里雁交鹅。}}}}
+
+传曰：此以天象之经纬，喻水法之交会也，列宿分布周天，而无七政以交错其中，则乾道不成，而四时失纪矣；干水流行地中，而无支流以界割其际，则地气不收，而立穴无据矣，故二十四山之水，其间必有交道相过，然后血脉真而金龙动，大干小枝，两水相会，合成三叉而出，所谓城门者是也，湖里雁交鹅，言一水从左来，一水从右来，两水相遇，如鹅雁之一往一来也，此详言水龙审脉之法，而立穴之妙，在其中矣。
+
+{{楷体|{{+|富贵贫贱在水神，水是山家血脉精，山静水动昼夜定，水主财禄山人丁；乾坤艮巽号御街，四大神尊在内排，生克须凭五行布，要识天机玄妙处；乾坤艮巽水长流，吉神先入家豪富。}}}}
+
+传曰：乾坤艮巽，各有衰旺生死，非可概用，须用五行辨其生克，生即生旺，克即衰死，生为吉神，死为凶神，要在玄空大卦，故云天机玄妙处也。
+
+{{楷体|{{+|请验一家旧日坟，十坟埋下九坟贫；惟有一家能发福，去水来山尽合情。宗庙本是阴阳元，得四失六难为全；三才六建虽是妙，得三失五尽为偏，盖因一行扰外国，遂把五行颠倒编；以讹传讹竟不明，所以祸福为胡乱。}}}}
+
+传曰：此节旁引世俗五行之谬，以见地理之道，惟有玄空大卦，看雌雄之法，所以尊师传戒后学也，盖唐以后，诸家五行，杂乱而出，将以扰外国，而反以祸中华，至今以讹传讹，流毒万世，曾公所以辨之深切也欤。1c:["$","details","ch6",{"id":"ch-ch6","className":"group bg-white border border-gray-100 rounded-xl overflow-hidden scroll-mt-24","children":[["$","summary",null,{"className":"px-5 py-3 text-sm font-medium text-gray-700 cursor-pointer hover:bg-gray-50 hover:text-gold-600 transition-colors flex items-center gap-2","children":[["$","span",null,{"className":"text-gray-300 group-open:text-gold-400 transition-colors","children":[6,"."]}],["$","span",null,{"children":"靑囊序"}],"$undefined","$undefined",["$","span",null,{"className":"ml-auto text-gray-300 group-open:rotate-180 transition-transform text-xs","children":"▼"}]]}],["$","div",null,{"className":"px-5 pb-5 pt-2 border-t border-gray-50","children":[["$","div",null,{"className":"prose prose-sm max-w-none text-gray-600 leading-relaxed whitespace-pre-line","children":"$26"}],"$undefined","$undefined","$undefined"]}]]}]
+1d:["$","details","ch7",{"id":"ch-ch7","className":"group bg-white border border-gray-100 rounded-xl overflow-hidden scroll-mt-24","children":[["$","summary",null,{"className":"px-5 py-3 text-sm font-medium text-gray-700 cursor-pointer hover:bg-gray-50 hover:text-gold-600 transition-colors flex items-center gap-2","children":[["$","span",null,{"className":"text-gray-300 group-open:text-gold-400 transition-colors","children":[7,"."]}],["$","span",null,{"children":"靑囊奥语"}],"$undefined","$undefined",["$","span",null,{"className":"ml-auto text-gray-300 group-open:rotate-180 transition-transform text-xs","children":"▼"}]]}],["$","div",null,{"className":"px-5 pb-5 pt-2 border-t border-gray-50","children":[["$","div",null,{"className":"prose prose-sm max-w-none text-gray-600 leading-relaxed whitespace-pre-line","children":"== 地理辨正卷三 ==\n天玉经\n\n== 地理辨正卷四 ==\n都天宝照经\n\n== 地理辨正卷五 ==\n平砂玉尺辨伪。"}],"$undefined","$undefined","$undefined"]}]]}]
+1e:["$","div",null,{"className":"mb-10","children":[["$","h2",null,{"className":"text-lg font-bold text-gray-700 mb-3 flex items-center gap-2","children":[["$","span",null,{"children":"👤"}]," 相关人物"]}],["$","div",null,{"className":"flex flex-wrap gap-2","children":[["$","$L14","jiangdahong",{"href":"/wenku/renwu/jiangdahong","className":"px-3 py-1.5 rounded-lg border border-indigo-200/70 dark:border-indigo-500/25 text-sm text-indigo-700 dark:text-indigo-300 hover:bg-indigo-500/5 transition-colors","children":["蒋大鸿",["$","span",null,{"className":"text-[10px] text-gray-400 ml-1","children":"风水（玄空理气）"}]]}]]}]]}]
+1f:["$","div",null,{"className":"mb-10","children":[["$","h2",null,{"className":"text-lg font-bold text-gray-700 mb-3 flex items-center gap-2","children":[["$","span",null,{"children":"🔗"}]," 关联典籍"]}],["$","div",null,{"className":"grid grid-cols-1 md:grid-cols-2 gap-3","children":[["$","$L14","qingnang-jing",{"href":"/xueguan/fengshui-xingshi/qingnang-jing","className":"flex items-center gap-3 bg-white border border-gray-100 rounded-lg p-4 hover:shadow-sm hover:border-gold-200 transition-all group","children":[["$","span",null,{"className":"text-2xl text-gray-200","children":"📖"}],["$","div",null,{"className":"flex-1 min-w-0","children":[["$","div",null,{"className":"text-sm font-medium text-gray-700 group-hover:text-gold-600 transition-colors","children":"青囊经"}],["$","div",null,{"className":"text-xs text-gray-400","children":["黄石公（传）"," · ","汉"]}]]}]]}],["$","$L14","qingnang-aoyu",{"href":"/xueguan/fengshui-liqi/qingnang-aoyu","className":"flex items-center gap-3 bg-white border border-gray-100 rounded-lg p-4 hover:shadow-sm hover:border-gold-200 transition-all group","children":[["$","span",null,{"className":"text-2xl text-gray-200","children":"📖"}],["$","div",null,{"className":"flex-1 min-w-0","children":[["$","div",null,{"className":"text-sm font-medium text-gray-700 group-hover:text-gold-600 transition-colors","children":"青囊奥语"}],["$","div",null,{"className":"text-xs text-gray-400","children":["杨筠松"," · ","唐"]}]]}]]}],["$","$L14","tianyu-jing",{"href":"/xueguan/fengshui-liqi/tianyu-jing","className":"flex items-center gap-3 bg-white border border-gray-100 rounded-lg p-4 hover:shadow-sm hover:border-gold-200 transition-all group","children":[["$","span",null,{"className":"text-2xl text-gray-200","children":"📖"}],["$","div",null,{"className":"flex-1 min-w-0","children":[["$","div",null,{"className":"text-sm font-medium text-gray-700 group-hover:text-gold-600 transition-colors","children":"天玉经"}],["$","div",null,{"className":"text-xs text-gray-400","children":["杨筠松"," · ","唐"]}]]}]]}],["$","$L14","yangzhai-sanyao",{"href":"/xueguan/fengshui-zonghe/yangzhai-sanyao","className":"flex items-center gap-3 bg-white border border-gray-100 rounded-lg p-4 hover:shadow-sm hover:border-gold-200 transition-all group","children":[["$","span",null,{"className":"text-2xl text-gray-200","children":"📖"}],["$","div",null,{"className":"flex-1 min-w-0","children":[["$","div",null,{"className":"text-sm font-medium text-gray-700 group-hover:text-gold-600 transition-colors","children":"阳宅三要"}],["$","div",null,{"className":"text-xs text-gray-400","children":["赵廷栋"," · ","清"]}]]}]]}]]}]]}]
+20:["$","div",null,{"className":"mt-12 pt-6 border-t border-gray-100","children":["$","div",null,{"className":"flex items-center justify-between","children":["$","div",null,{"className":"flex items-center gap-3","children":[["$","$L14",null,{"href":"/xueguan/fengshui-liqi","className":"text-sm text-gold-500 hover:text-gold-600 transition-colors","children":["← 返回 ","理气派"]}],["$","span",null,{"className":"text-gray-200 text-xs","children":"·"}],["$","$L14",null,{"href":"/xueguan","className":"text-sm text-gray-400 hover:text-gold-500 transition-colors","children":"返回书馆首页"}],["$","span",null,{"className":"text-gray-200 text-xs","children":"·"}],["$","$L14",null,{"href":"/","className":"text-sm text-gray-400 hover:text-gold-500 transition-colors","children":"🏠 返回九宫八卦首页"}]]}]}]}]
+21:["$","script",null,{"type":"application/ld+json","dangerouslySetInnerHTML":{"__html":"{\"@context\":\"https://schema.org\",\"@type\":\"Book\",\"@id\":\"https://jiugongbagua.com/xueguan/fengshui-liqi/dili-bianzheng\",\"name\":\"地理辨正\",\"author\":\"蒋大鸿\",\"description\":\"玄空风水开山经典，辨正青囊诸经，阐发三元九运理气大义\",\"keywords\":\"玄空, 蒋大鸿, 三元九运, 青囊, 理气, 天玉经\",\"numberOfPages\":\"五卷\",\"genre\":\"理气派\",\"inLanguage\":\"zh-CN\",\"isAccessibleForFree\":true,\"publisher\":{\"@type\":\"Organization\",\"name\":\"九宫八卦易学书馆\",\"url\":\"https://jiugongbagua.com\"},\"provider\":{\"@type\":\"Organization\",\"name\":\"九宫八卦\"},\"maintainer\":{\"@type\":\"Organization\",\"name\":\"九宫八卦易学书馆\",\"url\":\"https://jiugongbagua.com\"}}"}}]
+11:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]
+f:null
+13:[["$","title","0",{"children":"地理辨正 - 理气派 | 易学书馆 | 九宫八卦 | 九宫八卦"}],["$","meta","1",{"name":"description","content":"地理辨正 · 蒋大鸿 · 清 · 玄空风水开山经典，辨正青囊诸经，阐发三元九运理气大义（约12千字）"}],["$","meta","2",{"name":"author","content":"九宫八卦"}],["$","meta","3",{"name":"keywords","content":"九宫八卦,八字排盘,紫微斗数,六爻,小六壬,周公解梦,姓名测试,号码测吉凶,黄历,塔罗,命理,易经,梅花易数,合婚,传统文化,奇门遁甲"}],["$","meta","4",{"name":"creator","content":"九宫八卦"}],["$","meta","5",{"name":"publisher","content":"九宫八卦"}],["$","meta","6",{"name":"robots","content":"index, follow"}],["$","meta","7",{"name":"googlebot","content":"index, follow"}],["$","meta","8",{"property":"og:title","content":"九宫八卦 - 传统命理在线测算平台"}],["$","meta","9",{"property":"og:description","content":"传承经典 · 智慧启航。八字排盘、紫微斗数、六爻、梅花易数、小六壬等二十余种传统命理服务。"}],["$","meta","10",{"property":"og:url","content":"https://jiugongbagua.com/"}],["$","meta","11",{"property":"og:site_name","content":"九宫八卦"}],["$","meta","12",{"property":"og:locale","content":"zh_CN"}],["$","meta","13",{"property":"og:type","content":"website"}],["$","meta","14",{"name":"twitter:card","content":"summary"}],["$","meta","15",{"name":"twitter:title","content":"九宫八卦 - 中国传统命理文化平台"}],["$","meta","16",{"name":"twitter:description","content":"九宫八卦是中国传统命理文化平台，提供八字排盘、紫微斗数、六爻、小六壬、周公解梦、姓名测试、号码测吉凶、黄历择日、塔罗等在线服务。"}],["$","link","17",{"rel":"icon","href":"/favicon.ico?083af30e08c51e01","type":"image/x-icon","sizes":"16x16"}],["$","$L27","18",{}]]

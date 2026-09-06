@@ -1,0 +1,303 @@
+1:"$Sreact.fragment"
+2:I[6843,["8500","static/chunks/8500-54689a19bd9dd50c.js","7903","static/chunks/7903-746d7ec89cb5c2ea.js","7177","static/chunks/app/layout-fc1a743aee2ee60c.js"],"default"]
+3:I[57121,[],""]
+4:I[74581,[],""]
+b:I[27123,[],"default",1]
+:HL["/_next/static/css/c13e47ad35e05bb3.css","style"]
+9:X
+0:{"P":null,"c":["","xueguan","bushi-liuyao","bushi-zhengzong",""],"q":"","i":false,"f":[[["",{"children":["xueguan",{"children":[["category","bushi-liuyao","d",["search"]],{"children":[["book","bushi-zhengzong","d",[]],{"children":["__PAGE__",{},"$undefined","$undefined",4608]},"$undefined","$undefined",4608]},"$undefined","$undefined",4608]},"$undefined","$undefined",4608]},"$undefined","$undefined",4624],[["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/c13e47ad35e05bb3.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]],["$","html",null,{"lang":"zh-Hans","suppressHydrationWarning":true,"children":[["$","head",null,{"children":[["$","meta",null,{"httpEquiv":"Content-Security-Policy","content":"default-src 'self'; script-src 'self' 'unsafe-inline' https://hm.baidu.com https://*.baidu.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https://hm.baidu.com https://*.baidu.com https://www.google-analytics.com; frame-src 'self'; base-uri 'self'; form-action 'self'; object-src 'none'; media-src 'self'; upgrade-insecure-requests"}],["$","link",null,{"rel":"icon","type":"image/png","href":"/taiji-favicon.png"}],["$","link",null,{"rel":"icon","type":"image/svg+xml","href":"/favicon.svg"}],["$","link",null,{"rel":"icon","type":"image/x-icon","href":"/favicon.ico"}],["$","link",null,{"rel":"apple-touch-icon","href":"/taiji-favicon.png"}],["$","link",null,{"rel":"manifest","href":"/manifest.json"}],["$","link",null,{"rel":"preconnect","href":"https://fonts.gstatic.com"}],["$","script",null,{"type":"application/ld+json","dangerouslySetInnerHTML":{"__html":"[{\"@context\":\"https://schema.org\",\"@type\":\"WebSite\",\"name\":\"九宫八卦\",\"url\":\"https://jiugongbagua.com\",\"description\":\"中国传统命理文化平台\",\"inLanguage\":[\"zh-CN\",\"zh-TW\",\"en\"],\"potentialAction\":{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://jiugongbagua.com/wenku?q={search_term_string}\"},\"query-input\":\"required name=search_term_string\"}},{\"@context\":\"https://schema.org\",\"@type\":\"WebApplication\",\"name\":\"九宫八卦命理测算平台\",\"url\":\"https://jiugongbagua.com\",\"description\":\"九宫八卦是中国传统命理文化平台，提供八字排盘、紫微斗数、六爻、小六壬、周公解梦、姓名测试、号码测吉凶、黄历择日、塔罗等在线服务。\",\"applicationCategory\":\"LifestyleApplication\",\"operatingSystem\":\"All\"},{\"@context\":\"https://schema.org\",\"@type\":\"BreadcrumbList\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"首页\",\"item\":\"https://jiugongbagua.com\"}]}]"}}]]}],["$","script",null,{"dangerouslySetInnerHTML":{"__html":"try{if(localStorage.getItem('jiugong-theme')==='night')document.documentElement.setAttribute('data-theme','night')}catch(e){}"}}],["$","body",null,{"className":"min-h-screen flex flex-col","children":["$","$L2",null,{"children":["$","$L3",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":404}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],[]],"forbidden":"$undefined","unauthorized":"$undefined"}]}]}]]}]]}],{"children":[["$","$1","c",{"children":[null,"$L5"]}],{"children":["$L6",{"children":["$L7",{"children":["$L8",{},null,false,null]},null,false,"$9"]},null,false,"$9"]},null,false,"$9"]},null,false,null],"$La",false]],"m":"$undefined","G":["$b",[]],"S":true,"h":null,"r":"$undefined","s":"$undefined","a":"$undefined","l":"$undefined","p":"$undefined","d":"$undefined","b":"ndmlkSBrY5o9h8YrCkC-M"}
+d:I[90484,[],"OutletBoundary"]
+e:"$Sreact.suspense"
+10:I[90484,[],"ViewportBoundary"]
+12:I[90484,[],"MetadataBoundary"]
+5:["$","$L3",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]
+6:["$","$1","c",{"children":[null,["$","$L3",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}]
+7:["$","$1","c",{"children":[null,["$","$L3",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}]
+8:["$","$1","c",{"children":["$Lc",null,["$","$Ld",null,{"children":["$","$e",null,{"name":"Next.MetadataOutlet","children":"$@f"}]}]]}]
+a:["$","$1","h",{"children":[null,["$","$L10",null,{"children":"$L11"}],["$","div",null,{"hidden":true,"children":["$","$L12",null,{"children":["$","$e",null,{"name":"Next.Metadata","children":"$L13"}]}]}],null]}]
+14:I[98500,["8500","static/chunks/8500-54689a19bd9dd50c.js","3865","static/chunks/app/xueguan/%5Bcategory%5D/%5Bbook%5D/page-03870549be1401fa.js"],""]
+15:I[54444,["8500","static/chunks/8500-54689a19bd9dd50c.js","3865","static/chunks/app/xueguan/%5Bcategory%5D/%5Bbook%5D/page-03870549be1401fa.js"],"default"]
+9:C
+c:["$","div",null,{"className":"max-w-4xl mx-auto px-4 py-20","children":[["$","div",null,{"className":"mb-8 text-sm text-gray-400","children":[["$","$L14",null,{"href":"/xueguan","className":"hover:text-gold-500 transition-colors","children":"易学书馆"}],["$","span",null,{"className":"mx-2","children":"/"}],[["$","$L14",null,{"href":"/xueguan/bushi-liuyao","className":"hover:text-gold-500 transition-colors","children":["📊"," ","六爻纳甲"]}],["$","span",null,{"className":"mx-2","children":"/"}]],["$","span",null,{"className":"text-gray-600","children":"卜筮正宗"}]]}],["$","div",null,{"className":"mb-8","children":[["$","h1",null,{"className":"text-3xl font-bold text-gray-800 font-serif mb-2","children":"卜筮正宗"}],["$","div",null,{"className":"flex flex-wrap items-center gap-3 text-sm text-gray-500","children":[["$","span",null,{"className":"bg-gray-50 px-2 py-0.5 rounded","children":"清"}],["$","span",null,{"className":"bg-gray-50 px-2 py-0.5 rounded","children":"王洪绪"}],["$","span",null,{"className":"bg-gray-50 px-2 py-0.5 rounded","children":"四卷"}],["$","span",null,{"className":"bg-gray-50 px-2 py-0.5 rounded","children":["~",50,"千字"]}],["$","span",null,{"className":"bg-gold-500-50 text-gold-600 px-2 py-0.5 rounded font-medium","children":"完整收录"}]]}],"$undefined",["$","p",null,{"className":"mt-4 text-sm text-gray-500 dark:text-gray-400 leading-relaxed max-w-3xl","children":"《卜筮正宗》清王洪绪（字维德）著，是清代流传最广、影响最大的六爻卜筮教科书。全书以「十八论」架构，从起卦、装卦到断卦逐一详解，辅以大量实例。王氏对用神、原忌仇三神的论述尤为精辟，大凡习六爻者无不由此书入门。"}]]}],["$","div",null,{"className":"mb-8 flex flex-wrap gap-2","children":[["$","span","王洪绪",{"className":"text-xs bg-gray-50 text-gray-500 px-2.5 py-1 rounded-full border border-gray-100","children":["#","王洪绪"]}],["$","span","十八论",{"className":"text-xs bg-gray-50 text-gray-500 px-2.5 py-1 rounded-full border border-gray-100","children":["#","十八论"]}],["$","span","用神",{"className":"text-xs bg-gray-50 text-gray-500 px-2.5 py-1 rounded-full border border-gray-100","children":["#","用神"]}],["$","span","六爻入门",{"className":"text-xs bg-gray-50 text-gray-500 px-2.5 py-1 rounded-full border border-gray-100","children":["#","六爻入门"]}]]}],["$","div",null,{"className":"mb-10","children":[["$","h2",null,{"className":"text-lg font-bold text-gray-700 mb-3 flex items-center gap-2","children":[["$","span",null,{"children":"📖"}]," 典籍简介"]}],["$","div",null,{"className":"bg-white border border-gray-100 rounded-xl p-6","children":["$","p",null,{"className":"text-gray-600 leading-relaxed whitespace-pre-line","children":"《卜筮正宗》清王洪绪（字维德）著，是清代流传最广、影响最大的六爻卜筮教科书。全书以「十八论」架构，从起卦、装卦到断卦逐一详解，辅以大量实例。王氏对用神、原忌仇三神的论述尤为精辟，大凡习六爻者无不由此书入门。"}]}]]}],["$","div",null,{"className":"mb-6 bg-gold-50/30 border border-gold-200/50 rounded-xl overflow-hidden","children":[["$","div",null,{"className":"px-5 py-2 bg-gold-50/50 border-b border-gold-200/30 flex items-center gap-2","children":[["$","span",null,{"className":"text-gold-500 text-sm","children":"🏛️"}],["$","span",null,{"className":"text-xs font-medium text-gold-600","children":"九宫导读"}]]}],["$","div",null,{"className":"px-5 py-4","children":["$","div",null,{"className":"prose prose-sm max-w-none text-gray-600 leading-relaxed whitespace-pre-line","children":"卜筮之道，通于神明。自京房创纳甲之法，管辂、郭璞诸贤继之，至唐宋而大备。然世代绵邈，传者多失其真。余潜心此道三十余年，博采诸家，删繁就简，纂为四卷，名曰《卜筮正宗》。首列十八论以明体例，次注黄金策以析精微，复分类占验以为法程。庶几初学者有门径可循，而深造者亦得究其奥蕴。学者诚能玩索有得，则天人相应之理、吉凶悔吝之几，可以坐照于几席之间矣。\n\n——清·王洪绪（维德）谨识"}]}]]}],["$","div",null,{"className":"mb-10","children":[["$","$L15",null,{"bookTitle":"卜筮正宗","bookId":"bushi-zhengzong"}],["$","h2",null,{"className":"text-lg font-bold text-gray-700 mb-3 flex items-center gap-2","children":[["$","span",null,{"children":"📜"}]," 原文阅读 ",["$","span",null,{"className":"text-xs text-gray-400 font-normal","children":["（",7," 节）"]}]]}],["$","div",null,{"className":"space-y-4","children":[["$","details","juan1",{"id":"ch-juan1","className":"group bg-white border border-gray-100 rounded-xl overflow-hidden scroll-mt-24","children":[["$","summary",null,{"className":"px-5 py-3 text-sm font-medium text-gray-700 cursor-pointer hover:bg-gray-50 hover:text-gold-600 transition-colors flex items-center gap-2","children":[["$","span",null,{"className":"text-gray-300 group-open:text-gold-400 transition-colors","children":[1,"."]}],"$L16","$L17","$L18","$L19"]}],"$L1a"]}],"$L1b","$L1c","$L1d","$L1e","$L1f","$L20"]}]]}],false,null,null,"$L21","$L22","$L23"]}]
+16:["$","span",null,{"children":"卷一·十八论（上）"}]
+17:["$","span",null,{"className":"text-[10px] bg-gold-500/5 text-gold-600 px-1.5 py-0.5 rounded","children":"白话"}]
+18:["$","span",null,{"className":"text-[10px] bg-gold-500/5 text-gold-500 px-1.5 py-0.5 rounded","children":"注"}]
+19:["$","span",null,{"className":"ml-auto text-gray-300 group-open:rotate-180 transition-transform text-xs","children":"▼"}]
+1a:["$","div",null,{"className":"px-5 pb-5 pt-2 border-t border-gray-50","children":[["$","div",null,{"className":"prose prose-sm max-w-none text-gray-600 leading-relaxed whitespace-pre-line","children":"十八论为《卜筮正宗》总纲，自起卦至断卦，条分缕析，为六爻入门之不二法门。\n\n第一论 起卦法\n\n卜筮以钱代蓍。取铜钱三枚，于静室焚香，心神澄定，手捧三钱，默祷所问之事。祷毕，将钱连摇六次，自下而上记之。\n\n三枚俱背（无字面）为老阳，画○；一背二字为少阳，画—；二背一字为少阴，画- -；三枚俱字（无背面）为老阴，画×。\n\n老阳老阴为动爻，动则变：阳动变阴，阴动变阳。六爻既定，内卦（初至三爻）与外卦（四至上爻）合为本卦；再将动爻变易，得变卦。\n\n第二论 装卦法\n\n装卦者，以干支纳于卦爻之中。其法：\n\n一、安世应：\n\n八纯卦世居第六爻（上爻）。一世卦世在初爻，二世在二爻，三世在三爻，四世在四爻，五世在五爻，游魂在四爻，归魂在三爻。\n\n应爻与世爻隔两位：世在初则应四，世在二则应五，世在三则应上，世在四则应初，世在五则应二，世在上则应三。\n\n二、纳干支：\n\n乾卦纳甲壬：内卦子寅辰，外卦午申戌。\n坤卦纳乙癸：内卦未巳卯，外卦丑亥酉。\n震卦纳庚：内卦子寅辰，外卦午申戌。\n巽卦纳辛：内卦丑亥酉，外卦未巳卯。\n坎卦纳戊：内卦寅辰午，外卦申戌子。\n离卦纳己：内卦卯丑亥，外卦酉未巳。\n艮卦纳丙：内卦辰午申，外卦戌子寅。\n兑卦纳丁：内卦巳卯丑，外卦亥酉未。\n\n安爻支者，阳卦顺行，阴卦逆行。\n\n第三论 五行生克\n\n金生水、水生木、木生火、火生土、土生金，是为相生。\n金克木、木克土、土克水、水克火、火克金，是为相克。\n\n生我者父母，我生者子孙；克我者官鬼，我克者妻财；比和者兄弟。\n\n凡占以用神为核心，生用神者为元神，克用神者为忌神，生忌神克元神者为仇神。\n\n第四论 日月建\n\n月建者，正月建寅、二月卯、三月辰、四月巳、五月午、六月未、七月申、八月酉、九月戌、十月亥、十一月子、十二月丑。\n\n日辰者，即当日的干支。\n\n爻之旺衰以月建为重，以日辰为次。月建生扶者为旺，月建克泄者为衰。日辰生扶者得日助，日辰克害者被日伤。\n\n爻临月建，谓之月建爻，势力最重；爻临日辰，谓之日辰爻，次之。\n\n第五论 旬空\n\n甲子旬中戌亥空，甲戌旬中申酉空，甲申旬中午未空，甲午旬中辰巳空，甲辰旬中寅卯空，甲寅旬中子丑空。\n\n凡爻临旬空，不为空。出旬之后，方论空亡。空亡之中，有有用空与无用空之别：\n旺相空者，过旬即实，为有用空；\n休囚空者，真空无用。"}],"$undefined",["$","div",null,{"className":"mt-4 pt-4 border-t border-gold-500/25","children":[["$","div",null,{"className":"flex items-center gap-1.5 mb-2","children":[["$","span",null,{"className":"text-gold-600 text-xs","children":"💬"}],["$","span",null,{"className":"text-[10px] font-medium text-gold-600","children":"白话参考"}]]}],["$","div",null,{"className":"prose prose-sm max-w-none text-gray-500 leading-relaxed whitespace-pre-line","children":"十八论为《卜筮正宗》的总纲，从起卦到断卦，一一分析，是学习六爻不可或缺的法门。\n\n第一论 起卦法：占卜用铜钱代替蓍草。取三枚铜钱，在安静的房间焚香，让心神安定，手捧三枚铜钱，默默祈祷所问的事情。祈祷完毕，将铜钱连续摇六次，从下往上记录。\n\n三枚全是背面（无字的一面）是老阳，画○；一枚背面两枚字面是少阳，画—；两枚背面一枚字面是少阴，画- -；三枚全是字面（无背面）是老阴，画×。\n\n老阳和老阴是动爻，动了就会变化：阳动变成阴，阴动变成阳。六个爻确定后，内卦（初爻到三爻）和外卦（四爻到上爻）合成本卦；再将动爻变化，得到变卦。\n\n第二论 装卦法：装卦是把天干地支纳入卦的爻里。方法是确定世爻和应爻的位置，以及给卦爻配上干支。"}]]}],["$","div",null,{"className":"mt-3 pt-3 border-t border-gold-500/25","children":[["$","div",null,{"className":"flex items-center gap-1.5 mb-1","children":[["$","span",null,{"className":"text-gold-500 text-xs","children":"📝"}],["$","span",null,{"className":"text-[10px] font-medium text-gold-500","children":"注释"}]]}],["$","div",null,{"className":"prose prose-sm max-w-none text-gray-400 leading-relaxed whitespace-pre-line text-xs","children":"十八论是《卜筮正宗》最精华的部分，历来为六爻学者所重视。其中世应、纳干之法源自京房易，为六爻预测的核心技术。"}]]}]]}]
+24:T1242,第六论 六神配卦
+
+六神者：青龙、朱雀、勾陈、腾蛇、白虎、玄武。
+
+配法以日干为主：
+甲乙日起青龙，丙丁日起朱雀，戊日起勾陈，己日起腾蛇，庚辛日起白虎，壬癸日起玄武。
+
+每爻依次配一位，初爻起青龙，二爻朱雀，三爻勾陈，四爻腾蛇，五爻白虎，上爻玄武。
+
+青龙主喜事；朱雀主口舌；勾陈主田产；腾蛇主虚惊；白虎主凶丧；玄武主暗昧。
+
+第七论 动变生克冲合
+
+爻动则变，变化有力。动爻可生克静爻，静爻不能生克动爻。动爻有化进神、化退神、回头生、回头克等变化。
+
+进神者：寅化卯、巳化午、申化酉、亥化子、丑化辰、辰化未、未化戌、戌化丑。
+退神者：卯化寅、午化巳、酉化申、子化亥、辰化丑、丑化戌、戌化未、未化辰。
+
+回头生：动爻变化出之爻，生原来之动爻。如申金动化出水爻子水，申金生子水，生子水亦即回头生。
+回头克：动爻变化出之爻，克原来之动爻。如申金动化出午火，午火克申金，即回头克。
+
+第八论 冲合
+
+冲者，十二地支相冲：子午冲、丑未冲、寅申冲、卯酉冲、辰戌冲、巳亥冲。
+合者，六合：子丑合、寅亥合、卯戌合、辰酉合、巳申合、午未合。又有三合：申子辰合水局、亥卯未合木局、寅午戌合火局、巳酉丑合金局。
+
+用神逢冲则散，逢合则聚。用神冲中逢合，先散后聚；合中逢冲，先聚后散。
+
+第九论 月破
+
+月破者，月建所冲之爻也。正月寅月，申爻为月破；二月卯月，酉爻为月破，以此类推。
+
+月破之爻，值月无力，静而不动，有如废物。然动爻不为真破，出月不破；旺相有日月生扶者，虽破不破。
+
+第十论 生旺墓绝
+
+五行生旺墓绝，以日辰论：
+金长生在巳、旺在酉、墓在丑、绝在寅。
+木长生在亥、旺在卯、墓在未、绝在申。
+火长生在寅、旺在午、墓在戌、绝在亥。
+水土长生在申、旺在子、墓在辰、绝在巳。
+
+用神生旺则吉，绝墓则凶。若逢墓绝而又动，则死绝无生机。
+
+第十一论 伏神飞神
+
+六十四卦中，每卦皆有六爻，然各宫卦中，每宫八卦，每卦之中，用神有不现者，则取本宫首卦所纳之爻为伏神。
+
+伏神藏于本卦诸爻之下，为本爻飞神。以飞神生克伏神论吉凶：
+飞来生伏得长生，伏去生飞为泄气；
+飞来克伏反伤身，伏去克飞为出暴。
+
+第十二论 反吟伏吟
+
+反吟者，卦之动爻与变爻相冲，或卦与变卦相冲。反吟主事有反复、变动不宁。
+
+伏吟者，卦之动爻与变爻相同。伏吟主事有阻滞、忧郁难伸。
+
+第十三论 归魂游魂
+
+归魂：八纯卦之归魂卦。火天大有、天火同人、水地比、地水师等。归魂主不吉，出行不返、病者不愈。
+
+游魂：八纯卦之游魂卦。火地晋、地火明夷、水风井、风水涣等。游魂主不聚，心志不定、事无着落。
+
+第十四论 用神分类
+
+占父母长辈、文书契约、房产车辆——取父母爻为用神。
+占兄弟朋友、同辈同事——取兄弟爻为用神。
+占妻妾钱财、货物买卖——取妻财爻为用神。
+占子女晚辈、下属学生——取子孙爻为用神。
+占官运功名、丈夫疾病——取官鬼爻为用神。
+
+第十五论 用神旺衰
+
+用神生旺相：得日月生扶、临日建月建、动化进神、动化回头生。
+用神休囚：被日月克伤、临月破旬空、动化退神、动化回头克。
+
+用神旺相者吉，休囚者凶。旺相而空者，过旬即实；休囚而空者，真空无用。
+
+第十六论 原神忌神仇神
+
+生用神之爻为原神（元神）。原神旺相，用神有根，所求必遂。
+克用神之爻为忌神。忌神旺相，用神受伤，所求多阻。
+生忌神之爻为仇神。仇神发动，助忌神克害用神，灾祸更甚。
+
+第十七论 世应用法
+
+世为己，应为彼。世爻为我方之状态，应爻为对方或事体之状态。
+
+世应相生则吉，世应相克则凶。世克应，我胜彼；应克世，彼胜我。
+世爻旺相，我强；应爻旺相，彼强。
+世爻安静，我欲守；应爻发动，彼欲动。
+
+第十八论 综合断卦
+
+占卜断卦，先看用神。用神旺相、有生扶、无克害，吉。
+用神休囚、被冲克、化回头克，凶。
+
+次看世应。世应相生，事有和合；世应相克，事多矛盾。
+再看原神忌神，原神发动为吉，忌神发动为凶。
+
+五行生克为主，六神冲合为佐。综合参详，方得真义。1b:["$","details","juan1b",{"id":"ch-juan1b","className":"group bg-white border border-gray-100 rounded-xl overflow-hidden scroll-mt-24","children":[["$","summary",null,{"className":"px-5 py-3 text-sm font-medium text-gray-700 cursor-pointer hover:bg-gray-50 hover:text-gold-600 transition-colors flex items-center gap-2","children":[["$","span",null,{"className":"text-gray-300 group-open:text-gold-400 transition-colors","children":[2,"."]}],["$","span",null,{"children":"卷一·十八论（下）"}],["$","span",null,{"className":"text-[10px] bg-gold-500/5 text-gold-600 px-1.5 py-0.5 rounded","children":"白话"}],["$","span",null,{"className":"text-[10px] bg-gold-500/5 text-gold-500 px-1.5 py-0.5 rounded","children":"注"}],["$","span",null,{"className":"ml-auto text-gray-300 group-open:rotate-180 transition-transform text-xs","children":"▼"}]]}],["$","div",null,{"className":"px-5 pb-5 pt-2 border-t border-gray-50","children":[["$","div",null,{"className":"prose prose-sm max-w-none text-gray-600 leading-relaxed whitespace-pre-line","children":"$24"}],"$undefined",["$","div",null,{"className":"mt-4 pt-4 border-t border-gold-500/25","children":[["$","div",null,{"className":"flex items-center gap-1.5 mb-2","children":[["$","span",null,{"className":"text-gold-600 text-xs","children":"💬"}],["$","span",null,{"className":"text-[10px] font-medium text-gold-600","children":"白话参考"}]]}],["$","div",null,{"className":"prose prose-sm max-w-none text-gray-500 leading-relaxed whitespace-pre-line","children":"第六论到第十八论分别讲述了：\n六神（青龙朱雀勾陈蛇白虎玄武）配卦的方法；\n动爻的变化规律——进神、退神、回头生、回头克；\n地支的冲合关系；\n月破的概念和用法；\n五行生旺墓绝的十二种状态；\n伏神和飞神的概念（当用神不出现时，从本宫首卦取伏神）；\n反吟伏吟（卦爻反复不安）；\n归魂游魂（归魂凶、游魂散）；\n按不同占事类别取用神；\n用神旺衰的判断标准；\n原神、忌神、仇神的概念和用法；\n世爻和我、应爻和对方的关系分析；\n综合断卦的方法。"}]]}],["$","div",null,{"className":"mt-3 pt-3 border-t border-gold-500/25","children":[["$","div",null,{"className":"flex items-center gap-1.5 mb-1","children":[["$","span",null,{"className":"text-gold-500 text-xs","children":"📝"}],["$","span",null,{"className":"text-[10px] font-medium text-gold-500","children":"注释"}]]}],"$L25"]}]]}]]}]
+1c:["$","details","juan2a",{"id":"ch-juan2a","className":"group bg-white border border-gray-100 rounded-xl overflow-hidden scroll-mt-24","children":[["$","summary",null,{"className":"px-5 py-3 text-sm font-medium text-gray-700 cursor-pointer hover:bg-gray-50 hover:text-gold-600 transition-colors flex items-center gap-2","children":[["$","span",null,{"className":"text-gray-300 group-open:text-gold-400 transition-colors","children":[3,"."]}],["$","span",null,{"children":"卷二·黄金策注（上）"}],["$","span",null,{"className":"text-[10px] bg-gold-500/5 text-gold-600 px-1.5 py-0.5 rounded","children":"白话"}],["$","span",null,{"className":"text-[10px] bg-gold-500/5 text-gold-500 px-1.5 py-0.5 rounded","children":"注"}],["$","span",null,{"className":"ml-auto text-gray-300 group-open:rotate-180 transition-transform text-xs","children":"▼"}]]}],["$","div",null,{"className":"px-5 pb-5 pt-2 border-t border-gray-50","children":[["$","div",null,{"className":"prose prose-sm max-w-none text-gray-600 leading-relaxed whitespace-pre-line","children":"《黄金策》为明代刘伯温所作，六爻纳甲卜筮之最要赋文。王洪绪逐句详解，兹录其精华。\n\n【总纲篇】\n\n动静阴阳，反复迁变。\n虽万象之纷纭，须一理而融贯。\n\n注：卦有动爻静爻，爻有阴位阳位，变化反复不定。然万变不离其宗，皆以五行生克、用神旺衰为根本准则。\n\n夫人有贤不肖之殊，卦有过不及之异。\n太过者损之斯成，不及者益之乃就。\n\n注：凡事不可太过，亦不可不及。卦中用神过旺（如日月双临、重重生扶），反宜克制；用神衰绝（如日月不照、重重克害），反宜生扶。此为辩证之理。\n\n生扶拱合，时雨滋苗。\n克害刑冲，秋霜杀草。\n\n注：用神得生扶拱合（日生月扶、动爻来生、爻逢六合），如沐春雨，万事可成。用神逢克害刑冲（日月克制、动爻来克、爻遭冲刑），如遭秋霜，无往不利。\n\n【世应篇】\n\n世为己，应为人，大宜生合；\n动为事，静为机，最怕冲伤。\n\n注：世应相生相合，事必顺遂；世应相冲相克，事多龃龉。\n动爻代表事情的变化发展；静爻代表事机的隐藏状态。世应若被冲伤，受害更甚。\n\n【用神篇】\n\n用神有气无他故，所作皆成；\n主象徒存更被伤，凡谋不遂。\n\n注：用神旺相且无原忌神来搅扰，所求必成。用神虽然出现，但被日月动爻克伤，则事难成就。\n\n空亡有散亡之象，死绝无所成之机。\n\n注：用神逢空亡，主事无着落、有散亡之象。用神逢绝地，全无生机，事不可成。\n\n伏藏者，虽有若无；\n出现者，显而易见。\n\n注：用神伏藏不现，虽有若无，须待合日冲日方出。用神临日月，或动而出现，明显可见，事已明朗。\n\n【生克篇】\n\n用神生世，喜从心内；\n世生用神，财禄称情。\n\n注：用神生世爻，事之喜气从心而生，所求如意。世爻生用神，则我之努力可使所求得成，财禄可期。\n\n用克世，事必劳心；\n世克用，势能如意。\n\n注：用神克世爻，此事必使我付出心力、多有劳累。世爻克用神，则我能控制事态、掌握主动。\n\n【冲合篇】\n\n合处逢冲，始成终败；\n冲中逢合，先难后易。\n\n注：事物相合本是好事，若合中遇冲（合爻被冲），则先成后败。事物逢冲本凶，若冲中得合（冲而逢合），则先难后易、转危为安。"}],"$undefined",["$","div",null,{"className":"mt-4 pt-4 border-t border-gold-500/25","children":[["$","div",null,{"className":"flex items-center gap-1.5 mb-2","children":[["$","span",null,{"className":"text-gold-600 text-xs","children":"💬"}],["$","span",null,{"className":"text-[10px] font-medium text-gold-600","children":"白话参考"}]]}],["$","div",null,{"className":"prose prose-sm max-w-none text-gray-500 leading-relaxed whitespace-pre-line","children":"《黄金策》是明代刘伯温所作的六爻占卜最重要的赋文。王洪绪逐句详细解释，这里收录其中的精华。\n\n总纲篇讲：卦象虽然有千变万化，但归根结底都要遵循五行生克、用神旺衰这个根本原则。做事不可太过也不可不及，卦中用神太旺反而需要抑制，用神太衰则需要生扶。"}]]}],["$","div",null,{"className":"mt-3 pt-3 border-t border-gold-500/25","children":[["$","div",null,{"className":"flex items-center gap-1.5 mb-1","children":[["$","span",null,{"className":"text-gold-500 text-xs","children":"📝"}],["$","span",null,{"className":"text-[10px] font-medium text-gold-500","children":"注释"}]]}],["$","div",null,{"className":"prose prose-sm max-w-none text-gray-400 leading-relaxed whitespace-pre-line text-xs","children":"黄金策原文为骈文体，辞藻华丽、对仗工整。王洪绪的注释深入浅出，为后世所重。"}]]}]]}]]}]
+28:I[86869,[],"IconMark"]
+1d:["$","details","juan2b",{"id":"ch-juan2b","className":"group bg-white border border-gray-100 rounded-xl overflow-hidden scroll-mt-24","children":[["$","summary",null,{"className":"px-5 py-3 text-sm font-medium text-gray-700 cursor-pointer hover:bg-gray-50 hover:text-gold-600 transition-colors flex items-center gap-2","children":[["$","span",null,{"className":"text-gray-300 group-open:text-gold-400 transition-colors","children":[4,"."]}],["$","span",null,{"children":"卷二·黄金策注（中）"}],["$","span",null,{"className":"text-[10px] bg-gold-500/5 text-gold-600 px-1.5 py-0.5 rounded","children":"白话"}],["$","span",null,{"className":"text-[10px] bg-gold-500/5 text-gold-500 px-1.5 py-0.5 rounded","children":"注"}],["$","span",null,{"className":"ml-auto text-gray-300 group-open:rotate-180 transition-transform text-xs","children":"▼"}]]}],["$","div",null,{"className":"px-5 pb-5 pt-2 border-t border-gray-50","children":[["$","div",null,{"className":"prose prose-sm max-w-none text-gray-600 leading-relaxed whitespace-pre-line","children":"【天时篇】\n\n天道杳冥，岂可度思夫旱涝？\n易卦微妙，自能验彼之阴晴。\n\n注：占天时，以父母爻为雨，财爻为晴，子孙爻为日月星辰，官鬼爻为雷电云雾，兄弟爻为风。\n\n父发动，雨必滂沱；\n财发动，云开日出。\n\n火鬼主雷电，水鬼主暴雨，金鬼主风霜，土鬼主阴云。\n\n若父爻被冲被克，则雨难降；财爻被冲被克，则天难晴。\n父化父，连绵大雨；财化财，久旱不雨。\n\n【年时篇】\n\n比卦决农桑之丰歉，\n大有占岁运之吉凶。\n\n注：占年时岁运，以父爻为日月星辰，财爻为农桑百谷，子孙爻为六畜旺相，官鬼爻为灾祸病疫。\n\n财爻旺相，国泰民安；\n鬼爻发动，兵戈盗贼。\n\n太岁临父，风调雨顺；太岁临官，灾异频仍。\n财临青龙，五谷丰登；鬼临白虎，瘟疫流行。\n\n【身命篇】\n\n身命贵贱，卜之阴阳；\n造化吉凶，现于卦象。\n\n注：占一身之命运，以世爻为自己。世爻旺相有生扶，一生福厚；世爻衰绝无救助，终身贫贱。\n\n官鬼临青龙，功名显赫；\n妻财临白虎，财帛破损。\n\n子孙为福神，宜旺不宜衰。子孙旺相，一生快乐无忧。\n父母为辛苦神，太旺则劳碌终身。\n\n【家宅篇】\n\n家宅吉凶，全凭世应；\n阴阳配合，仔细推详。\n\n注：占家宅，以世为宅，应为居人。二世相合，家道兴隆；二世相冲，人口不安。\n\n初爻为地基，二爻为宅舍，三爻为门户，四爻为父母，五爻为家主，上爻为祖上。\n\n初爻旺，地基牢固；二爻旺，宅舍平安。\n三爻临官鬼，门户有灾；五爻临青龙，家主福厚。\n\n【婚姻篇】\n\n阴阳得位，夫妻偕老；\n生克合冲，须辨端的。\n\n注：占婚姻，男占以财为妇，女占以官为夫。卦中财官两旺，夫妻偕老；财官伤克，鳏寡孤独。\n\n男占：财爻生世，得贤妻；财爻克世，受妻制。\n女占：官爻生世，得良夫；官爻克世，畏夫严。\n\n世应相克，夫妻不和；世应相生，琴瑟和谐。\n\n【产孕篇】\n\n怀孕之喜，见于胎爻；\n分娩之期，察于动变。\n\n注：占产孕，以子孙爻为胎。子孙爻旺相有气，胎孕安稳。\n子孙爻临空亡月破，恐有堕胎之虞。\n\n生产日期：子孙爻动，逢合之日生产；静而不动，逢冲之日生产。\n\n【病症篇】\n\n病之轻重，视用神之旺衰；\n人之安危，察鬼爻之动静。\n\n注：占疾病，以官鬼为病，子孙为药，用神为病人。\n\n用神旺相，虽病无妨；用神休囚，病重难治。\n官鬼旺动，病势沉重；子孙发动，药到病除。\n\n鬼爻临白虎，病势凶险；鬼爻临蛇，病情怪异。\n用神化进神，病情加重；用神化退神，病情好转。"}],"$undefined",["$","div",null,{"className":"mt-4 pt-4 border-t border-gold-500/25","children":[["$","div",null,{"className":"flex items-center gap-1.5 mb-2","children":[["$","span",null,{"className":"text-gold-600 text-xs","children":"💬"}],["$","span",null,{"className":"text-[10px] font-medium text-gold-600","children":"白话参考"}]]}],["$","div",null,{"className":"prose prose-sm max-w-none text-gray-500 leading-relaxed whitespace-pre-line","children":"天时篇讲占天气的方法：父母爻代表下雨，妻财爻代表天晴，子孙爻代表日月星辰。\n\n年时篇讲占一年运势的方法：要看太岁和财爻的旺衰。\n\n身命篇讲占一生的命运：以世爻代表自己，旺相则福厚，衰绝则贫贱。\n\n家宅篇讲占住宅吉凶：以世爻为宅，以各爻代表房间的不同位置。\n\n婚姻篇讲占婚姻：男占看妻财爻，女占看官鬼爻。\n\n产孕篇讲占怀孕生产：看子孙爻的旺衰。\n\n病症篇讲占疾病：看官鬼爻代表病，子孙爻代表药。"}]]}],["$","div",null,{"className":"mt-3 pt-3 border-t border-gold-500/25","children":[["$","div",null,{"className":"flex items-center gap-1.5 mb-1","children":[["$","span",null,{"className":"text-gold-500 text-xs","children":"📝"}],["$","span",null,{"className":"text-[10px] font-medium text-gold-500","children":"注释"}]]}],["$","div",null,{"className":"prose prose-sm max-w-none text-gray-400 leading-relaxed whitespace-pre-line text-xs","children":"黄金策分类占断涵盖面极广，从天道气象到人事百态无所不包，王洪绪注释尤为精妙。"}]]}]]}]]}]
+1e:["$","details","juan2c",{"id":"ch-juan2c","className":"group bg-white border border-gray-100 rounded-xl overflow-hidden scroll-mt-24","children":[["$","summary",null,{"className":"px-5 py-3 text-sm font-medium text-gray-700 cursor-pointer hover:bg-gray-50 hover:text-gold-600 transition-colors flex items-center gap-2","children":[["$","span",null,{"className":"text-gray-300 group-open:text-gold-400 transition-colors","children":[5,"."]}],["$","span",null,{"children":"卷二·黄金策注（下）"}],["$","span",null,{"className":"text-[10px] bg-gold-500/5 text-gold-600 px-1.5 py-0.5 rounded","children":"白话"}],["$","span",null,{"className":"text-[10px] bg-gold-500/5 text-gold-500 px-1.5 py-0.5 rounded","children":"注"}],["$","span",null,{"className":"ml-auto text-gray-300 group-open:rotate-180 transition-transform text-xs","children":"▼"}]]}],["$","div",null,{"className":"px-5 pb-5 pt-2 border-t border-gray-50","children":[["$","div",null,{"className":"prose prose-sm max-w-none text-gray-600 leading-relaxed whitespace-pre-line","children":"【求财篇】\n\n求财之占，易卦最灵；\n财爻生旺，自然称情。\n\n注：占求财，以财爻为用神，以子孙爻为财源（子孙生财）。\n\n财爻旺相，得日月生扶，必得大利。\n财爻休囚，逢日月克害，求财无望。\n\n子孙为财源，宜旺不宜衰。子孙旺相，财源滚滚。\n兄弟为克财之神，忌其发动。兄弟爻动，必破财损利。\n\n世为我，财为所求。世生财，我利于求财；财生世，财来找我，最为吉利。\n财爻克世，求财反受其累。\n\n【出行篇】\n\n远行出入，世为主人；\n应爻为地，切忌冲刑。\n\n注：占出行，以世爻为出行之人，应爻为目的地。\n\n世爻旺相，出行顺利；世爻衰弱，不宜远行。\n应爻生世，到达顺利；应爻克世，目的地有碍。\n\n官鬼临世，旅途有险；子孙临世，一路平安。\n父母爻为舟车，旺相则交通工具可靠。\n\n【官运篇】\n\n问仕求官，官鬼为凭；\n父母文书，印绶伏神。\n\n注：占官运功名，以官鬼爻为用神，父母爻为文书（即印绶）。\n\n官鬼旺相，得日月生扶，必然功成名就。\n官鬼临青龙贵人，大吉之兆。\n官鬼化进神，步步高升；官鬼化退神，官位不保。\n\n父母爻为文书，宜旺不宜衰。父母旺相，考试有名、文书通达。\n\n世爻宜旺，世旺则能担官。世若休囚，官虽旺亦难久居。\n\n【讼狱篇】\n\n两造争讼，官鬼相争；\n世应比合，必定和成。\n\n注：占诉讼，以官鬼为官府，父母为文书，财爻为理。\n\n世应相冲，官司必起；世应相合，纠纷可解。\n官鬼生我，官中有人徇情；官鬼克我，官中有人加害。\n财爻旺相，我有理由胜诉。\n官鬼化进神，官司扩大；官鬼化退神，官司消弭。\n\n【坟墓篇】\n\n阴宅风水，以鬼为尸；\n旺相得地，魂安体固。\n\n注：占坟墓风水，以官鬼为亡者之骨骸，父母为墓穴。\n\n官鬼旺相，得日月生扶，风水大吉。\n官鬼临青龙、贵人，子孙必定昌盛。\n父爻宜旺，墓穴坚实。\n官鬼化进神，风水越来越好；官鬼化退神，风水渐衰。\n\n世爻为守墓之人，应爻为墓穴，两者相生相合，祖宗安居，子孙兴旺。\n\n【杂占篇】\n\n杂占一切，不出五行；\n用神兼象，仔细推评。\n\n占胎孕以子孙为用；\n占禽畜以子孙为凭；\n占蚕桑以财爻为要；\n占书籍文字以父母为用；\n占奴仆以财爻为用。\n\n凡占皆以求用神为先，用神失位，别求伏神。\n\n用神得位、旺相有气、日月生扶、无冲克害——百事大吉。\n用神失位、休囚无气、日月克破、重重刑害——诸事不吉。"}],"$undefined",["$","div",null,{"className":"mt-4 pt-4 border-t border-gold-500/25","children":[["$","div",null,{"className":"flex items-center gap-1.5 mb-2","children":[["$","span",null,{"className":"text-gold-600 text-xs","children":"💬"}],["$","span",null,{"className":"text-[10px] font-medium text-gold-600","children":"白话参考"}]]}],["$","div",null,{"className":"prose prose-sm max-w-none text-gray-500 leading-relaxed whitespace-pre-line","children":"求财篇讲占卜财运的方法：看妻财爻和子孙爻（财源）的旺衰。\n\n出行篇讲占卜出行：以世爻为自己，应爻为目的地。\n\n官运篇讲占卜功名：以官鬼爻为用神，父母爻为文书。\n\n讼狱篇讲占卜官司：以官鬼爻为官府，看双方世应的关系。\n\n坟墓篇讲占卜风水：以官鬼爻为逝者骨骸，父母爻为墓穴。\n\n杂占篇讲其他各类占卜的通用方法。"}]]}],["$","div",null,{"className":"mt-3 pt-3 border-t border-gold-500/25","children":[["$","div",null,{"className":"flex items-center gap-1.5 mb-1","children":[["$","span",null,{"className":"text-gold-500 text-xs","children":"📝"}],["$","span",null,{"className":"text-[10px] font-medium text-gold-500","children":"注释"}]]}],["$","div",null,{"className":"prose prose-sm max-w-none text-gray-400 leading-relaxed whitespace-pre-line text-xs","children":"黄金策分类占断涵盖天时、年时、身命、家宅、婚姻、产孕、病症、求财、出行、官运、讼狱、坟墓等十二大类，体系完备。"}]]}]]}]]}]
+26:Tdb9,卷三分门别类，详列各占之断法。以下择其要者。
+
+【占晴雨】
+
+占晴以财爻为主。财爻旺相不动，晴明之象。财爻临月建日辰，久晴不雨。财爻化进神，天更晴朗。
+
+占雨以父爻为主。父爻旺相发动，天必降雨。父爻化父爻，大雨连绵。父爻临青龙，细雨和风；父爻临白虎，暴雨狂风。
+
+官鬼爻临火动，主雷电；临水动，主久雨。
+
+【占出行】
+
+出行占世爻。世爻旺相，出行吉利。世爻暗动，不日启程。世爻安静，出行延迟。
+
+应爻为所至之地。应生世，去必如意；应克世，去必有碍。
+
+父母爻为舟车，旺相则旅途平安，休囚则需防事故。
+
+官鬼在五爻发动，途中有险。
+
+【占求财】
+
+财爻旺相，得日月生扶，财必得。财爻休囚无气，求财无望。
+
+兄弟爻为劫财之神，一动则财有损耗。兄弟爻临玄武，防人盗骗。
+
+子孙爻为财源，旺相则财源不断。子孙化进神，生意兴隆。
+
+世克财，我能得财；财生世，财来找我。两者皆吉。
+
+财爻临青龙，正财大吉；财爻临玄武，须防暗财惹祸。
+
+【占婚姻】
+
+男家占婚，以财爻为妻。财爻生世，得贤良之妻。财爻克世，妻虽能干，然有妻管严之虞。
+
+女家占婚，以官爻为夫。官爻生世，得如意郎君。官爻克世，夫有压制之性。
+
+财官两旺，夫妻和谐，白头偕老。
+财官有一空亡，鳏寡孤独之象。
+
+世应相生相合，婚姻必成。世应相冲相克，媒人白跑。
+
+青龙临世应，婚礼喜庆。玄武临财官，婚姻中有隐情。
+
+【占功名】
+
+官鬼爻旺相，功名有望。官临日月，魁首之才。
+父母爻旺相，文章得意。
+子孙爻不宜旺，子孙克官，有碍功名。
+
+官化进神，官运亨通。官化退神，仕途失意。
+官鬼临青龙，清贵之官。官鬼临白虎，掌刑杀之权。
+
+【占疾病】
+
+用神旺相，虽重病无妨。用神衰绝，虽小病难愈。
+鬼爻旺相发动，病势严重。鬼爻休囚安静，病轻易治。
+
+鬼临白虎，病势凶险。鬼临青龙，病由酒色。
+鬼临蛇，病多日夜不安。鬼临玄武，病由房事或暗疾。
+
+子爻发动，药到病除。子爻休囚，药石罔效。
+用神化进神，病加重；化退神，病渐轻。
+
+【占家宅】
+
+初爻为地基。旺相，地基坚固；休囚，地基不牢。
+二爻为宅。旺相，宅运亨通；休囚，宅运衰微。
+三爻为门。旺相，出入平安。
+四爻为户。旺相，阖家和睦。
+五爻为人。旺相，家中主事者康健。
+上爻为祖。旺相，祖德流芳。
+
+官鬼旺动，家中有灾。财爻旺相，家道殷实。
+子孙旺相，后嗣兴旺。青龙临宅，喜气盈门。
+
+【占失物】
+
+失物以财爻为用。财爻旺相，不失或可寻回。财爻空亡，难以找回。
+
+用象伏藏，逢冲之日可寻。
+用象发动，物已移动，不在原处。
+
+官鬼为盗贼。官爻旺相，贼人胆大。官鬼受制，贼可捕获。
+玄武临鬼，盗贼难防。朱雀临鬼，因口舌而失物。
+
+【占胎孕】
+
+子孙爻为胎儿，旺相则胎儿安康。子孙爻空亡，恐有流产。
+
+胎爻（占胎以子孙之长生处为胎爻）：胎爻旺相，妊娠顺利。
+
+生产日期看子孙爻，逢合、逢值之日即产。
+子孙爻动，产期早；静，产期迟。
+
+阴爻变阳，生男；阳爻变阴，生女。世爻为孕妇，宜旺不宜衰。1f:["$","details","juan3",{"id":"ch-juan3","className":"group bg-white border border-gray-100 rounded-xl overflow-hidden scroll-mt-24","children":[["$","summary",null,{"className":"px-5 py-3 text-sm font-medium text-gray-700 cursor-pointer hover:bg-gray-50 hover:text-gold-600 transition-colors flex items-center gap-2","children":[["$","span",null,{"className":"text-gray-300 group-open:text-gold-400 transition-colors","children":[6,"."]}],["$","span",null,{"children":"卷三·分类占断"}],["$","span",null,{"className":"text-[10px] bg-gold-500/5 text-gold-600 px-1.5 py-0.5 rounded","children":"白话"}],["$","span",null,{"className":"text-[10px] bg-gold-500/5 text-gold-500 px-1.5 py-0.5 rounded","children":"注"}],["$","span",null,{"className":"ml-auto text-gray-300 group-open:rotate-180 transition-transform text-xs","children":"▼"}]]}],["$","div",null,{"className":"px-5 pb-5 pt-2 border-t border-gray-50","children":[["$","div",null,{"className":"prose prose-sm max-w-none text-gray-600 leading-relaxed whitespace-pre-line","children":"$26"}],"$undefined",["$","div",null,{"className":"mt-4 pt-4 border-t border-gold-500/25","children":[["$","div",null,{"className":"flex items-center gap-1.5 mb-2","children":[["$","span",null,{"className":"text-gold-600 text-xs","children":"💬"}],["$","span",null,{"className":"text-[10px] font-medium text-gold-600","children":"白话参考"}]]}],["$","div",null,{"className":"prose prose-sm max-w-none text-gray-500 leading-relaxed whitespace-pre-line","children":"卷三按不同门类详细列出各种占卜的判断方法：\n\n占天晴下雨：要看财爻（晴）和父爻（雨）的旺衰动静。\n占出行：看世爻是否旺相、应爻是否相生。\n占求财：看财爻和子孙爻（财源）的状态，兄弟爻动则破财。\n占婚姻：男看财爻（妻）、女看官爻（夫），财官两旺则夫妻和谐。\n占功名：看官鬼爻和父母爻（文书），子孙爻克官则不利功名。\n占疾病：看用神（病人）的旺衰，鬼爻（病）的动静，子爻（药）是否发动。\n占家宅：按爻位对应房屋不同部分，上下结合判断。\n占失物：看财爻状态，官鬼爻为盗贼。\n占胎孕：看子孙爻代表胎儿，阴变阳生男、阳变阴生女。"}]]}],["$","div",null,{"className":"mt-3 pt-3 border-t border-gold-500/25","children":[["$","div",null,{"className":"flex items-center gap-1.5 mb-1","children":[["$","span",null,{"className":"text-gold-500 text-xs","children":"📝"}],["$","span",null,{"className":"text-[10px] font-medium text-gold-500","children":"注释"}]]}],["$","div",null,{"className":"prose prose-sm max-w-none text-gray-400 leading-relaxed whitespace-pre-line text-xs","children":"分类占断是六爻预测中最实用的部分，不同占事虽用神各异，但原理相通。初学者宜先掌握通用断法，再精研分类。"}]]}]]}]]}]
+27:Tc50,卷四为王洪绪历年占验之卦例，取其实践精华，以为后学之法。
+
+【卦例一】占求财
+
+戊子月 丁卯日（戌亥空），占求财。得火风鼎之山风蛊卦。
+
+鼎卦：离上巽下。初爻巳火动化子水回头克，二爻亥水静，三爻酉金静，四爻申金动化亥水，五爻未土静，上爻巳火静。
+
+断曰：财爻酉金伏于二爻亥水之下，临月建子月为水旺，金生水，财爻泄气。且初爻巳火动化子水回头克，不宜求财。果如所占，求财不得，反有损耗。
+
+【卦例二】占出行
+
+庚寅月 甲午日（辰巳空），占出行。得雷火丰卦。
+
+丰卦：震上离下。二爻卯木动化丑土，五爻申金静。
+
+断曰：世在二爻卯木，为驿马，动主出行。应爻在五爻申金，为目的地，生世爻卯木，主到达顺利。果于三日后出行，一路平安。
+
+【卦例三】占婚姻
+
+己亥月 辛酉日（辰巳空），占婚姻。得风火家人之天火同人。
+
+家人：巽上离下。初爻巳火动变子水回头克，断曰：财爻丑土伏藏，被月建亥水所克。初爻巳火动化子水回头克，财源受损。虽有婚议，终未能成。
+
+【卦例四】占疾病
+
+壬午月 丙戌日（午未空），占父病。得天水讼之泽水困卦。
+
+讼：乾上坎下。四爻午火动化酉金，父爻午火为用神。断曰：父爻午火临月建，旺相有气。虽动化酉金回头克，然月建生之，不为大害。果于服药后渐愈。
+
+【卦例五】占官运
+
+甲辰月 戊寅日（申酉空），占升迁。得水火既济之风火家人。
+
+既济：坎上离下。官鬼爻亥水伏于四爻之下，日辰寅木相合，官爻有气。果于月内升迁。
+
+【卦例六】占失物
+
+乙卯月 丁巳日（子丑空），占失牛。得风水涣之水风井。
+
+涣：巽上坎下。财爻酉金伏于世爻巽木之下，伏神被飞神所克。断曰：牛已失，难以寻回。果如所占。
+
+【卦例七】占家宅
+
+庚申月 丙子日（申酉空），占家宅。得地天泰之地风升。
+
+泰：坤上乾下。初爻子水动化丑土，五爻亥水静。断曰：初爻地基动，家中当有修造。宅爻二爻寅木旺相，宅运亨通。果于当月修缮房屋。
+
+【卦例八】占讼狱
+
+丙戌月 癸未日（申酉空），占官司。得火雷噬嗑之火泽睽。
+
+噬嗑：离上震下。断曰：官鬼爻酉金临月建，官势盛大。然子水暗动以制官鬼，官司虽起，终可化解。果经调解而和。
+
+【卦例九】占胎孕
+
+丁卯月 辛亥日（寅卯空），占胎孕。得天风姤之泽风大过。
+
+姤：乾上巽下。子孙子水伏于初爻丑土之下，飞神生伏神，胎孕稳。阴爻动主女。果生一女。
+
+【卦例十】占年运
+
+戊戌年 甲子月 乙未日（辰巳空），占来年运势。得地山谦之风山渐。
+
+谦：坤上艮下。五爻亥水动化巳火，财爻伏藏。断曰：来年财运平平，宜守不宜攻。至己亥年，果如所占。
+
+以上卦例，皆王洪绪亲占有验者。学者宜反复揣摩，融会贯通，则六爻之妙可渐次得之。20:["$","details","juan4",{"id":"ch-juan4","className":"group bg-white border border-gray-100 rounded-xl overflow-hidden scroll-mt-24","children":[["$","summary",null,{"className":"px-5 py-3 text-sm font-medium text-gray-700 cursor-pointer hover:bg-gray-50 hover:text-gold-600 transition-colors flex items-center gap-2","children":[["$","span",null,{"className":"text-gray-300 group-open:text-gold-400 transition-colors","children":[7,"."]}],["$","span",null,{"children":"卷四·卦例精解"}],["$","span",null,{"className":"text-[10px] bg-gold-500/5 text-gold-600 px-1.5 py-0.5 rounded","children":"白话"}],["$","span",null,{"className":"text-[10px] bg-gold-500/5 text-gold-500 px-1.5 py-0.5 rounded","children":"注"}],["$","span",null,{"className":"ml-auto text-gray-300 group-open:rotate-180 transition-transform text-xs","children":"▼"}]]}],["$","div",null,{"className":"px-5 pb-5 pt-2 border-t border-gray-50","children":[["$","div",null,{"className":"prose prose-sm max-w-none text-gray-600 leading-relaxed whitespace-pre-line","children":"$27"}],"$undefined",["$","div",null,{"className":"mt-4 pt-4 border-t border-gold-500/25","children":[["$","div",null,{"className":"flex items-center gap-1.5 mb-2","children":[["$","span",null,{"className":"text-gold-600 text-xs","children":"💬"}],["$","span",null,{"className":"text-[10px] font-medium text-gold-600","children":"白话参考"}]]}],["$","div",null,{"className":"prose prose-sm max-w-none text-gray-500 leading-relaxed whitespace-pre-line","children":"卷四收录了王洪绪历年亲自占验的实例，包括求财、出行、婚姻、疾病、官运、失物、家宅、讼狱、胎孕、年运等十类，每例均详细记录卦象和断语，是学习六爻实战的最佳教材。"}]]}],["$","div",null,{"className":"mt-3 pt-3 border-t border-gold-500/25","children":[["$","div",null,{"className":"flex items-center gap-1.5 mb-1","children":[["$","span",null,{"className":"text-gold-500 text-xs","children":"📝"}],["$","span",null,{"className":"text-[10px] font-medium text-gold-500","children":"注释"}]]}],["$","div",null,{"className":"prose prose-sm max-w-none text-gray-400 leading-relaxed whitespace-pre-line text-xs","children":"卦例是学习六爻实战最重要的途径。初学者宜先研读十八论打好理论基础，再通过卦例体会断卦思路。"}]]}]]}]]}]
+21:["$","div",null,{"className":"mb-10","children":[["$","h2",null,{"className":"text-lg font-bold text-gray-700 mb-3 flex items-center gap-2","children":[["$","span",null,{"children":"🔗"}]," 关联典籍"]}],["$","div",null,{"className":"grid grid-cols-1 md:grid-cols-2 gap-3","children":[["$","$L14","huozhu-lin",{"href":"/xueguan/bushi-liuyao/huozhu-lin","className":"flex items-center gap-3 bg-white border border-gray-100 rounded-lg p-4 hover:shadow-sm hover:border-gold-200 transition-all group","children":[["$","span",null,{"className":"text-2xl text-gray-200","children":"📖"}],["$","div",null,{"className":"flex-1 min-w-0","children":[["$","div",null,{"className":"text-sm font-medium text-gray-700 group-hover:text-gold-600 transition-colors","children":"火珠林"}],["$","div",null,{"className":"text-xs text-gray-400","children":["麻衣道者"," · ","唐·五代"]}]]}]]}],["$","$L14","zengshan-buyi",{"href":"/xueguan/bushi-liuyao/zengshan-buyi","className":"flex items-center gap-3 bg-white border border-gray-100 rounded-lg p-4 hover:shadow-sm hover:border-gold-200 transition-all group","children":[["$","span",null,{"className":"text-2xl text-gray-200","children":"📖"}],["$","div",null,{"className":"flex-1 min-w-0","children":[["$","div",null,{"className":"text-sm font-medium text-gray-700 group-hover:text-gold-600 transition-colors","children":"增删卜易"}],["$","div",null,{"className":"text-xs text-gray-400","children":["野鹤老人"," · ","清"]}]]}]]}]]}]]}]
+22:["$","div",null,{"className":"mt-12 pt-6 border-t border-gray-100","children":["$","div",null,{"className":"flex items-center justify-between","children":["$","div",null,{"className":"flex items-center gap-3","children":[["$","$L14",null,{"href":"/xueguan/bushi-liuyao","className":"text-sm text-gold-500 hover:text-gold-600 transition-colors","children":["← 返回 ","六爻纳甲"]}],["$","span",null,{"className":"text-gray-200 text-xs","children":"·"}],["$","$L14",null,{"href":"/xueguan","className":"text-sm text-gray-400 hover:text-gold-500 transition-colors","children":"返回书馆首页"}],["$","span",null,{"className":"text-gray-200 text-xs","children":"·"}],["$","$L14",null,{"href":"/","className":"text-sm text-gray-400 hover:text-gold-500 transition-colors","children":"🏠 返回九宫八卦首页"}]]}]}]}]
+23:["$","script",null,{"type":"application/ld+json","dangerouslySetInnerHTML":{"__html":"{\"@context\":\"https://schema.org\",\"@type\":\"Book\",\"@id\":\"https://jiugongbagua.com/xueguan/bushi-liuyao/bushi-zhengzong\",\"name\":\"卜筮正宗\",\"author\":\"王洪绪\",\"description\":\"清代六爻正宗，卦理明晰最利初学\",\"keywords\":\"王洪绪, 十八论, 用神, 六爻入门\",\"numberOfPages\":\"四卷\",\"genre\":\"六爻纳甲\",\"inLanguage\":\"zh-CN\",\"isAccessibleForFree\":true,\"publisher\":{\"@type\":\"Organization\",\"name\":\"九宫八卦易学书馆\",\"url\":\"https://jiugongbagua.com\"},\"provider\":{\"@type\":\"Organization\",\"name\":\"九宫八卦\"},\"maintainer\":{\"@type\":\"Organization\",\"name\":\"九宫八卦易学书馆\",\"url\":\"https://jiugongbagua.com\"}}"}}]
+25:["$","div",null,{"className":"prose prose-sm max-w-none text-gray-400 leading-relaxed whitespace-pre-line text-xs","children":"十八论是王洪绪对六爻理论的系统总结，条理清晰，初学者宜反复研读。尤以用神、原忌仇神三论最为紧要。"}]
+11:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]
+f:null
+13:[["$","title","0",{"children":"卜筮正宗 - 六爻纳甲 | 易学书馆 | 九宫八卦 | 九宫八卦"}],["$","meta","1",{"name":"description","content":"卜筮正宗 · 王洪绪 · 清 · 清代六爻正宗，卦理明晰最利初学（约50千字）"}],["$","meta","2",{"name":"author","content":"九宫八卦"}],["$","meta","3",{"name":"keywords","content":"九宫八卦,八字排盘,紫微斗数,六爻,小六壬,周公解梦,姓名测试,号码测吉凶,黄历,塔罗,命理,易经,梅花易数,合婚,传统文化,奇门遁甲"}],["$","meta","4",{"name":"creator","content":"九宫八卦"}],["$","meta","5",{"name":"publisher","content":"九宫八卦"}],["$","meta","6",{"name":"robots","content":"index, follow"}],["$","meta","7",{"name":"googlebot","content":"index, follow"}],["$","meta","8",{"property":"og:title","content":"九宫八卦 - 传统命理在线测算平台"}],["$","meta","9",{"property":"og:description","content":"传承经典 · 智慧启航。八字排盘、紫微斗数、六爻、梅花易数、小六壬等二十余种传统命理服务。"}],["$","meta","10",{"property":"og:url","content":"https://jiugongbagua.com/"}],["$","meta","11",{"property":"og:site_name","content":"九宫八卦"}],["$","meta","12",{"property":"og:locale","content":"zh_CN"}],["$","meta","13",{"property":"og:type","content":"website"}],["$","meta","14",{"name":"twitter:card","content":"summary"}],["$","meta","15",{"name":"twitter:title","content":"九宫八卦 - 中国传统命理文化平台"}],["$","meta","16",{"name":"twitter:description","content":"九宫八卦是中国传统命理文化平台，提供八字排盘、紫微斗数、六爻、小六壬、周公解梦、姓名测试、号码测吉凶、黄历择日、塔罗等在线服务。"}],["$","link","17",{"rel":"icon","href":"/favicon.ico?083af30e08c51e01","type":"image/x-icon","sizes":"16x16"}],["$","$L28","18",{}]]

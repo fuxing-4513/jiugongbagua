@@ -1,0 +1,198 @@
+1:"$Sreact.fragment"
+2:I[98500,["8500","static/chunks/8500-54689a19bd9dd50c.js","3865","static/chunks/app/xueguan/%5Bcategory%5D/%5Bbook%5D/page-03870549be1401fa.js"],""]
+3:I[54444,["8500","static/chunks/8500-54689a19bd9dd50c.js","3865","static/chunks/app/xueguan/%5Bcategory%5D/%5Bbook%5D/page-03870549be1401fa.js"],"default"]
+c:X
+11:X
+11:C
+0:{"buildId":"ndmlkSBrY5o9h8YrCkC-M","data":[{"rsc":["$","$1","c",{"children":[["$","div",null,{"className":"max-w-4xl mx-auto px-4 py-20","children":[["$","div",null,{"className":"mb-8 text-sm text-gray-400","children":[["$","$L2",null,{"href":"/xueguan","className":"hover:text-gold-500 transition-colors","children":"易学书馆"}],["$","span",null,{"className":"mx-2","children":"/"}],[["$","$L2",null,{"href":"/xueguan/yiyi-wuyun","className":"hover:text-gold-500 transition-colors","children":["🌪️"," ","五运六气"]}],["$","span",null,{"className":"mx-2","children":"/"}]],["$","span",null,{"className":"text-gray-600","children":"黄帝内经·素问（运气七篇）"}]]}],["$","div",null,{"className":"mb-8","children":[["$","h1",null,{"className":"text-3xl font-bold text-gray-800 font-serif mb-2","children":"黄帝内经·素问（运气七篇）"}],["$","div",null,{"className":"flex flex-wrap items-center gap-3 text-sm text-gray-500","children":[["$","span",null,{"className":"bg-gray-50 px-2 py-0.5 rounded","children":"战国·汉"}],["$","span",null,{"className":"bg-gray-50 px-2 py-0.5 rounded","children":"托名黄帝"}],["$","span",null,{"className":"bg-gray-50 px-2 py-0.5 rounded","children":"七篇"}],["$","span",null,{"className":"bg-gray-50 px-2 py-0.5 rounded","children":["~",50,"千字"]}],["$","span",null,{"className":"bg-gold-500-50 text-gold-600 px-2 py-0.5 rounded font-medium","children":"完整收录"}]]}],"$undefined",["$","p",null,{"className":"mt-4 text-sm text-gray-500 dark:text-gray-400 leading-relaxed max-w-3xl","children":"《黄帝内经·素问》运气七篇，包括《天元纪大论》《五运行大论》《六微旨大论》《气交变大论》《五常政大论》《六元正纪大论》《至真要大论》，是中国古代五运六气理论最核心的经典文献。以天干地支、五行生克、六气司天在泉等概念构建气运推演体系，是医易同源最直接的体现。"}]]}],["$","div",null,{"className":"mb-8 flex flex-wrap gap-2","children":[["$","span","五运六气",{"className":"text-xs bg-gray-50 text-gray-500 px-2.5 py-1 rounded-full border border-gray-100","children":["#","五运六气"]}],["$","span","司天在泉",{"className":"text-xs bg-gray-50 text-gray-500 px-2.5 py-1 rounded-full border border-gray-100","children":["#","司天在泉"]}],["$","span","气交变",{"className":"text-xs bg-gray-50 text-gray-500 px-2.5 py-1 rounded-full border border-gray-100","children":["#","气交变"]}],["$","span","医易同源",{"className":"text-xs bg-gray-50 text-gray-500 px-2.5 py-1 rounded-full border border-gray-100","children":["#","医易同源"]}]]}],["$","div",null,{"className":"mb-10","children":[["$","h2",null,{"className":"text-lg font-bold text-gray-700 mb-3 flex items-center gap-2","children":[["$","span",null,{"children":"📖"}]," 典籍简介"]}],["$","div",null,{"className":"bg-white border border-gray-100 rounded-xl p-6","children":["$","p",null,{"className":"text-gray-600 leading-relaxed whitespace-pre-line","children":"《黄帝内经·素问》运气七篇，包括《天元纪大论》《五运行大论》《六微旨大论》《气交变大论》《五常政大论》《六元正纪大论》《至真要大论》，是中国古代五运六气理论最核心的经典文献。以天干地支、五行生克、六气司天在泉等概念构建气运推演体系，是医易同源最直接的体现。"}]}]]}],["$","div",null,{"className":"mb-6 bg-gold-50/30 border border-gold-200/50 rounded-xl overflow-hidden","children":[["$","div",null,{"className":"px-5 py-2 bg-gold-50/50 border-b border-gold-200/30 flex items-center gap-2","children":[["$","span",null,{"className":"text-gold-500 text-sm","children":"🏛️"}],["$","span",null,{"className":"text-xs font-medium text-gold-600","children":"九宫导读"}]]}],["$","div",null,{"className":"px-5 py-4","children":["$","div",null,{"className":"prose prose-sm max-w-none text-gray-600 leading-relaxed whitespace-pre-line","children":"《黄帝内经·素问》运气七篇，战国至汉代成书，托名黄帝，实为先秦至汉医家集体智慧的结晶。七篇包括：天元纪大论、五运行大论、六微旨大论、气交变大论、五常政大论、六元正纪大论、至真要大论，是中国古代五运六气理论最核心的经典文献。唐代王冰次注《素问》时将七篇补入，宋代林亿等校正后遂成定本。\n\n【九宫按】\n五运六气理论以天干地支为时间坐标，以五行生克为逻辑框架，以六气（风寒暑湿燥火）为气候模型，构建了一套天人相应的动态预测体系。这是中国古代最接近「系统动力学」的理论建构——它不是一个静态的分类体系，而是一个不断运转、相互影响的气化模型。六微旨大论云「升已而降，降者谓天；降已而升，升者谓地。天气下降，气流于地；地气上升，气腾于天。故高下相召，升降相因，而变化作矣。」此即天地气交、互为其根的核心机制。\n\n【阅读建议】\n运气七篇篇幅较大，建议先读天元纪大论（总论性质），再读五运行大论（五运详论），然后六微旨大论（六气详论），最后三篇（气交变、五常政、六元正纪）为应用深入。至真要大论为病机与治法总纲，可单独精读。\n\n【版本说明】\n本文以明顾从德翻刻宋本《黄帝内经素问》为底本，参校明正统道藏本《黄帝内经素问》及明嘉靖赵简王居敬堂刊本。"}]}]]}],["$","div",null,{"className":"mb-10","children":[["$","$L3",null,{"bookTitle":"黄帝内经·素问（运气七篇）","bookId":"huangdi-neijing-yunqi"}],["$","h2",null,{"className":"text-lg font-bold text-gray-700 mb-3 flex items-center gap-2","children":["$L4"," 原文阅读 ","$L5"]}],"$L6"]}],false,null,null,"$L7","$L8","$L9"]}],null,"$La"]}],"isPartial":"$@b","staleTime":"$c","varyParams":null},{"rsc":"$Ld","isPartial":"$@e","staleTime":"$c","varyParams":null},{"rsc":"$Lf","isPartial":"$@10","staleTime":"$c","varyParams":"$11"},{"rsc":"$L12","isPartial":"$@13","staleTime":"$c","varyParams":"$11"},{"rsc":"$L14","isPartial":"$@15","staleTime":"$c","varyParams":"$11"},{"rsc":"$L16","isPartial":"$@17","staleTime":"$c","varyParams":null}],"isUpgradeableISRFallback":false,"a":"$@18","rootVaryParams":null,"needsRuntimeRequest":"$@19"}
+22:I[90484,[],"OutletBoundary"]
+23:"$Sreact.suspense"
+25:I[90484,[],"ViewportBoundary"]
+26:I[90484,[],"MetadataBoundary"]
+27:I[86869,[],"IconMark"]
+28:I[57121,[],""]
+29:I[74581,[],""]
+2a:I[6843,["8500","static/chunks/8500-54689a19bd9dd50c.js","7903","static/chunks/7903-746d7ec89cb5c2ea.js","7177","static/chunks/app/layout-fc1a743aee2ee60c.js"],"default"]
+:HL["/_next/static/css/c13e47ad35e05bb3.css","style"]
+4:["$","span",null,{"children":"📜"}]
+5:["$","span",null,{"className":"text-xs text-gray-400 font-normal","children":["（",7," 节）"]}]
+1a:Td78,黄帝问道：天有五行，分别主管东、南、中、西、北五个方位，从而生成寒、暑、燥、湿、风五种气候。人有五脏，化生五气，从而产生喜、怒、思、忧、恐五种情志。六节脏象论中提到五运之气相互承袭，各自主管一定的时间，一年为一个周期，周而复始，这我已经知道了。我想听您讲讲五运与三阴三阳六气是怎样配合的呢？
+
+鬼臾区行礼后回答说：您问得很高明啊。五运阴阳是天地间的根本规律，是万物的纲领，变化的根源，生长毁灭的本始，神妙变化的处所，怎么能不通晓呢！所以事物的发生叫做"化"，发展到极点叫做"变"，阴阳变化不可测度叫做"神"，神的作用没有固定方式叫做"圣"。
+
+变化的作用，在天表现为玄妙，在人表现为智慧，在地表现为生化。生化产生五味，智慧产生知识，玄妙产生神妙。神妙在天表现为风，在地表现为木；在天表现为热，在地表现为火；在天表现为湿，在地表现为土；在天表现为燥，在地表现为金；在天表现为寒，在地表现为水。所以在天为无形之气，在地为有形之物，形和气相互感应就化生出万物了。
+
+黄帝说：我想听听五运主管时说的情况怎样？
+
+鬼臾区说：五运运行，各有其固定的周期，并不是只主管一个季节。
+
+黄帝说：请您说说其中的道理。
+
+鬼臾区说：我稽考了《太始天元册》的文献，上面说：广阔无垠的太空，是化生万物的基础和本源，万物依靠它开始生长，五运终而复始地运行。布散真气，统一统领大地，九星悬耀天空，七曜循天周旋。于是有了阴和阳、柔和刚，幽暗和显明各居其位，寒冷和暑热交替张弛。万物生生不息，各类事物都得以彰显。我的家族已经十代相传这些知识了。
+
+黄帝说：讲得好。什么是气有多少、形有盛衰呢？
+
+鬼臾区说：阴阳之气各有多少的差别，所以有三阴三阳之分。形有盛衰，是指五行之气的运行各有太过和不及。所以当一种气太过之后，不足就会随之而来；一种气不足之后，有余就会跟着出现。掌握了气的来去规律，就可以预期它的变化。天气与运气相应叫做天符，岁运与年支相同叫做岁直，三合相合叫做治。
+
+黄帝说：天地之气相互感召是怎样的？
+
+鬼臾区说：寒、暑、燥、湿、风、火，是天之阴阳，三阴三阳在上承奉它。木、火、土、金、水，是地之阴阳，生长化收藏在下应和它。天以阳生阴长，地以阳杀阴藏。天有阴阳，地也有阴阳。所以阳中有阴，阴中有阳。要知道天地阴阳的道理，应天之气是运动不停的，所以五年就有一个右迁的变化；应地之气是静止而守位的，所以六年就有一个循环的会合。
+
+动与静相互感召，上与下相互临照，阴与阳相互交错，变化就这样产生了。
+
+黄帝说：天地上下运行的周期，有定数吗？
+
+鬼臾区说：天以六为节律，地以五为尺度。周行天气，六个阶段为一备；终了地纪，五年为一周。君火以光明为特性，相火以位置为特性。五和六相合，七百二十气为一纪，共三十年；一千四百四十气共六十年为一周，太过和不及的情况，在这当中都可以显现。6:["$","div",null,{"className":"space-y-4","children":[["$","details","tianyuanji",{"id":"ch-tianyuanji","className":"group bg-white border border-gray-100 rounded-xl overflow-hidden scroll-mt-24","children":[["$","summary",null,{"className":"px-5 py-3 text-sm font-medium text-gray-700 cursor-pointer hover:bg-gray-50 hover:text-gold-600 transition-colors flex items-center gap-2","children":[["$","span",null,{"className":"text-gray-300 group-open:text-gold-400 transition-colors","children":[1,"."]}],["$","span",null,{"children":"天元纪大论"}],["$","span",null,{"className":"text-[10px] bg-gold-500/5 text-gold-600 px-1.5 py-0.5 rounded","children":"白话"}],["$","span",null,{"className":"text-[10px] bg-gold-500/5 text-gold-500 px-1.5 py-0.5 rounded","children":"注"}],["$","span",null,{"className":"ml-auto text-gray-300 group-open:rotate-180 transition-transform text-xs","children":"▼"}]]}],["$","div",null,{"className":"px-5 pb-5 pt-2 border-t border-gray-50","children":[["$","div",null,{"className":"prose prose-sm max-w-none text-gray-600 leading-relaxed whitespace-pre-line","children":"黄帝问曰：天有五行，御五位，以生寒暑燥湿风。人有五脏，化五气，以生喜怒思忧恐。论言五运相袭而皆治之，终期之日，周而复始，余已知之矣。愿闻其与三阴三阳之候奈何合之？\n\n鬼臾区稽首再拜对曰：昭乎哉问也。夫五运阴阳者，天地之道也，万物之纲纪，变化之父母，生杀之本始，神明之府也，可不通乎！故物生谓之化，物极谓之变，阴阳不测谓之神，神用无方谓之圣。\n\n夫变化之为用也，在天为玄，在人为道，在地为化。化生五味，道生智，玄生神。神在天为风，在地为木；在天为热，在地为火；在天为湿，在地为土；在天为燥，在地为金；在天为寒，在地为水。故在天为气，在地成形，形气相感而化生万物矣。\n\n然天地者，万物之上下也；左右者，阴阳之道路也；水火者，阴阳之征兆也；金木者，生成之终始也。气有多少，形有盛衰，上下相召而损益彰矣。\n\n帝曰：愿闻五运之主时也何如？\n\n鬼臾区曰：五气运行，各终期日，非独主时也。\n\n帝曰：请闻其所谓也。\n\n鬼臾区曰：臣积考《太始天元册》文曰：太虚寥廓，肇基化元，万物资始，五运终天。布气真灵，总统坤元，九星悬朗，七曜周旋。曰阴曰阳，曰柔曰刚，幽显既位，寒暑弛张。生生化化，品物咸章。臣斯十世，此之谓也。\n\n帝曰：善。何谓气有多少，形有盛衰？\n\n鬼臾区曰：阴阳之气各有多少，故曰三阴三阳也。形有盛衰，谓五行之治，各有太过不及也。故其始也，有余而往，不足随之；不足而往，有余从之。知迎知随，气可与期。应天为天符，承岁为岁直，三合为治。\n\n帝曰：上下相召奈何？\n\n鬼臾区曰：寒暑燥湿风火，天之阴阳也，三阴三阳上奉之。木火土金水，地之阴阳也，生长化收藏下应之。天以阳生阴长，地以阳杀阴藏。天有阴阳，地亦有阴阳。故阳中有阴，阴中有阳。所以欲知天地之阴阳者，应天之气，动而不息，故五岁而右迁；应地之气，静而守位，故六期而环会。\n\n动静相召，上下相临，阴阳相错，而变由生也。\n\n帝曰：上下周纪，其有数乎？\n\n鬼臾区曰：天以六为节，地以五为制。周天气者，六期为一备；终地纪者，五岁为一周。君火以明，相火以位。五六相合而七百二十气为一纪，凡三十岁；千四百四十气凡六十岁而为一周，不及太过，斯皆见矣。"}],["$","div",null,{"className":"mt-4 flex flex-wrap gap-3 justify-center","children":[["$","figure","wuyun-liuqi-fig",{"className":"inline-flex flex-col items-center","children":[["$","img",null,{"src":"/images/xueguan/huangdi-neijing-yunqi/wuyun-liuqi-tu.svg","alt":"五运六气运转图","className":"w-auto h-auto max-w-[160px] border border-gray-100 rounded-lg bg-white","loading":"lazy"}],["$","figcaption",null,{"className":"text-[10px] text-gray-400 mt-1 text-center","children":"五运六气运转图：天干化五运，地支化六气，六十年一循环"}]]}]]}],["$","div",null,{"className":"mt-4 pt-4 border-t border-gold-500/25","children":[["$","div",null,{"className":"flex items-center gap-1.5 mb-2","children":[["$","span",null,{"className":"text-gold-600 text-xs","children":"💬"}],["$","span",null,{"className":"text-[10px] font-medium text-gold-600","children":"白话参考"}]]}],["$","div",null,{"className":"prose prose-sm max-w-none text-gray-500 leading-relaxed whitespace-pre-line","children":"$1a"}]]}],"$L1b"]}]]}],"$L1c","$L1d","$L1e","$L1f","$L20","$L21"]}]
+7:["$","div",null,{"className":"mb-10","children":[["$","h2",null,{"className":"text-lg font-bold text-gray-700 mb-3 flex items-center gap-2","children":[["$","span",null,{"children":"🔗"}]," 关联典籍"]}],["$","div",null,{"className":"grid grid-cols-1 md:grid-cols-2 gap-3","children":[["$","$L2","zhouyi",{"href":"/xueguan/bushi-yijing/zhouyi","className":"flex items-center gap-3 bg-white border border-gray-100 rounded-lg p-4 hover:shadow-sm hover:border-gold-200 transition-all group","children":[["$","span",null,{"className":"text-2xl text-gray-200","children":"📖"}],["$","div",null,{"className":"flex-1 min-w-0","children":[["$","div",null,{"className":"text-sm font-medium text-gray-700 group-hover:text-gold-600 transition-colors","children":"周易（易经）"}],["$","div",null,{"className":"text-xs text-gray-400","children":["周文王·孔子"," · ","西周·春秋"]}]]}]]}],["$","$L2","baopu-zi",{"href":"/xueguan/daojia-danding/baopu-zi","className":"flex items-center gap-3 bg-white border border-gray-100 rounded-lg p-4 hover:shadow-sm hover:border-gold-200 transition-all group","children":[["$","span",null,{"className":"text-2xl text-gray-200","children":"📖"}],["$","div",null,{"className":"flex-1 min-w-0","children":[["$","div",null,{"className":"text-sm font-medium text-gray-700 group-hover:text-gold-600 transition-colors","children":"抱朴子"}],["$","div",null,{"className":"text-xs text-gray-400","children":["葛洪"," · ","晋"]}]]}]]}]]}]]}]
+8:["$","div",null,{"className":"mt-12 pt-6 border-t border-gray-100","children":["$","div",null,{"className":"flex items-center justify-between","children":["$","div",null,{"className":"flex items-center gap-3","children":[["$","$L2",null,{"href":"/xueguan/yiyi-wuyun","className":"text-sm text-gold-500 hover:text-gold-600 transition-colors","children":["← 返回 ","五运六气"]}],["$","span",null,{"className":"text-gray-200 text-xs","children":"·"}],["$","$L2",null,{"href":"/xueguan","className":"text-sm text-gray-400 hover:text-gold-500 transition-colors","children":"返回书馆首页"}],["$","span",null,{"className":"text-gray-200 text-xs","children":"·"}],["$","$L2",null,{"href":"/","className":"text-sm text-gray-400 hover:text-gold-500 transition-colors","children":"🏠 返回九宫八卦首页"}]]}]}]}]
+9:["$","script",null,{"type":"application/ld+json","dangerouslySetInnerHTML":{"__html":"{\"@context\":\"https://schema.org\",\"@type\":\"Book\",\"@id\":\"https://jiugongbagua.com/xueguan/yiyi-wuyun/huangdi-neijing-yunqi\",\"name\":\"黄帝内经·素问（运气七篇）\",\"author\":\"托名黄帝\",\"description\":\"五运六气理论之祖，中医数理最高经典\",\"keywords\":\"五运六气, 司天在泉, 气交变, 医易同源\",\"numberOfPages\":\"七篇\",\"genre\":\"五运六气\",\"inLanguage\":\"zh-CN\",\"isAccessibleForFree\":true,\"publisher\":{\"@type\":\"Organization\",\"name\":\"九宫八卦易学书馆\",\"url\":\"https://jiugongbagua.com\"},\"provider\":{\"@type\":\"Organization\",\"name\":\"九宫八卦\"},\"maintainer\":{\"@type\":\"Organization\",\"name\":\"九宫八卦易学书馆\",\"url\":\"https://jiugongbagua.com\"}}"}}]
+a:["$","$L22",null,{"children":["$","$23",null,{"name":"Next.MetadataOutlet","children":"$@24"}]}]
+d:["$","$1","h",{"children":[null,["$","$L25",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]}],["$","div",null,{"hidden":true,"children":["$","$L26",null,{"children":["$","$23",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"黄帝内经·素问（运气七篇） - 五运六气 | 易学书馆 | 九宫八卦 | 九宫八卦"}],["$","meta","1",{"name":"description","content":"黄帝内经·素问（运气七篇） · 托名黄帝 · 战国·汉 · 五运六气理论之祖，中医数理最高经典（约50千字）"}],["$","meta","2",{"name":"author","content":"九宫八卦"}],["$","meta","3",{"name":"keywords","content":"九宫八卦,八字排盘,紫微斗数,六爻,小六壬,周公解梦,姓名测试,号码测吉凶,黄历,塔罗,命理,易经,梅花易数,合婚,传统文化,奇门遁甲"}],["$","meta","4",{"name":"creator","content":"九宫八卦"}],["$","meta","5",{"name":"publisher","content":"九宫八卦"}],["$","meta","6",{"name":"robots","content":"index, follow"}],["$","meta","7",{"name":"googlebot","content":"index, follow"}],["$","meta","8",{"property":"og:title","content":"九宫八卦 - 传统命理在线测算平台"}],["$","meta","9",{"property":"og:description","content":"传承经典 · 智慧启航。八字排盘、紫微斗数、六爻、梅花易数、小六壬等二十余种传统命理服务。"}],["$","meta","10",{"property":"og:url","content":"https://jiugongbagua.com/"}],["$","meta","11",{"property":"og:site_name","content":"九宫八卦"}],["$","meta","12",{"property":"og:locale","content":"zh_CN"}],["$","meta","13",{"property":"og:type","content":"website"}],["$","meta","14",{"name":"twitter:card","content":"summary"}],["$","meta","15",{"name":"twitter:title","content":"九宫八卦 - 中国传统命理文化平台"}],["$","meta","16",{"name":"twitter:description","content":"九宫八卦是中国传统命理文化平台，提供八字排盘、紫微斗数、六爻、小六壬、周公解梦、姓名测试、号码测吉凶、黄历择日、塔罗等在线服务。"}],["$","link","17",{"rel":"icon","href":"/favicon.ico?083af30e08c51e01","type":"image/x-icon","sizes":"16x16"}],["$","$L27","18",{}]]}]}]}],null]}]
+f:["$","$1","c",{"children":[null,["$","$L28",null,{"parallelRouterKey":"children","template":["$","$L29",null,{}]}]]}]
+12:["$","$1","c",{"children":[null,["$","$L28",null,{"parallelRouterKey":"children","template":["$","$L29",null,{}]}]]}]
+14:["$","$1","c",{"children":[null,["$","$L28",null,{"parallelRouterKey":"children","template":["$","$L29",null,{}]}]]}]
+16:["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/c13e47ad35e05bb3.css","precedence":"next"}]],["$","html",null,{"lang":"zh-Hans","suppressHydrationWarning":true,"children":[["$","head",null,{"children":[["$","meta",null,{"httpEquiv":"Content-Security-Policy","content":"default-src 'self'; script-src 'self' 'unsafe-inline' https://hm.baidu.com https://*.baidu.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https://hm.baidu.com https://*.baidu.com https://www.google-analytics.com; frame-src 'self'; base-uri 'self'; form-action 'self'; object-src 'none'; media-src 'self'; upgrade-insecure-requests"}],["$","link",null,{"rel":"icon","type":"image/png","href":"/taiji-favicon.png"}],["$","link",null,{"rel":"icon","type":"image/svg+xml","href":"/favicon.svg"}],["$","link",null,{"rel":"icon","type":"image/x-icon","href":"/favicon.ico"}],["$","link",null,{"rel":"apple-touch-icon","href":"/taiji-favicon.png"}],["$","link",null,{"rel":"manifest","href":"/manifest.json"}],["$","link",null,{"rel":"preconnect","href":"https://fonts.gstatic.com"}],["$","script",null,{"type":"application/ld+json","dangerouslySetInnerHTML":{"__html":"[{\"@context\":\"https://schema.org\",\"@type\":\"WebSite\",\"name\":\"九宫八卦\",\"url\":\"https://jiugongbagua.com\",\"description\":\"中国传统命理文化平台\",\"inLanguage\":[\"zh-CN\",\"zh-TW\",\"en\"],\"potentialAction\":{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://jiugongbagua.com/wenku?q={search_term_string}\"},\"query-input\":\"required name=search_term_string\"}},{\"@context\":\"https://schema.org\",\"@type\":\"WebApplication\",\"name\":\"九宫八卦命理测算平台\",\"url\":\"https://jiugongbagua.com\",\"description\":\"九宫八卦是中国传统命理文化平台，提供八字排盘、紫微斗数、六爻、小六壬、周公解梦、姓名测试、号码测吉凶、黄历择日、塔罗等在线服务。\",\"applicationCategory\":\"LifestyleApplication\",\"operatingSystem\":\"All\"},{\"@context\":\"https://schema.org\",\"@type\":\"BreadcrumbList\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"首页\",\"item\":\"https://jiugongbagua.com\"}]}]"}}]]}],["$","script",null,{"dangerouslySetInnerHTML":{"__html":"try{if(localStorage.getItem('jiugong-theme')==='night')document.documentElement.setAttribute('data-theme','night')}catch(e){}"}}],["$","body",null,{"className":"min-h-screen flex flex-col","children":["$","$L2a",null,{"children":["$","$L28",null,{"parallelRouterKey":"children","template":["$","$L29",null,{}],"notFound":[[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":404}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],[]]}]}]}]]}]]}]
+1b:["$","div",null,{"className":"mt-3 pt-3 border-t border-gold-500/25","children":[["$","div",null,{"className":"flex items-center gap-1.5 mb-1","children":[["$","span",null,{"className":"text-gold-500 text-xs","children":"📝"}],["$","span",null,{"className":"text-[10px] font-medium text-gold-500","children":"注释"}]]}],["$","div",null,{"className":"prose prose-sm max-w-none text-gray-400 leading-relaxed whitespace-pre-line text-xs","children":"天元纪大论是运气七篇的总纲，阐述了五运六气理论的核心概念框架。文中的「五运阴阳者，天地之道也」是整篇的总纲。「五岁而右迁」指五年一运的周期，「六期而环会」指六年一气的周期，两者相合形成六十年一甲子的完整循环。君火相火之分是运气理论中极为关键的概念——君火为心火，主动但不直接发挥作用；相火为命门之火，实际执行火的职能。《太始天元册》是上古运气文献，已失传。"}]]}]
+1c:["$","details","wuyunxing",{"id":"ch-wuyunxing","className":"group bg-white border border-gray-100 rounded-xl overflow-hidden scroll-mt-24","children":[["$","summary",null,{"className":"px-5 py-3 text-sm font-medium text-gray-700 cursor-pointer hover:bg-gray-50 hover:text-gold-600 transition-colors flex items-center gap-2","children":[["$","span",null,{"className":"text-gray-300 group-open:text-gold-400 transition-colors","children":[2,"."]}],["$","span",null,{"children":"五运行大论"}],["$","span",null,{"className":"text-[10px] bg-gold-500/5 text-gold-600 px-1.5 py-0.5 rounded","children":"白话"}],["$","span",null,{"className":"text-[10px] bg-gold-500/5 text-gold-500 px-1.5 py-0.5 rounded","children":"注"}],["$","span",null,{"className":"ml-auto text-gray-300 group-open:rotate-180 transition-transform text-xs","children":"▼"}]]}],["$","div",null,{"className":"px-5 pb-5 pt-2 border-t border-gray-50","children":[["$","div",null,{"className":"prose prose-sm max-w-none text-gray-600 leading-relaxed whitespace-pre-line","children":"黄帝坐明堂，始正天纲，临观八极，考建五常，请天师而问之曰：论言天地之动静，神明为之纪；阴阳之升降，寒暑彰其兆。余闻五运之数于夫子，夫子之所言，正五气之各主岁尔。首甲定运，余因论之。鬼臾区曰：土主甲己，金主乙庚，水主丙辛，木主丁壬，火主戊癸。子午之上，少阴主之；丑未之上，太阴主之；寅申之上，少阳主之；卯酉之上，阳明主之；辰戌之上，太阳主之；巳亥之上，厥阴主之。不合阴阳，其故何也？\n\n岐伯曰：天地阴阳者，不以数推，以象之谓也。\n\n帝曰：愿闻其所始也。\n\n岐伯曰：昭乎哉问也！臣览《太始天元册》文，丹天之气经于牛女戊分；黅天之气经于心尾己分；苍天之气经于危室柳鬼；素天之气经于亢氐昴毕；玄天之气经于张翼娄胃。所谓戊己分者，奎壁角轸，则天地之门户也。夫候之所始，道之所生，不可不通也。\n\n帝曰：善。论言天地者万物之上下，左右者阴阳之道路，未知其所谓也。\n\n岐伯曰：所谓上下者，岁上下见阴阳之所在也。左右者，诸上见厥阴，左少阴右太阳；见少阴，左太阴右厥阴；见太阴，左少阳右少阴；见少阳，左阳明右太阴；见阳明，左太阳右少阳；见太阳，左厥阴右阳明。所谓面北而命其位，言其见也。\n\n帝曰：何谓也？\n\n岐伯曰：上者右行，下者左行，左右周天，余而复会也。\n\n帝曰：余闻鬼臾区曰：应地者静。今夫子乃言下者左行，不知其所谓也。愿闻何以生之乎？\n\n岐伯曰：天地动静，五行迁复，虽鬼臾区其上候而已，犹不能遍明。夫变化之用，天垂象，地成形，七曜纬虚，五行丽地。地者，所以载生成之形类也；虚者，所以列应天之精气也。形精之动，犹根本之与枝叶也，仰观其象，虽远可知也。\n\n帝曰：天地之气何以候之？\n\n岐伯曰：天地之气，胜复之作，不形于诊也。《脉法》曰：天地之变，无以脉诊。此之谓也。\n\n帝曰：间气何如？\n\n岐伯曰：随气所在，期于左右。\n\n帝曰：期之奈何？\n\n岐伯曰：从其气则和，违其气则病。不当其位者病，迭移其位者病，失守其位者危，尺寸反者死，阴阳交者死。先立其年，以知其气，左右应见，然后乃可以言死生之逆顺。"}],"$undefined",["$","div",null,{"className":"mt-4 pt-4 border-t border-gold-500/25","children":[["$","div",null,{"className":"flex items-center gap-1.5 mb-2","children":[["$","span",null,{"className":"text-gold-600 text-xs","children":"💬"}],["$","span",null,{"className":"text-[10px] font-medium text-gold-600","children":"白话参考"}]]}],["$","div",null,{"className":"prose prose-sm max-w-none text-gray-500 leading-relaxed whitespace-pre-line","children":"黄帝坐于明堂之中，开始校正天文纲纪，观察八方极远之地，考建五常（五行之常理），请天师岐伯询问道：书上说天地的动静是以神明的变化为纲纪的，阴阳的升降是以寒暑的变化为预兆的。我听闻先生关于五运的论述，先生所说的正是五气各自主管一个岁运。以甲子为首来定五运之位，我已经就此进行了讨论。\n\n岐伯说：天地的阴阳变化，不能单靠数字推算，而要根据天地之象来把握。\n\n黄帝说：我想听听这其中的开始缘由。\n\n岐伯说：我阅览《太始天元册》的文献，看到丹红之气横贯于牛女二宿与戊分之间，黄色之气横贯于心尾二宿与己分之间，苍青之气横贯于危室柳鬼四宿之间，素白之气横贯于亢氐昴毕四宿之间，玄黑之气横贯于张翼娄胃四宿之间。所谓戊己之位，对应奎壁角轸四宿，是天地的门户。万事万物的征兆从这里开始，道理也由此而产生，不可不通晓。\n\n黄帝说：善。书上说天地是万物的上下，左右是阴阳的道路，我还不太明白是什么意思。\n\n岐伯说：所谓上下，是指每年的司天、在泉——在上者为司天、在下者为在泉，阴阳各居其位。所谓左右，是指司天左右的两间气。比如厥阴司天，则左间为少阴、右间为太阳；少阴司天，则左间为太阴、右间为厥阴；太阴司天，则左间为少阳、右间为少阴；少阳司天，则左间为阳明、右间为太阴；阳明司天，则左间为太阳、右间为少阳；太阳司天，则左间为厥阴、右间为阳明。这是面向北方来定位，说的是面北所见之气。\n\n黄帝说：这是怎么回事？\n\n岐伯说：天上的气向右运行，地上的气向左运行，左右运行一周天，然后再会合。"}]]}],["$","div",null,{"className":"mt-3 pt-3 border-t border-gold-500/25","children":[["$","div",null,{"className":"flex items-center gap-1.5 mb-1","children":[["$","span",null,{"className":"text-gold-500 text-xs","children":"📝"}],["$","span",null,{"className":"text-[10px] font-medium text-gold-500","children":"注释"}]]}],["$","div",null,{"className":"prose prose-sm max-w-none text-gray-400 leading-relaxed whitespace-pre-line text-xs","children":"五运行大论详细阐述了五运与六气的对应关系，以及天地之气运行的左右方向规律。文中的「天地阴阳者，不以数推，以象之谓也」是极为重要的论断——意思是阴阳五行的变化不能用简单的数字去衡量，而要通过观察自然现象（气象、物候、星象）来感知。戊己分对应奎壁角轸，被称为天地之门户，是运气学说中气机流转的枢纽所在。司天在泉的左右旋转机制是五运六气推算的核心。"}]]}]]}]]}]
+2b:Tbbd,黄帝问曰：呜呼远哉！天之道也，如迎浮云，若视深渊。视深渊尚可测，迎浮云莫知其极。夫子数言谨奉天道，余闻而藏之，心私异之，不知其所谓也。愿夫子溢志尽言其事，令终不灭，久而不绝。天之道可得闻乎？
+
+岐伯稽首再拜对曰：明乎哉问天之道也。此因天之序，盛衰之时也。
+
+帝曰：愿闻天道六六之节盛衰何也？
+
+岐伯曰：上下有位，左右有纪。故少阳之右，阳明治之；阳明之右，太阳治之；太阳之右，厥阴治之；厥阴之右，少阴治之；少阴之右，太阴治之；太阴之右，少阳治之。此所谓气之标，盖南面而待之也。故曰：因天之序，盛衰之时，移光定位，正立而待之，此之谓也。
+
+少阳之上，火气治之，中见厥阴；阳明之上，燥气治之，中见太阴；太阳之上，寒气治之，中见少阴；厥阴之上，风气治之，中见少阳；少阴之上，热气治之，中见太阳；太阴之上，湿气治之，中见阳明。所谓本也。本之下，中之见也；见之下，气之标也。
+
+帝曰：愿闻其用也。
+
+岐伯曰：言天者求之本，言地者求之位，言人者求之气交。
+
+帝曰：何谓气交？
+
+岐伯曰：上下之位，气交之中，人之居也。故曰：天枢之上，天气主之；天枢之下，地气主之；气交之分，人气从之，万物由之。此之谓也。
+
+帝曰：何谓初中？
+
+岐伯曰：初凡三十度而有奇。中气同法。
+
+帝曰：初中何也？
+
+岐伯曰：所以分天地也。
+
+帝曰：愿卒闻之。
+
+岐伯曰：初者地气也，中者天气也。
+
+帝曰：其升降何如？
+
+岐伯曰：气之升降，天地之更用也。
+
+帝曰：愿闻其用何如？
+
+岐伯曰：升已而降，降者谓天；降已而升，升者谓地。天气下降，气流于地；地气上升，气腾于天。故高下相召，升降相因，而变化作矣。
+
+帝曰：善。寒湿相遘，燥热相临，风火相值，其有闻乎？
+
+岐伯曰：气有胜复，胜复之作，有德有化，有用有变，变则邪气居之。
+
+帝曰：何谓邪乎？
+
+岐伯曰：夫物之生从于化，物之极由乎变，变化之相薄，成败之所由也。故气有往复，用有迟速，四者之有，而化而变，风之来也。
+
+帝曰：迟速往复，风所由生，而化而变，故因盛衰之变耳。成败倚伏游乎中，何也？
+
+岐伯曰：成败倚伏生乎动，动而不已则变作矣。
+
+帝曰：有期乎？
+
+岐伯曰：不生不化，静之期也。
+
+帝曰：不生化乎？
+
+岐伯曰：出入废则神机化灭，升降息则气立孤危。故非出入，则无以生长壮老已；非升降，则无以生长化收藏。是以升降出入，无器不有。故器者生化之宇，器散则分之，生化息矣。故无不出入，无不升降。化有大小，期有远近，四者之有，而贵常守。反常则灾害至矣。故曰无形无患，此之谓也。1d:["$","details","liweizhi",{"id":"ch-liweizhi","className":"group bg-white border border-gray-100 rounded-xl overflow-hidden scroll-mt-24","children":[["$","summary",null,{"className":"px-5 py-3 text-sm font-medium text-gray-700 cursor-pointer hover:bg-gray-50 hover:text-gold-600 transition-colors flex items-center gap-2","children":[["$","span",null,{"className":"text-gray-300 group-open:text-gold-400 transition-colors","children":[3,"."]}],["$","span",null,{"children":"六微旨大论"}],["$","span",null,{"className":"text-[10px] bg-gold-500/5 text-gold-600 px-1.5 py-0.5 rounded","children":"白话"}],"$undefined",["$","span",null,{"className":"ml-auto text-gray-300 group-open:rotate-180 transition-transform text-xs","children":"▼"}]]}],["$","div",null,{"className":"px-5 pb-5 pt-2 border-t border-gray-50","children":[["$","div",null,{"className":"prose prose-sm max-w-none text-gray-600 leading-relaxed whitespace-pre-line","children":"$2b"}],"$undefined",["$","div",null,{"className":"mt-4 pt-4 border-t border-gold-500/25","children":[["$","div",null,{"className":"flex items-center gap-1.5 mb-2","children":[["$","span",null,{"className":"text-gold-600 text-xs","children":"💬"}],["$","span",null,{"className":"text-[10px] font-medium text-gold-600","children":"白话参考"}]]}],["$","div",null,{"className":"prose prose-sm max-w-none text-gray-500 leading-relaxed whitespace-pre-line","children":"黄帝感叹道：天的道理真是深远啊！如同仰望浮云，又像俯视深渊。看深渊还可以测量，仰望浮云却不知它的边际。先生多次说要谨慎奉行天道，我听了铭记在心，但心中还有疑惑，不知道究竟说的是什么。希望先生详细地讲一讲其中的道理，让这些知识永不磨灭、世代相传。天道究竟是什么呢？\n\n岐伯行礼回答说：黄帝问天道，问得真高明啊。这就是天之次序、盛衰变化的时机。\n\n黄帝说：我想听听天道六六之节怎样运行、盛衰是怎样变化的？\n\n岐伯说：上下各有其位，左右各有其序。少阳的右边是阳明，阳明的右边是太阳，太阳的右边是厥阴，厥阴的右边是少阴，少阴的右边是太阴，太阴的右边是少阳。这就是六气的表面标志。少阳之气下面火气主管，中间兼见厥阴；阳明之气下面燥气主管，中间兼见太阴……这就是六气的根本。谈天道要追究根本之气，谈地道要看方位所在，谈人道要看天地之气的交互。\n\n关于升降：升到极点就下降，下降是天的作用；降到极点又上升，上升是地的作用。天气下降，气流于地；地气上升，气腾于天。所以高下相互感应，升降互为因果，变化就产生了。\n\n气有胜复，胜复交替产生，就有了德化、作用、变化之别。万物的生成来源于化育，万物的终结来源于变化。气的出入升降是万物的根本——出入废止了生命就停止了，升降停息了生机就孤立危险了。所以升降出入，没有什么事物不具备。"}]]}],"$undefined"]}]]}]
+1e:["$","details","qijiaobian",{"id":"ch-qijiaobian","className":"group bg-white border border-gray-100 rounded-xl overflow-hidden scroll-mt-24","children":[["$","summary",null,{"className":"px-5 py-3 text-sm font-medium text-gray-700 cursor-pointer hover:bg-gray-50 hover:text-gold-600 transition-colors flex items-center gap-2","children":[["$","span",null,{"className":"text-gray-300 group-open:text-gold-400 transition-colors","children":[4,"."]}],["$","span",null,{"children":"气交变大论"}],["$","span",null,{"className":"text-[10px] bg-gold-500/5 text-gold-600 px-1.5 py-0.5 rounded","children":"白话"}],"$undefined",["$","span",null,{"className":"ml-auto text-gray-300 group-open:rotate-180 transition-transform text-xs","children":"▼"}]]}],["$","div",null,{"className":"px-5 pb-5 pt-2 border-t border-gray-50","children":[["$","div",null,{"className":"prose prose-sm max-w-none text-gray-600 leading-relaxed whitespace-pre-line","children":"黄帝问曰：五运更治，上应天期，阴阳往复，寒暑迎随，真邪相薄，内外分离，六经波荡，五气倾移，太过不及，专胜兼并，愿言其始，而有常名，可得闻乎？\n\n岐伯稽首再拜对曰：昭乎哉问也。是明道也。此上帝所贵，先师传之，臣虽不敏，往闻其旨。\n\n帝曰：余闻得其人不教，是谓失道；传非其人，慢泄天宝。余诚菲德，未足以受至道，然而众子哀其不终，愿夫子保于无穷，流于无极，余司其事，则而行之奈何？\n\n岐伯曰：请遂言之也。《上经》曰：夫道者，上知天文，下知地理，中知人事，可以长久。此之谓也。\n\n帝曰：何谓也？\n\n岐伯曰：本气位也。位天者天文也，位地者地理也，通于人气之变化者人事也。故太过者先天，不及者后天，所谓治化而人应之也。\n\n帝曰：五运之化，太过何如？\n\n岐伯曰：岁木太过，风气流行，脾土受邪。民病飧泄、食减、体重、烦冤、肠鸣、腹支满。上应岁星。甚则忽忽善怒，眩冒巅疾。化气不政，生气独治，云物飞动，草木不宁，甚而摇落。反胁痛而吐甚，冲阳绝者死不治。上应太白星。\n\n岁火太过，炎暑流行，金肺受邪。民病疟、少气、咳喘、血溢、血泄、注下、嗌燥、耳聋、中热、肩背热。上应荧惑星。甚则胸中痛、胁支满、胁痛、膺背肩胛间痛、两臂内痛、身热肤痛而为浸淫。收气不行，长气独明，雨水霜寒，上应辰星。上临少阴少阳，火燔焫，水泉涸，物焦槁。病反谵妄狂越，咳喘息鸣，下甚血溢泄不已，太渊绝者死不治。上应荧惑星。\n\n岁土太过，雨湿流行，肾水受邪。民病腹痛、清厥、意不乐、体重、烦冤。上应镇星。甚则肌肉萎、足痿不收、行善瘈、脚下痛、饮发中满、食减、四肢不举。变生得位，藏气伏化，气独治之，泉涌河衍，涸泽生鱼，风雨大至，土崩溃，鳞见于陆。病腹满溏泄、肠鸣反下甚，太溪绝者死不治。上应岁星。\n\n岁金太过，燥气流行，肝木受邪。民病两胁下少腹痛、目赤痛、眦疡、耳无所闻。肃杀而甚，则体重烦冤、胸痛引背、两胁满且痛引少腹。上应太白星。甚则喘咳逆气、肩背痛、尻阴股膝髀腨䯒足皆病。收气峻，生气下，草木敛，苍干凋陨。病反暴痛、胠胁不可反侧、咳逆甚而血溢，太冲绝者死不治。上应荧惑星。\n\n岁水太过，寒气流行，邪害心火。民病身热烦心、躁悸、阴厥、上下中寒、谵妄心痛。寒气早至，上应辰星。甚则腹大胫肿、喘咳、寝汗出、憎风。大雨至，埃雾朦郁。病反腹满肠鸣、溏泄食不化、渴而妄冒，神门绝者死不治。上应荧惑星。"}],"$undefined",["$","div",null,{"className":"mt-4 pt-4 border-t border-gold-500/25","children":[["$","div",null,{"className":"flex items-center gap-1.5 mb-2","children":[["$","span",null,{"className":"text-gold-600 text-xs","children":"💬"}],["$","span",null,{"className":"text-[10px] font-medium text-gold-600","children":"白话参考"}]]}],["$","div",null,{"className":"prose prose-sm max-w-none text-gray-500 leading-relaxed whitespace-pre-line","children":"黄帝问：五运交替治理，与天运周期相应，阴阳往复运行，寒暑交替来往。真气与邪气相互搏击，内外分离，六经波动，五脏之气偏移。有太过和不及的不同，有专胜和兼并之别。我想听听它们的来源和规律，可以讲给我听吗？\n\n岐伯回答说：您问得太高明了。这是显明的道理，是上帝所珍视的，先师传下来的。\n\n黄帝说：我听说遇到了合适的人而不传授，这叫失道；传授给不合适的人，这是轻慢泄漏天宝。我虽然德行不够，但是还是希望先生尽量讲一讲，使这些道理长久流传。\n\n岐伯说：好的，请让我详细讲述。《上经》说：懂得天道的人，上知天文、下知地理、中知人事，才能长久流传。\n\n黄帝问：五运太过如何？\n\n岐伯说：岁木太过，风气流行，脾土受邪。人民患飧泄、食减、体重、烦闷等症。岁火太过，炎暑流行，金肺受邪。人民患疟疾、少气、咳喘等症。岁土太过，雨湿流行，肾水受邪。人民患腹痛、四肢冷等症。岁金太过，燥气流行，肝木受邪。人民患胸胁痛、目赤等症。岁水太过，寒气流行，心火受邪。人民患身热心烦、心悸等症。"}]]}],"$undefined"]}]]}]
+2c:Tced,黄帝问曰：太虚寥廓，五运回薄，盛衰不同，损益相从。愿闻平气何如而名？何如而纪也？
+
+岐伯对曰：昭乎哉问也。木曰敷和，火曰升明，土曰备化，金曰审平，水曰静顺。
+
+帝曰：其不及奈何？
+
+岐伯曰：木曰委和，火曰伏明，土曰卑监，金曰从革，水曰涸流。
+
+帝曰：太过何谓？
+
+岐伯曰：木曰发生，火曰赫曦，土曰敦阜，金曰坚成，水曰流衍。
+
+帝曰：三气之纪，愿闻其候。
+
+岐伯曰：悉乎哉问也。敷和之纪，木德周行，阳舒阴布，五化宣平。其气端，其性随，其用曲直，其化生荣，其类草木，其政发散，其候温和，其令风，其藏肝。肝其畏清，其主目，其谷麻，其果李，其实核，其应春，其虫毛，其畜犬，其色苍，其养筋，其病里急支满，其味酸，其音角，其物中坚，其数八。
+
+发生之纪，是谓启陈。土疏泄，苍气达，阳和布化，阴气乃随，生气淳化，万物以荣。其化生，其气美，其政散，其令条舒，其动掉眩巅疾，其德鸣靡启坼，其变振拉摧拔，其谷麻稻，其畜鸡犬，其果桃李，其色青黄白，其味酸甘辛，其象春，其经足厥阴少阳，其藏肝脾，其虫毛介，其物中坚外坚，其病怒。太角与上商同，上征则其气逆，其病吐利。
+
+赫曦之纪，是谓蕃茂。阴气内化，阳气外荣，炎暑施化，物得以昌。其化长，其气高，其政动，其令鸣显，其动炎灼妄扰，其德暄暑郁蒸，其变炎烈沸腾，其谷麦豆，其畜羊彘，其果杏栗，其色赤白玄，其味苦辛咸，其象夏，其经手少阴太阳，手厥阴少阳，其藏心肺，其虫羽鳞，其物脉濡，其病笑疟疮疡血流狂妄目赤。上羽与正征同，其收齐，其病痓，上征而收气后也。
+
+敦阜之纪，是谓广化。厚德清静，顺长以盈，至阴内实，物化充成。烟埃朦郁，见于厚土，大雨时行，湿气乃用，燥政乃辟。其化圆，其气丰，其政静，其令周备，其动濡积并稸，其德柔润重淖，其变震惊飘骤崩溃，其谷稷麻，其畜牛犬，其果枣李，其色黅玄苍，其味甘咸酸，其象长夏，其经足太阴阳明，其藏脾肾，其虫倮毛，其物肌核，其病腹满四肢不举。大风迅至，邪伤脾也。
+
+审平之纪，是谓收引。天地洁，物以秋成，收气平布，生气不政。其化敛，其气坚，其政劲，其令雾露，其动暴折疡疰，其德雾露萧飋，其变肃杀凋零，其谷稻黍，其畜鸡马，其果桃杏，其色白青丹，其味辛酸苦，其象秋，其经手太阴阳明，其藏肺肝，其虫介羽，其物壳络，其病喘喝胸凭仰息。上征与正商同，其生齐，其病咳。政暴变则名木不荣，柔脆焦首，长气斯救，大火流，炎烁且至，蔓将稿，邪伤肺也。
+
+静顺之纪，是谓藏化。天地闭藏，水政宣行，其化凛，其气坚，其政谧，其令流注，其动漂泄沃涌，其德凝惨寒雰，其变冰雪霜雹，其谷豆稷，其畜彘牛，其果栗枣，其色黑丹黅，其味咸苦甘，其象冬，其经足少阴太阳，其藏肾心，其虫鳞倮，其物濡满，其病胀。上羽而长气不化也。1f:["$","details","wuchangzheng",{"id":"ch-wuchangzheng","className":"group bg-white border border-gray-100 rounded-xl overflow-hidden scroll-mt-24","children":[["$","summary",null,{"className":"px-5 py-3 text-sm font-medium text-gray-700 cursor-pointer hover:bg-gray-50 hover:text-gold-600 transition-colors flex items-center gap-2","children":[["$","span",null,{"className":"text-gray-300 group-open:text-gold-400 transition-colors","children":[5,"."]}],["$","span",null,{"children":"五常政大论"}],["$","span",null,{"className":"text-[10px] bg-gold-500/5 text-gold-600 px-1.5 py-0.5 rounded","children":"白话"}],"$undefined",["$","span",null,{"className":"ml-auto text-gray-300 group-open:rotate-180 transition-transform text-xs","children":"▼"}]]}],["$","div",null,{"className":"px-5 pb-5 pt-2 border-t border-gray-50","children":[["$","div",null,{"className":"prose prose-sm max-w-none text-gray-600 leading-relaxed whitespace-pre-line","children":"$2c"}],"$undefined",["$","div",null,{"className":"mt-4 pt-4 border-t border-gold-500/25","children":[["$","div",null,{"className":"flex items-center gap-1.5 mb-2","children":[["$","span",null,{"className":"text-gold-600 text-xs","children":"💬"}],["$","span",null,{"className":"text-[10px] font-medium text-gold-600","children":"白话参考"}]]}],["$","div",null,{"className":"prose prose-sm max-w-none text-gray-500 leading-relaxed whitespace-pre-line","children":"黄帝问：天地寥廓，五运循环往复，盛衰不同，损益相随。我想听听平气（正常之气）是如何命名的？又如何纪述呢？岐伯回答说：木的平气叫做“敷和”，火叫“升明”，土叫“备化”，金叫“审平”，水叫“静顺”。不及：木叫“委和”，火叫“伏明”，土叫“卑监”，金叫“从革”，水叫“涸流”。太过：木叫“发生”，火叫“赫曦”，土叫“敦阜”，金叫“坚成”，水叫“流衍”。每种气都有相应的气候、物候和疾病表现。"}]]}],"$undefined"]}]]}]
+2d:Tcf4,黄帝问曰：六化六变，胜复淫治，甘苦辛咸酸淡先后，余知之矣。夫五运之化，或从天气，或逆天气，或从天气而逆地气，或从地气而逆天气，或相得，或不相得，余未能明其事。欲通天之纪，从地之理，和其运，调其化，使上下合德，无相夺伦。天地升降，不失其宜；五运宣行，勿乖其政。调之正味，从逆奈何？
+
+岐伯稽首再拜对曰：昭乎哉问也。此天地之纲纪，变化之渊源，非圣帝孰能穷其至理欤？臣虽不敏，请陈其道，令终不灭，久而不易。
+
+帝曰：愿夫子推而次之，从其类序，分其部主，别其宗司，昭其气数，明其正化，可得闻乎？
+
+岐伯曰：先立其年，以明其气。金木水火土运行之数，寒暑燥湿风火临御之化，则天道可见，民病可调，阴阳卷舒，近而无惑。数之可数者，请遂言之。
+
+帝曰：太阳之政奈何？
+
+岐伯曰：辰戌之纪也。
+
+太阳 太角 太阴 壬辰 壬戌 其运风，其化鸣紊启坼，其变振拉摧拔，其病眩掉目瞑。
+
+太角初正 少征 太宫 少商 太羽终
+
+太阳 太征 太阴 戊辰 戊戌同正征 其运热，其化暄暑郁燠，其变炎烈沸腾，其病热郁。
+
+太征 少宫 太商 少羽终 少角初
+
+太阳 太宫 太阴 甲辰岁会同天符 甲戌岁会同天符 其运阴埃，其化柔润重泽，其变震惊飘骤，其病湿下重。
+
+太宫 少商 太羽终 太角初 少征
+
+太阳 太商 太阴 庚辰 庚戌 其运凉，其化雾露萧飋，其变肃杀凋零，其病燥背瞀胸满。
+
+太商 少羽终 少角初 太征 少宫
+
+太阳 太羽 太阴 丙辰天符 丙戌天符 其运寒，其化凝惨栗冽，其变冰雪霜雹，其病大寒留于溪谷。
+
+太羽终 太角初 少征 太宫 少商
+
+凡此太阳司天之政，气化运行先天。天气肃，地气静，寒临太虚，阳气不令，水土合德，上应辰星镇星。其谷玄黅。其政肃，其令徐。寒政大举，泽无阳焰，则火发待时。少阳中治，时雨乃涯。止极雨散，还于太阴，云朝北极，湿化乃布，泽流万物。寒敷于上，雷动于下，寒湿之气，持于气交。民病寒湿，发肌肉萎，足痿不收，濡泻血溢。
+
+初之气，地气迁，气乃大温，草乃早荣。民乃厉，温病乃作，身热头痛呕吐，肌腠疮疡。
+
+二之气，大凉反至，民乃惨，草乃遇寒，火气遂抑。民病气郁中满，寒乃始。
+
+三之气，天政布，寒气行，雨乃降。民病寒，反热中，痈疽注下，心热瞀闷，不治者死。
+
+四之气，风湿交争，风化为雨，乃长乃化乃成。民病大热少气，肌肉萎，足痿，注下赤白。
+
+五之气，阳复化，草乃长乃化乃成，民乃舒。
+
+终之气，地气正，湿令行，阴凝太虚，埃昏郊野。民乃惨凄，寒风以至，反者孕乃死。
+
+故岁宜苦以燥之温之。必折其郁气，先资其化源，抑其运气，扶其不胜，无使暴过而生其疾。食岁谷以全其真，避虚邪以安其正。适气同异，多少制之。同寒湿者燥热化，异寒湿者燥湿化。故同者多之，异者少之。用寒远寒，用凉远凉，用温远温，用热远热，食宜同法。有假者反常，反是者病。所谓时也。20:["$","details","liuyuanzhengji",{"id":"ch-liuyuanzhengji","className":"group bg-white border border-gray-100 rounded-xl overflow-hidden scroll-mt-24","children":[["$","summary",null,{"className":"px-5 py-3 text-sm font-medium text-gray-700 cursor-pointer hover:bg-gray-50 hover:text-gold-600 transition-colors flex items-center gap-2","children":[["$","span",null,{"className":"text-gray-300 group-open:text-gold-400 transition-colors","children":[6,"."]}],["$","span",null,{"children":"六元正纪大论"}],["$","span",null,{"className":"text-[10px] bg-gold-500/5 text-gold-600 px-1.5 py-0.5 rounded","children":"白话"}],"$undefined",["$","span",null,{"className":"ml-auto text-gray-300 group-open:rotate-180 transition-transform text-xs","children":"▼"}]]}],["$","div",null,{"className":"px-5 pb-5 pt-2 border-t border-gray-50","children":[["$","div",null,{"className":"prose prose-sm max-w-none text-gray-600 leading-relaxed whitespace-pre-line","children":"$2d"}],"$undefined",["$","div",null,{"className":"mt-4 pt-4 border-t border-gold-500/25","children":[["$","div",null,{"className":"flex items-center gap-1.5 mb-2","children":[["$","span",null,{"className":"text-gold-600 text-xs","children":"💬"}],["$","span",null,{"className":"text-[10px] font-medium text-gold-600","children":"白话参考"}]]}],["$","div",null,{"className":"prose prose-sm max-w-none text-gray-500 leading-relaxed whitespace-pre-line","children":"黄帝问：六气和五运的胜复制约关系我已知晓。但五运的化气有时顺天、有时逆天，我还不完全明白。岐伯说：先确定年份，再弄清五运六气的运行规律，天道就能看清了。本篇以太阳寒水司天为例，详细说明了辰戌之年的运气格局——五运的太过不及、六气的司天在泉变化，以及相应的发病规律和治疗原则。"}]]}],"$undefined"]}]]}]
+21:["$","details","zhiyao",{"id":"ch-zhiyao","className":"group bg-white border border-gray-100 rounded-xl overflow-hidden scroll-mt-24","children":[["$","summary",null,{"className":"px-5 py-3 text-sm font-medium text-gray-700 cursor-pointer hover:bg-gray-50 hover:text-gold-600 transition-colors flex items-center gap-2","children":[["$","span",null,{"className":"text-gray-300 group-open:text-gold-400 transition-colors","children":[7,"."]}],["$","span",null,{"children":"至真要大论"}],["$","span",null,{"className":"text-[10px] bg-gold-500/5 text-gold-600 px-1.5 py-0.5 rounded","children":"白话"}],"$undefined",["$","span",null,{"className":"ml-auto text-gray-300 group-open:rotate-180 transition-transform text-xs","children":"▼"}]]}],["$","div",null,{"className":"px-5 pb-5 pt-2 border-t border-gray-50","children":[["$","div",null,{"className":"prose prose-sm max-w-none text-gray-600 leading-relaxed whitespace-pre-line","children":"黄帝问曰：五气交合，盈虚更作，余知之矣。六气分治，司天地者，其至何如？\n\n岐伯再拜对曰：明乎哉问也。天地之大纪，人神之通应也。\n\n帝曰：愿闻上合昭昭，下合冥冥奈何？\n\n岐伯曰：厥阴司天，其化以风；少阴司天，其化以热；太阴司天，其化以湿；少阳司天，其化以火；阳明司天，其化以燥；太阳司天，其化以寒。以所临藏位，命其病者也。\n\n帝曰：地化奈何？\n\n岐伯曰：司天同候，间气皆然。\n\n帝曰：司天在泉，其主病何如？\n\n岐伯曰：岁主奈何？厥阴司天为风化，在泉为酸化，司气为苍化，间气为动化。少阴司天为热化，在泉为苦化，不司气化，居气为灼化。太阴司天为湿化，在泉为甘化，司气为黅化，间气为柔化。少阳司天为火化，在泉为苦化，司气为丹化，间气为明化。阳明司天为燥化，在泉为辛化，司气为素化，间气为清化。太阳司天为寒化，在泉为咸化，司气为玄化，间气为藏化。\n\n故治病者，必明六化分治，五味五色所生，五脏所宜，乃可以言盈虚病生之绪也。\n\n帝曰：愿闻病机何如？\n\n岐伯曰：诸风掉眩，皆属于肝。诸寒收引，皆属于肾。诸气膹郁，皆属于肺。诸湿肿满，皆属于脾。诸热瞀瘛，皆属于火。诸痛痒疮，皆属于心。诸厥固泄，皆属于下。诸痿喘呕，皆属于上。诸禁鼓栗，如丧神守，皆属于火。诸痉项强，皆属于湿。诸逆冲上，皆属于火。诸胀腹大，皆属于热。诸躁狂越，皆属于火。诸暴强直，皆属于风。诸病有声，鼓之如鼓，皆属于热。诸病胕肿，疼酸惊骇，皆属于火。诸转反戾，水液浑浊，皆属于热。诸病水液，澄澈清冷，皆属于寒。诸呕吐酸，暴注下迫，皆属于热。\n\n故大要曰：谨守病机，各司其属，有者求之，无者求之，盛者责之，虚者责之，必先五胜，疏其血气，令其调达，而致和平。此之谓也。\n\n帝曰：善。五味阴阳之用何如？\n\n岐伯曰：辛甘发散为阳，酸苦涌泄为阴，咸味涌泄为阴，淡味渗泄为阳。六者或收或散，或缓或急，或燥或润，或软或坚。以所利而行之，调其气使其平也。\n\n帝曰：调之何如？\n\n岐伯曰：主病之谓君，佐君之谓臣，应臣之谓使。非上下三品之谓也。\n\n帝曰：三品何谓？\n\n岐伯曰：所以明善恶之殊贯也。\n\n帝曰：善。病之中外何如？\n\n岐伯曰：调气之方，必别阴阳。定其中外，各守其乡。内者内治，外者外治。微者调之，其次平之，盛者夺之，汗之下之。寒热温凉，衰之以属，随其攸利。谨道如法，万举万全，气血正平，长有天命。\n\n帝曰：善。"}],"$undefined",["$","div",null,{"className":"mt-4 pt-4 border-t border-gold-500/25","children":[["$","div",null,{"className":"flex items-center gap-1.5 mb-2","children":[["$","span",null,{"className":"text-gold-600 text-xs","children":"💬"}],["$","span",null,{"className":"text-[10px] font-medium text-gold-600","children":"白话参考"}]]}],["$","div",null,{"className":"prose prose-sm max-w-none text-gray-500 leading-relaxed whitespace-pre-line","children":"黄帝问：五气交合运行、虚实交替，我已知晓了。六气分主司天在泉，它们的作用是怎样的？岐伯说：厥阴司天，气化表现为风；少阴司天，气化表现为热；太阴司天，气化表现为湿；少阳司天，气化表现为火；阳明司天，气化表现为燥；太阳司天，气化表现为寒。\n\n黄帝问：病机是什么？岐伯提出了著名的诸多病机总纲，包括\"诸风掉眩，皆属于肝\"\"诸湿肿满，皆属于脾\"等十九条病机（即著名的\"病机十九条\"），是中医辨证论治的核心纲领。最后讨论了六味（辛甘酸苦咸淡）的阴阳属性及君臣佐使的配伍法则，强调调气必别阴阳、定其中外，使气血正平。"}]]}],"$undefined"]}]]}]
+24:null
+19:true
+c:300
+c:C
+18:0
+e:"$undefined"
+10:"$undefined"
+13:"$undefined"
+15:"$undefined"
+17:"$undefined"
+b:"$undefined"

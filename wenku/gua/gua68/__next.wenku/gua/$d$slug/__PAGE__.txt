@@ -1,0 +1,69 @@
+1:"$Sreact.fragment"
+2:I[81669,["8500","static/chunks/8500-54689a19bd9dd50c.js","5249","static/chunks/app/wenku/gua/%5Bslug%5D/page-357e1bda066bb5c8.js"],"default"]
+3:Tf6c,昔者圣人之作易也，幽赞于神明而生蓍，参天两地而倚数，观变于阴阳而立卦，发挥于刚柔而生爻，和顺于道德而理于义，穷理尽性以至于命。
+        
+        昔者圣人之作易也，将以顺性命之理。是以立天之道曰阴与阳，立地之道曰柔与刚，立人之道曰仁与义。兼三才而两之，故易六画而成卦。分阴分阳，迭用柔刚，故易六位而成章。
+        
+        天地定位，山泽通气，雷风相薄，水火不相射。八卦相错。数往者顺，知来者逆。是故易逆数也。
+        
+        雷以动之，风以散之，雨以润之，日以烜之，艮以止之，兑以说之，乾以君之，坤以藏之。
+        
+        帝出乎震，齐乎巽，相见乎离，致役乎坤，说言乎兑，战乎乾，劳乎坎，成言乎艮。万物出乎震，震东方也。齐乎巽，巽东南也。齐也者，言万物之洁齐也。离也者，明也，万物皆相见，南方之卦也。圣人南面而听天下，向明而治，盖取诸此也。坤也者，地也，万物皆致养焉，故曰致役乎坤。兑，正秋也，万物之所说也，故曰说言乎兑。战乎乾，乾西北之卦也，言阴阳相薄也。坎者水也，正北方之卦也，劳卦也，万物之所归也，故曰劳乎坎。艮，东北之卦也，万物之所成终而所成始也，故曰成言乎艮。
+        
+        神也者，妙万物而为言者也。动万物者莫疾乎雷，挠万物者莫疾乎风，燥万物者莫熯乎火，说万物者莫说乎泽，润万物者莫润乎水，终万物始万物者莫盛乎艮。故水火相逮，雷风不相悖，山泽通气，然后能变化，既成万物也。
+        
+        乾，健也。坤，顺也。震，动也。巽，入也。坎，陷也。离，丽也。艮，止也。兑，说也。
+        
+        乾为马，坤为牛，震为龙，巽为鸡，坎为豕，离为雉，艮为狗，兑为羊。
+        
+        乾为首，坤为腹，震为足，巽为股，坎为耳，离为目，艮为手，兑为口。
+        
+        乾，天也，故称乎父。坤，地也，故称乎母。震一索而得男，故谓之长男。巽一索而得女，故谓之长女。坎再索而得男，故谓之中男。离再索而得女，故谓之中女。艮三索而得男，故谓之少男。兑三索而得女，故谓之少女。
+        
+        乾为天，为圜，为君，为父，为玉，为金，为寒，为冰，为大赤，为良马，为瘠马，为驳马，为木果。
+        
+        坤为地，为母，为布，为釜，为吝啬，为均，为子母牛，为大舆，为文，为众，为柄，其于地也为黑。
+        
+        震为雷，为龙，为玄黄，为旉，为大涂，为长子，为决躁，为苍筤竹，为萑苇。其于马也为善鸣，为馵足，为作足，为的颡。其于稼也为反生。其究为健，为蕃鲜。
+        
+        巽为木，为风，为长女，为绳直，为工，为白，为长，为高，为进退，为不果，为臭。其于人也为寡发，为广颡，为多白眼，为近利市三倍。其究为躁卦。
+        
+        坎为水，为沟渎，为隐伏，为矫輮，为弓轮。其于人也为加忧，为心病，为耳痛，为血卦，为赤。其于马也为美脊，为亟心，为下首，为薄蹄，为曳。其于舆也为多眚。为通，为月，为盗。其于木也为坚多心。
+        
+        离为火，为日，为电，为中女，为甲胄，为戈兵。其于人也为大腹。为乾卦。为鳖，为蟹，为蠃，为蚌，为龟。其于木也为科上槁。
+        
+        艮为山，为径路，为小石，为门阙，为果蓏，为阍寺，为指，为狗，为鼠，为黔喙之属。其于木也为坚多节。
+        
+        兑为泽，为少女，为巫，为口舌，为毁折，为附决。其于地也为刚卤。为妾，为羊。8:X
+d:X
+d:C
+0:{"buildId":"ndmlkSBrY5o9h8YrCkC-M","data":[{"rsc":["$","$1","c",{"children":[[["$","script",null,{"type":"application/ld+json","children":"{\"@context\":\"https://schema.org\",\"@type\":\"EducationalResource\",\"name\":\"说卦传（68/64）详解\",\"description\":\"说卦传卦的深度解析——卦辞彖象精义、爻位精析、错宗之卦、六爻纳甲与九宫原创现代启示（九宫文库）\",\"url\":\"https://www.jiugongbagua.com/wenku/gua/gua68\",\"isPartOf\":{\"@type\":\"WebSite\",\"name\":\"九宫文库\"},\"about\":[\"周易\",\"六十四卦\",\"易经\"],\"inLanguage\":\"zh-CN\",\"isAccessibleForFree\":true}"}],["$","div",null,{"className":"max-w-4xl mx-auto px-4 py-8","children":[["$","$L2",null,{"items":[{"label":"卦象百科","href":"/gua"},{"label":"说卦传卦"}]}],["$","div",null,{"className":"rounded-2xl border border-gold-200/70 dark:border-gold-500/25 bg-white/85 dark:bg-[#171614]/85 p-6 mb-5 flex gap-6 items-center flex-wrap","children":["$undefined",["$","div",null,{"children":[["$","div",null,{"className":"flex items-center gap-2 flex-wrap","children":[["$","h1",null,{"className":"text-2xl font-bold font-serif text-gray-900 dark:text-gray-50","children":["说卦传","卦"]}],["$","span",null,{"className":"text-xs bg-gold-500/10 text-gold-600 px-2 py-0.5 rounded-full","children":["第 ",68," 卦"]}]]}],["$","p",null,{"className":"text-sm text-gray-500 mt-2","children":["","$undefined"," ","$undefined","（上·","","） · ","","$undefined"," ","$undefined","（下·","","）"]}],["$","div",null,{"className":"flex flex-wrap gap-1.5 mt-3 text-[11px]","children":[["$","span",null,{"className":"px-2 py-0.5 rounded bg-gray-50 dark:bg-gray-800 text-gray-500","children":["上卦五行：","$undefined"]}],["$","span",null,{"className":"px-2 py-0.5 rounded bg-gray-50 dark:bg-gray-800 text-gray-500","children":["下卦五行：","$undefined"]}],["$","span",null,{"className":"px-2 py-0.5 rounded bg-gray-50 dark:bg-gray-800 text-gray-500","children":["上卦方位（后天）：","$undefined"]}],["$","span",null,{"className":"px-2 py-0.5 rounded bg-gray-50 dark:bg-gray-800 text-gray-500","children":["下卦方位（后天）：","$undefined"]}]]}]]}]]}],["$","div",null,{"className":"rounded-2xl border border-gray-200/80 dark:border-gray-700/60 bg-white/85 dark:bg-[#171614]/85 p-5 mb-5","children":[["$","h2",null,{"className":"text-sm font-bold text-gray-800 dark:text-gray-100 mb-3","children":"📜 原文"}],["$","div",null,{"className":"prose prose-sm max-w-none text-gray-700 dark:text-gray-200 leading-loose whitespace-pre-line font-serif text-[15px]","children":"$3"}]]}],"$L4","$undefined","$L5","$undefined"]}]],null,"$L6"]}],"isPartial":"$@7","staleTime":"$8","varyParams":null},{"rsc":"$L9","isPartial":"$@a","staleTime":"$8","varyParams":null},{"rsc":"$Lb","isPartial":"$@c","staleTime":"$8","varyParams":"$d"},{"rsc":"$Le","isPartial":"$@f","staleTime":"$8","varyParams":"$d"},{"rsc":"$L10","isPartial":"$@11","staleTime":"$8","varyParams":"$d"},{"rsc":"$L12","isPartial":"$@13","staleTime":"$8","varyParams":null}],"isUpgradeableISRFallback":false,"a":"$@14","rootVaryParams":null,"needsRuntimeRequest":"$@15"}
+16:I[98500,["8500","static/chunks/8500-54689a19bd9dd50c.js","5249","static/chunks/app/wenku/gua/%5Bslug%5D/page-357e1bda066bb5c8.js"],""]
+17:I[90484,[],"OutletBoundary"]
+18:"$Sreact.suspense"
+1a:I[90484,[],"ViewportBoundary"]
+1b:I[90484,[],"MetadataBoundary"]
+1c:I[86869,[],"IconMark"]
+1d:I[57121,[],""]
+1e:I[74581,[],""]
+1f:I[6843,["8500","static/chunks/8500-54689a19bd9dd50c.js","7903","static/chunks/7903-746d7ec89cb5c2ea.js","7177","static/chunks/app/layout-fc1a743aee2ee60c.js"],"default"]
+:HL["/_next/static/css/c13e47ad35e05bb3.css","style"]
+4:["$","div",null,{"className":"rounded-2xl border border-gold-200/70 dark:border-gold-500/25 bg-[#fdfbf5] dark:bg-[#16181e] p-5 mb-5","children":[["$","h2",null,{"className":"text-sm font-bold text-gray-800 dark:text-gray-100 mb-3","children":"🗣️ 白话译文"}],["$","div",null,{"className":"text-sm text-gray-600 dark:text-gray-300 leading-relaxed whitespace-pre-line","children":"说卦传是解释八卦取象和功能的重要篇章，是学习《周易》象数的基础。\n    \n    【原文大意】古代圣人创作《周易》时，暗中得到神明的帮助而创生蓍草之法，参天两地而建立数字体系，观察阴阳变化而设立卦象，发挥刚柔变化而产生爻画，和顺于道德而理于义，穷尽事物之理和人性的本质，最终通达天命。\n    \n    圣人作易是为了顺应性命之理。所以确立天的法则是阴与阳，地的法则是柔与刚，人的法则是仁与义。兼合天地人三才而两两相重，所以易经六画成一卦。分阴分阳，交替使用刚柔，所以六位成为一篇文章。\n    \n    天地定位，山泽通气，雷风相薄，水火不相射。八卦互相错杂。推数往事是顺推，预知来事是逆推，所以易是逆数的学问。\n    \n    八卦的基本取象：雷以动之、风以散之、雨以润之、日以烜之、艮以止之、兑以悦之、乾以君之、坤以藏之。\n    \n    帝出入于震卦，齐备于巽卦，相见在离卦，致役在坤卦，悦言在兑卦，战斗在乾卦，劳倦在坎卦，成言在艮卦。这个次序对应了万物从诞生（震）到完成（艮）的完整过程。\n    \n    八卦的八种基本性质：乾是健，坤是顺，震是动，巽是入，坎是陷，离是丽（附丽），艮是止，兑是悦（喜悦）。\n    \n    八卦的八种基本动物：乾为马、坤为牛、震为龙、巽为鸡、坎为豕、离为雉、艮为狗、兑为羊。\n    \n    八卦的人身取象：乾为首、坤为腹、震为足、巽为股、坎为耳、离为目、艮为手、兑为口。\n    \n    八卦的家族体系：乾为父、坤为母。震为长男、巽为长女、坎为中男、离为中女、艮为少男、兑为少女。\n    \n    【万物取象】本章后半部分详细列举了八卦在万事万物中的取象，是研究《周易》象数的原始资料。每一卦都有一系列引申对应，如乾为天、为君、为父、为金、为寒等；坤为地、为母、为布、为釜等。\n    \n    【九宫按】说卦传是学习《周易》象数的入门必读。八卦的\"父母六子\"（乾坤生六子）体系是理解六十四卦结构的基础。本章的万物取象虽然看似繁琐，但正是周易\"以象尽意\"的集中体现——每一个卦象都是一整类事物的符号代表。"}]]}]
+5:["$","div",null,{"className":"flex flex-wrap gap-2 items-center","children":[["$","$L16",null,{"href":"/xueguan/bushi-yijing/zhouyi","className":"text-xs px-3 py-1.5 rounded-lg border border-gold-300/60 dark:border-gold-500/30 text-gold-700 dark:text-gold-300 hover:bg-gold-500/5","children":"《周易》全文"}],["$","$L16",null,{"href":"/wenku/gua","className":"text-xs px-3 py-1.5 rounded-lg border border-gray-200 text-gray-500 hover:border-gold-300","children":"← 全部六十四卦"}],["$","$L16",null,{"href":"/wenku/gua/gua67","className":"text-xs px-3 py-1.5 rounded-lg border border-gray-200 text-gray-500 hover:border-gold-300","children":["↑ 上一卦：","系辞下传"]}],false]}]
+6:["$","$L17",null,{"children":["$","$18",null,{"name":"Next.MetadataOutlet","children":"$@19"}]}]
+9:["$","$1","h",{"children":[null,["$","$L1a",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]}],["$","div",null,{"hidden":true,"children":["$","$L1b",null,{"children":["$","$18",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"说卦传卦（第68卦）详解｜卦辞爻辞原文与白话｜九宫 | 九宫八卦"}],["$","meta","1",{"name":"description","content":"说卦传（第68卦，上下）：卦辞爻辞原文、白话译文、彖象传与九宫导读——昔者圣人之作易也，幽赞于神明而生蓍，参天两地而倚数，观变于阴"}],["$","meta","2",{"name":"author","content":"九宫八卦"}],["$","meta","3",{"name":"keywords","content":"九宫八卦,八字排盘,紫微斗数,六爻,小六壬,周公解梦,姓名测试,号码测吉凶,黄历,塔罗,命理,易经,梅花易数,合婚,传统文化,奇门遁甲"}],["$","meta","4",{"name":"creator","content":"九宫八卦"}],["$","meta","5",{"name":"publisher","content":"九宫八卦"}],["$","meta","6",{"name":"robots","content":"index, follow"}],["$","meta","7",{"name":"googlebot","content":"index, follow"}],["$","meta","8",{"property":"og:title","content":"九宫八卦 - 传统命理在线测算平台"}],["$","meta","9",{"property":"og:description","content":"传承经典 · 智慧启航。八字排盘、紫微斗数、六爻、梅花易数、小六壬等二十余种传统命理服务。"}],["$","meta","10",{"property":"og:url","content":"https://jiugongbagua.com/"}],["$","meta","11",{"property":"og:site_name","content":"九宫八卦"}],["$","meta","12",{"property":"og:locale","content":"zh_CN"}],["$","meta","13",{"property":"og:type","content":"website"}],["$","meta","14",{"name":"twitter:card","content":"summary"}],["$","meta","15",{"name":"twitter:title","content":"九宫八卦 - 中国传统命理文化平台"}],["$","meta","16",{"name":"twitter:description","content":"九宫八卦是中国传统命理文化平台，提供八字排盘、紫微斗数、六爻、小六壬、周公解梦、姓名测试、号码测吉凶、黄历择日、塔罗等在线服务。"}],["$","link","17",{"rel":"icon","href":"/favicon.ico?083af30e08c51e01","type":"image/x-icon","sizes":"16x16"}],["$","$L1c","18",{}]]}]}]}],null]}]
+b:["$","$1","c",{"children":[null,["$","$L1d",null,{"parallelRouterKey":"children","template":["$","$L1e",null,{}]}]]}]
+e:["$","$1","c",{"children":[null,["$","$L1d",null,{"parallelRouterKey":"children","template":["$","$L1e",null,{}]}]]}]
+10:["$","$1","c",{"children":[null,["$","$L1d",null,{"parallelRouterKey":"children","template":["$","$L1e",null,{}]}]]}]
+12:["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/c13e47ad35e05bb3.css","precedence":"next"}]],["$","html",null,{"lang":"zh-Hans","suppressHydrationWarning":true,"children":[["$","head",null,{"children":[["$","meta",null,{"httpEquiv":"Content-Security-Policy","content":"default-src 'self'; script-src 'self' 'unsafe-inline' https://hm.baidu.com https://*.baidu.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https://hm.baidu.com https://*.baidu.com https://www.google-analytics.com; frame-src 'self'; base-uri 'self'; form-action 'self'; object-src 'none'; media-src 'self'; upgrade-insecure-requests"}],["$","link",null,{"rel":"icon","type":"image/png","href":"/taiji-favicon.png"}],["$","link",null,{"rel":"icon","type":"image/svg+xml","href":"/favicon.svg"}],["$","link",null,{"rel":"icon","type":"image/x-icon","href":"/favicon.ico"}],["$","link",null,{"rel":"apple-touch-icon","href":"/taiji-favicon.png"}],["$","link",null,{"rel":"manifest","href":"/manifest.json"}],["$","link",null,{"rel":"preconnect","href":"https://fonts.gstatic.com"}],["$","script",null,{"type":"application/ld+json","dangerouslySetInnerHTML":{"__html":"[{\"@context\":\"https://schema.org\",\"@type\":\"WebSite\",\"name\":\"九宫八卦\",\"url\":\"https://jiugongbagua.com\",\"description\":\"中国传统命理文化平台\",\"inLanguage\":[\"zh-CN\",\"zh-TW\",\"en\"],\"potentialAction\":{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://jiugongbagua.com/wenku?q={search_term_string}\"},\"query-input\":\"required name=search_term_string\"}},{\"@context\":\"https://schema.org\",\"@type\":\"WebApplication\",\"name\":\"九宫八卦命理测算平台\",\"url\":\"https://jiugongbagua.com\",\"description\":\"九宫八卦是中国传统命理文化平台，提供八字排盘、紫微斗数、六爻、小六壬、周公解梦、姓名测试、号码测吉凶、黄历择日、塔罗等在线服务。\",\"applicationCategory\":\"LifestyleApplication\",\"operatingSystem\":\"All\"},{\"@context\":\"https://schema.org\",\"@type\":\"BreadcrumbList\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"首页\",\"item\":\"https://jiugongbagua.com\"}]}]"}}]]}],["$","script",null,{"dangerouslySetInnerHTML":{"__html":"try{if(localStorage.getItem('jiugong-theme')==='night')document.documentElement.setAttribute('data-theme','night')}catch(e){}"}}],["$","body",null,{"className":"min-h-screen flex flex-col","children":["$","$L1f",null,{"children":["$","$L1d",null,{"parallelRouterKey":"children","template":["$","$L1e",null,{}],"notFound":[[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":404}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],[]]}]}]}]]}]]}]
+19:null
+15:true
+8:300
+8:C
+14:0
+a:"$undefined"
+c:"$undefined"
+f:"$undefined"
+11:"$undefined"
+13:"$undefined"
+7:"$undefined"
