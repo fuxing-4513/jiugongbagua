@@ -16,6 +16,10 @@ export default function GanzhiPage() {
         <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-100 font-serif mb-3">🌳 干支百科</h1>
         <p className="text-sm text-gray-500">十天干 · 十二地支——八字、择日、奇门、六壬共通的桥梁知识</p>
         <p className="text-[11px] text-emerald-600 dark:text-emerald-400 mt-2">✅ {TIAN_GAN.length + DI_ZHI.length} 干支已全部建成（天干 {TIAN_GAN.length} · 地支 {DI_ZHI.length}）——五行 · 阴阳 · 方位 · 藏干 · 类象 · 关联</p>
+        <div className="mt-4 inline-flex items-center gap-2 flex-wrap justify-center">
+          <Link href="/wenku/ganzhi/rel" className="text-xs px-4 py-2 rounded-full bg-gold-500/10 border border-gold-300/60 dark:border-gold-500/40 text-gold-700 dark:text-gold-300 hover:bg-gold-500/20 transition-colors font-medium">🔗 干支关系 · 合化冲刑害详解 →</Link>
+          <span className="text-[10px] text-gray-400">天干五合 · 六合三合三会 · 六冲六害三刑六破 · 十二长生（58 条）</span>
+        </div>
       </div>
 
       <h2 className="text-sm font-bold text-gray-600 dark:text-gray-300 mb-3">☀️ 十天干</h2>

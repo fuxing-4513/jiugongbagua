@@ -12,6 +12,7 @@ import { LOC_BATCH2 } from '@/data/rare-catalog/loc-batch2'
 import { getHexagrams } from '@/lib/hexagram-data'
 import { ALL_PEOPLE as PEOPLE } from '@/data/renwu/people'
 import { TIAN_GAN, DI_ZHI } from '@/data/ganzhi/ganzhi'
+import { ALL_RELS } from '@/data/ganzhi/rel-index'
 
 const baseUrl = 'https://jiugongbagua.com'
 
@@ -93,8 +94,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // 干支百科（22 页）
   const ganzhiPages = [...TIAN_GAN, ...DI_ZHI].map(g => ({ path: `/wenku/ganzhi/${encodeURIComponent(g.id)}/`, priority: 0.6, changeFreq: 'monthly' as const }))
+  // 干支关系（58 条）
+  const relPages = ALL_RELS.map(r => ({ path: `/wenku/ganzhi/rel/${encodeURIComponent(r.id)}/`, priority: 0.6, changeFreq: 'monthly' as const }))
 
-  const allPages = [...mainPages, ...infoPages, ...dreamLandingPages, ...bookPages, ...glossaryPages, { path: '/cangku/', priority: 0.6, changeFreq: 'weekly' as const }, ...rarePages, ...personPages, { path: '/wenku/renwu/', priority: 0.6, changeFreq: 'weekly' as const }, { path: '/wenku/ganzhi/', priority: 0.6, changeFreq: 'weekly' as const }, ...ganzhiPages, { path: '/wenku/gua/', priority: 0.7, changeFreq: 'weekly' as const }, ...guaPages]
+  const allPages = [...mainPages, ...infoPages, ...dreamLandingPages, ...bookPages, ...glossaryPages, { path: '/cangku/', priority: 0.6, changeFreq: 'weekly' as const }, ...rarePages, ...personPages, { path: '/wenku/renwu/', priority: 0.6, changeFreq: 'weekly' as const }, { path: '/wenku/ganzhi/', priority: 0.6, changeFreq: 'weekly' as const }, ...ganzhiPages, { path: '/wenku/ganzhi/rel/', priority: 0.6, changeFreq: 'weekly' as const }, ...relPages, { path: '/wenku/gua/', priority: 0.7, changeFreq: 'weekly' as const }, ...guaPages]
 
   return allPages.map(({ path, priority, changeFreq }) => ({
     url: `${baseUrl}${path}`,
