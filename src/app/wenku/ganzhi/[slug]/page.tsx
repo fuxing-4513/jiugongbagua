@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import Breadcrumb from '@/components/Breadcrumb'
 import JiugongNote from '@/components/JiugongNote';
+import GanzhiDeepView from '@/components/GanzhiDeepView';
+import { getDeepById } from '@/data/ganzhi/deep';
 import { TIAN_GAN, DI_ZHI } from '@/data/ganzhi/ganzhi'
 
 const ALL = [...TIAN_GAN, ...DI_ZHI]
@@ -58,11 +60,21 @@ export default async function GanzhiDetail({ params }: Props) {
       </div>
 
       <div className="rounded-2xl border border-gray-200/80 dark:border-gray-700/60 bg-white/85 dark:bg-[#13161c]/85 p-5 mb-5">
-        <h2 className="text-sm font-bold text-gray-800 dark:text-gray-100 mb-2">🖼️ 万物类象</h2>
+        <h2 className="text-sm font-bold text-gray-800 dark:text-gray-100 mb-2">🖼️ 万物类象（速览）</h2>
         <div className="flex flex-wrap gap-2">
           {g.classImage.map(c => <span key={c} className="text-xs px-2.5 py-1 rounded-full bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-300">{c}</span>)}
         </div>
       </div>
+
+      {getDeepById(g.id) && (
+        <div className="mb-5">
+          <div className="flex items-center gap-2 mb-3">
+            <h2 className="text-base font-bold text-gray-800 dark:text-gray-100">📖 {g.id} 深度分析</h2>
+            <span className="text-[10px] px-2 py-0.5 rounded-full bg-gold-500/10 text-gold-600 dark:text-gold-300">九宫原创 · 穷通宝鉴级详解</span>
+          </div>
+          <GanzhiDeepView d={getDeepById(g.id)!} />
+        </div>
+      )}
 
       <div className="rounded-xl border border-indigo-200/60 dark:border-indigo-500/25 bg-white/85 dark:bg-[#13161c]/85 p-5">
         <h3 className="text-xs font-bold text-gray-500 mb-2">🔗 关联术数领域</h3>
