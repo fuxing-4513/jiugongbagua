@@ -215,6 +215,6 @@ import { EXT_TERMS_6 } from '@/lib/glossary-ext-6'
 import { EXT_TERMS_7 } from '@/lib/glossary-ext-7'
 
 export function getAllTerms(): GlossaryTerm[] { return [...allTerms, ...EXT_TERMS_1, ...EXT_TERMS_2, ...EXT_TERMS_3, ...EXT_TERMS_4, ...EXT_TERMS_5, ...EXT_TERMS_6, ...EXT_TERMS_7]; }
-export function getTermBySlug(slug: string): GlossaryTerm | undefined { return allTerms.find(t => t.slug === slug); }
-export function getTermsByCategory(cat: GlossaryCategory): GlossaryTerm[] { return allTerms.filter(t => t.category === cat); }
-export function getAllSlugs(): string[] { return allTerms.map(t => t.slug); }
+export function getTermBySlug(slug: string): GlossaryTerm | undefined { return getAllTerms().find(t => t.slug === slug); }
+export function getTermsByCategory(cat: GlossaryCategory): GlossaryTerm[] { return getAllTerms().filter(t => t.category === cat); }
+export function getAllSlugs(): string[] { return getAllTerms().map(t => t.slug); }
