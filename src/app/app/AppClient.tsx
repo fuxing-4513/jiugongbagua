@@ -9,6 +9,7 @@ import { BRIGHTNESS, STAR_DESC, detectPatterns, type PatternDef } from '@/lib/zi
 import CalendarInput, { type CalendarType, getMaxDay } from '@/components/CalendarInput';
 import { calcTrueSolarHour } from '@/lib/solar-time';
 import { Solar, Lunar } from 'lunar-typescript';
+import LifeKLine from '@/components/LifeKLine'
 
 const TrueSolarTime = dynamic(() => import('@/components/TrueSolarTime'), { ssr: false });
 
@@ -422,6 +423,11 @@ function BaziResultView({ result, name, gender }: { result: BaziChartResult; nam
             ))}
           </div>
         )}
+      </div>
+
+      {/* 人生 K 线（大运能量周期——易传播） */}
+      <div className="mb-4">
+        <LifeKLine riGan={pills[2].gan} dayun={dayun} curAge={curAge} birthYear={0} />
       </div>
 
       {/* 大运 */}

@@ -243,21 +243,43 @@ export default function HomeClient() {
 
         {/* ════ 古籍信任 + 易学书馆 ════ */}
         <section className="mb-14">
-          <div className="jg-tile relative overflow-hidden p-7 md:p-9 jg-frame-gold">
-            <div className="relative z-10 flex flex-col md:flex-row md:items-center gap-6 md:gap-8">
-              <div className="text-5xl md:text-6xl shrink-0 mx-auto md:mx-0">📜</div>
-              <div className="flex-1 text-center md:text-left">
-                <h2 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-gray-50 mb-2">{getT('home.library.title')}</h2>
-                <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed max-w-2xl">
-                  《滴天髓》《紫微斗数全书》《三命通会》……每一句结论都可溯源到原典。
-                  免费阅读、全文检索——古籍是公版文化资产，我们只做整理与白话导读，传承不设墙。
-                </p>
-                <p className="text-[11px] text-gold-600/80 dark:text-gold-400/70 mt-2.5">
-                  {getT('home.library.note')}
-                </p>
+          <div className="relative overflow-hidden rounded-3xl border border-gold-300/40 dark:border-gold-500/20 p-8 md:p-10"
+            style={{ background: 'linear-gradient(135deg, #efe9da 0%, #f7f3e8 55%, #efe7d2 100%)' }}>
+            {/* 极淡纸纹 */}
+            <div className="absolute inset-0 pointer-events-none opacity-[0.5]"
+              style={{ background: 'repeating-linear-gradient(0deg, rgba(176,138,60,0.03) 0px, rgba(176,138,60,0.03) 1px, transparent 1px, transparent 3px)' }} />
+            <div className="relative z-10 grid md:grid-cols-[auto_1fr] gap-8 md:gap-10 items-center">
+              {/* 古籍书封陈列（东方档案馆——四册） */}
+              <div className="flex gap-3 justify-center md:justify-start">
+                {[{ n: '滴天髓', sub: '命理' }, { n: '三命通会', sub: '汇典' }, { n: '紫微斗数全书', sub: '斗数' }, { n: '焦氏易林', sub: '易占' }].map((b, i) => (
+                  <div key={b.n} className="group cursor-pointer w-[92px] md:w-[104px]" onClick={() => { if (typeof window !== 'undefined') window.location.href = '/xueguan' }}>
+                    <div className="relative aspect-[3/4.4] rounded-md border border-gold-600/50 dark:border-gold-500/40 shadow-[2px_3px_10px_rgba(120,90,30,0.25)] overflow-hidden transition-transform duration-300 group-hover:-translate-y-1.5 group-hover:shadow-[3px_6px_16px_rgba(120,90,30,0.35)]"
+                      style={{ background: 'linear-gradient(150deg,#a3713a 0%,#8a5a28 45%,#6e4518 100%)' }}>
+                      <div className="absolute inset-x-0 top-0 h-[6px]" style={{ background: 'linear-gradient(90deg,#c9a86a,#8a6d3a,#c9a86a)' }} />
+                      <div className="absolute inset-x-0 bottom-0 h-[6px]" style={{ background: 'linear-gradient(90deg,#8a6d3a,#c9a86a,#8a6d3a)' }} />
+                      <div className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-px bg-gold-300/30" />
+                      <div className="absolute inset-0 flex flex-col items-center justify-center px-1.5 text-center">
+                        <span className="text-[15px] md:text-base font-serif font-bold text-[#f2e6c8] tracking-[0.3em] [writing-mode:vertical-rl] leading-relaxed">{b.n}</span>
+                        <span className="mt-2 text-[8px] text-[#d8c290] tracking-widest border border-[#d8c290]/40 px-1.5 py-0.5 rounded-sm">{b.sub}</span>
+                      </div>
+                    </div>
+                  </div>
+                ))}
               </div>
-              <div className="shrink-0 flex justify-center">
-                <Link href="/xueguan" className="jg-btn-primary px-8! py-3.5!">{getT('home.library.cta')}</Link>
+              <div>
+                <h2 className="text-2xl md:text-[26px] font-bold font-serif text-[#4a3413] mb-3 leading-snug">易学书馆 · 数百年东方智慧</h2>
+                <p className="text-sm text-[#6b5230] leading-relaxed max-w-2xl">
+                  《滴天髓》《三命通会》《紫微斗数全书》……一百四十余部公版典籍全文——
+                  <b className="text-[#4a3413]">每一句结论都可溯源到原典</b>。原典 · 注疏 · 白话导读 · AI 解读，
+                  像一座可以翻阅的东方智慧档案馆。
+                </p>
+                <p className="text-[11px] text-[#8a6d3a] mt-3 tracking-wide">📖 原典全文 · 全文检索 · 白话导读 · 版本考订 —— 持续收录中</p>
+                <div className="mt-5">
+                  <Link href="/xueguan" className="inline-block px-7 py-2.5 rounded-lg text-sm font-medium text-[#f2e6c8] transition-all hover:brightness-110"
+                    style={{ background: 'linear-gradient(135deg,#8a5a28,#6e4518)', boxShadow: '0 2px 8px rgba(110,69,24,0.3)' }}>
+                    进入易学书馆 →
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
@@ -362,11 +384,12 @@ function FreeChartWidget() {
 
   return (
     <section className="max-w-xl mx-auto">
-      <div className="flex items-center gap-2 justify-center mb-4">
-        <h2 className="text-lg font-bold text-gray-900 dark:text-gray-50">🔮 立即排盘</h2>
-        <span className="text-[10px] px-2 py-0.5 rounded-full jg-chip">30 秒出盘</span>
+      <div className="text-center mb-4">
+        <h2 className="text-xl md:text-2xl font-serif font-bold text-gray-900 dark:text-gray-50">建立你的个人命盘</h2>
+        <p className="text-xs text-gray-500 dark:text-gray-400 mt-1.5 max-w-sm mx-auto leading-relaxed">
+          你的出生时空，是一张独一无二的人生地图——输入生辰，生成人生图谱
+        </p>
       </div>
-      <p className="text-xs text-gray-500 dark:text-gray-400 text-center mb-5">输入出生信息，AI 即刻为您白话解读</p>
 
       <div className="flex items-center gap-4 mb-4 justify-center">
         <span className="text-sm text-gray-500 dark:text-gray-400">性别</span>
@@ -377,7 +400,7 @@ function FreeChartWidget() {
               onClick={() => setGender(g)}
               className={`px-4 py-1.5 rounded-lg text-sm font-medium transition-all ${
                 gender === g
-                  ? 'bg-violet-500/15 text-violet-600 dark:text-violet-300 border border-violet-400/40'
+                  ? 'bg-gold-500/12 text-gold-700 dark:text-gold-300 border border-gold-400/40'
                   : 'bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 border border-gray-200 dark:border-gray-700 hover:border-gray-300'
               }`}
             >
@@ -412,11 +435,11 @@ function FreeChartWidget() {
         }`}
         onClick={e => { if (!isValid) e.preventDefault() }}
       >
-        直接排盘 🚀
+        生成我的人生图谱 →
       </Link>
 
       <p className="text-center text-[10px] text-gray-400 dark:text-gray-500 mt-3">
-        支持阳历 / 阴历 · 精确到时辰 · 19+ 命理模块 · AI 白话解读
+        支持阳历 / 阴历 · 精确到时辰 · 八字/紫微/奇门 三盘同开 · AI 白话解读
       </p>
     </section>
   )
