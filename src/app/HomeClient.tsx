@@ -79,7 +79,7 @@ export default function HomeClient() {
         {/* ════ Hero：东方山水 × 时空仪盘 Artwork（规格 22 项施工） ════ */}
         <section className="relative overflow-hidden mb-16" style={{ background: '#050708' }}>
           {/* 山水背景（hero-mountain.svg——天空/五层山/雾/水面/金光） */}
-          <img src="/assets/hero-mountain.svg" alt="" aria-hidden
+          <img src="/assets/hero-mountain.webp" alt="" aria-hidden
             className="absolute inset-0 w-full h-full object-cover object-center select-none pointer-events-none" />
           {/* 右侧金色天光强调 */}
           <div className="absolute inset-0 pointer-events-none"
