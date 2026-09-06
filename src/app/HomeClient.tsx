@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
 import { useLocale, useT, useTArray } from '@/lib/i18n'
 
 import RotatingCompass from '@/components/visual/RotatingCompass'
@@ -71,8 +70,6 @@ const quickTools = [
 
 export default function HomeClient() {
   const getT = useT()
-  const router = useRouter()
-  const [aiQ, setAiQ] = useState('')
   const [openFaq, setOpenFaq] = useState<number | null>(0)
 
   // 场景卡（i18n 双语——五问入口——决策直达 AI）
@@ -85,12 +82,6 @@ export default function HomeClient() {
   ]
   // FAQ（i18n 双语）
   const faqItems = useTArray()('home.faq.items') as { q: string; a: string }[]
-
-  const askAi = (e: React.FormEvent) => {
-    e.preventDefault()
-    const q = aiQ.trim()
-    router.push(q ? `/ai?q=${encodeURIComponent(q)}` : '/ai')
-  }
 
   return (
     <>
@@ -106,69 +97,32 @@ export default function HomeClient() {
             {/* 左：文案 + AI 输入 */}
             <div>
               <span className="jg-chip mb-6">{getT('home.heroChip')}</span>
-              <h1 className="text-3xl md:text-5xl font-bold text-gray-900 dark:text-gray-50 leading-tight mb-3">
+              <h1 className="text-4xl md:text-6xl font-bold font-serif text-gray-900 dark:text-gray-50 leading-[1.15] mb-4">
                 在关键时刻，
                 <br />
-                <span className="jg-text-grad">看清真实处境</span>
+                <span className="jg-text-grad">看清真实处境。</span>
               </h1>
               <p className="text-sm md:text-base font-serif tracking-[0.35em] text-gold-600/90 dark:text-gold-400/80 mb-6 pl-0.5">
                 观时 · 察势 · 明心 · 决策
               </p>
-
-              {/* ═══ 三大痛点场景（先共情，再给方法） ═══ */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-8">
-                {scenarioCards.map(s => (
-                  <Link key={s.href} href={s.href}
-                    className="group jg-card-plain p-4 hover:border-violet-400/50! transition-colors flex flex-col">
-                    <p className="text-[13.5px] font-bold text-gray-800 dark:text-gray-100 leading-relaxed mb-2 group-hover:text-violet-600 dark:group-hover:text-violet-300 transition-colors">
-                      {s.q}
-                    </p>
-                    <p className="text-[11.5px] text-gray-500 dark:text-gray-400 leading-relaxed mb-3 flex-1">
-                      {s.empathy}
-                    </p>
-                    <span className="text-[10.5px] font-medium jg-text-accent">{s.cta} →</span>
-                  </Link>
-                ))}
-              </div>
-
-              <p className="text-base md:text-lg text-gray-600 dark:text-gray-300 max-w-xl mb-7 leading-relaxed">
-                事业进退、感情迷局、人生转折——不给你宿命断言，
-                只帮你照见能量与时机，<span className="font-medium text-gray-800 dark:text-gray-100">理性做出你自己的决定</span>。
+              <p className="text-base md:text-lg text-gray-600 dark:text-gray-300 max-w-xl mb-8 leading-relaxed">
+                这不是玄学算命——不给你宿命断言，只帮你照见能量与时机，
+                <span className="font-medium text-gray-800 dark:text-gray-100">理性做出你自己的决定</span>。
               </p>
 
-              {/* AI 发光输入框（昼=金色柔光 / 夜=紫色光晕） */}
-              <form onSubmit={askAi} className="max-w-xl mb-6">
-                <div className="relative">
-                  <div className="absolute -inset-[1.5px] rounded-2xl bg-gradient-to-r from-amber-400/25 via-yellow-500/15 to-amber-400/25 dark:from-violet-500/60 dark:via-cyan-400/30 dark:to-violet-500/60 opacity-70 blur-[5px]" />
-                  <input
-                    value={aiQ}
-                    onChange={e => setAiQ(e.target.value)}
-                    placeholder={getT('home.aiInputPlaceholder')}
-                    className="jg-input jg-input-glow w-full py-4! pr-28! text-sm"
-                  />
-                  <button type="submit" className="jg-btn-ai absolute right-1.5 top-1/2 -translate-y-1/2 py-2.5! px-4! text-xs z-10">
-                    AI 解读 →
-                  </button>
-                </div>
-              </form>
-
-              {/* 信任胶囊 */}
-              <div className="flex flex-wrap gap-2.5 mb-4">
-                {(useTArray()('home.trustPills') as string[]).map(t => (
-                  <span key={t} className="text-[11px] px-3 py-1 rounded-full border border-gray-200 dark:border-gray-700 text-gray-500 dark:text-gray-400">
-                    ✓ {t}
-                  </span>
-                ))}
-              </div>
-              <Link href="/why-jiugong" className="inline-block text-[11px] text-gray-400 hover:text-gold-500 mb-6 transition-colors">
-                🛡️ 为什么相信九宫八卦？——数据 / 流派 / 古籍 / AI / 隐私 全透明 →
-              </Link>
-
-              {/* CTA */}
-              <div className="flex flex-wrap gap-3.5">
-                <Link href="/bazi" className="jg-btn-primary">📜 免费排八字</Link>
-                <Link href="/ziwei" className="jg-btn">⭐ 排紫微盘</Link>
-                <Link href="/tools" className="jg-btn-ghost">全部工具 →</Link>
+              {/* 主 CTA：生成我的人生图谱（图稿主按钮） */}
+              <div className="flex flex-wrap items-center gap-3.5 mb-2">
+                <Link href="/app"
+                  className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-white text-[15px] font-medium tracking-wide transition-all hover:brightness-110 hover:-translate-y-0.5 shadow-[0_4px_16px_rgba(168,69,47,0.25)]"
+                  style={{ background: 'linear-gradient(135deg,#a8452f,#8f3826)' }}>
+                  生成我的人生图谱 →
+                </Link>
+                <Link href="/bazi" className="px-5 py-3 rounded-xl border border-gray-300 dark:border-gray-600 text-sm text-gray-600 dark:text-gray-300 hover:border-gold-400/60 hover:text-gold-600 dark:hover:text-gold-300 transition-colors">
+                  四柱八字
+                </Link>
+                <Link href="/ziwei" className="px-5 py-3 rounded-xl border border-gray-300 dark:border-gray-600 text-sm text-gray-600 dark:text-gray-300 hover:border-gold-400/60 hover:text-gold-600 dark:hover:text-gold-300 transition-colors">
+                  紫微斗数
+                </Link>
               </div>
             </div>
 
@@ -217,40 +171,6 @@ export default function HomeClient() {
           </div>
         </section>
 
-        {/* ════ 为什么选择九宫八卦？（信任区——图稿底部） ════ */}
-        <section className="mb-14">
-          <div className="rounded-3xl border border-gray-200/80 dark:border-gray-700/50 bg-white/80 dark:bg-[#131210]/70 p-7 md:p-9">
-            <div className="flex items-end justify-between flex-wrap gap-3 mb-6">
-              <div>
-                <h2 className="text-2xl md:text-[26px] font-serif font-bold text-gray-900 dark:text-gray-50">为什么选择九宫八卦？</h2>
-                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1.5">我们不做黑盒——数据、流派、古籍、AI、验证、隐私，全部透明。</p>
-              </div>
-              <Link href="/why-jiugong" className="text-xs text-cinnabar-500 hover:underline shrink-0 font-medium">六层信任体系全公开 →</Link>
-            </div>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-              {[
-                { k: '🔢', t: '数据可复验', d: '历法排盘依据公开——同一生辰，任何权威软件排盘结果一致。' },
-                { k: '🏮', t: '流派讲清楚', d: '子平法为主、兼顾滴天髓旺衰与真诠格局——分歧处不隐瞒。' },
-                { k: '📜', t: '古籍全溯源', d: '140+ 公版古籍原文——每一句结论都可溯源到原典。' },
-                { k: '🤖', t: 'AI 不胡编', d: 'RAG 检索增强——先检索原文再作答，没依据就不硬答。' },
-                { k: '🧪', t: '排盘可验证', d: '确定性算法先排盘、AI 只解读盘面事实——结果可对照。' },
-                { k: '🔒', t: '生辰不存储', d: '出生信息仅当次计算——不存服务器、不留档、无需注册。' },
-              ].map(x => (
-                <div key={x.t} className="rounded-xl border border-gray-200/70 dark:border-gray-700/50 p-4 bg-white/70 dark:bg-[#171614]/60 hover:border-gold-400/40 transition-colors">
-                  <p className="text-lg mb-1.5">{x.k}</p>
-                  <p className="text-[13px] font-semibold text-gray-800 dark:text-gray-100 mb-1">{x.t}</p>
-                  <p className="text-[11px] text-gray-500 dark:text-gray-400 leading-relaxed">{x.d}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ════ 免费排盘（建立你的个人命盘） ════ */}
-        <div className="jg-card p-6 md:p-8 mb-14">
-          <FreeChartWidget />
-        </div>
-
         {/* ════ AI 决策分析（图稿：不只是算命，更是决策参考） ════ */}
         <section className="mb-14">
           <div className="rounded-3xl border border-gray-200/80 dark:border-gray-700/50 overflow-hidden bg-white/80 dark:bg-[#131210]/70">
@@ -268,6 +188,15 @@ export default function HomeClient() {
                 <div className="flex flex-wrap gap-2 mb-7">
                   {['结合命盘', '看清周期', '识别时机', '古籍依据', '行动建议'].map(t => (
                     <span key={t} className="text-[10.5px] px-2.5 py-1 rounded-full border border-gray-200 dark:border-gray-700 text-gray-500 dark:text-gray-400">{t}</span>
+                  ))}
+                </div>
+                {/* 高频问题入口（决策直达 AI） */}
+                <div className="flex flex-wrap gap-2 mb-7">
+                  {scenarioCards.map(s => (
+                    <Link key={s.href} href={s.href}
+                      className="text-[11px] px-3 py-1.5 rounded-full border border-gold-300/50 dark:border-gold-500/25 text-gray-600 dark:text-gray-300 hover:bg-gold-500/10 hover:border-gold-400/70 transition-colors">
+                      {s.q}
+                    </Link>
                   ))}
                 </div>
                 <div>
@@ -291,28 +220,6 @@ export default function HomeClient() {
               </div>
             </div>
           </div>
-        </section>
-
-        {/* ════ 术数大全（克制文字导航——SEO 长尾保留——视觉降级） ════ */}
-        <section className="mb-14">
-          <div className="flex items-end justify-between mb-4">
-            <div>
-              <h2 className="text-lg font-bold font-serif text-gray-900 dark:text-gray-50">探索更多东方术数</h2>
-              <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">六爻 · 梅花 · 小六壬 · 灵签 · 塔罗 · 占星——传统术数的更多切面</p>
-            </div>
-            <Link href="/tools" className="text-xs jg-text-accent hover:underline shrink-0">术数大全 →</Link>
-          </div>
-          <div className="flex flex-wrap gap-x-6 gap-y-2.5">
-            {quickTools.map(t => (
-              <Link key={t.href} href={t.href}
-                className="text-[13px] text-gray-600 dark:text-gray-400 hover:text-gold-600 dark:hover:text-gold-300 transition-colors border-b border-transparent hover:border-gold-400/50 pb-0.5">
-                {t.name}
-              </Link>
-            ))}
-          </div>
-          <p className="text-[10px] text-gray-400 dark:text-gray-500 mt-4">
-            {getT('home.tools.footnote')}
-          </p>
         </section>
 
         {/* ════ 古籍信任 + 易学书馆 ════ */}
@@ -359,6 +266,33 @@ export default function HomeClient() {
           </div>
         </section>
 
+        {/* ════ 术数大全（克制文字导航——SEO 长尾保留——视觉降级） ════ */}
+        <section className="mb-14">
+          <div className="flex items-end justify-between mb-4">
+            <div>
+              <h2 className="text-lg font-bold font-serif text-gray-900 dark:text-gray-50">探索更多东方术数</h2>
+              <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">六爻 · 梅花 · 小六壬 · 灵签 · 塔罗 · 占星——传统术数的更多切面</p>
+            </div>
+            <Link href="/tools" className="text-xs jg-text-accent hover:underline shrink-0">术数大全 →</Link>
+          </div>
+          <div className="flex flex-wrap gap-x-6 gap-y-2.5">
+            {quickTools.map(t => (
+              <Link key={t.href} href={t.href}
+                className="text-[13px] text-gray-600 dark:text-gray-400 hover:text-gold-600 dark:hover:text-gold-300 transition-colors border-b border-transparent hover:border-gold-400/50 pb-0.5">
+                {t.name}
+              </Link>
+            ))}
+          </div>
+          <p className="text-[10px] text-gray-400 dark:text-gray-500 mt-4">
+            {getT('home.tools.footnote')}
+          </p>
+        </section>
+
+        {/* ════ 免费排盘（建立你的个人命盘） ════ */}
+        <div className="jg-card p-6 md:p-8 mb-14">
+          <FreeChartWidget />
+        </div>
+
         {/* ════ 使命句（图稿：传承东方智慧 · 用科技解读命运） ════ */}
         <section className="mb-14 text-center">
           <p className="text-[10px] tracking-[0.35em] text-gold-600/80 dark:text-gold-400/70 mb-3">东方智慧 × 未来科技</p>
@@ -370,6 +304,35 @@ export default function HomeClient() {
             一百四十余部公版古籍、数千年观时之术——以确定性算法排盘、以古籍为据推演、以 AI 白话解读，
             让先人的智慧，成为今天每一个决定的参考。
           </p>
+        </section>
+
+        {/* ════ 为什么选择九宫八卦？（信任区——图稿底部） ════ */}
+        <section className="mb-14">
+          <div className="rounded-3xl border border-gray-200/80 dark:border-gray-700/50 bg-white/80 dark:bg-[#131210]/70 p-7 md:p-9">
+            <div className="flex items-end justify-between flex-wrap gap-3 mb-6">
+              <div>
+                <h2 className="text-2xl md:text-[26px] font-serif font-bold text-gray-900 dark:text-gray-50">为什么选择九宫八卦？</h2>
+                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1.5">我们不做黑盒——数据、流派、古籍、AI、验证、隐私，全部透明。</p>
+              </div>
+              <Link href="/why-jiugong" className="text-xs text-cinnabar-500 hover:underline shrink-0 font-medium">六层信任体系全公开 →</Link>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+              {[
+                { k: '🔢', t: '数据可复验', d: '历法排盘依据公开——同一生辰，任何权威软件排盘结果一致。' },
+                { k: '🏮', t: '流派讲清楚', d: '子平法为主、兼顾滴天髓旺衰与真诠格局——分歧处不隐瞒。' },
+                { k: '📜', t: '古籍全溯源', d: '140+ 公版古籍原文——每一句结论都可溯源到原典。' },
+                { k: '🤖', t: 'AI 不胡编', d: 'RAG 检索增强——先检索原文再作答，没依据就不硬答。' },
+                { k: '🧪', t: '排盘可验证', d: '确定性算法先排盘、AI 只解读盘面事实——结果可对照。' },
+                { k: '🔒', t: '生辰不存储', d: '出生信息仅当次计算——不存服务器、不留档、无需注册。' },
+              ].map(x => (
+                <div key={x.t} className="rounded-xl border border-gray-200/70 dark:border-gray-700/50 p-4 bg-white/70 dark:bg-[#171614]/60 hover:border-gold-400/40 transition-colors">
+                  <p className="text-lg mb-1.5">{x.k}</p>
+                  <p className="text-[13px] font-semibold text-gray-800 dark:text-gray-100 mb-1">{x.t}</p>
+                  <p className="text-[11px] text-gray-500 dark:text-gray-400 leading-relaxed">{x.d}</p>
+                </div>
+              ))}
+            </div>
+          </div>
         </section>
 
         {/* ════ 学派源流（精简） ════ */}

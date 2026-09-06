@@ -425,11 +425,6 @@ function BaziResultView({ result, name, gender }: { result: BaziChartResult; nam
         )}
       </div>
 
-      {/* 人生 K 线（大运能量周期——易传播） */}
-      <div className="mb-4">
-        <LifeKLine riGan={pills[2].gan} dayun={dayun} curAge={curAge} birthYear={0} />
-      </div>
-
       {/* 大运 */}
       <div className="bg-dark-800/80 border border-dark-600 rounded-xl p-4">
         <h3 className="text-sm font-semibold text-gold-300 font-serif mb-3 text-center">大运</h3>

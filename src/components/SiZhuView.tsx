@@ -1,6 +1,7 @@
 'use client'
 
 import { useMemo, useState } from 'react'
+import LifeKLine from '@/components/LifeKLine'
 import {
   computeAllRelations, wuxingDetail, wuxingFlow, shenshaPower, liuqinOf,
   lifeStages, pillarPairs, calcMingGong, calcShenGong, calcTaiYuan,
@@ -104,6 +105,12 @@ export default function SiZhuView({ pills, dayun, gender, mingGong, shenGong, ta
 
   return (
     <div className="rounded-xl p-4" style={{ background: PAPER.bg, border: `1px solid ${PAPER.border}`, color: PAPER.text }}>
+      {/* 人生 K 线（大运能量周期——易截图传播） */}
+      {dayun && dayun.length > 0 && dayGan && (
+        <div className="mb-4">
+          <LifeKLine riGan={dayGan} dayun={dayun as { gz: string; age: number; startYear: number }[]} curAge={curAge || 30} birthYear={0} />
+        </div>
+      )}
       <div className="mb-3">
         <h3 className="text-sm font-semibold font-serif" style={{ color: PAPER.title }}>四柱多视角</h3>
         <p className="text-[10px] mt-0.5" style={{ color: PAPER.sub }}>六亲 · 四柱气脉 · 先天三宫 · 五行分布（判读需回排盘页）</p>
