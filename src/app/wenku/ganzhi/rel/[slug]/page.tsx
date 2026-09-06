@@ -6,7 +6,7 @@ import { getRelById, ALL_RELS } from '@/data/ganzhi/rel-index'
 import { REL_TYPE_META } from '@/data/ganzhi/rel-schema'
 
 export async function generateStaticParams() {
-  return ALL_RELS.map(r => ({ slug: encodeURIComponent(r.id) }))
+  return ALL_RELS.map(r => ({ slug: r.id }))
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
