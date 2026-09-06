@@ -5,7 +5,7 @@
 
 import { useState } from 'react'
 import { computeChart, SIGN_NAMES, type ChartResult, type ChartBody } from '@/lib/astrology-engine'
-import { ZODIAC_DEEP, PLANET_DEEP } from '@/data/astro/index'
+import { ZODIAC_DEEP, PLANET_DEEP, HOUSE_DEEP, ASPECT_DEEP } from '@/data/astro/index'
 import Breadcrumb from '@/components/Breadcrumb'
 
 // 星座 sign 索引 → ZODIAC_DEEP id 映射（0=白羊）
@@ -195,6 +195,40 @@ export default function AstroClient() {
                 )
               })}
             </div>
+          </div>
+
+          {/* 宫位深度（你的行星落在哪些人生领域） */}
+          <div className="mb-6">
+            <h3 className="text-base font-bold text-gray-800 dark:text-gray-100 mb-3 flex items-center gap-2">🏠 十二宫位 · 深度解读 <span className="text-[10px] font-normal text-gray-400">行星落在的宫位 = 能量投射的人生领域</span></h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2.5">
+              {HOUSE_DEEP.map(h => {
+                const planetsHere = chart.bodies.filter(b => b.house === h.n)
+                return (
+                  <div key={h.n} className={`rounded-xl border p-3.5 ${planetsHere.length ? 'border-gold-300/70 dark:border-gold-500/40 bg-gradient-to-b from-[#fdf9ee]/70 to-white/50 dark:from-[#1c1a13] dark:to-[#13161c]' : 'border-gray-200/70 dark:border-gray-700/50 bg-white/85 dark:bg-[#13161c]/85'}`}>
+                    <div className="flex items-center justify-between mb-1">
+                      <p className="text-xs font-bold text-gray-700 dark:text-gray-200">第 {h.n} 宫 · {h.name}</p>
+                      {planetsHere.length > 0 && <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-gold-500/15 text-gold-600 dark:text-gold-300 font-medium">{planetsHere.map(p => p.symbol).join(' ')}</span>}
+                    </div>
+                    <p className="text-[9.5px] text-gray-400 mb-1">{h.domain}</p>
+                    <p className="text-[10.5px] text-gray-500 dark:text-gray-400 leading-relaxed line-clamp-3">{h.meaning.split('\n')[0]}</p>
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+
+          {/* 相位深度 */}
+          <div className="mb-6">
+            <h3 className="text-base font-bold text-gray-800 dark:text-gray-100 mb-3 flex items-center gap-2">🔯 相位体系 · 深度解读 <span className="text-[10px] font-normal text-gray-400">行星间的角度对话——你内在能量的合作与张力</span></h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-2.5">
+              {ASPECT_DEEP.map(a => (
+                <div key={a.id} className="rounded-xl border border-gray-200/70 dark:border-gray-700/50 bg-white/85 dark:bg-[#13161c]/85 p-3.5">
+                  <p className="text-xs font-bold text-gray-700 dark:text-gray-200 mb-0.5">{a.name}<span className="text-[10px] text-gray-400 font-normal ml-1">{a.deg}</span></p>
+                  <p className="text-[10.5px] text-gray-500 dark:text-gray-400 leading-relaxed">{a.meaning}</p>
+                </div>
+              ))}
+            </div>
+            <p className="text-[10px] text-gray-400 dark:text-gray-500 mt-3 leading-relaxed">相位描述的是心理动力模式——刑冲是成长的功课，拱合是顺手的天赋；本命盘解析请咨询专业占星师做完整解读。</p>
           </div>
         </>
       )}
