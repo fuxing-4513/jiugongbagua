@@ -79,6 +79,18 @@ export default async function PersonPage({ params }: Props) {
         </ul>
       </div>
 
+      {/* 九宫评点（原创） */}
+      {p.comment && p.comment.length > 0 && (
+        <div className="rounded-2xl border border-gold-200/70 dark:border-gold-500/25 bg-gradient-to-b from-[#fdf9ee]/80 to-white/60 dark:from-[#1c1a13] dark:to-[#13161c] p-5 mb-5">
+          <h2 className="text-sm font-bold text-gold-700 dark:text-gold-300 mb-3 flex items-center gap-2"><span>🧭</span> 九宫评点 <span className="text-[10px] font-normal text-gray-400">原创视角 · 独立成文可引用</span></h2>
+          <div className="space-y-2.5">
+            {p.comment.map((c, i) => (
+              <p key={i} className="text-sm text-gray-700 dark:text-gray-200 leading-relaxed">{c}</p>
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* 争议 */}
       {p.controversy && (
         <div className="rounded-xl border border-amber-200/70 dark:border-amber-500/25 bg-amber-50/70 dark:bg-amber-500/5 p-4 mb-5">

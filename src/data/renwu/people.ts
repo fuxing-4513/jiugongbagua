@@ -10,7 +10,9 @@ export interface PersonEntry {
   intro: string          // 一句话定位
   bio: string[]          // 生平（2-4 段白话）
   works: { title: string; note: string; relatedBookId?: string }[]
-  contribution: string[] // 贡献/影响
+  contribution: string[]
+  /** 九宫评点（原创——该人物对当代实践者的启示/学术定位/常见误解辨析——400-800 字） */
+  comment?: string[] // 贡献/影响
   controversy?: string   // 托名/争议说明
   relatedBookIds?: string[]
   slug: string
