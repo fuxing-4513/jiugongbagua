@@ -217,7 +217,36 @@ export default function HomeClient() {
           </div>
         </section>
 
-        {/* ════ 免费排盘 ════ */}
+        {/* ════ 为什么选择九宫八卦？（信任区——图稿底部） ════ */}
+        <section className="mb-14">
+          <div className="rounded-3xl border border-gray-200/80 dark:border-gray-700/50 bg-white/80 dark:bg-[#131210]/70 p-7 md:p-9">
+            <div className="flex items-end justify-between flex-wrap gap-3 mb-6">
+              <div>
+                <h2 className="text-2xl md:text-[26px] font-serif font-bold text-gray-900 dark:text-gray-50">为什么选择九宫八卦？</h2>
+                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1.5">我们不做黑盒——数据、流派、古籍、AI、验证、隐私，全部透明。</p>
+              </div>
+              <Link href="/why-jiugong" className="text-xs text-cinnabar-500 hover:underline shrink-0 font-medium">六层信任体系全公开 →</Link>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+              {[
+                { k: '🔢', t: '数据可复验', d: '历法排盘依据公开——同一生辰，任何权威软件排盘结果一致。' },
+                { k: '🏮', t: '流派讲清楚', d: '子平法为主、兼顾滴天髓旺衰与真诠格局——分歧处不隐瞒。' },
+                { k: '📜', t: '古籍全溯源', d: '140+ 公版古籍原文——每一句结论都可溯源到原典。' },
+                { k: '🤖', t: 'AI 不胡编', d: 'RAG 检索增强——先检索原文再作答，没依据就不硬答。' },
+                { k: '🧪', t: '排盘可验证', d: '确定性算法先排盘、AI 只解读盘面事实——结果可对照。' },
+                { k: '🔒', t: '生辰不存储', d: '出生信息仅当次计算——不存服务器、不留档、无需注册。' },
+              ].map(x => (
+                <div key={x.t} className="rounded-xl border border-gray-200/70 dark:border-gray-700/50 p-4 bg-white/70 dark:bg-[#171614]/60 hover:border-gold-400/40 transition-colors">
+                  <p className="text-lg mb-1.5">{x.k}</p>
+                  <p className="text-[13px] font-semibold text-gray-800 dark:text-gray-100 mb-1">{x.t}</p>
+                  <p className="text-[11px] text-gray-500 dark:text-gray-400 leading-relaxed">{x.d}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ════ 免费排盘（建立你的个人命盘） ════ */}
         <div className="jg-card p-6 md:p-8 mb-14">
           <FreeChartWidget />
         </div>
@@ -328,6 +357,19 @@ export default function HomeClient() {
               </div>
             </div>
           </div>
+        </section>
+
+        {/* ════ 使命句（图稿：传承东方智慧 · 用科技解读命运） ════ */}
+        <section className="mb-14 text-center">
+          <p className="text-[10px] tracking-[0.35em] text-gold-600/80 dark:text-gold-400/70 mb-3">东方智慧 × 未来科技</p>
+          <h2 className="text-2xl md:text-3xl font-serif font-bold text-gray-900 dark:text-gray-50 leading-snug mb-4">
+            传承东方智慧，
+            <span className="text-cinnabar-500 dark:text-cinnabar-400">用科技解读命运</span>
+          </h2>
+          <p className="text-sm text-gray-500 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed">
+            一百四十余部公版古籍、数千年观时之术——以确定性算法排盘、以古籍为据推演、以 AI 白话解读，
+            让先人的智慧，成为今天每一个决定的参考。
+          </p>
         </section>
 
         {/* ════ 学派源流（精简） ════ */}
