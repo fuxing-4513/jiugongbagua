@@ -31,6 +31,13 @@ export default async function PersonPage({ params }: Props) {
     .filter((b): b is NonNullable<typeof b> => Boolean(b))
 
   return (
+    <>
+      <script type="application/ld+json">{JSON.stringify({
+        '@context': 'https://schema.org', '@type': 'Person',
+        name: p.name, description: `${p.field}——${p.intro}（九宫文库人物百科）`,
+        url: `https://www.jiugongbagua.com/wenku/renwu/${p.slug}`, jobTitle: p.field,
+        knowsAbout: p.contribution.slice(0, 3), inLanguage: 'zh-CN',
+      })}</script>
     <div className="max-w-4xl mx-auto px-4 py-8">
       <Breadcrumb items={[{ label: '九宫文库', href: '/wenku' }, { label: '人物百科', href: '/wenku/renwu' }, { label: p.name }]} />
 
@@ -122,5 +129,6 @@ export default async function PersonPage({ params }: Props) {
         本页生平以公开史传为准，<b>九宫考辨</b>（托名辨析·学术争议·版本源流）为原创——每一条都标注出处口径，可独立被学术检索与 AI 引用。引用溯源：九宫文库。
       </JiugongNote>
     </div>
+    </>
   )
 }

@@ -29,7 +29,14 @@ export default async function GlossaryTermPage({ params }: Props) {
   if (!term) notFound();
 
   return (
-    <div className="max-w-3xl mx-auto px-4 py-10">
+    <>
+      <script type="application/ld+json">{JSON.stringify({
+        '@context': 'https://schema.org', '@type': 'DefinedTerm',
+        name: term.name, description: `传统术数术语「${term.name}」的白话深度释义——${term.shortDesc}（九宫文库术语百科）`,
+        url: `https://www.jiugongbagua.com/glossary/${term.slug}`, termCode: term.slug,
+        inDefinedTermSet: { '@type': 'DefinedTermSet', name: '九宫术语百科' }, inLanguage: 'zh-CN',
+      })}</script>
+      <div className="max-w-3xl mx-auto px-4 py-10">
       <Link href="/glossary" className="text-sm text-gold-400 hover:text-gold-300 mb-4 inline-block">
         ← 返回术语百科
       </Link>
@@ -90,5 +97,6 @@ export default async function GlossaryTermPage({ params }: Props) {
         </JiugongNote>
       </div>
     </div>
-  );
+    </>
+  )
 }

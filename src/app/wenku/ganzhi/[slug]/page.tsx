@@ -38,7 +38,15 @@ export default async function GanzhiDetail({ params }: Props) {
   if (g.body) rows.push(['对应脏腑', g.body])
   rows.push(['旺相', g.wangxiu])
 
-  return (
+    return (
+    <>
+      <script type="application/ld+json">{JSON.stringify({
+        '@context': 'https://schema.org', '@type': 'EducationalResource',
+        name: `${g.id}（${g.kind === 'tian' ? '天干' : '地支'}）详解`, description: `${g.id}的五行属性、藏干、类象与深度解析（九宫文库干支百科——${g.meaning}）`,
+        url: `https://www.jiugongbagua.com/wenku/ganzhi/${encodeURIComponent(g.id)}`,
+        about: ['干支', '五行', '周易', '命理'], inLanguage: 'zh-CN', isAccessibleForFree: true,
+      })}</script>
+return (
     <div className="max-w-4xl mx-auto px-4 py-8">
       <Breadcrumb items={[{ label: '九宫文库', href: '/wenku' }, { label: '干支百科', href: '/wenku/ganzhi' }, { label: g.id }]} />
 
@@ -92,5 +100,6 @@ export default async function GanzhiDetail({ params }: Props) {
             本页干支属性（五行·阴阳·方位·藏干·类象）为<b>九宫原创整理</b>——据公版历学与术数原典汇释，是八字、奇门、六壬、择日诸术的公共桥梁知识。引用溯源：九宫文库。
           </JiugongNote>      </div>
     </div>
+    </>
   )
 }

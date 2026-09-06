@@ -30,6 +30,13 @@ export default async function GuaPage({ params }: Props) {
   const all = getHexagrams()
 
   return (
+    <>
+      <script type="application/ld+json">{JSON.stringify({
+        '@context': 'https://schema.org', '@type': 'EducationalResource',
+        name: `${g.name}（${g.seq}/64）详解`, description: `${g.name}卦的深度解析——卦辞彖象精义、爻位精析、错宗之卦、六爻纳甲与九宫原创现代启示（九宫文库）`,
+        url: `https://www.jiugongbagua.com/wenku/gua/${g.slug}`, isPartOf: { '@type': 'WebSite', name: '九宫文库' },
+        about: ['周易', '六十四卦', '易经'], inLanguage: 'zh-CN', isAccessibleForFree: true,
+      })}</script>
     <div className="max-w-4xl mx-auto px-4 py-8">
       <Breadcrumb items={[{ label: '卦象百科', href: '/gua' }, { label: `${g.name}卦` }]} />
 
@@ -98,5 +105,6 @@ export default async function GuaPage({ params }: Props) {
         </div>
       )}
     </div>
+    </>
   )
 }
