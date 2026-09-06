@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import Breadcrumb from '@/components/Breadcrumb'
 import { getHexagrams, getGuaBySlug, TRIGRAM_INFO } from '@/lib/hexagram-data'
+import GuaDeepView from '@/components/GuaDeepView'
+import { getGuaDeepById } from '@/data/gua/deep'
 
 export function generateStaticParams() {
   return getHexagrams().map(g => ({ slug: g.slug }))
@@ -84,6 +86,17 @@ export default async function GuaPage({ params }: Props) {
           <Link href={`/wenku/gua/${all[g.seq].slug}`} className="text-xs px-3 py-1.5 rounded-lg border border-gray-200 text-gray-500 hover:border-gold-300">↓ 下一卦：{all[g.seq].name}</Link>
         )}
       </div>
+
+      {/* 深度分析（九宫原创——穷通宝鉴级详解） */}
+      {getGuaDeepById(g.slug) && (
+        <div className="mt-8">
+          <div className="flex items-center gap-2 mb-3">
+            <h2 className="text-lg font-bold text-gray-800 dark:text-gray-100">📖 {g.name} 深度分析</h2>
+            <span className="text-[10px] px-2 py-0.5 rounded-full bg-gold-500/10 text-gold-600 dark:text-gold-300">九宫原创 · 卦德/爻精/错综/应用/现代启示</span>
+          </div>
+          <GuaDeepView d={getGuaDeepById(g.slug)!} />
+        </div>
+      )}
     </div>
   )
 }
