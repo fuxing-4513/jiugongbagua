@@ -84,7 +84,7 @@ export default function Nav() {
   }
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 shadow-sm" style={{ background: "rgba(8,11,12,0.55)", backdropFilter: "blur(10px)", borderBottom: "1px solid rgba(176,138,60,0.14)" }}>
+    <nav className="fixed top-0 left-0 right-0 z-50 shadow-sm" style={{ background: "rgba(8,11,12,0.32)", backdropFilter: "blur(10px)", borderBottom: "1px solid rgba(176,138,60,0.14)" }}>
       <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 flex-shrink-0">

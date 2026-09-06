@@ -195,29 +195,26 @@ export default function HomeClient() {
           <div className="relative overflow-hidden">
             {/* 背景图（深墨山水+人影——图稿 AI 区） */}
             <img src="/assets/ai-area.webp" alt="" aria-hidden className="absolute inset-0 w-full h-full object-cover object-center" />
-            <div className="absolute inset-0" style={{ background: 'linear-gradient(90deg, rgba(8,11,12,0.82) 0%, rgba(8,11,12,0.55) 45%, rgba(8,11,12,0.35) 100%)' }} />
-            <div className="relative z-10 grid md:grid-cols-[40fr_60fr]">
-              {/* 左 40%：主张 */}
-              <div className="p-8 md:p-14 flex flex-col justify-center">
-                <p className="text-[12px] tracking-[0.3em] text-[#B23A3A] font-normal mb-4">AI 决策分析</p>
-                <h2 className="text-[28px] md:text-[36px] font-normal font-serif text-[#F5F2EA] leading-snug mb-6">
-                  不只是算命，<br />更是决策参考。
-                </h2>
-                <p className="text-[13px] text-[#9B968B] leading-relaxed mb-8 max-w-sm">
-                  结合你的命盘 · 时机与古籍智慧——把"该不该、能不能、何时动"推演成一份可行动的建议，每一句都可溯源到原典。
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {scenarioCards.map(s => (
-                    <Link key={s.href} href={s.href}
-                      className="text-[11px] px-3.5 py-1.5 border transition-colors"
-                      style={{ borderColor: 'rgba(176,138,60,0.28)', color: '#BDB7AA' }}
-                      onMouseEnter={e => { e.currentTarget.style.borderColor = '#B08A3C'; e.currentTarget.style.color = '#C9A85B' }}
-                      onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(176,138,60,0.28)'; e.currentTarget.style.color = '#BDB7AA' }}>
-                      {s.q}
-                    </Link>
-                  ))}
+            <div className="absolute inset-0" style={{ background: 'linear-gradient(105deg, rgba(8,11,12,0.10) 0%, rgba(8,11,12,0.32) 30%, rgba(8,11,12,0.82) 92%)' }} />
+            <div className="relative z-10 grid md:grid-cols-[30fr_70fr] items-stretch">
+              {/* 左 30%：人影区（留空——人物显现不被遮挡） */}
+              <div className="hidden md:block" aria-hidden></div>
+              {/* 右 70%：内容（文字 + 按钮 + AI 卡） */}
+              <div className="md:grid md:grid-cols-[44fr_56fr] items-center">
+                <div className="p-8 md:p-12 flex flex-col justify-center">
+                  <p className="text-[12px] tracking-[0.3em] text-[#B23A3A] font-normal mb-4">AI 决策分析</p>
+                  <h2 className="text-[26px] md:text-[34px] font-normal font-serif text-[#F5F2EA] leading-snug mb-5">
+                    不只是算命，<br />更是决策参考。
+                  </h2>
+                  <p className="text-[13px] text-[#9B968B] leading-relaxed mb-7 max-w-sm">
+                    结合你的命盘 · 时机与古籍智慧——把"该不该、能不能、何时动"推演成一份可行动的建议，每一句都可溯源到原典。
+                  </p>
+                  {/* 体验 AI 个人分析 →（图稿按钮——链 AI 测算页） */}
+                  <Link href="/ai" className="inline-flex items-center gap-2 text-[#F5F2EA] text-[14px] tracking-[0.1em] px-6 py-3 w-max transition-all hover:brightness-110 hover:-translate-y-0.5"
+                    style={{ background: '#B23A3A', boxShadow: '0 8px 24px rgba(178,58,58,0.3)' }}>
+                    体验 AI 个人分析 →
+                  </Link>
                 </div>
-              </div>
               {/* 右 60%：AI 分析卡（人生推演报告——glass 报告而非聊天框） */}
               <div className="p-8 md:p-14 flex items-center" style={{ background: 'rgba(255,255,255,0.02)', borderLeft: '1px solid rgba(176,138,60,0.18)' }}>
                 <div className="w-full max-w-[520px] ml-auto"
@@ -246,6 +243,7 @@ export default function HomeClient() {
                     <p className="text-[10px] text-[#68645C] leading-relaxed">📜 依据：《滴天髓》气象论 · 命盘日主 × 大运十神 × 流年时机 —— <span className="text-[#9B968B]">进入 AI 决策看完整推演</span></p>
                   </div>
                 </div>
+              </div>
               </div>
             </div>
           </div>
