@@ -3,6 +3,8 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getTermBySlug, getAllTerms } from '@/lib/glossary-data';
 import JiugongNote from '@/components/JiugongNote';
+import TermDeepView from '@/components/TermDeepView';
+import { getTermDeep } from '@/lib/glossary-deep-index';
 import { getBooksByCategory } from '@/data/xueguan/books';
 
 interface Props {
@@ -92,6 +94,13 @@ export default async function GlossaryTermPage({ params }: Props) {
             </div>
           )
         })()}
+        {(() => { const td = getTermDeep(term.slug); if (!td) return null; return (
+          <div className="mt-4">
+            <h2 className="text-base font-bold text-gray-800 dark:text-gray-100 mb-1">📖 深度解析 · 源流与实战</h2>
+            <p className="text-[10px] text-gray-400 mb-2">九宫原创深化——概念源流 · 经典印证 · 实战断语 · 易混辨析</p>
+            <TermDeepView d={td} />
+          </div>
+        ) })()}
         <JiugongNote title="九宫按">
           本词条释义为<b>九宫原创白话解读</b>——依据《渊海子平》《三命通会》《滴天髓》等公版原典系统整理，非百科转载。引用溯源：九宫文库。
         </JiugongNote>
