@@ -33,7 +33,7 @@
   --color-zhuhong: #c43a31;
   --color-zhuhong-dark: #a82f28;
 
-  --font-serif: 'Noto Serif SC', 'Georgia', serif;
+  --font-serif: 'Cormorant Garamond', 'Noto Serif SC', 'Source Han Serif SC', 'SimSun', Georgia, serif;
   --font-sans: 'Noto Sans SC', 'system-ui', sans-serif;
 }
 
@@ -75,6 +75,10 @@ body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; 
 
 /* ── 全局背景（白天默认：米白；夜晚：深空灰） ── */
 :root {
+  /* 朱砂红（点缀——图稿视觉规范——仅品牌点睛用） */
+  --color-cinnabar-400: #c05b43;
+  --color-cinnabar-500: #a8452f;
+  --color-cinnabar-600: #8f3826;
   --jg-bg: #F5F2EA;  /* 骨白——东方纸张基调（视觉升级 2026-09） */
   --jg-text: #1c1c28;
 }

@@ -106,11 +106,14 @@ export default function HomeClient() {
             {/* 左：文案 + AI 输入 */}
             <div>
               <span className="jg-chip mb-6">{getT('home.heroChip')}</span>
-              <h1 className="text-3xl md:text-5xl font-bold text-gray-900 dark:text-gray-50 leading-tight mb-8">
+              <h1 className="text-3xl md:text-5xl font-bold text-gray-900 dark:text-gray-50 leading-tight mb-3">
                 在关键时刻，
                 <br />
                 <span className="jg-text-grad">看清真实处境</span>
               </h1>
+              <p className="text-sm md:text-base font-serif tracking-[0.35em] text-gold-600/90 dark:text-gold-400/80 mb-6 pl-0.5">
+                观时 · 察势 · 明心 · 决策
+              </p>
 
               {/* ═══ 三大痛点场景（先共情，再给方法） ═══ */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-8">
@@ -218,6 +221,48 @@ export default function HomeClient() {
         <div className="jg-card p-6 md:p-8 mb-14">
           <FreeChartWidget />
         </div>
+
+        {/* ════ AI 决策分析（图稿：不只是算命，更是决策参考） ════ */}
+        <section className="mb-14">
+          <div className="rounded-3xl border border-gray-200/80 dark:border-gray-700/50 overflow-hidden bg-white/80 dark:bg-[#131210]/70">
+            <div className="grid md:grid-cols-2">
+              {/* 左：主张 */}
+              <div className="p-7 md:p-9 flex flex-col justify-center">
+                <p className="text-[10px] tracking-[0.3em] text-cinnabar-500 dark:text-cinnabar-400 font-medium mb-2.5">AI 决策分析</p>
+                <h2 className="text-2xl md:text-[26px] font-serif font-bold text-gray-900 dark:text-gray-50 leading-snug mb-3">
+                  不只是算命，<br />更是决策参考。
+                </h2>
+                <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed mb-6">
+                  结合你的<b className="text-gray-700 dark:text-gray-200">命盘</b> · <b className="text-gray-700 dark:text-gray-200">时机</b>与<b className="text-gray-700 dark:text-gray-200">古籍智慧</b>，
+                  把"该不该、能不能、何时动"推演成合理、实情、可行动的建议——结论每一条都可溯源到原典。
+                </p>
+                <div className="flex flex-wrap gap-2 mb-7">
+                  {['结合命盘', '看清周期', '识别时机', '古籍依据', '行动建议'].map(t => (
+                    <span key={t} className="text-[10.5px] px-2.5 py-1 rounded-full border border-gray-200 dark:border-gray-700 text-gray-500 dark:text-gray-400">{t}</span>
+                  ))}
+                </div>
+                <div>
+                  <Link href="/ai" className="inline-block px-6 py-2.5 rounded-lg bg-cinnabar-500 hover:bg-cinnabar-600 text-white text-sm font-medium transition-colors shadow-[0_2px_10px_rgba(168,69,47,0.25)]">
+                    向 AI 问一个决策 →
+                  </Link>
+                </div>
+              </div>
+              {/* 右：对话示例（静态演示） */}
+              <div className="p-7 md:p-9 border-t md:border-t-0 md:border-l border-gray-100 dark:border-gray-800 bg-gradient-to-br from-[#faf7ef]/60 to-transparent dark:from-[#171614]/50 flex items-center">
+                <div className="w-full space-y-3">
+                  <div className="rounded-xl rounded-tl-sm bg-white dark:bg-[#1b1a17] border border-gray-200/70 dark:border-gray-700/50 p-3.5 shadow-sm max-w-[85%]">
+                    <p className="text-xs text-gray-600 dark:text-gray-300 leading-relaxed">最近有个跳槽机会，我今年该不该动？</p>
+                  </div>
+                  <div className="rounded-xl rounded-tr-sm border border-gold-300/40 dark:border-gold-500/20 bg-[#fdf9ee]/80 dark:bg-[#1c1a13]/80 p-3.5 max-w-[92%] ml-auto">
+                    <p className="text-[10px] text-gold-600 dark:text-gold-400 font-medium mb-1.5">AI 推演 · 据《滴天髓》与你的命盘</p>
+                    <p className="text-xs text-gray-700 dark:text-gray-200 leading-relaxed">你正处在<b>大运交接的蓄势段</b>——机会真实，但宜「先稳后动」：上半年积累筹码、秋季窗口再议。谨慎高杠杆，10 月后运势转升。</p>
+                    <p className="text-[9.5px] text-gray-400 dark:text-gray-500 mt-2">📜 推演依据：命盘日主 × 大运十神 × 流年时机 —— 点此查看完整推演</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
 
         {/* ════ 术数大全（克制文字导航——SEO 长尾保留——视觉降级） ════ */}
         <section className="mb-14">
