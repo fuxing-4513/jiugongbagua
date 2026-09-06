@@ -40,9 +40,9 @@ const modules: ModuleInfo[] = [
 // ── Bento 主卡（上排：三大精算引擎） ──
 // ── Bento 主卡：九宫三大核心（看周期 / 看结构 / 看时机） ──
 const bentoMain = [
-  { num: '01', emoji: '', title: '四柱八字', tag: '看人生周期', desc: '事业 · 财富 · 性格 · 大运——五行喜忌与十年大运的节奏', href: '/bazi', accent: 'gold' },
-  { num: '02', emoji: '', title: '紫微斗数', tag: '看人生结构', desc: '十四主星十二宫——从命宫到人生剧本的完整结构', href: '/ziwei', accent: 'gold' },
-  { num: '03', emoji: '', title: '奇门遁甲', tag: '看当下时机', desc: '决策 · 择时 · 策略——此刻是进是守，局中有象', href: '/qimen', accent: 'gold' },
+  { num: '01', title: '四柱八字', tag: '看人生周期', desc: '科技 · 事业 · 财富 · 大运——五行喜忌与十年大运的节奏', href: '/bazi', sub: ['科技', '事业', '财富', '大运'], bg: '/assets/card-bazi.webp' },
+  { num: '02', title: '紫微斗数', tag: '看人生结构', desc: '十二宫 · 桃花 · 事业 · 财富——从命宫到人生剧本的完整结构', href: '/ziwei', sub: ['十二宫', '桃花', '事业', '财富'], bg: '/assets/card-ziwei.webp' },
+  { num: '03', title: '奇门遁甲', tag: '看当下时机', desc: '决策 · 何时 · 把握 · 时机——此刻是进是守，局中有象', href: '/qimen', sub: ['决策', '何时', '把握', '时机'], bg: '/assets/card-qimen.webp' },
 ]
 // ── 轻工具（克制文字导航——探索更多东方术数） ──
 const quickTools = [
@@ -75,33 +75,32 @@ export default function HomeClient() {
 
   return (
     <>
-      <div className="max-w-6xl mx-auto px-4">
-        {/* ════ Hero：东方山水 × 时空仪盘 Artwork（规格 22 项施工） ════ */}
+      {/* ════ Hero：东方山水 × 时空仪盘 Artwork（规格 22 项施工） ════ */}
         <section className="relative overflow-hidden mb-16" style={{ background: '#050708' }}>
           {/* 山水背景（hero-mountain.svg——天空/五层山/雾/水面/金光） */}
-          <img src="/assets/hero-mountain.webp" alt="" aria-hidden
+          <img src="/assets/hero-cn.webp" alt="" aria-hidden
             className="absolute inset-0 w-full h-full object-cover object-center select-none pointer-events-none" />
           {/* 右侧金色天光强调 */}
           <div className="absolute inset-0 pointer-events-none"
             style={{ background: 'radial-gradient(60% 40% at 78% 8%, rgba(176,138,60,0.14) 0%, transparent 70%)' }} />
 
-          {/* 时空盘（偏右 x~68% 大 560-620——悬浮山水之上） */}
-          <div className="absolute select-none pointer-events-none"
-            style={{ right: '2%', top: '50%', transform: 'translateY(-54%)', width: 'min(46vw, 580px)', opacity: 0.97 }}>
-            <img src="/assets/hero-time-wheel.svg" alt="九宫时空盘——东方天文仪器" className="w-full h-auto" />
-          </div>
-          {/* 水面倒影（垂直翻转 + 模糊 + 低透明 + 渐隐 mask） */}
-          <div className="absolute select-none pointer-events-none"
-            style={{ right: '6%', bottom: '-1%', width: 'min(38vw, 470px)', opacity: 0.14, transform: 'scaleY(-1)',
-              filter: 'blur(5px)', maskImage: 'linear-gradient(to bottom, rgba(0,0,0,0.55), transparent 82%)', WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,0.55), transparent 82%)' }}>
-            <img src="/assets/hero-time-wheel.svg" alt="" aria-hidden className="w-full h-auto" />
-          </div>
           {/* 水面微光带 */}
           <div className="absolute inset-x-0 bottom-0 h-14 pointer-events-none opacity-60"
             style={{ background: 'linear-gradient(to top, rgba(176,138,60,0.10), transparent)' }} />
 
           {/* 文案层（左 44%——巨大呼吸空间） */}
-          <div className="relative z-10 max-w-6xl mx-auto px-6 md:px-12" style={{ minHeight: '680px' }}>
+          <div className="relative z-10 w-full px-8 md:px-14" style={{ minHeight: '680px' }}>
+            {/* 时空盘（内容区右侧——大 580 悬浮——露出背景太极） */}
+            <div className="absolute select-none pointer-events-none"
+              style={{ right: '-1%', top: '50%', transform: 'translateY(-50%)', width: 'min(46vw, 580px)', opacity: 0.97 }}>
+              <img src="/assets/hero-time-wheel.svg" alt="九宫时空盘——东方天文仪器" className="w-full h-auto" />
+            </div>
+            {/* 水面倒影 */}
+            <div className="absolute select-none pointer-events-none"
+              style={{ right: '4%', bottom: '-2%', width: 'min(36vw, 450px)', opacity: 0.14, transform: 'scaleY(-1)',
+                filter: 'blur(5px)', maskImage: 'linear-gradient(to bottom, rgba(0,0,0,0.55), transparent 82%)', WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,0.55), transparent 82%)' }}>
+              <img src="/assets/hero-time-wheel.svg" alt="" aria-hidden className="w-full h-auto" />
+            </div>
             <div className="flex flex-col justify-center" style={{ width: '44%', minHeight: '680px', padding: '104px 0 120px' }}>
               <p className="text-[12px] tracking-[0.3em] text-[#C9A85B]/80 mb-7">{getT('home.heroChip')}</p>
               <h1 className="text-[42px] leading-[1.14] md:text-[64px] font-normal font-serif text-[#F5F2EA] mb-7"
@@ -116,13 +115,19 @@ export default function HomeClient() {
               <p className="text-[13px] text-[#9B968B] leading-relaxed mb-10 max-w-sm hidden sm:block">
                 不给你宿命断言，只帮你照见能量与时机——理性做出你自己的决定。
               </p>
-              {/* 四问 */}
-              <div className="flex items-center mb-11">
-                {['事业', '财富', '感情', '人生'].map((t, i) => (
-                  <span key={t} className="flex items-center">
-                    {i > 0 && <span className="w-px h-3 bg-[#3a3d3a] mx-4" />}
-                    <span className="text-[13px] text-[#9B968B] tracking-widest">{t}</span>
-                  </span>
+              {/* 四问（主题 + 具体问题——图稿） */}
+              <div className="flex items-stretch gap-7 mb-12">
+                {[
+                  { t: '事业', q: '换工作？' },
+                  { t: '财富', q: '今年该创业吗？' },
+                  { t: '感情', q: '这段关系该继续吗？' },
+                  { t: '人生', q: '我何时迎来转折？' },
+                ].map((x, i) => (
+                  <div key={x.t} className="relative pl-3">
+                    {i > 0 && <span className="absolute left-0 top-1 bottom-1 w-px bg-[#3a3d3a]" />}
+                    <p className="text-[13px] text-[#C9A85B] tracking-widest mb-1.5">{x.t}</p>
+                    <p className="text-[12px] text-[#8a8478] whitespace-nowrap">{x.q}</p>
+                  </div>
                 ))}
               </div>
               {/* CTA */}
@@ -133,26 +138,47 @@ export default function HomeClient() {
                   开始我的人生推演 →
                 </Link>
               </div>
+            {/* 右侧竖排文案（图稿——竖排小字） */}
+            <div className="hidden xl:block absolute right-10 top-1/2 -translate-y-1/2 select-none pointer-events-none text-right">
+              <p className="writing-vertical text-[12px] tracking-[0.3em] text-[#9B968B]/80 leading-loose" style={{ writingMode: 'vertical-rl' }}>
+                天时地利人和 · 关键时刻是否 · 用在参谋人生
+              </p>
+            </div>
             </div>
           </div>
         </section>
+
+        {/* ════ 内容区（rest——max-w 容器） ════ */}
+        <div className="max-w-6xl mx-auto px-4">
 
         {/* ════ Bento Grid：三大精算引擎 ════ */}
         <section className="mb-12">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {bentoMain.map(c => (
               <Link key={c.href} href={c.href}
-                className="group relative overflow-hidden p-8 min-h-[260px] flex flex-col transition-all duration-300 hover:-translate-y-1" style={{ background: "var(--paper)", border: "1px solid var(--border-light)", boxShadow: "var(--shadow-card)" }}>
-                <div className="relative z-10 flex flex-col h-full">
-                  <div className="flex items-baseline gap-3 mb-3">
-                    <span className="text-2xl font-serif font-bold text-gold-500/70 dark:text-gold-400/60 group-hover:text-gold-500 dark:group-hover:text-gold-300 transition-colors">{c.num}</span>
-                    <h2 className="text-lg font-bold font-serif text-gray-900 dark:text-gray-50">{c.title}</h2>
+                className="group relative overflow-hidden flex flex-col items-center text-center transition-all duration-300 hover:-translate-y-1"
+                style={{ background: "var(--paper)", border: "1px solid var(--border-light)", boxShadow: "var(--shadow-card)" }}>
+                <div className="relative z-10 flex flex-col items-center px-8 pt-9 pb-5 w-full">
+                  {/* 中央圆形图腾 */}
+                  <div className="w-[92px] h-[92px] rounded-full border border-gold-500/40 flex items-center justify-center mb-4 group-hover:border-gold-400/70 transition-colors"
+                    style={{ background: 'radial-gradient(circle, rgba(176,138,60,0.10), transparent 70%)' }}>
+                    <span className="text-[26px] font-serif text-gold-600 dark:text-gold-300 font-normal">{c.num}</span>
                   </div>
-                  <p className="text-[11px] font-medium tracking-[0.2em] text-gold-600/80 dark:text-gold-400/70 mb-2">{c.tag}</p>
-                  <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed mb-4 flex-1">{c.desc}</p>
-                  <span className="text-xs font-medium text-gray-700 dark:text-gray-300 group-hover:text-gold-600 dark:group-hover:text-gold-300 transition-colors">
-                    开始推演 →
-                  </span>
+                  <h2 className="text-xl font-serif font-medium text-gray-900 dark:text-gray-50 mb-1">{c.title}</h2>
+                  <p className="text-[12px] font-medium tracking-[0.25em] text-gold-600/90 dark:text-gold-400/80 mb-4">{c.tag}</p>
+                  <p className="text-[11px] text-gray-500 dark:text-gray-400 leading-relaxed mb-5">{c.desc}</p>
+                  {/* 四小项 */}
+                  <div className="flex gap-5 mb-2">
+                    {c.sub.map(x => (
+                      <span key={x} className="text-[11px] text-gray-600 dark:text-gray-300 tracking-wider">{x}</span>
+                    ))}
+                  </div>
+                  <span className="text-[11px] text-gray-400 group-hover:text-gold-600 transition-colors mt-2">了解更多 →</span>
+                </div>
+                {/* 卡底部背景图（淡墨山水横条——图稿） */}
+                <div className="relative w-full h-[120px] overflow-hidden">
+                  <img src={c.bg} alt="" aria-hidden className="absolute inset-0 w-full h-full object-cover object-center" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-transparent to-[var(--paper)]" style={{ background: 'linear-gradient(to top, var(--paper), rgba(245,242,234,0.2))' }} />
                 </div>
               </Link>
             ))}
@@ -166,9 +192,11 @@ export default function HomeClient() {
 
         {/* ════ AI 决策分析（规范 03：深色 40/60——人生推演报告） ════ */}
         <section className="mb-24">
-          <div className="overflow-hidden"
-            style={{ background: 'var(--bg-dark)' }}>
-            <div className="grid md:grid-cols-[40fr_60fr]">
+          <div className="relative overflow-hidden">
+            {/* 背景图（深墨山水+人影——图稿 AI 区） */}
+            <img src="/assets/ai-area.webp" alt="" aria-hidden className="absolute inset-0 w-full h-full object-cover object-center" />
+            <div className="absolute inset-0" style={{ background: 'linear-gradient(90deg, rgba(8,11,12,0.82) 0%, rgba(8,11,12,0.55) 45%, rgba(8,11,12,0.35) 100%)' }} />
+            <div className="relative z-10 grid md:grid-cols-[40fr_60fr]">
               {/* 左 40%：主张 */}
               <div className="p-8 md:p-14 flex flex-col justify-center">
                 <p className="text-[12px] tracking-[0.3em] text-[#B23A3A] font-normal mb-4">AI 决策分析</p>

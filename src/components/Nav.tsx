@@ -84,7 +84,7 @@ export default function Nav() {
   }
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 glass-panel shadow-sm">
+    <nav className="fixed top-0 left-0 right-0 z-50 shadow-sm" style={{ background: "rgba(8,11,12,0.55)", backdropFilter: "blur(10px)", borderBottom: "1px solid rgba(176,138,60,0.14)" }}>
       <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 flex-shrink-0">
@@ -96,19 +96,19 @@ export default function Nav() {
 
         {/* Desktop Nav */}
         <div className="hidden lg:flex items-center gap-4">
-          <Link href="/" className="text-sm text-gray-600 hover:text-jade-500 transition-colors whitespace-nowrap">
+          <Link href="/" className="text-sm text-[#BDB7AA] hover:text-gold-300 transition-colors whitespace-nowrap">
             {getT('nav.home')}
           </Link>
 
-          <Link href="/tools" className="text-sm text-gray-600 hover:text-jade-500 transition-colors whitespace-nowrap">排盘推演</Link>
-          <Link href="/huangli" className="text-sm text-gray-600 hover:text-jade-500 transition-colors whitespace-nowrap">每日宜忌</Link>
-          <Link href="/xueguan" className="text-sm text-gray-600 hover:text-jade-500 transition-colors whitespace-nowrap">古籍书馆</Link>
+          <Link href="/tools" className="text-sm text-[#BDB7AA] hover:text-gold-300 transition-colors whitespace-nowrap">排盘推演</Link>
+          <Link href="/huangli" className="text-sm text-[#BDB7AA] hover:text-gold-300 transition-colors whitespace-nowrap">每日宜忌</Link>
+          <Link href="/xueguan" className="text-sm text-[#BDB7AA] hover:text-gold-300 transition-colors whitespace-nowrap">古籍书馆</Link>
 
           {/* 全部工具 Dropdown */}
           <div className="relative">
             <button
               onClick={() => setToolsOpen(!toolsOpen)}
-              className="text-sm text-gray-600 hover:text-jade-500 transition-colors flex items-center gap-1 whitespace-nowrap"
+              className="text-sm text-[#BDB7AA] hover:text-gold-300 transition-colors flex items-center gap-1 whitespace-nowrap"
               aria-label="全部工具"
               aria-expanded={toolsOpen}
             >
@@ -149,15 +149,15 @@ export default function Nav() {
           {loggedIn === null ? (
             <span className="text-sm text-gray-400 whitespace-nowrap">…</span>
           ) : loggedIn ? (
-            <Link href="/mycharts" className="text-sm text-gray-600 dark:text-gray-300 hover:text-jade-500 transition-colors whitespace-nowrap" title="我的命盘">📁 我的命盘</Link>
+            <Link href="/mycharts" className="text-sm text-[#BDB7AA] hover:text-gold-300 transition-colors whitespace-nowrap" title="我的命盘">📁 我的命盘</Link>
           ) : (
-            <Link href="/login" className="text-sm text-gray-600 dark:text-gray-300 hover:text-jade-500 transition-colors whitespace-nowrap">登录</Link>
+            <Link href="/login" className="text-sm text-[#BDB7AA] hover:text-gold-300 transition-colors whitespace-nowrap">登录</Link>
           )}
 
           {/* 主题切换（夜/昼） */}
           <button
             onClick={toggleTheme}
-            className="text-sm text-gray-600 hover:text-jade-500 transition-colors flex items-center gap-1 border border-gray-300 dark:border-gray-600 rounded px-2.5 py-1"
+            className="text-sm text-[#BDB7AA] hover:text-gold-300 transition-colors flex items-center gap-1 border border-gray-300 dark:border-gray-600 rounded px-2.5 py-1"
             aria-label={night ? '切换到白天模式' : '切换到夜晚模式'}
             title={night ? '点击切换为白天（昼）' : '点击切换为夜晚（夜）'}
           >
@@ -168,7 +168,7 @@ export default function Nav() {
           <div className="relative">
             <button
               onClick={() => setLangOpen(!langOpen)}
-              className="text-sm text-gray-600 hover:text-jade-500 transition-colors flex items-center gap-1 border border-gray-300 rounded px-2 py-1"
+              className="text-sm text-[#BDB7AA] hover:text-gold-300 transition-colors flex items-center gap-1 border border-gray-300 rounded px-2 py-1"
               aria-label="切换语言"
               aria-expanded={langOpen}
             >
