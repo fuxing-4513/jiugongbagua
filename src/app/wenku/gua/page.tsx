@@ -16,7 +16,7 @@ export default function GuaIndexPage() {
       <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-8 gap-2.5">
         {guas.map(g => (
           <Link key={g.slug} href={`/wenku/gua/${g.slug}`}
-            className="rounded-xl border border-gray-200/80 dark:border-gray-700/60 bg-white/85 dark:bg-[#13161c]/85 p-3 text-center hover:border-gold-400 dark:hover:border-gold-500/60 transition-colors group">
+            className="rounded-xl border border-gray-200/80 dark:border-gray-700/60 bg-white/85 dark:bg-[#171614]/85 p-3 text-center hover:border-gold-400 dark:hover:border-gold-500/60 transition-colors group">
             <div className="text-[10px] text-gray-400">{g.seq}</div>
             {g.figSrc ? (
               <img src={g.figSrc} alt={`${g.name}卦象`} className="w-14 h-auto mx-auto my-1" loading="lazy" />

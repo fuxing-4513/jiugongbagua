@@ -40,7 +40,7 @@ export default function CangkuPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             {lib.items.map(item => (
               <Link key={item.id} href={`/cangku/${item.id}`}
-                className="rounded-xl border border-gray-200/80 dark:border-gray-700/60 bg-white/85 dark:bg-[#13161c]/85 p-4 hover:border-gold-400 dark:hover:border-gold-500/60 transition-colors group">
+                className="rounded-xl border border-gray-200/80 dark:border-gray-700/60 bg-white/85 dark:bg-[#171614]/85 p-4 hover:border-gold-400 dark:hover:border-gold-500/60 transition-colors group">
                 <div className="flex items-start justify-between gap-2">
                   <p className="font-medium text-gray-800 dark:text-gray-100 group-hover:text-gold-600 transition-colors text-sm leading-snug">{item.title}</p>
                   <span className="shrink-0 text-[10px] px-1.5 py-0.5 rounded bg-gray-50 dark:bg-gray-800 text-gray-500 dark:text-gray-400 border border-gray-100 dark:border-gray-700">{item.completeness}</span>

@@ -41,31 +41,32 @@ const modules: ModuleInfo[] = [
 ]
 
 // ── Bento 主卡（上排：三大精算引擎） ──
+// ── Bento 主卡：九宫三大核心（看周期 / 看结构 / 看时机） ──
 const bentoMain = [
-  { emoji: '📜', title: '四柱八字', tag: 'AI 精算 · 能量周期 · 财官节点', desc: '五行喜忌、大运走势、性格画像——你的「人生周期表」', href: '/bazi', accent: 'violet' },
-  { emoji: '⭐', title: '紫微斗数', tag: 'AI 精算 · 格局 · 心理画像', desc: '十四主星十二宫，从命宫到人生剧本，白话讲给你听', href: '/ziwei', accent: 'gold' },
-  { emoji: '💬', title: 'AI 决策对话', tag: '古籍依据 · 透明推理', desc: '排完盘直接问：现在适合跳槽吗？今年该不该创业？', href: '/ai', accent: 'cyan' },
+  { num: '01', emoji: '', title: '四柱八字', tag: '看人生周期', desc: '事业 · 财富 · 性格 · 大运——五行喜忌与十年大运的节奏', href: '/bazi', accent: 'gold' },
+  { num: '02', emoji: '', title: '紫微斗数', tag: '看人生结构', desc: '十四主星十二宫——从命宫到人生剧本的完整结构', href: '/ziwei', accent: 'gold' },
+  { num: '03', emoji: '', title: '奇门遁甲', tag: '看当下时机', desc: '决策 · 择时 · 策略——此刻是进是守，局中有象', href: '/qimen', accent: 'gold' },
 ]
-// ── Bento 副卡（中排） ──
+// ── Bento 副卡（中排——AI 决策对话 + 延伸） ──
 const bentoSub = [
-  { emoji: '🧭', title: '奇门遁甲', tag: '特定时空 · 择吉 · 策略', href: '/qimen' },
+  { emoji: '💬', title: 'AI 决策对话', tag: '古籍依据 · 透明推理', href: '/ai' },
   { emoji: '💑', title: '双人合盘', tag: '情侣契合 · 事业搭档', href: '/hehun' },
   { emoji: '📅', title: '每日宜忌', tag: '今日能量 · 吉神方位', href: '/huangli' },
 ]
-// ── 轻工具横条 ──
+// ── 轻工具（克制文字导航——探索更多东方术数） ──
 const quickTools = [
-  { emoji: '💤', nameKey: 'modules.jiemeng.name', href: '/jiemeng' },
-  { emoji: '📝', nameKey: 'modules.xingming.name', href: '/xingming' },
-  { emoji: '☯', nameKey: 'modules.liuyao.name', href: '/liuyao' },
-  { emoji: '👋', nameKey: 'modules.xiaoliuren.name', href: '/xiaoliuren' },
-  { emoji: '🌸', nameKey: 'modules.meihua.name', href: '/meihua' },
-  { emoji: '🏮', nameKey: 'modules.lingqian.name', href: '/lingqian' },
-  { emoji: '🃏', nameKey: 'modules.taluo.name', href: '/taluo' },
-  { emoji: '🔢', nameKey: 'modules.shuma.name', href: '/shuma' },
-  { emoji: '⚖️', nameKey: 'modules.chenggu.name', href: '/chenggu' },
-  { emoji: '♈', nameKey: 'modules.xingzuo.name', href: '/xingzuo' },
-  { emoji: '🪐', nameKey: 'modules.astro.name', href: '/astro' },
-  { emoji: '✨', nameKey: 'modules.numerology.name', href: '/numerology' },
+  { name: '六爻', href: '/liuyao' },
+  { name: '梅花易数', href: '/meihua' },
+  { name: '小六壬', href: '/xiaoliuren' },
+  { name: '灵签', href: '/lingqian' },
+  { name: '周公解梦', href: '/jiemeng' },
+  { name: '姓名', href: '/xingming' },
+  { name: '塔罗', href: '/taluo' },
+  { name: '称骨', href: '/chenggu' },
+  { name: '号码', href: '/shuma' },
+  { name: '星座', href: '/xingzuo' },
+  { name: '占星', href: '/astro' },
+  { name: '灵数', href: '/numerology' },
 ]
 
 export default function HomeClient() {
@@ -74,11 +75,13 @@ export default function HomeClient() {
   const [aiQ, setAiQ] = useState('')
   const [openFaq, setOpenFaq] = useState<number | null>(0)
 
-  // 场景卡（i18n 双语）
+  // 场景卡（i18n 双语——五问入口——决策直达 AI）
   const scenarioCards = [
-    { q: getT('home.scenarios.career.question'), empathy: getT('home.scenarios.career.empathy'), cta: getT('home.scenarios.career.cta'), href: '/bazi' },
-    { q: getT('home.scenarios.love.question'), empathy: getT('home.scenarios.love.empathy'), cta: getT('home.scenarios.love.cta'), href: '/hehun' },
-    { q: getT('home.scenarios.risk.question'), empathy: getT('home.scenarios.risk.empathy'), cta: getT('home.scenarios.risk.cta'), href: '/app' },
+    { q: getT('home.scenarios.career.question'), empathy: getT('home.scenarios.career.empathy'), cta: getT('home.scenarios.career.cta'), href: '/ai?q=' + encodeURIComponent('我最近适合换工作吗？想看清现在该坚持还是转身。') },
+    { q: getT('home.scenarios.love.question'), empathy: getT('home.scenarios.love.empathy'), cta: getT('home.scenarios.love.cta'), href: '/ai?q=' + encodeURIComponent('这段感情值得继续吗？想看清我们是不是在对的时间。') },
+    { q: getT('home.scenarios.wealth.question'), empathy: getT('home.scenarios.wealth.empathy'), cta: getT('home.scenarios.wealth.cta'), href: '/ai?q=' + encodeURIComponent('今年适合创业或投资吗？想看清财富周期的进退节奏。') },
+    { q: getT('home.scenarios.life.question'), empathy: getT('home.scenarios.life.empathy'), cta: getT('home.scenarios.life.cta'), href: '/ai?q=' + encodeURIComponent('我是不是该换一种活法了？想看清自己处在人生周期的哪一段。') },
+    { q: getT('home.scenarios.risk.question'), empathy: getT('home.scenarios.risk.empathy'), cta: getT('home.scenarios.risk.cta'), href: '/ai?q=' + encodeURIComponent('现在该往前冲还是先稳住？想看清眼前的机遇与风险。') },
   ]
   // FAQ（i18n 双语）
   const faqItems = useTArray()('home.faq.items') as { q: string; a: string }[]
@@ -110,7 +113,7 @@ export default function HomeClient() {
               </h1>
 
               {/* ═══ 三大痛点场景（先共情，再给方法） ═══ */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-8">
                 {scenarioCards.map(s => (
                   <Link key={s.href} href={s.href}
                     className="group jg-card-plain p-4 hover:border-violet-400/50! transition-colors flex flex-col">
@@ -147,13 +150,16 @@ export default function HomeClient() {
               </form>
 
               {/* 信任胶囊 */}
-              <div className="flex flex-wrap gap-2.5 mb-8">
+              <div className="flex flex-wrap gap-2.5 mb-4">
                 {(useTArray()('home.trustPills') as string[]).map(t => (
                   <span key={t} className="text-[11px] px-3 py-1 rounded-full border border-gray-200 dark:border-gray-700 text-gray-500 dark:text-gray-400">
                     ✓ {t}
                   </span>
                 ))}
               </div>
+              <Link href="/why-jiugong" className="inline-block text-[11px] text-gray-400 hover:text-gold-500 mb-6 transition-colors">
+                🛡️ 为什么相信九宫八卦？——数据 / 流派 / 古籍 / AI / 隐私 全透明 →
+              </Link>
 
               {/* CTA */}
               <div className="flex flex-wrap gap-3.5">
@@ -175,14 +181,16 @@ export default function HomeClient() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {bentoMain.map(c => (
               <Link key={c.href} href={c.href}
-                className={`jg-tile group relative overflow-hidden p-6 min-h-[210px] flex flex-col ${c.accent === 'cyan' ? 'border-cyan-400/30!' : ''}`}>
+                className="jg-tile group relative overflow-hidden p-6 min-h-[210px] flex flex-col">
                 <div className="relative z-10 flex flex-col h-full">
-                  <div className="text-3xl mb-3 group-hover:scale-110 transition-transform duration-300 w-fit">{c.emoji}</div>
-                  <h2 className="text-lg font-bold text-gray-900 dark:text-gray-50 mb-1">{c.title}</h2>
-                  <p className="text-[11px] font-medium text-violet-500 dark:text-violet-300 mb-2 tracking-wide">{c.tag}</p>
+                  <div className="flex items-baseline gap-3 mb-3">
+                    <span className="text-2xl font-serif font-bold text-gold-500/70 dark:text-gold-400/60 group-hover:text-gold-500 dark:group-hover:text-gold-300 transition-colors">{c.num}</span>
+                    <h2 className="text-lg font-bold font-serif text-gray-900 dark:text-gray-50">{c.title}</h2>
+                  </div>
+                  <p className="text-[11px] font-medium tracking-[0.2em] text-gold-600/80 dark:text-gold-400/70 mb-2">{c.tag}</p>
                   <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed mb-4 flex-1">{c.desc}</p>
-                  <span className="text-xs font-semibold jg-text-accent group-hover:translate-x-1 transition-transform duration-300">
-                    开始测算 →
+                  <span className="text-xs font-medium text-gray-700 dark:text-gray-300 group-hover:text-gold-600 dark:group-hover:text-gold-300 transition-colors">
+                    开始推演 →
                   </span>
                 </div>
               </Link>
@@ -193,12 +201,12 @@ export default function HomeClient() {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-4">
             {bentoSub.map(c => (
               <Link key={c.href} href={c.href}
-                className="jg-card group p-5 flex items-center gap-4 hover:border-violet-400/40! transition-colors">
-                <div className="text-2xl w-11 h-11 flex items-center justify-center rounded-xl bg-violet-500/10 group-hover:scale-110 transition-transform duration-300">
+                className="jg-card group p-5 flex items-center gap-4 hover:border-gold-400/40! transition-colors">
+                <div className="text-2xl w-11 h-11 flex items-center justify-center rounded-xl bg-gold-500/8 group-hover:scale-110 transition-transform duration-300">
                   {c.emoji}
                 </div>
                 <div>
-                  <h3 className="text-sm font-semibold text-gray-800 dark:text-gray-100">{c.title}</h3>
+                  <h3 className="text-sm font-semibold font-serif text-gray-800 dark:text-gray-100">{c.title}</h3>
                   <p className="text-[11px] text-gray-500 dark:text-gray-400 mt-0.5">{c.tag}</p>
                 </div>
               </Link>
@@ -211,27 +219,24 @@ export default function HomeClient() {
           <FreeChartWidget />
         </div>
 
-        {/* ════ 轻工具横条 ════ */}
+        {/* ════ 术数大全（克制文字导航——SEO 长尾保留——视觉降级） ════ */}
         <section className="mb-14">
           <div className="flex items-end justify-between mb-4">
             <div>
-              <h2 className="text-lg font-bold text-gray-900 dark:text-gray-50">✨ 今天，想测点什么？</h2>
-              <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">全部免费 · 即点即测 · 无需注册</p>
+              <h2 className="text-lg font-bold font-serif text-gray-900 dark:text-gray-50">探索更多东方术数</h2>
+              <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">六爻 · 梅花 · 小六壬 · 灵签 · 塔罗 · 占星——传统术数的更多切面</p>
             </div>
-            <Link href="/tools" className="text-xs jg-text-accent hover:underline shrink-0">查看全部 →</Link>
+            <Link href="/tools" className="text-xs jg-text-accent hover:underline shrink-0">术数大全 →</Link>
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3 md:gap-4">
+          <div className="flex flex-wrap gap-x-6 gap-y-2.5">
             {quickTools.map(t => (
               <Link key={t.href} href={t.href}
-                className="jg-card-plain group flex flex-col items-center gap-2 py-5 px-2 text-center hover:border-violet-400/40! transition-colors">
-                <span className="text-2xl md:text-[28px] group-hover:scale-110 transition-transform duration-200">{t.emoji}</span>
-                <span className="text-xs md:text-[13px] text-gray-600 dark:text-gray-300 group-hover:text-violet-500 dark:group-hover:text-violet-300 transition-colors font-medium">
-                  {getT(t.nameKey)}
-                </span>
+                className="text-[13px] text-gray-600 dark:text-gray-400 hover:text-gold-600 dark:hover:text-gold-300 transition-colors border-b border-transparent hover:border-gold-400/50 pb-0.5">
+                {t.name}
               </Link>
             ))}
           </div>
-          <p className="text-center text-[10px] text-gray-400 dark:text-gray-500 mt-3">
+          <p className="text-[10px] text-gray-400 dark:text-gray-500 mt-4">
             {getT('home.tools.footnote')}
           </p>
         </section>

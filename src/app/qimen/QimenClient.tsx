@@ -119,7 +119,7 @@ export default function QimenClient() {
       <Breadcrumb items={[{ label: '全部工具', href: '/tools' }, { label: '奇门遁甲' }]} />
 
       {/* ── 标题 ── */}
-      <div className="bg-white/85 dark:bg-[#13161c]/85 rounded-2xl border border-gold-200/60 dark:border-gold-500/20 p-5 md:p-6 mb-5">
+      <div className="bg-white/85 dark:bg-[#171614]/85 rounded-2xl border border-gold-200/60 dark:border-gold-500/20 p-5 md:p-6 mb-5">
         <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-50 font-serif mb-1.5">
           🧭 奇门遁甲 · 时家排盘
         </h1>
@@ -131,7 +131,7 @@ export default function QimenClient() {
       </div>
 
       {/* ── 起局时间 ── */}
-      <div className="bg-white/85 dark:bg-[#15151e]/85 rounded-2xl border border-gray-200/70 dark:border-white/10 p-5 mb-6">
+      <div className="bg-white/85 dark:bg-[#171614]/85 rounded-2xl border border-gray-200/70 dark:border-white/10 p-5 mb-6">
         <p className="text-xs font-semibold text-gray-600 dark:text-gray-300 mb-3">起局时间</p>
         <div className="flex flex-wrap items-center gap-2">
           <input
@@ -181,7 +181,7 @@ export default function QimenClient() {
       {chart && reading && (
         <>
           {/* ── 盘头信息 ── */}
-          <div className="bg-white/85 dark:bg-[#15151e]/85 rounded-2xl border border-gray-200/70 dark:border-white/10 p-5 mb-5">
+          <div className="bg-white/85 dark:bg-[#171614]/85 rounded-2xl border border-gray-200/70 dark:border-white/10 p-5 mb-5">
             <div className="flex flex-wrap items-center gap-2 mb-3">
               {[
                 ['年', `${chart.calendar.yearPillar.gan}${chart.calendar.yearPillar.zhi}`],
@@ -235,7 +235,7 @@ export default function QimenClient() {
           <ReadingSection chart={chart} reading={reading} />
 
           {/* ── 每宫简注 ── */}
-          <div className="bg-white/85 dark:bg-[#15151e]/85 rounded-2xl border border-gray-200/70 dark:border-white/10 p-5 mb-5">
+          <div className="bg-white/85 dark:bg-[#171614]/85 rounded-2xl border border-gray-200/70 dark:border-white/10 p-5 mb-5">
             <details>
               <summary className="cursor-pointer text-sm font-semibold text-gray-700 dark:text-gray-200">
                 九宫逐宫简注 <span className="text-[10px] font-normal text-gray-400 dark:text-gray-500">（按吉凶印象从好到差排列）</span>
@@ -254,7 +254,7 @@ export default function QimenClient() {
           </div>
 
           {/* ── 图例与口径 ── */}
-          <div className="bg-white/85 dark:bg-[#15151e]/85 rounded-2xl border border-gray-200/70 dark:border-white/10 p-5 mb-8">
+          <div className="bg-white/85 dark:bg-[#171614]/85 rounded-2xl border border-gray-200/70 dark:border-white/10 p-5 mb-8">
             <details>
               <summary className="cursor-pointer text-sm font-semibold text-gray-700 dark:text-gray-200">
                 图例与排盘口径
@@ -330,7 +330,7 @@ function PalaceGrid({ chart, reading, ranFor }: { chart: QimenChart; reading: Qi
                 className={`relative rounded-xl border flex flex-col items-center justify-between px-1 py-2 min-h-[120px] md:min-h-[150px] transition-colors ${
                   isZf
                     ? 'border-gold-400/80 dark:border-gold-500/60 bg-gold-50/40 dark:bg-gold-500/[0.06] shadow-[0_0_0_1px_rgba(212,175,55,0.25)]'
-                    : 'border-gray-200/80 dark:border-white/10 bg-white dark:bg-[#15151e]/70'
+                    : 'border-gray-200/80 dark:border-white/10 bg-white dark:bg-[#171614]/70'
                 }`}
               >
                 {/* 宫名角标 */}
@@ -405,7 +405,7 @@ function ReadingSection({ chart, reading }: { chart: QimenChart; reading: QimenR
   return (
     <div className="space-y-5 mb-5">
       {/* 全局倾向 */}
-      <div className="bg-white/85 dark:bg-[#15151e]/85 rounded-2xl border border-gray-200/70 dark:border-white/10 p-5">
+      <div className="bg-white/85 dark:bg-[#171614]/85 rounded-2xl border border-gray-200/70 dark:border-white/10 p-5">
         <h2 className="text-sm font-bold text-gray-700 dark:text-gray-200 mb-2.5">🗒️ 全局倾向</h2>
         <div className="space-y-2">
           {reading.summary.map((s, i) => (
@@ -464,7 +464,7 @@ function ReadingSection({ chart, reading }: { chart: QimenChart; reading: QimenR
       </div>
 
       {/* 分项倾向 */}
-      <div className="bg-white/85 dark:bg-[#15151e]/85 rounded-2xl border border-gray-200/70 dark:border-white/10 p-5">
+      <div className="bg-white/85 dark:bg-[#171614]/85 rounded-2xl border border-gray-200/70 dark:border-white/10 p-5">
         <h2 className="text-sm font-bold text-gray-700 dark:text-gray-200 mb-3">📌 此时宜做什么</h2>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5">
           {reading.actions.map((a) => {
@@ -490,7 +490,7 @@ function ReadingSection({ chart, reading }: { chart: QimenChart; reading: QimenR
 
 function InfoCard({ title, accent, body }: { title: string; accent: string; body: string }) {
   return (
-    <div className={`bg-white/85 dark:bg-[#15151e]/85 rounded-2xl border border-gray-200/70 dark:border-white/10 border-t-2 p-4 ${accent}`}>
+    <div className={`bg-white/85 dark:bg-[#171614]/85 rounded-2xl border border-gray-200/70 dark:border-white/10 border-t-2 p-4 ${accent}`}>
       <h3 className="text-xs font-bold text-gray-700 dark:text-gray-200 mb-1.5">{title}</h3>
       <p className="text-xs leading-relaxed text-gray-600 dark:text-gray-300">{body}</p>
     </div>

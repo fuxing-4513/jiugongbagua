@@ -24,7 +24,7 @@ export default function RelPage() {
           const meta = REL_TYPE_META[type]
           const items = getRelsByType(type)
           return (
-            <div key={type} className="rounded-2xl border border-gray-200/80 dark:border-gray-700/60 bg-white/85 dark:bg-[#13161c]/85 p-5">
+            <div key={type} className="rounded-2xl border border-gray-200/80 dark:border-gray-700/60 bg-white/85 dark:bg-[#171614]/85 p-5">
               <div className="flex items-baseline justify-between mb-1">
                 <h2 className="font-bold text-gray-800 dark:text-gray-100 flex items-center gap-2"><span>{meta.emoji}</span>{meta.name}<span className="text-[11px] font-normal text-gray-400">（{items.length} 条）</span></h2>
               </div>

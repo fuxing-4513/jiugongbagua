@@ -62,7 +62,7 @@ export default function WenkuPage() {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-12">
         {SECTIONS.map(s => (
           <Link key={s.href} href={s.href}
-            className="rounded-2xl border border-gray-200/80 dark:border-gray-700/60 bg-white/85 dark:bg-[#13161c]/85 p-5 hover:border-gold-400 dark:hover:border-gold-500/60 transition-colors group">
+            className="rounded-2xl border border-gray-200/80 dark:border-gray-700/60 bg-white/85 dark:bg-[#171614]/85 p-5 hover:border-gold-400 dark:hover:border-gold-500/60 transition-colors group">
             <div className="flex items-center justify-between mb-2">
               <span className="text-2xl">{s.emoji}</span>
               <span className={`text-[10px] px-2 py-0.5 rounded-full ${s.tagColor}`}>{s.tag}</span>

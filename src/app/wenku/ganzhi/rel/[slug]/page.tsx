@@ -30,7 +30,7 @@ export default async function RelDetail({ params }: { params: Promise<{ slug: st
     <div className="max-w-4xl mx-auto px-4 py-8">
       <Breadcrumb items={[{ label: '九宫文库', href: '/wenku' }, { label: '干支百科', href: '/wenku/ganzhi' }, { label: '干支关系', href: '/wenku/ganzhi/rel' }, { label: r.title }]} />
 
-      <div className="rounded-2xl border border-gold-200/70 dark:border-gold-500/25 bg-white/85 dark:bg-[#13161c]/85 p-6 mb-5">
+      <div className="rounded-2xl border border-gold-200/70 dark:border-gold-500/25 bg-white/85 dark:bg-[#171614]/85 p-6 mb-5">
         <div className="flex items-center gap-2 mb-2">
           <span className="text-2xl">{meta.emoji}</span>
           <span className="text-[10px] px-2 py-0.5 rounded-full bg-gold-500/10 text-gold-600 dark:text-gold-300">{meta.name}</span>
@@ -53,7 +53,7 @@ export default async function RelDetail({ params }: { params: Promise<{ slug: st
       </div>
 
       {r.related && r.related.length > 0 && (
-        <div className="rounded-xl border border-gray-200/80 dark:border-gray-700/60 bg-white/85 dark:bg-[#13161c]/85 p-4 mb-5">
+        <div className="rounded-xl border border-gray-200/80 dark:border-gray-700/60 bg-white/85 dark:bg-[#171614]/85 p-4 mb-5">
           <p className="text-xs font-bold text-gray-500 mb-2">🔗 相关关系</p>
           <div className="flex flex-wrap gap-2">
             {r.related.map(rel => {
@@ -79,7 +79,7 @@ export default async function RelDetail({ params }: { params: Promise<{ slug: st
 
 function Block({ icon, title, text, gold }: { icon?: string; title: string; text: string; gold?: boolean }) {
   return (
-    <div className={`rounded-2xl border p-5 bg-white/85 dark:bg-[#13161c]/85 ${gold ? 'border-gold-200/70 dark:border-gold-500/25' : 'border-gray-200/80 dark:border-gray-700/60'}`}>
+    <div className={`rounded-2xl border p-5 bg-white/85 dark:bg-[#171614]/85 ${gold ? 'border-gold-200/70 dark:border-gold-500/25' : 'border-gray-200/80 dark:border-gray-700/60'}`}>
       <h2 className="text-sm font-bold text-gray-700 dark:text-gray-200 mb-2">{title}</h2>
       <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed whitespace-pre-line">{text}</p>
     </div>

@@ -41,7 +41,7 @@ export default async function GuaPage({ params }: Props) {
       <Breadcrumb items={[{ label: '卦象百科', href: '/gua' }, { label: `${g.name}卦` }]} />
 
       {/* 标题 + 卦画 */}
-      <div className="rounded-2xl border border-gold-200/70 dark:border-gold-500/25 bg-white/85 dark:bg-[#13161c]/85 p-6 mb-5 flex gap-6 items-center flex-wrap">
+      <div className="rounded-2xl border border-gold-200/70 dark:border-gold-500/25 bg-white/85 dark:bg-[#171614]/85 p-6 mb-5 flex gap-6 items-center flex-wrap">
         {g.figSrc && <img src={g.figSrc} alt={`${g.name}卦象`} className="w-28 h-auto" />}
         <div>
           <div className="flex items-center gap-2 flex-wrap">
@@ -61,7 +61,7 @@ export default async function GuaPage({ params }: Props) {
       </div>
 
       {/* 卦辞爻辞原文 */}
-      <div className="rounded-2xl border border-gray-200/80 dark:border-gray-700/60 bg-white/85 dark:bg-[#13161c]/85 p-5 mb-5">
+      <div className="rounded-2xl border border-gray-200/80 dark:border-gray-700/60 bg-white/85 dark:bg-[#171614]/85 p-5 mb-5">
         <h2 className="text-sm font-bold text-gray-800 dark:text-gray-100 mb-3">📜 原文</h2>
         <div className="prose prose-sm max-w-none text-gray-700 dark:text-gray-200 leading-loose whitespace-pre-line font-serif text-[15px]">{g.content}</div>
       </div>
@@ -76,7 +76,7 @@ export default async function GuaPage({ params }: Props) {
 
       {/* 九宫按 */}
       {g.notes && (
-        <div className="rounded-xl border border-indigo-200/60 dark:border-indigo-500/25 bg-white/85 dark:bg-[#13161c]/85 p-5 mb-5">
+        <div className="rounded-xl border border-indigo-200/60 dark:border-indigo-500/25 bg-white/85 dark:bg-[#171614]/85 p-5 mb-5">
           <h2 className="text-xs font-bold text-gray-500 mb-2">📝 九宫按</h2>
           <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">{g.notes}</p>
         </div>

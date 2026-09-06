@@ -39,7 +39,7 @@ export default async function EntryPage({ params }: Props) {
     <div className="max-w-4xl mx-auto px-4 py-8">
       <Breadcrumb items={[{ label: '珍稀馆藏', href: '/cangku' }, { label: e.title.slice(0, 18) }]} />
       {/* 标题卡 */}
-      <div className="rounded-2xl border border-gold-200/70 dark:border-gold-500/25 bg-white/85 dark:bg-[#13161c]/85 p-6 mb-5">
+      <div className="rounded-2xl border border-gold-200/70 dark:border-gold-500/25 bg-white/85 dark:bg-[#171614]/85 p-6 mb-5">
         <div className="flex items-start gap-2 flex-wrap">
           <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-50 font-serif">{e.title}</h1>
           {e.isSole && <span className="text-[10px] bg-rose-500/10 text-rose-600 dark:text-rose-300 px-2 py-1 rounded-full">海内外孤本</span>}
@@ -58,7 +58,7 @@ export default async function EntryPage({ params }: Props) {
       </div>
 
       {/* 考订 */}
-      <div className="rounded-2xl border border-gray-200/80 dark:border-gray-700/60 bg-white/85 dark:bg-[#13161c]/85 p-5 mb-5">
+      <div className="rounded-2xl border border-gray-200/80 dark:border-gray-700/60 bg-white/85 dark:bg-[#171614]/85 p-5 mb-5">
         <h2 className="text-sm font-bold text-gray-800 dark:text-gray-100 mb-3">📝 学术考证 · 九宫按</h2>
         <div className="space-y-2">
           {e.kaoding.map((k, i) => (
@@ -83,7 +83,7 @@ export default async function EntryPage({ params }: Props) {
 
       {/* 现代解释 */}
       {e.modernInterpretation && e.modernInterpretation.length > 0 && (
-        <div className="rounded-2xl border border-indigo-200/60 dark:border-indigo-500/25 bg-white/85 dark:bg-[#13161c]/85 p-5 mb-5">
+        <div className="rounded-2xl border border-indigo-200/60 dark:border-indigo-500/25 bg-white/85 dark:bg-[#171614]/85 p-5 mb-5">
           <h2 className="text-sm font-bold text-gray-800 dark:text-gray-100 mb-3">🔎 现代视角解读</h2>
           <div className="space-y-2">
             {e.modernInterpretation.map((t, i) => (
@@ -95,7 +95,7 @@ export default async function EntryPage({ params }: Props) {
 
       {/* 录文区（有录文才显示——数据到位即呈现） */}
       {e.luwen && e.luwen.text.length > 0 && (
-        <div className="rounded-2xl border border-emerald-200/60 dark:border-emerald-500/25 bg-white/85 dark:bg-[#13161c]/85 p-5 mb-5">
+        <div className="rounded-2xl border border-emerald-200/60 dark:border-emerald-500/25 bg-white/85 dark:bg-[#171614]/85 p-5 mb-5">
           <h2 className="text-sm font-bold text-gray-800 dark:text-gray-100 mb-1">📜 录文</h2>
           <p className="text-[11px] text-gray-400 mb-3">底本：{e.luwen.source}</p>
           <div className="space-y-3">
@@ -120,7 +120,7 @@ export default async function EntryPage({ params }: Props) {
 
       {/* 关联本馆古籍 */}
       {related.length > 0 && (
-        <div className="rounded-xl border border-gray-200/80 dark:border-gray-700/60 bg-white/85 dark:bg-[#13161c]/85 p-4">
+        <div className="rounded-xl border border-gray-200/80 dark:border-gray-700/60 bg-white/85 dark:bg-[#171614]/85 p-4">
           <h3 className="text-xs font-bold text-gray-500 mb-2">📚 本馆关联古籍</h3>
           <div className="flex flex-wrap gap-2">
             {related.map(b => (
@@ -138,7 +138,7 @@ export default async function EntryPage({ params }: Props) {
 
 function Info({ title, value, mono }: { title: string; value: string; mono?: boolean }) {
   return (
-    <div className="rounded-xl border border-gray-200/80 dark:border-gray-700/60 bg-white/85 dark:bg-[#13161c]/85 p-4">
+    <div className="rounded-xl border border-gray-200/80 dark:border-gray-700/60 bg-white/85 dark:bg-[#171614]/85 p-4">
       <p className="text-[11px] text-gray-400 dark:text-gray-500 mb-1">{title}</p>
       <p className={`text-sm text-gray-700 dark:text-gray-200 leading-relaxed ${mono ? 'font-mono text-[12.5px]' : ''}`}>{value}</p>
     </div>

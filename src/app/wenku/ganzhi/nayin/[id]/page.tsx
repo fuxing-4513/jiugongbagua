@@ -30,7 +30,7 @@ export default async function NayinDetail({ params }: { params: Promise<{ id: st
     <div className="max-w-4xl mx-auto px-4 py-8">
       <Breadcrumb items={[{ label: '九宫文库', href: '/wenku' }, { label: '干支百科', href: '/wenku/ganzhi' }, { label: '六十甲子纳音', href: '/wenku/ganzhi/nayin' }, { label: n.nayin }]} />
 
-      <div className="rounded-2xl border border-gold-200/70 dark:border-gold-500/25 bg-white/85 dark:bg-[#13161c]/85 p-6 mb-5 flex items-center gap-5 flex-wrap">
+      <div className="rounded-2xl border border-gold-200/70 dark:border-gold-500/25 bg-white/85 dark:bg-[#171614]/85 p-6 mb-5 flex items-center gap-5 flex-wrap">
         <div className="text-4xl">{n.element === '金' ? '🥇' : n.element === '木' ? '🌳' : n.element === '水' ? '💧' : n.element === '火' ? '🔥' : '⛰️'}</div>
         <div>
           <div className="flex items-center gap-2 mb-1">
@@ -42,7 +42,7 @@ export default async function NayinDetail({ params }: { params: Promise<{ id: st
         </div>
       </div>
 
-      <div className="rounded-2xl border border-gray-200/80 dark:border-gray-700/60 bg-white/85 dark:bg-[#13161c]/85 p-6 mb-5">
+      <div className="rounded-2xl border border-gray-200/80 dark:border-gray-700/60 bg-white/85 dark:bg-[#171614]/85 p-6 mb-5">
         <p className="text-sm text-gray-700 dark:text-gray-200 leading-loose whitespace-pre-line">{n.desc}</p>
       </div>
 

@@ -172,7 +172,7 @@ export default function XiaoliurenClient() {
       <Breadcrumb items={[{ label: '全部工具', href: '/tools' }, { label: '小六壬' }]} />
 
       {/* ═══ 输入卡 ═══ */}
-      <div className="rounded-2xl border border-amber-200/70 dark:border-amber-400/20 bg-white/85 dark:bg-[#13161c]/85 p-5 md:p-6 mb-5">
+      <div className="rounded-2xl border border-amber-200/70 dark:border-amber-400/20 bg-white/85 dark:bg-[#171614]/85 p-5 md:p-6 mb-5">
         <div className="flex items-start gap-3 mb-1">
           <div className="text-2xl leading-none mt-0.5">☝️</div>
           <div>
@@ -273,7 +273,7 @@ export default function XiaoliurenClient() {
       </div>
 
       {/* ═══ 盘面 + 推演台 ═══ */}
-      <div className="rounded-2xl border border-amber-200/70 dark:border-amber-400/20 bg-white/85 dark:bg-[#13161c]/85 p-5 md:p-6 mb-5">
+      <div className="rounded-2xl border border-amber-200/70 dark:border-amber-400/20 bg-white/85 dark:bg-[#171614]/85 p-5 md:p-6 mb-5">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5 items-start">
           {/* ── SVG 六宫盘 ── */}
           <div className="mx-auto w-full max-w-[420px] select-none">
@@ -647,7 +647,7 @@ export default function XiaoliurenClient() {
 function PalaceDetail({ palace, catHit, isResult }: { palace: Palace; catHit: CatKey | null; isResult: boolean }) {
   const luck = LUCK[palace.fortune]
   return (
-    <div className={`rounded-2xl overflow-hidden border ${isResult ? 'border-gold-500/40' : 'border-gray-200/70 dark:border-gray-700/50'} bg-white/85 dark:bg-[#13161c]/85`}>
+    <div className={`rounded-2xl overflow-hidden border ${isResult ? 'border-gold-500/40' : 'border-gray-200/70 dark:border-gray-700/50'} bg-white/85 dark:bg-[#171614]/85`}>
       {/* 头部色条 */}
       <div className="h-1.5" style={{ background: `linear-gradient(90deg, ${palace.hex}, ${palace.hex}55, transparent)` }} />
       <div className="p-5 md:p-6">

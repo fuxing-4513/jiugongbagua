@@ -19,7 +19,7 @@ export default function NayinPage() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-10">
         {ALL_NAYIN.map(n => (
           <Link key={n.id} href={`/wenku/ganzhi/nayin/${n.id}`}
-            className="rounded-xl border border-gray-200/80 dark:border-gray-700/60 bg-white/85 dark:bg-[#13161c]/85 p-4 hover:border-gold-400 dark:hover:border-gold-500/60 transition-colors group">
+            className="rounded-xl border border-gray-200/80 dark:border-gray-700/60 bg-white/85 dark:bg-[#171614]/85 p-4 hover:border-gold-400 dark:hover:border-gold-500/60 transition-colors group">
             <div className="flex items-center justify-between mb-1.5">
               <span className="text-xs text-gray-400">{n.ganzhi}</span>
               <span className={`text-[10px] px-2 py-0.5 rounded-full ${ELEMENT_COLOR[n.element]}`}>{n.element}</span>

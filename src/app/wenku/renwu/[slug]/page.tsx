@@ -41,7 +41,7 @@ export default async function PersonPage({ params }: Props) {
     <div className="max-w-4xl mx-auto px-4 py-8">
       <Breadcrumb items={[{ label: '九宫文库', href: '/wenku' }, { label: '人物百科', href: '/wenku/renwu' }, { label: p.name }]} />
 
-      <div className="rounded-2xl border border-gold-200/70 dark:border-gold-500/25 bg-white/85 dark:bg-[#13161c]/85 p-6 mb-5">
+      <div className="rounded-2xl border border-gold-200/70 dark:border-gold-500/25 bg-white/85 dark:bg-[#171614]/85 p-6 mb-5">
         <div className="flex items-start justify-between gap-3 flex-wrap">
           <div>
             <h1 className="text-3xl font-bold font-serif text-gray-900 dark:text-gray-50">{p.name}</h1>
@@ -56,7 +56,7 @@ export default async function PersonPage({ params }: Props) {
       </div>
 
       {/* 生平 */}
-      <div className="rounded-2xl border border-gray-200/80 dark:border-gray-700/60 bg-white/85 dark:bg-[#13161c]/85 p-5 mb-5">
+      <div className="rounded-2xl border border-gray-200/80 dark:border-gray-700/60 bg-white/85 dark:bg-[#171614]/85 p-5 mb-5">
         <h2 className="text-sm font-bold text-gray-800 dark:text-gray-100 mb-3">📜 生平</h2>
         <div className="space-y-2">
           {p.bio.map((b, i) => <p key={i} className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">{b}</p>)}
@@ -64,7 +64,7 @@ export default async function PersonPage({ params }: Props) {
       </div>
 
       {/* 著作 */}
-      <div className="rounded-2xl border border-gray-200/80 dark:border-gray-700/60 bg-white/85 dark:bg-[#13161c]/85 p-5 mb-5">
+      <div className="rounded-2xl border border-gray-200/80 dark:border-gray-700/60 bg-white/85 dark:bg-[#171614]/85 p-5 mb-5">
         <h2 className="text-sm font-bold text-gray-800 dark:text-gray-100 mb-3">📚 主要著作</h2>
         <div className="space-y-2">
           {p.works.map((w, i) => (
@@ -77,7 +77,7 @@ export default async function PersonPage({ params }: Props) {
       </div>
 
       {/* 贡献 */}
-      <div className="rounded-2xl border border-gray-200/80 dark:border-gray-700/60 bg-white/85 dark:bg-[#13161c]/85 p-5 mb-5">
+      <div className="rounded-2xl border border-gray-200/80 dark:border-gray-700/60 bg-white/85 dark:bg-[#171614]/85 p-5 mb-5">
         <h2 className="text-sm font-bold text-gray-800 dark:text-gray-100 mb-3">🏆 贡献与影响</h2>
         <ul className="space-y-1.5">
           {p.contribution.map((c, i) => (
@@ -88,7 +88,7 @@ export default async function PersonPage({ params }: Props) {
 
       {/* 九宫评点（原创） */}
       {p.comment && p.comment.length > 0 && (
-        <div className="rounded-2xl border border-gold-200/70 dark:border-gold-500/25 bg-gradient-to-b from-[#fdf9ee]/80 to-white/60 dark:from-[#1c1a13] dark:to-[#13161c] p-5 mb-5">
+        <div className="rounded-2xl border border-gold-200/70 dark:border-gold-500/25 bg-gradient-to-b from-[#fdf9ee]/80 to-white/60 dark:from-[#1c1a13] dark:to-[#171614] p-5 mb-5">
           <h2 className="text-sm font-bold text-gold-700 dark:text-gold-300 mb-3 flex items-center gap-2"><span>🧭</span> 九宫评点 <span className="text-[10px] font-normal text-gray-400">原创视角 · 独立成文可引用</span></h2>
           <div className="space-y-2.5">
             {p.comment.map((c, i) => (
@@ -108,7 +108,7 @@ export default async function PersonPage({ params }: Props) {
 
       {/* 关联古籍 */}
       {relBooks.length > 0 && (
-        <div className="rounded-xl border border-gray-200/80 dark:border-gray-700/60 bg-white/85 dark:bg-[#13161c]/85 p-4">
+        <div className="rounded-xl border border-gray-200/80 dark:border-gray-700/60 bg-white/85 dark:bg-[#171614]/85 p-4">
           <h3 className="text-xs font-bold text-gray-500 mb-2">📖 本馆关联古籍</h3>
           <div className="flex flex-wrap gap-2">
             {relBooks.map(b => (

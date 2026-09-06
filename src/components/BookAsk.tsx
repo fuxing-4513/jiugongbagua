@@ -35,7 +35,7 @@ export default function BookAsk({ bookTitle, bookId }: { bookTitle: string; book
   }
 
   return (
-    <div className="mt-6 rounded-2xl border border-indigo-200/60 dark:border-indigo-500/25 bg-white/85 dark:bg-[#13161c]/85 p-5">
+    <div className="mt-6 rounded-2xl border border-indigo-200/60 dark:border-indigo-500/25 bg-white/85 dark:bg-[#171614]/85 p-5">
       <div className="flex items-center gap-2 mb-3">
         <span className="text-lg">🤖</span>
         <h3 className="text-sm font-bold text-gray-800 dark:text-gray-100">AI 古籍问答</h3>

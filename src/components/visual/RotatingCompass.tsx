@@ -170,6 +170,39 @@ export default function RotatingCompass({
         />
       </g>
 
+      {/* 九宫格 + 洛书数（定方位——宇宙仪表盘核心层；静态不转——乾西北…离南） */}
+      <g style={{ opacity: 0.6 }}>
+        {/* 格线：边长 132 居中（格 44） */}
+        {[-1, 0, 1].map((row) => (
+          <g key={`h${row}`}>
+            <line x1={C - 66} y1={C + row * 44} x2={C + 66} y2={C + row * 44} stroke="var(--jg-accent)" strokeWidth={0.6} opacity={0.35} />
+          </g>
+        ))}
+        {[-1, 0, 1].map((col) => (
+          <g key={`v${col}`}>
+            <line x1={C + col * 44} y1={C - 66} x2={C + col * 44} y2={C + 66} stroke="var(--jg-accent)" strokeWidth={0.6} opacity={0.35} />
+          </g>
+        ))}
+        {/* 洛书数（除中五——太极居之）：上=南9 下=北1 左=东3 右=西7 四维 6·8·2·4 */}
+        {[
+          { v: '9', x: 0, y: -66 }, { v: '1', x: 0, y: 66 },
+          { v: '3', x: -66, y: 0 }, { v: '7', x: 66, y: 0 },
+          { v: '6', x: -66, y: -66 }, { v: '8', x: 66, y: -66 },
+          { v: '2', x: -66, y: 66 }, { v: '4', x: 66, y: 66 },
+        ].map(n => (
+          <text key={n.v} x={C + n.x} y={C + n.y} textAnchor="middle" dominantBaseline="central"
+            fontSize={10.5}
+            style={{ fill: 'var(--jg-gold)', opacity: 0.5, fontFamily: 'var(--font-serif)' }}>
+            {n.v}
+          </text>
+        ))}
+        {/* 中宫印：九（小篆意——衬太极） */}
+        <text x={C} y={C - 1} textAnchor="middle" dominantBaseline="central" fontSize={13}
+          style={{ fill: 'var(--jg-gold)', opacity: 0.22, fontFamily: 'var(--font-serif)' }}>
+          九
+        </text>
+      </g>
+
       {/* 中心：渐变环 + ☯ */}
       <circle
         cx={C}

@@ -75,11 +75,11 @@ body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; 
 
 /* ── 全局背景（白天默认：米白；夜晚：深空灰） ── */
 :root {
-  --jg-bg: #ffffff;
+  --jg-bg: #F5F2EA;  /* 骨白——东方纸张基调（视觉升级 2026-09） */
   --jg-text: #1c1c28;
 }
 [data-theme='night'] {
-  --jg-bg: #08080a;
+  --jg-bg: #0e0d0b;  /* 墨黑微暖——东方夜基调（视觉升级） */
   --jg-text: #eae8f6;
 }
 body {
@@ -91,15 +91,15 @@ body {
 
 /* ═══ 夜晚模式色板覆盖（Tailwind v4 @theme 变量 = CSS 变量，运行时切换） ═══ */
 [data-theme='night'] {
-  /* 背景/卡片系（原浅灰 → 赛博黑梯度，方向保持：数值小=更深；基座 #08080A） */
-  --color-dark-950: #08080a;
-  --color-dark-900: #0d0d13;
-  --color-dark-850: #101017;
-  --color-dark-800: #15151e;
-  --color-dark-750: #1a1a25;
-  --color-dark-700: #21212e;
-  --color-dark-600: #2b2b3a;
-  --color-dark-500: #38384a;
+  /* 背景/卡片系（墨黑微暖梯度——东方夜基调，去蓝；基座 #0B0A08） */
+  --color-dark-950: #0b0a08;
+  --color-dark-900: #100f0d;
+  --color-dark-850: #131210;
+  --color-dark-800: #171614;
+  --color-dark-750: #1b1a17;
+  --color-dark-700: #201e1a;
+  --color-dark-600: #2a2722;
+  --color-dark-500: #37332c;
   /* 古金色系（原深金 → 亮金，暗底可读） */
   --color-gold-300: #ecd27a;
   --color-gold-400: #e0c25a;
@@ -389,8 +389,8 @@ body {
 }
 [data-theme='night'] {
   /* 基底 */
-  --jg-bg: #08080a;            /* 赛博黑 */
-  --jg-bg-2: #0d0d13;          /* 略升一档的暗面 */
+  --jg-bg: #0b0a08;            /* 赛博黑 */
+  --jg-bg-2: #100f0d;          /* 略升一档的暗面 */
   --jg-text: #eae8f6;
   --jg-text-2: #a09eb6;
   --jg-text-3: #68667e;

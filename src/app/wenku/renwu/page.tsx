@@ -41,7 +41,7 @@ export default function RenwuPage() {
           { n: PEOPLE.filter(p => p.works?.length).length, label: '关联古籍著作', icon: '📜' },
           { n: PEOPLE.filter(p => p.controversy).length, label: '托名/争议考辨', icon: '🔍' },
         ].map(s => (
-          <div key={s.label} className="rounded-xl border border-gold-200/70 dark:border-gold-500/20 bg-gradient-to-b from-[#fdf9ee]/70 to-white/40 dark:from-[#1a1813] dark:to-[#13161c] p-3">
+          <div key={s.label} className="rounded-xl border border-gold-200/70 dark:border-gold-500/20 bg-gradient-to-b from-[#fdf9ee]/70 to-white/40 dark:from-[#1a1813] dark:to-[#171614] p-3">
             <p className="text-xl font-bold text-gray-800 dark:text-gray-100">{s.icon} {s.n}</p>
             <p className="text-[11px] text-gray-400 mt-0.5">{s.label}</p>
           </div>
@@ -58,7 +58,7 @@ export default function RenwuPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
             {items.map(p => (
               <Link key={p.id} href={`/wenku/renwu/${p.slug}`}
-                className="rounded-xl border border-gray-200/80 dark:border-gray-700/60 bg-white/85 dark:bg-[#13161c]/85 p-4 hover:border-gold-400 dark:hover:border-gold-500/60 transition-colors group">
+                className="rounded-xl border border-gray-200/80 dark:border-gray-700/60 bg-white/85 dark:bg-[#171614]/85 p-4 hover:border-gold-400 dark:hover:border-gold-500/60 transition-colors group">
                 <div className="flex items-baseline justify-between gap-2">
                   <h3 className="font-bold text-gray-800 dark:text-gray-100 group-hover:text-gold-600 transition-colors">{p.name}</h3>
                   <span className="text-[10px] text-gray-400 shrink-0">{p.era}</span>

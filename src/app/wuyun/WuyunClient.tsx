@@ -27,7 +27,7 @@ export default function WuyunClient() {
   return (
     <div className="max-w-4xl mx-auto px-4 py-6">
       <Breadcrumb items={[{ label: '全部工具', href: '/tools' }, { label: '五运六气' }]} />
-      <div className="rounded-2xl border border-emerald-200/60 dark:border-emerald-500/25 bg-white/85 dark:bg-[#13161c]/85 p-5 md:p-6 mb-5">
+      <div className="rounded-2xl border border-emerald-200/60 dark:border-emerald-500/25 bg-white/85 dark:bg-[#171614]/85 p-5 md:p-6 mb-5">
         <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-50 mb-1">☯️ 五运六气</h1>
         <p className="text-xs text-gray-500 dark:text-gray-400 mb-5">
           依《黄帝内经·素问》运气七篇：天干化五运定中运，地支化六气定司天在泉——推全年气候大势与养生要点。传统时间医学框架，供生活参考。
@@ -48,19 +48,19 @@ export default function WuyunClient() {
         <>
           {/* 三柱核心 */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
-            <div className="rounded-2xl border border-emerald-200/60 dark:border-emerald-500/25 bg-white/85 dark:bg-[#13161c]/85 p-4">
+            <div className="rounded-2xl border border-emerald-200/60 dark:border-emerald-500/25 bg-white/85 dark:bg-[#171614]/85 p-4">
               <p className="text-[11px] text-gray-400 dark:text-gray-500 mb-1">🔄 中运（大运）· {result.tianGan}年</p>
               <p className="text-lg font-bold text-gray-900 dark:text-gray-50">
                 <span className={ELEM_COLOR[result.zhongYun.element]}>{result.zhongYun.element}</span>运{result.zhongYun.yinyang === '阳' ? '太过' : '不及'}
               </p>
               <p className="text-[11.5px] text-gray-500 dark:text-gray-400 mt-1 leading-relaxed">{result.zhongYun.desc}</p>
             </div>
-            <div className="rounded-2xl border border-sky-200/60 dark:border-sky-500/25 bg-white/85 dark:bg-[#13161c]/85 p-4">
+            <div className="rounded-2xl border border-sky-200/60 dark:border-sky-500/25 bg-white/85 dark:bg-[#171614]/85 p-4">
               <p className="text-[11px] text-gray-400 dark:text-gray-500 mb-1">☁️ 司天 · {result.diZhi}年</p>
               <p className="text-lg font-bold text-gray-900 dark:text-gray-50">{result.siTian.qi}</p>
               <p className="text-[11.5px] text-gray-500 dark:text-gray-400 mt-1 leading-relaxed">主管上半年气候</p>
             </div>
-            <div className="rounded-2xl border border-indigo-200/60 dark:border-indigo-500/25 bg-white/85 dark:bg-[#13161c]/85 p-4">
+            <div className="rounded-2xl border border-indigo-200/60 dark:border-indigo-500/25 bg-white/85 dark:bg-[#171614]/85 p-4">
               <p className="text-[11px] text-gray-400 dark:text-gray-500 mb-1">🌊 在泉 · {result.diZhi}年</p>
               <p className="text-lg font-bold text-gray-900 dark:text-gray-50">{result.zaiQuan.qi}</p>
               <p className="text-[11.5px] text-gray-500 dark:text-gray-400 mt-1 leading-relaxed">主管下半年气候</p>
@@ -68,7 +68,7 @@ export default function WuyunClient() {
           </div>
 
           {/* 全年气候 */}
-          <div className="rounded-2xl border border-emerald-200/60 dark:border-emerald-500/25 bg-white/85 dark:bg-[#13161c]/85 p-5 mb-4">
+          <div className="rounded-2xl border border-emerald-200/60 dark:border-emerald-500/25 bg-white/85 dark:bg-[#171614]/85 p-5 mb-4">
             <h3 className="text-sm font-bold text-gray-800 dark:text-gray-100 mb-2">🌏 {result.year} 年气候大势</h3>
             <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
               {result.year} 年为{result.ganzhi}年（天干{result.tianGan}、地支{result.diZhi}）。
@@ -80,7 +80,7 @@ export default function WuyunClient() {
 
           {/* 六步气 */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
-            <div className="rounded-2xl border border-gray-200/70 dark:border-gray-700/50 bg-white/85 dark:bg-[#13161c]/85 p-5">
+            <div className="rounded-2xl border border-gray-200/70 dark:border-gray-700/50 bg-white/85 dark:bg-[#171614]/85 p-5">
               <h3 className="text-sm font-bold text-gray-800 dark:text-gray-100 mb-3">📆 主气六步（固定）</h3>
               <div className="space-y-2">
                 {result.zhuQi.map(q => (
@@ -92,7 +92,7 @@ export default function WuyunClient() {
                 ))}
               </div>
             </div>
-            <div className="rounded-2xl border border-gray-200/70 dark:border-gray-700/50 bg-white/85 dark:bg-[#13161c]/85 p-5">
+            <div className="rounded-2xl border border-gray-200/70 dark:border-gray-700/50 bg-white/85 dark:bg-[#171614]/85 p-5">
               <h3 className="text-sm font-bold text-gray-800 dark:text-gray-100 mb-3">🔄 客气六步（{result.year} 年）</h3>
               <div className="space-y-2">
                 {result.keQi.map(q => {
@@ -113,7 +113,7 @@ export default function WuyunClient() {
           </div>
 
           {/* 健康提示 */}
-          <div className="rounded-2xl border border-emerald-200/60 dark:border-emerald-500/25 bg-white/85 dark:bg-[#13161c]/85 p-5">
+          <div className="rounded-2xl border border-emerald-200/60 dark:border-emerald-500/25 bg-white/85 dark:bg-[#171614]/85 p-5">
             <h3 className="text-sm font-bold text-gray-800 dark:text-gray-100 mb-2">💚 {result.year} 年养生要点</h3>
             <ul className="space-y-1.5 text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
               {result.healthTips.map((t, i) => <li key={i} className="flex gap-2"><span className="text-emerald-500">·</span>{t}</li>)}
@@ -125,7 +125,7 @@ export default function WuyunClient() {
       {/* ═══ 四季养生深度区（五运六气总核心——内经四气调神大论） ═══ */}
       <div className="mt-8">
         {/* 总纲 */}
-        <div className="rounded-2xl border border-gold-200/70 dark:border-gold-500/25 bg-gradient-to-b from-[#fdf9ee]/80 to-white/60 dark:from-[#1c1a13] dark:to-[#13161c] p-6 mb-5">
+        <div className="rounded-2xl border border-gold-200/70 dark:border-gold-500/25 bg-gradient-to-b from-[#fdf9ee]/80 to-white/60 dark:from-[#1c1a13] dark:to-[#171614] p-6 mb-5">
           <h2 className="text-lg font-bold text-gray-800 dark:text-gray-100 mb-3">🏛️ 五运六气养生 · 总核心</h2>
           <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed mb-3">
             五运六气的养生观，浓缩为《黄帝内经·四气调神大论》一句总纲：<b className="text-gray-800 dark:text-gray-100">"夫四时阴阳者，万物之根本也。所以圣人春夏养阳，秋冬养阴，以从其根。"</b>
@@ -174,7 +174,7 @@ export default function WuyunClient() {
               items: ['起居：早卧晚起，必待日光——早睡养阴、晚起护阳；忌熬夜（冬夜最耗肾精）、忌晨起过猛', '饮食：省咸增苦（少咸伤肾、微苦坚阴）——羊肉、核桃、黑豆、山药温补；进补最佳季但须辨体质（虚不受补者先调脾胃）', '情志：冬主恐——肾志为恐，恐则气下；静神少虑，多晒太阳（补阳气抗抑郁）', '运动：宜室内温和运动（太极、八段锦）——微汗即止；忌大汗淋漓（"冬不汗泄"——汗出阳气外泄违闭藏）', '经络：揉涌泉穴（足底——补肾）、搓腰眼（肾俞——温肾阳）；手脚冰凉者冬前开始艾灸关元', '易病提醒：心脑血管病冬季高发（晨起血压高峰）、感冒风寒；冬至一阳生——重节气养藏'],
             },
           ].map(q => (
-            <div key={q.s} className="rounded-2xl border border-gray-200/80 dark:border-gray-700/60 bg-white/85 dark:bg-[#13161c]/85 p-5">
+            <div key={q.s} className="rounded-2xl border border-gray-200/80 dark:border-gray-700/60 bg-white/85 dark:bg-[#171614]/85 p-5">
               <h3 className="font-bold text-gray-800 dark:text-gray-100 mb-1">{q.icon} {q.name}</h3>
               <p className="text-[10px] text-gray-400 mb-1">{q.months}</p>
               <p className="text-xs font-medium text-emerald-600 dark:text-emerald-400 mb-3">{q.key}</p>

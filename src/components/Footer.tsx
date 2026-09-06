@@ -62,6 +62,7 @@ export default function Footer() {
               {getT('footer.legal')}
             </h3>
             <div className="space-y-1">
+              <Link href="/why-jiugong" className="block text-xs text-gray-500 hover:text-gold-600 transition-colors">🛡️ 为什么相信九宫</Link>
               <Link href="/privacy" className="block text-xs text-gray-500 hover:text-gold-600 transition-colors">{getT('footer.privacy')}</Link>
               <Link href="/terms" className="block text-xs text-gray-500 hover:text-gold-600 transition-colors">{getT('footer.terms')}</Link>
               <Link href="/contact" className="block text-xs text-gray-500 hover:text-gold-600 transition-colors">{getT('footer.contact')}</Link>

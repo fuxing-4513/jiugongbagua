@@ -26,7 +26,7 @@ export default function GanzhiPage() {
       <div className="grid grid-cols-5 sm:grid-cols-10 gap-2 mb-8">
         {TIAN_GAN.map(g => (
           <Link key={g.id} href={`/wenku/ganzhi/${encodeURIComponent(g.id)}`}
-            className="rounded-xl border border-gray-200/80 dark:border-gray-700/60 bg-white/85 dark:bg-[#13161c]/85 p-3 text-center hover:border-gold-400 transition-colors group">
+            className="rounded-xl border border-gray-200/80 dark:border-gray-700/60 bg-white/85 dark:bg-[#171614]/85 p-3 text-center hover:border-gold-400 transition-colors group">
             <div className="text-2xl font-serif text-gray-800 dark:text-gray-100 group-hover:text-gold-600">{g.id}</div>
             <div className={`text-xs mt-1 ${WUXING_COLOR[g.wuxing]}`}>{g.wuxing} · {g.yinyang}</div>
           </Link>
@@ -37,7 +37,7 @@ export default function GanzhiPage() {
       <div className="grid grid-cols-6 sm:grid-cols-12 gap-2 mb-8">
         {DI_ZHI.map(g => (
           <Link key={g.id} href={`/wenku/ganzhi/${encodeURIComponent(g.id)}`}
-            className="rounded-xl border border-gray-200/80 dark:border-gray-700/60 bg-white/85 dark:bg-[#13161c]/85 p-3 text-center hover:border-gold-400 transition-colors group">
+            className="rounded-xl border border-gray-200/80 dark:border-gray-700/60 bg-white/85 dark:bg-[#171614]/85 p-3 text-center hover:border-gold-400 transition-colors group">
             <div className="text-2xl font-serif text-gray-800 dark:text-gray-100 group-hover:text-gold-600">{g.id}</div>
             <div className="text-[10px] mt-1 text-gray-400">{g.zodiac}</div>
             <div className={`text-[10px] ${WUXING_COLOR[g.wuxing]}`}>{g.wuxing}</div>

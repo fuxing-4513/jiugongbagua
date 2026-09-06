@@ -57,7 +57,7 @@ export default function AstroClient() {
       <Breadcrumb items={[{ label: '全部工具', href: '/tools' }, { label: '西洋占星' }]} />
 
       {/* 输入区 */}
-      <div className="bg-white/85 dark:bg-[#13161c]/85 rounded-2xl border border-violet-200/60 dark:border-violet-500/25 p-5 md:p-6 mb-6">
+      <div className="bg-white/85 dark:bg-[#171614]/85 rounded-2xl border border-violet-200/60 dark:border-violet-500/25 p-5 md:p-6 mb-6">
         <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-50 mb-1">🪐 西洋占星 · 星盘排盘</h1>
         <p className="text-xs text-gray-500 dark:text-gray-400 mb-5">
           出生星盘（本命盘）：看性格底色、情感模式与人生课题。天文内核 VSOP87 行星历表——同精度级为天文台历书。结果仅供自我了解与决策参考。
@@ -107,7 +107,7 @@ export default function AstroClient() {
             ].map(card => {
               const zd = ZODIAC_DEEP.find(z => z.id === SIGN_IDS[card.body!.sign])
               return (
-                <div key={card.label} className="rounded-xl border border-violet-200/60 dark:border-violet-500/25 bg-white/85 dark:bg-[#13161c]/85 p-4">
+                <div key={card.label} className="rounded-xl border border-violet-200/60 dark:border-violet-500/25 bg-white/85 dark:bg-[#171614]/85 p-4">
                   <p className="text-[11px] text-gray-400 dark:text-gray-500 mb-1">{card.label}</p>
                   <p className="text-lg font-bold text-gray-900 dark:text-gray-50 mb-1.5">{SIGN_NAMES[card.body!.sign]}</p>
                   {zd && (
@@ -136,7 +136,7 @@ export default function AstroClient() {
             {/* 星盘 SVG */}
             <ChartWheel chart={chart} />
             {/* 行星表 */}
-            <div className="rounded-2xl border border-violet-200/60 dark:border-violet-500/25 bg-white/85 dark:bg-[#13161c]/85 p-5 overflow-x-auto">
+            <div className="rounded-2xl border border-violet-200/60 dark:border-violet-500/25 bg-white/85 dark:bg-[#171614]/85 p-5 overflow-x-auto">
               <h3 className="text-sm font-bold text-gray-800 dark:text-gray-100 mb-3">🪐 行星位置（本命盘）</h3>
               <table className="w-full text-xs">
                 <thead><tr className="text-gray-400 dark:text-gray-500 border-b border-gray-100 dark:border-gray-800">
@@ -181,7 +181,7 @@ export default function AstroClient() {
               {PLANET_DEEP.map(p => {
                 const pos = chart.bodies.find(b => b.key === p.id || (p.id === 'sun' && b.key === 'sun') || (p.id === 'moon' && b.key === 'moon'))
                 return (
-                  <div key={p.id} className="rounded-xl border border-violet-200/50 dark:border-violet-500/15 bg-white/85 dark:bg-[#13161c]/85 p-4">
+                  <div key={p.id} className="rounded-xl border border-violet-200/50 dark:border-violet-500/15 bg-white/85 dark:bg-[#171614]/85 p-4">
                     <div className="flex items-center justify-between mb-1">
                       <p className="font-bold text-gray-800 dark:text-gray-100 text-sm">🪐 {p.name}<span className="text-[10px] text-gray-400 font-normal ml-1.5">({p.en})</span></p>
                       {pos && <span className="text-[10px] px-2 py-0.5 rounded-full bg-violet-500/10 text-violet-600 dark:text-violet-300">你的{pos.name}在{SIGN_NAMES[pos.sign]}</span>}
@@ -204,7 +204,7 @@ export default function AstroClient() {
               {HOUSE_DEEP.map(h => {
                 const planetsHere = chart.bodies.filter(b => b.house === h.n)
                 return (
-                  <div key={h.n} className={`rounded-xl border p-3.5 ${planetsHere.length ? 'border-gold-300/70 dark:border-gold-500/40 bg-gradient-to-b from-[#fdf9ee]/70 to-white/50 dark:from-[#1c1a13] dark:to-[#13161c]' : 'border-gray-200/70 dark:border-gray-700/50 bg-white/85 dark:bg-[#13161c]/85'}`}>
+                  <div key={h.n} className={`rounded-xl border p-3.5 ${planetsHere.length ? 'border-gold-300/70 dark:border-gold-500/40 bg-gradient-to-b from-[#fdf9ee]/70 to-white/50 dark:from-[#1c1a13] dark:to-[#171614]' : 'border-gray-200/70 dark:border-gray-700/50 bg-white/85 dark:bg-[#171614]/85'}`}>
                     <div className="flex items-center justify-between mb-1">
                       <p className="text-xs font-bold text-gray-700 dark:text-gray-200">第 {h.n} 宫 · {h.name}</p>
                       {planetsHere.length > 0 && <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-gold-500/15 text-gold-600 dark:text-gold-300 font-medium">{planetsHere.map(p => p.symbol).join(' ')}</span>}
@@ -222,7 +222,7 @@ export default function AstroClient() {
             <h3 className="text-base font-bold text-gray-800 dark:text-gray-100 mb-3 flex items-center gap-2">🔯 相位体系 · 深度解读 <span className="text-[10px] font-normal text-gray-400">行星间的角度对话——你内在能量的合作与张力</span></h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-2.5">
               {ASPECT_DEEP.map(a => (
-                <div key={a.id} className="rounded-xl border border-gray-200/70 dark:border-gray-700/50 bg-white/85 dark:bg-[#13161c]/85 p-3.5">
+                <div key={a.id} className="rounded-xl border border-gray-200/70 dark:border-gray-700/50 bg-white/85 dark:bg-[#171614]/85 p-3.5">
                   <p className="text-xs font-bold text-gray-700 dark:text-gray-200 mb-0.5">{a.name}<span className="text-[10px] text-gray-400 font-normal ml-1">{a.deg}</span></p>
                   <p className="text-[10.5px] text-gray-500 dark:text-gray-400 leading-relaxed">{a.meaning}</p>
                 </div>
@@ -293,7 +293,7 @@ function ChartWheel({ chart }: { chart: ChartResult }) {
   const mcPt = pt(chart.mc, R_IN - 8)
   const d = chart.mc ? '' : ''
   return (
-    <div className="rounded-2xl border border-violet-200/60 dark:border-violet-500/25 bg-white/85 dark:bg-[#13161c]/85 p-4 flex flex-col items-center">
+    <div className="rounded-2xl border border-violet-200/60 dark:border-violet-500/25 bg-white/85 dark:bg-[#171614]/85 p-4 flex flex-col items-center">
       <h3 className="text-sm font-bold text-gray-800 dark:text-gray-100 self-start mb-2">🗺️ 本命星盘</h3>
       <svg viewBox="0 0 420 420" className="w-full max-w-[400px]">
         <defs>

@@ -29,7 +29,7 @@ export default function NumerologyClient() {
   return (
     <div className="max-w-4xl mx-auto px-4 py-6">
       <Breadcrumb items={[{ label: '全部工具', href: '/tools' }, { label: '生命灵数' }]} />
-      <div className="rounded-2xl border border-violet-200/60 dark:border-violet-500/25 bg-white/85 dark:bg-[#13161c]/85 p-5 md:p-6 mb-6">
+      <div className="rounded-2xl border border-violet-200/60 dark:border-violet-500/25 bg-white/85 dark:bg-[#171614]/85 p-5 md:p-6 mb-6">
         <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-50 mb-1">🔢 生命灵数</h1>
         <p className="text-xs text-gray-500 dark:text-gray-400 mb-5">
           毕达哥拉斯数字体系：姓名与出生日期都藏着频率。本工具帮你译出四个核心数字——认识自己的天赋剧本，参考而不迷信。
@@ -56,7 +56,7 @@ export default function NumerologyClient() {
             {cards.map(c => {
               const read = NUM_READ[c.num]
               return (
-                <div key={c.label} className="rounded-2xl border border-violet-200/60 dark:border-violet-500/25 bg-white/85 dark:bg-[#13161c]/85 p-4 text-center">
+                <div key={c.label} className="rounded-2xl border border-violet-200/60 dark:border-violet-500/25 bg-white/85 dark:bg-[#171614]/85 p-4 text-center">
                   <p className="text-[11px] text-gray-400 dark:text-gray-500 mb-1">{c.icon} {c.label}</p>
                   <p className="text-3xl font-bold text-violet-600 dark:text-violet-300">{c.num}</p>
                   <p className="text-xs font-medium text-gray-700 dark:text-gray-200 mt-1">{read?.name || '—'}</p>
@@ -68,7 +68,7 @@ export default function NumerologyClient() {
 
           {/* 生命路径详解 */}
           {result.lifePath > 0 && NUM_READ[result.lifePath] && (
-            <div className="rounded-2xl border border-violet-200/60 dark:border-violet-500/25 bg-white/85 dark:bg-[#13161c]/85 p-5 md:p-6 mb-4">
+            <div className="rounded-2xl border border-violet-200/60 dark:border-violet-500/25 bg-white/85 dark:bg-[#171614]/85 p-5 md:p-6 mb-4">
               <h3 className="text-base font-bold text-gray-900 dark:text-gray-50 mb-1">
                 🌱 生命路径 {result.lifePath} · {NUM_READ[result.lifePath].name}
               </h3>
@@ -102,7 +102,7 @@ export default function NumerologyClient() {
           )}
 
           {/* 其他数字简读 */}
-          <div className="rounded-2xl border border-gray-200/70 dark:border-gray-700/50 bg-white/85 dark:bg-[#13161c]/85 p-5">
+          <div className="rounded-2xl border border-gray-200/70 dark:border-gray-700/50 bg-white/85 dark:bg-[#171614]/85 p-5">
             <h3 className="text-sm font-bold text-gray-800 dark:text-gray-100 mb-3">📖 四个数字怎么理解</h3>
             <div className="space-y-2.5 text-xs text-gray-500 dark:text-gray-400 leading-relaxed">
               {cards.filter(c => c.num !== result.lifePath).map(c => (

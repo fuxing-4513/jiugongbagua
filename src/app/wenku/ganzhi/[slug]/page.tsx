@@ -50,7 +50,7 @@ return (
     <div className="max-w-4xl mx-auto px-4 py-8">
       <Breadcrumb items={[{ label: '九宫文库', href: '/wenku' }, { label: '干支百科', href: '/wenku/ganzhi' }, { label: g.id }]} />
 
-      <div className="rounded-2xl border border-gold-200/70 dark:border-gold-500/25 bg-white/85 dark:bg-[#13161c]/85 p-6 mb-5 flex items-center gap-6 flex-wrap">
+      <div className="rounded-2xl border border-gold-200/70 dark:border-gold-500/25 bg-white/85 dark:bg-[#171614]/85 p-6 mb-5 flex items-center gap-6 flex-wrap">
         <div className="text-6xl font-serif text-gray-800 dark:text-gray-100">{g.id}</div>
         <div>
           <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-50 mb-1">{g.id} · {g.kind === 'tian' ? '天干' : '地支'}</h1>
@@ -60,14 +60,14 @@ return (
 
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 mb-5">
         {rows.map(([k, v]) => (
-          <div key={k} className="rounded-xl border border-gray-200/80 dark:border-gray-700/60 bg-white/85 dark:bg-[#13161c]/85 p-3">
+          <div key={k} className="rounded-xl border border-gray-200/80 dark:border-gray-700/60 bg-white/85 dark:bg-[#171614]/85 p-3">
             <div className="text-[10px] text-gray-400">{k}</div>
             <div className="text-sm font-medium text-gray-700 dark:text-gray-200 mt-0.5">{v}</div>
           </div>
         ))}
       </div>
 
-      <div className="rounded-2xl border border-gray-200/80 dark:border-gray-700/60 bg-white/85 dark:bg-[#13161c]/85 p-5 mb-5">
+      <div className="rounded-2xl border border-gray-200/80 dark:border-gray-700/60 bg-white/85 dark:bg-[#171614]/85 p-5 mb-5">
         <h2 className="text-sm font-bold text-gray-800 dark:text-gray-100 mb-2">🖼️ 万物类象（速览）</h2>
         <div className="flex flex-wrap gap-2">
           {g.classImage.map(c => <span key={c} className="text-xs px-2.5 py-1 rounded-full bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-300">{c}</span>)}
@@ -84,7 +84,7 @@ return (
         </div>
       )}
 
-      <div className="rounded-xl border border-indigo-200/60 dark:border-indigo-500/25 bg-white/85 dark:bg-[#13161c]/85 p-5">
+      <div className="rounded-xl border border-indigo-200/60 dark:border-indigo-500/25 bg-white/85 dark:bg-[#171614]/85 p-5">
         <h3 className="text-xs font-bold text-gray-500 mb-2">🔗 关联术数领域</h3>
         <div className="flex flex-wrap gap-2">
           {g.relation.map(r => (
