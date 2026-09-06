@@ -36,14 +36,13 @@ export default function FloatingExpertButton() {
   const pathname = usePathname()
   const [open, setOpen] = useState(false)
 
-  // 匹配当前路径
+  // 匹配当前路径（可选——对话框显示上下文工具名）
   const matchedKey = Object.keys(TOOL_INFO).find(p => pathname === p || pathname.startsWith(p + '/'))
   const toolInfo = matchedKey ? TOOL_INFO[matchedKey] : null
 
   const close = useCallback(() => setOpen(false), [])
 
-  // 非工具页不显示
-  if (!toolInfo) return null
+  // 全站右侧固定显示（无论哪个页面——随滚动跟随）
 
   return (
     <>
@@ -63,8 +62,8 @@ export default function FloatingExpertButton() {
       {/* 弹窗 */}
       {open && (
         <ExpertDialog
-          toolName={toolInfo.name}
-          toolEmoji={toolInfo.emoji}
+          toolName={toolInfo?.name || ''}
+          toolEmoji={toolInfo?.emoji || '💬'}
           close={close}
         />
       )}
