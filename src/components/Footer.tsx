@@ -7,7 +7,7 @@ export default function Footer() {
   const getT = useT()
 
   return (
-    <footer className="glass-panel text-gray-300 mt-auto">
+    <footer className="mt-auto text-gray-300" style={{ background: 'linear-gradient(180deg,#0a0c10,#050709)', borderTop: '1px solid rgba(212,175,55,0.15)' }}>
       <div className="max-w-6xl mx-auto px-4 py-10">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           {/* About */}

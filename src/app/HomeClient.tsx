@@ -86,41 +86,45 @@ export default function HomeClient() {
   return (
     <>
       <div className="max-w-6xl mx-auto px-4">
-        {/* ════ Hero：科技罗盘 + AI 入口 ════ */}
-        <section className="relative pt-14 md:pt-16 pb-10 overflow-hidden">
-          {/* 背景：星点（细腻点缀，不喧宾夺主） */}
+        {/* ════ Hero：墨黑沉浸首屏（图稿色彩——#050709 系） ════ */}
+        <section className="relative rounded-3xl overflow-hidden mb-14"
+          style={{ background: 'radial-gradient(120% 90% at 75% 10%, #10161c 0%, #050709 55%, #030405 100%)' }}>
+          {/* 背景：星点（深底星野——图稿宇宙感） */}
           <div className="absolute inset-0 pointer-events-none">
-            <StarField className="absolute inset-0 w-full h-full opacity-40 dark:opacity-60" />
+            <StarField className="absolute inset-0 w-full h-full opacity-70" />
           </div>
+          {/* 极淡九宫格线（懂的人看得到） */}
+          <div className="absolute inset-0 pointer-events-none opacity-[0.13]"
+            style={{ backgroundImage: 'linear-gradient(rgba(212,175,55,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(212,175,55,0.5) 1px, transparent 1px)', backgroundSize: '16.66% 33.33%' }} />
 
-          <div className="relative z-10 grid lg:grid-cols-[1.15fr_1fr] gap-12 items-center">
-            {/* 左：文案 + AI 输入 */}
+          <div className="relative z-10 grid lg:grid-cols-[1.15fr_1fr] gap-12 items-center p-8 md:p-14">
+            {/* 左：文案 */}
             <div>
-              <span className="jg-chip mb-6">{getT('home.heroChip')}</span>
-              <h1 className="text-4xl md:text-6xl font-bold font-serif text-gray-900 dark:text-gray-50 leading-[1.15] mb-4">
+              <span className="text-[10px] px-3 py-1 rounded-full border border-gold-500/40 text-gold-300/90 tracking-[0.25em] mb-7 inline-block">{getT('home.heroChip')}</span>
+              <h1 className="text-4xl md:text-6xl font-bold font-serif text-[#f7f4ed] leading-[1.15] mb-5">
                 在关键时刻，
                 <br />
-                <span className="jg-text-grad">看清真实处境。</span>
+                <span className="text-transparent bg-clip-text" style={{ backgroundImage: 'linear-gradient(120deg,#e8cf96 0%,#c9a86a 55%,#b08a3c 100%)' }}>看清真实处境。</span>
               </h1>
-              <p className="text-sm md:text-base font-serif tracking-[0.35em] text-gold-600/90 dark:text-gold-400/80 mb-6 pl-0.5">
+              <p className="text-sm md:text-base font-serif tracking-[0.35em] text-gold-400/80 mb-7 pl-0.5">
                 观时 · 察势 · 明心 · 决策
               </p>
-              <p className="text-base md:text-lg text-gray-600 dark:text-gray-300 max-w-xl mb-8 leading-relaxed">
+              <p className="text-base md:text-lg text-[#a8a29a] max-w-xl mb-9 leading-relaxed">
                 这不是玄学算命——不给你宿命断言，只帮你照见能量与时机，
-                <span className="font-medium text-gray-800 dark:text-gray-100">理性做出你自己的决定</span>。
+                <span className="font-medium text-[#e8e2d5]">理性做出你自己的决定</span>。
               </p>
 
-              {/* 主 CTA：生成我的人生图谱（图稿主按钮） */}
+              {/* 主 CTA（朱砂——深底点睛） */}
               <div className="flex flex-wrap items-center gap-3.5 mb-2">
                 <Link href="/app"
-                  className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-white text-[15px] font-medium tracking-wide transition-all hover:brightness-110 hover:-translate-y-0.5 shadow-[0_4px_16px_rgba(168,69,47,0.25)]"
-                  style={{ background: 'linear-gradient(135deg,#a8452f,#8f3826)' }}>
+                  className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl text-white text-[15px] font-medium tracking-wide transition-all hover:brightness-110 hover:-translate-y-0.5 shadow-[0_6px_24px_rgba(168,69,47,0.4)]"
+                  style={{ background: 'linear-gradient(135deg,#b04a33,#8f3826)' }}>
                   生成我的人生图谱 →
                 </Link>
-                <Link href="/bazi" className="px-5 py-3 rounded-xl border border-gray-300 dark:border-gray-600 text-sm text-gray-600 dark:text-gray-300 hover:border-gold-400/60 hover:text-gold-600 dark:hover:text-gold-300 transition-colors">
+                <Link href="/bazi" className="px-5 py-3 rounded-xl border border-[#2a2a28] text-sm text-[#c9c4b8] hover:border-gold-500/50 hover:text-gold-300 transition-colors">
                   四柱八字
                 </Link>
-                <Link href="/ziwei" className="px-5 py-3 rounded-xl border border-gray-300 dark:border-gray-600 text-sm text-gray-600 dark:text-gray-300 hover:border-gold-400/60 hover:text-gold-600 dark:hover:text-gold-300 transition-colors">
+                <Link href="/ziwei" className="px-5 py-3 rounded-xl border border-[#2a2a28] text-sm text-[#c9c4b8] hover:border-gold-500/50 hover:text-gold-300 transition-colors">
                   紫微斗数
                 </Link>
               </div>
@@ -171,50 +175,52 @@ export default function HomeClient() {
           </div>
         </section>
 
-        {/* ════ AI 决策分析（图稿：不只是算命，更是决策参考） ════ */}
+        {/* ════ AI 决策分析（图稿：深色沉浸对话区） ════ */}
         <section className="mb-14">
-          <div className="rounded-3xl border border-gray-200/80 dark:border-gray-700/50 overflow-hidden bg-white/80 dark:bg-[#131210]/70">
+          <div className="rounded-3xl overflow-hidden"
+            style={{ background: 'radial-gradient(120% 100% at 20% 0%, #0e141a 0%, #090e12 60%, #060a0d 100%)' }}>
             <div className="grid md:grid-cols-2">
               {/* 左：主张 */}
-              <div className="p-7 md:p-9 flex flex-col justify-center">
-                <p className="text-[10px] tracking-[0.3em] text-cinnabar-500 dark:text-cinnabar-400 font-medium mb-2.5">AI 决策分析</p>
-                <h2 className="text-2xl md:text-[26px] font-serif font-bold text-gray-900 dark:text-gray-50 leading-snug mb-3">
+              <div className="p-7 md:p-10 flex flex-col justify-center">
+                <p className="text-[10px] tracking-[0.3em] text-cinnabar-400 font-medium mb-2.5">AI 决策分析</p>
+                <h2 className="text-2xl md:text-[26px] font-serif font-bold text-[#f7f4ed] leading-snug mb-3">
                   不只是算命，<br />更是决策参考。
                 </h2>
-                <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed mb-6">
-                  结合你的<b className="text-gray-700 dark:text-gray-200">命盘</b> · <b className="text-gray-700 dark:text-gray-200">时机</b>与<b className="text-gray-700 dark:text-gray-200">古籍智慧</b>，
+                <p className="text-sm text-[#a8a29a] leading-relaxed mb-6">
+                  结合你的<b className="text-[#e8e2d5]">命盘</b> · <b className="text-[#e8e2d5]">时机</b>与<b className="text-[#e8e2d5]">古籍智慧</b>，
                   把"该不该、能不能、何时动"推演成合理、实情、可行动的建议——结论每一条都可溯源到原典。
                 </p>
                 <div className="flex flex-wrap gap-2 mb-7">
                   {['结合命盘', '看清周期', '识别时机', '古籍依据', '行动建议'].map(t => (
-                    <span key={t} className="text-[10.5px] px-2.5 py-1 rounded-full border border-gray-200 dark:border-gray-700 text-gray-500 dark:text-gray-400">{t}</span>
+                    <span key={t} className="text-[10.5px] px-2.5 py-1 rounded-full border border-[#2a2a28] text-[#8f8a80]">{t}</span>
                   ))}
                 </div>
                 {/* 高频问题入口（决策直达 AI） */}
                 <div className="flex flex-wrap gap-2 mb-7">
                   {scenarioCards.map(s => (
                     <Link key={s.href} href={s.href}
-                      className="text-[11px] px-3 py-1.5 rounded-full border border-gold-300/50 dark:border-gold-500/25 text-gray-600 dark:text-gray-300 hover:bg-gold-500/10 hover:border-gold-400/70 transition-colors">
+                      className="text-[11px] px-3 py-1.5 rounded-full border border-gold-500/25 text-[#c9c4b8] hover:bg-gold-500/10 hover:border-gold-400/60 hover:text-gold-300 transition-colors">
                       {s.q}
                     </Link>
                   ))}
                 </div>
                 <div>
-                  <Link href="/ai" className="inline-block px-6 py-2.5 rounded-lg bg-cinnabar-500 hover:bg-cinnabar-600 text-white text-sm font-medium transition-colors shadow-[0_2px_10px_rgba(168,69,47,0.25)]">
+                  <Link href="/ai" className="inline-block px-6 py-2.5 rounded-lg text-white text-sm font-medium transition-all hover:brightness-110 shadow-[0_2px_14px_rgba(168,69,47,0.35)]"
+                    style={{ background: 'linear-gradient(135deg,#b04a33,#8f3826)' }}>
                     向 AI 问一个决策 →
                   </Link>
                 </div>
               </div>
-              {/* 右：对话示例（静态演示） */}
-              <div className="p-7 md:p-9 border-t md:border-t-0 md:border-l border-gray-100 dark:border-gray-800 bg-gradient-to-br from-[#faf7ef]/60 to-transparent dark:from-[#171614]/50 flex items-center">
+              {/* 右：对话示例（深色版——图稿对话气泡） */}
+              <div className="p-7 md:p-9 border-t md:border-t-0 md:border-l border-[#1c1e22] bg-gradient-to-br from-[#0b0f13]/70 to-transparent flex items-center">
                 <div className="w-full space-y-3">
-                  <div className="rounded-xl rounded-tl-sm bg-white dark:bg-[#1b1a17] border border-gray-200/70 dark:border-gray-700/50 p-3.5 shadow-sm max-w-[85%]">
-                    <p className="text-xs text-gray-600 dark:text-gray-300 leading-relaxed">最近有个跳槽机会，我今年该不该动？</p>
+                  <div className="rounded-xl rounded-tl-sm bg-[#151a20] border border-[#23262c] p-3.5 shadow-sm max-w-[85%]">
+                    <p className="text-xs text-[#c9c4b8] leading-relaxed">最近有个跳槽机会，我今年该不该动？</p>
                   </div>
-                  <div className="rounded-xl rounded-tr-sm border border-gold-300/40 dark:border-gold-500/20 bg-[#fdf9ee]/80 dark:bg-[#1c1a13]/80 p-3.5 max-w-[92%] ml-auto">
-                    <p className="text-[10px] text-gold-600 dark:text-gold-400 font-medium mb-1.5">AI 推演 · 据《滴天髓》与你的命盘</p>
-                    <p className="text-xs text-gray-700 dark:text-gray-200 leading-relaxed">你正处在<b>大运交接的蓄势段</b>——机会真实，但宜「先稳后动」：上半年积累筹码、秋季窗口再议。谨慎高杠杆，10 月后运势转升。</p>
-                    <p className="text-[9.5px] text-gray-400 dark:text-gray-500 mt-2">📜 推演依据：命盘日主 × 大运十神 × 流年时机 —— 点此查看完整推演</p>
+                  <div className="rounded-xl rounded-tr-sm border border-gold-500/25 bg-[#12161a] p-3.5 max-w-[92%] ml-auto">
+                    <p className="text-[10px] text-gold-400 font-medium mb-1.5">AI 推演 · 据《滴天髓》与你的命盘</p>
+                    <p className="text-xs text-[#cfc9bd] leading-relaxed">你正处在<b className="text-[#e8e2d5]">大运交接的蓄势段</b>——机会真实，但宜「先稳后动」：上半年积累筹码、秋季窗口再议。谨慎高杠杆，10 月后运势转升。</p>
+                    <p className="text-[9.5px] text-[#6f6a61] mt-2">📜 推演依据：命盘日主 × 大运十神 × 流年时机 —— 点此查看完整推演</p>
                   </div>
                 </div>
               </div>
