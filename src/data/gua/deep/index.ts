@@ -1,4 +1,4 @@
-// 六十四卦深度分析 barrel（前 32 卦已建档——按 guaNN id 查）
+// 六十四卦深度分析 barrel（全 64 卦已建档——按 guaNN id 查）
 import type { HexagramDeep } from './schema'
 import { GUA01_DEEP } from './gua01'
 import { GUA02_DEEP } from './gua02'
@@ -32,8 +32,40 @@ import { GUA29_DEEP } from './gua29'
 import { GUA30_DEEP } from './gua30'
 import { GUA31_DEEP } from './gua31'
 import { GUA32_DEEP } from './gua32'
+import { GUA33_DEEP } from './gua33'
+import { GUA34_DEEP } from './gua34'
+import { GUA35_DEEP } from './gua35'
+import { GUA36_DEEP } from './gua36'
+import { GUA37_DEEP } from './gua37'
+import { GUA38_DEEP } from './gua38'
+import { GUA39_DEEP } from './gua39'
+import { GUA40_DEEP } from './gua40'
+import { GUA41_DEEP } from './gua41'
+import { GUA42_DEEP } from './gua42'
+import { GUA43_DEEP } from './gua43'
+import { GUA44_DEEP } from './gua44'
+import { GUA45_DEEP } from './gua45'
+import { GUA46_DEEP } from './gua46'
+import { GUA47_DEEP } from './gua47'
+import { GUA48_DEEP } from './gua48'
+import { GUA49_DEEP } from './gua49'
+import { GUA50_DEEP } from './gua50'
+import { GUA51_DEEP } from './gua51'
+import { GUA52_DEEP } from './gua52'
+import { GUA53_DEEP } from './gua53'
+import { GUA54_DEEP } from './gua54'
+import { GUA55_DEEP } from './gua55'
+import { GUA56_DEEP } from './gua56'
+import { GUA57_DEEP } from './gua57'
+import { GUA58_DEEP } from './gua58'
+import { GUA59_DEEP } from './gua59'
+import { GUA60_DEEP } from './gua60'
+import { GUA61_DEEP } from './gua61'
+import { GUA62_DEEP } from './gua62'
+import { GUA63_DEEP } from './gua63'
+import { GUA64_DEEP } from './gua64'
 
-export const GUA_DEEP_1_32: HexagramDeep[] = [
+export const GUA_DEEP_ALL: HexagramDeep[] = [
   GUA01_DEEP, GUA02_DEEP, GUA03_DEEP, GUA04_DEEP, GUA05_DEEP, GUA06_DEEP, GUA07_DEEP, GUA08_DEEP,
   GUA09_DEEP, GUA10_DEEP, GUA11_DEEP, GUA12_DEEP, GUA13_DEEP, GUA14_DEEP, GUA15_DEEP, GUA16_DEEP,
   GUA17_DEEP, GUA18_DEEP, GUA19_DEEP, GUA20_DEEP, GUA21_DEEP, GUA22_DEEP, GUA23_DEEP, GUA24_DEEP,
@@ -41,5 +73,5 @@ export const GUA_DEEP_1_32: HexagramDeep[] = [
 ]
 
 export function getGuaDeepById(id: string): HexagramDeep | undefined {
-  return GUA_DEEP_1_32.find(d => d.id === id)
+  return GUA_DEEP_ALL.find(d => d.id === id)
 }
