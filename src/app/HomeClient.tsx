@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { useLocale, useT, useTArray } from '@/lib/i18n'
+import { useLocale, useT } from '@/lib/i18n'
 
 import RotatingCompass from '@/components/visual/RotatingCompass'
 import StarField from '@/components/visual/StarField'
@@ -64,7 +64,6 @@ const quickTools = [
 
 export default function HomeClient() {
   const getT = useT()
-  const [openFaq, setOpenFaq] = useState<number | null>(0)
 
   // 场景卡（i18n 双语——五问入口——决策直达 AI）
   const scenarioCards = [
@@ -75,7 +74,6 @@ export default function HomeClient() {
     { q: getT('home.scenarios.risk.question'), empathy: getT('home.scenarios.risk.empathy'), cta: getT('home.scenarios.risk.cta'), href: '/ai?q=' + encodeURIComponent('现在该往前冲还是先稳住？想看清眼前的机遇与风险。') },
   ]
   // FAQ（i18n 双语）
-  const faqItems = useTArray()('home.faq.items') as { q: string; a: string }[]
 
   return (
     <>
@@ -359,34 +357,26 @@ export default function HomeClient() {
           </div>
         </section>
 
-        {/* ════ 常见问题（打消顾虑：原理/用法/隐私） ════ */}
-        <section className="mb-14">
-          <div className="text-center mb-6">
-            <h2 className="text-xl font-bold text-gray-900 dark:text-gray-50 mb-1.5">{getT('home.faq.title')}</h2>
-            <p className="text-xs text-gray-500 dark:text-gray-400">{getT('home.faq.subtitle')}</p>
+        {/* ════ 08 终 CTA（开始你的第一次人生推演——深色横幅） ════ */}
+        <section className="mb-24 text-center overflow-hidden relative"
+          style={{ background: 'radial-gradient(100% 140% at 50% 0%, #111617 0%, #080B0C 70%)' }}>
+          <div className="px-8 py-20 md:py-28 relative z-10">
+            <p className="text-[12px] tracking-[0.3em] text-[#9B968B] mb-5">东方智慧 · AI 时空推演</p>
+            <h2 className="text-[32px] md:text-[48px] font-normal font-serif text-[#F5F2EA] leading-snug mb-8">
+              开始你的<span style={{ color: '#C9A85B' }}>第一次</span>人生推演。
+            </h2>
+            <div className="flex justify-center">
+              <Link href="/app"
+                className="inline-flex items-center gap-2.5 px-10 py-4 text-[#F5F2EA] text-[15px] tracking-[0.15em] transition-all hover:brightness-110 hover:-translate-y-0.5"
+                style={{ background: '#B23A3A', boxShadow: '0 12px 36px rgba(178,58,58,0.28)' }}>
+                生成我的人生图谱 →
+              </Link>
+            </div>
+            <p className="text-[11px] text-[#68645C] mt-8">免费 · 无需注册 · 生辰不存储 · 已服务上万次推演</p>
+            <p className="text-[11px] text-[#68645C] mt-2">
+              常见问题？ <Link href="/faq" className="text-[#9B968B] hover:text-[#C9A85B] underline-offset-4 hover:underline">查看帮助中心 →</Link>
+            </p>
           </div>
-          <div className="max-w-2xl mx-auto space-y-2.5">
-            {faqItems.map((f, i) => (
-              <div key={i} className="jg-card-plain overflow-hidden">
-                <button
-                  onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                  className="w-full flex items-center justify-between gap-3 px-4 py-3.5 text-left"
-                  aria-expanded={openFaq === i}
-                >
-                  <span className="text-sm font-medium text-gray-800 dark:text-gray-100">{f.q}</span>
-                  <span className={`text-violet-500 dark:text-violet-300 text-xs transition-transform duration-200 ${openFaq === i ? 'rotate-45' : ''}`}>＋</span>
-                </button>
-                {openFaq === i && (
-                  <p className="px-4 pb-4 text-xs text-gray-600 dark:text-gray-400 leading-relaxed border-t border-gray-100 dark:border-gray-800 pt-3">
-                    {f.a}
-                  </p>
-                )}
-              </div>
-            ))}
-          </div>
-          <p className="text-center mt-4">
-            <Link href="/faq" className="text-xs jg-text-accent hover:underline">{getT('home.faq.viewAll')}</Link>
-          </p>
         </section>
       </div>
     </>
