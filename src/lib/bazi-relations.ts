@@ -26,10 +26,10 @@ export const ZHI_LIUHE_PAIR: Record<string, string> = {子:'丑',丑:'子',寅:'
 export const SANHE_JU: Record<string, string> = {申子辰:'水局',寅午戌:'火局',巳酉丑:'金局',亥卯未:'木局'}
 // 六冲
 export const LIU_CHONG: Record<string, string> = {子:'午',午:'子',丑:'未',未:'丑',寅:'申',申:'寅',卯:'酉',酉:'卯',辰:'戌',戌:'辰',巳:'亥',亥:'巳'}
-// 三刑（寅巳申=恃势之刑，丑戌未=无恩之刑，子卯=无礼之刑）
+// 三刑（寅巳申=无恩之刑，丑戌未=恃势之刑，子卯=无礼之刑，辰午酉亥=自刑）
 export const SAN_XING_GROUPS: { type: string; zhis: string[] }[] = [
-  { type: '恃势之刑', zhis: ['寅','巳','申'] },
-  { type: '无恩之刑', zhis: ['丑','戌','未'] },
+  { type: '无恩之刑', zhis: ['寅','巳','申'] },
+  { type: '恃势之刑', zhis: ['丑','戌','未'] },
   { type: '无礼之刑', zhis: ['子','卯'] },
 ]
 // 自刑
