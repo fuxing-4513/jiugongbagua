@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { useLocale, useT, useTArray, type SupportedLocale } from '@/lib/i18n'
+import { usePathname } from 'next/navigation'
 import { api } from '@/lib/api'
 
 const toolCategories: { label: string; items: { key: string; href: string; emoji?: string }[] }[] = [
@@ -40,6 +41,8 @@ export default function Nav() {
   const [night, setNight] = useState(false)
   const [loggedIn, setLoggedIn] = useState<boolean | null>(null)
   const getT = useT()
+  const pathname = usePathname()
+  const isHome = pathname === '/'
 
   // 同步当前主题状态
   useEffect(() => {
@@ -84,7 +87,7 @@ export default function Nav() {
   }
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 shadow-sm" style={{ background: "rgba(8,11,12,0.32)", backdropFilter: "blur(10px)", borderBottom: "1px solid rgba(176,138,60,0.14)" }}>
+    <nav className="fixed top-0 left-0 right-0 z-50 shadow-sm" style={isHome ? { background: "transparent", borderBottom: "1px solid rgba(176,138,60,0.12)" } : { background: "rgba(8,11,12,0.55)", backdropFilter: "blur(10px)", borderBottom: "1px solid rgba(176,138,60,0.14)" }}>
       <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 flex-shrink-0">

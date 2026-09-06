@@ -92,7 +92,7 @@ export default function HomeClient() {
           <div className="relative z-10 w-full px-8 md:px-14" style={{ minHeight: '680px' }}>
             {/* 时空盘（内容区右侧——大 580 悬浮——露出背景太极） */}
             <div className="absolute select-none pointer-events-none"
-              style={{ right: '-1%', top: '50%', transform: 'translateY(-50%)', width: 'min(46vw, 580px)', opacity: 0.97 }}>
+              style={{ right: '2%', top: '50%', transform: 'translateY(-52%)', width: 'min(72vw, 580px)', opacity: 0.97 }}>
               <img src="/assets/hero-time-wheel.svg" alt="九宫时空盘——东方天文仪器" className="w-full h-auto" />
             </div>
             {/* 水面倒影 */}
@@ -101,7 +101,7 @@ export default function HomeClient() {
                 filter: 'blur(5px)', maskImage: 'linear-gradient(to bottom, rgba(0,0,0,0.55), transparent 82%)', WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,0.55), transparent 82%)' }}>
               <img src="/assets/hero-time-wheel.svg" alt="" aria-hidden className="w-full h-auto" />
             </div>
-            <div className="flex flex-col justify-center" style={{ width: '44%', minHeight: '680px', padding: '104px 0 120px' }}>
+            <div className="flex flex-col justify-center w-full md:w-[44%]" style={{ minHeight: '680px', padding: '104px 0 120px' }}>
               <p className="text-[12px] tracking-[0.3em] text-[#C9A85B]/80 mb-7">{getT('home.heroChip')}</p>
               <h1 className="text-[42px] leading-[1.14] md:text-[64px] font-normal font-serif text-[#F5F2EA] mb-7"
                 style={{ textShadow: '0 2px 30px rgba(0,0,0,0.5)' }}>
@@ -116,7 +116,7 @@ export default function HomeClient() {
                 不给你宿命断言，只帮你照见能量与时机——理性做出你自己的决定。
               </p>
               {/* 四问（主题 + 具体问题——图稿） */}
-              <div className="flex items-stretch gap-7 mb-12">
+              <div className="flex flex-wrap items-stretch gap-x-6 gap-y-4 mb-12">
                 {[
                   { t: '事业', q: '换工作？' },
                   { t: '财富', q: '今年该创业吗？' },
@@ -191,11 +191,11 @@ export default function HomeClient() {
         </section>
 
         {/* ════ AI 决策分析（规范 03：深色 40/60——人生推演报告） ════ */}
-        <section className="mb-24">
+        <section className="mb-24 overflow-hidden">
           <div className="relative overflow-hidden">
             {/* 背景图（深墨山水+人影——图稿 AI 区） */}
-            <img src="/assets/ai-area.webp" alt="" aria-hidden className="absolute inset-0 w-full h-full object-cover object-center" />
-            <div className="absolute inset-0" style={{ background: 'linear-gradient(105deg, rgba(8,11,12,0.10) 0%, rgba(8,11,12,0.32) 30%, rgba(8,11,12,0.82) 92%)' }} />
+            <img src="/assets/ai-area.webp" alt="" aria-hidden className="absolute left-1/2 -translate-x-1/2 top-0 w-screen h-full object-cover object-center" />
+            <div className="absolute left-1/2 -translate-x-1/2 top-0 w-screen h-full" style={{ background: 'linear-gradient(105deg, rgba(8,11,12,0.10) 0%, rgba(8,11,12,0.32) 30%, rgba(8,11,12,0.82) 92%)' }} />
             <div className="relative z-10 grid md:grid-cols-[30fr_70fr] items-stretch">
               {/* 左 30%：人影区（留空——人物显现不被遮挡） */}
               <div className="hidden md:block" aria-hidden></div>
