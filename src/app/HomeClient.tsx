@@ -4,8 +4,6 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useLocale, useT } from '@/lib/i18n'
 
-import RotatingCompass from '@/components/visual/RotatingCompass'
-import StarField from '@/components/visual/StarField'
 import HeritageSection from '@/components/HeritageSection'
 import CalendarInput, { type CalendarType, getMaxDay, lunarToSolarDate } from '@/components/CalendarInput'
 
@@ -78,56 +76,63 @@ export default function HomeClient() {
   return (
     <>
       <div className="max-w-6xl mx-auto px-4">
-        {/* ════ Hero：墨黑沉浸首屏（图稿色彩——#050709 系） ════ */}
-        <section className="relative rounded-3xl overflow-hidden mb-14"
-          style={{ background: 'radial-gradient(120% 90% at 75% 10%, #10161c 0%, #050709 55%, #030405 100%)' }}>
-          {/* 背景：星点（深底星野——图稿宇宙感） */}
-          <div className="absolute inset-0 pointer-events-none">
-            <StarField className="absolute inset-0 w-full h-full opacity-70" />
-          </div>
-          {/* 极淡九宫格线（懂的人看得到） */}
-          <div className="absolute inset-0 pointer-events-none opacity-[0.13]"
-            style={{ backgroundImage: 'linear-gradient(rgba(212,175,55,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(212,175,55,0.5) 1px, transparent 1px)', backgroundSize: '16.66% 33.33%' }} />
+        {/* ════ Hero：东方山水 × 时空仪盘 Artwork（规格 22 项施工） ════ */}
+        <section className="relative overflow-hidden mb-16" style={{ background: '#050708' }}>
+          {/* 山水背景（hero-mountain.svg——天空/五层山/雾/水面/金光） */}
+          <img src="/assets/hero-mountain.svg" alt="" aria-hidden
+            className="absolute inset-0 w-full h-full object-cover object-center select-none pointer-events-none" />
+          {/* 右侧金色天光强调 */}
+          <div className="absolute inset-0 pointer-events-none"
+            style={{ background: 'radial-gradient(60% 40% at 78% 8%, rgba(176,138,60,0.14) 0%, transparent 70%)' }} />
 
-          <div className="relative z-10 grid lg:grid-cols-[45fr_55fr] gap-10 items-center p-8 md:p-14 min-h-[560px] md:min-h-[640px]">
-            {/* 左 45%：文案（Luxury Editorial——细字距） */}
-            <div className="py-6">
-              <p className="text-[12px] tracking-[0.25em] text-gold-light/80 mb-6 uppercase">{getT('home.heroChip')}</p>
-              <h1 className="text-[44px] leading-[1.12] md:text-[64px] font-normal font-serif text-[#F5F2EA] mb-6">
+          {/* 时空盘（偏右 x~68% 大 560-620——悬浮山水之上） */}
+          <div className="absolute select-none pointer-events-none"
+            style={{ right: '2%', top: '50%', transform: 'translateY(-54%)', width: 'min(46vw, 580px)', opacity: 0.97 }}>
+            <img src="/assets/hero-time-wheel.svg" alt="九宫时空盘——东方天文仪器" className="w-full h-auto" />
+          </div>
+          {/* 水面倒影（垂直翻转 + 模糊 + 低透明 + 渐隐 mask） */}
+          <div className="absolute select-none pointer-events-none"
+            style={{ right: '6%', bottom: '-1%', width: 'min(38vw, 470px)', opacity: 0.14, transform: 'scaleY(-1)',
+              filter: 'blur(5px)', maskImage: 'linear-gradient(to bottom, rgba(0,0,0,0.55), transparent 82%)', WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,0.55), transparent 82%)' }}>
+            <img src="/assets/hero-time-wheel.svg" alt="" aria-hidden className="w-full h-auto" />
+          </div>
+          {/* 水面微光带 */}
+          <div className="absolute inset-x-0 bottom-0 h-14 pointer-events-none opacity-60"
+            style={{ background: 'linear-gradient(to top, rgba(176,138,60,0.10), transparent)' }} />
+
+          {/* 文案层（左 44%——巨大呼吸空间） */}
+          <div className="relative z-10 max-w-6xl mx-auto px-6 md:px-12" style={{ minHeight: '680px' }}>
+            <div className="flex flex-col justify-center" style={{ width: '44%', minHeight: '680px', padding: '104px 0 120px' }}>
+              <p className="text-[12px] tracking-[0.3em] text-[#C9A85B]/80 mb-7">{getT('home.heroChip')}</p>
+              <h1 className="text-[42px] leading-[1.14] md:text-[64px] font-normal font-serif text-[#F5F2EA] mb-7"
+                style={{ textShadow: '0 2px 30px rgba(0,0,0,0.5)' }}>
                 在关键时刻，
                 <br />
-                <span className="text-transparent bg-clip-text font-normal" style={{ backgroundImage: 'linear-gradient(120deg,#C9A85B 0%,#B08A3C 60%,#806225 100%)' }}>看清真实处境。</span>
+                <span style={{ color: '#C9A85B' }}>看清真实处境。</span>
               </h1>
-              <p className="text-[13px] md:text-[16px] font-serif tracking-[0.4em] text-[#BDB7AA] mb-8">
+              <p className="text-[13px] md:text-[15px] font-serif tracking-[0.42em] text-[#BDB7AA] mb-9">
                 观时 · 察势 · 明心 · 决策
               </p>
-              <p className="text-[13px] text-[#68645C] max-w-md mb-10 leading-relaxed hidden sm:block">
+              <p className="text-[13px] text-[#9B968B] leading-relaxed mb-10 max-w-sm hidden sm:block">
                 不给你宿命断言，只帮你照见能量与时机——理性做出你自己的决定。
               </p>
-
-              {/* 四问（事业 财富 感情 人生——细线分隔） */}
-              <div className="flex items-center gap-0 mb-10">
+              {/* 四问 */}
+              <div className="flex items-center mb-11">
                 {['事业', '财富', '感情', '人生'].map((t, i) => (
                   <span key={t} className="flex items-center">
-                    {i > 0 && <span className="w-px h-3 bg-[#2a2f30] mx-4" />}
+                    {i > 0 && <span className="w-px h-3 bg-[#3a3d3a] mx-4" />}
                     <span className="text-[13px] text-[#9B968B] tracking-widest">{t}</span>
                   </span>
                 ))}
               </div>
-
-              {/* CTA（朱砂印章感——克制小面积） */}
-              <div className="flex flex-wrap items-center gap-4">
+              {/* CTA */}
+              <div>
                 <Link href="/app"
-                  className="inline-flex items-center gap-2.5 px-9 py-4 text-[#F5F2EA] text-[15px] tracking-[0.15em] border transition-all hover:brightness-110 hover:-translate-y-0.5"
-                  style={{ background: 'var(--cinnabar)', boxShadow: '0 10px 30px rgba(178,58,58,0.25)' }}>
+                  className="inline-flex items-center gap-2.5 px-9 py-4 text-[#F5F2EA] text-[15px] tracking-[0.15em] transition-all hover:brightness-110 hover:-translate-y-0.5"
+                  style={{ background: 'rgba(178,58,58,0.92)', border: '1px solid rgba(245,242,234,0.18)', boxShadow: '0 14px 40px rgba(178,58,58,0.22)' }}>
                   开始我的人生推演 →
                 </Link>
               </div>
-            </div>
-
-            {/* 右 55%：九宫时空盘（第一视觉——细线古金） */}
-            <div className="flex justify-center items-center">
-              <RotatingCompass size={560} className="w-full max-w-[520px] md:max-w-[600px]" />
             </div>
           </div>
         </section>
