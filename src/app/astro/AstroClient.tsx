@@ -5,7 +5,11 @@
 
 import { useState } from 'react'
 import { computeChart, SIGN_NAMES, type ChartResult, type ChartBody } from '@/lib/astrology-engine'
+import { ZODIAC_DEEP, PLANET_DEEP } from '@/data/astro/index'
 import Breadcrumb from '@/components/Breadcrumb'
+
+// 星座 sign 索引 → ZODIAC_DEEP id 映射（0=白羊）
+const SIGN_IDS = ['aries', 'taurus', 'gemini', 'cancer', 'leo', 'virgo', 'libra', 'scorpio', 'sagittarius', 'capricorn', 'aquarius', 'pisces']
 
 const CITIES = [
   { name: '北京', lon: 116.4, lat: 39.9 }, { name: '上海', lon: 121.5, lat: 31.2 },
@@ -100,13 +104,32 @@ export default function AstroClient() {
               { label: '☉ 太阳星座', body: sun, read: sun ? SUN_READ[sun.sign] : '' },
               { label: '☽ 月亮星座', body: moon, read: moon ? MOON_READ[moon.sign] : '' },
               { label: '↗ 上升星座', body: chart ? { sign: chart.ascSign, signDeg: 0, name: '', symbol: '', lon: chart.asc, house: 1, key: 'sun' as const, retrograde: false } as ChartBody : null, read: ASC_READ[chart.ascSign] },
-            ].map(card => (
-              <div key={card.label} className="rounded-xl border border-violet-200/60 dark:border-violet-500/25 bg-white/85 dark:bg-[#13161c]/85 p-4">
-                <p className="text-[11px] text-gray-400 dark:text-gray-500 mb-1">{card.label}</p>
-                <p className="text-lg font-bold text-gray-900 dark:text-gray-50 mb-1.5">{SIGN_NAMES[card.body!.sign]}</p>
-                <p className="text-[11.5px] text-gray-500 dark:text-gray-400 leading-relaxed">{card.read}</p>
-              </div>
-            ))}
+            ].map(card => {
+              const zd = ZODIAC_DEEP.find(z => z.id === SIGN_IDS[card.body!.sign])
+              return (
+                <div key={card.label} className="rounded-xl border border-violet-200/60 dark:border-violet-500/25 bg-white/85 dark:bg-[#13161c]/85 p-4">
+                  <p className="text-[11px] text-gray-400 dark:text-gray-500 mb-1">{card.label}</p>
+                  <p className="text-lg font-bold text-gray-900 dark:text-gray-50 mb-1.5">{SIGN_NAMES[card.body!.sign]}</p>
+                  {zd && (
+                    <p className="text-[10px] text-violet-500 dark:text-violet-300 mb-1.5 flex flex-wrap gap-x-2">
+                      <span>{zd.date}</span><span>· {zd.element}象 · {zd.mode}星座</span><span>· 守护星 {zd.ruler}</span>
+                    </p>
+                  )}
+                  <p className="text-[11.5px] text-gray-500 dark:text-gray-400 leading-relaxed">{card.read}</p>
+                  {zd && (
+                    <div className="mt-2.5 pt-2.5 border-t border-violet-100 dark:border-violet-500/15 space-y-2">
+                      {zd.core.map((c, i) => <p key={i} className="text-[11px] text-gray-600 dark:text-gray-300 leading-relaxed">{c}</p>)}
+                      <p className="text-[11px] text-gray-500 dark:text-gray-400 leading-relaxed pt-1 border-t border-gray-100 dark:border-gray-800">
+                        <span className="text-violet-500 font-medium">💞 爱情：</span>{zd.love[0]}
+                      </p>
+                      <p className="text-[11px] text-gray-500 dark:text-gray-400 leading-relaxed">
+                        <span className="text-violet-500 font-medium">💼 事业：</span>{zd.career[0]}
+                      </p>
+                    </div>
+                  )}
+                </div>
+              )
+            })}
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-[420px_1fr] gap-5 mb-6">
@@ -148,6 +171,29 @@ export default function AstroClient() {
                 上升 = 出生时东方地平线升起的星座（外在面具）；天顶 MC = 星盘最高点（事业与社会成就方向）。
                 宫位制：等宫制。本命盘描述的是能量倾向，具体人生取决于你的选择与行动。
               </p>
+            </div>
+          </div>
+
+          {/* 行星深度解读（占星学核心体系） */}
+          <div className="mb-6">
+            <h3 className="text-base font-bold text-gray-800 dark:text-gray-100 mb-3 flex items-center gap-2">🔭 十大行星 · 深度解读 <span className="text-[10px] font-normal text-gray-400">你在本命盘中的能量组件</span></h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              {PLANET_DEEP.map(p => {
+                const pos = chart.bodies.find(b => b.key === p.id || (p.id === 'sun' && b.key === 'sun') || (p.id === 'moon' && b.key === 'moon'))
+                return (
+                  <div key={p.id} className="rounded-xl border border-violet-200/50 dark:border-violet-500/15 bg-white/85 dark:bg-[#13161c]/85 p-4">
+                    <div className="flex items-center justify-between mb-1">
+                      <p className="font-bold text-gray-800 dark:text-gray-100 text-sm">🪐 {p.name}<span className="text-[10px] text-gray-400 font-normal ml-1.5">({p.en})</span></p>
+                      {pos && <span className="text-[10px] px-2 py-0.5 rounded-full bg-violet-500/10 text-violet-600 dark:text-violet-300">你的{pos.name}在{SIGN_NAMES[pos.sign]}</span>}
+                    </div>
+                    <p className="text-[10px] text-gray-400 mb-1.5">{p.domain} · 庙旺：{p.dignity}</p>
+                    <div className="space-y-1.5">
+                      {p.meaning.map((m, i) => <p key={i} className="text-[11px] text-gray-600 dark:text-gray-300 leading-relaxed">{m}</p>)}
+                    </div>
+                    <p className="text-[10px] text-gray-400 dark:text-gray-500 leading-relaxed mt-2 pt-2 border-t border-gray-100 dark:border-gray-800"><span className="text-violet-500">神话原型：</span>{p.myth}</p>
+                  </div>
+                )
+              })}
             </div>
           </div>
         </>

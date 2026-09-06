@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { computeNumerology, NUM_READ } from '@/lib/numerology'
+import { NUM_DEEP } from '@/data/numerology-deep'
 import Breadcrumb from '@/components/Breadcrumb'
 
 export default function NumerologyClient() {
@@ -73,6 +74,20 @@ export default function NumerologyClient() {
               </h3>
               <p className="text-[11px] text-violet-500 dark:text-violet-300 mb-3">{NUM_READ[result.lifePath].tag}</p>
               <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed mb-3">{NUM_READ[result.lifePath].read}</p>
+              {NUM_DEEP[result.lifePath] && (
+                <div className="space-y-3 mb-4">
+                  <div className="rounded-xl border border-violet-200/50 dark:border-violet-500/15 p-4">
+                    <p className="text-xs font-semibold text-gray-700 dark:text-gray-200 mb-2">🔍 深度解析（毕达哥拉斯原型体系）</p>
+                    <div className="space-y-2">
+                      {NUM_DEEP[result.lifePath].core.map((c, i) => <p key={i} className="text-xs text-gray-600 dark:text-gray-300 leading-relaxed">{c}</p>)}
+                    </div>
+                  </div>
+                  <div className="rounded-xl border border-amber-200/60 dark:border-amber-500/20 bg-amber-50/50 dark:bg-amber-500/5 p-4">
+                    <p className="text-xs font-semibold text-amber-700 dark:text-amber-300 mb-1">🧗 人生课题</p>
+                    <p className="text-xs text-gray-600 dark:text-gray-300 leading-relaxed">{NUM_DEEP[result.lifePath].challenge}</p>
+                  </div>
+                </div>
+              )}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <div className="rounded-xl bg-violet-50/60 dark:bg-violet-500/10 p-3.5">
                   <p className="text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">💞 感情模式</p>
