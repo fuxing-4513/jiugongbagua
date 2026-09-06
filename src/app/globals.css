@@ -15,12 +15,12 @@
   --color-dark-500: #d4d4d4;
 
   /* ── 古金色系（浅色背景下调深,维持可读性） ── */
-  --color-gold-300: #c8a830;
-  --color-gold-400: #b89828;
-  --color-gold-500: #a88820;
-  --color-gold-600: #987818;
-  --color-gold-700: #886810;
-  --color-gold-900: #604810;
+  --color-gold-300: #C9A85B;
+  --color-gold-400: #B08A3C;
+  --color-gold-500: #B08A3C;
+  --color-gold-600: #8a6d2c;
+  --color-gold-700: #806225;
+  --color-gold-900: #5a4518;
 
   /* ── 青玉色 ── */
   --color-jade-300: #5a9a88;
@@ -75,10 +75,35 @@ body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; 
 
 /* ── 全局背景（白天默认：米白；夜晚：深空灰） ── */
 :root {
+  /* ═══ 九宫八卦 2.0 Brand Tokens（设计规范） ═══ */
+  --ink: #080B0C;
+  --ink-soft: #111617;
+  --ink-light: #1B2020;
+  --paper: #F5F2EA;
+  --paper-light: #FAF8F2;
+  --paper-dark: #EAE4D7;
+  --gold: #B08A3C;
+  --gold-light: #C9A85B;
+  --gold-dark: #806225;
+  --cinnabar: #B23A3A;
+  --text-primary: #181818;
+  --text-secondary: #68645C;
+  --text-muted: #9B968B;
+  --text-light: #F5F2EA;
+  --text-light-secondary: #BDB7AA;
+  --border-light: #DED8C9;
+  --border-dark: rgba(176, 138, 60, 0.28);
+  --bg-light: #F5F2EA;
+  --bg-dark: #080B0C;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 14px;
+  --shadow-card: 0 12px 40px rgba(20, 16, 8, 0.06);
+  --shadow-gold: 0 8px 30px rgba(176, 138, 60, 0.16);
   /* 朱砂红（点缀——图稿视觉规范——仅品牌点睛用） */
-  --color-cinnabar-400: #c05b43;
-  --color-cinnabar-500: #a8452f;
-  --color-cinnabar-600: #8f3826;
+  --color-cinnabar-400: #c75a5a;
+  --color-cinnabar-500: #B23A3A;
+  --color-cinnabar-600: #932e2e;
   --jg-bg: #F5F2EA;  /* 骨白——东方纸张基调（视觉升级 2026-09） */
   --jg-text: #1c1c28;
 }
@@ -105,12 +130,12 @@ body {
   --color-dark-600: #2a2722;
   --color-dark-500: #37332c;
   /* 古金色系（原深金 → 亮金，暗底可读） */
-  --color-gold-300: #ecd27a;
-  --color-gold-400: #e0c25a;
-  --color-gold-500: #d4af37;
-  --color-gold-600: #c9a02c;
-  --color-gold-700: #b8922a;
-  --color-gold-900: #8a6d1f;
+  --color-gold-300: #C9A85B;
+  --color-gold-400: #b8984a;
+  --color-gold-500: #B08A3C;
+  --color-gold-600: #a38440;
+  --color-gold-700: #8a6d2c;
+  --color-gold-900: #6e5420;
   /* 青玉色变亮 */
   --color-jade-300: #86d9bd;
   --color-jade-400: #66c2a2;

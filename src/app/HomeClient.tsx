@@ -46,12 +46,6 @@ const bentoMain = [
   { num: '02', emoji: '', title: '紫微斗数', tag: '看人生结构', desc: '十四主星十二宫——从命宫到人生剧本的完整结构', href: '/ziwei', accent: 'gold' },
   { num: '03', emoji: '', title: '奇门遁甲', tag: '看当下时机', desc: '决策 · 择时 · 策略——此刻是进是守，局中有象', href: '/qimen', accent: 'gold' },
 ]
-// ── Bento 副卡（中排——AI 决策对话 + 延伸） ──
-const bentoSub = [
-  { emoji: '💬', title: 'AI 决策对话', tag: '古籍依据 · 透明推理', href: '/ai' },
-  { emoji: '💑', title: '双人合盘', tag: '情侣契合 · 事业搭档', href: '/hehun' },
-  { emoji: '📅', title: '每日宜忌', tag: '今日能量 · 吉神方位', href: '/huangli' },
-]
 // ── 轻工具（克制文字导航——探索更多东方术数） ──
 const quickTools = [
   { name: '六爻', href: '/liuyao' },
@@ -97,52 +91,55 @@ export default function HomeClient() {
           <div className="absolute inset-0 pointer-events-none opacity-[0.13]"
             style={{ backgroundImage: 'linear-gradient(rgba(212,175,55,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(212,175,55,0.5) 1px, transparent 1px)', backgroundSize: '16.66% 33.33%' }} />
 
-          <div className="relative z-10 grid lg:grid-cols-[1.15fr_1fr] gap-12 items-center p-8 md:p-14">
-            {/* 左：文案 */}
-            <div>
-              <span className="text-[10px] px-3 py-1 rounded-full border border-gold-500/40 text-gold-300/90 tracking-[0.25em] mb-7 inline-block">{getT('home.heroChip')}</span>
-              <h1 className="text-4xl md:text-6xl font-bold font-serif text-[#f7f4ed] leading-[1.15] mb-5">
+          <div className="relative z-10 grid lg:grid-cols-[45fr_55fr] gap-10 items-center p-8 md:p-14 min-h-[560px] md:min-h-[640px]">
+            {/* 左 45%：文案（Luxury Editorial——细字距） */}
+            <div className="py-6">
+              <p className="text-[12px] tracking-[0.25em] text-gold-light/80 mb-6 uppercase">{getT('home.heroChip')}</p>
+              <h1 className="text-[44px] leading-[1.12] md:text-[64px] font-normal font-serif text-[#F5F2EA] mb-6">
                 在关键时刻，
                 <br />
-                <span className="text-transparent bg-clip-text" style={{ backgroundImage: 'linear-gradient(120deg,#e8cf96 0%,#c9a86a 55%,#b08a3c 100%)' }}>看清真实处境。</span>
+                <span className="text-transparent bg-clip-text font-normal" style={{ backgroundImage: 'linear-gradient(120deg,#C9A85B 0%,#B08A3C 60%,#806225 100%)' }}>看清真实处境。</span>
               </h1>
-              <p className="text-sm md:text-base font-serif tracking-[0.35em] text-gold-400/80 mb-7 pl-0.5">
+              <p className="text-[13px] md:text-[16px] font-serif tracking-[0.4em] text-[#BDB7AA] mb-8">
                 观时 · 察势 · 明心 · 决策
               </p>
-              <p className="text-base md:text-lg text-[#a8a29a] max-w-xl mb-9 leading-relaxed">
-                这不是玄学算命——不给你宿命断言，只帮你照见能量与时机，
-                <span className="font-medium text-[#e8e2d5]">理性做出你自己的决定</span>。
+              <p className="text-[13px] text-[#68645C] max-w-md mb-10 leading-relaxed hidden sm:block">
+                不给你宿命断言，只帮你照见能量与时机——理性做出你自己的决定。
               </p>
 
-              {/* 主 CTA（朱砂——深底点睛） */}
-              <div className="flex flex-wrap items-center gap-3.5 mb-2">
+              {/* 四问（事业 财富 感情 人生——细线分隔） */}
+              <div className="flex items-center gap-0 mb-10">
+                {['事业', '财富', '感情', '人生'].map((t, i) => (
+                  <span key={t} className="flex items-center">
+                    {i > 0 && <span className="w-px h-3 bg-[#2a2f30] mx-4" />}
+                    <span className="text-[13px] text-[#9B968B] tracking-widest">{t}</span>
+                  </span>
+                ))}
+              </div>
+
+              {/* CTA（朱砂印章感——克制小面积） */}
+              <div className="flex flex-wrap items-center gap-4">
                 <Link href="/app"
-                  className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl text-white text-[15px] font-medium tracking-wide transition-all hover:brightness-110 hover:-translate-y-0.5 shadow-[0_6px_24px_rgba(168,69,47,0.4)]"
-                  style={{ background: 'linear-gradient(135deg,#b04a33,#8f3826)' }}>
-                  生成我的人生图谱 →
-                </Link>
-                <Link href="/bazi" className="px-5 py-3 rounded-xl border border-[#2a2a28] text-sm text-[#c9c4b8] hover:border-gold-500/50 hover:text-gold-300 transition-colors">
-                  四柱八字
-                </Link>
-                <Link href="/ziwei" className="px-5 py-3 rounded-xl border border-[#2a2a28] text-sm text-[#c9c4b8] hover:border-gold-500/50 hover:text-gold-300 transition-colors">
-                  紫微斗数
+                  className="inline-flex items-center gap-2.5 px-9 py-4 text-[#F5F2EA] text-[15px] tracking-[0.15em] border transition-all hover:brightness-110 hover:-translate-y-0.5"
+                  style={{ background: 'var(--cinnabar)', boxShadow: '0 10px 30px rgba(178,58,58,0.25)' }}>
+                  开始我的人生推演 →
                 </Link>
               </div>
             </div>
 
-            {/* 右：科技罗盘 */}
-            <div className="flex justify-center lg:justify-end">
-              <RotatingCompass size={440} className="relative z-10" />
+            {/* 右 55%：九宫时空盘（第一视觉——细线古金） */}
+            <div className="flex justify-center items-center">
+              <RotatingCompass size={560} className="w-full max-w-[520px] md:max-w-[600px]" />
             </div>
           </div>
         </section>
 
         {/* ════ Bento Grid：三大精算引擎 ════ */}
         <section className="mb-12">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {bentoMain.map(c => (
               <Link key={c.href} href={c.href}
-                className="jg-tile group relative overflow-hidden p-6 min-h-[210px] flex flex-col">
+                className="group relative overflow-hidden p-8 min-h-[260px] flex flex-col transition-all duration-300 hover:-translate-y-1" style={{ background: "var(--paper)", border: "1px solid var(--border-light)", boxShadow: "var(--shadow-card)" }}>
                 <div className="relative z-10 flex flex-col h-full">
                   <div className="flex items-baseline gap-3 mb-3">
                     <span className="text-2xl font-serif font-bold text-gold-500/70 dark:text-gold-400/60 group-hover:text-gold-500 dark:group-hover:text-gold-300 transition-colors">{c.num}</span>
@@ -158,69 +155,64 @@ export default function HomeClient() {
             ))}
           </div>
 
-          {/* 副卡排 */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-4">
-            {bentoSub.map(c => (
-              <Link key={c.href} href={c.href}
-                className="jg-card group p-5 flex items-center gap-4 hover:border-gold-400/40! transition-colors">
-                <div className="text-2xl w-11 h-11 flex items-center justify-center rounded-xl bg-gold-500/8 group-hover:scale-110 transition-transform duration-300">
-                  {c.emoji}
-                </div>
-                <div>
-                  <h3 className="text-sm font-semibold font-serif text-gray-800 dark:text-gray-100">{c.title}</h3>
-                  <p className="text-[11px] text-gray-500 dark:text-gray-400 mt-0.5">{c.tag}</p>
-                </div>
-              </Link>
-            ))}
-          </div>
+          {/* 三核心下注（克制——不排副卡平铺） */}
+          <p className="text-[11px] text-[#9B968B] tracking-wide mt-6 text-center">
+            另有 双人合盘 · 每日宜忌 · 六爻 · 梅花 · 小六壬 等二十余术数 → <Link href="/tools" className="text-gold hover:text-gold-light underline-offset-4 hover:underline">术数大全</Link>
+          </p>
         </section>
 
-        {/* ════ AI 决策分析（图稿：深色沉浸对话区） ════ */}
-        <section className="mb-14">
-          <div className="rounded-3xl overflow-hidden"
-            style={{ background: 'radial-gradient(120% 100% at 20% 0%, #0e141a 0%, #090e12 60%, #060a0d 100%)' }}>
-            <div className="grid md:grid-cols-2">
-              {/* 左：主张 */}
-              <div className="p-7 md:p-10 flex flex-col justify-center">
-                <p className="text-[10px] tracking-[0.3em] text-cinnabar-400 font-medium mb-2.5">AI 决策分析</p>
-                <h2 className="text-2xl md:text-[26px] font-serif font-bold text-[#f7f4ed] leading-snug mb-3">
+        {/* ════ AI 决策分析（规范 03：深色 40/60——人生推演报告） ════ */}
+        <section className="mb-24">
+          <div className="overflow-hidden"
+            style={{ background: 'var(--bg-dark)' }}>
+            <div className="grid md:grid-cols-[40fr_60fr]">
+              {/* 左 40%：主张 */}
+              <div className="p-8 md:p-14 flex flex-col justify-center">
+                <p className="text-[12px] tracking-[0.3em] text-[#B23A3A] font-normal mb-4">AI 决策分析</p>
+                <h2 className="text-[28px] md:text-[36px] font-normal font-serif text-[#F5F2EA] leading-snug mb-6">
                   不只是算命，<br />更是决策参考。
                 </h2>
-                <p className="text-sm text-[#a8a29a] leading-relaxed mb-6">
-                  结合你的<b className="text-[#e8e2d5]">命盘</b> · <b className="text-[#e8e2d5]">时机</b>与<b className="text-[#e8e2d5]">古籍智慧</b>，
-                  把"该不该、能不能、何时动"推演成合理、实情、可行动的建议——结论每一条都可溯源到原典。
+                <p className="text-[13px] text-[#9B968B] leading-relaxed mb-8 max-w-sm">
+                  结合你的命盘 · 时机与古籍智慧——把"该不该、能不能、何时动"推演成一份可行动的建议，每一句都可溯源到原典。
                 </p>
-                <div className="flex flex-wrap gap-2 mb-7">
-                  {['结合命盘', '看清周期', '识别时机', '古籍依据', '行动建议'].map(t => (
-                    <span key={t} className="text-[10.5px] px-2.5 py-1 rounded-full border border-[#2a2a28] text-[#8f8a80]">{t}</span>
-                  ))}
-                </div>
-                {/* 高频问题入口（决策直达 AI） */}
-                <div className="flex flex-wrap gap-2 mb-7">
+                <div className="flex flex-wrap gap-2">
                   {scenarioCards.map(s => (
                     <Link key={s.href} href={s.href}
-                      className="text-[11px] px-3 py-1.5 rounded-full border border-gold-500/25 text-[#c9c4b8] hover:bg-gold-500/10 hover:border-gold-400/60 hover:text-gold-300 transition-colors">
+                      className="text-[11px] px-3.5 py-1.5 border transition-colors"
+                      style={{ borderColor: 'rgba(176,138,60,0.28)', color: '#BDB7AA' }}
+                      onMouseEnter={e => { e.currentTarget.style.borderColor = '#B08A3C'; e.currentTarget.style.color = '#C9A85B' }}
+                      onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(176,138,60,0.28)'; e.currentTarget.style.color = '#BDB7AA' }}>
                       {s.q}
                     </Link>
                   ))}
                 </div>
-                <div>
-                  <Link href="/ai" className="inline-block px-6 py-2.5 rounded-lg text-white text-sm font-medium transition-all hover:brightness-110 shadow-[0_2px_14px_rgba(168,69,47,0.35)]"
-                    style={{ background: 'linear-gradient(135deg,#b04a33,#8f3826)' }}>
-                    向 AI 问一个决策 →
-                  </Link>
-                </div>
               </div>
-              {/* 右：对话示例（深色版——图稿对话气泡） */}
-              <div className="p-7 md:p-9 border-t md:border-t-0 md:border-l border-[#1c1e22] bg-gradient-to-br from-[#0b0f13]/70 to-transparent flex items-center">
-                <div className="w-full space-y-3">
-                  <div className="rounded-xl rounded-tl-sm bg-[#151a20] border border-[#23262c] p-3.5 shadow-sm max-w-[85%]">
-                    <p className="text-xs text-[#c9c4b8] leading-relaxed">最近有个跳槽机会，我今年该不该动？</p>
+              {/* 右 60%：AI 分析卡（人生推演报告——glass 报告而非聊天框） */}
+              <div className="p-8 md:p-14 flex items-center" style={{ background: 'rgba(255,255,255,0.02)', borderLeft: '1px solid rgba(176,138,60,0.18)' }}>
+                <div className="w-full max-w-[520px] ml-auto"
+                  style={{ background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(176,138,60,0.28)', borderRadius: '14px', backdropFilter: 'blur(16px)' }}>
+                  {/* 报告头 */}
+                  <div className="px-7 pt-6 pb-4" style={{ borderBottom: '1px solid rgba(176,138,60,0.15)' }}>
+                    <p className="text-[10px] tracking-[0.25em] text-[#9B968B] mb-2">人生推演报告 · 2026</p>
+                    <p className="text-[15px] font-serif text-[#F5F2EA]">我最近应该换工作吗？</p>
                   </div>
-                  <div className="rounded-xl rounded-tr-sm border border-gold-500/25 bg-[#12161a] p-3.5 max-w-[92%] ml-auto">
-                    <p className="text-[10px] text-gold-400 font-medium mb-1.5">AI 推演 · 据《滴天髓》与你的命盘</p>
-                    <p className="text-xs text-[#cfc9bd] leading-relaxed">你正处在<b className="text-[#e8e2d5]">大运交接的蓄势段</b>——机会真实，但宜「先稳后动」：上半年积累筹码、秋季窗口再议。谨慎高杠杆，10 月后运势转升。</p>
-                    <p className="text-[9.5px] text-[#6f6a61] mt-2">📜 推演依据：命盘日主 × 大运十神 × 流年时机 —— 点此查看完整推演</p>
+                  {/* 报告体：趋势/机会/风险/建议 */}
+                  <div className="px-7 py-5 space-y-4">
+                    {[
+                      { k: '趋势', v: '大运交接的蓄势段——能量先收后放，2026 秋起转升', c: '#C9A85B' },
+                      { k: '机会', v: '10 月后窗口开启：主动争取、扩大影响力为佳', c: '#8A9A78' },
+                      { k: '风险', v: '高杠杆与情绪性离职需谨慎——上半年宜稳', c: '#A86F73' },
+                      { k: '建议', v: '先稳后动：Q3 积累筹码，Q4 把握窗口再做决定', c: '#B08A3C' },
+                    ].map(r => (
+                      <div key={r.k} className="flex gap-4">
+                        <span className="w-10 shrink-0 text-[11px] tracking-widest pt-0.5" style={{ color: r.c }}>{r.k}</span>
+                        <p className="text-[12px] leading-relaxed text-[#BDB7AA] flex-1">{r.v}</p>
+                      </div>
+                    ))}
+                  </div>
+                  {/* 报告尾：古籍依据 */}
+                  <div className="px-7 pb-6 pt-4" style={{ borderTop: '1px solid rgba(176,138,60,0.15)' }}>
+                    <p className="text-[10px] text-[#68645C] leading-relaxed">📜 依据：《滴天髓》气象论 · 命盘日主 × 大运十神 × 流年时机 —— <span className="text-[#9B968B]">进入 AI 决策看完整推演</span></p>
                   </div>
                 </div>
               </div>
@@ -231,7 +223,7 @@ export default function HomeClient() {
         {/* ════ 古籍信任 + 易学书馆 ════ */}
         <section className="mb-14">
           <div className="relative overflow-hidden rounded-3xl border border-gold-300/40 dark:border-gold-500/20 p-8 md:p-10"
-            style={{ background: 'linear-gradient(135deg, #efe9da 0%, #f7f3e8 55%, #efe7d2 100%)' }}>
+            style={{ background: 'var(--paper-dark, #F0EBDF)' }}>
             {/* 极淡纸纹 */}
             <div className="absolute inset-0 pointer-events-none opacity-[0.5]"
               style={{ background: 'repeating-linear-gradient(0deg, rgba(176,138,60,0.03) 0px, rgba(176,138,60,0.03) 1px, transparent 1px, transparent 3px)' }} />
